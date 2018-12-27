@@ -26,7 +26,7 @@ run_build() {
         echo "CNAME file already exists."
     else
         touch .out/CNAME
-        echo react-ui.chepareats.com > .out/CNAME
+        echo react-ui.cheapreats.com > .out/CNAME
     fi
 }
 
