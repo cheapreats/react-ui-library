@@ -22,6 +22,12 @@ Options:
 
 run_build() {
     npm run storybook:build
+    if [ -f .out/CNAME ]; then
+        echo "CNAME file already exists."
+    else
+        touch .out/CNAME
+        echo react-ui.chepareats.com > .out/CNAME
+    fi
 }
 
 parse_args() {
