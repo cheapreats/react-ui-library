@@ -1,0 +1,33 @@
+{
+  "name": "cheapreats-react-ui",
+  "version": "1.0.0",
+  "description": "React UI library for CheaprEats",
+  "main": "index.js",
+  "scripts": {
+    "storybook": "start-storybook -p 9001 -c .storybook",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/CheaprEats/react-ui.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/CheaprEats/react-ui/issues"
+  },
+  "homepage": "https://github.com/CheaprEats/react-ui#readme",
+  "devDependencies": {
+    "@babel/core": "^7.2.2",
+    "@storybook/addon-info": "^4.1.4",
+    "@storybook/addon-notes": "^4.1.4",
+    "@storybook/addon-options": "^4.1.4",
+    "@storybook/react": "^4.1.4",
+    "babel-loader": "^8.0.4"
+  },
+  "dependencies": {
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
+    "styled-components": "^4.1.3"
+  }
+}
