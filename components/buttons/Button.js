@@ -32,16 +32,18 @@ const ButtonText = styled.span`
     font-weight: bold;
 `;
 
-export class Button extends Component {
-    render() {
-        return (
-            <ButtonWrapper onClick={this.props.onClick} disabled={this.props.disabled}>
-                <ButtonText>
-                    {this.props.text}
-                </ButtonText>
-            </ButtonWrapper>
-        );
-    }
+export const Button = ({
+    text, 
+    onClick, 
+    disabled
+}) => {
+    return (
+        <ButtonWrapper onClick={onClick} disabled={disabled}>
+            <ButtonText>
+                {text}
+            </ButtonText>
+        </ButtonWrapper>
+    );
 }
 
 Button.propTypes = {

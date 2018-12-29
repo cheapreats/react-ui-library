@@ -4,6 +4,7 @@
   "description": "React UI library for CheaprEats",
   "main": "components/index.js",
   "scripts": {
+    "start": "start-storybook -p 9001 -c .storybook",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o .out"
   },

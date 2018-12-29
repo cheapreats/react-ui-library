@@ -1,6 +1,7 @@
-import React from 'react';
-import styled from 'styled-components';
-import {PRIMARY_FONT} from "../styles/fonts";
+import React          from 'react';
+import styled         from 'styled-components';
+import {PRIMARY_FONT, PRIMARY_COLOUR} from "../variables";
+import PropTypes      from 'prop-types';
 
 const FormTitle = styled.p`
     font-family: ${PRIMARY_FONT};
@@ -36,12 +37,12 @@ const ErrorMessage = styled.p`
     font-size: 14px;
     font-weight: bold;
     margin: 2px 0 0 10px;
-    color: red;
+    color: ${PRIMARY_COLOUR};
 `;
 
-export default ({
+export const Input = ({
         title,
-        type,
+        type = "text",
         placeholder,
         name,
         information,
@@ -57,4 +58,15 @@ export default ({
             {error ? <ErrorMessage>{error}</ErrorMessage> : null}
         </React.Fragment>
     )
+};
+
+Input.propTypes = {
+    title: PropTypes.string,
+    type: PropTypes.string,
+    placeholder: PropTypes.string,
+    name: PropTypes.string,
+    information: PropTypes.string,
+    error: PropTypes.string,
+    onChange: PropTypes.func,
+    value: PropTypes.string
 };
