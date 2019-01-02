@@ -21,7 +21,7 @@ If you've updated this libarary but haven't deployed it to NPM but still want to
 1) Add Your New Component
 2) Run ```npm run build```
 3) In the Application, install the Github Master Version: ```npm install https://github.com/CheaprEats/react-ui```
-4) Import like: import ```{ Button, FormInput, Heading1 }            from 'cheapreats-react-ui/dist/CheaprEatsStoryBook';```
+4) Import like: ```import { Button, FormInput, Heading1 }            from 'cheapreats-react-ui/dist/CheaprEatsStoryBook';```
 
 ## Documentation
 
