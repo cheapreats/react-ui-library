@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Paragraph } from '../components/texts';
+import { Paragraph } from '../components/texts/Paragraph';
 
 storiesOf('Paragraph', module)
     .add('with text', () => (

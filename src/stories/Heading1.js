@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Heading1 } from '../components/texts';
+import { Heading1 } from '../components/texts/Heading1';
 
 storiesOf('Heading1', module)
     .add('with text', () => (

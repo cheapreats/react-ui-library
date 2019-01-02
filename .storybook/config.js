@@ -6,10 +6,10 @@ addDecorator(withInfo);
 addDecorator(withNotes);
 
 function loadStories() {
-    require('../src/stories/button.js');
-    require('../src/stories/input.js');
-    require('../src/stories/h1.js');
-    require('../src/stories/p.js');
+    require('../src/stories/Button.js');
+    require('../src/stories/Input.js');
+    require('../src/stories/Heading1.js');
+    require('../src/stories/Paragraph.js');
     // You can require as many stories as you need.
 }
 

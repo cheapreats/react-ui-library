@@ -1,10 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import {Input} from '../components/inputs';
+import {Input} from '../components/inputs/Input';
 
 storiesOf('Input', module)
     .add('with title', () => (
-        <Input 
+        <Input
             title="Form Title"
         />
     ), {

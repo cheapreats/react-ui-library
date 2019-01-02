@@ -6,7 +6,7 @@ const path = require('path');
 const libraryName= pkg.name;
 
 module.exports = {
-    entry: path.join(__dirname, "./src/components/index.js"),
+    entry: path.join(__dirname, "./src/components"),
     output: {
         path: path.join(__dirname, './dist'),
         filename: 'CheaprEatsStoryBook.js',
