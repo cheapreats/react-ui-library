@@ -2,12 +2,12 @@
   "name": "cheapreats-react-ui",
   "version": "1.0.0",
   "description": "React UI library for CheaprEats",
-  "main": "components/index.js",
+  "main": "dist/CheaprEatsStoryBook.js",
   "scripts": {
     "start": "start-storybook -p 9001 -c .storybook",
+    "build": "rm -rf ./dist && webpack",
     "storybook": "start-storybook -p 9001 -c .storybook",
     "storybook:build": "build-storybook -c .storybook -o .out",
-    "webpack": "webpack",
     "prepublish": "rm -rf ./dist && npm run build"
   },
   "repository": {
