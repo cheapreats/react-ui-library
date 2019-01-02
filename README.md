@@ -15,6 +15,14 @@ Then you have to install `Quicksand` font, the easiest way is to include this ta
 <link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
 ```
 
+## Installation From Github
+
+If you've updated this libarary but haven't deployed it to NPM but still want to test it out in your production apps while waiting feel free to:
+1) Add Your New Component
+2) Run ```npm run build```
+3) In the Application, install the Github Master Version: ```npm install https://github.com/CheaprEats/react-ui```
+4) Import like: ```import { Button, FormInput, Heading1 }            from 'cheapreats-react-ui/dist/CheaprEatsStoryBook';```
+
 ## Documentation
 
 Documentation of this library can be found at https://react-ui.cheapreats.com
