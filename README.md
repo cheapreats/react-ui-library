@@ -14,7 +14,7 @@ Then add the stories in `src/stories/YOUR_COMPONENT_NAME` and your done!
 To use this UI library, run the following command first:
 
 ```bash
-$ npm install cheapreats-react-ui
+$ npm install @cheapreats/react-ui
 ```
 
 Then you have to install `Quicksand` font, the easiest way is to include this tag in your HTML head:
