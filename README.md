@@ -1,6 +1,14 @@
 # CheaprEats React UI
 React UI library for CheaprEats
 
+## Usage
+
+Create a Folder for the new component, use the consistent `export` terminology.
+
+In `src/components/index.js` EXPORT your new component for use `export * from './YOUR_FOLDER/YOUR_COMPONENT_NAME';`
+
+Then add the stories in `src/stories/YOUR_COMPONENT_NAME` and your done!
+
 ## Installation
 
 To use this UI library, run the following command first:
