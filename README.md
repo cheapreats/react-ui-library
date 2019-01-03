@@ -31,11 +31,14 @@ If you've updated this libarary but haven't deployed it to NPM but still want to
 3) In the Application, install the Github Master Version: ```npm install https://github.com/CheaprEats/react-ui```
 4) Import like: ```import { Button, FormInput, Heading1 }            from 'cheapreats-react-ui/dist/CheaprEatsStoryBook';```
 
-## Push Changes to Public NPM Organization Instance
+## Push Changes to Public NPM Organization Instance (https://www.npmjs.com/package/@cheapreats/react-ui)
 
 First, Make sure you are added to the NPM Organization
+
 Second, type `npm login` in your terminal
+
 Third, type `npm version {major|minor|patch}` to bump the correct version (Select one of the three choices)
+
 Fourth, type `npm publish` and your live!
 
 ## Documentation
