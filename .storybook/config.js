@@ -6,11 +6,9 @@ addDecorator(withInfo);
 addDecorator(withNotes);
 
 function loadStories() {
-    require('../src/stories/Button.js');
-    require('../src/stories/Input.js');
-    require('../src/stories/Heading1.js');
-    require('../src/stories/Paragraph.js');
-    // You can require as many stories as you need.
-}
+    // automatically import all story js files that end with *.js
+    const req = require.context('../src/stories', true, /\.js$/);
+    req.keys().forEach(filename => req(filename));
+  }
 
 configure(loadStories, module);

@@ -4,7 +4,7 @@ import { Paragraph } from '../components/texts/Paragraph';
 
 storiesOf('Paragraph', module)
     .add('with text', () => (
-        <Paragraph>Heading Text</Paragraph>
+        <Paragraph text="Paragraph Text" />
     ), {
         notes: `Standard Paragraph Text Sizes`
     });

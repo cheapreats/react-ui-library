@@ -1,10 +1,10 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Heading1 } from '../components/texts/Heading1';
+import { HeadingOne } from '../components/texts/HeadingOne';
 
-storiesOf('Heading1', module)
+storiesOf('HeadingOne', module)
     .add('with text', () => (
-        <Heading1>Heading Text</Heading1>
+        <HeadingOne text="Heading Text" />
     ), {
         notes: `Standard Heading Text Sizes`
     });
