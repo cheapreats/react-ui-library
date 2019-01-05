@@ -39,6 +39,12 @@ Second, type `npm login` in your terminal (You only need to do this once per wor
 
 Third, type `npm version {major|minor|patch}` to bump the correct version (Select one of the three choices)
 
+Major = Massive Change
+
+Minor = New Component
+
+Patch = Edited a Component
+
 Fourth, type `npm publish` and your live!
 
 ## Documentation
