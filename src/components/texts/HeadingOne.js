@@ -9,7 +9,7 @@ const HeadingOneStyled = styled.h1`
     padding-top: 20px;
     padding-bottom: 10px;
     margin: 0;
-    font-weight: ${props => props.bold && "bold"};
+    font-weight: ${props => props.bold ? "bold" : "normal"};
 `;
 
 export const HeadingOne = ({text, bold}) => {

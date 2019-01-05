@@ -9,7 +9,7 @@ const HeadingTwoStyled = styled.h2`
     padding-top: 20px;
     padding-bottom: 10px;
     margin: 0;
-    font-weight: ${props => props.bold && "bold"};
+    font-weight: ${props => props.bold ? "bold" : "normal"};
 `;
 
 export const HeadingTwo = ({text, bold}) => {

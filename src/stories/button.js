@@ -3,15 +3,15 @@ import { storiesOf } from '@storybook/react';
 import { Button } from '../components/buttons/Button';
 
 storiesOf('Button', module)
-    .add('with text', () => (
-        <Button primary text={"Confirm"}/>
+    .add('with text and primary', () => (
+        <Button primary text={"Confirm Primary"}/>
     ), {
         notes: `Button can be used with only one prop 'text'. However this button won't do anything.
         import { Button } from 'cheapreats-react-ui/components/buttons';
         `
     })
-    .add('with primary', () => (
-        <Button primary text={"Confirm Primary"}/>
+    .add('with no primary', () => (
+        <Button text={"Confirm"}/>
     ), {
         notes: `Button can be used with only one prop 'text'. However this button won't do anything.
         import { Button } from 'cheapreats-react-ui/components/buttons';

@@ -11,7 +11,7 @@ const ParagraphStyled = styled.p`
     padding-bottom: 10px;
     opacity: 0.7;
     margin: 0;
-    font-weight: ${props => props.bold && "bold"};
+    font-weight: ${props => props.bold ? "bold" : "normal"};
 `;
 
 export const Paragraph = ({text, bold}) => {
