@@ -35,7 +35,7 @@ If you've updated this libarary but haven't deployed it to NPM but still want to
 
 First, Make sure you are added to the NPM Organization
 
-Second, type `npm login` in your terminal
+Second, type `npm login` in your terminal (You only need to do this once per workspace)
 
 Third, type `npm version {major|minor|patch}` to bump the correct version (Select one of the three choices)
 
