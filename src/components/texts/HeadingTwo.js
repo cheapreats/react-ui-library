@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {PRIMARY_FONT} from "../variables";
 import PropTypes      from 'prop-types';
 
-const HeadingOneStyled = styled.h1`
+const HeadingTwoStyled = styled.h2`
     font-family: ${PRIMARY_FONT};
     color: black;
     padding-top: 20px;
@@ -12,13 +12,13 @@ const HeadingOneStyled = styled.h1`
     font-weight: ${props => props.bold && "bold"};
 `;
 
-export const HeadingOne = ({text, bold}) => {
+export const HeadingTwo = ({text, bold}) => {
     return (
-        <HeadingOneStyled bold={bold}>{text}</HeadingOneStyled>
+        <HeadingTwoStyled bold={bold}>{text}</HeadingTwoStyled>
     )
 }
 
-HeadingOne.propTypes = {
+HeadingTwo.propTypes = {
     text: PropTypes.string,
     bold: PropTypes.bool
 };

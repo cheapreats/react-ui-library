@@ -11,14 +11,16 @@ const ParagraphStyled = styled.p`
     padding-bottom: 10px;
     opacity: 0.7;
     margin: 0;
+    font-weight: ${props => props.bold && "bold"};
 `;
 
-export const Paragraph = ({text}) => {
+export const Paragraph = ({text, bold}) => {
     return (
-        <ParagraphStyled>{text}</ParagraphStyled>
+        <ParagraphStyled bold={bold}>{text}</ParagraphStyled>
     )
 }
 
 Paragraph.propTypes = {
-    text: PropTypes.string
+    text: PropTypes.string,
+    bold: PropTypes.bool
 };

@@ -1,15 +1,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { HeadingOne } from '../components/texts/HeadingOne';
+import { HeadingTwo } from '../components/texts/HeadingTwo';
 
-storiesOf('HeadingOne', module)
+storiesOf('HeadingTwo', module)
     .add('with text', () => (
-        <HeadingOne text="Heading Text" />
+        <HeadingTwo text="Heading Text" />
     ), {
         notes: `Standard Heading Text Sizes`
     })
     .add('with text and bold', () => (
-        <HeadingOne bold text="Heading Text" />
+        <HeadingTwo bold text="Heading Text" />
     ), {
         notes: `Standard Heading Text Sizes`
     });

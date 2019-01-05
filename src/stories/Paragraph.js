@@ -7,4 +7,9 @@ storiesOf('Paragraph', module)
         <Paragraph text="Paragraph Text" />
     ), {
         notes: `Standard Paragraph Text Sizes`
+    })
+    .add('with text and bold', () => (
+        <Paragraph bold text="Paragraph Text" />
+    ), {
+        notes: `Standard Paragraph Text Sizes`
     });
