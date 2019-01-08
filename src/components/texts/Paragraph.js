@@ -14,13 +14,15 @@ const ParagraphStyled = styled.p`
     font-weight: ${props => props.bold ? "bold" : "normal"};
 `;
 
-export const Paragraph = ({text, bold}) => {
+export const Paragraph = ({text, bold, className, children}) => {
     return (
-        <ParagraphStyled bold={bold}>{text}</ParagraphStyled>
+        <ParagraphStyled className={className} bold={bold}>{text? text: children}</ParagraphStyled>
     )
 }
 
 Paragraph.propTypes = {
     text: PropTypes.string,
-    bold: PropTypes.bool
+    bold: PropTypes.bool,
+    className: PropTypes.string,
+    children: PropTypes.string
 };
