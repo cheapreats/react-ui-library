@@ -47,6 +47,8 @@ Patch = Edited a Component
 
 Fourth, type `npm publish` and your live!
 
+*Special:* To deploy to the live URL type in your terminal `./deploy.sh`
+
 ## Documentation
 
 Documentation of this library can be found at https://react-ui.cheapreats.com
