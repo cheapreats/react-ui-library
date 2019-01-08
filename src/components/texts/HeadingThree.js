@@ -12,13 +12,15 @@ const HeadingThreeStyled = styled.h3`
     font-weight: ${props => props.bold ? "bold" : "normal"};
 `;
 
-export const HeadingThree = ({text, bold}) => {
+export const HeadingThree = ({text, bold, className, children}) => {
     return (
-        <HeadingThreeStyled bold={bold}>{text}</HeadingThreeStyled>
+        <HeadingThreeStyled className={className} bold={bold}>{text? text: children}</HeadingThreeStyled>
     )
 }
 
 HeadingThree.propTypes = {
     text: PropTypes.string,
-    bold: PropTypes.bool
+    bold: PropTypes.bool,
+    className: PropTypes.string,
+    children: PropTypes.string
 };

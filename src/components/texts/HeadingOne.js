@@ -12,13 +12,15 @@ const HeadingOneStyled = styled.h1`
     font-weight: ${props => props.bold ? "bold" : "normal"};
 `;
 
-export const HeadingOne = ({text, bold}) => {
+export const HeadingOne = ({text, bold, className, children}) => {
     return (
-        <HeadingOneStyled bold={bold}>{text}</HeadingOneStyled>
+        <HeadingOneStyled className={className} bold={bold}>{text? text: children}</HeadingOneStyled>
     )
 }
 
 HeadingOne.propTypes = {
     text: PropTypes.string,
-    bold: PropTypes.bool
+    bold: PropTypes.bool,
+    className: PropTypes.string,
+    children: PropTypes.string
 };

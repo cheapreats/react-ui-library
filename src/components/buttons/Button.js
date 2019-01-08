@@ -9,6 +9,8 @@ const ButtonWrapper = styled.button`
     background-color: ${props => props.primary ? PRIMARY_COLOUR : "transparent"};
     box-shadow: ${props => props.primary ? SHADOW_RAISE_1 : "none"};
     transition: ${props => props.primary ? "all ease 0.3s" : "none"};
+    font-family: ${PRIMARY_FONT};
+    font-weight: bold;
     padding: 10px 20px 10px 20px;
     border: none;
     border-radius: 30px;
@@ -29,22 +31,17 @@ const ButtonWrapper = styled.button`
     `}
 `;
 
-const ButtonText = styled.span`
-    font-family: ${PRIMARY_FONT};
-    font-weight: bold;
-`;
-
 export const Button = ({
     primary,
     text,
     onClick,
-    disabled
+    disabled,
+    className,
+    children
 }) => {
     return (
-        <ButtonWrapper primary={primary} onClick={onClick} disabled={disabled}>
-            <ButtonText>
-                {text}
-            </ButtonText>
+        <ButtonWrapper className={className} primary={primary} onClick={onClick} disabled={disabled}>
+            {text? text: children}
         </ButtonWrapper>
     );
 }
@@ -53,5 +50,7 @@ Button.propTypes = {
     primary: PropTypes.bool,
     text: PropTypes.string.isRequired,
     onClick: PropTypes.func,
-    disabled: PropTypes.bool
+    disabled: PropTypes.bool,
+    className: PropTypes.string,
+    children: PropTypes.string
 };

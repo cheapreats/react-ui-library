@@ -12,13 +12,14 @@ const HeadingTwoStyled = styled.h2`
     font-weight: ${props => props.bold ? "bold" : "normal"};
 `;
 
-export const HeadingTwo = ({text, bold}) => {
+export const HeadingTwo = ({text, bold, className, children}) => {
     return (
-        <HeadingTwoStyled bold={bold}>{text}</HeadingTwoStyled>
+        <HeadingTwoStyled className={className} bold={bold}>{text? text: children}</HeadingTwoStyled>
     )
 }
 
 HeadingTwo.propTypes = {
     text: PropTypes.string,
-    bold: PropTypes.bool
+    bold: PropTypes.bool,
+    children: PropTypes.string
 };

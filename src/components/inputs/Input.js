@@ -3,7 +3,7 @@ import styled         from 'styled-components';
 import {PRIMARY_FONT, PRIMARY_COLOUR} from "../variables";
 import PropTypes      from 'prop-types';
 
-const FormTitle = styled.p`
+const FormTitle = styled.label`
     font-family: ${PRIMARY_FONT};
     font-size: 14px;
     font-weight: bold;
@@ -48,15 +48,16 @@ export const Input = ({
         information,
         error,
         onChange,
-        value
+        value,
+        className
     }) => {
     return (
-        <React.Fragment>
-            {title ? <FormTitle>{title}</FormTitle> : null}
+        <div className={className}>
+            {title ? <FormTitle for={name}>{title}</FormTitle> : null}
             <FormInputField type={type} placeholder={placeholder} name={name} onChange={onChange} value={value}></FormInputField>
             {information ? <InformationMessage>{information}</InformationMessage> : null}
             {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-        </React.Fragment>
+        </div>
     )
 };
 
@@ -68,5 +69,6 @@ Input.propTypes = {
     information: PropTypes.string,
     error: PropTypes.string,
     onChange: PropTypes.func,
-    value: PropTypes.string
+    value: PropTypes.string,
+    className: PropTypes.string
 };
