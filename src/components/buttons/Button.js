@@ -16,6 +16,7 @@ const ButtonWrapper = styled.button`
     border-radius: 30px;
     outline: none;
     cursor: pointer;
+    
     ${props => !props.disabled && css`
         &:hover {
             background-color: ${props => props.primary ? "#B22330" : "transparent"};
@@ -29,10 +30,22 @@ const ButtonWrapper = styled.button`
     ${props => props.disabled && css`
         opacity: 0.7;
     `}
+    ${props => props.link && css`
+        background-color: transparent;
+        color: ${props => props.primary ? "rgba(0, 0, 0, 0.43)" : "#EE2434"};
+        border-bottom: ${props => props.primary ? "none" : "rgba(210, 29, 41, 0.58) 1px dashed"};
+        display: inline-block;
+        font-family: 'Quicksand', sans-serif;
+        font-weight: bold;
+        cursor: pointer;
+        border-radius: 0px;
+        padding: 0px;
+    `}
 `;
 
 export const Button = ({
     primary,
+    link,
     text,
     onClick,
     disabled,
@@ -40,7 +53,7 @@ export const Button = ({
     children
 }) => {
     return (
-        <ButtonWrapper className={className} primary={primary} onClick={onClick} disabled={disabled}>
+        <ButtonWrapper className={className} primary={primary} link={link} onClick={onClick} disabled={disabled}>
             {text? text: children}
         </ButtonWrapper>
     );
@@ -52,5 +65,6 @@ Button.propTypes = {
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
     className: PropTypes.string,
-    children: PropTypes.string
+    children: PropTypes.string,
+    link: PropTypes.bool
 };
