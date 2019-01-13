@@ -53,13 +53,14 @@ export const Input = ({
         information,
         error,
         onChange,
+        onKeyPress,
         value,
         className
     }) => {
     return (
         <div className={className}>
             {title ? <FormTitle for={name}>{title}</FormTitle> : null}
-            <FormInputField type={type} placeholder={placeholder} name={name} onChange={onChange} value={value}></FormInputField>
+            <FormInputField type={type} placeholder={placeholder} name={name} onChange={onChange} onKeyPress={onKeyPress} value={value}></FormInputField>
             {information ? <InformationMessage>{information}</InformationMessage> : null}
             {error ? <ErrorMessage>{error}</ErrorMessage> : null}
         </div>
@@ -74,6 +75,7 @@ Input.propTypes = {
     information: PropTypes.string,
     error: PropTypes.string,
     onChange: PropTypes.func,
+    onKeyPress: PropTypes.func,
     value: PropTypes.string,
     className: PropTypes.string
 };
