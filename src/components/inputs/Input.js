@@ -22,6 +22,11 @@ const FormInputField = styled.input`
     margin-top: 7px;
     padding: 10px 20px 10px 20px;
     width: calc(100% - 40px);
+    opacity: 0.8;
+    &:focus {
+        opacity: 1;
+        transition: all ease 0.3s;
+    }
 `;
 
 const InformationMessage = styled.p`
