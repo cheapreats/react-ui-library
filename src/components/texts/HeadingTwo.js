@@ -19,7 +19,8 @@ export const HeadingTwo = ({text, bold, className, children}) => {
 }
 
 HeadingTwo.propTypes = {
-    text: PropTypes.string,
+    text: PropTypes.node,
     bold: PropTypes.bool,
-    children: PropTypes.string
+    className: PropTypes.string,
+    children: PropTypes.node
 };

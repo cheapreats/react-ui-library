@@ -59,8 +59,8 @@ export const Input = ({
     }) => {
     return (
         <div className={className}>
-            {title ? <FormTitle for={name}>{title}</FormTitle> : null}
-            <FormInputField type={type} placeholder={placeholder} name={name} onChange={onChange} onKeyPress={onKeyPress} value={value}></FormInputField>
+            {title ? <FormTitle htmlFor={name}>{title}</FormTitle> : null}
+            <FormInputField type={type || 'text'} placeholder={placeholder} name={name} onChange={onChange} onKeyPress={onKeyPress} value={value}></FormInputField>
             {information ? <InformationMessage>{information}</InformationMessage> : null}
             {error ? <ErrorMessage>{error}</ErrorMessage> : null}
         </div>

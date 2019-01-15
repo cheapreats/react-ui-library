@@ -43,28 +43,40 @@ const ButtonWrapper = styled.button`
     `}
 `;
 
+const styledIcon = icon => styled(icon)`
+    width: 12px;
+    height: auto;
+    margin-right: 6px;
+`;
+
 export const Button = ({
     primary,
     link,
     text,
     onClick,
+    icon,
     disabled,
     className,
     children
 }) => {
+    const Icon = icon? styledIcon(icon): null;
+
     return (
         <ButtonWrapper className={className} primary={primary} link={link} onClick={onClick} disabled={disabled}>
-            {text? text: children}
+            { Icon? <Icon/>: null }{text? text: children}
         </ButtonWrapper>
     );
 }
 
 Button.propTypes = {
     primary: PropTypes.bool,
-    text: PropTypes.string.isRequired,
+    /** Highly recommend using styled-icons for SC or any other <svg/> */
+    icon: PropTypes.element,
+    /** Children can also be used, (However this attribute takes priority) */
+    text: PropTypes.node,
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
     className: PropTypes.string,
-    children: PropTypes.string,
+    children: PropTypes.node,
     link: PropTypes.bool
 };
