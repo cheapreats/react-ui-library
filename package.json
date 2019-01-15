@@ -1,6 +1,6 @@
 {
   "name": "@cheapreats/react-ui",
-  "version": "1.2.4",
+  "version": "1.2.3",
   "description": "React UI library for CheaprEats",
   "main": "dist/CheaprEatsStoryBook.js",
   "scripts": {
@@ -22,6 +22,7 @@
   "homepage": "https://github.com/CheaprEats/react-ui#readme",
   "devDependencies": {
     "@babel/core": "^7.2.2",
+    "@babel/plugin-syntax-dynamic-import": "^7.2.0",
     "@babel/preset-env": "^7.2.3",
     "@storybook/addon-info": "^4.1.4",
     "@storybook/addon-notes": "^4.1.4",
@@ -31,9 +32,10 @@
     "babel-loader": "^8.0.4",
     "react": ">=15.0.1",
     "react-dom": ">=15.0.1",
+    "styled-components": "^4.1.3",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.1.2",
-    "styled-components": "^4.1.3"
+    "styled-icons": "^6.4.0"
   },
   "peerDependencies": {
     "react": ">=15.0.1",

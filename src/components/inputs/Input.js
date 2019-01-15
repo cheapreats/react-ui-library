@@ -53,7 +53,7 @@ export const Input = ({
     }) => {
     return (
         <div className={className}>
-            {title ? <FormTitle for={name}>{title}</FormTitle> : null}
+            {title ? <FormTitle htmlFor={name}>{title}</FormTitle> : null}
             <FormInputField type={type} placeholder={placeholder} name={name} onChange={onChange} value={value}></FormInputField>
             {information ? <InformationMessage>{information}</InformationMessage> : null}
             {error ? <ErrorMessage>{error}</ErrorMessage> : null}

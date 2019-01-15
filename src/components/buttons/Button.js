@@ -16,6 +16,7 @@ const ButtonWrapper = styled.button`
     border-radius: 30px;
     outline: none;
     cursor: pointer;
+    position: relative;
     ${props => !props.disabled && css`
         &:hover {
             background-color: ${props => props.primary ? "#B22330" : "transparent"};
@@ -31,26 +32,38 @@ const ButtonWrapper = styled.button`
     `}
 `;
 
+const styledIcon = icon => styled(icon)`
+    width: 12px;
+    height: auto;
+    margin-right: 6px;
+`;
+
 export const Button = ({
     primary,
     text,
     onClick,
+    icon,
     disabled,
     className,
     children
 }) => {
+    const Icon = icon? styledIcon(icon): null;
+
     return (
         <ButtonWrapper className={className} primary={primary} onClick={onClick} disabled={disabled}>
-            {text? text: children}
+            { Icon? <Icon/>: null }{text? text: children}
         </ButtonWrapper>
     );
 }
 
 Button.propTypes = {
     primary: PropTypes.bool,
-    text: PropTypes.string.isRequired,
+    /** Highly recommend using styled-icons for SC or any other <svg/> */
+    icon: PropTypes.element,
+    /** Children can also be used, (However this attribute takes priority) */
+    text: PropTypes.node,
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
     className: PropTypes.string,
-    children: PropTypes.string
+    children: PropTypes.node
 };
