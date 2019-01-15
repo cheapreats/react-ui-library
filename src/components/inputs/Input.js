@@ -59,13 +59,8 @@ export const Input = ({
     }) => {
     return (
         <div className={className}>
-<<<<<<< HEAD
             {title ? <FormTitle htmlFor={name}>{title}</FormTitle> : null}
-            <FormInputField type={type} placeholder={placeholder} name={name} onChange={onChange} value={value}></FormInputField>
-=======
-            {title ? <FormTitle for={name}>{title}</FormTitle> : null}
-            <FormInputField type={type} placeholder={placeholder} name={name} onChange={onChange} onKeyPress={onKeyPress} value={value}></FormInputField>
->>>>>>> 0299b874170719288663b338151c1175ef166cd3
+            <FormInputField type={type || 'text'} placeholder={placeholder} name={name} onChange={onChange} onKeyPress={onKeyPress} value={value}></FormInputField>
             {information ? <InformationMessage>{information}</InformationMessage> : null}
             {error ? <ErrorMessage>{error}</ErrorMessage> : null}
         </div>
