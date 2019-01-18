@@ -3,5 +3,7 @@ export * from './inputs/Input';
 export * from './texts/HeadingOne';
 export * from './texts/HeadingTwo';
 export * from './texts/HeadingThree';
+export * from './texts/HeadingFour';
+export * from './texts/HeadingFive';
 export * from './texts/Paragraph';
 export * from './tags/TransactionStatusTag';
