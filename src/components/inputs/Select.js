@@ -28,7 +28,7 @@ const Caret = styled(CaretDown)`
     }
 
     ${
-        ({ show }) => show? `transform: rotate(180deg) translate3d(0,0,0);`: ''
+        ({ show }) => show ? `transform: rotate(180deg) translate3d(0,0,0);` : ''
     }
 `;
 
@@ -101,7 +101,7 @@ const OptionsWrapper = styled.div`
         opacity 300ms ease-in-out
     ;
 
-    ${ ({ show }) => show? `
+    ${ ({ show }) => show ? `
         height: 200px;
         opacity: 1;
     ` : `
@@ -121,7 +121,7 @@ const Option = styled.li`
     align-items: center;
     transition: background-color 300ms ease-in-out;
 
-    ${ ({ active }) => active? 'background-color: rgba(0,0,0,0.04);': '' }
+    ${ ({ active }) => active ? 'background-color: rgba(0,0,0,0.04);' : '' }
     &:hover {
         background-color: rgba(0,0,0,0.04);
     }
@@ -166,11 +166,11 @@ export class Select extends Component {
                 <OptionsWrapper show={show}>
                     <Options>
                         {
-                            options? options.map((option, i) =>
+                            options ? options.map((option, i) =>
                                 <Option key={i} onClick={this.select} data-value={ i } active={ i === value }>
                                     { option }
                                 </Option>
-                            ): null
+                            ) : null
                         }
                     </Options>
                 </OptionsWrapper>

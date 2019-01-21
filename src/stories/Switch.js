@@ -26,12 +26,8 @@ storiesOf('Switch', module)
     })
     .add('with value', () => (
         <Switch name='d' onChange={() => console.log("no")} value={true}/>
-    ), {
-        notes: `Hi`
-    })
+    ))
     .add('with disabled', () => (
         <Switch name='e' size={400} value={true} disabled/>
-    ), {
-        notes: `Bai`
-    });
+    ));
 ;

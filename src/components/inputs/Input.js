@@ -59,7 +59,7 @@ const InputGroup = styled.div`
 
 export const Input = ({
         title,
-        type,
+        type = 'text',
         placeholder,
         name,
         information,
@@ -74,7 +74,7 @@ export const Input = ({
             <FormTitle htmlFor={name}>{title}</FormTitle>
             {information ? <InformationMessage>{information}</InformationMessage> : null}
             <FormInputField
-                type={type || 'text'}
+                type={type}
                 placeholder={placeholder}
                 name={name}
                 onChange={onChange}

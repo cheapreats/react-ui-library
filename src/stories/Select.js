@@ -10,9 +10,7 @@ storiesOf('Select', module)
             placeholder='Select a Ralph'
             options={[1,2,3,4,5,6,7,8,9,10, 'too many...']}
         />
-    ), {
-        notes: `Bai`
-    })
+    ))
     .add('with default value', () => (
         <Select
             label='How many Ralphs are too many Ralphs?'
@@ -21,7 +19,5 @@ storiesOf('Select', module)
             placeholder='Select a Ralph'
             options={[1,2,3,4,5,6,7,8,9,10, 'too many...']}
         />
-    ), {
-        notes: `Bai`
-    })
+    ))
 ;

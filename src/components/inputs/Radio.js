@@ -47,7 +47,7 @@ const Cover = styled.div`
         ;
     }
 `;
-// #ED242A
+
 const Check = styled.input`
     width: 100%;
     height: 100%;
@@ -70,10 +70,9 @@ const Check = styled.input`
     }
 `;
 
-export const Radio = ({ className, size, onChange, name, value, disabled }) => {
-    const s = size || 25;
+export const Radio = ({ className, size = 25, onChange, name, value, disabled }) => {
     return (
-        <Container size={s} disabled={disabled} className={className}>
+        <Container size={size} disabled={disabled} className={className}>
             <Check
                 name={name}
                 type='checkbox'
@@ -81,7 +80,7 @@ export const Radio = ({ className, size, onChange, name, value, disabled }) => {
                 onChange={onChange}
                 disabled={disabled}
             />
-            <Cover size={s}/>
+            <Cover size={size}/>
         </Container>
     );
 };

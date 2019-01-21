@@ -61,19 +61,18 @@ const Cover = styled.div`
     }
 `;
 
-export const Switch = ({ className, size, onChange, name, value, disabled }) => {
-    const s = size || 26;
+export const Switch = ({ className, size = 26, onChange, name, value, disabled }) => {
     return (
-        <Container size={s} className={className}>
+        <Container size={size} className={className}>
             <Checkbox
-                size={s}
+                size={size}
                 name={name}
                 checked={value}
                 type='checkbox'
                 onChange={onChange}
                 disabled={disabled}
             />
-            <Cover size={s} disabled={disabled}/>
+            <Cover size={size} disabled={disabled}/>
         </Container>
     );
 };

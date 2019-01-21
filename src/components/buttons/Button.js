@@ -7,7 +7,7 @@ import {PRIMARY_COLOUR, PRIMARY_FONT, SHADOW_RAISE_1} from "../variables";
 const ButtonWrapper = styled.button`
     color: ${props => props.primary ? "white" : PRIMARY_COLOUR};
     background-color: ${props => props.primary ? PRIMARY_COLOUR : "transparent"};
-    ${({flat}) => flat ? '': `box-shadow: 0 1px 3px rgba(0,0,0,0.2);`};
+    ${({flat}) => flat ? '': `box-shadow: ${SHADOW_RAISE_1};`};
     ${({primary}) => primary ? "transition: all ease 0.3s" : ''};
     font-family: ${PRIMARY_FONT};
     border-radius: 30px;
