@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { PRIMARY_COLOUR } from '../variables';
 
 const Container = styled.div`
     position: relative;
@@ -22,7 +23,7 @@ const Checkbox = styled.input`
     position: absolute;
 
     &:checked ~ div {
-        background-color: #ED242A;
+        background-color: ${ PRIMARY_COLOUR };
         &:after {
             ${({ size }) => `
                 transform: translate3d(100%, 0, 0) translate3d(${ size / 5 }px, 0, 0);

@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
+import { PRIMARY_COLOUR } from '../variables';
 
 const Container = styled.div`
     overflow: hidden;
@@ -57,9 +58,9 @@ const Check = styled.input`
     position: absolute;
 
     &:checked ~ div {
-        border-color: #ED242A;
+        border-color: ${ PRIMARY_COLOUR };
         &::after {
-            background-color: #ED242A;
+            background-color: ${ PRIMARY_COLOUR };
             transform: translate3d(0,0,0) scale(1);
             opacity: 1;
         }
