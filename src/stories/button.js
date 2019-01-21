@@ -55,14 +55,11 @@ storiesOf('Button', module)
     ), {
         notes: "Disabling the button will also disable all onClick events."
     })
-    .add('with link', () => (
+    .add('with flat', () => (
         <Button
-            link
-            text={"I'm a fancy link"}
-            onClick={e => {
-                window.alert("You just clicked on the button!");
-            }}
+            flat
+            text='Ralph might have been here...'
         />
     ), {
-        notes: "Link for HyperLink + Table Buttons"
+        notes: "Removes the box shadow from the button"
     });
