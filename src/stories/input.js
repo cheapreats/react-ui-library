@@ -3,9 +3,11 @@ import { storiesOf } from '@storybook/react';
 import {Input} from '../components/inputs/Input';
 
 storiesOf('Input', module)
-    .add('with title', () => (
+    .add('with required', () => (
         <Input
             title="Form Title"
+            name="input"
+
         />
     ), {
         notes: `Input can be used with only one prop 'text'.
@@ -14,30 +16,29 @@ storiesOf('Input', module)
     })
     .add('with information', () => (
         <Input
+            title="Form Title"
             information="Show me the input requirements"
+            name="input1"
         />
     ), {
         notes: ""
     })
     .add('with error', () => (
         <Input
+            title="Form Title"
             error="A mistake was made"
+            name="input2"
         />
     ), {
         notes: "Show me any input errors that occur"
     })
     .add('with placeholder', () => (
         <Input
+            title="Form Title"
             placeholder="Place your text here"
+            name="input3"
         />
     ), {
         notes: "Useful for in-place examples"
     })
-    .add('As a checkbox', () => (
-        <Input
-            type="checkbox"
-            information="I'm a checkbox"
-        />
-    ), {
-        notes: "Checkbox Input Field"
-    });
+;

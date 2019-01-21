@@ -4,50 +4,62 @@ import {PRIMARY_FONT, PRIMARY_COLOUR} from "../variables";
 import PropTypes      from 'prop-types';
 
 const FormTitle = styled.label`
-    font-family: ${PRIMARY_FONT};
-    font-size: 14px;
-    font-weight: bold;
-    margin: 10px 0 0 2px;
-    color: gray;
+    margin-top: 10px;
+`;
+
+const InformationMessage = styled.p`
+    margin: 5px 0 0;
+    font-size: 0.8rem;
+    color: rgba(0,0,0,0.5);
 `;
 
 const FormInputField = styled.input`
-    font-family: ${PRIMARY_FONT};
-    font-size: 14px;
     font-weight: bold;
+    box-sizing: border-box;
+    font-family: ${PRIMARY_FONT};
     background-color: rgba(0,0,0,0.05);
     border-radius: 10px;
     border: none;
     outline: none;
-    margin-top: 7px;
+    width: 100%;
     padding: 10px 20px 10px 20px;
-    width: calc(100% - 40px);
+    margin: 10px 0;
     opacity: 0.8;
-    &:focus {
+    transition: opacity ease-in-out 300ms;
+    &:focus, &:hover {
         opacity: 1;
-        transition: all ease 0.3s;
     }
 `;
 
-const InformationMessage = styled.p`
-    font-family: ${PRIMARY_FONT};
-    font-size: 14px;
+const ErrorMessage = styled.p`
     font-weight: bold;
-    margin: 2px 0 0 10px;
-    color: grey;
+    padding-left: 5px;
+    font-size: 0.8rem;
+    transform: translate3d(0, -100%, 0);
+    margin-top: -5px;
+    pointer-events: none;
+    opacity: 0;
+    color: ${PRIMARY_COLOUR};
+    transition:
+        transform 300ms ease-in-out,
+        opacity 300ms ease-in-out
+    ;
+    ${ ({ error }) => error? `
+        transform: translate3d(0,0,0);
+        opacity: 1;
+    `: '' }
 `;
 
-const ErrorMessage = styled.p`
+const InputGroup = styled.div`
     font-family: ${PRIMARY_FONT};
-    font-size: 14px;
+    padding-right: 40px;
     font-weight: bold;
-    margin: 2px 0 0 10px;
-    color: ${PRIMARY_COLOUR};
+    font-size: 1rem;
 `;
 
 export const Input = ({
         title,
-        type = "text",
+        type,
         placeholder,
         name,
         information,
@@ -58,24 +70,34 @@ export const Input = ({
         className
     }) => {
     return (
-        <div className={className}>
-            {title ? <FormTitle htmlFor={name}>{title}</FormTitle> : null}
-            <FormInputField type={type || 'text'} placeholder={placeholder} name={name} onChange={onChange} onKeyPress={onKeyPress} value={value}></FormInputField>
+        <InputGroup className={className}>
+            <FormTitle htmlFor={name}>{title}</FormTitle>
             {information ? <InformationMessage>{information}</InformationMessage> : null}
-            {error ? <ErrorMessage>{error}</ErrorMessage> : null}
-        </div>
+            <FormInputField
+                type={type || 'text'}
+                placeholder={placeholder}
+                name={name}
+                onChange={onChange}
+                onKeyPress={onKeyPress}
+                value={value}
+                aria-describedby={name}
+            />
+            <ErrorMessage id={name} error={error}>{error || ''}</ErrorMessage>
+        </InputGroup>
     )
 };
 
 Input.propTypes = {
-    title: PropTypes.string,
+    title: PropTypes.node.isRequired,
+    name: PropTypes.string.isRequired,
+    /** Managed by SC */
+    className: PropTypes.string,
     type: PropTypes.string,
+
     placeholder: PropTypes.string,
-    name: PropTypes.string,
     information: PropTypes.string,
     error: PropTypes.string,
     onChange: PropTypes.func,
     onKeyPress: PropTypes.func,
-    value: PropTypes.string,
-    className: PropTypes.string
+    value: PropTypes.string
 };
