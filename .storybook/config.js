@@ -17,6 +17,7 @@ const Stories = [
     'Select',
     'Switch',
     'Radio',
+    'Checkbox',
     'Button',
     'TransactionStatusTag'
 ];
