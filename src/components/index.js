@@ -3,6 +3,7 @@ export * from './inputs/Input';
 export * from './inputs/Select';
 export * from './inputs/Switch';
 export * from './inputs/Radio';
+export * from './inputs/Checkbox';
 export * from './texts/HeadingOne';
 export * from './texts/HeadingTwo';
 export * from './texts/HeadingThree';

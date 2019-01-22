@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import { PRIMARY_COLOUR } from '../variables';
@@ -18,6 +18,10 @@ const Checkbox = styled.input`
     width: 100%;
     height: 200%;
     margin: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
     opacity: 0;
     z-index: 1;
     position: absolute;
@@ -62,20 +66,30 @@ const Cover = styled.div`
     }
 `;
 
-export const Switch = ({ className, size = 26, onChange, name, value, disabled }) => {
-    return (
-        <Container size={size} className={className}>
-            <Checkbox
-                size={size}
-                name={name}
-                checked={value}
-                type='checkbox'
-                onChange={onChange}
-                disabled={disabled}
-            />
-            <Cover size={size} disabled={disabled}/>
-        </Container>
-    );
+export class Switch extends Component {
+
+    state = { value: this.props.value }
+    toggleState = () => this.setState(({ value }) => ({ value: !value }))
+    onChange = el => ( this.props.onChange ? this.props.onChange(el) : null )
+
+    render() {
+        const { value } = this.state;
+        const { className, size = 26, name, disabled } = this.props;
+        return (
+            <Container size={size} className={className}>
+                <Checkbox
+                    size={size}
+                    name={name}
+                    value={value}
+                    type='checkbox'
+                    onChange={this.onChange}
+                    onClick={this.toggleState}
+                    disabled={disabled}
+                />
+                <Cover size={size} disabled={disabled}/>
+            </Container>
+        );
+    }
 };
 
 Switch.propTypes = {

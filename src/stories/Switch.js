@@ -25,7 +25,7 @@ storiesOf('Switch', module)
         `
     })
     .add('with value', () => (
-        <Switch name='d' onChange={() => console.log("no")} value={true}/>
+        <Switch name='d' onChange={({ target }) => alert(target.value)} value/>
     ))
     .add('with disabled', () => (
         <Switch name='e' size={400} value={true} disabled/>
