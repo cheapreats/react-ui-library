@@ -90,7 +90,7 @@ export class Radio extends Component {
                     type='checkbox'
                     value={value}
                     onChange={onChange}
-                    onClick={this.toggleState}
+                    onClick={onChange? this.toggleState: null}
                     disabled={disabled}
                 />
                 <Cover size={size}/>

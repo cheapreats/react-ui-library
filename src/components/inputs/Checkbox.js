@@ -86,7 +86,7 @@ export class Checkbox extends Component {
                     type='checkbox'
                     checked={value}
                     onChange={onChange}
-                    onClick={this.toggleState}
+                    onClick={onChange? this.toggleState: null}
                     disabled={disabled}
                 />
                 <Cover size={size}>
