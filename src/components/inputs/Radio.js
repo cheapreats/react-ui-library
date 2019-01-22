@@ -79,18 +79,17 @@ export class Radio extends Component {
 
     state = { value: this.props.value }
     toggleState = () => this.setState(({ value }) => ({ value: !value }))
-    onChange = el => ( this.props.onChange ? this.props.onChange(el) : null )
 
     render() {
         const { value } = this.state;
-        const { className, size = 25, name, disabled } = this.props;
+        const { className, size = 25, onChange, name, disabled } = this.props;
         return (
             <Container size={size} disabled={disabled} className={className}>
                 <Check
                     name={name}
                     type='checkbox'
                     value={value}
-                    onChange={this.onChange}
+                    onChange={onChange}
                     onClick={this.toggleState}
                     disabled={disabled}
                 />
