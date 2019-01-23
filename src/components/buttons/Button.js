@@ -5,10 +5,9 @@ import {PRIMARY_COLOUR, PRIMARY_FONT, SHADOW_RAISE_1} from "../variables";
 
 
 const ButtonWrapper = styled.button`
-    color: ${props => props.primary ? "white" : PRIMARY_COLOUR};
+    color: ${({primary, black}) => primary ? "white" : black ? 'black' : PRIMARY_COLOUR};
     background-color: ${props => props.primary ? PRIMARY_COLOUR : "transparent"};
     ${({flat}) => flat ? '': `box-shadow: ${SHADOW_RAISE_1};`};
-    ${({primary}) => primary ? "transition: background-color ease 0.3s" : ''};
     ${({size}) => size? `
         font-size: ${size}px;
         padding: ${10 * size / 14}px ${20 * size / 14}px;
@@ -16,6 +15,7 @@ const ButtonWrapper = styled.button`
         font-size: 0.9rem;
         padding: 10px 20px;   
     `}
+    transition: background-color ease 0.3s;
     font-family: ${PRIMARY_FONT};
     border-radius: 999px;
     font-weight: bold;
@@ -25,29 +25,26 @@ const ButtonWrapper = styled.button`
     
     ${({ disabled }) => !disabled ? css`
         &:hover {
-            background-color: ${props => props.primary ? "#B22330" : "transparent"};
+            background-color: ${props => props.primary ? "#B22330" : "#f4f4f4"};
         }
         &:active {
-            background-color: ${props => props.primary ? "#6C121A" : "transparent"};
+            background-color: ${props => props.primary ? "#6C121A" : "#e8e8e8"};
         }
     `: `opacity: 0.7;`}
 `;
 
 const styledIcon = icon => styled(icon)`
-    ${({size}) => size? `
-        width: ${ 12 * size / 14 }px;
-        margin-right: ${ 6 * size / 14 }px;
-    `: `
-        width: 12px;
-        margin-right: 6px;
-    `
-    }
+    ${({size}) => `
+        width: ${ size ? 12 * size / 14 : 12 }px;
+        margin-right: ${ size ? 6 * size / 14 : 6 }px;
+    `}
     height: auto;
 `;
 
 export const Button = ({
     primary,
     flat,
+    black,
     text,
     onClick,
     icon,
@@ -61,6 +58,7 @@ export const Button = ({
         <ButtonWrapper
             className={className}
             primary={primary}
+            black={black}
             flat={flat}
             size={size}
             onClick={onClick}
@@ -80,6 +78,7 @@ Button.propTypes = {
     text: PropTypes.node,
     /** In pixels, defaults to 0.9rem */
     size: PropTypes.number,
+    black: PropTypes.bool,
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
     className: PropTypes.string,
