@@ -34,7 +34,12 @@ const ButtonWrapper = styled.button`
 `;
 
 const styledIcon = icon => styled(icon)`
-    width: 12px;
+    ${({size}) => size? `
+        width: ${ 12 * size / 14 }px;
+    `: `
+        width: 12px;
+    `
+    }
     height: auto;
     margin-right: 6px;
 `;
@@ -60,7 +65,7 @@ export const Button = ({
             onClick={onClick}
             disabled={disabled}
         >
-            { Icon? <Icon/>: null }{text? text: children}
+            { Icon? <Icon size={size}/>: null }{text? text: children}
         </ButtonWrapper>
     );
 }
