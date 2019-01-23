@@ -8,7 +8,7 @@ const FormTitle = styled.label`
 `;
 
 const InformationMessage = styled.p`
-    margin: 5px 0 0;
+    margin: 2px 0 0;
     font-size: 0.8rem;
     color: rgba(0,0,0,0.5);
 `;
@@ -22,8 +22,8 @@ const FormInputField = styled.input`
     border: none;
     outline: none;
     width: 100%;
-    padding: 10px 20px 10px 20px;
-    margin: 10px 0;
+    padding: 10px 20px;
+    margin: 5px 0;
     opacity: 0.8;
     transition: opacity ease-in-out 300ms;
     &:focus, &:hover {
@@ -36,7 +36,7 @@ const ErrorMessage = styled.p`
     padding-left: 5px;
     font-size: 0.8rem;
     transform: translate3d(0, -100%, 0);
-    margin-top: -5px;
+    margin: 0 0 5px;
     pointer-events: none;
     opacity: 0;
     color: ${PRIMARY_COLOUR};
@@ -52,9 +52,10 @@ const ErrorMessage = styled.p`
 
 const InputGroup = styled.div`
     font-family: ${PRIMARY_FONT};
-    padding-right: 40px;
+    ${({error}) => error? '': `margin-bottom: -16px;`}
+    padding: 10px 0;
     font-weight: bold;
-    font-size: 1rem;
+    font-size: 0.9rem;
 `;
 
 export const Input = ({
@@ -70,7 +71,7 @@ export const Input = ({
         className
     }) => {
     return (
-        <InputGroup className={className}>
+        <InputGroup className={className} error={error}>
             <FormTitle htmlFor={name}>{title}</FormTitle>
             {information ? <InformationMessage>{information}</InformationMessage> : null}
             <FormInputField

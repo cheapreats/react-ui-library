@@ -11,6 +11,8 @@ const Stories = [
     'HeadingOne',
     'HeadingTwo',
     'HeadingThree',
+    'HeadingFour',
+    'HeadingFive',
     'Paragraph',
     'Link',
     'Input',

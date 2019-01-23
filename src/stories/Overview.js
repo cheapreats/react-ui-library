@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { HeadingOne, HeadingTwo, HeadingThree, Paragraph, Link } from '../components';
+import { HeadingOne, HeadingTwo, HeadingThree, HeadingFour, HeadingFive, Paragraph, Link } from '../components';
 import { Typography, Headings, Heading } from './components/Overview';
 import { Page, Section } from './components/Page';
 
@@ -37,8 +37,16 @@ storiesOf('Overview', module)
                         <Paragraph>Heading Two</Paragraph>
                     </Heading>
                     <Heading>
-                        <HeadingThree>H1</HeadingThree>
+                        <HeadingThree>H3</HeadingThree>
                         <Paragraph>Heading Three</Paragraph>
+                    </Heading>
+                    <Heading>
+                        <HeadingFour>H4</HeadingFour>
+                        <Paragraph>Heading Four</Paragraph>
+                    </Heading>
+                    <Heading>
+                        <HeadingFive>H5</HeadingFive>
+                        <Paragraph>Heading Five</Paragraph>
                     </Heading>
                 </Headings>
             </Section>

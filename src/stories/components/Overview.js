@@ -30,5 +30,6 @@ export const Heading = styled.li`
 
     & p {
         margin-top: -15px;
+        font-size: 0.9rem;
     }
 `;
