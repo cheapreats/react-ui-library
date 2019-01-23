@@ -18,6 +18,12 @@ storiesOf('Button', module)
         import { Button } from 'cheapreats-react-ui/components/buttons';
         `
     })
+    .add('with size', () => (
+        <Button primary size={60} text={"Add Ralphs"}/>
+    ), {
+        notes: `Button can be resized to be bigger or smaller for different situations (size in px). The default is 0.9rem font size with a padding of 10px 20px';
+        `
+    })
     .add('with no primary', () => (
         <Button text={"Confirm"}/>
     ), {
