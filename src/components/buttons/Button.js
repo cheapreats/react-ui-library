@@ -36,12 +36,13 @@ const ButtonWrapper = styled.button`
 const styledIcon = icon => styled(icon)`
     ${({size}) => size? `
         width: ${ 12 * size / 14 }px;
+        margin-right: ${ 6 * size / 14 }px;
     `: `
         width: 12px;
+        margin-right: 6px;
     `
     }
     height: auto;
-    margin-right: 6px;
 `;
 
 export const Button = ({

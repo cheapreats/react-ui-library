@@ -19,7 +19,7 @@ storiesOf('Button', module)
         `
     })
     .add('with size', () => (
-        <Button primary size={60} text={"Add Ralphs"}/>
+        <Button primary icon={ Plus } size={60} text={"Add Ralphs"}/>
     ), {
         notes: `Button can be resized to be bigger or smaller for different situations (size in px). The default is 0.9rem font size with a padding of 10px 20px';
         `
