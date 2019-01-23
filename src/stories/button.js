@@ -68,4 +68,12 @@ storiesOf('Button', module)
         />
     ), {
         notes: "Removes the box shadow from the button"
+    })
+    .add('with black', () => (
+        <Button
+            black
+            text='Ralph might have been here...'
+        />
+    ), {
+        notes: "Never go back"
     });

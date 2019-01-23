@@ -29,6 +29,13 @@ const FormInputField = styled.input`
     &:focus, &:hover {
         opacity: 1;
     }
+    ${
+        ({error, valid}) => error ? `
+            background-color: #ffe6e6;
+        ` : valid ? `
+            background-color: #e0fade;
+        ` : ''
+    }
 `;
 
 const ErrorMessage = styled.p`
@@ -53,6 +60,7 @@ const ErrorMessage = styled.p`
 const InputGroup = styled.div`
     font-family: ${PRIMARY_FONT};
     ${({error}) => error? '': `margin-bottom: -16px;`}
+    transition: margin-bottom: 300ms ease-in-out;
     padding: 10px 0;
     font-weight: bold;
     font-size: 0.9rem;
@@ -63,6 +71,7 @@ export const Input = ({
         type = 'text',
         placeholder,
         name,
+        valid,
         information,
         error,
         onChange,
@@ -78,6 +87,8 @@ export const Input = ({
                 type={type}
                 placeholder={placeholder}
                 name={name}
+                valid={valid}
+                error={error}
                 onChange={onChange}
                 onKeyPress={onKeyPress}
                 value={value}
@@ -94,7 +105,7 @@ Input.propTypes = {
     /** Managed by SC */
     className: PropTypes.string,
     type: PropTypes.string,
-
+    valid: PropTypes.bool,
     placeholder: PropTypes.string,
     information: PropTypes.string,
     error: PropTypes.string,

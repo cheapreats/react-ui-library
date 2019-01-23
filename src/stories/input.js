@@ -32,6 +32,15 @@ storiesOf('Input', module)
     ), {
         notes: "Show me any input errors that occur"
     })
+    .add('with valid', () => (
+        <Input
+            title="Form Title"
+            name="input5"
+            valid
+        />
+    ), {
+        notes: "Show me any input valid that occur"
+    })
     .add('with placeholder', () => (
         <Input
             title="Form Title"
