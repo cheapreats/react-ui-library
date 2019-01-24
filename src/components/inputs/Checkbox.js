@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import { Check as Icon } from 'styled-icons/fa-solid/Check';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { PRIMARY_COLOUR } from '../variables';
+import { PRIMARY_COLOUR, PRIMARY_FONT } from '../variables';
 
 const Container = styled.div`
     overflow: hidden;
+    font-family: ${ PRIMARY_FONT };
     position: relative;
+    display: flex;
+    align-items: center;
     ${({ size }) => `
         border-radius: ${ size * 0.3 }px;
-        width: ${ size * 1.1 }px;
         height: ${ size * 1.1 }px;
     `}
 `;
@@ -31,6 +33,7 @@ const StyledIcon = styled(Icon)`
 const Cover = styled.div`
     box-sizing: border-box;
     display: flex;
+    flex-shrink: 0;
     align-items: center;
     justify-content: center;
     transition:
@@ -39,14 +42,26 @@ const Cover = styled.div`
     ;
     ${({ size }) => `
         border-radius: ${ size * 0.3 }px;
+        margin-right: ${ size * 0.4 }px;
         border: ${ size * 0.1 }px solid #efefef;
         width: ${ size * 1.1 }px;
         height: ${ size * 1.1 }px;
     `}
 `;
 
+const Label = styled.label`
+    font-weight: bold;
+    font-size: 0.85rem;
+    opacity: 0.7;
+    ${({ size }) => `
+        font-size: ${ size / 25 * 0.85 }rem;
+    `}
+`;
+
 const Check = styled.input`
-    width: 100%;
+    ${({ size }) => `
+        width: ${ size * 1.1 }px;
+    `}
     height: 100%;
     opacity: 0;
     margin: 0;
@@ -78,10 +93,11 @@ export class Checkbox extends Component {
 
     render() {
         const { value } = this.state;
-        const { className, size = 25, onChange, name, disabled } = this.props;
+        const { className, size = 25, onChange, name, title, disabled } = this.props;
         return (
             <Container size={size} disabled={disabled} className={className}>
                 <Check
+                    size={size}
                     name={name}
                     type='checkbox'
                     checked={value}
@@ -92,6 +108,7 @@ export class Checkbox extends Component {
                 <Cover size={size}>
                     <StyledIcon size={size}/>
                 </Cover>
+                <Label size={size} htmlFor={name}>{title}</Label>
             </Container>
         );
     }
@@ -99,6 +116,7 @@ export class Checkbox extends Component {
 
 Checkbox.propTypes = {
     className: PropTypes.string,
+    title: PropTypes.string,
     size: PropTypes.number,
     onChange: PropTypes.func,
     name: PropTypes.string.isRequired,
