@@ -8,8 +8,11 @@ storiesOf('Checkbox', module)
     ), {
         notes: `The default size is 25`
     })
+    .add('with title', () => (
+        <Checkbox name='l' title='Ralph?'/>
+    ))
     .add('with size increased', () => (
-        <Checkbox name='b' size={400}/>
+        <Checkbox name='b' size={400} title='Ralph?'/>
     ))
     .add('with size decreased', () => (
         <Checkbox name='c' size={6}/>

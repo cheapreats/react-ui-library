@@ -17,6 +17,7 @@ const ButtonWrapper = styled.button`
     `}
     transition: background-color ease 0.3s;
     font-family: ${PRIMARY_FONT};
+    flex-shrink: 0;
     border-radius: 999px;
     font-weight: bold;
     border: none;
