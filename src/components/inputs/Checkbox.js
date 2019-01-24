@@ -6,6 +6,7 @@ import { PRIMARY_COLOUR, PRIMARY_FONT } from '../variables';
 
 const Container = styled.div`
     overflow: hidden;
+    margin-bottom: 10px;
     font-family: ${ PRIMARY_FONT };
     position: relative;
     display: flex;
