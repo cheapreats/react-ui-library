@@ -70,19 +70,24 @@ export class Switch extends Component {
 
     state = { value: this.props.value }
     toggleState = () => this.setState(({ value }) => ({ value: !value }))
-    onChange = el => ( this.props.onChange ? this.props.onChange(el) : null )
+
+    componentDidUpdate({ value }) {
+        if (value !== this.props.value) {
+            this.setState({ value: this.props.value });
+        }
+    }   
 
     render() {
         const { value } = this.state;
-        const { className, size = 26, name, disabled } = this.props;
+        const { className, size = 26, name, disabled, onChange } = this.props;
         return (
             <Container size={size} className={className}>
                 <Checkbox
                     size={size}
                     name={name}
-                    value={value}
+                    checked={value}
                     type='checkbox'
-                    onChange={this.onChange}
+                    onChange={onChange}
                     onClick={this.toggleState}
                     disabled={disabled}
                 />

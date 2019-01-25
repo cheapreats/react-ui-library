@@ -25,13 +25,13 @@ storiesOf('Switch', module)
         `
     })
     .add('with no preset value', () => (
-        <Switch name='d' onChange={({ target }) => alert(target.value)} value/>
+        <Switch name='d' onChange={({ target }) => alert(target.checked)}/>
     ))
     .add('with value true', () => (
-        <Switch name='d' value={true} onChange={({ target }) => alert(target.value)} value/>
+        <Switch name='d' value={true} onChange={({ target }) => alert(target.checked)}/>
     ))
     .add('with value false', () => (
-        <Switch name='d' value={false} onChange={({ target }) => alert(target.value)} value/>
+        <Switch name='d' value={false} onChange={({ target }) => alert(target.checked)}/>
     ))
     .add('with disabled', () => (
         <Switch name='e' size={400} value={true} disabled/>
