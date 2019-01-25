@@ -25,7 +25,7 @@ const Stories = [
 ];
 
 function loadStories() {
-    // automatically import all story js files that end with *.js
+    // automatically import all Capitalized story js files that end with *.js
     // const req = require.context('../src/stories', true, /\.js$/);
     // req.keys().forEach(filename => req(filename));
     Stories.forEach(story => require(`../src/stories/${story}`));

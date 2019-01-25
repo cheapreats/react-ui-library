@@ -13,7 +13,7 @@ storiesOf('Button', module)
     })
     .add('with icon', () => (
         <Button primary icon={ Plus } text={"Add Ralphs"}/>
-    ),
+    ), {notes: `Information Field Very Useful`})
     .add('with size', () => (
         <Button primary icon={ Plus } size={60} text={"Add Ralphs"}/>
     ), {
@@ -22,7 +22,7 @@ storiesOf('Button', module)
     })
     .add('with no primary', () => (
         <Button text={"Confirm"}/>
-    ),
+    ), {notes: `Information Field Very Useful`})
     .add('with onClick action', () => (
         <Button
             text={"Show me an alert!"}
@@ -68,4 +68,5 @@ storiesOf('Button', module)
         />
     ), {
         notes: "Never go back"
-    });
+    })
+;
