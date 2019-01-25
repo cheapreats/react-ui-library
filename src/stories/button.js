@@ -13,7 +13,7 @@ storiesOf('Button', module)
     })
     .add('with icon', () => (
         <Button primary icon={ Plus } text={"Add Ralphs"}/>
-    )
+    ),
     .add('with size', () => (
         <Button primary icon={ Plus } size={60} text={"Add Ralphs"}/>
     ), {
@@ -22,11 +22,7 @@ storiesOf('Button', module)
     })
     .add('with no primary', () => (
         <Button text={"Confirm"}/>
-    ), {
-        notes: `Button can be used with only one prop 'text'. However this button won't do anything.
-        import { Button } from 'cheapreats-react-ui/components/buttons';
-        `
-    })
+    ),
     .add('with onClick action', () => (
         <Button
             text={"Show me an alert!"}

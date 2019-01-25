@@ -20,7 +20,7 @@ storiesOf('Input', module)
             information="Show me the input requirements"
             name="input1"
         />
-    )
+    ),
     .add('with error', () => (
         <Input
             title="Form Title"
