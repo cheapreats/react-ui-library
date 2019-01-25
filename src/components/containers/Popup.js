@@ -44,8 +44,10 @@ const Close = styled.div`
 `;
 
 const Box = styled.div`
-    width: 70%;
-    height: 80%;
+    ${ ({ width, height }) => `
+        width: ${ width };
+        height: ${ height };
+    ` }
     border-radius: 15px;
     background-color: white;
     ${
@@ -104,11 +106,11 @@ export class Popup extends Component {
     }
 
     render() {
-        const { className, name, children } = this.props;
+        const { className, name, width = '80%', height = '80%', children } = this.props;
         return (
             <Container { ...this.state } name={ name } className={ className }>
                 <Back onClick={ this.hide }/>
-                <Box { ...this.state }>
+                <Box width={ width } height={ height } { ...this.state }>
                     <Close onClick={ this.hide }><Times/></Close>
                     { children }
                 </Box>
@@ -119,6 +121,8 @@ export class Popup extends Component {
 
 Popup.propTypes = {
     className: PropTypes.string,
+    width: PropTypes.string,
+    height: PropTypes.string,
     name: PropTypes.string.isRequired,
     children: PropTypes.children
 }

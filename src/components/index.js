@@ -14,4 +14,5 @@ export * from './texts/Paragraph';
 export * from './texts/Link';
 export * from './containers/Tags';
 export * from './containers/Popup';
+export * from './containers/Checkboxes';
 export * from './tags/TransactionStatusTag';

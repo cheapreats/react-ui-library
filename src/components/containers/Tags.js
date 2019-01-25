@@ -5,15 +5,20 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     ${ flex() }
+    ${ ({ margin }) => `margin: ${ margin };` }
+    & span {
+        margin: 0 5px 5px 0;
+    }
 `;
 
-export const Tags = ({ className, children }) => (
-    <Container className={ className }>
+export const Tags = ({ className, children, margin = 0 }) => (
+    <Container className={ className } margin={ margin }>
         { children }
     </Container>
 );
 
 Tags.propTypes = {
     className: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    margin: PropTypes.string
 }

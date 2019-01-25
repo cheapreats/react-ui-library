@@ -24,6 +24,7 @@ const ButtonWrapper = styled.button`
     outline: none;
     cursor: pointer;
     
+    ${({ margin }) => `margin: ${ margin };`}
     ${({ disabled }) => !disabled ? css`
         &:hover {
             background-color: ${props => props.primary ? "#B22330" : "#f4f4f4"};
@@ -49,6 +50,7 @@ export const Button = ({
     text,
     onClick,
     icon,
+    margin = 0,
     size,
     disabled,
     className,
@@ -62,6 +64,7 @@ export const Button = ({
             black={black}
             flat={flat}
             size={size}
+            margin={margin}
             onClick={onClick}
             disabled={disabled}
         >
@@ -79,6 +82,7 @@ Button.propTypes = {
     text: PropTypes.node,
     /** In pixels, defaults to 0.9rem */
     size: PropTypes.number,
+    margin: PropTypes.string,
     black: PropTypes.bool,
     onClick: PropTypes.func,
     disabled: PropTypes.bool,
