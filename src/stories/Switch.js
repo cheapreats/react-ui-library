@@ -24,8 +24,14 @@ storiesOf('Switch', module)
         If you zoom in far enough you can see that the animations still work perfectly (Surprisingly)
         `
     })
-    .add('with value', () => (
+    .add('with no preset value', () => (
         <Switch name='d' onChange={({ target }) => alert(target.value)} value/>
+    ))
+    .add('with value true', () => (
+        <Switch name='d' value={true} onChange={({ target }) => alert(target.value)} value/>
+    ))
+    .add('with value false', () => (
+        <Switch name='d' value={false} onChange={({ target }) => alert(target.value)} value/>
     ))
     .add('with disabled', () => (
         <Switch name='e' size={400} value={true} disabled/>

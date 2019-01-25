@@ -13,11 +13,7 @@ storiesOf('Button', module)
     })
     .add('with icon', () => (
         <Button primary icon={ Plus } text={"Add Ralphs"}/>
-    ), {
-        notes: `Button can be used with only one prop 'text'. However this button won't do anything.
-        import { Button } from 'cheapreats-react-ui/components/buttons';
-        `
-    })
+    )
     .add('with size', () => (
         <Button primary icon={ Plus } size={60} text={"Add Ralphs"}/>
     ), {
