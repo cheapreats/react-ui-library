@@ -80,6 +80,12 @@ export class Radio extends Component {
     state = { value: this.props.value }
     toggleState = () => this.setState(({ value }) => ({ value: !value }))
 
+    componentDidUpdate({ value }) {
+        if (value !== this.props.value) {
+            this.setState({ value: this.props.value });
+        }
+    }  
+
     render() {
         const { value } = this.state;
         const { className, size = 25, onChange, name, disabled } = this.props;
@@ -88,7 +94,7 @@ export class Radio extends Component {
                 <Check
                     name={name}
                     type='checkbox'
-                    value={value}
+                    checked={value}
                     onChange={onChange}
                     onClick={onChange? this.toggleState: null}
                     disabled={disabled}
