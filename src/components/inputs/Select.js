@@ -8,6 +8,7 @@ const Container = styled.div`
     font-family: ${ PRIMARY_FONT };
     position: relative;
     font-size: 0.9rem;
+    z-index: 10;
     font-weight: bold;
 `;
 

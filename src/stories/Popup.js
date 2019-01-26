@@ -24,6 +24,16 @@ storiesOf('Popup', module)
     ), {
         notes: `Default is 400ms transition speed`
     })
+    .add('with custom sizing', () => (
+        <Page>
+            <button onClick={() => popup.toggle('ralph')}>Click me!</button>
+            <Popup height='600px' width='600px' name='ralph'>
+                <h1>HIIIIIII</h1>
+            </Popup>
+        </Page>
+    ), {
+        notes: `Change default box size, which is 80% height and with`
+    })
     .add('with show', () => (
         <Page>
             <button onClick={() => popup.toggle('ralph')}>Click me!</button>

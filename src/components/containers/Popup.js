@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { flex, position, media, transition } from '../mixins';
+import { flex, position, media, scroll, transition } from '../mixins';
 import { Times } from 'styled-icons/fa-solid/Times';
 
 const Container = styled.div.attrs(({ name }) => ({ name }))`
@@ -44,15 +44,20 @@ const Close = styled.div`
 `;
 
 const Box = styled.div`
-    width: 70%;
-    height: 80%;
+    ${ ({ width, height }) => `
+        width: ${ width };
+        height: ${ height };
+    ` }
+    max-width: 100%;
+    max-height: 100%;
     border-radius: 15px;
     background-color: white;
     ${
         ({ show }) => show ? `transform: translate3d(0,0,0);` : `transform: translate3d(0, -40px, 0);`
     }
     ${ ({duration}) => transition(['width', 'height', 'border-radius', 'transform'], duration) }
-    ${ position('absolute', 'auto') };
+    ${ position('absolute', 'auto') }
+    ${ scroll }
     ${ media.tablet`
         width: 100%;
         height: 100%;
@@ -104,11 +109,11 @@ export class Popup extends Component {
     }
 
     render() {
-        const { className, name, children } = this.props;
+        const { className, name, width = '80%', height = '80%', children } = this.props;
         return (
             <Container { ...this.state } name={ name } className={ className }>
                 <Back onClick={ this.hide }/>
-                <Box { ...this.state }>
+                <Box width={ width } height={ height } { ...this.state }>
                     <Close onClick={ this.hide }><Times/></Close>
                     { children }
                 </Box>
@@ -119,6 +124,8 @@ export class Popup extends Component {
 
 Popup.propTypes = {
     className: PropTypes.string,
+    width: PropTypes.string,
+    height: PropTypes.string,
     name: PropTypes.string.isRequired,
     children: PropTypes.children
 }
