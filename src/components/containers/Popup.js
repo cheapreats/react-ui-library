@@ -127,7 +127,7 @@ Popup.propTypes = {
     width: PropTypes.string,
     height: PropTypes.string,
     name: PropTypes.string.isRequired,
-    children: PropTypes.children
+    children: PropTypes.node
 }
 
 // Controller API
