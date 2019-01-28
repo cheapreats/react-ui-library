@@ -5,6 +5,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     ${ flex() }
+    flex-wrap: wrap;
     ${ ({ margin }) => `margin: ${ margin };` }
     & span {
         margin: 0 5px 5px 0;
