@@ -14,6 +14,26 @@ storiesOf('Popup', module)
     ), {
         notes: `Control using the 'popup' object`
     })
+    .add('with default padding', () => (
+        <Page>
+            <button onClick={() => popup.toggle('ralph')}>Click me!</button>
+            <Popup padding name='ralph'>
+                <h1>HIIIIIII</h1>
+            </Popup>
+        </Page>
+    ), {
+        notes: `Default is 20xp`
+    })
+    .add('with custom padding', () => (
+        <Page>
+            <button onClick={() => popup.toggle('ralph')}>Click me!</button>
+            <Popup padding='40px 60px' name='ralph'>
+                <h1>HIIIIIII</h1>
+            </Popup>
+        </Page>
+    ), {
+        notes: ``
+    })
     .add('with duration', () => (
         <Page>
             <button onClick={() => popup.toggle('ralph')}>Click me!</button>

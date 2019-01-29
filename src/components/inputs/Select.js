@@ -6,6 +6,7 @@ import { PRIMARY_FONT } from '../variables';
 
 const Container = styled.div`
     font-family: ${ PRIMARY_FONT };
+    margin: 10px 0;
     position: relative;
     font-size: 0.9rem;
     z-index: 10;
@@ -35,6 +36,7 @@ const Caret = styled(CaretDown)`
 
 const Selected = styled.div`
     padding: 0px 20px;
+    margin: 5px 0;
     border-radius: 10px;
     background-color: #f3f3f3;
     display: flex;
@@ -80,8 +82,7 @@ const Options = styled.ul`
 `;
 
 const Label = styled.label`
-    padding-bottom: 10px;
-    display: block;
+    margin-top: 10px;
 `;
 
 const OptionsWrapper = styled.div`
@@ -111,6 +112,12 @@ const OptionsWrapper = styled.div`
     `
     }
     width: 100%;
+`;
+
+const Small = styled.p`
+    margin: 2px 0 0;
+    font-size: 0.8rem;
+    color: rgba(0,0,0,0.5);
 `;
 
 const Option = styled.li`
@@ -156,10 +163,11 @@ export class Select extends Component {
 
     render() {
         const { value, show } = this.state;
-        const { options, placeholder, label, className } = this.props;
+        const { options, description, placeholder, label, className } = this.props;
         return (
             <Container className={className} ref={ el => this.ref = el }>
                 { label? <Label>{ label }</Label>: null }
+                { description? <Small>{ description }</Small>: null }
                 <Selected onClick={this.toggleOptions}>
                     <Text>{ value !== null && value !== undefined ? options[value] : placeholder }</Text>
                     <Caret show={show}/>
@@ -185,6 +193,7 @@ Select.propTypes = {
     placeholder: PropTypes.string,
     name: PropTypes.string.isRequired,
     value: PropTypes.number,
+    description: PropTypes.string,
     label: PropTypes.string,
     onChange: PropTypes.func
 };

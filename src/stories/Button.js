@@ -1,7 +1,7 @@
 import React from 'react';
 import { Plus } from 'styled-icons/fa-solid/Plus';
 import { storiesOf } from '@storybook/react';
-import { Button } from '../components/buttons/Button';
+import { Button, Buttons } from '../components';
 
 storiesOf('Button', module)
     .add('with text and primary', () => (
@@ -68,5 +68,16 @@ storiesOf('Button', module)
         />
     ), {
         notes: "Never go back"
+    })
+    .add('with container', () => (
+        <Buttons>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+        </Buttons>
+    ), {
+        notes: "Use <Buttons> to encapsulate the buttons into a row"
     })
 ;

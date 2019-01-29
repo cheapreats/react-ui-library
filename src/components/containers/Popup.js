@@ -5,8 +5,8 @@ import { flex, position, media, scroll, transition } from '../mixins';
 import { Times } from 'styled-icons/fa-solid/Times';
 
 const Container = styled.div.attrs(({ name }) => ({ name }))`
-    width: 100%;
-    height: 100;
+    width: 100vw;
+    height: 100vh;
     z-index: 999;
     opacity: 0;
     pointer-events: none;
@@ -52,10 +52,10 @@ const Box = styled.div`
     max-height: 100%;
     border-radius: 15px;
     background-color: white;
-    ${
-        ({ show }) => show ? `transform: translate3d(0,0,0);` : `transform: translate3d(0, -40px, 0);`
-    }
-    ${ ({duration}) => transition(['width', 'height', 'border-radius', 'transform'], duration) }
+    box-sizing: border-box;
+    transform: translate3d(0, ${ ({ show }) => show ? `0` : `-40px` }, 0);
+    ${ ({ padding }) => padding ? `padding: ${ padding };` : '' }
+    ${ ({ duration }) => transition(['width', 'height', 'border-radius', 'transform'], duration) }
     ${ position('absolute', 'auto') }
     ${ scroll }
     ${ media.tablet`
@@ -109,11 +109,11 @@ export class Popup extends Component {
     }
 
     render() {
-        const { className, name, width = '80%', height = '80%', children } = this.props;
+        const { className, name, padding, width = '80%', height = '80%', children } = this.props;
         return (
             <Container { ...this.state } name={ name } className={ className }>
                 <Back onClick={ this.hide }/>
-                <Box width={ width } height={ height } { ...this.state }>
+                <Box padding={ padding === true ? '0 20px 20px': padding } width={ width } height={ height } { ...this.state }>
                     <Close onClick={ this.hide }><Times/></Close>
                     { children }
                 </Box>
@@ -127,7 +127,8 @@ Popup.propTypes = {
     width: PropTypes.string,
     height: PropTypes.string,
     name: PropTypes.string.isRequired,
-    children: PropTypes.node
+    children: PropTypes.node,
+    padding: PropTypes.any
 }
 
 // Controller API

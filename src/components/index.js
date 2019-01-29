@@ -12,6 +12,7 @@ export * from './texts/HeadingFour';
 export * from './texts/HeadingFive';
 export * from './texts/Paragraph';
 export * from './texts/Link';
+export * from './containers/Buttons';
 export * from './containers/Tags';
 export * from './containers/Popup';
 export * from './containers/Checkboxes';
