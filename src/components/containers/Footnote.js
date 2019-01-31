@@ -9,7 +9,7 @@ const Container = styled.div`
     font-family: ${ PRIMARY_FONT };
     box-shadow: ${ SHADOW_RAISE_2 };
     padding: 20px;
-    ${ ({ show }) => !show ? `transform: translate3d(0, -100%, 0); opacity: 0; pointer-events: none;`: '' }
+    ${ ({ show }) => !show ? `transform: translate3d(0, -100%, 0); opacity: 0; pointer-events: none;` : '' }
 `;
 
 export const Footnote  = ({ className, children, show }) => (
