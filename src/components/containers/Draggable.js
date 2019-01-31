@@ -129,7 +129,7 @@ export class Draggable extends Component {
                                 { map(item, isActive, key) }
                             </Item>
                         );
-                    }): null
+                    }) : null
                 }
             </Container>
         );
