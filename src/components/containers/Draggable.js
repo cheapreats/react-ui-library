@@ -110,7 +110,7 @@ export class Draggable extends Component {
         return (
             <Container className={ className } ref={el => this.ref = el} row={ row }>
                 {
-                    map? items.map((item, i) => {
+                    map ? items.map((item, i) => {
                         const isActive = active === i;
                         const key = this.getKey(item, asKey, i);
                         return (
