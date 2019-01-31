@@ -14,15 +14,19 @@ const Stories = [
     'HeadingFour',
     'HeadingFive',
     'Paragraph',
+    'SmallText',
     'Link',
     'Input',
     'Select',
     'Switch',
     'Radio',
+    'DatePicker',
     'Tag',
     'Checkbox',
     'Button',
     'Popup',
+    'Draggable',
+    'Footnote',
     'TransactionStatusTag'
 ];
 
