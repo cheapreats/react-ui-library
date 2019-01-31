@@ -14,7 +14,7 @@ const Stories = [
     'HeadingFour',
     'HeadingFive',
     'Paragraph',
-    'Small',
+    'SmallText',
     'Link',
     'Input',
     'Select',
