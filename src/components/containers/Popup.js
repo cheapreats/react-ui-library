@@ -5,8 +5,8 @@ import { flex, position, media, scroll, transition } from '../mixins';
 import { Times } from 'styled-icons/fa-solid/Times';
 
 const Container = styled.div.attrs(({ name }) => ({ name }))`
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     z-index: 999;
     opacity: 0;
     pointer-events: none;
