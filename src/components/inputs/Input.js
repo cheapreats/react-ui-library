@@ -77,7 +77,10 @@ export const Input = ({
         onChange,
         onKeyPress,
         value,
-        className
+        className,
+        disabled,
+        min,
+        max
     }) => {
     return (
         <InputGroup className={className} error={error}>
@@ -92,6 +95,9 @@ export const Input = ({
                 onChange={onChange}
                 onKeyPress={onKeyPress}
                 value={value}
+                max={max}
+                min={min}
+                disabled={disabled}
                 aria-describedby={name}
             />
             <ErrorMessage id={name} error={error}>{error || ''}</ErrorMessage>
@@ -111,5 +117,8 @@ Input.propTypes = {
     error: PropTypes.string,
     onChange: PropTypes.func,
     onKeyPress: PropTypes.func,
+    disabled: PropTypes.bool,
+    min: PropTypes.number,
+    max: PropTypes.number,
     value: PropTypes.string
 };

@@ -80,4 +80,26 @@ storiesOf('Button', module)
     ), {
         notes: "Use <Buttons> to encapsulate the buttons into a row"
     })
+    .add('with container column', () => (
+        <Buttons column>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+        </Buttons>
+    ), {
+        notes: "Default is row with wrapping"
+    })
+    .add('with custom spacing', () => (
+        <Buttons column spacing={ 40 }>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+            <Button black text='Ralph might have been here...'/>
+        </Buttons>
+    ), {
+        notes: "Default is 10px"
+    })
 ;
