@@ -26,6 +26,7 @@ const FormInputField = styled.input`
     margin: 5px 0;
     opacity: 0.8;
     transition: opacity ease-in-out 300ms;
+    font-size: 14px;
     &:focus, &:hover {
         opacity: 1;
     }
