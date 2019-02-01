@@ -29,6 +29,7 @@ const Back = styled.div`
 const Close = styled.div`
     padding: 10px;
     border-radius: 999px;
+    cursor: pointer;
 
     &:hover {
         background-color: rgba(0,0,0,0.08);
@@ -109,12 +110,12 @@ export class Popup extends Component {
     }
 
     render() {
-        const { className, name, padding, width = '80%', height = '80%', children } = this.props;
+        const { className, name, padding, width = '80%', height = '80%', children, onClose = this.hide } = this.props;
         return (
             <Container { ...this.state } name={ name } className={ className }>
-                <Back onClick={ this.hide }/>
+                <Back onClick={ onClose }/>
                 <Box padding={ padding === true ? '0 20px 20px': padding } width={ width } height={ height } { ...this.state }>
-                    <Close onClick={ this.hide }><Times/></Close>
+                    <Close onClick={ onClose }><Times/></Close>
                     { children }
                 </Box>
             </Container>
@@ -128,7 +129,8 @@ Popup.propTypes = {
     height: PropTypes.string,
     name: PropTypes.string.isRequired,
     children: PropTypes.node,
-    padding: PropTypes.any
+    padding: PropTypes.any,
+    onClose: PropTypes.func
 }
 
 // Controller API
