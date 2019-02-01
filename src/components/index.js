@@ -7,3 +7,4 @@ export * from './texts/HeadingFour';
 export * from './texts/HeadingFive';
 export * from './texts/Paragraph';
 export * from './tags/TransactionStatusTag';
+export * from './sliders/sliders';
