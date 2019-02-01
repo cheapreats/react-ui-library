@@ -5,6 +5,7 @@ export * from './inputs/Switch';
 export * from './inputs/Radio';
 export * from './inputs/Tag';
 export * from './inputs/DatePicker';
+export * from './inputs/TimePicker';
 export * from './inputs/Checkbox';
 
 // Text

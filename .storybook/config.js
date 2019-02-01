@@ -21,6 +21,7 @@ const Stories = [
     'Switch',
     'Radio',
     'DatePicker',
+    'TimePicker',
     'Tag',
     'Checkbox',
     'Button',

@@ -45,6 +45,8 @@
   },
   "dependencies": {
     "css-loader": "^2.1.0",
+    "moment": "^2.24.0",
+    "rc-time-picker": "^3.6.2",
     "react": "^16.7.0",
     "react-datepicker": "^2.0.0",
     "react-dom": "^16.7.0"
