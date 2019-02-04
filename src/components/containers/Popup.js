@@ -87,7 +87,11 @@ export class Popup extends Component {
         }
     }
 
-    hide = () => popup.hide(this.props.name)
+    hide = () => {
+        const { name, onClose } = this.props;
+        popup.hide(name);
+        if (onClose) onClose();
+    }
 
     handle = ({ detail }) => {
         const { action, target } = detail;
@@ -110,12 +114,12 @@ export class Popup extends Component {
     }
 
     render() {
-        const { className, name, padding, width = '80%', height = '80%', children, onClose = this.hide } = this.props;
+        const { className, name, padding, width = '80%', height = '80%', children } = this.props;
         return (
             <Container { ...this.state } name={ name } className={ className }>
-                <Back onClick={ onClose }/>
+                <Back onClick={ this.hide }/>
                 <Box padding={ padding === true ? '0 20px 20px': padding } width={ width } height={ height } { ...this.state }>
-                    <Close onClick={ onClose }><Times/></Close>
+                    <Close onClick={ this.hide }><Times/></Close>
                     { children }
                 </Box>
             </Container>
