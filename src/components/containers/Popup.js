@@ -64,6 +64,7 @@ const Box = styled.div`
         height: 100%;
         border-radius: 0;
     ` }
+    overflow-y: auto;
 `;
 
 export class Popup extends Component {
