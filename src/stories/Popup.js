@@ -64,4 +64,14 @@ storiesOf('Popup', module)
     ), {
         notes: `Change default starting state`
     })
+    .add('with custom onClose event', () => (
+        <Page>
+            <button onClick={() => popup.toggle('ralph')}>Click me!</button>
+            <Popup name='ralph' padding onClose={() => {popup.toggle('ralph'); alert("Popup Closed Event.")}}>
+                <h1>When You close this popup via clicking away or on the close button, it will call the callback method</h1>
+            </Popup>
+        </Page>
+    ), {
+        notes: `Optional onClose overrides default close behaviour. Please note using onClose will not close Popup automatically and popup.toggle() must be added`
+    })
 ;

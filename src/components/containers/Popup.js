@@ -29,6 +29,7 @@ const Back = styled.div`
 const Close = styled.div`
     padding: 10px;
     border-radius: 999px;
+    cursor: pointer;
 
     &:hover {
         background-color: rgba(0,0,0,0.08);
@@ -86,7 +87,11 @@ export class Popup extends Component {
         }
     }
 
-    hide = () => popup.hide(this.props.name)
+    hide = () => {
+        const { name, onClose } = this.props;
+        popup.hide(name);
+        if (onClose) onClose();
+    }
 
     handle = ({ detail }) => {
         const { action, target } = detail;
@@ -128,7 +133,8 @@ Popup.propTypes = {
     height: PropTypes.string,
     name: PropTypes.string.isRequired,
     children: PropTypes.node,
-    padding: PropTypes.any
+    padding: PropTypes.any,
+    onClose: PropTypes.func
 }
 
 // Controller API
