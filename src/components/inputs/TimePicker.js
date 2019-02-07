@@ -188,7 +188,6 @@ export class TimePicker extends Component {
         this.setState({ date });
         if (onChange) {
             const target = { name, value: date };
-            console.log(target, this.props);
             onChange({ target });
         }
     }
