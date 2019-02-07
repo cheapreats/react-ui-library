@@ -29,13 +29,10 @@ const Icon = styled(Check)`
     width: 12px;
     height: 12px;
     padding: 0 8px;
-    cursor: pointer;
     margin: 0 -10px 0 auto;
     opacity: 0;
-    pointer-events: none;
     ${ ({ show }) => show ? `
         opacity: 1;
-        pointer-events: all;
     `: '' }
 `;
 
@@ -47,6 +44,7 @@ const Display = styled.p`
     margin: 5px 0;
     max-width: 100%;
     z-index: 2;
+    cursor: pointer;
     transition: opacity ease-in-out 300ms;
 
     ${ flex('row', 'flex-start', 'center') }
