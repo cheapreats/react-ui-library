@@ -46,7 +46,7 @@ const Display = styled.p`
     padding: 10px 20px;
     margin: 5px 0;
     max-width: 100%;
-    z-index: 1;
+    z-index: 2;
     transition: opacity ease-in-out 300ms;
 
     ${ flex('row', 'flex-start', 'center') }
@@ -98,7 +98,7 @@ const Picker = styled.div`
     opacity: 0;
     pointer-events: none;
     background-color: white;
-    z-index: 0;
+    z-index: 1;
     overflow: hidden;
     border-radius: 0 0 10px 10px;
     transform: translate3d(0, -50px, 0);
@@ -186,7 +186,10 @@ export class TimePicker extends Component {
         date.setMinutes(min);
 
         this.setState({ date });
-        if (onChange) onChange(date, name);
+        if (onChange) {
+            const target = { name, value: new Date(date) };
+            onChange({ target });
+        }
     }
 
     render() {
