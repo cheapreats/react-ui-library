@@ -43,6 +43,7 @@
   },
   "dependencies": {
     "extract-text-webpack-plugin": "^3.0.2",
+    "rc-slider": "^8.6.4",
     "react": "^16.7.0",
     "react-dom": "^16.7.0"
   }
