@@ -153,7 +153,7 @@ export class Select extends Component {
 
     select = ({ target }) => {
         const value = target.getAttribute('data-value');
-        this.setState({ value: parseInt(value), show: false });
+        this.setState({ value: !value ? value : parseInt(value), show: false });
         this.ref.value = value;
 
         if (this.props.onChange) this.props.onChange({ target: this.ref });
@@ -163,7 +163,7 @@ export class Select extends Component {
 
     render() {
         const { value, show } = this.state;
-        const { options, description, placeholder, label, className } = this.props;
+        const { options, description, placeholder, label, className, hasNull } = this.props;
         return (
             <Container className={className} ref={ el => this.ref = el }>
                 { label? <Label>{ label }</Label>: null }
@@ -174,6 +174,12 @@ export class Select extends Component {
                 </Selected>
                 <OptionsWrapper show={show} len={ options ? options.length : 0 }>
                     <Options>
+                        {
+                            !hasNull ? null :
+                            <Option onClick={this.select} active={ null === value }>
+                                { placeholder }
+                            </Option>
+                        }
                         {
                             options ? options.map((option, i) =>
                                 <Option key={i} onClick={this.select} data-value={ i } active={ i === value }>
@@ -194,6 +200,7 @@ Select.propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.number,
     description: PropTypes.string,
+    hasNull: PropTypes.bool,
     label: PropTypes.string,
     onChange: PropTypes.func
 };
