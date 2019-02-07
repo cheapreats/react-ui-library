@@ -112,6 +112,14 @@ const Picker = styled.div`
     ` : '' }
 `;
 
+const Error = styled.p`
+    font-weight: bold;
+    padding-left: 5px;
+    font-size: 0.8rem;
+    margin: 0 0 5px;
+    color: ${PRIMARY_COLOUR};
+`;
+
 const twelve = new Array(12).fill(1);
 const sixty = new Array(60).fill(1);
 const periods = ['AM', 'PM'];
@@ -142,7 +150,7 @@ export class TimePicker extends Component {
         }
     }
 
-    setDate = () => {
+    reset = () => {
         const { date } = this.state;
         const hour = date.getHours();
         const min = date.getMinutes();
@@ -151,6 +159,20 @@ export class TimePicker extends Component {
             min,
             period: hour < 12 ? 0 : 1,
         });
+    }
+
+    setDate = () => {
+        const { date } = this.state;
+        const { name, onChange } = this.props;
+
+        if (onChange) {
+            const target = { name, value: date };
+            onChange({ target });
+        }
+
+        this.setState({
+            date: this.props.value || new Date()
+        }, this.reset);
     }
 
     scroll = (smooth = true) => {
@@ -164,8 +186,8 @@ export class TimePicker extends Component {
 
     toggle = () => {
         this.setState(
-            ({ show }) => ({ show: !show, date: this.props.value || new Date() }),
-            this.setDate
+            ({ show }) => ({ show: !show }),
+            () => !this.state.show ? this.setDate() : null
         );
         this.scroll();
     }
@@ -180,30 +202,24 @@ export class TimePicker extends Component {
     }
 
     onChange = () => {
-        const { name, onChange } = this.props;
         const { hour, min, period, date } = this.state;
         date.setHours(hour + 1 + ((hour !== 11 ? period : (period + 1) % 2 ) * 12));
         date.setMinutes(min);
-
         this.setState({ date });
-        if (onChange) {
-            const target = { name, value: date };
-            console.log(target, this.props);
-            onChange({ target });
-        }
     }
 
     render() {
-        const { className, title, description, value } = this.props;
+        const { className, title, description, value, error } = this.props;
         const { date, show, hour, min, period } = this.state;
         return (
             <Container className={ className }>
                 <FormTitle>{ title }</FormTitle>
                 { description ? <InformationMessage>{ description }</InformationMessage> : null }
-                <Display show={ show } onClick={ !show ? this.toggle : null }>
+                <Display show={ show } onClick={ this.toggle }>
                     { moment(show ? date : value).format('h:mm A') }
-                    <Icon onClick={ this.toggle } show={ show }/>
+                    <Icon show={ show }/>
                 </Display>
+                <Error>{ error && !show ? error : '' }</Error>
                 <Picker show={ show }>
                     <Col ref={el => this.hour = el}>
                         {
@@ -261,6 +277,7 @@ TimePicker.propTypes = {
     name: PropTypes.string,
     title: PropTypes.string,
     description: PropTypes.string,
+    error: PropTypes.string,
     /** A JavaScript Date object, defaults to today */
     value: PropTypes.object,
     /** Takes 2 parameters, the new date and identifier (name) of input */

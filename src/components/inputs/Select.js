@@ -103,8 +103,8 @@ const OptionsWrapper = styled.div`
         opacity 300ms ease-in-out
     ;
 
-    ${ ({ show, len }) => show ? `
-        height: ${ Math.min(len * 50, 200) }px;
+    ${ ({ show, len, hasNull }) => show ? `
+        height: ${ Math.min((len + (hasNull ? 1 : 0)) * 50, 200) }px;
         opacity: 1;
     ` : `
         height: 0;
@@ -172,7 +172,7 @@ export class Select extends Component {
                     <Text>{ value !== null && value !== undefined ? options[value] : placeholder }</Text>
                     <Caret show={show}/>
                 </Selected>
-                <OptionsWrapper show={show} len={ options ? options.length : 0 }>
+                <OptionsWrapper show={show} len={ options ? options.length : 0 } hasNull={hasNull}>
                     <Options>
                         {
                             !hasNull ? null :

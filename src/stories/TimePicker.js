@@ -12,4 +12,8 @@ storiesOf('TimePicker', module)
     .add('with nothing', () => (
         <TimePicker name='test' onChange={ date => alert(showTime(date)) }/>
     ))
+    .add('with error', () => (
+        <TimePicker name='test12312' error='Not a ralph' onChange={ date => alert(showTime(date)) }/>
+    ))
+;
 ;
