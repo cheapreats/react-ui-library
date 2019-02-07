@@ -2,14 +2,14 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { TimePicker } from '../components';
 
-const showTime = date => {
-    const hour = date.getHours();
-    const min = date.getMinutes();
+const showTime = ({ target: { name, value } }) => {
+    const hour = value.getHours();
+    const min = value.getMinutes();
     return `${hour <= 12 ? hour : hour % 12}:${min} ${hour < 12 ? 'AM' : 'PM'}`;
 }
 
 storiesOf('TimePicker', module)
     .add('with nothing', () => (
-        <TimePicker onChange={ date => alert(showTime(date)) }/>
+        <TimePicker name='test' onChange={ date => alert(showTime(date)) }/>
     ))
 ;
