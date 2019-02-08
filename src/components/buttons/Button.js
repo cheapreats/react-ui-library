@@ -35,7 +35,7 @@ const ButtonWrapper = styled.button`
     `: `opacity: 0.7;`}
 `;
 
-const styledIcon = icon => styled(icon)`
+const StyledIcon = styled.svg`
     ${({size}) => `
         width: ${ size ? 12 * size / 14 : 12 }px;
         margin-right: ${ size ? 6 * size / 14 : 6 }px;
@@ -56,7 +56,6 @@ export const Button = ({
     className,
     children
 }) => {
-    const Icon = icon? styledIcon(icon): null;
     return (
         <ButtonWrapper
             className={className}
@@ -68,7 +67,7 @@ export const Button = ({
             onClick={onClick}
             disabled={disabled}
         >
-            { Icon? <Icon size={size}/>: null }{text? text: children}
+            { icon ? <StyledIcon as={icon} size={size}/> : null }{text ? text : children}
         </ButtonWrapper>
     );
 }
