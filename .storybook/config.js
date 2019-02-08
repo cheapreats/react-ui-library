@@ -28,7 +28,8 @@ const Stories = [
     'Popup',
     'Draggable',
     'Footnote',
-    'TransactionStatusTag'
+    'TransactionStatusTag',
+    'sliders'
 ];
 
 function loadStories() {
