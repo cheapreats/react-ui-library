@@ -27,7 +27,7 @@ export const BasicSlider = ({disabled,dots,step,defaultValue,railStyle}) => {
   
   return (
     <div style={wrapperStyle}>
-    <Slider disabled={disabled} dots={dots} step={step} defaultValue={defaultValue} railStyle={railStyle}
+      <Slider disabled={disabled} dots={dots} step={step} defaultValue={defaultValue} railStyle={railStyle}
     trackStyle={trackStyle} handleStyle={handleStyle} dotStyle={dotStyle} activeDotStyle={activeDotStyle}/>
   </div>
   )
