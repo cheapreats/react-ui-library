@@ -46,7 +46,7 @@ const Container = styled.span.attrs(({ data }) => ({ data }))`
     }
 `;
 
-const styledIcon = icon => styled(icon)`
+const StyledIcon = styled.svg`
     ${
         ({ size }) => `
             width: ${ size * 14 }px;
@@ -62,12 +62,11 @@ const styledIcon = icon => styled(icon)`
 
 export class Tag extends Component {
     render() {
-        const { className, children, onClick, active, icon, data, size = 1 } = this.props;
-        const Icon = styledIcon(icon || Times);
+        const { className, children, onClick, active, icon = Times, data, size = 1 } = this.props;
         return (
             <Container className={ className } size={ size } data={ data } onClick={ onClick } active={ active }>
                 { children }
-                <Icon size={ size }/>
+                <StyledIcon as={ icon } size={ size }/>
             </Container>
         )
     }
