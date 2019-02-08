@@ -29,3 +29,4 @@ export * from './containers/Draggable';
 // Other
 export * from './tags/TransactionStatusTag';
 export * from './buttons/Button';
+export * from './sliders/sliders';
