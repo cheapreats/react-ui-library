@@ -55,7 +55,7 @@ const StyledIcon = styled.svg`
             margin-right: -${ size * 20 }px;
         `
     }
-
+    pointer-events: none;
     transform: scale(0) translate3d(0,0,0);
     ${ transition(['transform', 'margin-right']) }
 `;
