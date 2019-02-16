@@ -71,6 +71,7 @@ const Check = styled.input`
     right: 0;
     left: 0;
     z-index: 1;
+    cursor: pointer;
     position: absolute;
 
     &:checked ~ div {

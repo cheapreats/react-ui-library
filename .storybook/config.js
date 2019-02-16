@@ -8,6 +8,7 @@ addDecorator(withNotes);
 // Just so we can control the order easily
 const Stories = [
     'Overview',
+    'Grid',
     'HeadingOne',
     'HeadingTwo',
     'HeadingThree',
@@ -25,6 +26,7 @@ const Stories = [
     'Tag',
     'Checkbox',
     'Button',
+    'Card',
     'Popup',
     'Draggable',
     'Footnote',

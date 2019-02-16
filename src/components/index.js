@@ -20,11 +20,16 @@ export * from './texts/Link';
 
 // Containers
 export * from './containers/Buttons';
+export * from './containers/Card';
 export * from './containers/Tags';
 export * from './containers/Popup';
 export * from './containers/Footnote';
 export * from './containers/Checkboxes';
 export * from './containers/Draggable';
+
+// Grid
+export * from './layout/Column';
+export * from './layout/Row';
 
 // Other
 export * from './tags/TransactionStatusTag';
