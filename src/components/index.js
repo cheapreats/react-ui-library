@@ -30,3 +30,4 @@ export * from './containers/Draggable';
 export * from './tags/TransactionStatusTag';
 export * from './buttons/Button';
 export * from './sliders/sliders';
+export * from './cards/cards'
