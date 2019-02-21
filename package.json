@@ -48,7 +48,6 @@
     "moment": "^2.24.0",
     "rc-slider": "^8.6.5",
     "react-circular-progressbar": "^1.0.0",
-    "react-datepicker": "^2.1.0",
-    "w3-css": "^4.1.0"
+    "react-datepicker": "^2.1.0"
   }
 }
