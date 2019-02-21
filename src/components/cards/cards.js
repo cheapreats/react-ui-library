@@ -1,10 +1,9 @@
 import React                                          from 'react';
-import styled, {css}                                  from 'styled-components';
+import styled, {keyframes}                                  from 'styled-components';
 import PropTypes                                      from 'prop-types';
 import {PRIMARY_COLOUR, PRIMARY_FONT} from "../variables";
 import CircularProgressbar from 'react-circular-progressbar';
 import 'react-circular-progressbar/dist/styles.css';
-import 'w3-css/w3.css';
 
 
 const Card = styled.div`
@@ -15,6 +14,35 @@ width:500px;
 margin: 40px;
 background-color: #0a0a5b;
 color:white;
+`;
+
+const topToBottom = keyframes`
+  0% {
+    opacity: 0.25;
+    transform: translateY(-100px);
+  }
+  25%{
+    opacity: 0.5;
+    transform: translateY(-70px);
+  }
+  50% {
+    opacity: 0.5;
+    transform: translateY(-50px);
+  }
+  75{
+    opacity: 0.75;
+    transform: translateY(-30px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0px);
+  }
+`;
+
+const SliderDiv = styled.div`
+  display: inline-block;
+  animation: ${topToBottom} 1s linear;
+  opacity: 1;
 `;
 
 
@@ -72,21 +100,21 @@ export const SimpleCard = ({
     return (
         
             <Card>
-                <div class="w3-container w3-animate-top" style={{animationDuration: '5s'}}>
-                <HeadingOneStyled>Hello</HeadingOneStyled>
-                <CircleContainer>
-                    <CircularProgressbar
+                <SliderDiv>
+                    <HeadingOneStyled>Hello</HeadingOneStyled>
+                     <CircleContainer>
+                        <CircularProgressbar
                             percentage={percentage}
                             text={`${percentage} mins`}
                             styles={style}
-                    />
-                </CircleContainer>
-                <HeadingThreeStyled>Here is some content</HeadingThreeStyled>
-                </div>
-                <div class="w3-container w3-animate-top" style={{animationDuration: '5s'}}>
-                <HeadingOneStyled>Hello again</HeadingOneStyled>
-                <HeadingThreeStyled>Some more content</HeadingThreeStyled>
-                </div>
+                        />
+                    </CircleContainer>
+                    <HeadingThreeStyled>Here is some content</HeadingThreeStyled>
+                </SliderDiv>
+                <SliderDiv>
+                    <HeadingOneStyled>Hello again</HeadingOneStyled>
+                    <HeadingThreeStyled>Some more content</HeadingThreeStyled>
+                </SliderDiv>
             </Card>
        
         
