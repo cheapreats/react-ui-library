@@ -31,7 +31,9 @@ If you've updated this libarary but haven't deployed it to NPM but still want to
 3) In the Application, install the Github Master Version: ```npm install https://github.com/CheaprEats/react-ui```
 4) Import like: ```import { Button, FormInput, Heading1 }            from '@cheapreats/react-ui';```
 
-## Push Changes to Public NPM Organization Instance (https://www.npmjs.com/package/@cheapreats/react-ui)
+## Push Changes to NPM
+
+The link to NPM repo is https://www.npmjs.com/package/@cheapreats/react-ui
 
 First, Make sure you are added to the NPM Organization
 
