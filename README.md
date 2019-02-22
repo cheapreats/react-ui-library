@@ -31,26 +31,6 @@ If you've updated this libarary but haven't deployed it to NPM but still want to
 3) In the Application, install the Github Master Version: ```npm install https://github.com/CheaprEats/react-ui```
 4) Import like: ```import { Button, FormInput, Heading1 }            from '@cheapreats/react-ui';```
 
-## Push Changes to NPM
-
-The link to NPM repo is https://www.npmjs.com/package/@cheapreats/react-ui
-
-First, Make sure you are added to the NPM Organization
-
-Second, type `npm login` in your terminal (You only need to do this once per workspace)
-
-Third, type `npm version {major|minor|patch}` to bump the correct version (Select one of the three choices)
-
-Major = Massive Change
-
-Minor = New Component
-
-Patch = Edited a Component
-
-Fourth, type `npm publish` and your live!
-
-*Special:* To deploy to the live URL type in your terminal `./deploy.sh`
-
 ## Documentation
 
 Documentation of this library can be found at https://react-ui.cheapreats.com
