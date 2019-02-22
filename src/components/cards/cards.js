@@ -7,51 +7,51 @@ import 'react-circular-progressbar/dist/styles.css';
 
 
 const Card = styled.div`
-box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
-border-radius: 5px;
-height:500px;
-width:500px;
-margin: 40px;
-background-color: #0a0a5b;
-color:white;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+    border-radius: 5px;
+    height:500px;
+    width:500px;
+    margin: 40px;
+    background-color: #0a0a5b;
+    color:white;
 `;
 
 const topToBottom = keyframes`
-  0% {
-    opacity: 0.25;
-    transform: translateY(-100px);
-  }
-  25%{
-    opacity: 0.5;
-    transform: translateY(-70px);
-  }
-  50% {
-    opacity: 0.5;
-    transform: translateY(-50px);
-  }
-  75{
-    opacity: 0.75;
-    transform: translateY(-30px);
-  }
-  100% {
-    opacity: 1;
-    transform: translateY(0px);
-  }
+    0% {
+        opacity: 0.25;
+        transform: translateY(-100px);
+    }
+    25%{
+        opacity: 0.5;
+        transform: translateY(-70px);
+    }
+    50% {
+        opacity: 0.5;
+        transform: translateY(-50px);
+    }
+    75{
+        opacity: 0.75;
+        transform: translateY(-30px);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0px);
+    }
 `;
 
 const SliderDiv = styled.div`
-  display: inline-block;
-  animation: ${topToBottom} 1s linear;
-  opacity: 1;
+    display: inline-block;
+    animation: ${topToBottom} 1s linear;
+    opacity: 1;
 `;
 
 
 const CircleContainer = styled.div`
-padding: 15px;
-float: right;
-display: inline-block;
-width: 130px;
-height:130px;
+    padding: 15px;
+    float: right;
+    display: inline-block;
+    width: 130px;
+    height:130px;
 `
 
 const HeadingOneStyled = styled.h1`
@@ -59,16 +59,17 @@ const HeadingOneStyled = styled.h1`
     width: 300px;
     margin-top: 30px;
     margin-left:30px;
-    font-weight: "bold";
     display: inline-block;
+    font-weight: ${props => props.bold && "bold"};
 `;
 const HeadingThreeStyled = styled.h3`
     font-family: ${PRIMARY_FONT};
     width: 300px;
     margin-left:30px;
     margin-top:0px
-    font-weight: "normal";
     display: inline-block;
+    font-weight: normal;
+    font-weight: ${props => props.bold && "normal"};
 `;
 
 const style = {
@@ -95,13 +96,21 @@ const style = {
 
 
 export const SimpleCard = ({
-    percentage
+    percentage,
+    textOne, 
+    textTwo,
+    textThree,
+    textFour,
+    children,
+    bold
 }) => {
     return (
         
             <Card>
                 <SliderDiv>
-                    <HeadingOneStyled>Hello</HeadingOneStyled>
+                    <HeadingOneStyled bold={bold}>
+                        {textOne? textOne: children}
+                    </HeadingOneStyled>
                      <CircleContainer>
                         <CircularProgressbar
                             percentage={percentage}
@@ -109,11 +118,17 @@ export const SimpleCard = ({
                             styles={style}
                         />
                     </CircleContainer>
-                    <HeadingThreeStyled>Here is some content</HeadingThreeStyled>
+                    <HeadingThreeStyled bold={bold}>
+                        {textTwo? textTwo: children}
+                    </HeadingThreeStyled>
                 </SliderDiv>
                 <SliderDiv>
-                    <HeadingOneStyled>Hello again</HeadingOneStyled>
-                    <HeadingThreeStyled>Some more content</HeadingThreeStyled>
+                    <HeadingOneStyled bold={bold}>
+                        {textThree? textThree: children}
+                    </HeadingOneStyled>
+                    <HeadingThreeStyled bold={bold}>
+                        {textFour? textFour: children}
+                    </HeadingThreeStyled>
                 </SliderDiv>
             </Card>
        
@@ -123,5 +138,11 @@ export const SimpleCard = ({
 }
 
 SimpleCard.propTypes = {
-    percentage: PropTypes.string
+    percentage: PropTypes.string,
+    textOne: PropTypes.node,
+    textTwo: PropTypes.node,
+    textThree: PropTypes.node,
+    textFour: PropTypes.node,
+    children: PropTypes.node,
+    bold: PropTypes.bool
 };
