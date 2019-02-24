@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import Picker from 'react-datepicker';
 import { PRIMARY_FONT, PRIMARY_COLOUR } from '../variables';
+import {LIGHT_THEME, DARK_THEME} from '../theme';
 import 'react-datepicker/dist/react-datepicker.css';
 
 const FormTitle = styled.label`

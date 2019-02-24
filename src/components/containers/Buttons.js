@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, {ThemeProvider} from 'styled-components';
 import { flex } from '../mixins';
 
 const Container = styled.div`

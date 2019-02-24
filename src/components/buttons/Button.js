@@ -1,5 +1,5 @@
 import React                                          from 'react';
-import styled, {css}                                  from 'styled-components';
+import styled, {css, ThemeProvider}                                  from 'styled-components';
 import PropTypes                                      from 'prop-types';
 import {PRIMARY_COLOUR, PRIMARY_FONT, SHADOW_RAISE_1} from "../variables";
 
