@@ -1,26 +1,23 @@
-import React          from 'react';
-import styled from 'styled-components';
-import {PRIMARY_FONT} from "../variables";
-import PropTypes      from 'prop-types';
+import React from 'react';
+import { TextLayoutProps } from '../_helpers/TextLayout';
+import { Heading } from '../';
 
-const HeadingTwoStyled = styled.h2`
-    font-family: ${PRIMARY_FONT};
-    color: black;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    margin: 0;
-    font-weight: ${props => props.bold ? "bold" : "normal"};
-`;
+export const HeadingTwo = ({
+    className,
+    margin,
+    lineHeight,
+    bold,
+    children,
+    text,
+}) => (
+    <Heading
+        className={ className }
+        margin={ margin }
+        lineHeight={ lineHeight }
+        bold={ bold }
+        type='h2'
+        text={ text || children }
+    />
+);
 
-export const HeadingTwo = ({text, bold, className, children}) => {
-    return (
-        <HeadingTwoStyled className={className} bold={bold}>{text? text: children}</HeadingTwoStyled>
-    )
-}
-
-HeadingTwo.propTypes = {
-    text: PropTypes.node,
-    bold: PropTypes.bool,
-    className: PropTypes.string,
-    children: PropTypes.node
-};
+HeadingTwo.propTypes = TextLayoutProps;

@@ -1,51 +1,74 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import {Input} from '../components/inputs/Input';
+import {Input} from '../components';
 
 storiesOf('Input', module)
-    .add('with required', () => (
+    .add('with label', () => (
         <Input
-            title="Form Title"
+            label="What is a Ralph?"
             name="input"
-
         />
     ), {
         notes: `Input can be used with only one prop 'text'.
         import { Input } from 'cheapreats-react-ui/components/inputs';
         `
     })
-    .add('with information', () => (
+    .add('with description', () => (
         <Input
-            title="Form Title"
-            information="Show me the input requirements"
-            name="input1"
-        />
-    ), {notes: `Information Field Very Useful`})
-    .add('with error', () => (
-        <Input
-            title="Form Title"
-            error="A mistake was made"
-            name="input2"
+            label="What is a Ralph?"
+            description="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras quis mauris ultrices, rutrum lorem sit amet, pellentesque purus. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos."
+            name="input"
         />
     ), {
-        notes: "Show me any input errors that occur"
-    })
-    .add('with valid', () => (
-        <Input
-            title="Form Title"
-            name="input5"
-            valid
-        />
-    ), {
-        notes: "Show me any input valid that occur"
+        notes: `Input can be used with only one prop 'text'.
+        import { Input } from 'cheapreats-react-ui/components/inputs';
+        `
     })
     .add('with placeholder', () => (
         <Input
-            title="Form Title"
-            placeholder="Place your text here"
-            name="input3"
+            label="What is a Ralph?"
+            placeholder="Fill in a Ralph"
+            name="input"
         />
     ), {
-        notes: "Useful for in-place examples"
+        notes: `Input can be used with only one prop 'text'.
+        import { Input } from 'cheapreats-react-ui/components/inputs';
+        `
+    })
+    .add('with error', () => (
+        <Input
+            label="What is a Ralph?"
+            placeholder="Fill in a Ralph"
+            error="No Ralph for you"
+            name="input"
+        />
+    ), {
+        notes: `Input can be used with only one prop 'text'.
+        import { Input } from 'cheapreats-react-ui/components/inputs';
+        `
+    })
+    .add('with valid', () => (
+        <Input
+            label="What is a Ralph?"
+            placeholder="Fill in a Ralph"
+            valid
+            name="input"
+        />
+    ), {
+        notes: `Input can be used with only one prop 'text'.
+        import { Input } from 'cheapreats-react-ui/components/inputs';
+        `
+    })
+    .add('with disabled', () => (
+        <Input
+            label="What is a Ralph?"
+            placeholder="Fill in a Ralph"
+            disabled
+            name="input"
+        />
+    ), {
+        notes: `Input can be used with only one prop 'text'.
+        import { Input } from 'cheapreats-react-ui/components/inputs';
+        `
     })
 ;

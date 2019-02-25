@@ -1,15 +1,15 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { HeadingOne, HeadingTwo, HeadingThree, HeadingFour, HeadingFive, Paragraph, Link } from '../components';
-import { Typography, Headings, Heading } from './components/Overview';
+import { Heading, Paragraph, Link } from '../components';
+import { Typography, Headings, HeadingBox } from './components/Overview';
 import { Page, Section } from './components/Page';
 
 storiesOf('Overview', module)
     .add('Typography', () => (
         <Page>
-            <HeadingOne bold>Overview</HeadingOne>
+            <Heading type='h1' bold>Overview</Heading>
             <Section>
-                <HeadingTwo>Fonts</HeadingTwo>
+                <Heading type='h2'>Fonts</Heading>
                 <Paragraph>
                     CheaprEats uses only Quicksand across all applications and systems.
                     Before using our UI components, we highly recommend loading this font-family
@@ -21,38 +21,42 @@ storiesOf('Overview', module)
                 </Typography>
             </Section>
             <Section>
-                <HeadingTwo>Headings</HeadingTwo>
+                <Heading type='h2'>Headings</Heading>
                 <Paragraph>
                     CheaprEats uses currently only 3 layers of heading from 1 to 3.
                     It is important that headings are used properly to allow for proper HTML formatting.
                     This would help improve SEO, accessibility, and consistency across the application and internet.
                 </Paragraph>
                 <Headings>
-                    <Heading>
-                        <HeadingOne>H1</HeadingOne>
+                    <HeadingBox>
+                        <Heading type='h1'>H1</Heading>
                         <Paragraph>Heading One</Paragraph>
-                    </Heading>
-                    <Heading>
-                        <HeadingTwo>H2</HeadingTwo>
+                    </HeadingBox>
+                    <HeadingBox>
+                        <Heading type='h2'>H2</Heading>
                         <Paragraph>Heading Two</Paragraph>
-                    </Heading>
-                    <Heading>
-                        <HeadingThree>H3</HeadingThree>
+                    </HeadingBox>
+                    <HeadingBox>
+                        <Heading type='h3'>H3</Heading>
                         <Paragraph>Heading Three</Paragraph>
-                    </Heading>
-                    <Heading>
-                        <HeadingFour>H4</HeadingFour>
+                    </HeadingBox>
+                    <HeadingBox>
+                        <Heading type='h4'>H4</Heading>
                         <Paragraph>Heading Four</Paragraph>
-                    </Heading>
-                    <Heading>
-                        <HeadingFive>H5</HeadingFive>
+                    </HeadingBox>
+                    <HeadingBox>
+                        <Heading type='h5'>H5</Heading>
                         <Paragraph>Heading Five</Paragraph>
-                    </Heading>
+                    </HeadingBox>
+                    <HeadingBox>
+                        <Heading type='h6'>H6</Heading>
+                        <Paragraph>Heading Six</Paragraph>
+                    </HeadingBox>
                 </Headings>
             </Section>
 
             <Section>
-                <HeadingTwo>Paragraph</HeadingTwo>
+                <Heading type='h2'>Paragraph</Heading>
                 <Paragraph>
                     Paragraphs are different from spans as it has semantic meaning - It indicates the information
                     in that tag is the content of the application. Therefore all text within the application should

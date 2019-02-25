@@ -1,26 +1,23 @@
-import React          from 'react';
-import styled from 'styled-components';
-import {PRIMARY_FONT} from "../variables";
-import PropTypes      from 'prop-types';
+import React from 'react';
+import { TextLayoutProps } from '../_helpers/TextLayout';
+import { Heading } from '../';
 
-const HeadingFiveStyled = styled.h5`
-    font-family: ${PRIMARY_FONT};
-    color: black;
-    padding-top: 20px;
-    padding-bottom: 10px;
-    margin: 0;
-    font-weight: ${props => props.bold ? "bold" : "normal"};
-`;
+export const HeadingFive = ({
+    className,
+    margin,
+    lineHeight,
+    bold,
+    children,
+    text,
+}) => (
+    <Heading
+        className={ className }
+        margin={ margin }
+        lineHeight={ lineHeight }
+        bold={ bold }
+        type='h5'
+        text={ text || children }
+    />
+);
 
-export const HeadingFive = ({text, bold, className, children}) => {
-    return (
-        <HeadingFiveStyled className={className} bold={bold}>{text? text: children}</HeadingFiveStyled>
-    )
-}
-
-HeadingFive.propTypes = {
-    text: PropTypes.node,
-    bold: PropTypes.bool,
-    className: PropTypes.string,
-    children: PropTypes.node
-};
+HeadingFive.propTypes = TextLayoutProps;

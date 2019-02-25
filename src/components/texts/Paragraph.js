@@ -1,29 +1,26 @@
+import React from 'react';
 import styled from 'styled-components';
-import {PRIMARY_FONT} from "../variables";
-import React          from 'react';
-import PropTypes      from 'prop-types';
+import TextLayout, { TextLayoutProps } from '../_helpers/TextLayout';
 
-const ParagraphStyled = styled.p`
-    font-family: ${PRIMARY_FONT};
-    color: black;
-    padding-top: 10px;
-    font-weight: bold;
-    padding-bottom: 10px;
-    opacity: 0.7;
-    margin: 0;
-    line-height: 1.6;
-    font-weight: ${props => props.bold ? "bold" : "normal"};
+const Text = styled(TextLayout)`
+    color: #464646;
 `;
 
-export const Paragraph = ({text, bold, className, children}) => {
-    return (
-        <ParagraphStyled className={className} bold={bold}>{text? text: children}</ParagraphStyled>
-    )
-}
+export const Paragraph = ({
+    className,
+    margin,
+    lineHeight,
+    bold,
+    text,
+    children,
+}) => (
+    <Text
+        className={ className }
+        margin={ margin }
+        lineHeight={ lineHeight }
+        bold={ bold }
+        text={ text || children }
+    />
+)
 
-Paragraph.propTypes = {
-    text: PropTypes.node,
-    bold: PropTypes.bool,
-    className: PropTypes.string,
-    children: PropTypes.node
-};
+Paragraph.propTypes = TextLayoutProps;

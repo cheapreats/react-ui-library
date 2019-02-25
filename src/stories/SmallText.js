@@ -14,7 +14,7 @@ storiesOf('SmallText', module)
         notes: `Standard Small text for CE`
     })
     .add('with children', () => (
-        <SmallText>BananaStand</SmallText>
+        <SmallText>Banana Stand</SmallText>
     ), {
         notes: `Text parameter takes priority over children`
     })

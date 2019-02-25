@@ -90,7 +90,7 @@ const Item = styled.li.attrs(props => ({
 `;
 
 const Picker = styled.div`
-    ${ position('absolute', '-15px 0 0', '100%', 0, 'auto', 0) }
+    ${ position('absolute', '-20px 0 0', '100%', 0, 'auto', 0) }
     height: 152px;
     width: 300px;
     opacity: 0;
@@ -121,6 +121,7 @@ const Error = styled.p`
 const twelve = new Array(12).fill(1);
 const sixty = new Array(60).fill(1);
 const periods = ['AM', 'PM'];
+const itemSize = 38.4;
 
 export class TimePicker extends Component {
 
@@ -177,9 +178,9 @@ export class TimePicker extends Component {
         const { hour, min, period } = this.state;
         const options = smooth ? { behavior: 'smooth' } : {};
 
-        this.hour.scrollTo({ top: 38 * hour, ...options });
-        this.min.scrollTo({ top: 38 * min, ...options });
-        this.period.scrollTo({ top: 38 * period, ...options });
+        this.hour.scrollTo({ top: itemSize * hour, ...options });
+        this.min.scrollTo({ top: itemSize * min, ...options });
+        this.period.scrollTo({ top: itemSize * period, ...options });
     }
 
     toggle = () => {

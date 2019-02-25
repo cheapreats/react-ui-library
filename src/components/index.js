@@ -1,3 +1,13 @@
+// Text
+export * from './texts/Heading';
+export * from './texts/HeadingTwo';
+export * from './texts/HeadingThree';
+export * from './texts/HeadingFour';
+export * from './texts/HeadingFive';
+export * from './texts/Paragraph';
+export * from './texts/SmallText';
+export * from './texts/Link';
+
 // Inputs
 export * from './inputs/Input';
 export * from './inputs/Select';
@@ -7,16 +17,6 @@ export * from './inputs/Tag';
 export * from './inputs/DatePicker';
 export * from './inputs/TimePicker';
 export * from './inputs/Checkbox';
-
-// Text
-export * from './texts/HeadingOne';
-export * from './texts/HeadingTwo';
-export * from './texts/HeadingThree';
-export * from './texts/HeadingFour';
-export * from './texts/HeadingFive';
-export * from './texts/Paragraph';
-export * from './texts/SmallText';
-export * from './texts/Link';
 
 // Containers
 export * from './containers/Buttons';

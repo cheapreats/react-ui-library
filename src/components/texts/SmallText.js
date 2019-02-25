@@ -1,25 +1,28 @@
 import React from 'react';
-import { PropTypes } from 'prop-types';
 import styled from 'styled-components';
-import { PRIMARY_FONT } from '../variables';
+import TextLayout, { TextLayoutProps } from '../_helpers/TextLayout';
 
-const Small = styled.p`
-    font-family: ${ PRIMARY_FONT };
-    margin: 2px 0 0;
+
+const Text = styled(TextLayout)`
     font-size: 0.8rem;
-    color: rgba(0,0,0,0.5);
-    ${ ({ bold }) => bold ? 'font-weight: bold;' : '' }
+    color: #7d7d7d;
 `;
 
-export const SmallText = ({ className, children, text, bold }) => (
-    <Small bold={ bold } className={ className }>
-        { text ? text : children }
-    </Small>
-);
+export const SmallText = ({
+    className,
+    margin,
+    lineHeight,
+    bold,
+    text,
+    children,
+}) => (
+    <Text
+        className={ className }
+        margin={ margin }
+        lineHeight={ lineHeight }
+        bold={ bold }
+        text={ text || children }
+    />
+)
 
-SmallText.propTypes = {
-    className: PropTypes.string,
-    children: PropTypes.node,
-    text: PropTypes.node,
-    bold: PropTypes.bool
-};
+SmallText.propTypes = TextLayoutProps;
