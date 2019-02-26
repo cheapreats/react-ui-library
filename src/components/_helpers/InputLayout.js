@@ -85,4 +85,16 @@ InputLayout.propTypes = {
     children: PropTypes.node.isRequired
 };
 
+export const InputStyles = `
+    width: 100%;
+    padding: 12px 16px;
+    border: none;
+    outline: none;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 5px;
+    font-size: 0.825rem;
+    box-sizing: border-box;
+`;
+
 export default InputLayout;

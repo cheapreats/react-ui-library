@@ -1,13 +1,14 @@
 import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import InputLayout, { InputLayoutProps } from '../_helpers/InputLayout';
+import InputLayout, { InputLayoutProps, InputStyles } from '../_helpers/InputLayout';
 
 import {
-    PRIMARY_FONT, SHADOW_RAISE_1, INPUT_BACKGROUND,
+    SHADOW_RAISE_1, INPUT_BACKGROUND,
     INPUT_BACKGROUND_VALID, INPUT_BACKGROUND_INVALID
 } from '../variables';
 import { transition, position, flex, scroll } from '../mixins';
+import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 
 const ITEM_HEIGHT = 40;
 const NUM_OF_ITEMS = 4;
@@ -24,15 +25,17 @@ const SelectWrapper = styled.div`
     ` : '' }
 `;
 
+const Icon = styled(AngleDown)`
+    margin-left: auto;
+    width: 18px;
+    height: 18px;
+`;
+
 const SelectedItem = styled.p`
-    width: 100%;
-    padding: 12px 16px;
-    border: none;
-    border-radius: 8px;
-    margin: 5px 0 0;
+    ${ InputStyles }
+    ${ flex('row', 'flex-start', 'center') }
+    margin-bottom: 0;
     cursor: pointer;
-    box-sizing: border-box;
-    font-family: ${ PRIMARY_FONT };
     background-color: ${ ({ valid, error }) => (
         error ? INPUT_BACKGROUND_INVALID :
         valid ? INPUT_BACKGROUND_VALID :
@@ -74,13 +77,12 @@ const SelectList = styled.ul`
 `;
 
 const SelectItem = styled.li`
-    padding: 12px 16px;
-    border: none;
-    margin: 0;
-    outline: none;
-    cursor: pointer;
-    box-sizing: border-box;
+    ${ InputStyles }
     ${ transition(['background-color']) }
+    background-color: transparent;
+    border-radius: none;
+    cursor: pointer;
+    margin: 0;
 
     &:first-child {
         border-radius: 8px 8px 0 0;
@@ -154,6 +156,7 @@ export const Select = ({
             <SelectWrapper disabled={ disabled }>
                 <SelectedItem onClick={ open } expanded={ expanded } valid={ valid } error={ error }>
                     { activeItem ? activeItem.props.children : placeholder }
+                    <Icon/>
                 </SelectedItem>
                 <SelectList expanded={ expanded }>
                     {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
-import InputLayout, { InputLayoutProps } from '../_helpers/InputLayout';
+import InputLayout, { InputLayoutProps, InputStyles } from '../_helpers/InputLayout';
 import {
     PRIMARY_FONT, SHADOW_RAISE_1, INPUT_BACKGROUND,
     INPUT_BACKGROUND_VALID, INPUT_BACKGROUND_INVALID
@@ -10,15 +10,7 @@ import {
 import { transition } from '../mixins';
 
 const InputField = styled.input`
-    width: 100%;
-    padding: 12px 16px;
-    border: none;
-    outline: none;
-    border-radius: 8px;
-    font-weight: bold;
-    margin-top: 5px;
-    font-size: 0.825rem;
-    box-sizing: border-box;
+    ${ InputStyles }
     font-family: ${ PRIMARY_FONT };
     background-color: ${ ({ valid, error }) => (
         error ? INPUT_BACKGROUND_INVALID :
