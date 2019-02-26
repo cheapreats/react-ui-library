@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import {Input} from '../components';
+import { Input } from '../components/preview';
 
 storiesOf('Input', module)
     .add('with label', () => (

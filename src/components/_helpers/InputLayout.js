@@ -10,6 +10,7 @@ const Container = styled.div`
     overflow-wrap: break-word;
     font-family: ${ PRIMARY_FONT };
     max-width: ${ ({ maxWidth }) => maxWidth + (typeof(maxWidth) === 'string' ? '' : 'px') }
+    ${ ({ disabled }) => disabled ? 'opacity: 0.5;' : '' }
     ${ flex('column') }
 `;
 
@@ -38,10 +39,11 @@ export const InputLayout = ({
     name,
     label,
     description,
-    children,
-    error
+    disabled,
+    error,
+    children
 }) => (
-    <Container className={ className } margin={ margin } maxWidth={ maxWidth }>
+    <Container className={ className } margin={ margin } maxWidth={ maxWidth } disabled={ disabled }>
         <Label htmlFor={ name }>{ label }</Label>
         {
             !description ? null :
@@ -71,6 +73,8 @@ export const InputLayoutProps = {
     label: PropTypes.node.isRequired,
     /** A short blurb about the input */
     description: PropTypes.node,
+    /** Whether or not the input is disabled */
+    disabled: PropTypes.bool,
     /** The error message for the input component */
     error: PropTypes.node
 };

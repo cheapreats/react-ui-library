@@ -17,6 +17,8 @@ const InputField = styled.input`
     border-radius: 8px;
     font-weight: bold;
     margin-top: 5px;
+    font-size: 0.825rem;
+    box-sizing: border-box;
     font-family: ${ PRIMARY_FONT };
     background-color: ${ ({ valid, error }) => (
         error ? INPUT_BACKGROUND_INVALID :
@@ -26,7 +28,6 @@ const InputField = styled.input`
     ${ transition(['box-shadow', 'background-color']) }
     
     &:disabled {
-        opacity: 0.5;
         cursor: not-allowed;
         background-color: ${ INPUT_BACKGROUND };
         &:active, &:focus {
@@ -46,11 +47,12 @@ export const Input = ({
     name,
     label,
     description,
+    disabled,
     error,
 
     // Input Props
     valid,
-    disabled,
+    value,
     placeholder,
     type,
     min,
@@ -78,6 +80,7 @@ export const Input = ({
             placeholder={ placeholder }
             type={ type }
             onChange={ onChange }
+            value={ value }
             onKeyPress={ onKeyPress }
             min={ min }
             max={ max }
@@ -103,7 +106,10 @@ Input.propTypes = {
         PropTypes.number,
         PropTypes.string
     ]),
+    value: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
     onChange: PropTypes.func,
     onKeypress: PropTypes.func
-
 };

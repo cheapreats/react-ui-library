@@ -28,7 +28,7 @@ export const scroll = `
     }
 `;
 
-export const transition = (items, duration = 250) => `transition: ${
+export const transition = (items, duration = 300) => `transition: ${
     items.reduce((acc, item) => (
         `${acc}, ${item} ${duration}ms cubic-bezier(0.4, 0.0, 0.2, 1)`
     ), '').slice(2)

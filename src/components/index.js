@@ -1,14 +1,19 @@
-// Text
-export * from './texts/Heading';
+// To Deprecate
+export * from './texts/HeadingOne';
 export * from './texts/HeadingTwo';
 export * from './texts/HeadingThree';
 export * from './texts/HeadingFour';
 export * from './texts/HeadingFive';
+
+
+
+// Text
+export * from './texts/Heading';
 export * from './texts/Paragraph';
 export * from './texts/SmallText';
 export * from './texts/Link';
 
-// Inputs
+// Inputs - To Deprecate
 export * from './inputs/Input';
 export * from './inputs/Select';
 export * from './inputs/Switch';
