@@ -1,6 +1,7 @@
 import React from 'react';
 import { Plus } from 'styled-icons/fa-solid/Plus';
 import { storiesOf } from '@storybook/react';
+import { Global } from '../components/preview';
 import { Button, Buttons } from '../components';
 
 storiesOf('Button', module)

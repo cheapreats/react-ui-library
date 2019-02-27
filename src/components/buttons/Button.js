@@ -1,15 +1,14 @@
 import React                                          from 'react';
 import styled, {css}                                  from 'styled-components';
 import PropTypes                                      from 'prop-types';
-import {PRIMARY_COLOUR, PRIMARY_FONT, SHADOW_RAISE_1} from "../variables";
 
 
 const ButtonWrapper = styled.button.attrs(
     props => ({ 'data-index': props['data-index'] })
 )`
-    color: ${({primary, black}) => primary ? "white" : black ? 'black' : PRIMARY_COLOUR};
-    background-color: ${props => props.primary ? PRIMARY_COLOUR : "transparent"};
-    ${({flat}) => flat ? '': `box-shadow: ${SHADOW_RAISE_1};`};
+    color: ${({primary, black, theme}) => primary ? "white" : black ? 'black' : theme.colors.primary};
+    background-color: ${({ primary, theme }) => primary ? theme.colors.primary : 'white'};
+    ${({flat, theme}) => flat ? '': `box-shadow: ${theme.shadows[0]};`};
     ${({size}) => size? `
         font-size: ${size}px;
         padding: ${10 * size / 14}px ${20 * size / 14}px;
@@ -18,7 +17,7 @@ const ButtonWrapper = styled.button.attrs(
         padding: 10px 20px;   
     `}
     transition: background-color ease 0.3s;
-    font-family: ${PRIMARY_FONT};
+    font-family: ${({ theme }) => theme.font};
     flex-shrink: 0;
     border-radius: 999px;
     font-weight: bold;
@@ -60,7 +59,6 @@ export const Button = ({
     onKeyDown,
     dataIndex = 0
 }) => (
-    console.log(margin),
     <ButtonWrapper
         className={className}
         primary={primary}
