@@ -8,6 +8,7 @@ import { flex, transition } from '../mixins';
 
 const Container = styled.div`
     overflow-wrap: break-word;
+    position: relative;
     font-family: ${ PRIMARY_FONT };
     max-width: ${ ({ maxWidth }) => maxWidth + (typeof(maxWidth) === 'string' ? '' : 'px') }
     ${ ({ disabled }) => disabled ? 'opacity: 0.5;' : '' }
@@ -70,7 +71,7 @@ export const InputLayoutProps = {
     /** The name of input for accessbility labelling */
     name: PropTypes.string.isRequired,
     /** The label of the input (aka the title) */
-    label: PropTypes.node.isRequired,
+    label: PropTypes.node,
     /** A short blurb about the input */
     description: PropTypes.node,
     /** Whether or not the input is disabled */

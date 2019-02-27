@@ -8,11 +8,11 @@ storiesOf('Checkbox', module)
     ), {
         notes: `The default size is 25`
     })
-    .add('with title', () => (
-        <Checkbox name='l' title='Ralph?'/>
+    .add('with label', () => (
+        <Checkbox name='l' label='Ralph?'/>
     ))
     .add('with size increased', () => (
-        <Checkbox name='b' size={400} title='Ralph?'/>
+        <Checkbox name='b' size={400} label='Ralph?'/>
     ))
     .add('with size decreased', () => (
         <Checkbox name='c' size={6}/>
@@ -25,47 +25,47 @@ storiesOf('Checkbox', module)
     ), { notes: '' })
     .add('with wrapper', () => (
         <Checkboxes>
-            <Checkbox name='1' title='Ralph?'/>
-            <Checkbox name='2' title='Ralph?'/>
-            <Checkbox name='3' title='Ralph?'/>
-            <Checkbox name='4' title='Ralph?'/>
-            <Checkbox name='5' title='Ralph?'/>
+            <Checkbox name='1' label='Ralph?'/>
+            <Checkbox name='2' label='Ralph?'/>
+            <Checkbox name='3' label='Ralph?'/>
+            <Checkbox name='4' label='Ralph?'/>
+            <Checkbox name='5' label='Ralph?'/>
         </Checkboxes>
     ), { notes: '' })
     .add('with wrapper column', () => (
         <Checkboxes column>
-            <Checkbox name='1' title='Ralph?'/>
-            <Checkbox name='2' title='Ralph?'/>
-            <Checkbox name='3' title='Ralph?'/>
-            <Checkbox name='4' title='Ralph?'/>
-            <Checkbox name='5' title='Ralph?'/>
+            <Checkbox name='1' label='Ralph?'/>
+            <Checkbox name='2' label='Ralph?'/>
+            <Checkbox name='3' label='Ralph?'/>
+            <Checkbox name='4' label='Ralph?'/>
+            <Checkbox name='5' label='Ralph?'/>
         </Checkboxes>
     ), { notes: '' })
     .add('with wrapper title', () => (
         <Checkboxes title='What Ralphs do you Ralph?'>
-            <Checkbox name='1' title='Ralph?'/>
-            <Checkbox name='2' title='Ralph?'/>
-            <Checkbox name='3' title='Ralph?'/>
-            <Checkbox name='4' title='Ralph?'/>
-            <Checkbox name='5' title='Ralph?'/>
+            <Checkbox name='1' label='Ralph?'/>
+            <Checkbox name='2' label='Ralph?'/>
+            <Checkbox name='3' label='Ralph?'/>
+            <Checkbox name='4' label='Ralph?'/>
+            <Checkbox name='5' label='Ralph?'/>
         </Checkboxes>
     ), { notes: '' })
     .add('with wrapper description', () => (
         <Checkboxes title='What Ralphs do you Ralph?' description='How do you Ralph?'>
-            <Checkbox name='1' title='Ralph?'/>
-            <Checkbox name='2' title='Ralph?'/>
-            <Checkbox name='3' title='Ralph?'/>
-            <Checkbox name='4' title='Ralph?'/>
-            <Checkbox name='5' title='Ralph?'/>
+            <Checkbox name='1' label='Ralph?'/>
+            <Checkbox name='2' label='Ralph?'/>
+            <Checkbox name='3' label='Ralph?'/>
+            <Checkbox name='4' label='Ralph?'/>
+            <Checkbox name='5' label='Ralph?'/>
         </Checkboxes>
     ), { notes: '' })
     .add('with wrapper margin', () => (
         <Checkboxes margin='100px' title='What Ralphs do you Ralph?' description='How do you Ralph?'>
-            <Checkbox name='1' title='Ralph?'/>
-            <Checkbox name='2' title='Ralph?'/>
-            <Checkbox name='3' title='Ralph?'/>
-            <Checkbox name='4' title='Ralph?'/>
-            <Checkbox name='5' title='Ralph?'/>
+            <Checkbox name='1' label='Ralph?'/>
+            <Checkbox name='2' label='Ralph?'/>
+            <Checkbox name='3' label='Ralph?'/>
+            <Checkbox name='4' label='Ralph?'/>
+            <Checkbox name='5' label='Ralph?'/>
         </Checkboxes>
     ), { notes: '' })
 ;

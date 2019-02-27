@@ -4,7 +4,9 @@ import PropTypes                                      from 'prop-types';
 import {PRIMARY_COLOUR, PRIMARY_FONT, SHADOW_RAISE_1} from "../variables";
 
 
-const ButtonWrapper = styled.button`
+const ButtonWrapper = styled.button.attrs(
+    props => ({ 'data-index': props['data-index'] })
+)`
     color: ${({primary, black}) => primary ? "white" : black ? 'black' : PRIMARY_COLOUR};
     background-color: ${props => props.primary ? PRIMARY_COLOUR : "transparent"};
     ${({flat}) => flat ? '': `box-shadow: ${SHADOW_RAISE_1};`};
@@ -24,9 +26,9 @@ const ButtonWrapper = styled.button`
     outline: none;
     cursor: pointer;
     
-    ${({ margin }) => `margin: ${ margin };`}
+    ${({ margin }) => `margin: ${ margin + (typeof(margin) === 'string' ? '' : 'px') };`}
     ${({ disabled }) => !disabled ? css`
-        &:hover {
+        &:hover, &:focus {
             background-color: ${props => props.primary ? "#B22330" : "#f4f4f4"};
         }
         &:active {
@@ -54,23 +56,27 @@ export const Button = ({
     size,
     disabled,
     className,
-    children
-}) => {
-    return (
-        <ButtonWrapper
-            className={className}
-            primary={primary}
-            black={black}
-            flat={flat}
-            size={size}
-            margin={margin}
-            onClick={onClick}
-            disabled={disabled}
-        >
-            { icon ? <StyledIcon as={icon} size={size}/> : null }{text ? text : children}
-        </ButtonWrapper>
-    );
-}
+    children,
+    onKeyDown,
+    dataIndex = 0
+}) => (
+    console.log(margin),
+    <ButtonWrapper
+        className={className}
+        primary={primary}
+        black={black}
+        flat={flat}
+        size={size}
+        margin={margin}
+        onClick={onClick}
+        disabled={disabled}
+        onKeyDown={ onKeyDown }
+        tabIndex='0'
+        data-index={ dataIndex }
+    >
+        { icon ? <StyledIcon as={icon} size={size}/> : null }{text ? text : children}
+    </ButtonWrapper>
+);
 
 Button.propTypes = {
     primary: PropTypes.bool,
@@ -81,9 +87,13 @@ Button.propTypes = {
     text: PropTypes.node,
     /** In pixels, defaults to 0.9rem */
     size: PropTypes.number,
-    margin: PropTypes.string,
+    margin: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     black: PropTypes.bool,
     onClick: PropTypes.func,
+    onKeyPress: PropTypes.func,
     disabled: PropTypes.bool,
     className: PropTypes.string,
     children: PropTypes.node

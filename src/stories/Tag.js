@@ -5,44 +5,37 @@ import { Tag, Tags } from '../components';
 
 storiesOf('Tag', module)
     .add('with nothing', () => (
-        <Tags>
-            <Tag>Ralph?</Tag>
-        </Tags>
+        <Tag>Ralph?</Tag>
     ), {
         notes: ``
     })
     .add('with size', () => (
-        <Tags>
-            <Tag size={10}>Ralph?</Tag>
-        </Tags>
+        <Tag size={10}>Ralph?</Tag>
     ), {
         notes: `Default is 1. Size act as a modifier for the default size`
     })
     .add('with active', () => (
-        <Tags>
-            <Tag active>Ralph?</Tag>
-        </Tags>
+        <Tag active>Ralph?</Tag>
     ), {
         notes: ``
     })
     .add('with data', () => (
-        <Tags>
-            <Tag data={12351245213125}>Ralph?</Tag>
-        </Tags>
+        <Tag data={12351245213125}>Ralph?</Tag>
     ), {
         notes: `Pass data as an attribute if needed for handling with functions`
     })
     .add('with icon', () => (
-        <Tags>
-            <Tag icon={ DumpsterFire }>Ralph?</Tag>
-        </Tags>
+        <Tag icon={ DumpsterFire }>Ralph?</Tag>
     ), {
         notes: `Replace the default close icon with your own custom icons for other purposes`
     })
     .add('with onClick', () => (
-        <Tags>
-            <Tag onClick={() => alert('Hi')}>Ralph?</Tag>
-        </Tags>
+        <Tag onClick={() => alert('Hi')}>Ralph?</Tag>
+    ), {
+        notes: ``
+    })
+    .add('with disabled', () => (
+        <Tag disabled>Ralph?</Tag>
     ), {
         notes: ``
     })

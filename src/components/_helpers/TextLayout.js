@@ -19,9 +19,15 @@ export const TextLayout = ({
     type,
     bold,
     text,
-    children,
+    children
 }) => (
-    <Text className={ className } margin={ margin } lineHeight={ lineHeight } as={ type } bold={ bold }>
+    <Text
+        className={ className }
+        margin={ margin }
+        lineHeight={ lineHeight }
+        as={ type }
+        bold={ bold }
+    >
         { text || children }
     </Text>
 );
