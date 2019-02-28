@@ -13,7 +13,6 @@ const Card = styled.div`
     width:500px;
     margin: 40px;
     background-color: #0a0a5b;
-    color:white;
 `;
 
 const topToBottom = keyframes`
@@ -43,6 +42,9 @@ const SliderDiv = styled.div`
     display: inline-block;
     animation: ${topToBottom} 1s linear;
     opacity: 1;
+    width: 300px;
+    height: 500px;
+    padding: 15px;
 `;
 
 
@@ -53,24 +55,6 @@ const CircleContainer = styled.div`
     width: 130px;
     height:130px;
 `
-
-const HeadingOneStyled = styled.h1`
-    font-family: ${PRIMARY_FONT};
-    width: 300px;
-    margin-top: 30px;
-    margin-left:30px;
-    display: inline-block;
-    font-weight: ${props => props.bold && "bold"};
-`;
-const HeadingThreeStyled = styled.h3`
-    font-family: ${PRIMARY_FONT};
-    width: 300px;
-    margin-left:30px;
-    margin-top:0px
-    display: inline-block;
-    font-weight: normal;
-    font-weight: ${props => props.bold && "normal"};
-`;
 
 const style = {
     path: {
@@ -97,39 +81,22 @@ const style = {
 
 export const SimpleCard = ({
     percentage,
-    textOne, 
-    textTwo,
-    textThree,
-    textFour,
-    children,
-    bold
+    text, 
+    children
 }) => {
     return (
         
             <Card>
                 <SliderDiv>
-                    <HeadingOneStyled bold={bold}>
-                        {textOne? textOne: children}
-                    </HeadingOneStyled>
-                     <CircleContainer>
+                  {text? text: children}
+                </SliderDiv>
+                <CircleContainer>
                         <CircularProgressbar
                             percentage={percentage}
                             text={`${percentage} mins`}
                             styles={style}
                         />
-                    </CircleContainer>
-                    <HeadingThreeStyled bold={bold}>
-                        {textTwo? textTwo: children}
-                    </HeadingThreeStyled>
-                </SliderDiv>
-                <SliderDiv>
-                    <HeadingOneStyled bold={bold}>
-                        {textThree? textThree: children}
-                    </HeadingOneStyled>
-                    <HeadingThreeStyled bold={bold}>
-                        {textFour? textFour: children}
-                    </HeadingThreeStyled>
-                </SliderDiv>
+                </CircleContainer>
             </Card>
        
         
@@ -139,10 +106,6 @@ export const SimpleCard = ({
 
 SimpleCard.propTypes = {
     percentage: PropTypes.string,
-    textOne: PropTypes.node,
-    textTwo: PropTypes.node,
-    textThree: PropTypes.node,
-    textFour: PropTypes.node,
-    children: PropTypes.node,
-    bold: PropTypes.bool
+    text: PropTypes.node,
+    children: PropTypes.node
 };
