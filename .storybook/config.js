@@ -31,7 +31,8 @@ const Stories = [
     'Draggable',
     'Footnote',
     'TransactionStatusTag',
-    'sliders'
+    'sliders',
+    'AnimatedCard'
 ];
 
 function loadStories() {
