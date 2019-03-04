@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
 import TextLayout, { TextLayoutProps } from '../_helpers/TextLayout';
+import { ExtractProps } from '../_helpers/Util';
 
 // For custom styling in the future
 const TYPES = {
@@ -14,33 +15,27 @@ const TYPES = {
     h6: ``
 };
 
-const HeadingText = styled(TextLayout)`
-    ${ ({ type }) => TYPES[type] }
-`;
+const HeadingText = styled(TextLayout)`${ ({ type }) => TYPES[type] }`;
 
-export const Heading = ({
-    className,
-    margin = '20px 0 10px',
-    lineHeight,
-    bold,
-    children,
-    text,
-    type = 'h1'
-}) => (
-    <HeadingText
-        className={ className }
-        margin={ margin }
-        lineHeight={ lineHeight }
-        bold={ bold }
-        text={ text }
-        type={ type }
-    >
-        { children }
-    </HeadingText>
-);
+export const Heading = props => {
+    const [layoutProps, { type, children }] = ExtractProps(
+        TextLayoutProps, props
+    );
+    console.log(layoutProps, type, children);
+    return (
+        <HeadingText { ...layoutProps } type={ type }>
+            { children }
+        </HeadingText>
+    );
+};
+
+Heading.defaultProps = {
+    margin: '20px 0 10px',
+    type: 'h1'
+}
 
 Heading.propTypes = {
     ...TextLayoutProps,
-    type: PropTypes.oneOf(Object.keys(TYPES))
+    type: PropTypes.oneOf(['h1', 'h2', 'h3', 'h4', 'h5', 'h6'])
 };
 

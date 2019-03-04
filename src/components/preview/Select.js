@@ -9,6 +9,7 @@ import {
 } from '../variables';
 import { transition, position, flex, scroll } from '../mixins';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
+import { ExtractProps } from '../_helpers/Util';
 
 const ITEM_HEIGHT = 40;
 const NUM_OF_ITEMS = 4;
@@ -100,25 +101,14 @@ const SelectItem = styled.li`
 
 const SelectField = styled.select`display: none`;
 
-export const Select = ({
-    // Layout Props
-    className,
-    margin,
-    maxWidth,
-    name,
-    label,
-    description,
-    disabled,
-    error,
-
-    // Input Props
-    valid,
-    value,
-    placeholder,
-    onChange,
-    isActive = (curr, active) => curr + '' === active + '',
-    children
-}) => {
+export const Select = params => {
+    const [ layoutProps, selectProps ] = ExtractProps(
+        InputLayout.propTypes, params, {}, ['error', 'disabled']
+    );
+    const {
+        valid, value, placeholder, onChange,
+        isActive, children, disabled, error 
+    } = selectProps;
 
     const [ expanded, setExpanded ] = useState(false);
     const items = Array.isArray(children) ? children : [ children ];
@@ -143,16 +133,7 @@ export const Select = ({
     }
 
     return (
-        <InputLayout
-            className={ className }
-            margin={ margin }
-            maxWidth={ maxWidth }
-            name={ name }
-            label={ label }
-            description={ description }
-            disabled={ disabled }
-            error={ error }
-        >
+        <InputLayout { ...layoutProps }>
             <SelectWrapper disabled={ disabled }>
                 <SelectedItem onClick={ open } expanded={ expanded } valid={ valid } error={ error }>
                     { activeItem ? activeItem.props.children : placeholder }
@@ -178,6 +159,10 @@ export const Select = ({
             </SelectField>
         </InputLayout>
     );
+};
+
+Select.defaultProps = {
+    isActive: (curr, active) => curr + '' === active + ''
 };
 
 Select.propTypes = {
