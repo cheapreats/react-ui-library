@@ -13,11 +13,12 @@ const KEYS = {
 };
 
 const Layout = styled(InputLayout)`
-    ${ ({ column }) => column ? 'flex-direction: column;' : '' }
+    ${ ({ column }) => column ? '' : 'flex-direction: row;' }
+    ${ ({ wrap }) => wrap ? 'flex-wrap: wrap;' : '' }
 `;
 
 export const ContainerLayout = props => {
-    const [ layoutProps, { children, spacing, disabled, column } ] = ExtractProps(
+    const [ layoutProps, { children, spacing, disabled, column, wrap } ] = ExtractProps(
         InputLayoutProps, props, { name: '' }, [ 'disabled' ]
     );
     const max = Array.isArray(children) ? children.length - 1 : 0;
@@ -41,7 +42,7 @@ export const ContainerLayout = props => {
     };
 
     return (
-        <Layout { ...layoutProps } name='' column={ column }>
+        <Layout { ...layoutProps } name='' column={ column } wrap={ wrap }>
             { 
                 React.Children.map(
                     children,
@@ -70,7 +71,8 @@ ContainerLayout.propTypes = {
         PropTypes.string,
         PropTypes.number
     ]),
-    column: PropTypes.bool
+    column: PropTypes.bool,
+    wrap: PropTypes.bool
 };
 
 export default ContainerLayout;
