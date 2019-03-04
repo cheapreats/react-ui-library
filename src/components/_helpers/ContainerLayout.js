@@ -13,15 +13,14 @@ const KEYS = {
 };
 
 const Layout = styled(InputLayout)`
-
+    ${ ({ column }) => column ? 'flex-direction: column;' : '' }
 `;
 
 export const ContainerLayout = props => {
-    const [ layoutProps, { children, spacing, disabled } ] = ExtractProps(
+    const [ layoutProps, { children, spacing, disabled, column } ] = ExtractProps(
         InputLayoutProps, props, { name: '' }, [ 'disabled' ]
     );
-    const items = Array.isArray(children) ? children : [ children ];
-    const max = items.length - 1;
+    const max = Array.isArray(children) ? children.length - 1 : 0;
 
     const handleKeys = ({ keyCode, target }) => {
         let index = parseInt(target.getAttribute('data-index'));
@@ -40,18 +39,23 @@ export const ContainerLayout = props => {
         index = index < 0 ? max : index > max ? 0 : index;
         target.parentNode.children[index + (props.description ? 2 : 1)].focus();
     };
+
     return (
-        <InputLayout { ...layoutProps }>
+        <Layout { ...layoutProps } name='' column={ column }>
             { 
-                items.map((child, dataIndex) => React.cloneElement(child, {
-                    onKeyDown: handleKeys,
-                    key: dataIndex,
-                    margin: spacing,
-                    dataIndex,
-                    disabled
-                }))
+                React.Children.map(
+                    children,
+                    (child, dataIndex) => (
+                        React.cloneElement(child, {
+                            onKeyDown: handleKeys,
+                            margin: spacing,
+                            dataIndex,
+                            disabled
+                        })
+                    )
+                )
             }
-        </InputLayout>
+        </Layout>
     );
 };
 
@@ -65,7 +69,8 @@ ContainerLayout.propTypes = {
     spacing: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
-    ])
+    ]),
+    column: PropTypes.bool
 };
 
 export default ContainerLayout;
