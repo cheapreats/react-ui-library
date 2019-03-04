@@ -3,18 +3,31 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const pkg = require('./package.json');
 const path = require('path');
 
-const libraryName= pkg.name;
-
-module.exports = {
-    entry: path.join(__dirname, "./src/components"),
-    output: {
-        path: path.join(__dirname, './dist'),
-        filename: 'CheaprEatsStoryBook.js',
-        library: libraryName,
-        libraryTarget: 'umd',
-        publicPath: '/dist/',
-        umdNamedDefine: true
+const files = [
+    {
+        entry: path.join(__dirname, "./src/components"),
+        output: {
+            path: path.join(__dirname, './dist'),
+            filename: 'CheaprEatsStoryBook.js',
+            library: pkg.name,
+            libraryTarget: 'umd',
+            publicPath: '/dist/',
+            umdNamedDefine: true
+        },
     },
+    {
+        entry: path.join(__dirname, "./src/components/preview"),
+        output: {
+            path: path.join(__dirname, './dist/preview'),
+            filename: 'index.js',
+            library: pkg.name,
+            libraryTarget: 'umd',
+            publicPath: '/dist/preview/',
+            umdNamedDefine: true
+        },
+    },
+];
+const config = {
     plugins: [
         new MiniCssExtractPlugin()
     ],
@@ -89,3 +102,8 @@ module.exports = {
         },
     }
 };
+
+module.exports = files.map(file => ({
+    ...config,
+    ...file
+}))
