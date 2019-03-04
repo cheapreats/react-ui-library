@@ -1,27 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
 import InputLayout, { InputLayoutProps } from './InputLayout';
+import { ExtractProps } from './Util';
 
 const KEYS = {
     LEFT: 37,
     UP: 38,
     RIGHT: 39,
     DOWN: 40,
-}
+};
 
-export const ContainerLayout = ({
-    className,
-    margin,
-    maxWidth,
-    label,
-    description,
-    disabled,
-    error,
-    children,
-    spacing = 10
-}) => {
+const Layout = styled(InputLayout)`
+
+`;
+
+export const ContainerLayout = props => {
+    const [ layoutProps, { children, spacing, disabled } ] = ExtractProps(
+        InputLayoutProps, props, { name: '' }, [ 'disabled' ]
+    );
     const items = Array.isArray(children) ? children : [ children ];
     const max = items.length - 1;
+
     const handleKeys = ({ keyCode, target }) => {
         let index = parseInt(target.getAttribute('data-index'));
         switch(keyCode) {
@@ -37,19 +38,10 @@ export const ContainerLayout = ({
                 break;
         }
         index = index < 0 ? max : index > max ? 0 : index;
-        target.parentNode.children[index + (description ? 2 : 1)].focus();
+        target.parentNode.children[index + (props.description ? 2 : 1)].focus();
     };
     return (
-        <InputLayout
-            className={ className }
-            margin={ margin }
-            maxWidth={ maxWidth }
-            label={ label }
-            name=''
-            description={ description }
-            disabled={ disabled }
-            error={ error }
-        >
+        <InputLayout { ...layoutProps }>
             { 
                 items.map((child, dataIndex) => React.cloneElement(child, {
                     onKeyDown: handleKeys,
@@ -61,6 +53,10 @@ export const ContainerLayout = ({
             }
         </InputLayout>
     );
+};
+
+ContainerLayout.defaultProps = {
+    spacing: 10
 };
 
 delete InputLayoutProps.name;

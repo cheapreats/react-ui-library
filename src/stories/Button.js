@@ -2,8 +2,10 @@ import React from 'react';
 import { Plus } from 'styled-icons/fa-solid/Plus';
 import { storiesOf } from '@storybook/react';
 import { Button, Buttons } from '../components';
+import { Global } from '../components/preview';
 
 storiesOf('Button', module)
+    .addDecorator(story => <Global>{ story() }</Global>)
     .add('with text and primary', () => (
         <Button primary text={"Confirm Primary"}/>
     ), {
