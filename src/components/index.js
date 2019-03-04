@@ -1,11 +1,13 @@
+// Preview
+import * as _preview from './preview';
+export const preview = _preview;
+
 // To Deprecate
 export * from './texts/HeadingOne';
 export * from './texts/HeadingTwo';
 export * from './texts/HeadingThree';
 export * from './texts/HeadingFour';
 export * from './texts/HeadingFive';
-
-
 
 // Text
 export * from './texts/Heading';
