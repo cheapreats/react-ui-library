@@ -1,16 +1,14 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Check as Icon } from 'styled-icons/fa-solid/Check';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
-import { PRIMARY_COLOUR, PRIMARY_FONT } from '../variables';
+import { position, flex } from '../mixins';
+import { PRIMARY_COLOUR } from '../variables';
+import TextLayout, { TextLayoutProps } from '../_helpers/TextLayout';
 
-const Container = styled.div`
-    overflow: hidden;
-    margin-bottom: 10px;
-    font-family: ${ PRIMARY_FONT };
+const Container = styled(TextLayout)`
     position: relative;
-    display: flex;
-    align-items: center;
+    ${ flex('row', 'flex-start', 'center') }
     ${({ size }) => `
         border-radius: ${ size * 0.3 }px;
         height: ${ size * 1.1 }px;
@@ -43,7 +41,7 @@ const Cover = styled.div`
     ;
     ${({ size }) => `
         border-radius: ${ size * 0.3 }px;
-        margin-right: ${ size * 0.4 }px;
+        margin-right: ${ size * 0.3 }px;
         border: ${ size * 0.1 }px solid #efefef;
         width: ${ size * 1.1 }px;
         height: ${ size * 1.1 }px;
@@ -60,19 +58,12 @@ const Label = styled.label`
 `;
 
 const Check = styled.input`
-    ${({ size }) => `
-        width: ${ size * 1.1 }px;
-    `}
+    ${({ size }) => `width: ${ size * 1.1 }px;`}
+    ${ position('absolute', 0, 0) }
     height: 100%;
     opacity: 0;
-    margin: 0;
-    top: 0;
-    bottom: 0;
-    right: 0;
-    left: 0;
     z-index: 1;
     cursor: pointer;
-    position: absolute;
 
     &:checked ~ div {
         border-color: ${ PRIMARY_COLOUR };
@@ -88,41 +79,39 @@ const Check = styled.input`
     }
 `;
 
-export class Checkbox extends Component {
-
-    state = { value: this.props.value }
-    toggleState = () => this.setState(({ value }) => ({ value: !value }))
-
-    componentDidUpdate({ value }) {
-        if (value !== this.props.value) {
-            this.setState({ value: this.props.value });
-        }
-    }  
-
-    render() {
-        const { value } = this.state;
-        const { className, size = 25, onChange, name, title, disabled } = this.props;
-        return (
-            <Container size={size} disabled={disabled} className={className}>
-                <Check
-                    size={size}
-                    name={name}
-                    type='checkbox'
-                    checked={value}
-                    onChange={onChange}
-                    onClick={onChange? this.toggleState: null}
-                    disabled={disabled}
-                />
-                <Cover size={size}>
-                    <StyledIcon size={size}/>
-                </Cover>
-                <Label size={size} htmlFor={name}>{title}</Label>
-            </Container>
-        );
-    }
+export const Checkbox = ({
+    className,
+    margin,
+    name,
+    label,
+    value,
+    onChange,
+    disabled,
+    size = 25,
+}) => {
+    const [ checked, setChecked ] = useState(value);
+    const toggle = () => setChecked(!checked);
+    return (
+        <Container size={size} disabled={disabled} className={className} margin={margin} type='span'>
+            <Check
+                size={size}
+                name={name}
+                type='checkbox'
+                checked={checked}
+                onChange={onChange}
+                onClick={toggle}
+                disabled={disabled}
+            />
+            <Cover size={size}>
+                <StyledIcon size={size}/>
+            </Cover>
+            <Label size={size} htmlFor={name}>{ label }</Label>
+        </Container>
+    );
 };
 
 Checkbox.propTypes = {
+    ...TextLayoutProps,
     className: PropTypes.string,
     title: PropTypes.string,
     size: PropTypes.number,

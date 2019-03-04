@@ -9,11 +9,7 @@ addDecorator(withNotes);
 const Stories = [
     'Overview',
     'Grid',
-    'HeadingOne',
-    'HeadingTwo',
-    'HeadingThree',
-    'HeadingFour',
-    'HeadingFive',
+    'Heading',
     'Paragraph',
     'SmallText',
     'Link',

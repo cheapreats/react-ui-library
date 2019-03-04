@@ -21,7 +21,7 @@ export const Headings = styled.ul`
     align-items: stretch;
 `;
 
-export const Heading = styled.li`
+export const HeadingBox = styled.li`
     display: flex;
     padding: 10px;
     margin: 0 15px 15px 0;

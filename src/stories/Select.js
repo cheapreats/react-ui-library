@@ -1,41 +1,54 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { Select } from '../components';
+import { Select } from '../components/preview';
 
 storiesOf('Select', module)
     .add('with text', () => (
         <Select
             label='How many Ralphs are too many Ralphs?'
             name='numOfRalph'
+            value='1'
+            onChange={ ({ target }) => console.log(target, target.name, target.value) }
             placeholder='Select a Ralph'
-            options={[1,2,3,4,5,6,7,8,9,10, 'too many...']}
-        />
+        >
+            <option value='0'>REEEEE</option>
+            <option value='1'>REEE</option>
+        </Select>
     ))
-    .add('with description', () => (
+    .add('with valid', () => (
         <Select
             label='How many Ralphs are too many Ralphs?'
-            description="Too many Ralphs... too many...."
-            name='numOfRalph7'
+            name='numOfRalph'
+            valid
+            onChange={ ({ target }) => console.log(target, target.name, target.value) }
             placeholder='Select a Ralph'
-            options={[1, 'too many...']}
-        />
+        >
+            <option value='0'>REEEEE</option>
+            <option value='1'>REEE</option>
+        </Select>
     ))
-    .add('with default value', () => (
+    .add('with error', () => (
         <Select
             label='How many Ralphs are too many Ralphs?'
-            name='numOfRalph2'
-            value={2}
+            name='numOfRalph'
+            error='Not like this...'
+            onChange={ ({ target }) => console.log(target, target.name, target.value) }
             placeholder='Select a Ralph'
-            options={[1,2,3,4,5,6,7,8,9,10, 'too many...']}
-        />
+        >
+            <option value='0'>REEEEE</option>
+            <option value='1'>REEE</option>
+        </Select>
     ))
-    .add('with hasNull', () => (
+    .add('with disabled', () => (
         <Select
             label='How many Ralphs are too many Ralphs?'
-            name='numOfRalph2'
-            hasNull
-            placeholder='No ralphs'
-            options={[1,2,3,4,5,6,7,8,9,10, 'too many...']}
-        />
-    ), { notes: 'Has placeholder as the nothing selected value' })
+            name='numOfRalph'
+            disabled
+            onChange={ ({ target }) => console.log(target, target.name, target.value) }
+            placeholder='Select a Ralph'
+        >
+            <option value='0'>REEEEE</option>
+            <option value='1'>REEE</option>
+        </Select>
+    ))
 ;

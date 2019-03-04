@@ -1,13 +1,14 @@
 import React                                          from 'react';
 import styled, {css}                                  from 'styled-components';
 import PropTypes                                      from 'prop-types';
-import {PRIMARY_COLOUR, PRIMARY_FONT, SHADOW_RAISE_1} from "../variables";
 
 
-const ButtonWrapper = styled.button`
-    color: ${({primary, black}) => primary ? "white" : black ? 'black' : PRIMARY_COLOUR};
-    background-color: ${props => props.primary ? PRIMARY_COLOUR : "transparent"};
-    ${({flat}) => flat ? '': `box-shadow: ${SHADOW_RAISE_1};`};
+const ButtonWrapper = styled.button.attrs(
+    props => ({ 'data-index': props['data-index'] })
+)`
+    color: ${({primary, black, theme}) => primary ? "white" : black ? 'black' : theme.colors.primary};
+    background-color: ${({ primary, theme }) => primary ? theme.colors.primary : 'white'};
+    ${({flat, theme}) => flat ? '': `box-shadow: ${theme.shadows[0]};`};
     ${({size}) => size? `
         font-size: ${size}px;
         padding: ${10 * size / 14}px ${20 * size / 14}px;
@@ -16,7 +17,7 @@ const ButtonWrapper = styled.button`
         padding: 10px 20px;   
     `}
     transition: background-color ease 0.3s;
-    font-family: ${PRIMARY_FONT};
+    font-family: ${({ theme }) => theme.font};
     flex-shrink: 0;
     border-radius: 999px;
     font-weight: bold;
@@ -24,9 +25,9 @@ const ButtonWrapper = styled.button`
     outline: none;
     cursor: pointer;
     
-    ${({ margin }) => `margin: ${ margin };`}
+    ${({ margin }) => `margin: ${ margin + (typeof(margin) === 'string' ? '' : 'px') };`}
     ${({ disabled }) => !disabled ? css`
-        &:hover {
+        &:hover, &:focus {
             background-color: ${props => props.primary ? "#B22330" : "#f4f4f4"};
         }
         &:active {
@@ -54,23 +55,26 @@ export const Button = ({
     size,
     disabled,
     className,
-    children
-}) => {
-    return (
-        <ButtonWrapper
-            className={className}
-            primary={primary}
-            black={black}
-            flat={flat}
-            size={size}
-            margin={margin}
-            onClick={onClick}
-            disabled={disabled}
-        >
-            { icon ? <StyledIcon as={icon} size={size}/> : null }{text ? text : children}
-        </ButtonWrapper>
-    );
-}
+    children,
+    onKeyDown,
+    dataIndex = 0
+}) => (
+    <ButtonWrapper
+        className={className}
+        primary={primary}
+        black={black}
+        flat={flat}
+        size={size}
+        margin={margin}
+        onClick={onClick}
+        disabled={disabled}
+        onKeyDown={ onKeyDown }
+        tabIndex='0'
+        data-index={ dataIndex }
+    >
+        { icon ? <StyledIcon as={icon} size={size}/> : null }{text ? text : children}
+    </ButtonWrapper>
+);
 
 Button.propTypes = {
     primary: PropTypes.bool,
@@ -81,9 +85,13 @@ Button.propTypes = {
     text: PropTypes.node,
     /** In pixels, defaults to 0.9rem */
     size: PropTypes.number,
-    margin: PropTypes.string,
+    margin: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     black: PropTypes.bool,
     onClick: PropTypes.func,
+    onKeyPress: PropTypes.func,
     disabled: PropTypes.bool,
     className: PropTypes.string,
     children: PropTypes.node
