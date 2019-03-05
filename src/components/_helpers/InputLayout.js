@@ -45,7 +45,7 @@ export const InputLayout = ({
     children
 }) => (
     <Container className={ className } margin={ margin } maxWidth={ maxWidth } disabled={ disabled }>
-        <Label htmlFor={ name }>{ label }</Label>
+        { !label ? null : <Label htmlFor={ name }>{ label }</Label> }
         {
             !description ? null :
             <SmallText id={ name } margin='0 0 5px' lineHeight='1.3' text={ description } bold/>
