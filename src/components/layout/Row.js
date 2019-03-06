@@ -4,8 +4,8 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     display: flex;
-    flex-wrap: wrap;
     width: 100%;
+    ${ ({ wrap }) => wrap ? `flex-wrap: wrap;` : '' }
     ${
         ({ top, bottom, center, stretch }) => (
             top ? 'align-items: flex-start;' : 

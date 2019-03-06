@@ -16,10 +16,15 @@ const Layout = styled(InputLayout)`
     ${ ({ column }) => column ? '' : 'flex-direction: row;' }
     ${ ({ wrap }) => wrap ? 'flex-wrap: wrap;' : '' }
     ${ ({ disabled }) => disabled ? 'pointer-events: none;' : '' }
+    justify-content: ${ ({ justify }) => justify };
+    align-items: ${ ({ align }) => align };
 `;
 
 export const ContainerLayout = props => {
-    const [ layoutProps, { children, spacing, disabled, column, wrap } ] = ExtractProps(
+    const [
+        layoutProps,
+        { children, spacing, disabled, column, wrap, justify, align }
+    ] = ExtractProps(
         InputLayoutProps, props, { name: '' }, [ 'disabled' ]
     );
     const max = Array.isArray(children) ? children.length - 1 : 0;
@@ -43,7 +48,14 @@ export const ContainerLayout = props => {
     };
 
     return (
-        <Layout { ...layoutProps } name='' column={ column } wrap={ wrap } disabled={ disabled }>
+        <Layout
+            { ...layoutProps }
+            name=''
+            column={ column }
+            wrap={ wrap }
+            justify={ justify }
+            align={ align }
+        >
             { 
                 React.Children.map(
                     children,
@@ -62,7 +74,9 @@ export const ContainerLayout = props => {
 };
 
 ContainerLayout.defaultProps = {
-    spacing: 10
+    spacing: 10,
+    align: 'flex-start',
+    justify: 'flex-start'
 };
 
 delete InputLayoutProps.name;
@@ -73,7 +87,15 @@ ContainerLayout.propTypes = {
         PropTypes.number
     ]),
     column: PropTypes.bool,
-    wrap: PropTypes.bool
+    wrap: PropTypes.bool,
+    align: PropTypes.oneOf([
+        'stretch', 'center', 'flex-start', 'inherit',
+        'flex-end', 'baseline', 'initial'
+    ]),
+    justify: PropTypes.oneOf([
+        'flex-start', 'flex-end', 'center', 'inherit',
+        'space-between', 'space-around', 'initial'
+    ])
 };
 
 export default ContainerLayout;
