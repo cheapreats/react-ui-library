@@ -23,7 +23,7 @@ const Layout = styled(InputLayout)`
 export const ContainerLayout = props => {
     const [
         layoutProps,
-        { children, spacing, disabled, column, wrap, justify, align }
+        { children, spacing, column, wrap, justify, align }
     ] = ExtractProps(
         InputLayoutProps, props, { name: '' }, [ 'disabled' ]
     );
