@@ -124,7 +124,7 @@ export const Select = params => {
     const open = () => {
         if (!disabled) {
             setExpanded(true);
-            window.setTimeout(
+            window.requestAnimationFrame(
                 () => {
                     window.addEventListener('click', () => setExpanded(false), { once: true });
                 }, 10

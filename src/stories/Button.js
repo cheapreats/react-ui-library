@@ -47,6 +47,7 @@ storiesOf('Button', module)
     .add('with disabled', () => (
         <Button
             text={"I am disabled... :("}
+            black
             onClick={e => {
                 window.alert("You just clicked on the button!");
             }}
@@ -74,8 +75,8 @@ storiesOf('Button', module)
     .add('with container', () => (
         <Buttons>
             <Button black text='Ralph might have been here...'/>
-            <Button black text='Ralph might have been here...'/>
-            <Button black text='Ralph might have been here...'/>
+            <Button primary black text='Ralph might have been here...'/>
+            <Button disabled black text='Ralph might have been here...'/>
             <Button black text='Ralph might have been here...'/>
             <Button black text='Ralph might have been here...'/>
         </Buttons>

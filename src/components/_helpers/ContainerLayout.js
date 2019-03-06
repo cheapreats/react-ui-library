@@ -15,6 +15,7 @@ const KEYS = {
 const Layout = styled(InputLayout)`
     ${ ({ column }) => column ? '' : 'flex-direction: row;' }
     ${ ({ wrap }) => wrap ? 'flex-wrap: wrap;' : '' }
+    ${ ({ disabled }) => disabled ? 'pointer-events: none;' : '' }
 `;
 
 export const ContainerLayout = props => {
@@ -42,16 +43,16 @@ export const ContainerLayout = props => {
     };
 
     return (
-        <Layout { ...layoutProps } name='' column={ column } wrap={ wrap }>
+        <Layout { ...layoutProps } name='' column={ column } wrap={ wrap } disabled={ disabled }>
             { 
                 React.Children.map(
                     children,
                     (child, dataIndex) => (
+                        console.log(child),
                         React.cloneElement(child, {
                             onKeyDown: handleKeys,
                             margin: spacing,
-                            dataIndex,
-                            disabled
+                            dataIndex
                         })
                     )
                 )
