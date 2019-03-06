@@ -1,5 +1,4 @@
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const pkg = require('./package.json');
 const path = require('path');
 
@@ -13,9 +12,6 @@ module.exports = {
         publicPath: '/dist/',
         umdNamedDefine: true
     },
-    plugins: [
-        new MiniCssExtractPlugin()
-    ],
     node: {
       net: 'empty',
       tls: 'empty',
@@ -40,8 +36,8 @@ module.exports = {
         {
             test: /\.*css$/,
             use : [
-                MiniCssExtractPlugin.loader,
-                'css-loader'
+                { loader: "style-loader/url" },
+                { loader: "file-loader" }
             ]
         },
         {
