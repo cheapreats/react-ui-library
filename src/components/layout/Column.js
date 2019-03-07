@@ -20,6 +20,7 @@ const Container = styled.div`
     display: inline-block;
     flex-direction: column;
     box-sizing: border-box;
+    flex-srhink: 0;
     ${ ({ right }) => right ? 'margin-left: auto' : '' }
     width: ${ ({ col }) => col ? (col / 0.12) : 100 }%;
     ${

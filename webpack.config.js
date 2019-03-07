@@ -46,10 +46,7 @@ module.exports = {
                     loader: MiniCssExtractPlugin.loader
                 },
                 {
-                    loader: 'css-loader',
-                    options: {
-                        exportOnlyLocals: true,
-                    }
+                    loader: 'css-loader'
                 }
             ]
         },

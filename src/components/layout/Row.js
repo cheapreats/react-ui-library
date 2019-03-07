@@ -4,6 +4,7 @@ import styled from 'styled-components';
 
 const Container = styled.div`
     display: flex;
+    flex-shrink: 0;
     width: 100%;
     ${ ({ wrap }) => wrap ? `flex-wrap: wrap;` : '' }
     ${
