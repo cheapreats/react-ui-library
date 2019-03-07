@@ -7,10 +7,7 @@ const path = require('path');
 module.exports = {
     entry: path.join(__dirname, "./src/components"),
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name].[hash:8].css',
-            chunkFilename: '[id].[hash:8].css'
-        })
+        new MiniCssExtractPlugin()
     ],
     output: {
         path: path.join(__dirname, './dist'),
@@ -51,7 +48,7 @@ module.exports = {
                 {
                     loader: 'css-loader',
                     options: {
-                        importLoaders: 1
+                        exportOnlyLocals: true,
                     }
                 }
             ]
