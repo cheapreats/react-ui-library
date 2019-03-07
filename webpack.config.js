@@ -1,9 +1,17 @@
 const webpack = require('webpack');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const pkg = require('./package.json');
 const path = require('path');
 
 module.exports = {
     entry: path.join(__dirname, "./src/components"),
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: '[name].[hash:8].css',
+            chunkFilename: '[id].[hash:8].css'
+        })
+    ],
     output: {
         path: path.join(__dirname, './dist'),
         filename: 'CheaprEatsStoryBook.js',
@@ -26,7 +34,7 @@ module.exports = {
                     loader: 'url-loader',
                     options:{
                         fallback: "file-loader",
-                        name: "[name][md5:hash].[ext]",
+                        name: "[name].[hash:8].[ext]",
                         outputPath: 'assets/',
                         publicPath: '/assets/'
                     }
@@ -35,9 +43,17 @@ module.exports = {
         },
         {
             test: /\.*css$/,
-            use : [
-                { loader: "style-loader/url" },
-                { loader: "file-loader" }
+            sideEffects: true,
+            use: [
+                {
+                    loader: MiniCssExtractPlugin.loader
+                },
+                {
+                    loader: 'css-loader',
+                    options: {
+                        importLoaders: 1
+                    }
+                }
             ]
         },
         {
@@ -55,10 +71,16 @@ module.exports = {
             use: ["file-loader"],
         }]
     },
+    optimization: {
+        minimizer: [
+            new OptimizeCSSAssetsPlugin({})
+        ]
+    },
     resolve: {
         alias: {
             'react': path.resolve(__dirname, './node_modules/react') ,
             'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
+            "styled-components": path.resolve(__dirname, "./node_modules/styled-components"),
             'assets': path.resolve(__dirname, 'assets')
         }
     },

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import InputLayout, { InputLayoutProps, InputStyles } from '../_helpers/InputLayout';
@@ -28,8 +28,9 @@ const SelectWrapper = styled.div`
 
 const Icon = styled(AngleDown)`
     margin-left: auto;
-    width: 18px;
+    padding-left: 12px;
     height: 18px;
+    width: 18px;
 `;
 
 const SelectedItem = styled.p`
@@ -101,13 +102,13 @@ const SelectItem = styled.li`
 
 const SelectField = styled.select`display: none`;
 
-export const Select = params => {
+export const Select = memo(params => {
     const [ layoutProps, selectProps ] = ExtractProps(
         InputLayout.propTypes, params, {}, ['error', 'disabled']
     );
     const {
         valid, value, placeholder, onChange,
-        isActive, children, disabled, error 
+        isActive, children, disabled, error
     } = selectProps;
 
     const [ expanded, setExpanded ] = useState(false);
@@ -159,29 +160,17 @@ export const Select = params => {
             </SelectField>
         </InputLayout>
     );
-};
+});
 
 Select.defaultProps = {
-    isActive: (curr, active) => curr + '' === active + ''
+    isActive: (curr, active) => curr === active,
+    minWidth: 100,
 };
 
 Select.propTypes = {
     ...InputLayoutProps,
     valid: PropTypes.bool,
     placeholder: PropTypes.string.isRequired,
-    type: PropTypes.string,
-    min: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
-    max: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
-    step: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
     value: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string
