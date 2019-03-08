@@ -13,10 +13,13 @@ const KEYS = {
 };
 
 const Layout = styled(InputLayout)`
-    ${ ({ column }) => column ? '' : 'flex-direction: row;' }
-    ${ ({ wrap }) => wrap ? 'flex-wrap: wrap;' : '' }
     ${ ({ disabled }) => disabled ? 'pointer-events: none;' : '' }
     flex-shrink: 0;
+`;
+
+const Items = styled.div`
+    ${ ({ column }) => column ? '' : 'flex-direction: row;' }
+    ${ ({ wrap }) => wrap ? 'flex-wrap: wrap;' : '' }
     justify-content: ${ ({ justify }) => justify };
     align-items: ${ ({ align }) => align };
 `;
@@ -45,32 +48,33 @@ export const ContainerLayout = props => {
                 break;
         }
         index = index < 0 ? max : index > max ? 0 : index;
-        target.parentNode.children[
-            index + (props.description ? 1 : 0) + (props.label ? 1 : 0)
-        ].focus();
+        target.parentNode.children[index].focus();
     };
 
     return (
         <Layout
             { ...layoutProps }
             name=''
-            column={ column }
-            wrap={ wrap }
-            justify={ justify }
-            align={ align }
         >
-            { 
-                React.Children.map(
-                    children,
-                    (child, dataIndex) => (
-                        React.cloneElement(child, {
-                            onKeyDown: handleKeys,
-                            margin: spacing,
-                            dataIndex
-                        })
+            <Items
+                justify={ justify }
+                column={ column }
+                align={ align }
+                wrap={ wrap }
+            >
+                { 
+                    React.Children.map(
+                        children,
+                        (child, dataIndex) => (
+                            React.cloneElement(child, {
+                                onKeyDown: handleKeys,
+                                margin: spacing,
+                                dataIndex
+                            })
+                        )
                     )
-                )
-            }
+                }
+            </Items>
         </Layout>
     );
 };
