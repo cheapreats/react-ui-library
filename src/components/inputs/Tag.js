@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import { Times } from 'styled-icons/fa-solid/Times';
 import { flex, transition } from '../mixins';
 import { PRIMARY_FONT, PRIMARY_COLOUR } from '../variables';
-import TextLayout, { TextLayoutProps } from '../_helpers/TextLayout';
+import { TextLayoutProps } from '../_helpers/TextLayout';
 
-const Container = styled(TextLayout).attrs(({ data }) => ({ data }))`
+const Container = styled.span.attrs(({ data }) => ({ data }))`
     color: #b1b1b1;
     cursor: pointer;
     border-radius: 999px;
@@ -43,6 +43,11 @@ const Container = styled(TextLayout).attrs(({ data }) => ({ data }))`
             }
         `
     }
+    color: black;
+    font-family: ${ PRIMARY_FONT };
+    line-height: ${ ({ lineHeight }) => lineHeight };
+    font-weight: ${ ({ bold }) => bold ? 'bold' : 'normal' };
+    margin: ${ ({ margin }) => margin + (typeof(margin) === 'string' ? '' : 'px') };
     display: inline-flex;
 `;
 
@@ -78,7 +83,6 @@ export const Tag = ({
         className={ className }
         margin={ margin }
         lineHeight='1'
-        type='span'
         bold={ bold }
         size={ size }
         data={ data }
