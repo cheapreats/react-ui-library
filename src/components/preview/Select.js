@@ -102,7 +102,7 @@ const SelectItem = styled.li`
 
 const SelectField = styled.select`display: none`;
 
-export const Select = memo(params => {
+export const Select = params => {
     const [ layoutProps, selectProps ] = ExtractProps(
         InputLayout.propTypes, params, {}, ['error', 'disabled']
     );
@@ -160,7 +160,7 @@ export const Select = memo(params => {
             </SelectField>
         </InputLayout>
     );
-});
+};
 
 Select.defaultProps = {
     isActive: (curr, active) => curr === active,
