@@ -6,6 +6,8 @@ const Container = styled.div`
     display: flex;
     flex-shrink: 0;
     width: 100%;
+    margin: ${ ({ margin }) => margin + (typeof(margin) === 'string' ? '' : 'px') };
+    padding: ${ ({ padding }) => padding + (typeof(padding) === 'string' ? '' : 'px') };
     ${ ({ wrap }) => wrap ? `flex-wrap: wrap;` : '' }
     ${
         ({ top, bottom, center, stretch }) => (
@@ -17,9 +19,12 @@ const Container = styled.div`
     };
 `;
 
-export const Row = ({ className, children, top, bottom, center, stretch}) => (
+export const Row = ({ className, margin = 0, padding = 0, wrap, children, top, bottom, center, stretch }) => (
     <Container
         className={ className }
+        wrap={ wrap }
+        padding={ padding }
+        margin={ margin }
         top={ top }
         bottom={ bottom }
         center={ center }
@@ -31,6 +36,15 @@ export const Row = ({ className, children, top, bottom, center, stretch}) => (
 
 Row.propTypes = {
     className: PropTypes.string,
+    wrap: PropTypes.bool,
+    padding: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+    margin: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
     children: PropTypes.node,
     top: PropTypes.bool,
     bottom: PropTypes.bool,

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Check as Icon } from 'styled-icons/fa-solid/Check';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -90,6 +90,7 @@ export const Checkbox = ({
     size = 25,
 }) => {
     const [ checked, setChecked ] = useState(value);
+    useEffect(() => { setChecked(value) }, [ value ]); 
     const toggle = () => setChecked(!checked);
     return (
         <Container size={size} disabled={disabled} className={className} margin={margin} type='span'>
