@@ -68,8 +68,8 @@ const SelectList = styled.ul`
         ({ expanded }) => expanded ? `
             pointer-events: all;
             max-height: ${ ITEM_HEIGHT * NUM_OF_ITEMS }px;
+            z-index: 10;
             opacity: 1;
-            z-index: 1;
         ` : `
             pointer-events: none;
             max-height: ${ ITEM_HEIGHT }px;
