@@ -41,6 +41,7 @@ const StyledIcon = styled.svg`
         width: ${ size ? 12 * size / 14 : 12 }px;
         margin-right: ${ size ? 6 * size / 14 : 6 }px;
     `}
+    pointer-events: none;
     height: auto;
 `;
 

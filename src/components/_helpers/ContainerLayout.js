@@ -45,7 +45,9 @@ export const ContainerLayout = props => {
                 break;
         }
         index = index < 0 ? max : index > max ? 0 : index;
-        target.parentNode.children[index + (props.description ? 2 : 1)].focus();
+        target.parentNode.children[
+            index + (props.description ? 1 : 0) + (props.label ? 1 : 0)
+        ].focus();
     };
 
     return (
