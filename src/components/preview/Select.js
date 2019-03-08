@@ -60,6 +60,7 @@ const SelectList = styled.ul`
     box-shadow: ${ SHADOW_RAISE_1 };
     list-style-type: none;
     padding: 0;
+    z-index: 10;
     width: 100%;
 
     ${ scroll }
@@ -68,7 +69,6 @@ const SelectList = styled.ul`
         ({ expanded }) => expanded ? `
             pointer-events: all;
             max-height: ${ ITEM_HEIGHT * NUM_OF_ITEMS }px;
-            z-index: 10;
             opacity: 1;
         ` : `
             pointer-events: none;
@@ -104,11 +104,11 @@ const SelectField = styled.select`display: none`;
 
 export const Select = params => {
     const [ layoutProps, selectProps ] = ExtractProps(
-        InputLayout.propTypes, params, {}, ['error', 'disabled']
+        InputLayout.propTypes, params, {}, ['error', 'disabled', 'name']
     );
     const {
-        valid, value, placeholder, onChange,
-        isActive, children, disabled, error
+        valid, value, placeholder, onChange, isActive,
+        children, disabled, error, name
     } = selectProps;
 
     const [ expanded, setExpanded ] = useState(false);
