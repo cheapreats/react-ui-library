@@ -16,6 +16,7 @@ const Layout = styled(InputLayout)`
     ${ ({ column }) => column ? '' : 'flex-direction: row;' }
     ${ ({ wrap }) => wrap ? 'flex-wrap: wrap;' : '' }
     ${ ({ disabled }) => disabled ? 'pointer-events: none;' : '' }
+    flex-shrink: 0;
     justify-content: ${ ({ justify }) => justify };
     align-items: ${ ({ align }) => align };
 `;

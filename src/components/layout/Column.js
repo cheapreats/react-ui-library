@@ -20,7 +20,7 @@ const Container = styled.div`
     display: inline-block;
     flex-direction: column;
     box-sizing: border-box;
-    flex-srhink: 0;
+    flex-shrink: 0;
     margin: ${ ({ margin }) => margin + (typeof(margin) === 'string' ? '' : 'px') };
     padding: ${ ({ padding }) => padding + (typeof(padding) === 'string' ? '' : 'px') };
     ${ ({ right }) => right ? 'margin-left: auto' : '' }
