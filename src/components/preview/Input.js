@@ -49,14 +49,17 @@ export const Input = ({
     type,
     min,
     max,
-    step,
+    step = 1,
     onChange = () => {},
     onKeyPress = () => {}
 }) => {
     const _onChange = el => {
 
         if (type === 'number') {
-            const val = Math.max(min, Math.min(el.target.value, max));
+            let val = el.target.value;
+            if (min !== undefined) val = Math.max(min, val);
+            if (max !== undefined) val = Math.min(max, val);
+            
             const offset = val % step;
             if (offset !== 0) {
                 val += -offset + (Math.round(offset / step) * step);

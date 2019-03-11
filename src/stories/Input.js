@@ -2,10 +2,14 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Input } from '../components/preview';
 
+let val = 0;
 storiesOf('Input', module)
     .add('with label', () => (
         <Input
             label="What is a Ralph?"
+            type='number'
+            value={ val }
+            onChange={({ target: { value } }) => console.log(value)}
             name="input"
         />
     ), {
