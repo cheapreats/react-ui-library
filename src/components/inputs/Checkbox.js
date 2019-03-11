@@ -85,13 +85,17 @@ export const Checkbox = ({
     name,
     label,
     value,
-    onChange,
+    onChange = () => {},
     disabled,
     size = 25,
 }) => {
-    const [ checked, setChecked ] = useState(false);
-    useEffect(() => { setChecked(value) }, [ value ]); 
+    const [ checked, setChecked ] = useState(value);
     const toggle = () => setChecked(!checked);
+    const _onChange = el => {
+        el.target.value = checked;
+        onChange(el);
+    };
+
     return (
         <Container size={size} disabled={disabled} className={className} margin={margin} type='span'>
             <Check
@@ -99,7 +103,7 @@ export const Checkbox = ({
                 name={name}
                 type='checkbox'
                 checked={checked}
-                onChange={onChange}
+                onChange={_onChange}
                 onClick={toggle}
                 disabled={disabled}
             />
