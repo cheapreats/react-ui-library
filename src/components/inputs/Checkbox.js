@@ -88,28 +88,23 @@ export const Checkbox = ({
     onChange,
     disabled,
     size = 25,
-}) => {
-    const [ checked, setChecked ] = useState(value);
-    useEffect(() => { setChecked(value) }, [ value ]); 
-    const toggle = () => setChecked(!checked);
-    return (
-        <Container size={size} disabled={disabled} className={className} margin={margin} type='span'>
-            <Check
-                size={size}
-                name={name}
-                type='checkbox'
-                checked={checked}
-                onChange={onChange}
-                onClick={toggle}
-                disabled={disabled}
-            />
-            <Cover size={size}>
-                <StyledIcon size={size}/>
-            </Cover>
-            <Label size={size} htmlFor={name}>{ label }</Label>
-        </Container>
-    );
-};
+}) => (
+    <Container size={size} disabled={disabled} className={className} margin={margin} type='span'>
+        <Check
+            size={size}
+            name={name}
+            type='checkbox'
+            checked={value}
+            onChange={onChange}
+            onClick={toggle}
+            disabled={disabled}
+        />
+        <Cover size={size}>
+            <StyledIcon size={size}/>
+        </Cover>
+        <Label size={size} htmlFor={name}>{ label }</Label>
+    </Container>
+);
 
 Checkbox.propTypes = {
     ...TextLayoutProps,
