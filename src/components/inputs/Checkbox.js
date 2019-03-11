@@ -96,7 +96,6 @@ export const Checkbox = ({
             type='checkbox'
             checked={value}
             onChange={onChange}
-            onClick={toggle}
             disabled={disabled}
         />
         <Cover size={size}>
