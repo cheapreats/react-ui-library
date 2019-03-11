@@ -51,13 +51,10 @@ storiesOf('Grid', module)
     .add('with complex media + styles', () => (
         <Row>
             <Column media={{
-                1000: {
-                    col: 10,
-                    styles: `
-                        background-color: red;
-                        padding: ${ ({ col }) => col + 'px' };
-                    `
-                }
+                1000: [
+                    10,
+                    `background-color: red;`
+                ]
             }} col='12'>
                 <Paragraph bold>Because responsive layout isn't enough</Paragraph>
             </Column>

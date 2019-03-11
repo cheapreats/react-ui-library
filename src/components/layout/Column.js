@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const DEFAULT_BREAK = 880;
 
@@ -8,11 +8,11 @@ const createMedia = media => {
     const breaks = Object.entries(media);
     breaks.sort(([a], [b]) => b - a);
     return breaks.reduce((acc, [key, val]) => {
-        const isObj = typeof(val) === 'object';
+        const isStyled = Array.isArray(val);
         acc += `
             @media (max-width: ${ key }px) {
-                width: ${ (isObj ? val.col : val) / 0.12 }%;
-                ${ isObj && css(...val.styles) }
+                width: ${ (isStyled ? val[0] : val) / 0.12 }%;
+                ${ isStyled && val[1] }
             }
         `;
         return acc;
@@ -30,7 +30,7 @@ const Container = styled.div`
     width: ${ ({ col }) => col ? (col / 0.12) : 100 }%;
     ${
         ({ media }) => media ? (
-            typeof(media) !== 'object' ?
+            typeof(media) !== 'object' || Array.isArray(media) ?
             createMedia({ [DEFAULT_BREAK]: media }) : createMedia(media)
         ) : ''
     }
