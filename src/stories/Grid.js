@@ -1,5 +1,5 @@
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Column, Row, Paragraph as P, HeadingTwo } from '../components';
 import { storiesOf } from '@storybook/react';
 
@@ -46,6 +46,25 @@ storiesOf('Grid', module)
                     [width size breakpoint]: [col width]
                 }
             would create an array of media queries.
+        `
+    })
+    .add('with complex media + styles', () => (
+        <Row>
+            <Column media={{
+                1000: {
+                    col: 10,
+                    styles: `
+                        background-color: red;
+                        padding: ${ ({ col }) => col + 'px' };
+                    `
+                }
+            }} col='12'>
+                <Paragraph bold>Because responsive layout isn't enough</Paragraph>
+            </Column>
+        </Row>
+    ), {
+        notes: `
+
         `
     })
     .add('with right', () => (

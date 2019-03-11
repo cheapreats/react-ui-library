@@ -1,19 +1,22 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const DEFAULT_BREAK = 880;
 
 const createMedia = media => {
     const breaks = Object.entries(media);
     breaks.sort(([a], [b]) => b - a);
-    return breaks.reduce((acc, [key, val]) => (
+    return breaks.reduce((acc, [key, val]) => {
+        const isObj = typeof(val) === 'object';
         acc += `
             @media (max-width: ${ key }px) {
-                width: ${ val / 0.12 }%;
+                width: ${ (isObj ? val.col : val) / 0.12 }%;
+                ${ isObj && css(...val.styles) }
             }
-        `
-    ), '')
+        `;
+        return acc;
+    }, '')
 };
 
 const Container = styled.div`
