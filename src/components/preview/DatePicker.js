@@ -103,7 +103,7 @@ export const DatePicker = ({
 }) => {
 
     const ref = useRef();
-    useEffect(() => { ref.current.target = { name, value } });
+    useEffect(() => { ref.current.target = { name, value } }, [ value ]);
     const _onChange = date => {
         ref.current.target.value = date;
         if (onChange) onChange(ref.current);

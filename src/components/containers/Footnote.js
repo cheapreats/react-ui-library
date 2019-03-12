@@ -4,18 +4,21 @@ import { position, transition } from '../mixins';
 import { PRIMARY_FONT, SHADOW_RAISE_2 } from '../variables';
 
 const Container = styled.div`
-    ${ position('fixed', 'auto 0 0', 'auto', 0, 0, 0) }
+    ${ ({ pos }) => position(pos, 'auto 0 0', 'auto', 0, 0, 0) }
     ${ transition(['transform', 'opacity']) }
     font-family: ${ PRIMARY_FONT };
     box-shadow: ${ SHADOW_RAISE_2 };
     padding: ${ ({ padding }) => padding + (typeof(padding) === 'string' ? '' : 'px') };
-    background-color: white;
+    margin: ${ ({ margin }) => margin + (typeof(margin) === 'string' ? '' : 'px') };
     ${ ({ show }) => !show ? `transform: translate3d(0, 100%, 0); opacity: 0; pointer-events: none;` : '' }
+    background-color: white;
 `;
 
-export const Footnote  = ({ className, children, padding = 20, show }) => (
+export const Footnote  = ({ className, children, position = 'absolute', margin = 0, padding = 20, show }) => (
     <Container
         className={ className }
+        pos={ position }
+        margin={ margin }
         padding={ padding }
         show={ show }
     >

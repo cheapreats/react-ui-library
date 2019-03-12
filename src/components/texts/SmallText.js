@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import TextLayout, { TextLayoutProps } from '../_helpers/TextLayout';
 
@@ -8,4 +9,7 @@ const Text = styled(TextLayout)`
 `;
 
 export const SmallText = props => <Text { ...props }/>;
-SmallText.propTypes = TextLayoutProps;
+SmallText.propTypes = {
+    ...TextLayoutProps,
+    type: PropTypes.oneOf(['p', 'span'])
+};
