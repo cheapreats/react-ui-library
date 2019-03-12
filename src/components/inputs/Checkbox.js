@@ -84,13 +84,13 @@ export const Checkbox = ({
     margin,
     name,
     label,
-    value,
+    value = false,
     onChange = () => {},
     disabled,
     size = 25,
 }) => {
     const [ checked, setChecked ] = useState(value);
-    useEffect(() => this.setChecked(value), [ value ]);
+    useEffect(() => setChecked(value), [ value ]);
     const toggle = () => setChecked(!checked);
     const _onChange = el => {
         el.target.value = checked;
