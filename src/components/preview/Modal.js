@@ -99,13 +99,13 @@ const hide = ({ name }, [modals, setModals], duration) => {
     setModals({ ...modals });
 }
 
-export const Modal = ({ position = ['absolute', 0, 0], delay = 400 }) => {
+export const Modal = ({ position = ['absolute', 0, 0], zIndex = 99, delay = 400 }) => {
     const modals = useModal(delay);
     const items = Object.entries(modals);
     const hasModals = Object.values(modals).filter(({ fade }) => !fade).length > 0;
 
     return (
-        <Container hasModals={ hasModals } pos={ position } delay={ delay }>
+        <Container hasModals={ hasModals } pos={ position } zIndex={ zIndex } delay={ delay }>
             {
                 items.map(([name, { fade, content }], key) => (
                     <ModalBox
@@ -137,6 +137,7 @@ const Container = styled.div`
     ` }
     ${ ({ delay }) => transition(['opacity'], delay) }
     ${ flex('center') }
+    z-index: ${ ({ zIndex }) => zIndex };
     height: 100%;
     width: 100%;
     flex-grow: 1;
