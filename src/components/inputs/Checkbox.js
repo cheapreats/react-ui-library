@@ -90,7 +90,6 @@ export const Checkbox = ({
     size = 25,
 }) => {
     const [ checked, setChecked ] = useState(value);
-    useEffect(() => { if (value !== checked) setChecked(value); });
     const toggle = () => setChecked(!checked);
     const _onChange = el => {
         el.target.value = checked;

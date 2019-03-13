@@ -2,7 +2,40 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Checkbox, Checkboxes } from '../components';
 
+class Test extends React.Component {
+
+    state = {
+        test: null
+    }
+
+    componentDidMount() {
+        window.setTimeout(
+            () => this.setState({ test: true }),
+            2000
+        );
+    }
+
+    change = ({ target: { name, value } }) => {
+        console.log(name, value, typeof(value));
+        this.setState({ [name]: value === 'true' });
+    }
+
+    render () {
+        return (
+            <Checkbox
+                label='TEST'
+                name='test'
+                onChange={this.change}
+                value={this.state.test}
+            />
+        )
+    }
+}
+
 storiesOf('Checkbox', module)
+    .add('with TEST', () => (
+        <Test/>
+    ))
     .add('with nothing', () => (
         <Checkbox name='a'/>
     ), {
