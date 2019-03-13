@@ -4,13 +4,12 @@ import { position, transition, scroll, flex } from '../mixins';
 import { PRIMARY_FONT, SHADOW_RAISE_2 } from '../variables';
 
 const Container = styled.div`
-    ${ ({ pos }) => position(pos, 'auto 0 0', 'auto', 0, 0, 0) }
+    ${ ({ pos, margin }) => position(pos, margin, 'auto', 0, 0, 0) }
     ${ transition(['transform', 'opacity']) }
     ${ ({ f }) => flex(...f) }
     ${ scroll }
 
     ${ ({ show }) => !show ? `transform: translate3d(0, 100%, 0); opacity: 0; pointer-events: none;` : '' }
-    padding: ${ ({ padding }) => padding + (typeof(padding) === 'string' ? '' : 'px') };
     margin: ${ ({ margin }) => margin + (typeof(margin) === 'string' ? '' : 'px') };
     box-shadow: ${ SHADOW_RAISE_2 };
     font-family: ${ PRIMARY_FONT };
@@ -20,6 +19,7 @@ const Container = styled.div`
     max-height: 100%;
     max-width: 100%;
     overflow: auto;
+    ${ styles }
 `;
 
 export const Footnote  = ({
@@ -29,6 +29,7 @@ export const Footnote  = ({
     margin = 0,
     className,
     children,
+    styles,
     show
 }) => (
     <Container
@@ -37,6 +38,7 @@ export const Footnote  = ({
         margin={ margin }
         padding={ padding }
         show={ show }
+        styles={ styles }
         f={ flex }
     >
         { children }
