@@ -18,7 +18,7 @@ const Container = styled.div`
 export const Footnote  = ({
     className,
     children,
-    flex = ['row', 'center'],
+    flex = ['row', 'flex-start', 'center'],
     position = 'absolute',
     margin = 0,
     padding = 20,
