@@ -1,9 +1,21 @@
-import { configure, addDecorator } from '@storybook/react';
+import { configure, addDecorator, addParameters } from '@storybook/react';
 import { withNotes } from '@storybook/addon-notes';
 import { withInfo } from '@storybook/addon-info';
+import brandImage from './logo.png';
 
 addDecorator(withInfo);
 addDecorator(withNotes);
+addParameters({
+    options: {
+        showPanel: false,
+        theme: {
+            base: 'light',
+            brandTitle: 'Cheapreats',
+            brandUrl: 'https://cheapreats.com',
+            brandImage,
+        }
+    }
+})
 
 // Just so we can control the order easily
 const Stories = [
@@ -24,6 +36,7 @@ const Stories = [
     'Button',
     'Card',
     'Popup',
+    'Modal',
     'Draggable',
     'Footnote',
     'TransactionStatusTag',
