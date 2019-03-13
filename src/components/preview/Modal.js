@@ -61,7 +61,7 @@ const show = ({ name, content }, [modals, setModals]) => {
     if (modals[name]) {
         window.clearTimeout(modals[name].timer);
     }
-    const res = setModals({
+    setModals({
         ...modals,
         [name]: {
             timer: null,

@@ -10,7 +10,7 @@ const Container = styled.div`
     ${ scroll }
 
     ${ ({ show }) => !show ? `transform: translate3d(0, 100%, 0); opacity: 0; pointer-events: none;` : '' }
-    margin: ${ ({ margin }) => margin + (typeof(margin) === 'string' ? '' : 'px') };
+    padding: ${ ({ padding }) => padding + (typeof(padding) === 'string' ? '' : 'px') };
     box-shadow: ${ SHADOW_RAISE_2 };
     font-family: ${ PRIMARY_FONT };
 
