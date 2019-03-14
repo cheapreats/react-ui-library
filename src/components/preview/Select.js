@@ -18,7 +18,7 @@ const SelectWrapper = styled.div`
     position: relative;
     font-size: 0.825rem;
     font-weight: bold;
-    ${ ({ width }) => width + (typeof(width) === 'string' ? '' : 'px') };
+    width: ${ ({ width }) => width + (typeof(width) === 'string' ? '' : 'px') };
     ${ ({ disabled }) => disabled ? `
         & * {
             cursor: not-allowed !important;
