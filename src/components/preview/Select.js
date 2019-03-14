@@ -18,7 +18,7 @@ const SelectWrapper = styled.div`
     position: relative;
     font-size: 0.825rem;
     font-weight: bold;
-
+    ${ ({ width }) => width + (typeof(width) === 'string' ? '' : 'px') };
     ${ ({ disabled }) => disabled ? `
         & * {
             cursor: not-allowed !important;
@@ -108,7 +108,7 @@ export const Select = params => {
     );
     const {
         valid, value, placeholder, onChange, isActive,
-        children, disabled, error, name
+        children, disabled, error, name, width
     } = selectProps;
 
     const [ expanded, setExpanded ] = useState(false);
@@ -135,7 +135,7 @@ export const Select = params => {
 
     return (
         <InputLayout { ...layoutProps }>
-            <SelectWrapper disabled={ disabled }>
+            <SelectWrapper disabled={ disabled } width={ width }>
                 <SelectedItem onClick={ open } expanded={ expanded } valid={ valid } error={ error }>
                     { activeItem ? activeItem.props.children : placeholder }
                     <Icon/>
@@ -164,7 +164,7 @@ export const Select = params => {
 
 Select.defaultProps = {
     isActive: (curr, active) => curr === active,
-    minWidth: 100,
+    width: 120,
 };
 
 Select.propTypes = {
@@ -176,5 +176,9 @@ Select.propTypes = {
         PropTypes.string
     ]),
     onChange: PropTypes.func,
+    width: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
     isActive: PropTypes.func
 };
