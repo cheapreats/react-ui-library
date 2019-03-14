@@ -1,6 +1,7 @@
-import React                                          from 'react';
-import styled, {css}                                  from 'styled-components';
-import PropTypes                                      from 'prop-types';
+import React, { Fragment } from 'react';
+import styled, { css } from 'styled-components';
+import { CircleNotch } from 'styled-icons/fa-solid/CircleNotch';
+import PropTypes from 'prop-types';
 
 
 const ButtonWrapper = styled.button.attrs(
@@ -45,6 +46,18 @@ const StyledIcon = styled.svg`
     height: auto;
 `;
 
+const Loading = styled(CircleNotch)`
+    ${({ size }) => `width: ${ size ? 12 * size / 14 : 12 }px`};
+    animation: spin 1000ms linear 0s infinite;
+    pointer-events: none;
+    height: auto;
+
+    @keyframes spin {
+        from { transform: rotate(0deg) translate3d(0, 0, 0) }
+        to { transform: rotate(360deg) translate3d(0, 0, 0) }
+    }
+`;
+
 export const Button = ({
     primary,
     flat,
@@ -58,7 +71,8 @@ export const Button = ({
     className,
     children,
     onKeyDown,
-    dataIndex = 0
+    dataIndex = 0,
+    loading
 }) => (
     <ButtonWrapper
         className={className}
@@ -73,7 +87,15 @@ export const Button = ({
         tabIndex='0'
         data-index={ dataIndex }
     >
-        { icon ? <StyledIcon as={icon} hasText={ text || children } size={size}/> : null }{text ? text : children}
+        {
+            loading ? 
+            <Loading size={size}/> : (
+                <Fragment>
+                    { icon ? <StyledIcon as={icon} hasText={ text || children } size={size}/> : null }
+                    { text ? text : children }
+                </Fragment>
+            )
+        }
     </ButtonWrapper>
 );
 
@@ -95,5 +117,6 @@ Button.propTypes = {
     onKeyPress: PropTypes.func,
     disabled: PropTypes.bool,
     className: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    loading: PropTypes.bool
 };

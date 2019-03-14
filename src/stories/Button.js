@@ -73,6 +73,14 @@ storiesOf('Button', module)
     ), {
         notes: "Never go back"
     })
+    .add('with loading', () => (
+        <Button
+            loading
+            text='Ralph might have been here...'
+        />
+    ), {
+        notes: "Built in loading, when no text and only icon, there would be no margin too now"
+    })
     .add('with container', () => (
         <Buttons>
             <Button black text='Ralph might have been here...'/>
