@@ -37,9 +37,9 @@ const ButtonWrapper = styled.button.attrs(
 `;
 
 const StyledIcon = styled.svg`
-    ${({size}) => `
+    ${({ size, hasText }) => `
         width: ${ size ? 12 * size / 14 : 12 }px;
-        margin-right: ${ size ? 6 * size / 14 : 6 }px;
+        margin-right: ${ hasText ? (size ? 6 * size / 14 : 6) : 0 }px;
     `}
     pointer-events: none;
     height: auto;
@@ -73,7 +73,7 @@ export const Button = ({
         tabIndex='0'
         data-index={ dataIndex }
     >
-        { icon ? <StyledIcon as={icon} size={size}/> : null }{text ? text : children}
+        { icon ? <StyledIcon as={icon} hasText={ text || children } size={size}/> : null }{text ? text : children}
     </ButtonWrapper>
 );
 

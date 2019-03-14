@@ -113,7 +113,7 @@ export const Select = params => {
 
     const [ expanded, setExpanded ] = useState(false);
     const items = Array.isArray(children) ? children : [ children ];
-    const activeItem = items.find(({ props }) => props.value === value);
+    const activeItem = items.find(({ props }) => isActive(props.value, value));
 
     const _onClick = el => {
         if (onChange) {

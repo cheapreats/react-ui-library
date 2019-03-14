@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Check as Icon } from 'styled-icons/fa-solid/Check';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
@@ -89,22 +89,18 @@ export const Checkbox = ({
     disabled,
     size = 25,
 }) => {
-    const [ checked, setChecked ] = useState(value);
-    const toggle = () => setChecked(!checked);
     const _onChange = el => {
-        el.target.value = checked;
+        el.target.value = el.target.checked;
         onChange(el);
     };
-
     return (
         <Container size={size} disabled={disabled} className={className} margin={margin} type='span'>
             <Check
                 size={size}
                 name={name}
                 type='checkbox'
-                checked={checked}
+                checked={value}
                 onChange={_onChange}
-                onClick={toggle}
                 disabled={disabled}
             />
             <Cover size={size}>
@@ -113,7 +109,7 @@ export const Checkbox = ({
             <Label size={size} htmlFor={name}>{ label }</Label>
         </Container>
     );
-};
+}
 
 Checkbox.propTypes = {
     ...TextLayoutProps,
