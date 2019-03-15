@@ -5,7 +5,7 @@ import styled from 'styled-components';
 const Container = styled.div`
     display: flex;
     flex-shrink: 0;
-    width: 100%;
+    width: ${ ({ width }) => width + (typeof(width) === 'string' ? '' : 'px') };
     margin: ${ ({ margin }) => margin + (typeof(margin) === 'string' ? '' : 'px') };
     padding: ${ ({ padding }) => padding + (typeof(padding) === 'string' ? '' : 'px') };
     ${ ({ wrap }) => wrap ? `flex-wrap: wrap;` : '' }
@@ -19,7 +19,7 @@ const Container = styled.div`
     };
 `;
 
-export const Row = ({ className, margin = 0, padding = 0, wrap, children, top, bottom, center, stretch }) => (
+export const Row = ({ className, margin = 0, padding = 0, wrap, children, top, bottom, center, stretch, width = '100%' }) => (
     <Container
         className={ className }
         wrap={ wrap }
@@ -49,5 +49,9 @@ Row.propTypes = {
     top: PropTypes.bool,
     bottom: PropTypes.bool,
     center: PropTypes.bool,
-    stretch: PropTypes.bool
+    stretch: PropTypes.bool,
+    width: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ])
 }
