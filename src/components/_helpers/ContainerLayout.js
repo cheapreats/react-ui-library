@@ -31,7 +31,7 @@ export const ContainerLayout = props => {
     ] = ExtractProps(
         InputLayoutProps, props, { name: '' }, [ 'disabled' ]
     );
-    const max = Array.isArray(children) ? children.length - 1 : 0;
+    const max = Math.max(React.Children.count(children) - 1, 0);
 
     const handleKeys = ({ keyCode, target }) => {
         let index = parseInt(target.getAttribute('data-index'));

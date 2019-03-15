@@ -110,11 +110,11 @@ export const Modal = ({ position = ['absolute', 0, 0], zIndex = 99, delay = 400 
                 items.map(([name, { fade, content }], key) => (
                     <ModalBox
                         styled={ content.styled }
-                        key={ name }
-                        delay={ delay }
                         id={ `modal-${ name }` }
+                        delay={ delay }
                         index={ key }
                         fade={ fade }
+                        key={ name }
                     >
                         <Times onClick={() => modal(name).hide()}/>
                         { content.render() }
@@ -184,7 +184,10 @@ const ModalBox = styled.div`
     overflow: hidden;
     position: relative;
     box-sizing: border-box;
+    max-height: 100%;
+    max-width: 100%;
     box-shadow: ${ SHADOW_RAISE_1 };
+    ${ scroll }
     ${ position('absolute', 'auto', 'auto') }
     ${ ({ delay }) => transition(['opacity', 'transform', 'width', 'height', 'border-radius'], delay) }
     ${ ({ fade }) => fade ? `
