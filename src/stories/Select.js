@@ -25,6 +25,9 @@ storiesOf('Select', module)
         >
             <option value='0'>REEEEE</option>
             <option value='1'>REEE</option>
+            {
+                [1,2,3,4].map(item => <option value={item + 4}>{item}</option>)
+            }
         </Select>
     ))
     .add('with error', () => (

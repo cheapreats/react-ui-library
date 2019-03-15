@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, Children } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import InputLayout, { InputLayoutProps, InputStyles } from '../_helpers/InputLayout';
@@ -112,7 +112,7 @@ export const Select = params => {
     } = selectProps;
 
     const [ expanded, setExpanded ] = useState(false);
-    const items = Array.isArray(children) ? children : [ children ];
+    const items = Children.toArray(children);
     const activeItem = items.find(({ props }) => isActive(props.value, value));
 
     const _onClick = el => {
@@ -164,7 +164,7 @@ export const Select = params => {
 
 Select.defaultProps = {
     isActive: (curr, active) => curr === active,
-    width: 120,
+    width: '100%',
 };
 
 Select.propTypes = {
