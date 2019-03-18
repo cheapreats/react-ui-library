@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { Times } from 'styled-icons/fa-solid/Times';
 import { flex, transition } from '../mixins';
 import { PRIMARY_FONT, PRIMARY_COLOUR } from '../variables';
-import TextLayout, { TextLayoutProps } from '../_helpers/TextLayout';
+import { TextLayoutProps } from '../_helpers/TextLayout';
 
 const Container = styled.span.attrs(({ data }) => ({ data }))`
     color: #b1b1b1;
@@ -43,6 +43,7 @@ const Container = styled.span.attrs(({ data }) => ({ data }))`
             }
         `
     }
+    ${ ({ disabled }) => disabled && 'pointer-events: none;' }
     font-family: ${ PRIMARY_FONT };
     line-height: ${ ({ lineHeight }) => lineHeight };
     font-weight: ${ ({ bold }) => bold ? 'bold' : 'normal' };
