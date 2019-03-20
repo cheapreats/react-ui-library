@@ -13,13 +13,13 @@ const KEYS = {
 };
 
 const Layout = styled(InputLayout)`
-    ${ ({ disabled }) => disabled ? 'pointer-events: none;' : '' }
+    ${ ({ disabled }) => disabled && 'pointer-events: none;' }
     flex-shrink: 0;
 `;
 
 const Items = styled.div`
-    ${ ({ column }) => column ? '' : 'flex-direction: row;' }
-    ${ ({ wrap }) => wrap ? 'flex-wrap: wrap;' : '' }
+    ${ ({ column }) => column && 'flex-direction: column;' }
+    ${ ({ wrap }) => wrap && 'flex-wrap: wrap;' }
     justify-content: ${ ({ justify }) => justify };
     align-items: ${ ({ align }) => align };
 `;
