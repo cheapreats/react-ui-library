@@ -66,6 +66,7 @@ export const ContainerLayout = props => {
                     React.Children.map(
                         children,
                         (child, dataIndex) => (
+                            child &&
                             React.cloneElement(child, {
                                 onKeyDown: handleKeys,
                                 margin: spacing,
