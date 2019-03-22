@@ -4,11 +4,12 @@ import { position, flex, transition, scroll } from '../mixins';
 import { SHADOW_RAISE_1 } from '../variables';
 
 const Container = styled.div`
-    ${ ({ delay }) => transition('opacity', delay) }
     ${ flex('center') }
+    ${ ({ delay }) => transition('opacity', delay) }
     ${ ({ pos }) => position(pos, 'auto', 0) };
     pointer-events: ${ ({ unmount }) => unmount === false ? 'all' : 'none' };
     opacity: ${ ({ unmount }) => unmount === false ? 1 : 0 };
+    z-index: ${ ({ zIndex }) => zIndex };
     min-height: 100%;
     min-width: 100%;
 `;
