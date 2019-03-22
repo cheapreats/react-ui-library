@@ -1,6 +1,6 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { position, flex, transition, scroll } from '../mixins';
+import { position, flex, transition, scroll, media } from '../mixins';
 import { SHADOW_RAISE_1 } from '../variables';
 
 const Container = styled.div`
@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const ModalBox = styled.div`
     ${ scroll }
-    ${ ({ delay }) => transition('transform', delay) }
+    ${ ({ delay }) => transition(['transform', 'height', 'width'], delay) }
     ${ ({ margin }) => position('absolute', margin, 'auto') };
     ${ ({ width, height }) => `
         width: ${ width };
@@ -31,6 +31,11 @@ const ModalBox = styled.div`
     box-sizing: border-box;
     border-radius: 12px;
     overflow: auto;
+
+    ${ media.tablet`
+        width: 100%;
+        height: 100%;
+    ` }
 `;
 
 const Close = styled.button`
