@@ -1,169 +1,56 @@
-import React, { useState, useEffect } from 'react';
-import { position, transition, flex, media } from '../mixins';
+import React, { useEffect, useState, useRef } from 'react';
 import styled from 'styled-components';
-import { SHADOW_RAISE_1, PRIMARY_COLOUR } from '../variables';
-
-const Events = {
-    SHOW: 'onModalShow',
-    HIDE: 'onModalHide'
-};
-
-const dispatch = (event, detail) => {
-    window.dispatchEvent(new CustomEvent(Events[event], { detail }))
-};
-
-/**
- * @typeof {Object} ModalController
- * @property {object} events - The events for specific modal actions
- * @property {function} add - Adds a modal to the component
- * @property {function} remove - Removes a modal from the component
- */
-
-/**
- * Function to control Modal
- * @param {(string|null)} name - The specific modal being targetted
- * @returns {ModalController} The controller for named modal 
- */
-export const modal = name => ({
-    show: async content => {
-        dispatch('SHOW', { name, content });
-        return modal(name);
-    },
-    hide: async () => {
-        dispatch('HIDE', { name });
-        return modal(name);
-    }
-});
-
-/**
- * Modal React hook because hooks are cool
- * @param {number} duration - The duration of animations
- * @returns {object} Returns an object of modals
- */
-export const useModal = (duration) => {
-    const state = useState({});
-    const _show = ({ detail }) => show(detail, state);
-    const _hide = ({ detail }) => hide(detail, state, duration);
-
-    useEffect(() => {
-        window.addEventListener(Events.SHOW, _show);
-        window.addEventListener(Events.HIDE, _hide);
-        return () => {
-            window.removeEventListener(Events.SHOW, _show);
-            window.removeEventListener(Events.HIDE, _hide);
-        }
-    });
-
-    return state[0];
-}
-
-const show = ({ name, content }, [modals, setModals]) => {
-    if (modals[name]) {
-        window.clearTimeout(modals[name].timer);
-    }
-    setModals({
-        ...modals,
-        [name]: {
-            timer: null,
-            fade: true,
-            content
-        }
-    });
-
-    // For tricking SC to do fade-in
-    // (More animations are reliable than animations surprisingly)
-    window.setTimeout(
-        () => {
-            setModals({
-                ...modals,
-                [name]: {
-                    timer: null,
-                    fade: false,
-                    content
-                }
-            });
-        }, 1
-    );
-}
-
-const hide = ({ name }, [modals, setModals], duration) => {
-    modals[name].timer = window.setTimeout(
-        () => {
-            if (modals[name].fade) {
-                delete modals[name];
-                setModals(modals);
-            }
-        }, duration
-    );
-    modals[name].fade = true;
-    setModals({ ...modals });
-}
-
-export const Modal = ({ position = ['absolute', 0, 0], zIndex = 99, delay = 400 }) => {
-    const modals = useModal(delay);
-    const items = Object.entries(modals);
-    const hasModals = Object.values(modals).filter(({ fade }) => !fade).length > 0;
-
-    return (
-        <Container hasModals={ hasModals } pos={ position } zIndex={ zIndex } delay={ delay }>
-            {
-                items.map(([name, { fade, content }], key) => (
-                    <ModalBox
-                        styled={ content.styled }
-                        id={ `modal-${ name }` }
-                        delay={ delay }
-                        index={ key }
-                        fade={ fade }
-                        key={ name }
-                    >
-                        <Times onClick={() => modal(name).hide()}/>
-                        { content.render() }
-                    </ModalBox>
-                ))
-            }
-            <Backdrop onClick={() => modal(items[items.length - 1][0]).hide()}/>
-        </Container>
-    );
-};
+import { position, flex, transition, scroll } from '../mixins';
+import { SHADOW_RAISE_1 } from '../variables';
 
 const Container = styled.div`
-    ${ ({ pos }) => position(...pos) };
-    ${ ({ hasModals }) => hasModals ? `
-        pointer-events: all;
-        opacity: 1;
-    ` : `
-        pointer-events: none;
-        opacity: 0;
-    ` }
-    ${ ({ delay }) => transition(['opacity'], delay) }
+    ${ ({ delay }) => transition('opacity', delay) }
     ${ flex('center') }
-    z-index: ${ ({ zIndex }) => zIndex };
-    height: 100%;
-    width: 100%;
-    flex-grow: 1;
+    ${ ({ pos }) => position(pos, 'auto', 0) };
+    pointer-events: ${ ({ unmount }) => unmount === false ? 'all' : 'none' };
+    opacity: ${ ({ unmount }) => unmount === false ? 1 : 0 };
+    min-height: 100%;
+    min-width: 100%;
 `;
 
-const Times = styled.button`
-    ${ position('absolute', '15px 15px auto auto', 0) }
-    height: 20px;
-    width: 20px;
-    border: none;
-    background: none;
+const ModalBox = styled.div`
+    ${ scroll }
+    ${ ({ delay }) => transition('transform', delay) }
+    ${ ({ margin }) => position('absolute', margin, 'auto') };
+    ${ ({ width, height }) => `
+        width: ${ width };
+        height: ${ height };
+    ` }
+    transform: translate3d(0, ${
+        ({ unmount }) => unmount === false ? '0' : '-20%'
+    }, 0);
+    padding: ${ ({ padding }) => padding + (typeof(padding) !== 'string' && 'px') };
+    box-shadow: ${ SHADOW_RAISE_1 };
+    background-color: white;
+    box-sizing: border-box;
+    border-radius: 12px;
+    overflow: auto;
+`;
+
+const Close = styled.button`
+    ${ position('absolute', '12px 12px auto auto') }
+    background-color: white;
+    border-radius: 50%;
     cursor: pointer;
-
-    &:hover {
-        &::before, &::after {
-            background-color: ${ PRIMARY_COLOUR };
-        }
-    }
-
+    border: none;
+    width: 22px;
+    height: 22px;
     &::before, &::after {
+        ${ transition('background-color', 150) }
+        ${ position('absolute') }
+        background-color: black;
+        content: '';
         width: 100%;
         height: 2px;
-        content: '';
-        ${ transition(['background-color']) }
-        ${ position('absolute', 'auto', 0) }
-        background-color: rgba(0,0,0,0.8);
+    }
+
+    &:hover::before, &:hover::after {
+        background-color: ${ ({ theme }) => theme.colors.primary };
     }
 
     &::before {
@@ -175,36 +62,65 @@ const Times = styled.button`
     }
 `;
 
-const ModalBox = styled.div`
-    height: 60%;
-    width: 60%;
-    padding: 20px;
-    border-radius: 10px;
-    background-color: white;
-    overflow: hidden;
-    position: relative;
-    box-sizing: border-box;
-    max-height: 100%;
-    max-width: 100%;
-    box-shadow: ${ SHADOW_RAISE_1 };
-    ${ scroll }
-    ${ position('absolute', 'auto', 'auto') }
-    ${ ({ delay }) => transition(['opacity', 'transform', 'width', 'height', 'border-radius'], delay) }
-    ${ ({ fade }) => fade ? `
-        opacity: 0;
-        transform: translate3d(0, -45px, 0);
-    ` : `
-        opacity: 1;
-        transform: translate3d(0, 0, 0);
-    ` }
-    z-index: ${ ({ index }) => index + 1 };
-    ${ ({ styled }) => styled }
-    ${ media.tablet`width: 100%; height: 100%; border-radius: 0;` }
+const Backdrop = styled.div`
+    ${ ({ base }) => base && 'background-color: rgba(0,0,0,0.4);' }
+    z-index: ${ ({ zIndex }) => zIndex };
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
 `;
 
-const Backdrop = styled.div`
-    background-color: rgba(0,0,0,0.45);
-    cursor: pointer;
-    height: 100%;
-    width: 100%;
-`;
+let timer;
+// fade - user controls
+// unmount - Component control for animations
+// null - mounted but hidden, false - mounted and shown, true - unmounted
+export const Modal = ({
+    className,
+    children,
+    base,
+    position = 'fixed',
+    margin = 'auto',
+    padding = 20,
+    zIndex = 99,
+    delay = 300,
+    width = '60%',
+    height = '60%',
+    state,
+}) => {
+    const [ show, setShow ] = state;
+    const [ unmount, setUnmount ] = useState(true);
+    const close = () => setShow(false);
+
+    useEffect(() => {
+        if (show) {
+            window.clearInterval(timer);
+            setUnmount(null);
+            window.requestAnimationFrame(() => setUnmount(false));
+        } else if (!unmount) {
+            setUnmount(null);
+            timer = window.setTimeout(
+                () => !show && setUnmount(true),
+                delay
+            );
+        }
+    }, [ show ]);
+
+    return unmount !== true && (
+        <Container zIndex={ zIndex } pos={ position } unmount={ unmount } delay={ delay }>
+            <ModalBox
+                className={ className }
+                unmount={ unmount }
+                padding={ padding }
+                width={ width }
+                height={ height }
+                margin={ margin }
+                delay={ delay }
+                base={ base }
+            >
+                <Close onClick={ close }/>
+                { children }
+            </ModalBox>
+            <Backdrop onClick={ close } base={ base }/>
+        </Container>
+    );
+}
