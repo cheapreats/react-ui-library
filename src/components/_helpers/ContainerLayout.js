@@ -22,6 +22,7 @@ const Items = styled.div`
     ${ ({ wrap }) => wrap && 'flex-wrap: wrap;' }
     justify-content: ${ ({ justify }) => justify };
     align-items: ${ ({ align }) => align };
+    display: flex;
 `;
 
 export const ContainerLayout = props => {

@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const ModalBox = styled.div`
     ${ scroll }
-    ${ ({ delay }) => transition(['transform', 'height', 'width'], delay) }
+    ${ ({ delay }) => transition(['transform', 'height', 'width', 'border-radius'], delay) }
     ${ ({ margin }) => position('absolute', margin, 'auto') };
     ${ ({ width, height }) => `
         width: ${ width };
@@ -35,6 +35,7 @@ const ModalBox = styled.div`
     ${ media.tablet`
         width: 100%;
         height: 100%;
+        border-radius: 0;
     ` }
 `;
 

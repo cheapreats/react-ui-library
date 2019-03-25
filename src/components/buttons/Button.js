@@ -1,12 +1,14 @@
 import React, { Fragment } from 'react';
 import styled, { css } from 'styled-components';
 import { CircleNotch } from 'styled-icons/fa-solid/CircleNotch';
+import { flex } from '../mixins';
 import PropTypes from 'prop-types';
 
 
 const ButtonWrapper = styled.button.attrs(
     props => ({ 'data-index': props['data-index'] })
 )`
+    ${ flex('center') }
     color: ${({primary, black, theme}) => primary ? "white" : black ? 'black' : theme.colors.primary};
     background-color: ${({ primary, theme }) => primary ? theme.colors.primary : 'white'};
     ${({flat, theme}) => flat ? '': `box-shadow: ${theme.shadows[0]};`};
