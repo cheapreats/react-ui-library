@@ -25,7 +25,7 @@ const ModalBox = styled.div`
     transform: translate3d(0, ${
         ({ unmount }) => unmount === false ? '0' : '-20%'
     }, 0);
-    padding: ${ ({ padding }) => padding + (typeof(padding) !== 'string' && 'px') };
+    padding: ${ ({ padding }) => padding + (typeof(padding) !== 'string' ? 'px' : '') };
     box-shadow: ${ SHADOW_RAISE_1 };
     background-color: white;
     box-sizing: border-box;
