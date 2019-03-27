@@ -63,6 +63,7 @@ const Loading = styled(CircleNotch)`
 export const Button = ({
     primary,
     flat,
+    name,
     black,
     text,
     onClick,
@@ -78,6 +79,7 @@ export const Button = ({
 }) => (
     <ButtonWrapper
         className={className}
+        name={name}
         primary={primary}
         black={black}
         flat={flat}
@@ -103,6 +105,7 @@ export const Button = ({
 
 Button.propTypes = {
     primary: PropTypes.bool,
+    name: PropTypes.string,
     flat: PropTypes.bool,
     /** Highly recommend using styled-icons for SC or any other <svg/> */
     icon: PropTypes.object,

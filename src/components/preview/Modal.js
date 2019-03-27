@@ -102,7 +102,7 @@ export const Modal = ({
         if (show) {
             window.clearInterval(timer);
             setUnmount(null);
-            window.requestAnimationFrame(() => setUnmount(false));
+            window.setTimeout(() => setUnmount(false), 1);
         } else if (!unmount) {
             setUnmount(null);
             timer = window.setTimeout(
