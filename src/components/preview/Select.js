@@ -125,11 +125,9 @@ export const Select = params => {
     const open = () => {
         if (!disabled) {
             setExpanded(true);
-            window.requestAnimationFrame(
-                () => {
-                    window.addEventListener('click', () => setExpanded(false), { once: true });
-                }, 10
-            );
+            window.requestAnimationFrame(() => {
+                window.addEventListener('click', () => setExpanded(false), { once: true });
+            });
         }
     }
 

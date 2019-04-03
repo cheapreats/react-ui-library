@@ -24,21 +24,21 @@
   },
   "homepage": "https://github.com/CheaprEats/react-ui#readme",
   "devDependencies": {
-    "@babel/core": "^7.4.0",
+    "@babel/core": "^7.4.3",
     "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/preset-env": "^7.4.2",
-    "@storybook/addon-info": "^5.0.5",
-    "@storybook/addon-notes": "^5.0.5",
-    "@storybook/addon-options": "^5.0.5",
-    "@storybook/react": "^5.0.5",
+    "@babel/preset-env": "^7.4.3",
+    "@storybook/addon-info": "^5.0.6",
+    "@storybook/addon-notes": "^5.0.6",
+    "@storybook/addon-options": "^5.0.6",
+    "@storybook/react": "^5.0.6",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.5",
     "css-loader": "^2.1.1",
     "file-loader": "^3.0.1",
     "mini-css-extract-plugin": "^0.5.0",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "react": "^16.8.5",
-    "react-dom": "^16.8.5",
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6",
     "style-loader": "^0.23.1",
     "styled-components": "^4.2.0",
     "styled-icons": "^6.12.0",
@@ -53,7 +53,7 @@
   },
   "dependencies": {
     "moment": "^2.24.0",
-    "rc-slider": "^8.6.7",
+    "rc-slider": "^8.6.9",
     "react-datepicker": "^2.3.0"
   }
 }

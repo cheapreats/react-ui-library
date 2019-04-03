@@ -26,6 +26,7 @@ export const Row = ({ className, margin = 0, padding = 0, wrap, children, top, b
         padding={ padding }
         margin={ margin }
         top={ top }
+        width={ width }
         bottom={ bottom }
         center={ center }
         stretch={ stretch }

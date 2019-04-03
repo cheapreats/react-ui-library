@@ -1,15 +1,23 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
-import { DatePicker } from '../components/preview';
+import { DatePicker, Global } from '../components/preview';
 
-storiesOf('DatePicker', module)
-    .add('with title', () => (
+const Test = () => {
+    const [ date, setDate ] = useState(new Date());
+    return (
         <DatePicker
             label='Banana'
             name='REEE'
-            value={ new Date() }
-            onChange={ ({ target }) => console.log(target) }
+            value={date}
+            onChange={setDate}
         />
+    );
+}
+
+storiesOf('DatePicker', module)
+    .addDecorator(story => <Global>{ story() }</Global>)
+    .add('with title', () => (
+        <Test/>
     ))
     .add('with description', () => (
         <DatePicker

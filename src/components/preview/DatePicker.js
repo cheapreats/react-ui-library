@@ -1,136 +1,209 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 import PropTypes from 'prop-types';
+import moment from 'moment';
 import styled from 'styled-components';
-
-import Picker from 'react-datepicker';
 import { CalendarAlt } from 'styled-icons/fa-regular/CalendarAlt';
-import 'react-datepicker/dist/react-datepicker.css';
+import { AngleLeft, AngleRight } from 'styled-icons/fa-solid';
 
 import InputLayout, { InputLayoutProps, InputStyles } from '../_helpers/InputLayout';
-import {
-    PRIMARY_FONT, PRIMARY_COLOUR, SHADOW_RAISE_1, INPUT_BACKGROUND,
-    INPUT_BACKGROUND_VALID, INPUT_BACKGROUND_INVALID
-} from '../variables';
-import { transition, position } from '../mixins';
+import { ExtractProps } from '../_helpers/Util';
+import { flex, position, transition } from '../mixins';
+import { SHADOW_RAISE_1 } from '../variables';
 
-const Container = styled(InputLayout)`
-    & input {
+const Container = styled.div`
+    max-width: ${ ({ expanded }) => expanded ? 320 : 550 }px;
+    ${ transition('max-width') }
+    position: relative;
+`;
+
+const Icon = styled.svg`
+    width: 15px;
+    height: 15px;
+    margin: ${ ({ margin = 0 }) => margin };
+    ${ ({ clickable }) => clickable ? `
+        ${ transition(['color', 'background-color']) }
+        cursor: pointer;
+        border-radius: 50%;
+        padding: 5px;
+        &:hover, &:active {
+            color: black;
+            background-color: rgba(0,0,0,0.08);
+        }
+    ` : '' }
+
+`;
+
+const Display = {
+    Container: styled.p`
+        background-color: ${ ({ theme }) => theme.colors.inputBackground.default };
+        ${ flex('flex-start', 'center') }
         ${ InputStyles }
-        font-family: ${ PRIMARY_FONT };
-        background-color: ${ ({ valid, error }) => (
-            error ? INPUT_BACKGROUND_INVALID :
-            valid ? INPUT_BACKGROUND_VALID :
-            INPUT_BACKGROUND
-        )};
-        &:active, &:focus {
-            box-shadow: ${ SHADOW_RAISE_1 };
-        }
-        &:disabled {
-            cursor: not-allowed;
-        }
-        ${ transition(['box-shadow', 'background-color']) }
+        cursor: pointer;
+    `,
+    Text: styled.span`
+        overflow: hidden;
+        padding-right: 16px;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    `
+};
+
+const Picker = {
+    Container: styled.div`
+        color: #545454;
+        height: auto;
+        font-weight: bold;
+        padding-bottom: 8px;
+        background-color: white;
+        border-radius: 8px;
+        max-width: 320px;
+        box-shadow: ${ SHADOW_RAISE_1 };
+        ${ transition(['opacity', 'transform']) }
+        ${ position('absolute', '5px 0 0', 0, 0, 'auto', 0) }
+        ${ ({ expanded }) => `
+            opacity: ${ expanded ? 1 : 0 };
+            pointer-events: ${ expanded ? 'all' : 'none' };
+            transform: translate3d(0, ${ expanded ? 0: -40 }px, 0);
+        ` }
+    `,
+    Head: styled.div`
+        ${ flex('center') }
+        padding: 12px;
+    `,
+    Head__Text: styled.span`
+        flex-grow: 1;
+        margin: 0 10px;
+        font-weight: bold;
+        font-size: 0.85rem;
+        text-align: center;
+    `,
+    Row: styled.div`
+        ${ flex('space-evenly', 'center') }
+        width: 100%;
+        ${ ({ head }) => head ? `
+            ${ Picker.Column } {
+                font-size: 0.85rem;
+                padding-bottom: 5px;
+                pointer-events: none;
+            }
+        `: '' }
+    `,
+    Column: styled.span`
+        flex-grow: 1;
+        flex-basis: 0;
+        text-align: center;
+        height: 30px;
+        max-width: 30px;
+        cursor: pointer;
+        border-radius: 50%;
+        ${ flex('center') }
+        ${ transition(['background-color', 'color']) }
+        ${ ({ hide, active, theme }) => (
+            hide ? `
+                opacity: 0.2;
+                pointer-events: none;
+            ` : active ? `
+                background-color: ${ theme.colors.primary };
+                color: white;
+            ` : `
+                &:hover {
+                    background-color: ${ theme.colors.inputBackground.default };
+                }
+            `
+        )}
+    `
+};
+
+const week = Array(7).fill();
+const setMonth = (date, amount) => date.add(amount, 'month');
+const capture = e => e.stopPropagation();
+const _expand = async (set, handler) => {
+    set(true);
+    window.setTimeout(() => {
+        window.addEventListener('click', handler, { once: true });
+    }, 200);
+};
+const createCalendar = (date, now, active, setDate) => {
+    const res = [];
+    date = moment(date);
+    let i = 0;
+    while (parseInt(date.format('YYMM')) <= parseInt(now.format('YYMM'))) {
+        res.push(<Picker.Row key={i}>
+            {
+                week.map((v, k) => {
+                    const d = moment(date);
+                    date.add(1, 'day');
+                    return (
+                        <Picker.Column
+                            key={ k }
+                            onClick={() => setDate(d)}
+                            active={ d.format('l') === active.format('l') }
+                            hide={ d.month() !== now.month() }
+                        >
+                            { d.date() }
+                        </Picker.Column>
+                    );
+                })
+            }
+        </Picker.Row>);
+        i++;
     }
+    return res;
+}
 
-    & .react-datepicker {
-        border: none;
-        font-family: ${ PRIMARY_FONT };
-        box-shadow: 0 0 3px 2px rgba(0,0,0,0.1);
+export const DatePicker = props => {
+    const [ layoutProps ] = ExtractProps(InputLayout.propTypes, props);
+    const { disabled, value = new Date() } = props;
 
-        &__input-container, &-wrapper {
-            display: block;
+    const [ expanded, setExpanded ] = useState(false);
+    const [ date, _setDate ] = useState(moment(value));
+    const [ calendar, setCalendar ] = useState(null);
+    const listener = useRef(() => setExpanded(false));
+    const expand = () => {
+        if (!disabled) {
+            _expand(setExpanded, listener.current);
+            setDate(date);
         }
-
-        &__navigation {
-            &--next {
-                border-left-color: white;
-            }
-
-            &--previous {
-                border-right-color: white;
-            }
-        }
-
-        &__triangle {
-            border-bottom-color: ${ PRIMARY_COLOUR } !important;
-        }
-
-        &__header {
-            & * { color: white; }
-            background-color: ${ PRIMARY_COLOUR };
-        }
-
-        &__day {
-            margin: 0;
-            padding: 0.166rem;
-            &--selected {
-                background-color: ${ PRIMARY_COLOUR };
-            }
-
-            &--keyboard-selected {
-                background-color: #b9b9b9;
-            }
-
-            &--outside-month {
-                opacity: 0.4;
-            }
-        }
-    }
-`;
-
-const Icon = styled(CalendarAlt)`
-    ${ position('absolute', '38px 14px 0 auto') }
-    margin-left: auto;
-    width: 18px;
-    height: 18px;
-`;
-
-export const DatePicker = ({
-    // Layout Props
-    className,
-    margin,
-    maxWidth,
-    name,
-    label,
-    description,
-    disabled,
-    error,
-
-    // Input Props
-    value,
-    valid,
-    placeholder,
-    onChange
-}) => {
-
-    const ref = useRef();
-    useEffect(() => { ref.current.target = { name, value } }, [ value ]);
-    const _onChange = date => {
-        ref.current.target.value = date;
-        if (onChange) onChange(ref.current);
     };
+    const setDate = next => {
+        _setDate(next);
+        setCalendar(createCalendar(
+            moment(date).startOf('month').startOf('isoWeek'),
+            next, moment(value),
+            d => {
+                window.removeEventListener('click', listener.current, { once: true });
+                setExpanded(false);
+                props.onChange(new Date(d));
+            }
+        ));
+    }
 
     return (
-        <Container
-            className={ className }
-            margin={ margin }
-            maxWidth={ maxWidth }
-            name={ name }
-            label={ label }
-            description={ description }
-            disabled={ disabled }
-            error={ error }
-            valid={ valid }
-        >
-            <Picker
-                ref={ ref }
-                selected={ value }
-                onChange={ _onChange }
-                name={ name }
-                placeholderText={ placeholder }
-                disabled={ disabled }
-            />
-            <Icon/>
-        </Container>
+        <InputLayout { ...layoutProps }>
+            <Container expanded={ expanded }>
+                <Display.Container onClick={ expand }>
+                    <Display.Text>{ moment(value).format('LL') }</Display.Text>
+                    <Icon as={ CalendarAlt } margin='0 0 0 auto'/>
+                </Display.Container>
+                <Picker.Container expanded={ expanded } onClick={ capture }>
+                    <Picker.Head>
+                        <Icon as={ AngleLeft } onClick={ () => setDate(setMonth(date, -1)) } clickable/>
+                        <Picker.Head__Text>{ date.format('MMMM YYYY') }</Picker.Head__Text>
+                        <Icon as={ AngleRight } onClick={ () => setDate(setMonth(date, 1)) } clickable/>
+                    </Picker.Head>
+                    <Picker.Row head>
+                        <Picker.Column>Mon</Picker.Column>
+                        <Picker.Column>Tue</Picker.Column>
+                        <Picker.Column>Wed</Picker.Column>
+                        <Picker.Column>Thu</Picker.Column>
+                        <Picker.Column>Fri</Picker.Column>
+                        <Picker.Column>Sat</Picker.Column>
+                        <Picker.Column>Sun</Picker.Column>
+                    </Picker.Row>
+                    { calendar }
+                </Picker.Container>
+            </Container>
+        </InputLayout>
     );
 };
 
