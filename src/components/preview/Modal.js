@@ -90,8 +90,8 @@ export const Modal = ({
     padding = 20,
     zIndex = 99,
     delay = 300,
-    width = '60%',
-    height = '60%',
+    width = '550px',
+    height = 'auto',
     state,
 }) => {
     const [ show, setShow ] = state;
