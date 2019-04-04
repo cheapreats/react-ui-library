@@ -85,6 +85,7 @@ export const Modal = ({
     className,
     children,
     base,
+    onClose = () => {},
     position = 'fixed',
     margin = 'auto',
     padding = 20,
@@ -105,10 +106,12 @@ export const Modal = ({
             window.setTimeout(() => setUnmount(false), 1);
         } else if (!unmount) {
             setUnmount(null);
-            timer = window.setTimeout(
-                () => !show && setUnmount(true),
-                delay
-            );
+            timer = window.setTimeout(() => {
+                if (!show) {
+                    setUnmount(true);
+                    onClose();
+                }
+            }, delay);
         }
     }, [ show ]);
 
