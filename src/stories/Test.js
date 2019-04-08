@@ -48,8 +48,10 @@ storiesOf('DragMe', module)
             {
                 test.data.vendors[0].categories.map(({ _id, name, menu_item_count }) => (
                     <Fragment key={ _id } as={ Item } onClick={() => console.log('CLICK')}>
-                        <p>{ name }</p>
-                        <p>{ menu_item_count }</p>
+                        <a style={{ display: 'block' }} href='/'>
+                            <p>{ name }</p>
+                            <p>{ menu_item_count }</p>
+                        </a>
                     </Fragment>
                 ))
             }

@@ -1,4 +1,4 @@
-import React, { Children, useState, useRef, useCallback } from 'react';
+import React, { Children, useState, useRef, useCallback, useEffect } from 'react';
 import styled from 'styled-components';
 import { transition } from '../mixins';
 
@@ -34,9 +34,14 @@ export const Draggable = ({ className, children, onChange = () => {}, spacing = 
     const debounce = useRef();
     const offset = useRef();
 
-    const onDragStart = useCallback(({ target }) => setStart(target.value), [ start ]);
+    const onDragStart = useCallback(e => {
+        e.stopPropagation();
+        setStart(e.currentTarget.value);
+    }, [ start ]);
 
-    const onDragOver = useCallback(({ target: { value } }) => {
+    const onDragOver = useCallback(e => {
+        e.stopPropagation();
+        let value = e.currentTarget.value;
         if (!debounce.current && value !== undefined && value !== start) {
             debounce.current = true;
             if (value === end) value--;
@@ -61,7 +66,7 @@ export const Draggable = ({ className, children, onChange = () => {}, spacing = 
                     return <Item
                         { ...child.props }
                         onDragStart={ onDragStart }
-                        onDragOver={ value === start ? null : onDragOver }
+                        onDragOver={ onDragOver }
                         data={ child.key }
                         value={ value }
                         spacing={ spacing }
