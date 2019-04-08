@@ -5,3 +5,4 @@ export * from './Theme';
 export * from './Global';
 export * from './Modal';
 export * from './TimePicker';
+export * from './Draggable';
