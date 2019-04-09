@@ -19,7 +19,6 @@ addParameters({
 
 // Just so we can control the order easily
 const Stories = [
-    'Test',
     'Overview',
     'Grid',
     'Heading',
@@ -36,6 +35,7 @@ const Stories = [
     'Checkbox',
     'Button',
     'Card',
+    'PictureCard',
     'Popup',
     'Modal',
     'Draggable',

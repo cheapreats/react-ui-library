@@ -7,8 +7,7 @@ const DURATION = 150;
 const Container = styled.ul`
     list-style-type: none;
     padding: 0;
-    margin: 20px;
-    max-width: 400px;
+    margin: 0;
 `;
 
 const Item = styled.li`
@@ -27,7 +26,7 @@ const Item = styled.li`
     ${ transition(['transform'], DURATION) }
 `;
 
-export const Draggable = ({ className, children, onChange = () => {}, spacing = 10 }) => {
+export const Draggable = ({ className, children, onChange = () => {}, spacing = 10, disabled }) => {
 
     const [ start, setStart ] = useState();
     const [ end, setEnd ] = useState();
@@ -72,7 +71,7 @@ export const Draggable = ({ className, children, onChange = () => {}, spacing = 
                         spacing={ spacing }
                         active={ value === start }
                         offset={ lower || upper }
-                        draggable
+                        draggable={ !disabled }
                     >
                         { child }
                     </Item>;

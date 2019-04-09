@@ -2,18 +2,12 @@
 import * as _preview from './preview';
 export const preview = _preview;
 
-// To Deprecate
-export * from './texts/HeadingOne';
-export * from './texts/HeadingTwo';
-export * from './texts/HeadingThree';
-export * from './texts/HeadingFour';
-export * from './texts/HeadingFive';
-
 // Text
 export * from './texts/Heading';
 export * from './texts/Paragraph';
 export * from './texts/SmallText';
 export * from './texts/Link';
+export * from './texts/ActiveText';
 
 // Inputs - To Deprecate
 export * from './inputs/Input';
@@ -29,7 +23,9 @@ export * from './inputs/Checkbox';
 export * from './containers/Buttons';
 export * from './containers/Card';
 export * from './containers/Tags';
-export * from './containers/Popup';
+export * from './containers/PictureCard';
+export * from './containers/Popup'; // To deprecate
+export * from './containers/Rating';
 export * from './containers/Footnote';
 export * from './containers/Checkboxes';
 export * from './containers/Draggable';

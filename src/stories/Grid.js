@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import styled, { css } from 'styled-components';
-import { Column, Row, Paragraph as P, HeadingTwo } from '../components';
+import styled from 'styled-components';
+import { Column, Row, Paragraph as P, Heading } from '../components';
 import { storiesOf } from '@storybook/react';
 
 const Paragraph = styled(P)`
@@ -82,7 +82,7 @@ storiesOf('Grid', module)
             {
                 titles.map((align, k) => (
                     <Fragment>
-                        <HeadingTwo bold>{ titles[k] }</HeadingTwo>
+                        <Heading type='h2' bold>{ titles[k] }</Heading>
                         <Row {...{ [align.toLowerCase()]: true }} key={k}>
                             <Column col='4'>
                                 <Paragraph bold>A</Paragraph>
