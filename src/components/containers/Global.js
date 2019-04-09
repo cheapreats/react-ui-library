@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
-import { Theme } from './Theme';
+import { Theme } from '../preview/Theme';
 import { scroll } from '../mixins';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 

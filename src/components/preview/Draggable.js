@@ -64,8 +64,8 @@ export const Draggable = ({ className, children, onChange = () => {}, spacing = 
                     const upper = value <= start && value >= end ? offset.current : 0;
                     return <Item
                         { ...child.props }
-                        onDragStart={ onDragStart }
-                        onDragOver={ onDragOver }
+                        onDragStart={ disabled ? null : onDragStart }
+                        onDragOver={ disabled ? null : onDragOver }
                         data={ child.key }
                         value={ value }
                         spacing={ spacing }

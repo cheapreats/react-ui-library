@@ -18,6 +18,7 @@ export * from './inputs/Tag';
 export * from './inputs/DatePicker';
 export * from './inputs/TimePicker';
 export * from './inputs/Checkbox';
+export * from './inputs/Image';
 
 // Containers
 export * from './containers/Buttons';
@@ -29,6 +30,7 @@ export * from './containers/Rating';
 export * from './containers/Footnote';
 export * from './containers/Checkboxes';
 export * from './containers/Draggable';
+export * from './containers/Global';
 
 // Grid
 export * from './layout/Column';

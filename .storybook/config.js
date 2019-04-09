@@ -20,6 +20,7 @@ addParameters({
 // Just so we can control the order easily
 const Stories = [
     'Overview',
+    'Colors',
     'Grid',
     'Heading',
     'Paragraph',
@@ -29,6 +30,7 @@ const Stories = [
     'Select',
     'Switch',
     'Radio',
+    'Image',
     'DatePicker',
     'TimePicker',
     'Tag',
