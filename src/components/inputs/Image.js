@@ -1,11 +1,14 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useRef } from 'react';
+import 'react-image-crop/dist/ReactCrop.css';
+import ReactCrop from 'react-image-crop';
 import styled from 'styled-components';
+
 import InputLayout from '../_helpers/InputLayout';
 import { transition, position, flex } from '../mixins';
-import { Modal } from '../preview';
-import ReactCrop from 'react-image-crop';
 import { Heading } from '../texts/Heading';
-import 'react-image-crop/dist/ReactCrop.css';
+import { Buttons } from '../containers/Buttons';
+import { Button } from '../buttons/Button';
+import { Modal } from '../preview';
 
 const Drop = styled.input`
     ${ position('absolute', 'auto', 0) }
@@ -39,14 +42,19 @@ const Container = styled.div`
 
 const CropWrapper = styled.div`
     ${ flex('row', 'center') }
+    background-color: ${ ({ theme }) => theme.colors.inputBackground.default };
+    padding: 20px;
 `;
 
-export const Image = ({ accept = 'image/*', ...props }) => {
+export const Image = ({ accept = 'image/*', onChange = () => {}, ...props }) => {
     const [ crop, setCrop ] = useState({ aspect: 2/1 });
+    const [ loading, setLoading ] = useState(false);
     const [ image, setImage ] = useState();
     const modal = useState(false);
+    const img = useRef();
 
-    useEffect(() => () => { console.log('reee'); URL.revokeObjectURL(image) }, []);
+    useEffect(() => () => { URL.revokeObjectURL(image) }, []);
+
     const upload = useCallback(async ({ target }) => {
         URL.revokeObjectURL(image);
         const [ file ] = target.files;
@@ -56,17 +64,63 @@ export const Image = ({ accept = 'image/*', ...props }) => {
         }
     }, []);
 
+    const onClose = useCallback(() => {
+        URL.revokeObjectURL(image);
+        setCrop({ aspect: 2/1 });
+        img.current = null;
+        setImage(null);
+    }, []);
+
+    const onCrop = useCallback(async (e, i) => {
+        setCrop(e);
+        img.current = i;
+    }, []);
+
+    const onSubmit = useCallback(() => (
+        new Promise(resolve => {
+            setLoading(true);
+            const canvas = document.createElement('canvas');
+            canvas.width = 300;
+            canvas.height = 150;
+            const ctx = canvas.getContext('2d');
+
+            const draw = new window.Image();
+            draw.onload = () => {
+                ctx.drawImage(
+                    draw,
+                    img.current.x,
+                    img.current.y,
+                    img.current.width,
+                    img.current.height,
+                    0, 0, 300, 150
+                );
+                const base = canvas.toDataURL('image/jpeg');
+                setLoading(false);
+                modal[1](false);
+                resolve(base);
+            };
+            draw.src = image;
+        })
+    ), [ img.current ]);
+
     return (
         <InputLayout { ...props }>
             <Container>
                 Upload Image
-                <Drop type='file' accept={ accept } onChange={upload}/>
+                <Drop type='file' accept={ accept } onChange={ upload }/>
             </Container>
-            <Modal padding='0' base state={ modal }>
-                <Heading type='h2' bold margin='15px 25px'>Upload Image</Heading>
+            <Modal padding='0' base state={ modal } onClose={ onClose }>
+                <Heading type='h2' bold margin='15px 25px'>Crop Image</Heading>
                 <CropWrapper>
-                    <ReactCrop src={ image } crop={ crop } minWidth='50' onChange={e => setCrop(e)}/>
+                    <ReactCrop
+                        src={ image }
+                        crop={ crop }
+                        onChange={ onCrop }
+                    />
                 </CropWrapper>
+                <Buttons margin='15px 25px' spacing='0'>
+                    <Button disabled={!crop.x} onClick={ onSubmit } primary>Done</Button>
+                </Buttons>
             </Modal>
         </InputLayout>
     );
