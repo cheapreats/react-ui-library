@@ -31,6 +31,8 @@ const ModalBox = styled.div`
     box-sizing: border-box;
     border-radius: 12px;
     overflow: auto;
+    max-height: 100%;
+    max-width: 100%;
 
     ${ media.tablet`
         width: 100%;
