@@ -9,7 +9,7 @@ const Test = () => {
             label='Banana'
             name='REEE'
             value={date}
-            onChange={setDate}
+            onChange={({ target }) => setDate(target.value)}
         />
     );
 }

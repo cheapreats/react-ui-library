@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import moment from 'moment';
 import styled from 'styled-components';
@@ -6,12 +6,12 @@ import { CalendarAlt } from 'styled-icons/fa-regular/CalendarAlt';
 import { AngleLeft, AngleRight } from 'styled-icons/fa-solid';
 
 import InputLayout, { InputLayoutProps, InputStyles } from '../_helpers/InputLayout';
-import { ExtractProps } from '../_helpers/Util';
 import { flex, position, transition } from '../mixins';
 import { SHADOW_RAISE_1 } from '../variables';
 
 const Container = styled.div`
-    max-width: ${ ({ expanded }) => expanded ? 320 : 550 }px;
+    max-width: ${ ({ expanded }) => expanded ? 280 : 550 }px;
+    min-width: 280px;
     ${ transition('max-width') }
     position: relative;
 `;
@@ -19,6 +19,7 @@ const Container = styled.div`
 const Icon = styled.svg`
     width: 15px;
     height: 15px;
+    flex-shrink: 0;
     margin: ${ ({ margin = 0 }) => margin };
     ${ ({ clickable }) => clickable ? `
         ${ transition(['color', 'background-color']) }
@@ -34,17 +35,21 @@ const Icon = styled.svg`
 `;
 
 const Display = {
-    Container: styled.p`
-        background-color: ${ ({ theme }) => theme.colors.inputBackground.default };
-        ${ flex('flex-start', 'center') }
-        ${ InputStyles }
+    Container: styled.div`
         cursor: pointer;
+        background-color: ${ ({ theme }) => theme.colors.inputBackground.default };
+        ${ InputStyles }
+        ${ flex('row', 'flex-start', 'center') }
     `,
-    Text: styled.span`
-        overflow: hidden;
-        padding-right: 16px;
-        white-space: nowrap;
-        text-overflow: ellipsis;
+    Text: styled.input`
+        border: none;
+        padding: none;
+        background: none;
+        font-weight: bold;
+        cursor: pointer;
+        outline: none;
+        color: black;
+        font-family: ${ ({ theme }) => theme.font };
     `
 };
 
@@ -56,7 +61,7 @@ const Picker = {
         padding-bottom: 8px;
         background-color: white;
         border-radius: 8px;
-        max-width: 320px;
+        max-width: 280px;
         box-shadow: ${ SHADOW_RAISE_1 };
         ${ transition(['opacity', 'transform']) }
         ${ position('absolute', '5px 0 0', 0, 0, 'auto', 0) }
@@ -136,7 +141,7 @@ const createCalendar = (date, now, active, setDate) => {
                     return (
                         <Picker.Column
                             key={ k }
-                            onClick={() => setDate(d)}
+                            onClick={el => setDate(el, d)}
                             active={ d.format('l') === active.format('l') }
                             hide={ d.month() !== now.month() }
                         >
@@ -151,16 +156,17 @@ const createCalendar = (date, now, active, setDate) => {
     return res;
 }
 
-export const DatePicker = props => {
-    const [ layoutProps ] = ExtractProps(InputLayout.propTypes, props);
-    const { disabled, value = new Date() } = props;
+export const DatePicker = ({ value, onChange = () => {}, ...args }) => {
 
     const [ expanded, setExpanded ] = useState(false);
     const [ date, _setDate ] = useState(moment(value));
     const [ calendar, setCalendar ] = useState(null);
-    const listener = useRef(() => setExpanded(false));
+    const listener = useRef(() => {
+        setExpanded(false);
+    });
+    const input = useRef();
     const expand = () => {
-        if (!disabled) {
+        if (!args.disabled) {
             _expand(setExpanded, listener.current);
             setDate(date);
         }
@@ -170,19 +176,25 @@ export const DatePicker = props => {
         setCalendar(createCalendar(
             moment(date).startOf('month').startOf('isoWeek'),
             next, moment(value),
-            d => {
+            (el, d) => {
                 window.removeEventListener('click', listener.current, { once: true });
                 setExpanded(false);
-                props.onChange(new Date(d));
+
+                // Hijack synthetic event (I can't believe this works)
+                el.target = input.current;
+                el.target.value = new Date(d);
+                onChange(el);
             }
         ));
     }
 
+    useEffect(() => { if (!expanded) setDate(moment(value)) }, [ expanded ]);
+
     return (
-        <InputLayout { ...layoutProps }>
+        <InputLayout { ...args }>
             <Container expanded={ expanded }>
                 <Display.Container onClick={ expand }>
-                    <Display.Text>{ moment(value).format('LL') }</Display.Text>
+                    <Display.Text ref={ input } readonly disabled value={ moment(value).format('LL') }/>
                     <Icon as={ CalendarAlt } margin='0 0 0 auto'/>
                 </Display.Container>
                 <Picker.Container expanded={ expanded } onClick={ capture }>
