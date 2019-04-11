@@ -49,37 +49,55 @@ export const Input = ({
     type,
     min,
     max,
-    step,
-    onChange,
-    onKeyPress
-}) => (
-    <InputLayout
-        className={ className }
-        margin={ margin }
-        maxWidth={ maxWidth }
-        name={ name }
-        label={ label }
-        description={ description }
-        disabled={ disabled }
-        error={ error }
-    >
-        <InputField
+    step = 1,
+    onChange = () => {},
+    onKeyPress = () => {}
+}) => {
+    const _onChange = el => {
+
+        if (type === 'number') {
+            let val = el.target.value;
+            if (min !== undefined) val = Math.max(min, val);
+            if (max !== undefined) val = Math.min(max, val);
+            
+            const offset = val % step;
+            if (offset !== 0) {
+                val += -offset + (Math.round(offset / step) * step);
+            }
+            el.target.value = val;
+        }
+
+        onChange(el);
+    }
+    return (
+        <InputLayout
+            className={ className }
+            margin={ margin }
+            maxWidth={ maxWidth }
             name={ name }
-            aria-describedby={ name }
-            error={ error }
-            valid={ valid }
+            label={ label }
+            description={ description }
             disabled={ disabled }
-            placeholder={ placeholder }
-            type={ type }
-            onChange={ onChange }
-            value={ value }
-            onKeyPress={ onKeyPress }
-            min={ min }
-            max={ max }
-            step={ step }
-        />
-    </InputLayout>
-);
+            error={ error }
+        >
+            <InputField
+                name={ name }
+                aria-describedby={ name }
+                error={ error }
+                valid={ valid }
+                disabled={ disabled }
+                placeholder={ placeholder }
+                type={ type }
+                onChange={ _onChange }
+                value={ value }
+                onKeyPress={ onKeyPress }
+                min={ min }
+                max={ max }
+                step={ step }
+            />
+        </InputLayout>
+    );
+};
 
 Input.propTypes = {
     ...InputLayoutProps,

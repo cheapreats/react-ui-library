@@ -1,27 +1,40 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import styled from 'styled-components';
+
 import InputLayout, { InputLayoutProps } from './InputLayout';
+import { ExtractProps } from './Util';
 
 const KEYS = {
     LEFT: 37,
     UP: 38,
     RIGHT: 39,
     DOWN: 40,
-}
+};
 
-export const ContainerLayout = ({
-    className,
-    margin,
-    maxWidth,
-    label,
-    description,
-    disabled,
-    error,
-    children,
-    spacing = 10
-}) => {
-    const items = Array.isArray(children) ? children : [ children ];
-    const max = items.length - 1;
+const Layout = styled(InputLayout)`
+    ${ ({ disabled }) => disabled && 'pointer-events: none;' }
+    flex-shrink: 0;
+`;
+
+const Items = styled.div`
+    ${ ({ column }) => column && 'flex-direction: column;' }
+    ${ ({ wrap }) => wrap && 'flex-wrap: wrap;' }
+    justify-content: ${ ({ justify }) => justify };
+    align-items: ${ ({ align }) => align };
+    min-height: 0;
+    display: flex;
+`;
+
+export const ContainerLayout = props => {
+    const [
+        layoutProps,
+        { children, spacing, column, wrap, justify, align }
+    ] = ExtractProps(
+        InputLayoutProps, props, { name: '' }, [ 'disabled' ]
+    );
+    const max = Math.max(React.Children.count(children) - 1, 0);
+
     const handleKeys = ({ keyCode, target }) => {
         let index = parseInt(target.getAttribute('data-index'));
         switch(keyCode) {
@@ -37,30 +50,42 @@ export const ContainerLayout = ({
                 break;
         }
         index = index < 0 ? max : index > max ? 0 : index;
-        target.parentNode.children[index + (description ? 2 : 1)].focus();
+        target.parentNode.children[index].focus();
     };
+
     return (
-        <InputLayout
-            className={ className }
-            margin={ margin }
-            maxWidth={ maxWidth }
-            label={ label }
+        <Layout
+            { ...layoutProps }
             name=''
-            description={ description }
-            disabled={ disabled }
-            error={ error }
         >
-            { 
-                items.map((child, dataIndex) => React.cloneElement(child, {
-                    onKeyDown: handleKeys,
-                    key: dataIndex,
-                    margin: spacing,
-                    dataIndex,
-                    disabled
-                }))
-            }
-        </InputLayout>
+            <Items
+                justify={ justify }
+                column={ column }
+                align={ align }
+                wrap={ wrap }
+            >
+                { 
+                    React.Children.map(
+                        children,
+                        (child, dataIndex) => (
+                            child &&
+                            React.cloneElement(child, {
+                                onKeyDown: handleKeys,
+                                margin: spacing,
+                                dataIndex
+                            })
+                        )
+                    )
+                }
+            </Items>
+        </Layout>
     );
+};
+
+ContainerLayout.defaultProps = {
+    spacing: 10,
+    align: 'flex-start',
+    justify: 'flex-start'
 };
 
 delete InputLayoutProps.name;
@@ -69,6 +94,16 @@ ContainerLayout.propTypes = {
     spacing: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number
+    ]),
+    column: PropTypes.bool,
+    wrap: PropTypes.bool,
+    align: PropTypes.oneOf([
+        'stretch', 'center', 'flex-start', 'inherit',
+        'flex-end', 'baseline', 'initial'
+    ]),
+    justify: PropTypes.oneOf([
+        'flex-start', 'flex-end', 'center', 'inherit',
+        'space-between', 'space-around', 'initial'
     ])
 };
 

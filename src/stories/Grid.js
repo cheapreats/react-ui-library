@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { Column, Row, Paragraph as P, HeadingTwo } from '../components';
+import { Column, Row, Paragraph as P, Heading } from '../components';
 import { storiesOf } from '@storybook/react';
 
 const Paragraph = styled(P)`
@@ -48,6 +48,22 @@ storiesOf('Grid', module)
             would create an array of media queries.
         `
     })
+    .add('with complex media + styles', () => (
+        <Row>
+            <Column media={{
+                1000: [
+                    10,
+                    `background-color: red;`
+                ]
+            }} col='12'>
+                <Paragraph bold>Because responsive layout isn't enough</Paragraph>
+            </Column>
+        </Row>
+    ), {
+        notes: `
+
+        `
+    })
     .add('with right', () => (
         <Row>
             <Column col='3'>
@@ -66,7 +82,7 @@ storiesOf('Grid', module)
             {
                 titles.map((align, k) => (
                     <Fragment>
-                        <HeadingTwo bold>{ titles[k] }</HeadingTwo>
+                        <Heading type='h2' bold>{ titles[k] }</Heading>
                         <Row {...{ [align.toLowerCase()]: true }} key={k}>
                             <Column col='4'>
                                 <Paragraph bold>A</Paragraph>

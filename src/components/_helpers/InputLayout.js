@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 
@@ -10,6 +10,7 @@ const Container = styled.div`
     overflow-wrap: break-word;
     position: relative;
     font-family: ${ PRIMARY_FONT };
+    margin: ${ ({ margin }) => margin + (typeof(margin) === 'string' ? '' : 'px') };
     max-width: ${ ({ maxWidth }) => maxWidth + (typeof(maxWidth) === 'string' ? '' : 'px') }
     ${ ({ disabled }) => disabled ? 'opacity: 0.5;' : '' }
     ${ flex('column') }
@@ -45,13 +46,16 @@ export const InputLayout = ({
     children
 }) => (
     <Container className={ className } margin={ margin } maxWidth={ maxWidth } disabled={ disabled }>
-        <Label htmlFor={ name }>{ label }</Label>
+        { !label ? null : <Label htmlFor={ name }>{ label }</Label> }
         {
             !description ? null :
             <SmallText id={ name } margin='0 0 5px' lineHeight='1.3' text={ description } bold/>
         }
         { children }
-        <ErrorText margin='5px 0 0' lineHeight='1.3' text={ error || '' } error={ error } bold/>
+        {
+            error === undefined ? null : 
+            <ErrorText margin='5px 0 0' lineHeight='1.3' text={ error } error={ error } bold/>
+        }
     </Container>
 );
 

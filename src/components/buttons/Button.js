@@ -1,11 +1,14 @@
-import React                                          from 'react';
-import styled, {css}                                  from 'styled-components';
-import PropTypes                                      from 'prop-types';
+import React, { Fragment } from 'react';
+import styled, { css } from 'styled-components';
+import { CircleNotch } from 'styled-icons/fa-solid/CircleNotch';
+import { flex } from '../mixins';
+import PropTypes from 'prop-types';
 
 
 const ButtonWrapper = styled.button.attrs(
     props => ({ 'data-index': props['data-index'] })
 )`
+    ${ flex('center') }
     color: ${({primary, black, theme}) => primary ? "white" : black ? 'black' : theme.colors.primary};
     background-color: ${({ primary, theme }) => primary ? theme.colors.primary : 'white'};
     ${({flat, theme}) => flat ? '': `box-shadow: ${theme.shadows[0]};`};
@@ -37,16 +40,30 @@ const ButtonWrapper = styled.button.attrs(
 `;
 
 const StyledIcon = styled.svg`
-    ${({size}) => `
+    ${({ size, hasText }) => `
         width: ${ size ? 12 * size / 14 : 12 }px;
-        margin-right: ${ size ? 6 * size / 14 : 6 }px;
+        margin-right: ${ hasText ? (size ? 6 * size / 14 : 6) : 0 }px;
     `}
+    pointer-events: none;
     height: auto;
+`;
+
+const Loading = styled(CircleNotch)`
+    ${({ size }) => `width: ${ size ? 12 * size / 14 : 12 }px`};
+    animation: spin 1000ms linear 0s infinite;
+    pointer-events: none;
+    height: auto;
+
+    @keyframes spin {
+        from { transform: rotate(0deg) translate3d(0, 0, 0) }
+        to { transform: rotate(360deg) translate3d(0, 0, 0) }
+    }
 `;
 
 export const Button = ({
     primary,
     flat,
+    name,
     black,
     text,
     onClick,
@@ -57,10 +74,12 @@ export const Button = ({
     className,
     children,
     onKeyDown,
-    dataIndex = 0
+    dataIndex = 0,
+    loading
 }) => (
     <ButtonWrapper
         className={className}
+        name={name}
         primary={primary}
         black={black}
         flat={flat}
@@ -72,12 +91,21 @@ export const Button = ({
         tabIndex='0'
         data-index={ dataIndex }
     >
-        { icon ? <StyledIcon as={icon} size={size}/> : null }{text ? text : children}
+        {
+            loading ? 
+            <Loading size={size}/> : (
+                <Fragment>
+                    { icon ? <StyledIcon as={icon} hasText={ text || children } size={size}/> : null }
+                    { text ? text : children }
+                </Fragment>
+            )
+        }
     </ButtonWrapper>
 );
 
 Button.propTypes = {
     primary: PropTypes.bool,
+    name: PropTypes.string,
     flat: PropTypes.bool,
     /** Highly recommend using styled-icons for SC or any other <svg/> */
     icon: PropTypes.object,
@@ -94,5 +122,6 @@ Button.propTypes = {
     onKeyPress: PropTypes.func,
     disabled: PropTypes.bool,
     className: PropTypes.string,
-    children: PropTypes.node
+    children: PropTypes.node,
+    loading: PropTypes.bool
 };

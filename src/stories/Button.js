@@ -2,8 +2,11 @@ import React from 'react';
 import { Plus } from 'styled-icons/fa-solid/Plus';
 import { storiesOf } from '@storybook/react';
 import { Button, Buttons } from '../components';
+import { Global } from '../components/preview';
+
 
 storiesOf('Button', module)
+    .addDecorator(story => <Global>{ story() }</Global>)
     .add('with text and primary', () => (
         <Button primary text={"Confirm Primary"}/>
     ), {
@@ -45,6 +48,7 @@ storiesOf('Button', module)
     .add('with disabled', () => (
         <Button
             text={"I am disabled... :("}
+            black
             onClick={e => {
                 window.alert("You just clicked on the button!");
             }}
@@ -69,11 +73,19 @@ storiesOf('Button', module)
     ), {
         notes: "Never go back"
     })
+    .add('with loading', () => (
+        <Button
+            loading
+            text='Ralph might have been here...'
+        />
+    ), {
+        notes: "Built in loading, when no text and only icon, there would be no margin too now"
+    })
     .add('with container', () => (
         <Buttons>
             <Button black text='Ralph might have been here...'/>
-            <Button black text='Ralph might have been here...'/>
-            <Button black text='Ralph might have been here...'/>
+            <Button primary black text='Ralph might have been here...'/>
+            <Button disabled black text='Ralph might have been here...'/>
             <Button black text='Ralph might have been here...'/>
             <Button black text='Ralph might have been here...'/>
         </Buttons>

@@ -1,17 +1,13 @@
-// To Deprecate
-export * from './texts/HeadingOne';
-export * from './texts/HeadingTwo';
-export * from './texts/HeadingThree';
-export * from './texts/HeadingFour';
-export * from './texts/HeadingFive';
-
-
+// Preview
+import * as _preview from './preview';
+export const preview = _preview;
 
 // Text
 export * from './texts/Heading';
 export * from './texts/Paragraph';
 export * from './texts/SmallText';
 export * from './texts/Link';
+export * from './texts/ActiveText';
 
 // Inputs - To Deprecate
 export * from './inputs/Input';
@@ -22,15 +18,19 @@ export * from './inputs/Tag';
 export * from './inputs/DatePicker';
 export * from './inputs/TimePicker';
 export * from './inputs/Checkbox';
+export * from './inputs/Image';
 
 // Containers
 export * from './containers/Buttons';
 export * from './containers/Card';
 export * from './containers/Tags';
-export * from './containers/Popup';
+export * from './containers/PictureCard';
+export * from './containers/Popup'; // To deprecate
+export * from './containers/Rating';
 export * from './containers/Footnote';
 export * from './containers/Checkboxes';
 export * from './containers/Draggable';
+export * from './containers/Global';
 
 // Grid
 export * from './layout/Column';

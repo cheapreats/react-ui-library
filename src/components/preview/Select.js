@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Children } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import InputLayout, { InputLayoutProps, InputStyles } from '../_helpers/InputLayout';
@@ -18,7 +18,7 @@ const SelectWrapper = styled.div`
     position: relative;
     font-size: 0.825rem;
     font-weight: bold;
-
+    width: ${ ({ width }) => width + (typeof(width) === 'string' ? '' : 'px') };
     ${ ({ disabled }) => disabled ? `
         & * {
             cursor: not-allowed !important;
@@ -28,8 +28,9 @@ const SelectWrapper = styled.div`
 
 const Icon = styled(AngleDown)`
     margin-left: auto;
-    width: 18px;
+    padding-left: 12px;
     height: 18px;
+    width: 18px;
 `;
 
 const SelectedItem = styled.p`
@@ -59,6 +60,7 @@ const SelectList = styled.ul`
     box-shadow: ${ SHADOW_RAISE_1 };
     list-style-type: none;
     padding: 0;
+    z-index: 10;
     width: 100%;
 
     ${ scroll }
@@ -68,7 +70,6 @@ const SelectList = styled.ul`
             pointer-events: all;
             max-height: ${ ITEM_HEIGHT * NUM_OF_ITEMS }px;
             opacity: 1;
-            z-index: 1;
         ` : `
             pointer-events: none;
             max-height: ${ ITEM_HEIGHT }px;
@@ -103,16 +104,16 @@ const SelectField = styled.select`display: none`;
 
 export const Select = params => {
     const [ layoutProps, selectProps ] = ExtractProps(
-        InputLayout.propTypes, params, {}, ['error', 'disabled']
+        InputLayout.propTypes, params, {}, ['error', 'disabled', 'name']
     );
     const {
-        valid, value, placeholder, onChange,
-        isActive, children, disabled, error 
+        valid, value, placeholder, onChange, isActive,
+        children, disabled, error, name, width
     } = selectProps;
 
     const [ expanded, setExpanded ] = useState(false);
-    const items = Array.isArray(children) ? children : [ children ];
-    const activeItem = items.find(({ props }) => props.value === value);
+    const items = Children.toArray(children);
+    const activeItem = items.find(({ props }) => isActive(props.value, value));
 
     const _onClick = el => {
         if (onChange) {
@@ -124,17 +125,15 @@ export const Select = params => {
     const open = () => {
         if (!disabled) {
             setExpanded(true);
-            window.setTimeout(
-                () => {
-                    window.addEventListener('click', () => setExpanded(false), { once: true });
-                }, 10
-            );
+            window.requestAnimationFrame(() => {
+                window.addEventListener('click', () => setExpanded(false), { once: true });
+            });
         }
     }
 
     return (
         <InputLayout { ...layoutProps }>
-            <SelectWrapper disabled={ disabled }>
+            <SelectWrapper disabled={ disabled } width={ width }>
                 <SelectedItem onClick={ open } expanded={ expanded } valid={ valid } error={ error }>
                     { activeItem ? activeItem.props.children : placeholder }
                     <Icon/>
@@ -162,30 +161,22 @@ export const Select = params => {
 };
 
 Select.defaultProps = {
-    isActive: (curr, active) => curr + '' === active + ''
+    isActive: (curr, active) => curr === active,
+    width: '100%',
 };
 
 Select.propTypes = {
     ...InputLayoutProps,
     valid: PropTypes.bool,
     placeholder: PropTypes.string.isRequired,
-    type: PropTypes.string,
-    min: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
-    max: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
-    step: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string
-    ]),
     value: PropTypes.oneOfType([
         PropTypes.number,
         PropTypes.string
     ]),
     onChange: PropTypes.func,
+    width: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string
+    ]),
     isActive: PropTypes.func
 };

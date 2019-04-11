@@ -7,24 +7,30 @@ const DEFAULT_BREAK = 880;
 const createMedia = media => {
     const breaks = Object.entries(media);
     breaks.sort(([a], [b]) => b - a);
-    return breaks.reduce((acc, [key, val]) => (
+    return breaks.reduce((acc, [key, val]) => {
+        const isStyled = Array.isArray(val);
         acc += `
             @media (max-width: ${ key }px) {
-                width: ${ val / 0.12 }%;
+                width: ${ (isStyled ? val[0] : val) / 0.12 }%;
+                ${ isStyled && val[1] }
             }
-        `
-    ), '')
+        `;
+        return acc;
+    }, '')
 };
 
 const Container = styled.div`
     display: inline-block;
     flex-direction: column;
     box-sizing: border-box;
+    flex-shrink: 0;
+    margin: ${ ({ margin }) => margin + (typeof(margin) === 'string' ? '' : 'px') };
+    padding: ${ ({ padding }) => padding + (typeof(padding) === 'string' ? '' : 'px') };
     ${ ({ right }) => right ? 'margin-left: auto' : '' }
     width: ${ ({ col }) => col ? (col / 0.12) : 100 }%;
     ${
         ({ media }) => media ? (
-            typeof(media) !== 'object' ?
+            typeof(media) !== 'object' || Array.isArray(media) ?
             createMedia({ [DEFAULT_BREAK]: media }) : createMedia(media)
         ) : ''
     }
@@ -38,9 +44,14 @@ const Container = styled.div`
     }
 `;
 
-export const Column = ({ className, children, col, media, right, top, bottom, center, stretch }) => (
+export const Column = ({
+    className, margin = 0, padding = 0, children,
+    col, media, right, top, bottom, center, stretch
+}) => (
     <Container
         col={ col }
+        margin={ margin }
+        padding={ padding }
         media={ media }
         className={ className }
         right={ right }
@@ -64,6 +75,14 @@ Column.propTypes = {
         PropTypes.string,
         PropTypes.number,
         PropTypes.arrayOf(PropTypes.object)
+    ]),
+    padding: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
+    ]),
+    margin: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number
     ]),
     right: PropTypes.bool,
     top: PropTypes.bool,

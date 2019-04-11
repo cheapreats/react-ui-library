@@ -1,36 +1,22 @@
 const webpack = require('webpack');
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const pkg = require('./package.json');
 const path = require('path');
 
-const files = [
-    {
-        entry: path.join(__dirname, "./src/components"),
-        output: {
-            path: path.join(__dirname, './dist'),
-            filename: 'CheaprEatsStoryBook.js',
-            library: pkg.name,
-            libraryTarget: 'umd',
-            publicPath: '/dist/',
-            umdNamedDefine: true
-        },
-    },
-    {
-        entry: path.join(__dirname, "./src/components/preview"),
-        output: {
-            path: path.join(__dirname, './dist/preview'),
-            filename: 'index.js',
-            library: pkg.name,
-            libraryTarget: 'umd',
-            publicPath: '/dist/preview/',
-            umdNamedDefine: true
-        },
-    },
-];
-const config = {
+module.exports = {
+    entry: path.join(__dirname, "./src/components"),
     plugins: [
         new MiniCssExtractPlugin()
     ],
+    output: {
+        path: path.join(__dirname, './dist'),
+        filename: 'CheaprEatsStoryBook.js',
+        library: pkg.name,
+        libraryTarget: 'umd',
+        publicPath: '/dist/',
+        umdNamedDefine: true
+    },
     node: {
       net: 'empty',
       tls: 'empty',
@@ -45,7 +31,7 @@ const config = {
                     loader: 'url-loader',
                     options:{
                         fallback: "file-loader",
-                        name: "[name][md5:hash].[ext]",
+                        name: "[name].[hash:8].[ext]",
                         outputPath: 'assets/',
                         publicPath: '/assets/'
                     }
@@ -54,9 +40,14 @@ const config = {
         },
         {
             test: /\.*css$/,
-            use : [
-                MiniCssExtractPlugin.loader,
-                'css-loader'
+            sideEffects: true,
+            use: [
+                {
+                    loader: MiniCssExtractPlugin.loader
+                },
+                {
+                    loader: 'css-loader'
+                }
             ]
         },
         {
@@ -74,10 +65,16 @@ const config = {
             use: ["file-loader"],
         }]
     },
+    optimization: {
+        minimizer: [
+            new OptimizeCSSAssetsPlugin({})
+        ]
+    },
     resolve: {
         alias: {
             'react': path.resolve(__dirname, './node_modules/react') ,
             'react-dom': path.resolve(__dirname, './node_modules/react-dom'),
+            "styled-components": path.resolve(__dirname, "./node_modules/styled-components"),
             'assets': path.resolve(__dirname, 'assets')
         }
     },
@@ -102,8 +99,3 @@ const config = {
         },
     }
 };
-
-module.exports = files.map(file => ({
-    ...config,
-    ...file
-}))

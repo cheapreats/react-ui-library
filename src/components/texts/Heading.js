@@ -21,7 +21,6 @@ export const Heading = props => {
     const [layoutProps, { type, children }] = ExtractProps(
         TextLayoutProps, props
     );
-    console.log(layoutProps, type, children);
     return (
         <HeadingText { ...layoutProps } type={ type }>
             { children }

@@ -7,6 +7,7 @@ import { PRIMARY_FONT } from '../variables';
 const Text = styled.p`
     color: black;
     font-family: ${ PRIMARY_FONT };
+    text-align: ${ ({ align }) => align };
     line-height: ${ ({ lineHeight }) => lineHeight };
     font-weight: ${ ({ bold }) => bold ? 'bold' : 'normal' };
     margin: ${ ({ margin }) => margin + (typeof(margin) === 'string' ? '' : 'px') };
@@ -19,6 +20,7 @@ export const TextLayout = ({
     type,
     bold,
     text,
+    align = 'inherit',
     children
 }) => (
     <Text
@@ -27,6 +29,7 @@ export const TextLayout = ({
         lineHeight={ lineHeight }
         as={ type }
         bold={ bold }
+        align={ align }
     >
         { text || children }
     </Text>
@@ -43,6 +46,9 @@ export const TextLayoutProps = {
         PropTypes.number
     ]),
     bold: PropTypes.bool,
+    align: PropTypes.oneOf([
+        'left', 'center', 'right', 'justify', 'inherit'
+    ]),
     text: PropTypes.node,
     children: PropTypes.node
 };

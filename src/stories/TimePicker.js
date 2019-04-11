@@ -1,19 +1,13 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { TimePicker } from '../components';
-
-const showTime = ({ target: { name, value } }) => {
-    const hour = value.getHours();
-    const min = value.getMinutes();
-    return `${hour <= 12 ? hour : hour % 12}:${min} ${hour < 12 ? 'AM' : 'PM'}`;
-}
+import { TimePicker } from '../components/preview';
 
 storiesOf('TimePicker', module)
     .add('with nothing', () => (
-        <TimePicker name='test' onChange={ date => alert(showTime(date)) }/>
+        <TimePicker
+            label='Timepicker'
+            description='Select a time for a time during a time when a time is time for a time'
+            name='test'
+        />
     ))
-    .add('with error', () => (
-        <TimePicker name='test12312' error='Not a ralph' onChange={ date => alert(showTime(date)) }/>
-    ))
-;
 ;

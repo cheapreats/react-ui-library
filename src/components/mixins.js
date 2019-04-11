@@ -28,11 +28,16 @@ export const scroll = `
     }
 `;
 
-export const transition = (items, duration = 300) => `transition: ${
-    items.reduce((acc, item) => (
-        `${acc}, ${item} ${duration}ms cubic-bezier(0.4, 0.0, 0.2, 1)`
-    ), '').slice(2)
-};`;
+export const transition = (items, duration = 300) => {
+    items = typeof(items) === 'string' ? [ items ] : items;
+    return (
+        `transition: ${
+            items.reduce((acc, item) => (
+                `${acc}, ${item} ${duration}ms cubic-bezier(0.4, 0.0, 0.2, 1)`
+            ), '').slice(2)
+        };`
+    );
+};
 
 export const position = (position, margin = 'auto', top = 0, right = top, bottom = top, left = right) => `
     position: ${ position };
