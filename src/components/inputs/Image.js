@@ -53,7 +53,7 @@ export const Image = ({
     maxWidth,
     ...props
 }) => {
-    const [ crop, setCrop ] = useState({ aspect: 2/1 });
+    const [ crop, setCrop ] = useState({ aspect });
     const [ loading, setLoading ] = useState(false);
     const [ image, setImage ] = useState();
     const modal = useState(false);
