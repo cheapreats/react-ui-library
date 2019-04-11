@@ -123,7 +123,7 @@ export const Image = ({
                     />
                 </CropWrapper>
                 <Buttons margin='15px 25px' spacing='0'>
-                    <Button disabled={!crop.x} onClick={ onSubmit } primary>Done</Button>
+                    <Button loading={ loading } disabled={!crop.x} onClick={ onSubmit } primary>Done</Button>
                 </Buttons>
             </Modal>
         </InputLayout>
