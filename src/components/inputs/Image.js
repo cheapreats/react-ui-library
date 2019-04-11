@@ -46,7 +46,13 @@ const CropWrapper = styled.div`
     padding: 20px;
 `;
 
-export const Image = ({ accept = 'image/*', onChange = () => {}, ...props }) => {
+export const Image = ({
+    accept = 'image/*',
+    aspect = 1,
+    onChange = () => {},
+    maxWidth,
+    ...props
+}) => {
     const [ crop, setCrop ] = useState({ aspect: 2/1 });
     const [ loading, setLoading ] = useState(false);
     const [ image, setImage ] = useState();
@@ -66,7 +72,7 @@ export const Image = ({ accept = 'image/*', onChange = () => {}, ...props }) => 
 
     const onClose = useCallback(() => {
         URL.revokeObjectURL(image);
-        setCrop({ aspect: 2/1 });
+        setCrop({ aspect });
         img.current = null;
         setImage(null);
     }, []);
@@ -80,19 +86,17 @@ export const Image = ({ accept = 'image/*', onChange = () => {}, ...props }) => 
         new Promise(resolve => {
             setLoading(true);
             const canvas = document.createElement('canvas');
-            canvas.width = 300;
-            canvas.height = 150;
+            canvas.width = maxWidth;
+            canvas.height = 1/aspect * maxWidth;
             const ctx = canvas.getContext('2d');
 
             const draw = new window.Image();
             draw.onload = () => {
+                const { x, y, width, height } = img.current;
                 ctx.drawImage(
                     draw,
-                    img.current.x,
-                    img.current.y,
-                    img.current.width,
-                    img.current.height,
-                    0, 0, 300, 150
+                    x, y, width, height,
+                    0, 0, canvas.width, canvas.height
                 );
                 const base = canvas.toDataURL('image/jpeg');
                 setLoading(false);
