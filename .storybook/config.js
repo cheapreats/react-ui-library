@@ -1,56 +1,9 @@
-import { configure, addDecorator, addParameters } from '@storybook/react';
-import { withNotes } from '@storybook/addon-notes';
-import { withInfo } from '@storybook/addon-info';
-import brandImage from './logo.png';
+import { configure } from '@storybook/react';
 
-addDecorator(withInfo);
-addDecorator(withNotes);
-addParameters({
-    options: {
-        showPanel: false,
-        theme: {
-            base: 'light',
-            brandTitle: 'Cheapreats',
-            brandUrl: 'https://cheapreats.com',
-            brandImage,
-        }
-    }
-})
-
-// Just so we can control the order easily
-const Stories = [
-    'Overview',
-    'Colors',
-    'Grid',
-    'Heading',
-    'Paragraph',
-    'SmallText',
-    'Link',
-    'Input',
-    'Select',
-    'Switch',
-    'Radio',
-    'Image',
-    'DatePicker',
-    'TimePicker',
-    'Tag',
-    'Checkbox',
-    'Button',
-    'Card',
-    'PictureCard',
-    'Popup',
-    'Modal',
-    'Draggable',
-    'Footnote',
-    'TransactionStatusTag',
-    'sliders'
-];
-
+// automatically import all files ending in *.stories.js
+const req = require.context('../stories', true, /\.stories\.js$/);
 function loadStories() {
-    // automatically import all Capitalized story js files that end with *.js
-    // const req = require.context('../src/stories', true, /\.js$/);
-    // req.keys().forEach(filename => req(filename));
-    Stories.forEach(story => require(`../src/stories/${story}`));
+  req.keys().forEach(filename => req(filename));
 }
 
 configure(loadStories, module);
