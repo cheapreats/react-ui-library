@@ -1,3 +1,5 @@
-export const dark = {
+const Theme = {
 
 };
+
+export default Theme;

@@ -1,4 +1,4 @@
-import Default from "./Default";
+import Main from './Main';
 
-export * from './Dark';
-export default Default;
+export { default as Dark } from './Dark';
+export default Main;

@@ -1,0 +1,1 @@
+"use strict";var _Global=require("./Global");Object.defineProperty(exports,"__esModule",{value:!0});Object.keys(_Global).forEach(function(a){"default"===a||"__esModule"===a||Object.defineProperty(exports,a,{enumerable:!0,get:function get(){return _Global[a]}})});
