@@ -1,1 +1,0 @@
-"use strict";Object.defineProperty(exports,"__esModule",{value:!0}),exports["default"]=void 0;var Theme={colors:{primary:"#EE2434",text:"#4a4a4a"}},_default=Theme;exports["default"]=_default;
