@@ -49,5 +49,13 @@
     "react-dom": "^16.8.6",
     "styled-components": "^4.2.0",
     "styled-icons": "^7.15.1"
+  },
+  "aliases": {
+    "@layouts": "src/__Layouts",
+    "@Containers": "src/Containers",
+    "@Inputs": "src/Inputs",
+    "@Text": "src/Text",
+    "@Themes": "src/Themes",
+    "@Utils": "src/Utils"
   }
 }

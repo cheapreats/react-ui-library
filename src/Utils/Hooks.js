@@ -1,4 +1,4 @@
-import { useState, useCallback, useRef } from 'react';
+import { useState, useRef } from 'react';
 
 /**
  * Delayed state change
@@ -7,19 +7,14 @@ import { useState, useCallback, useRef } from 'react';
  * @param {number} end - Delay in ms for true -> false
  * @returns {any[]} [ state, setState, ready ];
  */
-export const useTransition = (init = false, start, end) => {
-    const [ ready, setReady ] = useState(true);
-    const _state = useRef(init);
-
-    const setState = useCallback(state => {
-        if (ready) {
-            setReady(false);
-            window.setTimeout(() => {
-                _state.current = state;
-                setReady(true);
-            }, state ? start : end);
-        }
-    }, [ _state.current, start, end ]);
-
-    return [ _state.current, setState, ready ];
+export const useTransition = (init = false, start = 0, end = 0) => {
+    const [ _init, setInit ] = useState(init);
+    const timer = useRef();
+    useEffect(() => {
+        window.clearTimeout(timer.current);
+        timer.current = window.setTimeout(
+            () => setInit(init), init ? start : end
+        );
+    }, [ init !== _init ]);
+    return _init;
 }

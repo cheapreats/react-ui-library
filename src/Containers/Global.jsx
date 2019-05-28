@@ -1,6 +1,6 @@
 import React, { Fragment } from 'react';
-import * as Themes from '../Themes';
-import Template from '../Themes/_Template';
+import * as Themes from '@Themes';
+import Template from '@Themes/_Template';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 const GlobalContext = createGlobalStyle`

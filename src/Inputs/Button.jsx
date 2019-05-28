@@ -1,21 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { CircleNotch } from 'styled-icons/fa-solid/CircleNotch';
-import { Main, Responsive } from '../Utils/BaseStyles';
-import { transition, clickable, position, flex } from '../Utils/Mixins';
+import { Main, Responsive } from '@Utils/BaseStyles';
+import { transition, clickable, position, flex } from '@Utils/Mixins';
+import { useTransition } from '@Utils/Hooks';
 import styled from 'styled-components';
 
 const DELAY = 100;
 
 const Button = ({ children, icon, loading, ...props }) => {
-    const [ _loading, setLoading ] = useState(loading);
-    useEffect(() => {
-        window.setTimeout(() => setLoading(loading), DELAY);
-    }, [ loading !== _loading ]);
+    const delayedLoading = useTransition(loading);
+    const _loading = loading || delayedLoading;
     return (
         <StyledButton { ...props }>
             { icon && <Icon as={ icon }/> }
             <Content loading={ _loading }>{ children }</Content>
-            { loading && <Loader loading={ _loading }/> }
+            { _loading && <Loader loading={ _loading }/> }
         </StyledButton>
     );
 }
