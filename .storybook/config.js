@@ -16,6 +16,6 @@ const style = theme => `
         min-height: 100vh;
     }
 `;
-addDecorator(story => <Global style={ style }>{ story() }</Global>);
 
+addDecorator(story => <Global style={ style }>{ story() }</Global>);
 configure(loadStories, module);

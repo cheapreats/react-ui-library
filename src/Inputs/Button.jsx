@@ -5,16 +5,13 @@ import { transition, clickable, position, flex } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 import styled from 'styled-components';
 
-const DELAY = 100;
-
 const Button = ({ children, icon, loading, ...props }) => {
-    const delayedLoading = useTransition(loading);
-    const _loading = loading || delayedLoading;
+    const [ , or, and ] = useTransition(loading);
     return (
         <StyledButton { ...props }>
             { icon && <Icon as={ icon }/> }
-            <Content loading={ _loading }>{ children }</Content>
-            { _loading && <Loader loading={ _loading }/> }
+            <Content loading={ and }>{ children }</Content>
+            { or && <Loader loading={ and }/> }
         </StyledButton>
     );
 }
@@ -29,7 +26,6 @@ const StyledButton = styled.button`
     border: 1.5px solid rgba(0,0,0,0.1);
     background: transparent;
     border-radius: 999px;
-    padding: 10px 18px;
     font-size: 0.95rem;
     position: relative;
     font-weight: bold;
@@ -44,6 +40,7 @@ const StyledButton = styled.button`
 
     // Theme Stuff
     ${({ theme }) => `
+        padding: ${ theme.dimensions.padding.withBorder };
         font-family: ${ theme.font.family };
         color: ${ theme.colors.text };
         ${ clickable('#ffffff', 0.05) }

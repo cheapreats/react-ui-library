@@ -6,6 +6,30 @@ const FLEX_DIRECTIONS = [
     'reverse-column'
 ];
 
+
+export const styledSwitch = (value, ...args) => {
+    const len = args.length;
+    for (let i = 0; i < len; i += 2) {
+        if (value === args[i]) return args[i + 1];
+    }
+
+    // If even, no default so return nothing, else return the default
+    if (len % 2) return args[len - 1];
+    return '';
+}
+
+
+export const styledCondition = (...args) => {
+    const len = args.length;
+    for (let i = 1; i < len; i += 2) {
+        if (args[i - 1]) return args[i];
+    }
+
+    // If even, no default so return nothing, else return the default
+    if (len % 2) return args[len - 1];
+    return '';
+}
+
 /**
  * Darkens given color (Would support more in the future)
  * @param {string} color - HEX color
