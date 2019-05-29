@@ -7,6 +7,7 @@ export const Main = ({ margin = 0, padding = 0, style = '' }) => `
     // Inline Styles
     ${ style }
 `;
+export const MainProps = ['margin', 'padding', 'style'];
 
 // Styles for responsive components
 export const Responsive = ({ media = {}, ...props }) => (
@@ -21,3 +22,4 @@ export const Responsive = ({ media = {}, ...props }) => (
         return acc;
     }, '')
 );
+export const ResponsiveProps = ['media'];

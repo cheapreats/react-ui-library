@@ -1,3 +1,5 @@
+import theme from '@Themes/_Template';
+
 const COLOR_RANGE = 255;
 const FLEX_DIRECTIONS = [
     'row',
@@ -77,7 +79,7 @@ export const clickable = (color, amount = 0.1) => `
  * Adds transitions in batch
  * @param {string[]|TransitionOption[]}
  */
-export const transition = (items, duration = 250) => `transition: ${
+export const transition = (items, duration = theme.speed.normal) => `transition: ${
     items.reduce((acc, item) => {
         const d = item.duration || duration;
         const i = `${item.property || item} ${d + (typeof(d) === 'number' ? 'ms' : '')}`;

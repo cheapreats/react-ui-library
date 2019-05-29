@@ -17,6 +17,12 @@ const Theme = {
         },
         radius: '8px'
     },
+    speed: {
+        fast: 150,
+        normal: 250,
+        slow: 400,
+        page: 600
+    },
     depth: [
         'none',
         '0 0 6px rgba(0,0,0,0.1)'

@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTransition } from '@Utils/Hooks';
-import { flex } from '@Utils/Mixins';
+import { Main, MainProps, Responsive, ResponsiveProps } from '@Utils/BaseStyles';
+import { __useImplicitProps, useTransition } from '@Utils/Hooks';
+import { flex, transition } from '@Utils/Mixins';
 
 export const LabelLayout = ({
     name,
@@ -10,9 +11,11 @@ export const LabelLayout = ({
     error,
     success,
     children,
-    className
+    className,
+    ...props
 }) => {
-    const [ , orErr, andErr ] = useTransition(error);
+    const implicitProps = __useImplicitProps(props, [ ...MainProps, ...ResponsiveProps ]);
+    const [ ,_error ] = useTransition(error, { end: 250 });
     const layoutProps = {
         description,
         success,
@@ -20,30 +23,41 @@ export const LabelLayout = ({
     };
 
     return (
-        <Layout { ...layoutProps }>
+        <Layout { ...layoutProps } { ...implicitProps }>
             { label && <Label htmlFor={ name }>{ label }</Label> }
             { description && <Info id={`#${ name }-info`}>{ description }</Info> }
             { children }
-            {orErr && (
-                <Label id={`#${ name }-error`} transition={ andErr } error>
-                    { error }
-                </Label>
-            )}
+            <ErrorLabel id={`#${ name }-error`} error={ error }>
+                { _error }
+            </ErrorLabel>
         </Layout>
     );
 }
 
 const Layout = styled.div`
+    ${ transition(['opacity']) }
     ${ flex('column') }
+    ${ Responsive }
+    ${ Main }
 `;
 
 const Label = styled.label`
     font-size: 0.9rem;
     font-weight: bold;
     margin-bottom: 5px;
+`;
+
+const ErrorLabel = styled(Label)`
+    ${ transition(['max-height', 'opacity']) }
+    overflow: hidden;
+    margin-top: 5px;
+    max-height: 0;
+    opacity: 0;
+    color: red;
+
     ${({ error }) => error ? `
-        margin-top: 5px;
-        color: red;
+        max-height: 20px;
+        opacity: 1;
     ` : ''}
 `;
 

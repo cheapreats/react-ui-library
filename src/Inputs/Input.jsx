@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Main, Responsive } from '@Utils/BaseStyles';
 import { styledCondition, transition } from '@Utils/Mixins';
 import { LabelLayout } from '@Layouts';
 
@@ -13,15 +12,18 @@ const Input = props => {
 }
 
 const InputElement = styled.input`
-    // Base styles
-    ${ Main }
-    ${ Responsive }
-    ${ transition(['background-color']) }
-
-    border: none;
-    outline: none;
+    ${ transition(['background-color', 'opacity']) }
     font-size: 0.85rem;
     font-weight: bold;
+    outline: none;
+    border: none;
+
+
+    // Disabled
+    &:disabled {
+        cursor: not-allowed;
+        opacity: 0.6;
+    }
 
     // Theme Stuff
     ${({ theme }) => `

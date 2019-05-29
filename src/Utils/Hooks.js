@@ -1,6 +1,20 @@
 import { useState, useEffect, useRef } from 'react';
 const ifUndefined = (prop, def) => prop === undefined ? def : prop;
 
+/**
+ * Internal hook used to extract implicity defined props to prop
+ * @param {Object} props - props to extract info from (user define with __accept)
+ * @param {any[]} accept - Props to include by component
+ */
+export const __useImplicitProps = (props, accept = []) => (
+    [ ...(props.__accept || []), ...accept ].reduce(
+        (acc, prop) => {
+            acc[prop] = props[prop];
+            return acc;
+        }, {}
+    )
+);
+
 
 /**
  * useTransition hook options
@@ -24,10 +38,11 @@ export const useTransition = (init = false, options = {}) => {
             () => setInit(init),
             (
                 init ?
-                ifUndefined(options.start, 10) :
-                ifUndefined(options.end, 10)
+                ifUndefined(options.start, 0) :
+                ifUndefined(options.end, 0)
             )
         );
     }, [ init !== _init ]);
+
     return [ _init, _init || init, _init && init ];
 }
