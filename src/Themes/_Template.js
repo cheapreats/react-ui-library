@@ -1,7 +1,10 @@
 const Theme = {
     font: {
         family: '"Quicksand", sans-serif',
+        lineHeight: 1.6,
         size: {
+            default: '1rem',
+            small: '0.85rem',
             h1: '1rem',
             h2: '1rem',
             h3: '1rem',
@@ -25,7 +28,7 @@ const Theme = {
     },
     depth: [
         'none',
-        '0 0 6px rgba(0,0,0,0.1)'
+        '0 1px 3px rgba(0,0,0,0.2)'
     ]
 };
 

@@ -3,9 +3,9 @@ const Theme = {
         primary: '#EE2434',
         text: '#4a4a4a',
         input: {
-            default: '#efefef',
-            success: '#efffef',
-            error: '#ffefef'
+            default: '#f5f5f5',
+            success: '#f5fff5',
+            error: '#fff5f5'
         }
     }
 };

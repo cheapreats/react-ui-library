@@ -12,7 +12,7 @@ const Input = props => {
 }
 
 const InputElement = styled.input`
-    ${ transition(['background-color', 'opacity']) }
+    ${ transition(['background-color', 'opacity', 'box-shadow']) }
     font-size: 0.85rem;
     font-weight: bold;
     outline: none;
@@ -30,6 +30,9 @@ const InputElement = styled.input`
         padding: ${ theme.dimensions.padding.default };
         border-radius: ${ theme.dimensions.radius };
         font-family: ${ theme.font.family };
+        &:focus {
+            box-shadow: ${ theme.depth[1] };
+        }
     `}
 
     // Background color
