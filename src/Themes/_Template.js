@@ -5,12 +5,12 @@ const Theme = {
         size: {
             default: '1rem',
             small: '0.85rem',
-            h1: '1rem',
-            h2: '1rem',
-            h3: '1rem',
-            h4: '1rem',
-            h5: '1rem',
-            h6: '1rem'
+            h1: '2rem',
+            h2: '1.75rem',
+            h3: '1.55rem',
+            h4: '1.4rem',
+            h5: '1.3rem',
+            h6: '1.2rem'
         }
     },
     dimensions: {

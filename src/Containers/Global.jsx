@@ -16,8 +16,15 @@ const GlobalContext = createGlobalStyle`
     ${({ style, theme }) => style ? style(theme) : ''}
 `;
 
-export const Global = ({ children, style, theme = 'default', extend = {} }) => {
-    theme = { ...Template, ...Themes[theme], ...extend };
+export const Global = ({
+    children,
+    theme = 'default',
+    style,
+    extend
+}) => {
+    theme = { ...Template, ...Themes[theme] };
+    if (extend) theme = extend(theme);
+    
     return (
         <ThemeProvider theme={ theme }>
             <Fragment>
