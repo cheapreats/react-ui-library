@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import * as Themes from '@Themes';
-import Template from '@Themes/_Template';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 const GlobalContext = createGlobalStyle`
@@ -22,9 +21,7 @@ export const Global = ({
     style,
     extend
 }) => {
-    theme = { ...Template, ...Themes[theme] };
-    if (extend) theme = extend(theme);
-    
+    theme = extend ? extend(Themes[theme]) : Themes[theme];
     return (
         <ThemeProvider theme={ theme }>
             <Fragment>

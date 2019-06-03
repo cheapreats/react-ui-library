@@ -18,6 +18,14 @@ const Theme = {
             default: '12px 20px',
             withBorder: '10.5px 18.5px'
         },
+        switch: {
+            size: 30,
+            spacing: 5
+        },
+        radio: {
+            size: 20,
+            spacing: 2,
+        },
         radius: '8px'
     },
     speed: {

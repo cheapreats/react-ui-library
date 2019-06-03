@@ -14,8 +14,11 @@ export const LabelLayout = ({
     className,
     ...props
 }) => {
-    const implicitProps = __useImplicitProps(props, [ ...MainProps, ...ResponsiveProps ]);
     const [ ,_error ] = useTransition(error, { end: 250 });
+    const implicitProps = __useImplicitProps(props, [
+        ...MainProps,
+        ...ResponsiveProps
+    ]);
     const layoutProps = {
         description,
         success,

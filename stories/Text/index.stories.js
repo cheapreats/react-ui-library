@@ -1,41 +1,59 @@
 import React, { Fragment } from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, text, boolean } from '@storybook/addon-knobs';
+import { withKnobs, text as textKnob, boolean } from '@storybook/addon-knobs';
 import { Heading, Paragraph, SmallText } from '../../src';
+
+const knobs = ({
+    text = 'Text',
+    bold = false,
+    color
+}) => ({
+    text: textKnob('Text', text),
+    bold: boolean('Bold', bold),
+    color: textKnob('Color', color)
+});
 
 storiesOf('Text', module)
     .addDecorator(withKnobs)
     .add('with Heading', () => {
-        const t = text('Text', 'Headings Everywhere');
         const types = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
+        const { text, ...props } = knobs({
+            text: 'Headings Everywhere!'
+        });
         return (
             <Fragment>
                 {
                     types.map(type => (
                         <Heading
-                            bold={ boolean('Bold', false) } 
                             key={ type }
                             type={ type }
+                            { ...props }
                         >
-                            { t }
+                            { text }
                         </Heading>
                     ))
                 }
             </Fragment>
         );
     })
-    .add('with Paragraph', () => (
-        <Paragraph
-            bold={ boolean('Bold', false) }
-        >
-            { text('Text', 'Lorem Ipsum') }
-        </Paragraph>
-    ))
-    .add('with SmallText', () => (
-        <SmallText
-            bold={ boolean('Bold', false) }
-        >
-            { text('Text', 'Small Lorem Ipsum') }
-        </SmallText>
-    ))
+    .add('with Paragraph', () => {
+        const { text, ...props } = knobs({
+            text: 'Lorem Ipsum'
+        });
+        return (
+            <Paragraph { ...props }>
+                { text }
+            </Paragraph>
+        );
+    })
+    .add('with SmallText', () => {
+        const { text, ...props } = knobs({
+            text: 'Small Lorem Ipsum'
+        });
+        return (
+            <SmallText { ...props }>
+                { text }
+            </SmallText>
+        );
+    })
 ;

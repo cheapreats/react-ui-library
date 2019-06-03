@@ -1,4 +1,7 @@
+import Template from './_Template';
+
 const Theme = {
+    ...Template,
     colors: {
         primary: '#EE2434',
         text: '#4a4a4a',

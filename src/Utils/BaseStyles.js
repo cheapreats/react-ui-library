@@ -1,13 +1,13 @@
 // Styles all components are expected to have
-export const Main = ({ margin = 0, padding = 0, style = '' }) => `
+export const Main = ({ margin = 0, padding = 0, inlineStyle = '' }) => `
     // Positioning
     margin: ${ margin };
     padding: ${ padding };
 
     // Inline Styles
-    ${ style }
+    ${ inlineStyle }
 `;
-export const MainProps = ['margin', 'padding', 'style'];
+export const MainProps = ['margin', 'padding', 'inlineStyle'];
 
 // Styles for responsive components
 export const Responsive = ({ media = {}, ...props }) => (
