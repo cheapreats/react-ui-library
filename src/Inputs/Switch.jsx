@@ -67,6 +67,11 @@ const Input = styled.input`
     width: 100%;
     opacity: 0;
     z-index: 1;
+    cursor: pointer;
+
+    &:disabled {
+        cursor: not-allowed;
+    }
 `;
 
 const SwitchBox = styled.div`
@@ -82,12 +87,17 @@ const SwitchBox = styled.div`
         height: ${ theme.dimensions.switch.size }px;
     `}
 
-    ${({ switchStyle, ...props }) => switchStyle ? switchStyle(props) : ''}
+    // Disabled
+    ${ Input }:disabled ~ & {
+        opacity: 0.6;
+    }
+
     ${({ activeStyle, ...props }) => activeStyle ? `
        ${ Input }:checked ~ & { 
            ${ activeStyle(props) }
        }
     ` : ''}
+    ${({ switchStyle, ...props }) => switchStyle ? switchStyle(props) : ''}
 `;
 
 const SwitchDot = styled.div`

@@ -47,7 +47,7 @@
   "dependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "styled-components": "^4.2.0",
+    "styled-components": "^4.2.1",
     "styled-icons": "^7.15.1"
   },
   "aliases": {

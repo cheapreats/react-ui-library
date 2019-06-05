@@ -15,7 +15,7 @@ const GlobalContext = createGlobalStyle`
     ${({ style, theme }) => style ? style(theme) : ''}
 `;
 
-export const Global = ({
+const Global = ({
     children,
     theme = 'default',
     style,
@@ -31,3 +31,5 @@ export const Global = ({
         </ThemeProvider>
     );
 }
+
+export default Global;

@@ -23,8 +23,8 @@ const Theme = {
             spacing: 5
         },
         radio: {
-            size: 20,
-            spacing: 2,
+            size: 16,
+            spacing: 4,
         },
         radius: '8px'
     },

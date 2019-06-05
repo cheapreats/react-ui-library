@@ -19,7 +19,25 @@ storiesOf('Switch', module)
             description='Description'
         />
     ))
-    .add('with switchStyle & activeStyle', () => (
+    .add('with disabled', () => (
+        <Switch
+            label='Label'
+            tags={['On', 'Off']}
+            description='Description'
+            disabled
+        />
+    ))
+    .add('with switchStyle', () => (
+        <Switch
+            label='Label'
+            switchStyle={() => `
+                ${ transition(['background-color']) }
+                background-color: blue;
+            `}
+            description='Description'
+        />
+    ))
+    .add('with activeStyle', () => (
         <Switch
             label='Label'
             switchStyle={() => `
