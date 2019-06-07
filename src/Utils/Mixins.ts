@@ -1,4 +1,5 @@
 import theme from '@Themes/_Template';
+import { TransitionOptionType } from './@types/Mixins';
 
 const COLOR_RANGE = 255;
 const FLEX_DIRECTIONS = [
@@ -9,7 +10,7 @@ const FLEX_DIRECTIONS = [
 ];
 
 
-export const styledSwitch = (value, ...args) => {
+export const styledSwitch = (value: any, ...args: any[]) => {
     const len = args.length;
     for (let i = 0; i < len; i += 2) {
         if (value === args[i]) return args[i + 1];
@@ -18,19 +19,8 @@ export const styledSwitch = (value, ...args) => {
     // If even, no default so return nothing, else return the default
     if (len % 2) return args[len - 1];
     return '';
-}
+};
 
-
-export const styledCondition = (...args) => {
-    const len = args.length;
-    for (let i = 1; i < len; i += 2) {
-        if (args[i - 1]) return args[i];
-    }
-
-    // If even, no default so return nothing, else return the default
-    if (len % 2) return args[len - 1];
-    return '';
-}
 
 /**
  * Darkens given color (Would support more in the future)
@@ -38,7 +28,7 @@ export const styledCondition = (...args) => {
  * @param {number} [amount=0.1] - Percentage of darkening
  * @returns {string} Darkened color
  */
-export const darken = (color, amount = 0.1) => {
+export const darken = (color: string, amount: number = 0.1): string => {
     let res = '#';
     color = color.slice(1);
     const val = Math.floor(COLOR_RANGE * amount);
@@ -49,7 +39,7 @@ export const darken = (color, amount = 0.1) => {
         res += num.toString(16).padStart(2, '0');
     }
     return res;
-}
+};
 
 
 /**
@@ -57,7 +47,7 @@ export const darken = (color, amount = 0.1) => {
  * @param {string} color - background-color of content
  * @returns {string} The interactive styles for clickable content
  */
-export const clickable = (color, amount = 0.1) => `
+export const clickable = (color: string, amount = 0.1): string => `
     &:not(:disabled):hover {
         background-color: ${ darken(color, amount) };
     }
@@ -77,15 +67,24 @@ export const clickable = (color, amount = 0.1) => `
 
 /**
  * Adds transitions in batch
- * @param {string[]|TransitionOption[]}
+ * @param {string[]|TransitionOption[]} items - The items to transition with optional configuration
+ * @param {string|number} duration - The duration of transition
+ * @returns {string} CSS style for transition for provided items
  */
-export const transition = (items, duration = theme.speed.normal) => `transition: ${
-    items.reduce((acc, item) => {
-        const d = item.duration || duration;
-        const i = `${item.property || item} ${d + (typeof(d) === 'number' ? 'ms' : '')}`;
-        return `${acc}, ${i} cubic-bezier(0.4, 0.0, 0.2, 1)`;
-    }, '').slice(2)
-};`;
+export const transition = (
+    items: (TransitionOptionType | string)[],
+    duration: string | number = theme.speed.normal
+): string => (
+    `transition: ${
+        items.reduce<string>(
+            (acc: any, item: TransitionOptionType) => {
+                const d = item.duration || duration;
+                const i = `${item.prop || item} ${d + (typeof(d) === 'number' ? 'ms' : '')}`;
+                return `${acc}, ${i} cubic-bezier(0.4, 0.0, 0.2, 1)`;
+            }, ''
+        ).slice(2)
+    };`
+);
 
 
 /**
@@ -99,9 +98,13 @@ export const transition = (items, duration = theme.speed.normal) => `transition:
  * @returns {string} Styling for consistent and stable positioning
  */
 export const position = (
-    value = 'absolute', margin = 'auto',
-    top = 0, right = top, bottom = top, left = right
-) => `
+    value: string = 'absolute',
+    margin: number | string = 'auto',
+    top: number | string = 0,
+    right: number | string = top,
+    bottom: number | string = top,
+    left: number | string = right
+): string => `
     position: ${ value };
     margin: ${ margin };
     top: ${ top };
@@ -109,6 +112,7 @@ export const position = (
     bottom: ${ bottom };
     left: ${ left };
 `;
+
 
 /**
  * Flex display with common properties. Can have the following configurations
@@ -121,7 +125,11 @@ export const position = (
  * @param {string} param3 - Third parameter
  * @returns {string} flex styles
  */
-export const flex = (param1, param2, param3) => {
+export const flex = (
+    param1?: string,
+    param2?: string,
+    param3?: string
+): string => {
 
     // No params
     if (!param1) return 'display: flex;';
@@ -157,8 +165,8 @@ export const flex = (param1, param2, param3) => {
     // Three params
     return `
         display: flex;
-        flex-direction: ${ parma1 };
+        flex-direction: ${ param1 };
         justify-content: ${ param2 };
         align-items: ${ param3 };
     `;
-}
+};

@@ -1,12 +1,17 @@
 import { useState, useEffect, useRef } from 'react';
-const ifUndefined = (prop, def) => prop === undefined ? def : prop;
+import { UseTransitionType } from './@types/Hooks';
+
+const ifUndefined = (prop: any, def: any) => prop === undefined ? def : prop;
 
 /**
  * Internal hook used to extract implicity defined props to prop
  * @param {Object} props - props to extract info from (user define with __accept)
  * @param {any[]} accept - Props to include by component
  */
-export const __useImplicitProps = (props, accept = []) => (
+export const __useImplicitProps = (
+    props: { __accept?: string[] },
+    accept: string[] = []
+) => (
     [ ...(props.__accept || []), ...accept ].reduce(
         (acc, prop) => {
             acc[prop] = props[prop];
@@ -18,7 +23,7 @@ export const __useImplicitProps = (props, accept = []) => (
 
 /**
  * useTransition hook options
- * @typedef {Object} useTransitionOptions
+ * @typedef {Object} UseTransitionType
  * @property {number} [start=10] - Delay in ms from false => true
  * @property {number} [end=10] - Delay in ms from true => false
  */
@@ -26,12 +31,12 @@ export const __useImplicitProps = (props, accept = []) => (
 /**
  * Delayed state change
  * @param {boolean} init - Inital state
- * @param {useTransitionOptions} [options={}] - Options for useTransition
+ * @param {UseTransitionType} [options={}] - Options for useTransition
  * @returns {any[]} [ state, or, and ];
  */
-export const useTransition = (init = false, options = {}) => {
+export const useTransition = (init: boolean = false, options: UseTransitionType = {}): any[] => {
     const [ _init, setInit ] = useState(init);
-    const timer = useRef();
+    const timer = useRef<number>();
     useEffect(() => {
         window.clearTimeout(timer.current);
         timer.current = window.setTimeout(
@@ -45,4 +50,4 @@ export const useTransition = (init = false, options = {}) => {
     }, [ init !== _init ]);
 
     return [ _init, _init || init, _init && init ];
-}
+};
