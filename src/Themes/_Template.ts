@@ -1,4 +1,6 @@
-const Theme = {
+import { _TemplateInterface } from './@types/_Template';
+
+const Theme: _TemplateInterface = {
     font: {
         family: '"Quicksand", sans-serif',
         lineHeight: 1.6,
