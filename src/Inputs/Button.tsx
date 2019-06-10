@@ -21,7 +21,7 @@ const Button = ({ children, icon, loading, ...props }: ButtonProps) => {
             { or && <Loader loading={ and }/> }
         </StyledButton>
     );
-}
+};
 
 const StyledButton = styled.button`
     // Base Styles

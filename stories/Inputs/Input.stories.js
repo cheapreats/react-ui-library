@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import { Input } from '../../src';
 
-storiesOf('Input.jsx.tsx', module)
+storiesOf('Input.tsx.jsx.tsx', module)
     .addDecorator(withKnobs)
     .add('with default', () => (
         <Input

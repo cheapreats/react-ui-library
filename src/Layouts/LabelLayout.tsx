@@ -1,10 +1,20 @@
-import React from 'react';
+import * as React from "react";
 import styled from 'styled-components';
 import { Main, MainProps, Responsive, ResponsiveProps } from '@Utils/BaseStyles';
 import { __useImplicitProps, useTransition } from '@Utils/Hooks';
 import { flex, transition } from '@Utils/Mixins';
 
-export const LabelLayout = ({
+export interface LabelLayoutProps {
+    name?: string,
+    label?: string,
+    description?: string,
+    error?: boolean,
+    success?: boolean,
+    children?: React.ReactNode,
+    className?: string
+}
+
+const LabelLayout = ({
     name,
     label,
     description,
@@ -13,7 +23,7 @@ export const LabelLayout = ({
     children,
     className,
     ...props
-}) => {
+}: LabelLayoutProps) => {
     const [ ,_error ] = useTransition(error, { end: 250 });
     const implicitProps = __useImplicitProps(props, [
         ...MainProps,
@@ -35,7 +45,9 @@ export const LabelLayout = ({
             </ErrorLabel>
         </Layout>
     );
-}
+};
+
+export default LabelLayout;
 
 const Layout = styled.div`
     ${ transition(['opacity']) }

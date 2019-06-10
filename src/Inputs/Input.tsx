@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from 'styled-components';
-import { styledCondition, transition } from '@Utils/Mixins';
-import { LabelLayout } from '@Layouts';
+import { styledSwitch, transition } from '@Utils/Mixins';
+import { LabelLayout } from '../Layouts';
 
 const Input = props => {
     return (
@@ -9,7 +9,7 @@ const Input = props => {
             <InputElement { ...props }/>
         </LabelLayout>
     )
-}
+};
 
 const InputElement = styled.input`
     ${ transition(['background-color', 'opacity', 'box-shadow']) }
@@ -38,7 +38,7 @@ const InputElement = styled.input`
     // Background color
     ${({ theme, error, success }) => `
         background-color: ${
-            styledCondition(
+            styledSwitch(
                 error, theme.colors.input.error,
                 success, theme.colors.input.success,
                 theme.colors.input.default

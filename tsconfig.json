@@ -22,7 +22,7 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "paths": {
-            "@Layouts/*": ["./__Layouts/*"],
+            "@Layouts/*": ["./Layouts/*"],
             "@Containers/*": ["./Containers/*"],
             "@Inputs/*": ["./Inputs/*"],
             "@Text/*": ["./Text/*"],

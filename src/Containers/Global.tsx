@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react';
-import * as Themes from '@Themes';
+import * as React from "react";
+import { Fragment } from 'react';
+import * as Themes from '../Themes';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 const GlobalContext = createGlobalStyle`
@@ -15,12 +16,19 @@ const GlobalContext = createGlobalStyle`
     ${({ style, theme }) => style ? style(theme) : ''}
 `;
 
+export interface GlobalProps {
+    children?: React.ReactNode,
+    theme?: string,
+    style?: React.CSSProperties,
+    extend?: any,
+}
+
 const Global = ({
     children,
     theme = 'default',
     style,
     extend
-}) => {
+}: GlobalProps) => {
     theme = extend ? extend(Themes[theme]) : Themes[theme];
     return (
         <ThemeProvider theme={ theme }>
@@ -30,6 +38,6 @@ const Global = ({
             </Fragment>
         </ThemeProvider>
     );
-}
+};
 
 export default Global;

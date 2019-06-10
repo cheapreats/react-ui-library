@@ -1,13 +1,20 @@
-import React from 'react';
+import * as React from "react";
 import styled from 'styled-components';
 import { Main, Responsive } from '@Utils/BaseStyles';
 
-export const TextLayout = ({
+export interface TextLayoutProps {
+    color?: string,
+    size?: string,
+    children?: React.ReactNode,
+    className?: string
+}
+
+const TextLayout = ({
     children,
     color = 'text',
     size = 'default',
     ...props
-}) => {
+}: TextLayoutProps) => {
     return (
         <Text
             size={ size }
@@ -17,7 +24,9 @@ export const TextLayout = ({
             { children }
         </Text>
     );
-}
+};
+
+export default TextLayout;
 
 const Text = styled.p`
     // Base Styles

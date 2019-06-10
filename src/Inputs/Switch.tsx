@@ -1,6 +1,6 @@
 import * as React from "react";
 import { position, darken, flex, transition } from '@Utils/Mixins';
-import { LabelLayout } from '@Layouts';
+import {LabelLayout} from '../Layouts';
 import styled from 'styled-components';
 
 const COMPONENT = (props = {}, innerProps = {}) => (
@@ -12,25 +12,25 @@ const COMPONENT = (props = {}, innerProps = {}) => (
     </Container>
 );
 
-// export interface SwitchProps {
-//     tags: Array<string>,
-//     activeStyle?: React.CSSProperties,
-//     switchStyle?: React.CSSProperties,
-// }
+export interface SwitchProps {
+    tags: Array<string>,
+    activeStyle?: React.CSSProperties,
+    switchStyle?: React.CSSProperties,
+}
 
 const Switch = ({
     tags,
     activeStyle,
     switchStyle,
     ...props
-}) => {
+}: SwitchProps) => {
     const component = withTags(tags, props, { activeStyle, switchStyle });
     return (
         <LabelLayout { ...props }>
             { component }
         </LabelLayout>
     );
-}
+};
 
 const withTags = (tags, props, innerProps) => {
     if (tags) {
@@ -44,7 +44,7 @@ const withTags = (tags, props, innerProps) => {
     }
 
     return COMPONENT(props, innerProps);
-}
+};
 
 const Tag = styled.label`
     margin: 0 10px;

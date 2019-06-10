@@ -31,7 +31,7 @@ const Radio = ({
     const radioProps = {
         activeStyle,
         radioStyle,
-    }
+    };
 
     return (
         <Container className={ className } column={ column } { ...implicitProps }>
@@ -44,7 +44,7 @@ const Radio = ({
             { label && <Label htmlFor={ name } column={ column }>{ label }</Label> }
         </Container>
     );
-}
+};
 
 const Container = styled.div`
     ${ Main }

@@ -18,4 +18,4 @@ module.exports = async ({ config }) => {
     });
     config.resolve.extensions.push('.ts', '.tsx');
     return config;
-}
+};

@@ -56,8 +56,8 @@
     "styled-icons": "^7.15.1"
   },
   "aliases": {
-    "@Layouts": "src/__Layouts",
     "@Containers": "src/Containers",
+    "@Layouts": "src/Layouts",
     "@Inputs": "src/Inputs",
     "@Text": "src/Text",
     "@Themes": "src/Themes",
