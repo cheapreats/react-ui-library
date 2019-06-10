@@ -1,4 +1,4 @@
-import React from 'react';
+import * as React from "react";
 import { position, darken, flex, transition } from '@Utils/Mixins';
 import { LabelLayout } from '@Layouts';
 import styled from 'styled-components';
@@ -11,6 +11,12 @@ const COMPONENT = (props = {}, innerProps = {}) => (
         </SwitchBox>
     </Container>
 );
+
+// export interface SwitchProps {
+//     tags: Array<string>,
+//     activeStyle?: React.CSSProperties,
+//     switchStyle?: React.CSSProperties,
+// }
 
 const Switch = ({
     tags,
@@ -34,7 +40,7 @@ const withTags = (tags, props, innerProps) => {
                     { COMPONENT(props, innerProps) }
                 { tags[1] && <Tag>{ tags[1] }</Tag> }
             </Tags>
-        ); 
+        );
     }
 
     return COMPONENT(props, innerProps);

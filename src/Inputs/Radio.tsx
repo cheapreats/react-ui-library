@@ -1,8 +1,18 @@
-import React from 'react';
+import * as React from "react";
 import styled from 'styled-components';
 import { Main, Responsive, MainProps, ResponsiveProps } from '@Utils/BaseStyles';
 import { __useImplicitProps } from '@Utils/Hooks';
 import { position, darken, flex, transition } from '@Utils/Mixins';
+
+export interface RadioProps {
+    label?: string,
+    column?: number,
+    className: string,
+    activeStyle?: React.CSSProperties,
+    radioStyle?: React.CSSProperties,
+    disabled?: boolean,
+    name?: string
+}
 
 const Radio = ({
     label,
@@ -10,8 +20,10 @@ const Radio = ({
     className,
     activeStyle,
     radioStyle,
+    disabled,
+    name,
     ...props
-}) => {
+}: RadioProps) => {
     const implicitProps = __useImplicitProps(props, [
         ...MainProps,
         ...ResponsiveProps
@@ -25,11 +37,11 @@ const Radio = ({
         <Container className={ className } column={ column } { ...implicitProps }>
             <RadioContainer>
                 <Input type='checkbox' { ...props }/>
-                <RadioBox { ...radioProps } disabled={ props.disabled }>
+                <RadioBox { ...radioProps } disabled={ disabled }>
                     <RadioDot/>
                 </RadioBox>
             </RadioContainer>
-            { label && <Label htmlFor={ props.name } column={ column }>{ label }</Label> }
+            { label && <Label htmlFor={ name } column={ column }>{ label }</Label> }
         </Container>
     );
 }
