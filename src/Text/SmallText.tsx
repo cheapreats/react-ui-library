@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TextLayout } from '../Layouts';
+import { TextLayout } from '@Layouts';
 
 export interface SmallTextProps {
     children: React.ReactNode,

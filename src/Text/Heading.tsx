@@ -1,5 +1,5 @@
 import * as React from "react";
-import { TextLayout } from '../Layouts';
+import { TextLayout } from '@Layouts';
 
 export interface HeadingProps {
     children: React.ReactNode,
@@ -14,7 +14,7 @@ const Heading = ({
     ...props
 }: HeadingProps) => {
     return (
-        <TextLayout as={ type } size={ size } { ...props }>
+        <TextLayout type={ type } size={ size } { ...props }>
             { children }
         </TextLayout>
     );

@@ -1,7 +1,7 @@
 import * as React from "react";
 import styled from 'styled-components';
 import { styledSwitch, transition } from '@Utils/Mixins';
-import { LabelLayout } from '../Layouts';
+import { LabelLayout } from '@Layouts';
 
 const Input = props => {
     return (

@@ -5,18 +5,20 @@ import { Main, Responsive } from '@Utils/BaseStyles';
 export interface TextLayoutProps {
     color?: string,
     size?: string,
-    children?: React.ReactNode,
-    className?: string
+    children?: React.ReactNode
+    type?: string
 }
 
 const TextLayout = ({
     children,
     color = 'text',
     size = 'default',
+    type,
     ...props
 }: TextLayoutProps) => {
     return (
         <Text
+            as={ type }
             size={ size }
             color={ color }
             { ...props }

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { position, darken, flex, transition } from '@Utils/Mixins';
-import {LabelLayout} from '../Layouts';
+import { LabelLayout } from '@Layouts';
 import styled from 'styled-components';
 
 const COMPONENT = (props = {}, innerProps = {}) => (

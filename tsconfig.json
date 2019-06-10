@@ -22,12 +22,18 @@
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
         "paths": {
-            "@Layouts/*": ["./Layouts/*"],
+            "@Layouts/*": ["./__Layouts/*"],
+            "@Layouts": ["./__Layouts"],
             "@Containers/*": ["./Containers/*"],
+            "@Containers": ["./Containers"],
             "@Inputs/*": ["./Inputs/*"],
+            "@Inputs": ["./Inputs"],
             "@Text/*": ["./Text/*"],
+            "@Text": ["./Text"],
             "@Themes/*": ["./Themes/*"],
-            "@Utils/*": ["./Utils/*"]
+            "@Themes": ["./Themes"],
+            "@Utils/*": ["./Utils/*"],
+            "@Utils": ["./Utils"],
         }
     },
     "include": ["src/**/*"],
