@@ -14,7 +14,7 @@ export interface RadioProps {
     name?: string
 }
 
-const Radio = ({
+export const Radio = ({
     label,
     column,
     className,
