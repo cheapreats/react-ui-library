@@ -1,6 +1,6 @@
 import React, { CSSProperties } from "react";
 import { position, darken, flex, transition } from '@Utils/Mixins';
-import { LabelLayout } from '@Layouts';
+import { LabelLayout, LabelLayoutProps } from '@Layouts';
 import styled from 'styled-components';
 
 const COMPONENT = (props = {}, innerProps = {}) => (
@@ -12,7 +12,7 @@ const COMPONENT = (props = {}, innerProps = {}) => (
     </Container>
 );
 
-export interface SwitchProps {
+export interface SwitchProps extends LabelLayoutProps {
     tags: Array<string>,
     activeStyle?: CSSProperties,
     switchStyle?: CSSProperties

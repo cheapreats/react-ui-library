@@ -1,9 +1,13 @@
 import React from "react";
 import styled from 'styled-components';
 import { styledSwitch, transition } from '@Utils/Mixins';
-import { LabelLayout } from '@Layouts';
+import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
-export const Input = props => {
+export interface InputProps extends LabelLayoutProps {
+
+};
+
+export const Input = (props: InputProps) => {
     return (
         <LabelLayout { ...props }>
             <InputElement { ...props }/>
