@@ -1,11 +1,11 @@
-import * as React from "react";
-import { TextLayout } from '@Layouts';
+import React from "react";
+import TextLayout, { TextLayoutProps } from '@Layouts/TextLayout';
 
-export interface ParagraphProps {
-    children: React.ReactNode,
-}
+export interface ParagraphProps extends TextLayoutProps {
 
-const Paragraph = ({ children, ...props }: ParagraphProps) => {
+};
+
+export const Paragraph = ({ children, ...props }: ParagraphProps) => {
     return (
         <TextLayout { ...props }>
             { children }

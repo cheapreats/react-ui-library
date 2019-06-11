@@ -1,5 +1,4 @@
-import theme from '@Themes/_Template';
-import { TransitionOptionType } from './@types/Mixins';
+import theme from '@Themes/_ThemeTemplate';
 
 const COLOR_RANGE = 255;
 const FLEX_DIRECTIONS = [
@@ -64,6 +63,10 @@ export const clickable = (color: string, amount = 0.1): string => `
  * @property {string} property - The transition property that is being targetted
  * @property {string|number} duration - The duration (default in milliseconds)
  */
+export type TransitionOptionType = {
+    duration?: String | Number,
+    prop: String
+}
 
 /**
  * Adds transitions in batch

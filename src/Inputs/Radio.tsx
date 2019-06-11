@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { CSSProperties } from "react";
 import styled from 'styled-components';
 import { Main, Responsive, MainProps, ResponsiveProps } from '@Utils/BaseStyles';
 import { __useImplicitProps } from '@Utils/Hooks';
@@ -8,8 +8,8 @@ export interface RadioProps {
     label?: string,
     column?: number,
     className: string,
-    activeStyle?: React.CSSProperties,
-    radioStyle?: React.CSSProperties,
+    activeStyle?: CSSProperties,
+    radioStyle?: CSSProperties,
     disabled?: boolean,
     name?: string
 }

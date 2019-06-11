@@ -1,18 +1,16 @@
-import * as React from "react";
-import { TextLayout } from '@Layouts';
+import React from "react";
+import { TextLayout, TextLayoutProps } from '@Layouts';
 
-export interface HeadingProps {
-    children: React.ReactNode,
-    type?: string,
-    size?: string
-}
+export interface HeadingProps extends TextLayoutProps {
 
-const Heading = ({
+};
+
+export const Heading = ({
     children,
     type = 'h1',
     size = type,
     ...props
-}: HeadingProps) => {
+}: TextLayoutProps) => {
     return (
         <TextLayout type={ type } size={ size } { ...props }>
             { children }

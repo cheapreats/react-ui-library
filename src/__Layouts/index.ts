@@ -1,2 +1,2 @@
-export { default as LabelLayout } from './LabelLayout';
-export { default as TextLayout } from './TextLayout';
+export * from './LabelLayout';
+export * from './TextLayout';

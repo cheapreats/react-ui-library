@@ -1,13 +1,11 @@
-import * as React from "react";
-import { TextLayout } from '@Layouts';
+import React from "react";
+import TextLayout, { TextLayoutProps } from '@Layouts/TextLayout';
 
-export interface SmallTextProps {
-    children: React.ReactNode,
-    type?: string,
-    size?: string
-}
+export interface SmallTextProps extends TextLayoutProps {
 
-const SmallText = ({
+};
+
+export const SmallText = ({
     children,
     type = 'span',
     size = 'small',

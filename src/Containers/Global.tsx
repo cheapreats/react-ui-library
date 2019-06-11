@@ -1,6 +1,6 @@
-import * as React from "react";
+import React, { ReactNode, CSSProperties } from "react";
 import { Fragment } from 'react';
-import * as Themes from '../Themes';
+import * as Themes from '@Themes';
 import { createGlobalStyle, ThemeProvider } from 'styled-components';
 
 const GlobalContext = createGlobalStyle`
@@ -17,15 +17,15 @@ const GlobalContext = createGlobalStyle`
 `;
 
 export interface GlobalProps {
-    children?: React.ReactNode,
+    children?: ReactNode,
     theme?: string,
-    style?: React.CSSProperties,
-    extend?: any,
+    style?: CSSProperties,
+    extend?: (theme: object) => object
 }
 
-const Global = ({
+export const Global = ({
     children,
-    theme = 'default',
+    theme = 'MainTheme',
     style,
     extend
 }: GlobalProps) => {

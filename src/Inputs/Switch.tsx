@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { CSSProperties } from "react";
 import { position, darken, flex, transition } from '@Utils/Mixins';
 import { LabelLayout } from '@Layouts';
 import styled from 'styled-components';
@@ -14,11 +14,11 @@ const COMPONENT = (props = {}, innerProps = {}) => (
 
 export interface SwitchProps {
     tags: Array<string>,
-    activeStyle?: React.CSSProperties,
-    switchStyle?: React.CSSProperties,
+    activeStyle?: CSSProperties,
+    switchStyle?: CSSProperties
 }
 
-const Switch = ({
+export const Switch = ({
     tags,
     activeStyle,
     switchStyle,

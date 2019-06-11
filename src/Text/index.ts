@@ -1,3 +1,3 @@
-export { default as Heading } from './Heading';
-export { default as Paragraph } from './Paragraph';
-export { default as SmallText } from './SmallText';
+export * from './Heading';
+export * from './Paragraph';
+export * from './SmallText';

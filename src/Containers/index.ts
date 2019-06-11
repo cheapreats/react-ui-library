@@ -1,2 +1,2 @@
-export { default as Global } from './Global';
-export { default as Loading } from './Loading';
+export * from './Global';
+export * from './Loading';

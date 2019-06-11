@@ -1,12 +1,12 @@
-import * as React from "react";
+import React, { ReactNode } from "react";
 import styled from 'styled-components';
 
 export interface LoadingProps {
-    children?: React.ReactNode,
+    children?: ReactNode
 }
 
 
-const Loading = ({ children, ...props }: LoadingProps) => {
+export const Loading = ({ children, ...props }: LoadingProps) => {
     return (
         <Container { ...props }>
             { children }

@@ -1,5 +1,4 @@
 import { useState, useEffect, useRef } from 'react';
-import { UseTransitionType } from './@types/Hooks';
 
 const ifUndefined = (prop: any, def: any) => prop === undefined ? def : prop;
 
@@ -27,6 +26,10 @@ export const __useImplicitProps = (
  * @property {number} [start=10] - Delay in ms from false => true
  * @property {number} [end=10] - Delay in ms from true => false
  */
+export type UseTransitionType = {
+    start?: Number,
+    end?: Number
+}
 
 /**
  * Delayed state change

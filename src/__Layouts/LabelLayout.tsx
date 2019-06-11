@@ -1,4 +1,4 @@
-import * as React from "react";
+import React, { ReactNode } from "react";
 import styled from 'styled-components';
 import { Main, MainProps, Responsive, ResponsiveProps } from '@Utils/BaseStyles';
 import { __useImplicitProps, useTransition } from '@Utils/Hooks';
@@ -10,11 +10,11 @@ export interface LabelLayoutProps {
     description?: string,
     error?: boolean,
     success?: boolean,
-    children?: React.ReactNode,
+    children?: ReactNode,
     className?: string
 }
 
-const LabelLayout = ({
+export const LabelLayout = ({
     name,
     label,
     description,
@@ -46,8 +46,6 @@ const LabelLayout = ({
         </Layout>
     );
 };
-
-export default LabelLayout;
 
 const Layout = styled.div`
     ${ transition(['opacity']) }
@@ -82,3 +80,5 @@ const Info = styled.span`
     opacity: 0.7;
     margin: -5px 0 5px;
 `;
+
+export default LabelLayout;
