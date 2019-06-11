@@ -9,7 +9,7 @@ const FLEX_DIRECTIONS = [
 ];
 
 
-export const styledSwitch = (value: any, ...args: any[]) => {
+export const styledSwitch = (value: any, ...args: any[]): string => {
     const len = args.length;
     for (let i = 0; i < len; i += 2) {
         if (value === args[i]) return args[i + 1];
@@ -19,6 +19,18 @@ export const styledSwitch = (value: any, ...args: any[]) => {
     if (len % 2) return args[len - 1];
     return '';
 };
+
+
+export const styledCondition = (...args: any[]): string => {
+    const len = args.length;
+    for (let i = 1; i < len; i += 2) {
+        if (args[i - 1]) return args[i];
+    }
+
+    // If even, no default so return nothing, else return the default
+    if (len % 2) return args[len - 1];
+    return '';
+}
 
 
 /**

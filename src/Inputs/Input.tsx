@@ -1,6 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
-import { styledSwitch, transition } from '@Utils/Mixins';
+import { transition, styledCondition } from '@Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
 export interface InputProps extends LabelLayoutProps {
@@ -42,7 +42,7 @@ const InputElement = styled.input`
     // Background color
     ${({ theme, error, success }) => `
         background-color: ${
-            styledSwitch(
+            styledCondition(
                 error, theme.colors.input.error,
                 success, theme.colors.input.success,
                 theme.colors.input.default

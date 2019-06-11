@@ -29,7 +29,6 @@ export const Global = ({
     style,
     extend
 }: GlobalProps) => {
-    console.log(Themes);
     theme = extend ? extend(Themes[theme]) : Themes[theme];
     return (
         <ThemeProvider theme={ theme }>
