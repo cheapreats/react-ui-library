@@ -63,7 +63,7 @@ const Theme: _ThemeTemplateInterface = {
         },
         radio: {
             size: 16,
-            spacing: 4,
+            spacing: 4
         },
         radius: '8px'
     },

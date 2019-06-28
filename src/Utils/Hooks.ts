@@ -35,9 +35,9 @@ export type UseTransitionType = {
  * Delayed state change
  * @param {boolean} init - Inital state
  * @param {UseTransitionType} [options={}] - Options for useTransition
- * @returns {any[]} [ state, or, and ];
+ * @returns {boolean[]} [ state, or, and ];
  */
-export const useTransition = (init: boolean = false, options: UseTransitionType = {}): any[] => {
+export const useTransition = (init: boolean = false, options: UseTransitionType = {}): boolean[] => {
     const [ _init, setInit ] = useState(init);
     const timer = useRef<number>();
     useEffect(() => {

@@ -92,9 +92,9 @@ export const transition = (
 ): string => (
     `transition: ${
         items.reduce<string>(
-            (acc: any, item: TransitionOptionType) => {
-                const d = item.duration || duration;
-                const i = `${item.prop || item} ${d + (typeof(d) === 'number' ? 'ms' : '')}`;
+            (acc: any, item: string | TransitionOptionType) => {
+                const d = typeof(item) === 'string' ? duration : item.duration;
+                const i = `${typeof(item) === 'string' ? item : item.prop} ${d + (typeof(d) === 'number' ? 'ms' : '')}`;
                 return `${acc}, ${i} cubic-bezier(0.4, 0.0, 0.2, 1)`;
             }, ''
         ).slice(2)

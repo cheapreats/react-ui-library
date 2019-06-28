@@ -12,13 +12,18 @@ export interface ButtonProps {
 }
 
 
-export const Button = ({ children, icon, loading, ...props }: ButtonProps) => {
-    const [ , or, and ] = useTransition(loading);
+export const Button = ({
+    children,
+    icon,
+    loading,
+    ...props
+}: ButtonProps) => {
+    const [ , isLoading, isAnimated ] = useTransition(loading);
     return (
         <StyledButton { ...props }>
             { icon && <Icon as={ icon }/> }
-            <Content loading={ and }>{ children }</Content>
-            { or && <Loader loading={ and }/> }
+            <Content loading={ isAnimated }>{ children }</Content>
+            { isLoading && <Loader loading={ isAnimated }/> }
         </StyledButton>
     );
 };

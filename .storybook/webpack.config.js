@@ -9,7 +9,10 @@ module.exports = async ({ config }) => {
         test: /\.(ts|tsx)$/,
         use: [
             {
-                loader: require.resolve('awesome-typescript-loader')
+                loader: require.resolve('awesome-typescript-loader'),
+                options: {
+					transpileOnly: true
+				}
             },
             {
                 loader: require.resolve('react-docgen-typescript-loader')

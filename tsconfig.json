@@ -1,12 +1,13 @@
 {
     "compilerOptions": {
-        "outDir": "build/lib",
-        "module": "commonjs",
-        "target": "es5",
+        "outDir": "dist",
+        "module": "CommonJS",
+        "target": "es2017",
         "lib": ["es5", "es6", "es7", "es2017", "dom"],
-        "sourceMap": true,
-        "allowJs": false,
+        "sourceMap": false,
         "jsx": "react",
+        "strict": true,
+        "skipLibCheck": true,
         "esModuleInterop": true,
         "moduleResolution": "node",
         "rootDirs": ["src", "stories"],
@@ -34,7 +35,7 @@
             "@Themes/*": ["./Themes/*"],
             "@Themes": ["./Themes"],
             "@Utils/*": ["./Utils/*"],
-            "@Utils": ["./Utils"],
+            "@Utils": ["./Utils"]
         }
     },
     "include": ["src/**/*"],
