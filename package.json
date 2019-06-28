@@ -9,8 +9,8 @@
   "sideEffects": false,
   "scripts": {
     "start": "start-storybook -p 6006",
-    "deploy": "NODE_ENV=development build-storybook --quiet -o .deploy",
-    "build": "rm -rf dist && tsc",
+    "deploy": "build-storybook --quiet -o .deploy",
+    "build": "rm -rf dist && tsc && NODE_ENV=production babel dist -d dist",
     "prepublish": "npm run build"
   },
   "repository": {
@@ -44,13 +44,14 @@
     "@types/storybook__react": "^4.0.2",
     "awesome-typescript-loader": "^5.2.1",
     "babel-loader": "^8.0.6",
+    "babel-plugin-module-resolver": "^3.2.0",
     "ora": "^3.4.0",
-    "react-docgen-typescript-loader": "^3.1.0",
-    "typescript": "^3.5.2",
     "react": "^16.8.6",
+    "react-docgen-typescript-loader": "^3.1.0",
     "react-dom": "^16.8.6",
     "styled-components": "^4.3.2",
-    "styled-icons": "^7.15.1"
+    "styled-icons": "^7.15.1",
+    "typescript": "^3.5.2"
   },
   "aliases": {
     "@Containers": "src/Containers",
