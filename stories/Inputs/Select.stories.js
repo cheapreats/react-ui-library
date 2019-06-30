@@ -11,6 +11,12 @@ storiesOf('Select', module)
             label={text('Label', 'Label')}
             description={text('Description', 'Description')}
             placeholder={text('Placeholder', 'Placeholder')}
-        />
+        >
+            <option value='1'>REEEE</option>
+            <option value='1'>REEEE</option>
+            <option value='1'>REEEE</option>
+            <option value='1'>REEEE</option>
+            <option value='1'>REEEE</option>
+        </Select>
     ))
 ;
