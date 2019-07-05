@@ -16,19 +16,21 @@ const createList = (
     children: React.ReactNode[],
     onSelect: Function,
     value?: string | number,
-): React.ReactElement[] => (
-    children.map((child): React.ReactElement => {
-        if (isValidElement(child)) return null;
-        const val = child.props.value;
-        const selected = String(value) === val;
-        return (
-            <SelectItem
-                {...child.props}
-                selected={selected}
-                onClick={onSelect}
-                key={val}
-            />
-        );
+): React.ReactNode[] => (
+    children.map((child): React.ReactElement | null => {
+        if (child && isValidElement(child)) {
+            const val = child.props.value;
+            const selected = String(value) === val;
+            return (
+                <SelectItem
+                    {...child.props}
+                    selected={selected}
+                    onClick={onSelect}
+                    key={val}
+                />
+            );
+        }
+        return null;
     })
 );
 
@@ -62,8 +64,8 @@ const _Select: React.FunctionComponent<SelectProps> = ({
         expanded, { end: theme.speed[SPEED] },
     );
 
-    const selected = useMemo((): React.ReactElement => (
-        options.find((option): React.ReactElement => (
+    const selected = useMemo((): React.ReactNode => (
+        options.find((option): boolean => (
             isValidElement(option) && option.props.value === String(value)
         ))
     ), [children, value]);
@@ -73,17 +75,19 @@ const _Select: React.FunctionComponent<SelectProps> = ({
         onChange(el);
     }, [name]);
 
-    useEffect((): Function | null => {
-        if (!expanded) return null;
-        const listener = (): void => { setExpanded(false); };
-        const timer = window.setTimeout((): void => {
-            window.addEventListener('click', listener, { once: true });
-        }, 10);
+    useEffect((): void | (() => void | undefined) => {
+        if (expanded) {
+            const listener = (): void => { setExpanded(false); };
+            const timer = window.setTimeout((): void => {
+                window.addEventListener('click', listener, { once: true });
+            }, 10);
 
-        return (): void => {
-            window.clearTimeout(timer);
-            window.removeEventListener('click', listener);
-        };
+            return (): void => {
+                window.clearTimeout(timer);
+                window.removeEventListener('click', listener);
+            };
+        }
+        return undefined;
     }, [expanded]);
 
     return (

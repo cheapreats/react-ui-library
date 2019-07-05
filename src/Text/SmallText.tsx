@@ -15,3 +15,5 @@ export const SmallText: React.FunctionComponent<TextLayoutProps> = ({
         { children }
     </TextLayout>
 );
+
+export default SmallText;

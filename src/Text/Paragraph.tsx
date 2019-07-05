@@ -13,3 +13,5 @@ export const Paragraph: React.FunctionComponent<TextLayoutProps> = ({
         { children }
     </TextLayout>
 );
+
+export default Paragraph;

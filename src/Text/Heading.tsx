@@ -15,3 +15,5 @@ export const Heading: React.FunctionComponent<TextLayoutProps> = ({
         { children }
     </TextLayout>
 );
+
+export default Heading;
