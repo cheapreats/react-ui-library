@@ -9,14 +9,14 @@
         "production": {
             "plugins": [
                 ["module-resolver", {
-                    "root": ["./dist"],
+                    "root": ["."],
                     "alias": {
-                        "@Containers": "./Containers",
-                        "@Layouts": "./__Layouts",
-                        "@Inputs": "./Inputs",
-                        "@Text": "./Text",
-                        "@Themes": "./Themes",
-                        "@Utils": "./Utils"
+                        "@Containers": "./dist/Containers",
+                        "@Layouts": "./dist/__Layouts",
+                        "@Inputs": "./dist/Inputs",
+                        "@Text": "./dist/Text",
+                        "@Themes": "./dist/Themes",
+                        "@Utils": "./dist/Utils"
                       }
                 }]
             ]
