@@ -37,7 +37,7 @@ export interface SelectProps extends LabelLayoutProps {
     items?: number
 };
 
-const _Select = ({
+const _Select: React.FunctionComponent<SelectProps> = ({
     disabled,
     value,
     children,
@@ -46,7 +46,7 @@ const _Select = ({
     onChange = () => {},
     theme,
     ...props
-}: SelectProps) => {
+}): React.ReactElement => {
     const [ expanded, setExpanded ] = useState(false);
     const options = Children.toArray(children);
     const displayProps = {

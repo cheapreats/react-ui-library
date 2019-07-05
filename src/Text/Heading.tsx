@@ -5,12 +5,12 @@ export interface HeadingProps extends TextLayoutProps {
 
 };
 
-export const Heading = ({
+export const Heading: React.FunctionComponent<HeadingProps> = ({
     children,
     type = 'h1',
     size = type,
     ...props
-}: TextLayoutProps) => {
+}): React.ReactElement => {
     return (
         <TextLayout type={ type } size={ size } { ...props }>
             { children }

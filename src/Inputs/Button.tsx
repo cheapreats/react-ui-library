@@ -1,4 +1,4 @@
-import React, { ReactNode } from "react";
+import React from "react";
 import { CircleNotch } from 'styled-icons/fa-solid/CircleNotch';
 import { Main, Responsive } from '@Utils/BaseStyles';
 import { transition, clickable, position, flex } from '@Utils/Mixins';
@@ -6,18 +6,18 @@ import { useTransition } from '@Utils/Hooks';
 import styled from 'styled-components';
 
 export interface ButtonProps {
-    children?: ReactNode,
+    children?: React.ReactNode,
     icon?: string,
     loading?: boolean
 }
 
 
-export const Button = ({
+export const Button: React.FunctionComponent<ButtonProps> = ({
     children,
     icon,
     loading,
     ...props
-}: ButtonProps) => {
+}): React.ReactElement => {
     const [ , isLoading, isAnimated ] = useTransition(loading);
     return (
         <StyledButton { ...props }>

@@ -4,6 +4,6 @@ export interface DarkInterface extends _ThemeTemplateInterface {
 
 }
 
-export const DarkTheme = {
+export const DarkTheme: DarkInterface = {
     ...Template
 };

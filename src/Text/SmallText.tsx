@@ -5,12 +5,12 @@ export interface SmallTextProps extends TextLayoutProps {
 
 };
 
-export const SmallText = ({
+export const SmallText: React.FunctionComponent<SmallTextProps> = ({
     children,
     type = 'span',
     size = 'small',
     ...props
-}: SmallTextProps) => {
+}): React.ReactElement => {
     return (
         <TextLayout type={ type } size={ size } { ...props }>
             { children }

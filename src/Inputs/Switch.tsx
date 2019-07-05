@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import { position, darken, flex, transition } from '@Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 import styled from 'styled-components';
@@ -14,16 +14,16 @@ const COMPONENT = (props = {}, innerProps = {}) => (
 
 export interface SwitchProps extends LabelLayoutProps {
     tags: Array<string>,
-    activeStyle?: CSSProperties,
-    switchStyle?: CSSProperties
+    activeStyle?: Function,
+    switchStyle?: Function
 }
 
-export const Switch = ({
+export const Switch: React.FunctionComponent<SwitchProps> = ({
     tags,
     activeStyle,
     switchStyle,
     ...props
-}: SwitchProps) => {
+}): React.ReactElement => {
     const component = withTags(tags, props, { activeStyle, switchStyle });
     return (
         <LabelLayout { ...props }>

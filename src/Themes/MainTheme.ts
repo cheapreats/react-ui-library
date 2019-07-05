@@ -12,7 +12,7 @@ export interface MainThemeInterface extends _ThemeTemplateInterface {
     }
 }
 
-export const MainTheme = {
+export const MainTheme: MainThemeInterface = {
     ...Template,
     colors: {
         primary: '#EE2434',

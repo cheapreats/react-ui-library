@@ -1,4 +1,4 @@
-import React, { CSSProperties } from "react";
+import React from "react";
 import styled from 'styled-components';
 import { Main, Responsive, MainProps, ResponsiveProps } from '@Utils/BaseStyles';
 import { __useImplicitProps } from '@Utils/Hooks';
@@ -8,13 +8,14 @@ export interface RadioProps {
     label?: string,
     column?: number,
     className: string,
-    activeStyle?: CSSProperties,
-    radioStyle?: CSSProperties,
+    activeStyle?: Function,
+    radioStyle?: Function,
     disabled?: boolean,
-    name?: string
+    name?: string,
+    __accept?: Array<string>
 }
 
-export const Radio = ({
+export const Radio: React.FunctionComponent<RadioProps> = ({
     label,
     column,
     className,
@@ -23,7 +24,7 @@ export const Radio = ({
     disabled,
     name,
     ...props
-}: RadioProps) => {
+}): React.ReactElement => {
     const implicitProps = __useImplicitProps(props, [
         ...MainProps,
         ...ResponsiveProps

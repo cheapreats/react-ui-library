@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { transition, styledCondition } from '@Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
-export interface InputProps extends LabelLayoutProps {
+export interface DatepickerProps extends LabelLayoutProps {
     disabled?: boolean,
     placeholder?: string
 };
 
-export const Input: React.FunctionComponent<InputProps> = ({
+export const Datepicker: React.FunctionComponent<DatepickerProps> = ({
     ...props
 }): React.ReactElement => {
     return (
@@ -54,4 +54,4 @@ const InputElement = styled.input`
     `}
 `;
 
-export default Input;
+export default Datepicker;
