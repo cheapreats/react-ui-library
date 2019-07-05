@@ -1,15 +1,15 @@
-import Template, { _ThemeTemplateInterface } from './_ThemeTemplate';
+import Template, { ThemeTemplateInterface } from './ThemeTemplate';
 
-export interface MainThemeInterface extends _ThemeTemplateInterface {
+export interface MainThemeInterface extends ThemeTemplateInterface {
     colors: {
-        primary: string,
-        text: string,
+        primary: string;
+        text: string;
         input: {
-            default: string,
-            success: string,
-            error: string
-        }
-    }
+            default: string;
+            success: string;
+            error: string;
+        };
+    };
 }
 
 export const MainTheme: MainThemeInterface = {
@@ -20,7 +20,7 @@ export const MainTheme: MainThemeInterface = {
         input: {
             default: '#f5f5f5',
             success: '#f5fff5',
-            error: '#fff5f5'
-        }
-    }
+            error: '#fff5f5',
+        },
+    },
 };

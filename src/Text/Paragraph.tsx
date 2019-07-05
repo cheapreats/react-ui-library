@@ -1,18 +1,15 @@
-import React from "react";
-import TextLayout, { TextLayoutProps } from '@Layouts/TextLayout';
+import React from 'react';
+import { TextLayout, TextLayoutProps } from '@Layouts/TextLayout';
 
-export interface ParagraphProps extends TextLayoutProps {
-};
+/* export interface ParagraphProps extends TextLayoutProps {
 
-export const Paragraph: React.FunctionComponent<ParagraphProps> = ({
+} */
+
+export const Paragraph: React.FunctionComponent<TextLayoutProps> = ({
     children,
     ...props
-}): React.ReactElement => {
-    return (
-        <TextLayout { ...props }>
-            { children }
-        </TextLayout>
-    );
-};
-
-export default Paragraph;
+}): React.ReactElement => (
+    <TextLayout {...props}>
+        { children }
+    </TextLayout>
+);

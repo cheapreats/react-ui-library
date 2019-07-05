@@ -1,41 +1,45 @@
-import React, { useState, useEffect, useMemo, useCallback, Children, isValidElement } from 'react';
+import React, {
+    useState, useEffect, useMemo, useCallback, Children, isValidElement,
+} from 'react';
 import styled, { withTheme } from 'styled-components';
-import { flex, scroll, position, transition, clickable, styledCondition } from '@Utils/Mixins';
-import { LabelLayout, LabelLayoutProps } from '@Layouts';
+import {
+    flex, scroll, position, transition, clickable, styledCondition,
+} from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
-import { _ThemeTemplateInterface } from '@Themes/_ThemeTemplate';
+import { MainThemeInterface } from '@Themes';
+import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
 const ITEM_HEIGHT = 41;
 const SPEED = 'slow';
 
 const createList = (
-    children: Array<React.ReactNode>,
+    children: React.ReactNode[],
     onSelect: Function,
-    value?: string | number
-) => (
-    children.map(child => {
-        if (!isValidElement(child)) return;
+    value?: string | number,
+): React.ReactElement[] => (
+    children.map((child): React.ReactElement => {
+        if (isValidElement(child)) return null;
         const val = child.props.value;
         const selected = String(value) === val;
         return (
             <SelectItem
-                { ...child.props }
-                selected={ selected }
-                onClick={ onSelect }
-                key={ val }
+                {...child.props}
+                selected={selected}
+                onClick={onSelect}
+                key={val}
             />
         );
     })
 );
 
 export interface SelectProps extends LabelLayoutProps {
-    disabled?: boolean,
-    placeholder?: string,
-    value?: string | number,
-    theme: _ThemeTemplateInterface,
-    onChange?: Function,
-    items?: number
-};
+    disabled?: boolean;
+    placeholder?: string;
+    value?: string | number;
+    theme: MainThemeInterface;
+    onChange?: Function;
+    items?: number;
+}
 
 const _Select: React.FunctionComponent<SelectProps> = ({
     disabled,
@@ -43,59 +47,58 @@ const _Select: React.FunctionComponent<SelectProps> = ({
     children,
     items = 4,
     placeholder = '',
-    onChange = () => {},
+    onChange = (): void => {},
     theme,
+    name,
     ...props
 }): React.ReactElement => {
-    const [ expanded, setExpanded ] = useState(false);
+    const [expanded, setExpanded] = useState(false);
     const options = Children.toArray(children);
-    const displayProps = {
-        success: props.success,
-        error: props.error,
-        disabled
-    };
 
-    const [ ,mount, animation ] = useTransition(
-        expanded, { end: theme.speed[SPEED] }
+    const { success, error } = props;
+    const displayProps = { success, error, disabled };
+
+    const [, mount, animation] = useTransition(
+        expanded, { end: theme.speed[SPEED] },
     );
 
-    const selected = useMemo(() => (
-        options.find(option => (
+    const selected = useMemo((): React.ReactElement => (
+        options.find((option): React.ReactElement => (
             isValidElement(option) && option.props.value === String(value)
         ))
-    ), [ children, value ]);
+    ), [children, value]);
 
-    const onSelect = useCallback(el => {
-        el.target.name = props.name;
+    const onSelect = useCallback((el): void => {
+        el.target.name = name;
         onChange(el);
-    }, [ props.name ]);
+    }, [name]);
 
-    useEffect(() => {
-        if (!expanded) return;
-        const listener = () => setExpanded(false);
-        const timer = window.setTimeout(() => {
+    useEffect((): Function | null => {
+        if (!expanded) return null;
+        const listener = (): void => { setExpanded(false); };
+        const timer = window.setTimeout((): void => {
             window.addEventListener('click', listener, { once: true });
         }, 10);
 
-        return () => {
+        return (): void => {
             window.clearTimeout(timer);
             window.removeEventListener('click', listener);
-        }
-    }, [ expanded ]);
+        };
+    }, [expanded]);
 
     return (
-        <LabelLayout { ...props }>
+        <LabelLayout {...props}>
             <Container>
-                <SelectDisplay { ...displayProps } onClick={ !disabled ? setExpanded : undefined }>
+                <SelectDisplay {...displayProps} onClick={!disabled ? setExpanded : undefined}>
                     {
-                        selected ?
-                        (selected as React.ReactElement).props.children :
-                        placeholder
+                        selected
+                            ? (selected as React.ReactElement).props.children
+                            : placeholder
                     }
                 </SelectDisplay>
                 {
                     mount && (
-                        <SelectList limit={ items } expanded={ animation }>
+                        <SelectList limit={items} expanded={animation}>
                             { createList(options, onSelect, value) }
                         </SelectList>
                     )
@@ -108,12 +111,12 @@ const _Select: React.FunctionComponent<SelectProps> = ({
 export const Select = withTheme(_Select);
 
 const Container = styled.div`
-    ${ flex('column') }
+    ${flex('column')}
     position: relative;
 `;
 
 const SelectDisplay = styled.p`
-    ${ transition(['background-color', 'opacity', 'box-shadow']) }
+    ${transition(['background-color', 'opacity', 'box-shadow'])}
     font-size: 0.85rem;
     font-weight: bold;
     cursor: pointer;
@@ -122,38 +125,36 @@ const SelectDisplay = styled.p`
     margin: 0;
 
     // Disabled
-    ${({ disabled }) => disabled ? `
+    ${({ disabled }): string => (disabled ? `
         cursor: not-allowed;
         opacity: 0.6;
-    ` : ''}
+    ` : '')}
 
     // Theme Stuff
-    ${({ theme, disabled }) => `
-        padding: ${ theme.dimensions.padding.default };
-        border-radius: ${ theme.dimensions.radius };
-        font-family: ${ theme.font.family };
+    ${({ theme, disabled }): string => `
+        padding: ${theme.dimensions.padding.default};
+        border-radius: ${theme.dimensions.radius};
+        font-family: ${theme.font.family};
         ${!disabled ? `
             &:hover:not(:disabled) {
-                box-shadow: ${ theme.depth[1] };
+                box-shadow: ${theme.depth[1]};
             }
         ` : ''}
     `}
 
     // Background color
-    ${({ theme, error, success }) => `
-        background-color: ${
-            styledCondition(
-                error, theme.colors.input.error,
-                success, theme.colors.input.success,
-                theme.colors.input.default
-            )
-        };
+    ${({ theme, error, success }): string => `
+        background-color: ${styledCondition(
+        error, theme.colors.input.error,
+        success, theme.colors.input.success,
+        theme.colors.input.default,
+    )};
     `}
 `;
 
 const SelectList = styled.ul`
-    ${ position('absolute', '0 0 20px') }
-    ${ scroll }
+    ${position('absolute', '0 0 20px')}
+    ${scroll}
     
     background-color: white;
     list-style-type: none;
@@ -162,34 +163,34 @@ const SelectList = styled.ul`
     padding: 0;
 
     // Theme Stuff
-    ${({ theme }) => `
-        ${ transition(['max-height', {
-            prop: 'opacity', duration: theme.speed.normal
-        }], theme.speed[SPEED]) }
-        border-radius: ${ theme.dimensions.radius };
-        box-shadow: ${ theme.depth[1] };
+    ${({ theme }): string => `
+        ${transition(['max-height', {
+        prop: 'opacity', duration: theme.speed.normal,
+    }], theme.speed[SPEED])}
+        border-radius: ${theme.dimensions.radius};
+        box-shadow: ${theme.depth[1]};
     `}
 
-    ${({ expanded, limit }) => expanded ? `
-        max-height: ${ limit * ITEM_HEIGHT }px;
+    ${({ expanded, limit }): string => (expanded ? `
+        max-height: ${limit * ITEM_HEIGHT}px;
         opacity: 1;
-    `: `
-        max-height: ${ ITEM_HEIGHT }px;
+    ` : `
+        max-height: ${ITEM_HEIGHT}px;
         pointer-events: none;
         opacity: 0;
-    `}
+    `)}
 `;
 
 const SelectItem = styled.li`
-    ${ transition(['background-color']) }
+    ${transition(['background-color'])}
     font-size: 0.85rem;
     font-weight: bold;
     cursor: pointer;
 
     // Theme Stuff
-    ${({ theme }) => `
-        padding: ${ theme.dimensions.padding.default };
-        ${ clickable('#ffffff', 0.03) }
+    ${({ theme }): string => `
+        padding: ${theme.dimensions.padding.default};
+        ${clickable('#ffffff', 0.03)}
     `}
 `;
 

@@ -1,15 +1,15 @@
-import theme from '@Themes/_ThemeTemplate';
+import theme from '@Themes/ThemeTemplate';
 
 const COLOR_RANGE = 255;
 const FLEX_DIRECTIONS = [
     'row',
     'column',
     'reverse-row',
-    'reverse-column'
+    'reverse-column',
 ];
 
 
-export const styledSwitch = (value: any, ...args: any[]): string => {
+export const styledSwitch = (value: string, ...args: string[]): string => {
     const len = args.length;
     for (let i = 0; i < len; i += 2) {
         if (value === args[i]) return args[i + 1];
@@ -21,16 +21,16 @@ export const styledSwitch = (value: any, ...args: any[]): string => {
 };
 
 
-export const styledCondition = (...args: any[]): string => {
+export const styledCondition = (...args: (boolean | string)[]): string => {
     const len = args.length;
     for (let i = 1; i < len; i += 2) {
-        if (args[i - 1]) return args[i];
+        if (args[i - 1]) return args[i] as string;
     }
 
     // If even, no default so return nothing, else return the default
-    if (len % 2) return args[len - 1];
+    if (len % 2) return args[len - 1] as string;
     return '';
-}
+};
 
 
 /**
@@ -41,10 +41,9 @@ export const styledCondition = (...args: any[]): string => {
  */
 export const darken = (color: string, amount: number = 0.1): string => {
     let res = '#';
-    color = color.slice(1);
     const val = Math.floor(COLOR_RANGE * amount);
 
-    for (let i = 0; i < 6; i += 2) {
+    for (let i = 1; i < 7; i += 2) {
         const c = parseInt(color.slice(i, i + 2), 16);
         const num = Math.max(c - val, 0);
         res += num.toString(16).padStart(2, '0');
@@ -60,11 +59,11 @@ export const darken = (color: string, amount: number = 0.1): string => {
  */
 export const clickable = (color: string, amount = 0.1): string => `
     &:not(:disabled):hover {
-        background-color: ${ darken(color, amount) };
+        background-color: ${darken(color, amount)};
     }
 
     &:not(:disabled):active {
-        background-color: ${ darken(color, amount * 2) };
+        background-color: ${darken(color, amount * 2)};
     }
 `;
 
@@ -75,9 +74,9 @@ export const clickable = (color: string, amount = 0.1): string => `
  * @property {string} property - The transition property that is being targetted
  * @property {string|number} duration - The duration (default in milliseconds)
  */
-export type TransitionOptionType = {
-    duration?: String | Number,
-    prop: String
+export interface TransitionOptionType {
+    duration?: string | number;
+    prop: string;
 }
 
 /**
@@ -88,15 +87,15 @@ export type TransitionOptionType = {
  */
 export const transition = (
     items: (TransitionOptionType | string)[],
-    duration: string | number = theme.speed.normal
+    duration: string | number = theme.speed.normal,
 ): string => (
     `transition: ${
         items.reduce<string>(
-            (acc: any, item: string | TransitionOptionType) => {
-                const d = typeof(item) === 'string' ? duration : item.duration;
-                const i = `${typeof(item) === 'string' ? item : item.prop} ${d + (typeof(d) === 'number' ? 'ms' : '')}`;
+            (acc, item: string | TransitionOptionType): string => {
+                const d = typeof (item) === 'string' ? duration : item.duration;
+                const i = `${typeof (item) === 'string' ? item : item.prop} ${d + (typeof (d) === 'number' ? 'ms' : '')}`;
                 return `${acc}, ${i} cubic-bezier(0.4, 0.0, 0.2, 1)`;
-            }, ''
+            }, '',
         ).slice(2)
     };`
 );
@@ -118,14 +117,14 @@ export const position = (
     top: number | string = 0,
     right: number | string = top,
     bottom: number | string = top,
-    left: number | string = right
+    left: number | string = right,
 ): string => `
-    position: ${ value };
-    margin: ${ margin };
-    top: ${ top };
-    right: ${ right };
-    bottom: ${ bottom };
-    left: ${ left };
+    position: ${value};
+    margin: ${margin};
+    top: ${top};
+    right: ${right};
+    bottom: ${bottom};
+    left: ${left};
 `;
 
 
@@ -143,9 +142,8 @@ export const position = (
 export const flex = (
     param1?: string,
     param2?: string,
-    param3?: string
+    param3?: string,
 ): string => {
-
     // No params
     if (!param1) return 'display: flex;';
 
@@ -154,10 +152,10 @@ export const flex = (
         return `
             display: flex;
             ${FLEX_DIRECTIONS.includes(param1) ? `
-                flex-direction: ${ param1 };
+                flex-direction: ${param1};
             ` : `
-                justify-content: ${ param1 };
-                align-items: ${ param1 };
+                justify-content: ${param1};
+                align-items: ${param1};
             `}
         `;
     }
@@ -167,12 +165,12 @@ export const flex = (
         return `
             display: flex;
             ${FLEX_DIRECTIONS.includes(param1) ? `
-                flex-direction: ${ param1 };
-                justify-content: ${ param2 };
-                align-items: ${ param2 };
+                flex-direction: ${param1};
+                justify-content: ${param2};
+                align-items: ${param2};
             ` : `
-                justify-content: ${ param1 };
-                align-items: ${ param2 };
+                justify-content: ${param1};
+                align-items: ${param2};
             `}
         `;
     }
@@ -180,9 +178,9 @@ export const flex = (
     // Three params
     return `
         display: flex;
-        flex-direction: ${ param1 };
-        justify-content: ${ param2 };
-        align-items: ${ param3 };
+        flex-direction: ${param1};
+        justify-content: ${param2};
+        align-items: ${param3};
     `;
 };
 

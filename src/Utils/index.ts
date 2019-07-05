@@ -5,5 +5,5 @@ import * as Mixins from './Mixins';
 export {
     BaseStyles,
     Hooks,
-    Mixins
+    Mixins,
 };

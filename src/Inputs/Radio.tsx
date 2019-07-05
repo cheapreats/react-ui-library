@@ -1,18 +1,22 @@
-import React from "react";
+import React from 'react';
 import styled from 'styled-components';
-import { Main, Responsive, MainProps, ResponsiveProps } from '@Utils/BaseStyles';
+import {
+    Main, Responsive, MainProps, ResponsiveProps,
+} from '@Utils/BaseStyles';
 import { __useImplicitProps } from '@Utils/Hooks';
-import { position, darken, flex, transition } from '@Utils/Mixins';
+import {
+    position, darken, flex, transition,
+} from '@Utils/Mixins';
 
 export interface RadioProps {
-    label?: string,
-    column?: number,
-    className: string,
-    activeStyle?: Function,
-    radioStyle?: Function,
-    disabled?: boolean,
-    name?: string,
-    __accept?: Array<string>
+    label?: string;
+    column?: number;
+    className: string;
+    activeStyle?: Function;
+    radioStyle?: Function;
+    disabled?: boolean;
+    name?: string;
+    __accept?: string[];
 }
 
 export const Radio: React.FunctionComponent<RadioProps> = ({
@@ -27,7 +31,7 @@ export const Radio: React.FunctionComponent<RadioProps> = ({
 }): React.ReactElement => {
     const implicitProps = __useImplicitProps(props, [
         ...MainProps,
-        ...ResponsiveProps
+        ...ResponsiveProps,
     ]);
     const radioProps = {
         activeStyle,
@@ -35,29 +39,29 @@ export const Radio: React.FunctionComponent<RadioProps> = ({
     };
 
     return (
-        <Container className={ className } column={ column } { ...implicitProps }>
+        <Container className={className} column={column} {...implicitProps}>
             <RadioContainer>
-                <Input type='checkbox' { ...props }/>
-                <RadioBox { ...radioProps } disabled={ disabled }>
-                    <RadioDot/>
+                <Input type="checkbox" {...props} />
+                <RadioBox {...radioProps} disabled={disabled}>
+                    <RadioDot />
                 </RadioBox>
             </RadioContainer>
-            { label && <Label htmlFor={ name } column={ column }>{ label }</Label> }
+            { label && <Label htmlFor={name} column={column}>{ label }</Label> }
         </Container>
     );
 };
 
 const Container = styled.div`
-    ${ Main }
-    ${ Responsive }
-    ${ flex('center') }
+    ${Main}
+    ${Responsive}
+    ${flex('center')}
     display: inline-flex;
 
-    ${({ column }) => column ? 'flex-direction: column' : ''}
+    ${({ column }): string => (column ? 'flex-direction: column' : '')}
 `;
 
 const Input = styled.input`
-    ${ position() }
+    ${position()}
     cursor: pointer;
     z-index: 1;
     width: 100%;
@@ -70,7 +74,7 @@ const Input = styled.input`
 `;
 
 const RadioContainer = styled.div`
-    ${ flex('center') }
+    ${flex('center')}
     display: inline-flex;
     position: relative;
     border-radius: 50%;
@@ -78,54 +82,54 @@ const RadioContainer = styled.div`
 `;
 
 const RadioBox = styled.div`
-    ${ Main }
-    ${ flex('center') }
-    ${ transition(['border-color']) }
+    ${Main}
+    ${flex('center')}
+    ${transition(['border-color'])}
     border-radius: 50%;
     margin: 0;
 
     // Disabled
-    ${ Input }:disabled ~ & {
+    ${Input}:disabled ~ & {
         opacity: 0.6;
     }
 
-    ${({ activeStyle, ...props }) => {
+    ${({ activeStyle, ...props }): string => {
         const { colors, dimensions } = props.theme;
         return `
-            height: ${ dimensions.radio.size }px;
-            width: ${ dimensions.radio.size }px;
-            padding: ${ dimensions.radio.spacing }px;
-            border: 3px solid ${ darken(colors.input.default) };
+            height: ${dimensions.radio.size}px;
+            width: ${dimensions.radio.size}px;
+            padding: ${dimensions.radio.spacing}px;
+            border: 3px solid ${darken(colors.input.default)};
 
-            ${ Input }:checked ~ & {
-                border-color: ${ colors.primary };
-                ${ activeStyle ? activeStyle(props) : '' }
+            ${Input}:checked ~ & {
+                border-color: ${colors.primary};
+                ${activeStyle ? activeStyle(props) : ''}
             }
         `;
     }}
-    ${({ radioStyle, ...props }) => radioStyle ? radioStyle(props) : ''}
+    ${({ radioStyle, ...props }): string => (radioStyle ? radioStyle(props) : '')}
 `;
 
 const RadioDot = styled.div`
-    ${ transition(['transform', 'opacity']) }
+    ${transition(['transform', 'opacity'])}
     border-radius: 50%;
     transform: scale(0, 0);
     opacity: 0;
     height: 100%;
     flex-grow: 1;
 
-    ${({ theme }) => `
-        background-color: ${ theme.colors.primary };
+    ${({ theme }): string => `
+        background-color: ${theme.colors.primary};
     `}
 
-    ${ Input }:checked ~ ${ RadioBox } & {
+    ${Input}:checked ~ ${RadioBox} & {
         transform: scale(1, 1);
         opacity: 1;
     }
 `;
 
 const Label = styled.label`
-    margin: ${({ column }) => column ? '6px' : '0 8px 2px'};
+    margin: ${({ column }): string => (column ? '6px' : '0 8px 2px')};
     font-size: 0.85rem;
     font-weight: bold;
 `;

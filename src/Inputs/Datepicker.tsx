@@ -1,25 +1,23 @@
-import React from "react";
+import React from 'react';
 import styled from 'styled-components';
 import { transition, styledCondition } from '@Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
 export interface DatepickerProps extends LabelLayoutProps {
-    disabled?: boolean,
-    placeholder?: string
-};
+    disabled?: boolean;
+    placeholder?: string;
+}
 
 export const Datepicker: React.FunctionComponent<DatepickerProps> = ({
     ...props
-}): React.ReactElement => {
-    return (
-        <LabelLayout { ...props }>
-            <InputElement { ...props }/>
-        </LabelLayout>
-    );
-};
+}): React.ReactElement => (
+    <LabelLayout {...props}>
+        <InputElement {...props} />
+    </LabelLayout>
+);
 
 const InputElement = styled.input`
-    ${ transition(['background-color', 'opacity', 'box-shadow']) }
+    ${transition(['background-color', 'opacity', 'box-shadow'])}
     font-size: 0.85rem;
     font-weight: bold;
     outline: none;
@@ -33,24 +31,24 @@ const InputElement = styled.input`
     }
 
     // Theme Stuff
-    ${({ theme }) => `
-        padding: ${ theme.dimensions.padding.default };
-        border-radius: ${ theme.dimensions.radius };
-        font-family: ${ theme.font.family };
+    ${({ theme }): string => `
+        padding: ${theme.dimensions.padding.default};
+        border-radius: ${theme.dimensions.radius};
+        font-family: ${theme.font.family};
         &:focus {
-            box-shadow: ${ theme.depth[1] };
+            box-shadow: ${theme.depth[1]};
         }
     `}
 
     // Background color
-    ${({ theme, error, success }) => `
+    ${({ theme, error, success }): string => `
         background-color: ${
-            styledCondition(
-                error, theme.colors.input.error,
-                success, theme.colors.input.success,
-                theme.colors.input.default
-            )
-        };
+    styledCondition(
+        error, theme.colors.input.error,
+        success, theme.colors.input.success,
+        theme.colors.input.default,
+    )
+};
     `}
 `;
 

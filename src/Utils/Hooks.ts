@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 
-const ifUndefined = (prop: any, def: any) => prop === undefined ? def : prop;
-
 /**
  * Internal hook used to extract implicity defined props to prop
  * @param {Object} props - props to extract info from (user define with __accept)
@@ -9,13 +7,13 @@ const ifUndefined = (prop: any, def: any) => prop === undefined ? def : prop;
  */
 export const __useImplicitProps = (
     props: { __accept?: string[] },
-    accept: string[] = []
-) => (
-    [ ...(props.__accept || []), ...accept ].reduce(
-        (acc, prop) => {
+    accept: string[] = [],
+): object => (
+    [...(props.__accept || []), ...accept].reduce(
+        (acc, prop): object => {
             acc[prop] = props[prop];
             return acc;
-        }, {}
+        }, {},
     )
 );
 
@@ -26,9 +24,9 @@ export const __useImplicitProps = (
  * @property {number} [start=10] - Delay in ms from false => true
  * @property {number} [end=10] - Delay in ms from true => false
  */
-export type UseTransitionType = {
-    start?: Number,
-    end?: Number
+export interface UseTransitionType {
+    start?: number;
+    end?: number;
 }
 
 /**
@@ -37,20 +35,19 @@ export type UseTransitionType = {
  * @param {UseTransitionType} [options={}] - Options for useTransition
  * @returns {boolean[]} [ state, or, and ];
  */
-export const useTransition = (init: boolean = false, options: UseTransitionType = {}): boolean[] => {
-    const [ _init, setInit ] = useState(init);
+export const useTransition = (
+    init: boolean = false,
+    options: UseTransitionType = {},
+): [ boolean, boolean, boolean ] => {
+    const [initState, setInit] = useState(init);
     const timer = useRef<number>();
-    useEffect(() => {
-        window.clearTimeout(timer.current);
-        timer.current = window.setTimeout(
-            () => setInit(init),
-            (
-                init ?
-                ifUndefined(options.start, 0) :
-                ifUndefined(options.end, 0)
-            )
-        );
-    }, [ init !== _init ]);
 
-    return [ _init, _init || init, _init && init ];
+    useEffect((): void => {
+        window.clearTimeout(timer.current);
+        timer.current = window.setTimeout((): void => {
+            setInit(init);
+        }, (init ? options.start : options.end) || 0);
+    }, [init !== initState]);
+
+    return [initState, initState || init, initState && init];
 };

@@ -1,14 +1,16 @@
-import React from "react";
+import React from 'react';
 import { CircleNotch } from 'styled-icons/fa-solid/CircleNotch';
 import { Main, Responsive } from '@Utils/BaseStyles';
-import { transition, clickable, position, flex } from '@Utils/Mixins';
+import {
+    transition, clickable, position, flex,
+} from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 import styled from 'styled-components';
 
 export interface ButtonProps {
-    children?: React.ReactNode,
-    icon?: string,
-    loading?: boolean
+    children?: React.ReactNode;
+    icon?: string;
+    loading?: boolean;
 }
 
 
@@ -18,23 +20,23 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
     loading,
     ...props
 }): React.ReactElement => {
-    const [ , isLoading, isAnimated ] = useTransition(loading);
+    const [, isLoading, isAnimated] = useTransition(loading);
     return (
-        <StyledButton { ...props }>
-            { icon && <Icon as={ icon }/> }
-            <Content loading={ isAnimated }>{ children }</Content>
-            { isLoading && <Loader loading={ isAnimated }/> }
+        <StyledButton {...props}>
+            { icon && <Icon as={icon} /> }
+            <Content loading={isAnimated}>{ children }</Content>
+            { isLoading && <Loader loading={isAnimated} /> }
         </StyledButton>
     );
 };
 
 const StyledButton = styled.button`
     // Base Styles
-    ${ transition(['background-color', 'opacity']) }
-    ${ Responsive }
-    ${ Main }
+    ${transition(['background-color', 'opacity'])}
+    ${Responsive}
+    ${Main}
 
-    ${ flex('center') }
+    ${flex('center')}
     border: 1.5px solid rgba(0,0,0,0.1);
     background: transparent;
     border-radius: 999px;
@@ -51,22 +53,22 @@ const StyledButton = styled.button`
     }
 
     // Theme Stuff
-    ${({ theme }) => `
-        padding: ${ theme.dimensions.padding.withBorder };
-        font-family: ${ theme.font.family };
-        color: ${ theme.colors.text };
-        ${ clickable('#ffffff', 0.05) }
+    ${({ theme }): string => `
+        padding: ${theme.dimensions.padding.withBorder};
+        font-family: ${theme.font.family};
+        color: ${theme.colors.text};
+        ${clickable('#ffffff', 0.05)}
     `}
 
     // Primary button
-    ${({ primary, theme }) => primary ? `
-        background-color: ${ theme.colors.primary };
+    ${({ primary, theme }): string => (primary ? `
+        background-color: ${theme.colors.primary};
         color: white;
-        ${ clickable(theme.colors.primary) }
-    ` : ''}
+        ${clickable(theme.colors.primary)}
+    ` : '')}
 
     // Full width
-    ${({ full }) => full ? 'width: 100%;' : ''}
+    ${({ full }): string => (full ? 'width: 100%;' : '')}
 `;
 
 const Icon = styled.svg`
@@ -76,19 +78,19 @@ const Icon = styled.svg`
 `;
 
 const Content = styled.span`
-    ${ transition(['transform', 'opacity']) }
-    ${({ loading }) => loading ? `
+    ${transition(['transform', 'opacity'])}
+    ${({ loading }): string => (loading ? `
         transform: translate3d(0,80%,0);
         opacity: 0;
     ` : `
         transform: translate3d(0,0,0);
         opacity: 1;
-    `}
+    `)}
 `;
 
 const Loader = styled(CircleNotch)`
-    ${ transition(['opacity']) }
-    ${ position() }
+    ${transition(['opacity'])}
+    ${position()}
 
     animation: spin 1s linear 0s infinite;
     height: 14px;
@@ -100,9 +102,9 @@ const Loader = styled(CircleNotch)`
         to { transform: rotate(360deg) }
     }
 
-    ${({ loading }) => loading ? `
+    ${({ loading }): string => (loading ? `
         opacity: 1;
-    ` : ''}
+    ` : '')}
 `;
 
 export default Button;
