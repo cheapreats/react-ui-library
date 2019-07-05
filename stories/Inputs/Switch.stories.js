@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { Switch, transition } from '../../src';
+import { Switch, Mixins } from '../../src';
 
 storiesOf('Switch', module)
     .addDecorator(withKnobs)
@@ -26,26 +26,34 @@ storiesOf('Switch', module)
             disabled
         />
     ))
-    .add('with switchStyle', () => (
-        <Switch
-            label='Label'
-            switchStyle={() => `
-                ${ transition(['background-color']) }
-                background-color: blue;
-            `}
-            description='Description'
-        />
-    ))
-    .add('with activeStyle', () => (
-        <Switch
-            label='Label'
-            switchStyle={() => `
-                ${ transition(['background-color']) }
-            `}
-            activeStyle={() => `
-                background-color: green;
-            `}
-            description='Description'
-        />
-    ))
+    .add('with switchStyle', () => {
+        const style = () => `
+            ${ Mixins.transition(['background-color']) }
+            background-color: blue;
+        `;
+        return (
+            <Switch
+                label='Label'
+                switchStyle={style}
+                description='Description'
+            />
+        )
+    })
+    .add('with activeStyle', () => {
+        const style = () => `
+            ${ Mixins.transition(['background-color']) }
+        `;
+        const active = () => `
+            background-color: green;
+        `;
+
+        return (
+            <Switch
+                label='Label'
+                switchStyle={style}
+                activeStyle={active}
+                description='Description'
+            />
+        );
+    })
 ;

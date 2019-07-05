@@ -52,6 +52,7 @@ module.exports = {
     'import/prefer-default-export': 'off',
     'no-underscore-dangle': 'off',
     'no-param-reassign': 'off',
+    'jsx-quotes': 'single',
     'indent': ['error', 4],
   },
 };

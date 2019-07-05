@@ -30,30 +30,39 @@ storiesOf('Radio', module)
             disabled
         />
     ))
-    .add('with radioStyle', () => (
-        <Radio
-            name='demo'
-            label='Labelled Radio Button'
-            radioStyle={() => `
-                border-color: blue;
-            `}
-        />
-    ))
-    .add('with activeStyle', () => (
-        <Radio
-            name='demo'
-            label='Labelled Radio Button'
-            radioStyle={() => `
-                & div {
-                    background-color: blue;
-                }
-            `}
-            activeStyle={() => `
-                border-color: blue;
-                & div {
-                    background-color: blue;
-                }
-            `}
-        />
-    ))
+    .add('with radioStyle', () => {
+        const radio = () => `
+            border-color: blue;
+        `;
+        
+        return (
+            <Radio
+                name='demo'
+                label='Labelled Radio Button'
+                radioStyle={radio}
+            />
+        )
+    })
+    .add('with activeStyle', () => {
+        const radio = () => `
+            & div {
+                background-color: blue;
+            }
+        `;
+        const active = () => `
+            border-color: blue;
+            & div {
+                background-color: blue;
+            }
+        `;
+
+        return (
+            <Radio
+                name='demo'
+                label='Labelled Radio Button'
+                radioStyle={radio}
+                activeStyle={active}
+            />
+        );
+    })
 ;
