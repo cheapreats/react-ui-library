@@ -70,5 +70,13 @@
     "@Text": "src/Text",
     "@Themes": "src/Themes",
     "@Utils": "src/Utils"
-  }
+  },
+  "eslintIgnore": [
+    "./stories",
+    "./scripts",
+    "./node_modules",
+    "./dist",
+    "./storybook",
+    "./.deploy"
+  ]
 }

@@ -2,6 +2,7 @@ import React, {
     useState, useEffect, useMemo, useCallback, Children, isValidElement,
 } from 'react';
 import styled, { withTheme } from 'styled-components';
+import { AngleDown } from 'styled-icons/fa-solid';
 import {
     flex, scroll, position, transition, clickable, styledCondition,
 } from '@Utils/Mixins';
@@ -94,11 +95,14 @@ const _Select: React.FunctionComponent<SelectProps> = ({
         <LabelLayout {...props}>
             <Container>
                 <SelectDisplay {...displayProps} onClick={!disabled ? setExpanded : undefined}>
-                    {
-                        selected
-                            ? (selected as React.ReactElement).props.children
-                            : placeholder
-                    }
+                    <SelectText>
+                        {
+                            selected
+                                ? (selected as React.ReactElement).props.children
+                                : placeholder
+                        }
+                    </SelectText>
+                    <Icon />
                 </SelectDisplay>
                 {
                     mount && (
@@ -121,6 +125,7 @@ const Container = styled.div`
 
 const SelectDisplay = styled.p`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
+    ${flex('flex-start', 'center')}
     font-size: 0.85rem;
     font-weight: bold;
     cursor: pointer;
@@ -154,6 +159,18 @@ const SelectDisplay = styled.p`
         theme.colors.input.default,
     )};
     `}
+`;
+
+const SelectText = styled.span`
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+`;
+
+const Icon = styled(AngleDown)`
+    width: 10px;
+    flex-shrink: 0;
+    margin-left: auto;
 `;
 
 const SelectList = styled.ul`

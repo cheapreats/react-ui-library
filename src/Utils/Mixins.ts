@@ -127,6 +127,15 @@ export const position = (
     left: ${left};
 `;
 
+export const media = (
+    breakpoint: string | number,
+    styles: string,
+): string => (
+    `@media (max-width: ${theme.media[breakpoint] || breakpoint}px) {
+        ${styles}
+    }`
+);
+
 
 /**
  * Flex display with common properties. Can have the following configurations

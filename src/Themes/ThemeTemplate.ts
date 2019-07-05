@@ -28,6 +28,10 @@ export interface ThemeTemplateInterface {
         };
         radius: string | number;
     };
+    media: {
+        tablet: number;
+        phone: number;
+    };
     speed: {
         fast: number;
         normal: number;
@@ -66,6 +70,10 @@ const Theme: ThemeTemplateInterface = {
             spacing: 4,
         },
         radius: '8px',
+    },
+    media: {
+        tablet: 768,
+        phone: 425,
     },
     speed: {
         fast: 150,
