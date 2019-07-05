@@ -1,4 +1,4 @@
-import React, { useState, useCallback, ReactNode, Children, isValidElement } from 'react';
+import React, { useState, useEffect, useMemo, useCallback, Children, isValidElement } from 'react';
 import styled, { withTheme } from 'styled-components';
 import { flex, scroll, position, transition, clickable, styledCondition } from '@Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
@@ -6,17 +6,25 @@ import { useTransition } from '@Utils/Hooks';
 import { _ThemeTemplateInterface } from '@Themes/_ThemeTemplate';
 
 const ITEM_HEIGHT = 41;
-const SPEED = 'page';
+const SPEED = 'slow';
 
-const createList = (children: ReactNode, value?: string | number) => (
-    Children.map(children, child => {
-        if (isValidElement(child)) {
-            const selected = String(value) === child.props.value;
-            return (
-                <SelectItem { ...child.props } selected={ selected }/>
-            )
-        }
-        return null;
+const createList = (
+    children: Array<React.ReactNode>,
+    onSelect: Function,
+    value?: string | number
+) => (
+    children.map(child => {
+        if (!isValidElement(child)) return;
+        const val = child.props.value;
+        const selected = String(value) === val;
+        return (
+            <SelectItem
+                { ...child.props }
+                selected={ selected }
+                onClick={ onSelect }
+                key={ val }
+            />
+        );
     })
 );
 
@@ -25,6 +33,7 @@ export interface SelectProps extends LabelLayoutProps {
     placeholder?: string,
     value?: string | number,
     theme: _ThemeTemplateInterface,
+    onChange?: Function,
     items?: number
 };
 
@@ -34,38 +43,60 @@ const _Select = ({
     children,
     items = 4,
     placeholder = '',
+    onChange = () => {},
+    theme,
     ...props
 }: SelectProps) => {
     const [ expanded, setExpanded ] = useState(false);
-    const [ ,mount, animation ] = useTransition(
-        expanded, { end: props.theme.speed[SPEED] }
-    );
-
+    const options = Children.toArray(children);
     const displayProps = {
         success: props.success,
         error: props.error,
         disabled
     };
 
-    const expand = useCallback(() => {
-        setExpanded(true);
-        window.setTimeout(() => {
-            window.addEventListener('click', () => {
-                setExpanded(false);
-            }, { once: true });
-        }, props.theme.speed[SPEED]);
-    }, []);
+    const [ ,mount, animation ] = useTransition(
+        expanded, { end: theme.speed[SPEED] }
+    );
+
+    const selected = useMemo(() => (
+        options.find(option => (
+            isValidElement(option) && option.props.value === String(value)
+        ))
+    ), [ children, value ]);
+
+    const onSelect = useCallback(el => {
+        el.target.name = props.name;
+        onChange(el);
+    }, [ props.name ]);
+
+    useEffect(() => {
+        if (!expanded) return;
+        const listener = () => setExpanded(false);
+        const timer = window.setTimeout(() => {
+            window.addEventListener('click', listener, { once: true });
+        }, 10);
+
+        return () => {
+            window.clearTimeout(timer);
+            window.removeEventListener('click', listener);
+        }
+    }, [ expanded ]);
 
     return (
         <LabelLayout { ...props }>
             <Container>
-                <SelectDisplay { ...displayProps } onClick={ expand }>
-                    { placeholder }
+                <SelectDisplay { ...displayProps } onClick={ !disabled ? setExpanded : undefined }>
+                    {
+                        selected ?
+                        (selected as React.ReactElement).props.children :
+                        placeholder
+                    }
                 </SelectDisplay>
                 {
                     mount && (
                         <SelectList limit={ items } expanded={ animation }>
-                            { createList(children, value) }
+                            { createList(options, onSelect, value) }
                         </SelectList>
                     )
                 }
@@ -144,6 +175,7 @@ const SelectList = styled.ul`
         opacity: 1;
     `: `
         max-height: ${ ITEM_HEIGHT }px;
+        pointer-events: none;
         opacity: 0;
     `}
 `;

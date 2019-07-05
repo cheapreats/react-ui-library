@@ -1,8 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { transition } from '@Utils/Mixins';
-import { Switch } from '../../src';
+import { Switch, transition } from '../../src';
 
 storiesOf('Switch', module)
     .addDecorator(withKnobs)
