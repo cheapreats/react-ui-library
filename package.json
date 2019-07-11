@@ -11,10 +11,10 @@
     "start": "start-storybook -p 6006",
     "deploy": "build-storybook --quiet -o .deploy",
     "build": "rm -rf dist && tsc && NODE_ENV=production babel dist -d dist",
-    "prepublish": "npm run eslint && npm run build",
+    "prepublish": "npm run lint && npm run build",
     "eslint": "eslint ./src --ext tsx,ts,jsx,js",
     "eslint:fix": "npm run eslint -- --fix",
-    "prettier": "prettier --parser typescript '**/*.ts' '**/*.tsx' '**/*.js' '**/*.jsx'",
+    "prettier": "prettier '**/*.ts' '**/*.tsx' '**/*.js' '**/*.jsx'",
     "prettier:fix": "npm run prettier -- --write",
     "lint": "npm run eslint:fix && npm run prettier:fix"
   },
@@ -77,11 +77,11 @@
     "@Utils": "src/Utils"
   },
   "eslintIgnore": [
-    "./stories",
-    "./scripts",
-    "./node_modules",
-    "./dist",
-    "./storybook",
-    "./.deploy"
+    "stories",
+    "scripts",
+    "node_modules",
+    "dist",
+    ".storybook",
+    ".deploy"
   ]
 }
