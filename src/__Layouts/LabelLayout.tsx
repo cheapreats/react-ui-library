@@ -1,7 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-    Main, MainProps, Responsive, ResponsiveProps,
+    Main,
+    MainProps,
+    Responsive,
+    ResponsiveProps,
 } from '@Utils/BaseStyles';
 import { __useImplicitProps, useTransition } from '@Utils/Hooks';
 import { flex, transition } from '@Utils/Mixins';
@@ -39,11 +42,11 @@ export const LabelLayout: React.FunctionComponent<LabelLayoutProps> = ({
 
     return (
         <Layout {...layoutProps} {...implicitProps}>
-            { label && <Label htmlFor={name}>{ label }</Label> }
-            { description && <Info id={`#${name}-info`}>{ description }</Info> }
-            { children }
+            {label && <Label htmlFor={name}>{label}</Label>}
+            {description && <Info id={`#${name}-info`}>{description}</Info>}
+            {children}
             <ErrorLabel id={`#${name}-error`} error={error}>
-                { _error }
+                {_error}
             </ErrorLabel>
         </Layout>
     );
@@ -70,10 +73,13 @@ const ErrorLabel = styled(Label)`
     opacity: 0;
     color: red;
 
-    ${({ error }): string => (error ? `
+    ${({ error }): string =>
+        error
+            ? `
         max-height: 20px;
         opacity: 1;
-    ` : '')}
+    `
+            : ''}
 `;
 
 const Info = styled.span`

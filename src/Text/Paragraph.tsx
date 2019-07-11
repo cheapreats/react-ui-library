@@ -8,10 +8,6 @@ import { TextLayout, TextLayoutProps } from '@Layouts/TextLayout';
 export const Paragraph: React.FunctionComponent<TextLayoutProps> = ({
     children,
     ...props
-}): React.ReactElement => (
-    <TextLayout {...props}>
-        { children }
-    </TextLayout>
-);
+}): React.ReactElement => <TextLayout {...props}>{children}</TextLayout>;
 
 export default Paragraph;

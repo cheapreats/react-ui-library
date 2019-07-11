@@ -6,42 +6,35 @@ import { Switch, Mixins } from '../../src';
 storiesOf('Switch', module)
     .addDecorator(withKnobs)
     .add('with default', () => (
-        <Switch
-            label='Label'
-            description='Description'
-        />
+        <Switch label="Label" description="Description" />
     ))
     .add('with tags', () => (
-        <Switch
-            label='Label'
-            tags={['On', 'Off']}
-            description='Description'
-        />
+        <Switch label="Label" tags={['On', 'Off']} description="Description" />
     ))
     .add('with disabled', () => (
         <Switch
-            label='Label'
+            label="Label"
             tags={['On', 'Off']}
-            description='Description'
+            description="Description"
             disabled
         />
     ))
     .add('with switchStyle', () => {
         const style = () => `
-            ${ Mixins.transition(['background-color']) }
+            ${Mixins.transition(['background-color'])}
             background-color: blue;
         `;
         return (
             <Switch
-                label='Label'
+                label="Label"
                 switchStyle={style}
-                description='Description'
+                description="Description"
             />
-        )
+        );
     })
     .add('with activeStyle', () => {
         const style = () => `
-            ${ Mixins.transition(['background-color']) }
+            ${Mixins.transition(['background-color'])}
         `;
         const active = () => `
             background-color: green;
@@ -49,11 +42,10 @@ storiesOf('Switch', module)
 
         return (
             <Switch
-                label='Label'
+                label="Label"
                 switchStyle={style}
                 activeStyle={active}
-                description='Description'
+                description="Description"
             />
         );
-    })
-;
+    });

@@ -42,13 +42,13 @@ const InputElement = styled.input`
 
     // Background color
     ${({ theme, error, success }): string => `
-        background-color: ${
-    styledCondition(
-        error, theme.colors.input.error,
-        success, theme.colors.input.success,
-        theme.colors.input.default,
-    )
-};
+        background-color: ${styledCondition(
+            error,
+            theme.colors.input.error,
+            success,
+            theme.colors.input.success,
+            theme.colors.input.default,
+        )};
     `}
 `;
 

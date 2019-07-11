@@ -1,10 +1,20 @@
 import React, {
-    useState, useEffect, useMemo, useCallback, Children, isValidElement,
+    useState,
+    useEffect,
+    useMemo,
+    useCallback,
+    Children,
+    isValidElement,
 } from 'react';
 import styled, { withTheme } from 'styled-components';
 import { AngleDown } from 'styled-icons/fa-solid';
 import {
-    flex, scroll, position, transition, clickable, styledCondition,
+    flex,
+    scroll,
+    position,
+    transition,
+    clickable,
+    styledCondition,
 } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 import { MainThemeInterface } from '@Themes';
@@ -17,7 +27,7 @@ const createList = (
     children: React.ReactNode[],
     onSelect: Function,
     value?: string | number,
-): React.ReactNode[] => (
+): React.ReactNode[] =>
     children.map((child): React.ReactElement | null => {
         if (child && isValidElement(child)) {
             const val = child.props.value;
@@ -32,8 +42,7 @@ const createList = (
             );
         }
         return null;
-    })
-);
+    });
 
 export interface SelectProps extends LabelLayoutProps {
     disabled?: boolean;
@@ -61,24 +70,33 @@ const _Select: React.FunctionComponent<SelectProps> = ({
     const { success, error } = props;
     const displayProps = { success, error, disabled };
 
-    const [, mount, animation] = useTransition(
-        expanded, { end: theme.speed[SPEED] },
+    const [, mount, animation] = useTransition(expanded, {
+        end: theme.speed[SPEED],
+    });
+
+    const selected = useMemo(
+        (): React.ReactNode =>
+            options.find(
+                (option): boolean =>
+                    isValidElement(option) &&
+                    option.props.value === String(value),
+            ),
+        [children, value],
     );
 
-    const selected = useMemo((): React.ReactNode => (
-        options.find((option): boolean => (
-            isValidElement(option) && option.props.value === String(value)
-        ))
-    ), [children, value]);
-
-    const onSelect = useCallback((el): void => {
-        el.target.name = name;
-        onChange(el);
-    }, [name]);
+    const onSelect = useCallback(
+        (el): void => {
+            el.target.name = name;
+            onChange(el);
+        },
+        [name],
+    );
 
     useEffect((): void | (() => void | undefined) => {
         if (expanded) {
-            const listener = (): void => { setExpanded(false); };
+            const listener = (): void => {
+                setExpanded(false);
+            };
             const timer = window.setTimeout((): void => {
                 window.addEventListener('click', listener, { once: true });
             }, 10);
@@ -94,23 +112,22 @@ const _Select: React.FunctionComponent<SelectProps> = ({
     return (
         <LabelLayout {...props}>
             <Container>
-                <SelectDisplay {...displayProps} onClick={!disabled ? setExpanded : undefined}>
+                <SelectDisplay
+                    {...displayProps}
+                    onClick={!disabled ? setExpanded : undefined}
+                >
                     <SelectText>
-                        {
-                            selected
-                                ? (selected as React.ReactElement).props.children
-                                : placeholder
-                        }
+                        {selected
+                            ? (selected as React.ReactElement).props.children
+                            : placeholder}
                     </SelectText>
                     <Icon />
                 </SelectDisplay>
-                {
-                    mount && (
-                        <SelectList limit={items} expanded={animation}>
-                            { createList(options, onSelect, value) }
-                        </SelectList>
-                    )
-                }
+                {mount && (
+                    <SelectList limit={items} expanded={animation}>
+                        {createList(options, onSelect, value)}
+                    </SelectList>
+                )}
             </Container>
         </LabelLayout>
     );
@@ -134,30 +151,39 @@ const SelectDisplay = styled.p`
     margin: 0;
 
     // Disabled
-    ${({ disabled }): string => (disabled ? `
+    ${({ disabled }): string =>
+        disabled
+            ? `
         cursor: not-allowed;
         opacity: 0.6;
-    ` : '')}
+    `
+            : ''}
 
     // Theme Stuff
     ${({ theme, disabled }): string => `
         padding: ${theme.dimensions.padding.default};
         border-radius: ${theme.dimensions.radius};
         font-family: ${theme.font.family};
-        ${!disabled ? `
+        ${
+            !disabled
+                ? `
             &:hover:not(:disabled) {
                 box-shadow: ${theme.depth[1]};
             }
-        ` : ''}
+        `
+                : ''
+        }
     `}
 
     // Background color
     ${({ theme, error, success }): string => `
         background-color: ${styledCondition(
-        error, theme.colors.input.error,
-        success, theme.colors.input.success,
-        theme.colors.input.default,
-    )};
+            error,
+            theme.colors.input.error,
+            success,
+            theme.colors.input.success,
+            theme.colors.input.default,
+        )};
     `}
 `;
 
@@ -185,21 +211,31 @@ const SelectList = styled.ul`
 
     // Theme Stuff
     ${({ theme }): string => `
-        ${transition(['max-height', {
-        prop: 'opacity', duration: theme.speed.normal,
-    }], theme.speed[SPEED])}
+        ${transition(
+            [
+                'max-height',
+                {
+                    prop: 'opacity',
+                    duration: theme.speed.normal,
+                },
+            ],
+            theme.speed[SPEED],
+        )}
         border-radius: ${theme.dimensions.radius};
         box-shadow: ${theme.depth[1]};
     `}
 
-    ${({ expanded, limit }): string => (expanded ? `
+    ${({ expanded, limit }): string =>
+        expanded
+            ? `
         max-height: ${limit * ITEM_HEIGHT}px;
         opacity: 1;
-    ` : `
+    `
+            : `
         max-height: ${ITEM_HEIGHT}px;
         pointer-events: none;
         opacity: 0;
-    `)}
+    `}
 `;
 
 const SelectItem = styled.li`

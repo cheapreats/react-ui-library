@@ -6,18 +6,10 @@ import { Button } from '../../src';
 
 storiesOf('Button', module)
     .addDecorator(withKnobs)
-    .add('with text', () => (
-        <Button>Normal Button</Button>
-    ))
-    .add('with primary', () => (
-        <Button primary>Primary Button</Button>
-    ))
-    .add('with icon', () => (
-        <Button icon={ Save }>Icon Button</Button>
-    ))
-    .add('with full', () => (
-        <Button full>Icon Button</Button>
-    ))
+    .add('with text', () => <Button>Normal Button</Button>)
+    .add('with primary', () => <Button primary>Primary Button</Button>)
+    .add('with icon', () => <Button icon={Save}>Icon Button</Button>)
+    .add('with full', () => <Button full>Icon Button</Button>)
     .add('with disabled', () => (
         <Button
             disabled={boolean('Disabled', true)}
@@ -30,8 +22,8 @@ storiesOf('Button', module)
         <Button
             loading={boolean('Loading', true)}
             primary={boolean('Primary', true)}
+            icon={Save}
         >
             Action Button
         </Button>
-    ))
-;
+    ));

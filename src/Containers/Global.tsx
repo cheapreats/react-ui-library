@@ -32,7 +32,7 @@ export const Global: React.FunctionComponent<GlobalProps> = ({
     <ThemeProvider theme={extend ? extend(Themes[theme]) : Themes[theme]}>
         <Fragment>
             <GlobalContext style={style} />
-            { children }
+            {children}
         </Fragment>
     </ThemeProvider>
 );

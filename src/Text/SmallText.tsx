@@ -12,7 +12,7 @@ export const SmallText: React.FunctionComponent<TextLayoutProps> = ({
     ...props
 }): React.ReactElement => (
     <TextLayout type={type} size={size} {...props}>
-        { children }
+        {children}
     </TextLayout>
 );
 

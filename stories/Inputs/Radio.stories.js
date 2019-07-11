@@ -5,43 +5,28 @@ import { Radio } from '../../src';
 
 storiesOf('Radio', module)
     .addDecorator(withKnobs)
-    .add('with default', () => (
-        <Radio
-            name='demo'
-        />
-    ))
+    .add('with default', () => <Radio name="demo" />)
     .add('with label', () => (
-        <Radio
-            name='demo'
-            label='Labelled Radio Button'
-        />
+        <Radio name="demo" label="Labelled Radio Button" />
     ))
     .add('with column', () => (
-        <Radio
-            name='demo'
-            label='Labelled Radio Button'
-            column
-        />
+        <Radio name="demo" label="Labelled Radio Button" column />
     ))
     .add('with disabled', () => (
-        <Radio
-            name='demo'
-            label='Labelled Radio Button'
-            disabled
-        />
+        <Radio name="demo" label="Labelled Radio Button" disabled />
     ))
     .add('with radioStyle', () => {
         const radio = () => `
             border-color: blue;
         `;
-        
+
         return (
             <Radio
-                name='demo'
-                label='Labelled Radio Button'
+                name="demo"
+                label="Labelled Radio Button"
                 radioStyle={radio}
             />
-        )
+        );
     })
     .add('with activeStyle', () => {
         const radio = () => `
@@ -58,11 +43,10 @@ storiesOf('Radio', module)
 
         return (
             <Radio
-                name='demo'
-                label='Labelled Radio Button'
+                name="demo"
+                label="Labelled Radio Button"
                 radioStyle={radio}
                 activeStyle={active}
             />
         );
-    })
-;
+    });

@@ -1,9 +1,7 @@
 import React from 'react';
 import { CircleNotch } from 'styled-icons/fa-solid/CircleNotch';
 import { Main, Responsive } from '@Utils/BaseStyles';
-import {
-    transition, clickable, position, flex,
-} from '@Utils/Mixins';
+import { transition, clickable, position, flex } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 import styled from 'styled-components';
 
@@ -12,7 +10,6 @@ export interface ButtonProps {
     icon?: string;
     loading?: boolean;
 }
-
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
     children,
@@ -23,9 +20,9 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
     const [, isLoading, isAnimated] = useTransition(loading);
     return (
         <StyledButton {...props}>
-            { icon && <Icon as={icon} /> }
-            <Content loading={isAnimated}>{ children }</Content>
-            { isLoading && <Loader loading={isAnimated} /> }
+            {icon && <Icon loading={isAnimated} as={icon} />}
+            <Content loading={isAnimated}>{children}</Content>
+            {isLoading && <Loader loading={isAnimated} />}
         </StyledButton>
     );
 };
@@ -61,11 +58,14 @@ const StyledButton = styled.button`
     `}
 
     // Primary button
-    ${({ primary, theme }): string => (primary ? `
+    ${({ primary, theme }): string =>
+        primary
+            ? `
         background-color: ${theme.colors.primary};
         color: white;
         ${clickable(theme.colors.primary)}
-    ` : '')}
+    `
+            : ''}
 
     // Full width
     ${({ full }): string => (full ? 'width: 100%;' : '')}
@@ -75,17 +75,31 @@ const Icon = styled.svg`
     width: 14px;
     height: 14px;
     margin-right: 8px;
+    ${transition(['transform', 'opacity'])}
+    ${({ loading }): string =>
+        loading
+            ? `
+        transform: translate3d(0,80%,0);
+        opacity: 0;
+    `
+            : `
+        transform: translate3d(0,0,0);
+        opacity: 1;
+    `}
 `;
 
 const Content = styled.span`
     ${transition(['transform', 'opacity'])}
-    ${({ loading }): string => (loading ? `
+    ${({ loading }): string =>
+        loading
+            ? `
         transform: translate3d(0,80%,0);
         opacity: 0;
-    ` : `
+    `
+            : `
         transform: translate3d(0,0,0);
         opacity: 1;
-    `)}
+    `}
 `;
 
 const Loader = styled(CircleNotch)`
@@ -98,13 +112,20 @@ const Loader = styled(CircleNotch)`
     opacity: 0;
 
     @keyframes spin {
-        from { transform: rotate(0deg) }
-        to { transform: rotate(360deg) }
+        from {
+            transform: rotate(0deg);
+        }
+        to {
+            transform: rotate(360deg);
+        }
     }
 
-    ${({ loading }): string => (loading ? `
+    ${({ loading }): string =>
+        loading
+            ? `
         opacity: 1;
-    ` : '')}
+    `
+            : ''}
 `;
 
 export default Button;

@@ -13,7 +13,10 @@
     "build": "rm -rf dist && tsc && NODE_ENV=production babel dist -d dist",
     "prepublish": "npm run eslint && npm run build",
     "eslint": "eslint ./src --ext tsx,ts,jsx,js",
-    "eslint:fix": "npm run eslint -- --fix"
+    "eslint:fix": "npm run eslint -- --fix",
+    "prettier": "prettier --parser typescript '**/*.ts' '**/*.tsx' '**/*.js' '**/*.jsx'",
+    "prettier:fix": "npm run prettier -- --write",
+    "lint": "npm run eslint:fix && npm run prettier:fix"
   },
   "repository": {
     "type": "git",
@@ -51,11 +54,13 @@
     "babel-plugin-module-resolver": "^3.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
+    "eslint-config-prettier": "^6.0.0",
     "eslint-import-resolver-alias": "^1.1.2",
     "eslint-plugin-import": "^2.18.0",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.14.2",
     "ora": "^3.4.0",
+    "prettier": "^1.18.2",
     "react": "^16.8.6",
     "react-docgen-typescript-loader": "^3.1.0",
     "react-dom": "^16.8.6",

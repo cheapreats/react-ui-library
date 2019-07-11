@@ -16,13 +16,8 @@ export const TextLayout: React.FunctionComponent<TextLayoutProps> = ({
     type,
     ...props
 }): React.ReactElement => (
-    <Text
-        as={type}
-        size={size}
-        color={color}
-        {...props}
-    >
-        { children }
+    <Text as={type} size={size} color={color} {...props}>
+        {children}
     </Text>
 );
 
@@ -31,9 +26,7 @@ const Text = styled.p`
     ${Responsive}
     ${Main}
 
-    ${({
-        theme, color, lineHeight, size, bold,
-    }): string => `
+    ${({ theme, color, lineHeight, size, bold }): string => `
         color: ${theme.colors[color] || color};
         font-size: ${theme.font.size[size] || size};
         line-height: ${lineHeight || theme.font.lineHeight};

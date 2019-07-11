@@ -1,7 +1,5 @@
 import React from 'react';
-import {
-    position, darken, flex, transition,
-} from '@Utils/Mixins';
+import { position, darken, flex, transition } from '@Utils/Mixins';
 import styled from 'styled-components';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
@@ -18,9 +16,9 @@ const withTags = (tags, props, innerProps): React.ReactElement => {
     if (tags) {
         return (
             <Tags>
-                { tags[0] && <Tag>{ tags[0] }</Tag> }
-                { COMPONENT(props, innerProps) }
-                { tags[1] && <Tag>{ tags[1] }</Tag> }
+                {tags[0] && <Tag>{tags[0]}</Tag>}
+                {COMPONENT(props, innerProps)}
+                {tags[1] && <Tag>{tags[1]}</Tag>}
             </Tags>
         );
     }
@@ -41,11 +39,7 @@ export const Switch: React.FunctionComponent<SwitchProps> = ({
     ...props
 }): React.ReactElement => {
     const component = withTags(tags, props, { activeStyle, switchStyle });
-    return (
-        <LabelLayout {...props}>
-            { component }
-        </LabelLayout>
-    );
+    return <LabelLayout {...props}>{component}</LabelLayout>;
 };
 
 const Tag = styled.label`
@@ -98,12 +92,16 @@ const SwitchBox = styled.div`
         opacity: 0.6;
     }
 
-    ${({ activeStyle, ...props }): string => (activeStyle ? `
+    ${({ activeStyle, ...props }): string =>
+        activeStyle
+            ? `
        ${Input}:checked ~ & { 
            ${activeStyle(props)}
        }
-    ` : '')}
-    ${({ switchStyle, ...props }): string => (switchStyle ? switchStyle(props) : '')}
+    `
+            : ''}
+    ${({ switchStyle, ...props }): string =>
+        switchStyle ? switchStyle(props) : ''}
 `;
 
 const SwitchDot = styled.div`
@@ -112,7 +110,7 @@ const SwitchDot = styled.div`
     background-color: white;
     ${({ theme }): string => {
         const { size, spacing } = theme.dimensions.switch;
-        const dotSize = size - (spacing * 1.5);
+        const dotSize = size - spacing * 1.5;
         return `
             width: ${dotSize}px;
             height: ${dotSize}px;
