@@ -15,12 +15,14 @@ export const Footnote: React.FunctionComponent<FootnoteProps> = ({
     children,
     show,
     ...props
-}) => {
+}): React.ReactElement | null => {
     const [, mount, animation] = useTransition(show);
     return (
-        mount && <Container {...props} show={animation}>
-            {children}
-        </Container> || null
+        mount && (
+            <Container {...props} show={animation}>
+                {children}
+            </Container>
+        ) || null
     );
 };
 
@@ -40,7 +42,7 @@ const Container = styled.div`
 
     ${scroll}
 
-    ${ ({ show }) => !show ? `
+    ${ ({ show }): string => !show ? `
         transform: translate3d(0, 100%, 0);
         opacity: 0;
         pointer-events: none;
@@ -49,7 +51,6 @@ const Container = styled.div`
     // Theme Stuff
     ${({ theme }): string => `
         padding: ${theme.dimensions.padding.default};
-        font-family: ${theme.font.family};
         box-shadow: ${theme.depth[1]};
     `}
 `;
