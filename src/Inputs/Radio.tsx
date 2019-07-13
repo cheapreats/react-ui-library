@@ -1,12 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-    Main, Responsive, MainProps, ResponsiveProps,
+    Main,
+    Responsive,
+    MainProps,
+    ResponsiveProps,
 } from '@Utils/BaseStyles';
 import { __useImplicitProps } from '@Utils/Hooks';
-import {
-    position, darken, flex, transition,
-} from '@Utils/Mixins';
+import { position, darken, flex, transition } from '@Utils/Mixins';
 
 export interface RadioProps {
     label?: string;
@@ -46,7 +47,11 @@ export const Radio: React.FunctionComponent<RadioProps> = ({
                     <RadioDot />
                 </RadioBox>
             </RadioContainer>
-            { label && <Label htmlFor={name} column={column}>{ label }</Label> }
+            {label && (
+                <Label htmlFor={name} column={column}>
+                    {label}
+                </Label>
+            )}
         </Container>
     );
 };
@@ -107,7 +112,8 @@ const RadioBox = styled.div`
             }
         `;
     }}
-    ${({ radioStyle, ...props }): string => (radioStyle ? radioStyle(props) : '')}
+    ${({ radioStyle, ...props }): string =>
+        radioStyle ? radioStyle(props) : ''}
 `;
 
 const RadioDot = styled.div`

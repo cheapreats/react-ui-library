@@ -3,14 +3,10 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, text as textKnob, boolean } from '@storybook/addon-knobs';
 import { Heading, Paragraph, SmallText } from '../../src';
 
-const knobs = ({
-    text = 'Text',
-    bold = false,
-    color
-}) => ({
+const knobs = ({ text = 'Text', bold = false, color }) => ({
     text: textKnob('Text', text),
     bold: boolean('Bold', bold),
-    color: textKnob('Color', color)
+    color: textKnob('Color', color),
 });
 
 storiesOf('Text', module)
@@ -18,42 +14,27 @@ storiesOf('Text', module)
     .add('with Heading', () => {
         const types = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
         const { text, ...props } = knobs({
-            text: 'Headings Everywhere!'
+            text: 'Headings Everywhere!',
         });
         return (
             <Fragment>
-                {
-                    types.map(type => (
-                        <Heading
-                            key={ type }
-                            type={ type }
-                            { ...props }
-                        >
-                            { text }
-                        </Heading>
-                    ))
-                }
+                {types.map(type => (
+                    <Heading key={type} type={type} {...props}>
+                        {text}
+                    </Heading>
+                ))}
             </Fragment>
         );
     })
     .add('with Paragraph', () => {
         const { text, ...props } = knobs({
-            text: 'Lorem Ipsum'
+            text: 'Lorem Ipsum',
         });
-        return (
-            <Paragraph { ...props }>
-                { text }
-            </Paragraph>
-        );
+        return <Paragraph {...props}>{text}</Paragraph>;
     })
     .add('with SmallText', () => {
         const { text, ...props } = knobs({
-            text: 'Small Lorem Ipsum'
+            text: 'Small Lorem Ipsum',
         });
-        return (
-            <SmallText { ...props }>
-                { text }
-            </SmallText>
-        );
-    })
-;
+        return <SmallText {...props}>{text}</SmallText>;
+    });

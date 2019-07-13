@@ -8,15 +8,11 @@ import { useState, useEffect, useRef } from 'react';
 export const __useImplicitProps = (
     props: { __accept?: string[] },
     accept: string[] = [],
-): object => (
-    [...(props.__accept || []), ...accept].reduce(
-        (acc, prop): object => {
-            acc[prop] = props[prop];
-            return acc;
-        }, {},
-    )
-);
-
+): object =>
+    [...(props.__accept || []), ...accept].reduce((acc, prop): object => {
+        acc[prop] = props[prop];
+        return acc;
+    }, {});
 
 /**
  * useTransition hook options
@@ -38,7 +34,7 @@ export interface UseTransitionType {
 export const useTransition = (
     init: boolean = false,
     options: UseTransitionType = {},
-): [ boolean, boolean, boolean ] => {
+): [boolean, boolean, boolean] => {
     const [initState, setInit] = useState(init);
     const timer = useRef<number>();
 

@@ -81,10 +81,7 @@ const Theme: ThemeTemplateInterface = {
         slow: 400,
         page: 600,
     },
-    depth: [
-        'none',
-        '0 1px 3px rgba(0,0,0,0.2)',
-    ],
+    depth: ['none', '0 1px 3px rgba(0,0,0,0.2)'],
 };
 
 export default Theme;

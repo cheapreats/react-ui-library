@@ -7,10 +7,9 @@ storiesOf('Datepicker', module)
     .addDecorator(withKnobs)
     .add('with default', () => (
         <Datepicker
-            name='demo'
+            name="demo"
             label={text('Label', 'Label')}
             description={text('Description', 'Description')}
             placeholder={text('Placeholder', 'Placeholder')}
         />
-    ))
-;
+    ));

@@ -3,6 +3,16 @@ import styled from 'styled-components';
 import { transition, styledCondition } from '@Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
+const WEEKDAY = [
+    'Monday',
+    'Tuesday',
+    'Wednesday',
+    'Thursday',
+    'Friday',
+    'Saturday',
+    'Sunday,',
+];
+
 const printDate = (date: Date): string => {
     const day = String(date.getMonth()).padStart(2, '0');
     const month = String(date.getDate()).padStart(2, '0');
@@ -24,9 +34,12 @@ export const Datepicker: React.FunctionComponent<DatepickerProps> = ({
     const dateText = useMemo((): string => printDate(value), [value]);
     const [text, setText] = useState(dateText);
 
-    const handleText = useCallback(({ target }): void => {
-        setText(target.value);
-    }, [text]);
+    const handleText = useCallback(
+        ({ target }): void => {
+            setText(target.value);
+        },
+        [text],
+    );
 
     return (
         <LabelLayout {...props}>
@@ -36,6 +49,7 @@ export const Datepicker: React.FunctionComponent<DatepickerProps> = ({
                 onChange={handleText}
                 value={text}
             />
+            <DateBox>{WEEKDAY.map((day): string => day.slice(0, 3))}</DateBox>
         </LabelLayout>
     );
 };
@@ -66,14 +80,16 @@ const InputElement = styled.input`
 
     // Background color
     ${({ theme, error, success }): string => `
-        background-color: ${
-    styledCondition(
-        error, theme.colors.input.error,
-        success, theme.colors.input.success,
-        theme.colors.input.default,
-    )
-};
+        background-color: ${styledCondition(
+            error,
+            theme.colors.input.error,
+            success,
+            theme.colors.input.success,
+            theme.colors.input.default,
+        )};
     `}
 `;
+
+const DateBox = styled.div``;
 
 export default Datepicker;

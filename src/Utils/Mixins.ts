@@ -1,13 +1,7 @@
 import theme from '@Themes/ThemeTemplate';
 
 const COLOR_RANGE = 255;
-const FLEX_DIRECTIONS = [
-    'row',
-    'column',
-    'reverse-row',
-    'reverse-column',
-];
-
+const FLEX_DIRECTIONS = ['row', 'column', 'reverse-row', 'reverse-column'];
 
 export const styledSwitch = (value: string, ...args: string[]): string => {
     const len = args.length;
@@ -20,7 +14,6 @@ export const styledSwitch = (value: string, ...args: string[]): string => {
     return '';
 };
 
-
 export const styledCondition = (...args: (boolean | string)[]): string => {
     const len = args.length;
     for (let i = 1; i < len; i += 2) {
@@ -31,7 +24,6 @@ export const styledCondition = (...args: (boolean | string)[]): string => {
     if (len % 2) return args[len - 1] as string;
     return '';
 };
-
 
 /**
  * Darkens given color (Would support more in the future)
@@ -51,7 +43,6 @@ export const darken = (color: string, amount: number = 0.1): string => {
     return res;
 };
 
-
 /**
  * Styles for clickable content
  * @param {string} color - background-color of content
@@ -66,7 +57,6 @@ export const clickable = (color: string, amount = 0.1): string => `
         background-color: ${darken(color, amount * 2)};
     }
 `;
-
 
 /**
  * Defined transition for specific property
@@ -88,18 +78,15 @@ export interface TransitionOptionType {
 export const transition = (
     items: (TransitionOptionType | string)[],
     duration: string | number = theme.speed.normal,
-): string => (
-    `transition: ${
-        items.reduce<string>(
-            (acc, item: string | TransitionOptionType): string => {
-                const d = typeof (item) === 'string' ? duration : item.duration;
-                const i = `${typeof (item) === 'string' ? item : item.prop} ${d + (typeof (d) === 'number' ? 'ms' : '')}`;
-                return `${acc}, ${i} cubic-bezier(0.4, 0.0, 0.2, 1)`;
-            }, '',
-        ).slice(2)
-    };`
-);
-
+): string =>
+    `transition: ${items
+        .reduce<string>((acc, item: string | TransitionOptionType): string => {
+            const d = typeof item === 'string' ? duration : item.duration;
+            const i = `${typeof item === 'string' ? item : item.prop} ${d +
+                (typeof d === 'number' ? 'ms' : '')}`;
+            return `${acc}, ${i} cubic-bezier(0.4, 0.0, 0.2, 1)`;
+        }, '')
+        .slice(2)};`;
 
 /**
  * Positioning with defaulting built in
@@ -127,15 +114,10 @@ export const position = (
     left: ${left};
 `;
 
-export const media = (
-    breakpoint: string | number,
-    styles: string,
-): string => (
+export const media = (breakpoint: string | number, styles: string): string =>
     `@media (max-width: ${theme.media[breakpoint] || breakpoint}px) {
         ${styles}
-    }`
-);
-
+    }`;
 
 /**
  * Flex display with common properties. Can have the following configurations
@@ -160,12 +142,16 @@ export const flex = (
     if (!param2) {
         return `
             display: flex;
-            ${FLEX_DIRECTIONS.includes(param1) ? `
+            ${
+                FLEX_DIRECTIONS.includes(param1)
+                    ? `
                 flex-direction: ${param1};
-            ` : `
+            `
+                    : `
                 justify-content: ${param1};
                 align-items: ${param1};
-            `}
+            `
+            }
         `;
     }
 
@@ -173,14 +159,18 @@ export const flex = (
     if (!param3) {
         return `
             display: flex;
-            ${FLEX_DIRECTIONS.includes(param1) ? `
+            ${
+                FLEX_DIRECTIONS.includes(param1)
+                    ? `
                 flex-direction: ${param1};
                 justify-content: ${param2};
                 align-items: ${param2};
-            ` : `
+            `
+                    : `
                 justify-content: ${param1};
                 align-items: ${param2};
-            `}
+            `
+            }
         `;
     }
 
