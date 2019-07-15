@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
         "outDir": "dist",
-        "module": "CommonJS",
-        "target": "es2017",
+        "module": "commonjs",
+        "target": "es5",
         "lib": ["es5", "es6", "es7", "es2017", "dom"],
         "sourceMap": false,
         "jsx": "react",
@@ -15,7 +15,7 @@
         "forceConsistentCasingInFileNames": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
-        "noImplicitAny": false,
+        "noImplicitAny": true,
         "strictNullChecks": true,
         "suppressImplicitAnyIndexErrors": true,
         "noUnusedLocals": true,
@@ -39,5 +39,5 @@
         }
     },
     "include": ["src/**/*"],
-    "exclude": ["node_modules", ".deploy", "scripts", "dist"]
+    "exclude": ["node_modules", "scripts", "dist"]
 }

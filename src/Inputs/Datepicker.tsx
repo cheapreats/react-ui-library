@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useMemo } from 'react';
 import styled from 'styled-components';
-import { transition, styledCondition } from '@Utils/Mixins';
+import { transition, styledCondition, flex } from '@Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
 const WEEKDAY = [
@@ -35,9 +35,7 @@ export const Datepicker: React.FunctionComponent<DatepickerProps> = ({
     const [text, setText] = useState(dateText);
 
     const handleText = useCallback(
-        ({ target }): void => {
-            setText(target.value);
-        },
+        ({ target }): void => setText(target.value),
         [text],
     );
 
@@ -49,7 +47,15 @@ export const Datepicker: React.FunctionComponent<DatepickerProps> = ({
                 onChange={handleText}
                 value={text}
             />
-            <DateBox>{WEEKDAY.map((day): string => day.slice(0, 3))}</DateBox>
+            <DateBox>
+                <WeekDays>
+                    {WEEKDAY.map(
+                        (day): React.ReactElement => (
+                            <WeekDay>{day.slice(0, 3)}</WeekDay>
+                        ),
+                    )}
+                </WeekDays>
+            </DateBox>
         </LabelLayout>
     );
 };
@@ -91,5 +97,14 @@ const InputElement = styled.input`
 `;
 
 const DateBox = styled.div``;
+
+const WeekDays = styled.li`
+    ${flex()}
+    list-style-type: none;
+`;
+
+const WeekDay = styled.li`
+    flex: 1;
+`;
 
 export default Datepicker;
