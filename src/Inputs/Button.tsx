@@ -7,8 +7,9 @@ import styled from 'styled-components';
 
 export interface ButtonProps {
     children?: React.ReactNode;
-    icon?: string;
+    icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     loading?: boolean;
+    onClick?: (el: React.SyntheticEvent) => void;
 }
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
@@ -20,8 +21,8 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
     const [, isLoading, isAnimated] = useTransition(loading);
     return (
         <StyledButton {...props}>
-            {icon && <Icon loading={isAnimated} as={icon} />}
-            <Content loading={isAnimated}>{children}</Content>
+            {icon && <Icon loading={isAnimated} as={icon} hasText={children} />}
+            {children && <Content loading={isAnimated}>{children}</Content>}
             {isLoading && <Loader loading={isAnimated} />}
         </StyledButton>
     );
@@ -72,10 +73,10 @@ const StyledButton = styled.button`
 `;
 
 const Icon = styled.svg`
+    ${transition(['transform', 'opacity'])}
     width: 14px;
     height: 14px;
-    margin-right: 8px;
-    ${transition(['transform', 'opacity'])}
+    margin-right: ${({hasText}) => hasText ? 8 : 0}px;
     ${({ loading }): string =>
         loading
             ? `

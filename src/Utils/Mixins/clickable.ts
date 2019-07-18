@@ -1,16 +1,23 @@
 import { darken } from './darken';
 
+const createStyles = (color, attrs: string[]) => (
+    attrs.reduce((acc, curr) => (
+        acc += `${curr}: ${color};`
+    ), '');
+);
+
 /**
  * Styles for clickable content
  * @param {string} color - background-color of content
  * @returns {string} The interactive styles for clickable content
  */
-export const clickable = (color: string, amount = 0.1): string => `
+export const clickable = (color: string, amount = 0.1, attributes = ['background-color']): string => `
+    cursor: pointer;
     &:not(:disabled):hover {
-        background-color: ${darken(color, amount)};
+        ${createStyles(darken(color, amount), attributes)}
     }
 
     &:not(:disabled):active {
-        background-color: ${darken(color, amount * 2)};
+        ${createStyles(darken(color, amount * 2), attributes)}
     }
 `;

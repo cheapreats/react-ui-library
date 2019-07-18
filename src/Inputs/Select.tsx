@@ -7,7 +7,7 @@ import React, {
     isValidElement,
 } from 'react';
 import styled, { withTheme } from 'styled-components';
-import { AngleDown } from 'styled-icons/fa-solid';
+import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import {
     flex,
     scroll,
@@ -165,25 +165,25 @@ const SelectDisplay = styled.p`
         border-radius: ${theme.dimensions.radius};
         font-family: ${theme.font.family};
         ${
-            !disabled
-                ? `
+    !disabled
+        ? `
             &:hover:not(:disabled) {
                 box-shadow: ${theme.depth[1]};
             }
         `
-                : ''
-        }
+        : ''
+}
     `}
 
     // Background color
     ${({ theme, error, success }): string => `
         background-color: ${styledCondition(
-            error,
-            theme.colors.input.error,
-            success,
-            theme.colors.input.success,
-            theme.colors.input.default,
-        )};
+        error,
+        theme.colors.input.error,
+        success,
+        theme.colors.input.success,
+        theme.colors.input.default,
+    )};
     `}
 `;
 
@@ -212,15 +212,15 @@ const SelectList = styled.ul`
     // Theme Stuff
     ${({ theme }): string => `
         ${transition(
-            [
-                'max-height',
-                {
-                    prop: 'opacity',
-                    duration: theme.speed.normal,
-                },
-            ],
-            theme.speed[SPEED],
-        )}
+        [
+            'max-height',
+            {
+                prop: 'opacity',
+                duration: theme.speed.normal,
+            },
+        ],
+        theme.speed[SPEED],
+    )}
         border-radius: ${theme.dimensions.radius};
         box-shadow: ${theme.depth[1]};
     `}

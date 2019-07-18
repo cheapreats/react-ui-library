@@ -27,6 +27,10 @@ export interface ThemeTemplateInterface {
             spacing: number;
         };
         radius: string | number;
+        tag: {
+            padding: string | number;
+            fontSize: string;
+        };
     };
     media: {
         tablet: number;
@@ -70,6 +74,10 @@ const Theme: ThemeTemplateInterface = {
             spacing: 4,
         },
         radius: '8px',
+        tag: {
+            padding: '6px 12px',
+            fontSize: '0.8rem',
+        },
     },
     media: {
         tablet: 768,
