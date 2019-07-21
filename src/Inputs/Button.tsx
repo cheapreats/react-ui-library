@@ -1,15 +1,15 @@
 import React from 'react';
+import styled from 'styled-components';
 import { CircleNotch } from 'styled-icons/fa-solid/CircleNotch';
 import { Main, Responsive } from '@Utils/BaseStyles';
 import { transition, clickable, position, flex } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
-import styled from 'styled-components';
 
 export interface ButtonProps {
     children?: React.ReactNode;
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     loading?: boolean;
-    onClick?: (el: React.SyntheticEvent) => void;
+    onClick?: (el?: React.SyntheticEvent) => void;
 }
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
@@ -76,7 +76,7 @@ const Icon = styled.svg`
     ${transition(['transform', 'opacity'])}
     width: 14px;
     height: 14px;
-    margin-right: ${({hasText}) => hasText ? 8 : 0}px;
+    margin-right: ${({ hasText }): number => (hasText ? 8 : 0)}px;
     ${({ loading }): string =>
         loading
             ? `

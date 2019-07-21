@@ -27,9 +27,9 @@ const TagDiv = styled.span`
     ${transition(['background-color', 'border-color', 'color'])}
     ${flex('center')}
     ${Main}
-    ${({theme}) => {
+    ${({ theme }): string => {
         const color = darken(theme.colors.input.default, 0.2);
-        return (`
+        return `
             padding: ${theme.dimensions.tag.padding};
             font-size: ${theme.dimensions.tag.fontSize};
             border: 1.5px solid ${color};
@@ -41,8 +41,11 @@ const TagDiv = styled.span`
                 color: white;
             }
 
-            ${clickable(theme.colors.primary, 0.1, ['background-color', 'border-color'])}
-        `);
+            ${clickable(theme.colors.primary, 0.1, [
+                'background-color',
+                'border-color',
+            ])}
+        `;
     }}
 
     display: inline-flex;
@@ -57,7 +60,7 @@ const Icon = styled.svg`
     width: 0;
     margin-left: 0;
 
-    ${ TagDiv }:hover & {
+    ${TagDiv}:hover & {
         width: 10px;
         margin-left: 10px;
     }

@@ -7,8 +7,5 @@ import { Tag } from '../../src';
 storiesOf('Tag', module)
     .addDecorator(withKnobs)
     .add('with default', () => (
-        <Tag onClick={() => console.log(':)')}>
-            {text('Text', 'Click me')}
-        </Tag>
-    ))
-;
+        <Tag onClick={() => console.log(':)')}>{text('Text', 'Click me')}</Tag>
+    ));
