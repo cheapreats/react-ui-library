@@ -31,6 +31,10 @@ export interface ThemeTemplateInterface {
             padding: string | number;
             fontSize: string;
         };
+        card: {
+            padding: string | number,
+            radius: string | number,
+        };
     };
     media: {
         tablet: number;
@@ -77,6 +81,10 @@ const Theme: ThemeTemplateInterface = {
         tag: {
             padding: '6px 12px',
             fontSize: '0.8rem',
+        },
+        card: {
+            padding: '20px',
+            radius: '20px',
         },
     },
     media: {
