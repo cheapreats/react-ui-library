@@ -81,7 +81,7 @@ const StyledButton = styled.button<ButtonProps>`
     ${({ full }): string => (full ? 'width: 100%;' : '')}
 `;
 
-export interface IconProps {
+interface IconProps {
     hasText?: React.ReactNode;
     loading: boolean;
     as: ForwardRefExoticComponent<RefAttributes<SVGSVGElement>>;
@@ -104,13 +104,9 @@ const Icon = styled.svg<IconProps>`
     `}
 `;
 
-export interface ContentProps {
-    loading: boolean;
-}
-
-const Content = styled.span<ContentProps>`
+const Content = styled.span<{ loading: boolean }>`
     ${transition(['transform', 'opacity'])}
-    ${(loading): string =>
+    ${({ loading }): string =>
         loading
             ? `
         transform: translate3d(0,80%,0);
@@ -122,11 +118,7 @@ const Content = styled.span<ContentProps>`
     `}
 `;
 
-export interface LoaderProps {
-    loading: boolean;
-}
-
-const Loader = styled(CircleNotch)<LoaderProps>`
+const Loader = styled(CircleNotch)<{ loading: boolean }>`
     ${transition(['opacity'])}
     ${position()}
 
@@ -144,7 +136,7 @@ const Loader = styled(CircleNotch)<LoaderProps>`
         }
     }
 
-    ${(loading): string =>
+    ${({ loading }): string =>
         loading
             ? `
         opacity: 1;
