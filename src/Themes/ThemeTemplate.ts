@@ -32,8 +32,8 @@ export interface ThemeTemplateInterface {
             fontSize: string;
         };
         card: {
-            padding: string | number,
-            radius: string | number,
+            padding: string | number;
+            radius: string | number;
         };
     };
     media: {

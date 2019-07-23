@@ -11,7 +11,7 @@ import { position, darken, flex, transition } from '@Utils/Mixins';
 
 export interface RadioProps {
     label?: string;
-    column?: number;
+    column?: boolean;
     className: string;
     activeStyle?: Function;
     radioStyle?: Function;
@@ -56,17 +56,21 @@ export const Radio: React.FunctionComponent<RadioProps> = ({
     );
 };
 
-const Container = styled.div`
-    ${Main}
-    ${Responsive}
-    ${flex('center')}
-    display: inline-flex;
+export interface ContainerProps {
+    className?: string;
+    column?: boolean;
+}
 
-    ${({ column }): string => (column ? 'flex-direction: column' : '')}
+const Container = styled.div<ContainerProps>`
+    ${({column}): string => (column ? 'flex-direction: column' : '')};
+    ${Main};
+    ${Responsive};
+    ${flex('center')};
+    display: inline-flex;
 `;
 
 const Input = styled.input`
-    ${position()}
+    ${position()};
     cursor: pointer;
     z-index: 1;
     width: 100%;
@@ -79,17 +83,21 @@ const Input = styled.input`
 `;
 
 const RadioContainer = styled.div`
-    ${flex('center')}
+    ${flex('center')};
     display: inline-flex;
     position: relative;
     border-radius: 50%;
     overflow: hidden;
 `;
 
-const RadioBox = styled.div`
-    ${Main}
-    ${flex('center')}
-    ${transition(['border-color'])}
+export interface RadioBoxProps {
+    disabled: boolean;
+}
+
+const RadioBox = styled.div<RadioBoxProps>`
+    ${Main};
+    ${flex('center')};
+    ${transition(['border-color'])};
     border-radius: 50%;
     margin: 0;
 
@@ -117,7 +125,7 @@ const RadioBox = styled.div`
 `;
 
 const RadioDot = styled.div`
-    ${transition(['transform', 'opacity'])}
+    ${transition(['transform', 'opacity'])};
     border-radius: 50%;
     transform: scale(0, 0);
     opacity: 0;
@@ -134,7 +142,13 @@ const RadioDot = styled.div`
     }
 `;
 
-const Label = styled.label`
+
+export interface LabelProps {
+    htmlFor?: string;
+    column?: boolean;
+}
+
+const Label = styled.label<LabelProps>`
     margin: ${({ column }): string => (column ? '6px' : '0 8px 2px')};
     font-size: 0.85rem;
     font-weight: bold;

@@ -5,6 +5,7 @@ export const Main = ({ margin = 0, padding = 0, inlineStyle = '' }): string => `
     padding: ${padding};
 
     // Inline Styles
-    ${inlineStyle}
+    ${inlineStyle};
 `;
+
 export const MainProps: string[] = ['margin', 'padding', 'inlineStyle'];

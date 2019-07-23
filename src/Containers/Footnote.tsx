@@ -1,9 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Main, Responsive } from '@Utils/BaseStyles';
-import {
-    flex, position, scroll, transition
-} from '@Utils/Mixins';
+import { flex, position, scroll, transition } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 
 export interface FootnoteProps {
@@ -18,11 +16,12 @@ export const Footnote: React.FunctionComponent<FootnoteProps> = ({
 }): React.ReactElement | null => {
     const [, mount, animation] = useTransition(show);
     return (
-        mount && (
+        (mount && (
             <Container {...props} show={animation}>
                 {children}
             </Container>
-        ) || null
+        )) ||
+        null
     );
 };
 
@@ -42,11 +41,14 @@ const Container = styled.div`
 
     ${scroll}
 
-    ${ ({ show }): string => !show ? `
+    ${({ show }): string =>
+        !show
+            ? `
         transform: translate3d(0, 100%, 0);
         opacity: 0;
         pointer-events: none;
-    ` : '' }
+    `
+            : ''}
 
     // Theme Stuff
     ${({ theme }): string => `

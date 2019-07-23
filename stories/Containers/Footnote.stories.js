@@ -9,5 +9,4 @@ storiesOf('Footnote', module)
         <Footnote show={boolean('Show', true)}>
             {text('Footnote Text', 'Toggle the show knob to hide me!')}
         </Footnote>
-    ))
-;
+    ));

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ForwardRefExoticComponent, RefAttributes} from 'react';
 import styled from 'styled-components';
 import { CircleNotch } from 'styled-icons/fa-solid/CircleNotch';
 import { Main, Responsive } from '@Utils/BaseStyles';
@@ -10,6 +10,21 @@ export interface ButtonProps {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     loading?: boolean;
     onClick?: (el?: React.SyntheticEvent) => void;
+}
+
+export interface ThemeProps {
+    dimensions: {
+        padding: {
+            withBorder: boolean
+        }
+    }
+    font: {
+        family: string
+    }
+    colors: {
+        text: string
+        primary: string
+    }
 }
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
@@ -51,7 +66,7 @@ const StyledButton = styled.button`
     }
 
     // Theme Stuff
-    ${({ theme }): string => `
+    ${(theme: ThemeProps): string => `
         padding: ${theme.dimensions.padding.withBorder};
         font-family: ${theme.font.family};
         color: ${theme.colors.text};
@@ -59,7 +74,7 @@ const StyledButton = styled.button`
     `}
 
     // Primary button
-    ${({ primary, theme }): string =>
+    ${(primary: boolean, theme: ThemeProps): string =>
         primary
             ? `
         background-color: ${theme.colors.primary};
@@ -69,15 +84,21 @@ const StyledButton = styled.button`
             : ''}
 
     // Full width
-    ${({ full }): string => (full ? 'width: 100%;' : '')}
+    ${(full: boolean): string => (full ? 'width: 100%;' : '')}
 `;
 
-const Icon = styled.svg`
-    ${transition(['transform', 'opacity'])}
+export interface IconProps {
+    hasText?: React.ReactNode;
+    loading: boolean;
+    as: ForwardRefExoticComponent<RefAttributes<SVGSVGElement>>;
+}
+
+const Icon = styled.svg<IconProps>`
+    ${transition(['transform', 'opacity'])};
     width: 14px;
     height: 14px;
-    margin-right: ${({ hasText }): number => (hasText ? 8 : 0)}px;
-    ${({ loading }): string =>
+    margin-right: ${(hasText: React.ReactNode): number => (hasText ? 80 : 0)}px;
+    ${(loading) =>
         loading
             ? `
         transform: translate3d(0,80%,0);
@@ -89,9 +110,14 @@ const Icon = styled.svg`
     `}
 `;
 
-const Content = styled.span`
+
+export interface ContentProps {
+    loading: boolean;
+}
+
+const Content = styled.span<ContentProps>`
     ${transition(['transform', 'opacity'])}
-    ${({ loading }): string =>
+    ${(loading) =>
         loading
             ? `
         transform: translate3d(0,80%,0);
@@ -103,7 +129,11 @@ const Content = styled.span`
     `}
 `;
 
-const Loader = styled(CircleNotch)`
+export interface LoaderProps {
+    loading: boolean;
+}
+
+const Loader = styled(CircleNotch)<LoaderProps>`
     ${transition(['opacity'])}
     ${position()}
 
@@ -121,7 +151,7 @@ const Loader = styled(CircleNotch)`
         }
     }
 
-    ${({ loading }): string =>
+    ${(loading): string =>
         loading
             ? `
         opacity: 1;
