@@ -1,30 +1,21 @@
-import React, {ForwardRefExoticComponent, RefAttributes} from 'react';
+import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
 import styled from 'styled-components';
 import { CircleNotch } from 'styled-icons/fa-solid/CircleNotch';
-import { Main, Responsive } from '@Utils/BaseStyles';
+import {
+    Main,
+    MainInterface,
+    Responsive,
+    ResponsiveInterface,
+} from '@Utils/BaseStyles';
 import { transition, clickable, position, flex } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 
-export interface ButtonProps {
-    children?: React.ReactNode;
+export interface ButtonProps extends MainInterface, ResponsiveInterface {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+    primary?: boolean;
     loading?: boolean;
+    full?: boolean;
     onClick?: (el?: React.SyntheticEvent) => void;
-}
-
-export interface ThemeProps {
-    dimensions: {
-        padding: {
-            withBorder: boolean
-        }
-    }
-    font: {
-        family: string
-    }
-    colors: {
-        text: string
-        primary: string
-    }
 }
 
 export const Button: React.FunctionComponent<ButtonProps> = ({
@@ -43,11 +34,10 @@ export const Button: React.FunctionComponent<ButtonProps> = ({
     );
 };
 
-const StyledButton = styled.button`
+const StyledButton = styled.button<ButtonProps>`
     // Base Styles
     ${transition(['background-color', 'opacity'])}
     ${Responsive}
-    ${Main}
 
     ${flex('center')}
     border: 1.5px solid rgba(0,0,0,0.1);
@@ -66,15 +56,19 @@ const StyledButton = styled.button`
     }
 
     // Theme Stuff
-    ${(theme: ThemeProps): string => `
+    ${({ theme, ...props }): string => `
         padding: ${theme.dimensions.padding.withBorder};
         font-family: ${theme.font.family};
         color: ${theme.colors.text};
         ${clickable('#ffffff', 0.05)}
+        ${Main({
+            padding: theme.dimensions.padding.withBorder,
+            ...props,
+        })}
     `}
 
     // Primary button
-    ${(primary: boolean, theme: ThemeProps): string =>
+    ${({ primary, theme }): string =>
         primary
             ? `
         background-color: ${theme.colors.primary};
@@ -84,7 +78,7 @@ const StyledButton = styled.button`
             : ''}
 
     // Full width
-    ${(full: boolean): string => (full ? 'width: 100%;' : '')}
+    ${({ full }): string => (full ? 'width: 100%;' : '')}
 `;
 
 export interface IconProps {
@@ -97,8 +91,8 @@ const Icon = styled.svg<IconProps>`
     ${transition(['transform', 'opacity'])};
     width: 14px;
     height: 14px;
-    margin-right: ${(hasText: React.ReactNode): number => (hasText ? 80 : 0)}px;
-    ${(loading) =>
+    margin-right: ${({ hasText }): number => (hasText ? 80 : 0)}px;
+    ${({ loading }): string =>
         loading
             ? `
         transform: translate3d(0,80%,0);
@@ -110,14 +104,13 @@ const Icon = styled.svg<IconProps>`
     `}
 `;
 
-
 export interface ContentProps {
     loading: boolean;
 }
 
 const Content = styled.span<ContentProps>`
     ${transition(['transform', 'opacity'])}
-    ${(loading) =>
+    ${(loading): string =>
         loading
             ? `
         transform: translate3d(0,80%,0);

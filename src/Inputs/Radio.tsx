@@ -5,19 +5,23 @@ import {
     Responsive,
     MainProps,
     ResponsiveProps,
+    MainInterface,
+    ResponsiveInterface,
 } from '@Utils/BaseStyles';
-import { __useImplicitProps } from '@Utils/Hooks';
+import { __useImplicitProps, ImplicitPropsInterface } from '@Utils/Hooks';
 import { position, darken, flex, transition } from '@Utils/Mixins';
 
-export interface RadioProps {
+export interface RadioProps
+    extends MainInterface,
+        ResponsiveInterface,
+        ImplicitPropsInterface {
     label?: string;
     column?: boolean;
-    className: string;
+    className?: string;
     activeStyle?: Function;
     radioStyle?: Function;
     disabled?: boolean;
     name?: string;
-    __accept?: string[];
 }
 
 export const Radio: React.FunctionComponent<RadioProps> = ({
@@ -56,21 +60,17 @@ export const Radio: React.FunctionComponent<RadioProps> = ({
     );
 };
 
-export interface ContainerProps {
-    className?: string;
-    column?: boolean;
-}
+const Container = styled.div<RadioProps>`
+    ${({ column }): string => (column ? 'flex-direction: column;' : '')}
+    ${flex('center')}
+    ${Responsive}
+    ${Main}
 
-const Container = styled.div<ContainerProps>`
-    ${({column}): string => (column ? 'flex-direction: column' : '')};
-    ${Main};
-    ${Responsive};
-    ${flex('center')};
     display: inline-flex;
 `;
 
 const Input = styled.input`
-    ${position()};
+    ${position('absolute')}
     cursor: pointer;
     z-index: 1;
     width: 100%;
@@ -83,21 +83,16 @@ const Input = styled.input`
 `;
 
 const RadioContainer = styled.div`
-    ${flex('center')};
+    ${flex('center')}
     display: inline-flex;
     position: relative;
     border-radius: 50%;
     overflow: hidden;
 `;
 
-export interface RadioBoxProps {
-    disabled: boolean;
-}
-
-const RadioBox = styled.div<RadioBoxProps>`
-    ${Main};
-    ${flex('center')};
-    ${transition(['border-color'])};
+const RadioBox = styled.div<RadioProps>`
+    ${flex('center')}
+    ${transition(['border-color'])}
     border-radius: 50%;
     margin: 0;
 
@@ -111,13 +106,17 @@ const RadioBox = styled.div<RadioBoxProps>`
         return `
             height: ${dimensions.radio.size}px;
             width: ${dimensions.radio.size}px;
-            padding: ${dimensions.radio.spacing}px;
             border: 3px solid ${darken(colors.input.default)};
 
             ${Input}:checked ~ & {
                 border-color: ${colors.primary};
                 ${activeStyle ? activeStyle(props) : ''}
             }
+
+            ${Main({
+                padding: dimensions.radio.spacing,
+                ...props,
+            })}
         `;
     }}
     ${({ radioStyle, ...props }): string =>
@@ -142,13 +141,7 @@ const RadioDot = styled.div`
     }
 `;
 
-
-export interface LabelProps {
-    htmlFor?: string;
-    column?: boolean;
-}
-
-const Label = styled.label<LabelProps>`
+const Label = styled.label<RadioProps>`
     margin: ${({ column }): string => (column ? '6px' : '0 8px 2px')};
     font-size: 0.85rem;
     font-weight: bold;

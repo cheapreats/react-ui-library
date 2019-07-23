@@ -1,9 +1,17 @@
 import React, { Fragment } from 'react';
 
-import { createGlobalStyle, ThemeProvider } from 'styled-components';
+import {
+    createGlobalStyle,
+    ThemeProvider,
+    DefaultTheme,
+} from 'styled-components';
 import * as Themes from '@Themes';
 
-const GlobalContext = createGlobalStyle`
+interface Props {
+    style?: (theme: DefaultTheme) => string;
+}
+
+const GlobalContext = createGlobalStyle<Props>`
     body {
         margin: 0;
         padding: 0;
@@ -16,10 +24,9 @@ const GlobalContext = createGlobalStyle`
     ${({ style, theme }): string => (style ? style(theme) : '')}
 `;
 
-export interface GlobalProps {
+export interface GlobalProps extends Props {
     children?: React.ReactNode;
     theme?: string;
-    style?: React.CSSProperties;
     extend?: (theme: object) => object;
 }
 

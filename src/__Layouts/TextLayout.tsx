@@ -1,11 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Main, Responsive } from '@Utils/BaseStyles';
+import {
+    Main,
+    MainInterface,
+    Responsive,
+    ResponsiveInterface,
+} from '@Utils/BaseStyles';
 
-export interface TextLayoutProps {
+export interface TextLayoutProps extends MainInterface, ResponsiveInterface {
     color?: string;
+    lineHeight?: number;
+    bold?: boolean;
     size?: string;
-    children?: React.ReactNode;
     type?: string;
 }
 
@@ -16,17 +22,23 @@ export const TextLayout: React.FunctionComponent<TextLayoutProps> = ({
     type,
     ...props
 }): React.ReactElement => (
-    <Text as={type} size={size} color={color} {...props}>
+    <Text as={type as 'span'} size={size} color={color} {...props}>
         {children}
     </Text>
 );
 
-const Text = styled.p`
+const Text = styled.p<TextLayoutProps>`
     // Base Styles
     ${Responsive}
     ${Main}
 
-    ${({ theme, color, lineHeight, size, bold }): string => `
+    ${({
+        theme,
+        bold,
+        lineHeight,
+        color = 'text',
+        size = 'default',
+    }): string => `
         color: ${theme.colors[color] || color};
         font-size: ${theme.font.size[size] || size};
         line-height: ${lineHeight || theme.font.lineHeight};

@@ -1,54 +1,54 @@
-import React, { ReactNode } from 'react';
-import { Main, Responsive } from '@Utils/BaseStyles';
+import React from 'react';
+import {
+    Main,
+    MainInterface,
+    Responsive,
+    ResponsiveInterface,
+} from '@Utils/BaseStyles';
 import { transition } from '@Utils/Mixins';
 import styled from 'styled-components';
 
 export interface CardProps {
-    children?: ReactNode;
     animated?: boolean;
     flat?: boolean;
 }
 
-export const Card = ({ children, ...props }: CardProps) => {
-    return <CardBox {...props}>{children}</CardBox>;
-};
+export const Card: React.FunctionComponent<CardProps> = ({
+    children,
+    ...props
+}): React.ReactElement => <CardBox {...props}>{children}</CardBox>;
 
-const CardBox = styled.div`
-    // Base Styles
-    ${Responsive}
-    ${Main}
-
+const CardBox = styled.div<CardProps & MainInterface & ResponsiveInterface>`
     overflow: hidden;
     background-color: white;
 
-    &:disabled {
-        cursor: not-allowed;
-        opacity: 0.6;
-    }
-
     // Theme Stuff
-    ${({ theme }) => `
-        padding: ${theme.dimensions.card.padding};
+    ${({ theme, ...props }): string => `
         border-radius: ${theme.dimensions.card.radius};
         font-family: ${theme.font.family};
         color: ${theme.colors.text};
+        ${Main({
+            padding: theme.dimensions.card.padding,
+            ...props,
+        })}
     `}
 
     // Flat
-    ${({ flat, theme }) => (flat ? '' : `box-shadow: ${theme.depth[1]};`)}
+    box-shadow: ${({ flat, theme }): string => theme.depth[flat ? 0 : 1]};
 
     // Animated
-    ${({ animated, flat, theme }) =>
+    ${({ animated, flat, theme }): string =>
         animated
             ? `
         ${transition(['box-shadow'])}
         &:hover {
-            box-shadow: ${
-                flat ? `${theme.depth[1]};` : '0 2px 6px rgba(0,0,0,0.3)'
-            };
+            box-shadow: ${theme.depth[flat ? 1 : 2]};
         }
     `
             : ''}
+
+    // Base Styles
+    ${Responsive}
 `;
 
 export default Card;

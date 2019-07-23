@@ -16,7 +16,7 @@ export const Input: React.FunctionComponent<InputProps> = ({
     </LabelLayout>
 );
 
-const InputElement = styled.input`
+const InputElement = styled.input<LabelLayoutProps>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
     font-size: 0.85rem;
     font-weight: bold;
@@ -41,7 +41,7 @@ const InputElement = styled.input`
     `}
 
     // Background color
-    ${({ theme, error, success }): string => `
+    ${({ theme, error = false, success = false }): string => `
         background-color: ${styledCondition(
             error,
             theme.colors.input.error,

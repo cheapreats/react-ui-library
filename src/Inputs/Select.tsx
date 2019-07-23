@@ -50,14 +50,14 @@ export interface SelectProps extends LabelLayoutProps {
     value?: string | number;
     theme: MainThemeInterface;
     onChange?: Function;
-    items?: number;
+    limit?: number;
 }
 
 const _Select: React.FunctionComponent<SelectProps> = ({
     disabled,
     value,
     children,
-    items = 4,
+    limit = 4,
     placeholder = '',
     onChange = (): void => {},
     theme,
@@ -114,7 +114,9 @@ const _Select: React.FunctionComponent<SelectProps> = ({
             <Container>
                 <SelectDisplay
                     {...displayProps}
-                    onClick={!disabled ? setExpanded : undefined}
+                    onClick={
+                        !disabled ? (): void => setExpanded(true) : undefined
+                    }
                 >
                     <SelectText>
                         {selected
@@ -124,7 +126,7 @@ const _Select: React.FunctionComponent<SelectProps> = ({
                     <Icon />
                 </SelectDisplay>
                 {mount && (
-                    <SelectList limit={items} expanded={animation}>
+                    <SelectList limit={limit} expanded={animation}>
                         {createList(options, onSelect, value)}
                     </SelectList>
                 )}
@@ -140,7 +142,7 @@ const Container = styled.div`
     position: relative;
 `;
 
-const SelectDisplay = styled.p`
+const SelectDisplay = styled.p<SelectProps>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
     ${flex('flex-start', 'center')}
     font-size: 0.85rem;
@@ -176,7 +178,7 @@ const SelectDisplay = styled.p`
     `}
 
     // Background color
-    ${({ theme, error, success }): string => `
+    ${({ theme, error = false, success = false }): string => `
         background-color: ${styledCondition(
             error,
             theme.colors.input.error,
@@ -199,7 +201,10 @@ const Icon = styled(AngleDown)`
     margin-left: auto;
 `;
 
-const SelectList = styled.ul`
+const SelectList = styled.ul<{
+    expanded: boolean;
+    limit: number;
+}>`
     ${position('absolute', '0 0 20px')}
     ${scroll}
     

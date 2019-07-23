@@ -12,7 +12,14 @@ const COMPONENT = (props = {}, innerProps = {}): React.ReactElement => (
     </Container>
 );
 
-const withTags = (tags, props, innerProps): React.ReactElement => {
+const withTags = (
+    props: object,
+    innerProps: {
+        activeStyle?: Function;
+        switchStyle?: Function;
+    },
+    tags?: string[],
+): React.ReactElement => {
     if (tags) {
         return (
             <Tags>
@@ -27,7 +34,7 @@ const withTags = (tags, props, innerProps): React.ReactElement => {
 };
 
 export interface SwitchProps extends LabelLayoutProps {
-    tags: string[];
+    tags?: string[];
     activeStyle?: Function;
     switchStyle?: Function;
 }
@@ -38,7 +45,7 @@ export const Switch: React.FunctionComponent<SwitchProps> = ({
     switchStyle,
     ...props
 }): React.ReactElement => {
-    const component = withTags(tags, props, { activeStyle, switchStyle });
+    const component = withTags(props, { activeStyle, switchStyle }, tags);
     return <LabelLayout {...props}>{component}</LabelLayout>;
 };
 
@@ -76,7 +83,7 @@ const Input = styled.input`
     }
 `;
 
-const SwitchBox = styled.div`
+const SwitchBox = styled.div<SwitchProps>`
     ${flex('flex-start', 'center')}
     box-sizing: border-box;
 

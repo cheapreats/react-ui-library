@@ -1,11 +1,10 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { CalendarAlt } from 'styled-icons/fa-solid/CalendarAlt';
-import styled, { withTheme } from 'styled-components';
+import styled, { withTheme, DefaultTheme } from 'styled-components';
 import { transition, styledCondition, position, flex } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 import { Datebox } from './Datebox';
-import { MainThemeInterface } from '@Themes/';
 
 const printDate = (date: Date): string => {
     const day = String(date.getMonth()).padStart(2, '0');
@@ -18,7 +17,7 @@ export interface DatepickerProps extends LabelLayoutProps {
     disabled?: boolean;
     placeholder?: string;
     onChange?: Function;
-    theme: MainThemeInterface;
+    theme: DefaultTheme;
     value?: Date;
 }
 
@@ -111,7 +110,10 @@ const _Datepicker: React.FunctionComponent<DatepickerProps> = ({
 
 export const Datepicker = withTheme(_Datepicker);
 
-const InputElement = styled.input`
+const InputElement = styled.input<{
+    error?: boolean;
+    success?: boolean;
+}>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
     font-size: 0.85rem;
     font-weight: bold;
@@ -136,7 +138,7 @@ const InputElement = styled.input`
     `}
 
     // Background color
-    ${({ theme, error, success }): string => `
+    ${({ theme, error = false, success = false }): string => `
         background-color: ${styledCondition(
             error,
             theme.colors.input.error,

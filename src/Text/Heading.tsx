@@ -1,11 +1,9 @@
 import React from 'react';
 import { TextLayout, TextLayoutProps } from '@Layouts/TextLayout';
 
-/* export interface HeadingProps extends TextLayoutProps {
+export interface HeadingProps extends TextLayoutProps {}
 
-} */
-
-export const Heading: React.FunctionComponent<TextLayoutProps> = ({
+export const Heading: React.FunctionComponent<HeadingProps> = ({
     children,
     type = 'h1',
     size = type,

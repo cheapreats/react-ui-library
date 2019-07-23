@@ -1,5 +1,14 @@
 // Styles for responsive components
-export const Responsive = ({ media = {}, ...props }): string =>
+export interface ResponsiveInterface {
+    media?: {
+        [name: string]: Function;
+    };
+}
+
+export const Responsive = ({
+    media = {},
+    ...props
+}: ResponsiveInterface): string =>
     Object.entries(media).reduce(
         (acc, [breakpoint, styles]): string => `
         ${acc}

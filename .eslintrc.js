@@ -42,6 +42,7 @@ module.exports = {
     },
     plugins: ['@typescript-eslint', 'react'],
     rules: {
+        '@typescript-eslint/no-empty-interface': 'off',
         '@typescript-eslint/no-var-requires': 'off',
         'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
         'react/jsx-indent-props': ['error', 4],

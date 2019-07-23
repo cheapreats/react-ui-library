@@ -1,11 +1,9 @@
 import React from 'react';
 import { TextLayout, TextLayoutProps } from '@Layouts/TextLayout';
 
-/* export interface SmallTextProps extends TextLayoutProps {
+export interface SmallTextProps extends TextLayoutProps {}
 
-} */
-
-export const SmallText: React.FunctionComponent<TextLayoutProps> = ({
+export const SmallText: React.FunctionComponent<SmallTextProps> = ({
     children,
     type = 'span',
     size = 'small',

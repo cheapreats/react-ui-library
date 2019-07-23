@@ -3,13 +3,22 @@ import styled from 'styled-components';
 import {
     Main,
     MainProps,
+    MainInterface,
     Responsive,
     ResponsiveProps,
+    ResponsiveInterface,
 } from '@Utils/BaseStyles';
-import { __useImplicitProps, useTransition } from '@Utils/Hooks';
+import {
+    __useImplicitProps,
+    useTransition,
+    ImplicitPropsInterface,
+} from '@Utils/Hooks';
 import { flex, transition } from '@Utils/Mixins';
 
-export interface LabelLayoutProps {
+export interface LabelLayoutProps
+    extends ResponsiveInterface,
+        MainInterface,
+        ImplicitPropsInterface {
     name?: string;
     label?: string;
     description?: string;
@@ -52,7 +61,7 @@ export const LabelLayout: React.FunctionComponent<LabelLayoutProps> = ({
     );
 };
 
-const Layout = styled.div`
+const Layout = styled.div<ResponsiveInterface & MainInterface>`
     ${transition(['opacity'])}
     ${flex('column')}
     ${Responsive}
@@ -65,7 +74,9 @@ const Label = styled.label`
     margin-bottom: 5px;
 `;
 
-const ErrorLabel = styled(Label)`
+const ErrorLabel = styled(Label)<{
+    error?: boolean;
+}>`
     ${transition(['max-height', 'opacity'])}
     overflow: hidden;
     margin-top: 5px;

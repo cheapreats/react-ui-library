@@ -18,7 +18,7 @@ const sameDate = (date1: Date, date2: Date): boolean =>
 const buildCalendar = (
     date: Date,
     value: Date,
-    selectDate: (date: Date) => void,
+    selectDate: (el: React.MouseEvent) => void,
 ): React.ReactElement[] => {
     const start = new Date(date);
     start.setDate(1);
@@ -59,7 +59,7 @@ const buildCalendar = (
 export interface DateboxProps {
     changePage: Function;
     selectedDate: Date;
-    selectDate: (date: Date) => void;
+    selectDate: (el: React.MouseEvent) => void;
     animate: boolean;
     value: Date;
 }
@@ -88,7 +88,9 @@ export const Datebox: React.FunctionComponent<DateboxProps> = ({
     </DateBox>
 );
 
-const DateBox = styled.div`
+const DateBox = styled.div<{
+    animate: boolean;
+}>`
     margin: 10px auto auto 0;
     padding: 15px 10px 10px;
     box-sizing: border-box;
@@ -149,7 +151,11 @@ const CalendarWeek = styled.li`
     ${flex()}
 `;
 
-const CalendarDay = styled.span`
+const CalendarDay = styled.span<{
+    faded: boolean;
+    selected: boolean;
+    data: string;
+}>`
     ${transition(['background-color', 'color'])}
     ${flex('center')}
     width: ${SIZE - 4}px;

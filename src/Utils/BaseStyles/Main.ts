@@ -1,5 +1,15 @@
 // Styles all components are expected to have
-export const Main = ({ margin = 0, padding = 0, inlineStyle = '' }): string => `
+export interface MainInterface {
+    margin?: string | number;
+    padding?: string | number;
+    inlineStyle?: string;
+}
+
+export const Main = ({
+    margin = 0,
+    padding = 0,
+    inlineStyle = '',
+}: MainInterface): string => `
     // Positioning
     margin: ${margin};
     padding: ${padding};

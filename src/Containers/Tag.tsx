@@ -26,11 +26,14 @@ export default Tag;
 const TagDiv = styled.span`
     ${transition(['background-color', 'border-color', 'color'])}
     ${flex('center')}
-    ${Main}
-    ${({ theme }): string => {
+
+    ${({ theme, ...props }): string => {
         const color = darken(theme.colors.input.default, 0.2);
         return `
-            padding: ${theme.dimensions.tag.padding};
+            ${Main({
+                padding: theme.dimensions.tag.padding,
+                ...props,
+            })}
             font-size: ${theme.dimensions.tag.fontSize};
             border: 1.5px solid ${color};
             color: ${color};
