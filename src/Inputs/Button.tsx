@@ -91,7 +91,7 @@ const Icon = styled.svg<IconProps>`
     ${transition(['transform', 'opacity'])};
     width: 14px;
     height: 14px;
-    margin-right: ${({ hasText }): number => (hasText ? 80 : 0)}px;
+    margin-right: ${({ hasText }): number => (hasText ? 8 : 0)}px;
     ${({ loading }): string =>
         loading
             ? `
