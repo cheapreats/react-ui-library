@@ -28,9 +28,9 @@ const CardBox = styled.div<CardProps & MainInterface & ResponsiveInterface>`
         font-family: ${theme.font.family};
         color: ${theme.colors.text};
         ${Main({
-            padding: theme.dimensions.card.padding,
-            ...props,
-        })}
+        padding: theme.dimensions.card.padding,
+        ...props,
+    })}
     `}
 
     // Flat

@@ -114,9 +114,9 @@ const RadioBox = styled.div<RadioProps>`
             }
 
             ${Main({
-                padding: dimensions.radio.spacing + 'px',
-                ...props,
-            })}
+        padding: `${dimensions.radio.spacing  }px`,
+        ...props,
+    })}
         `;
     }}
     ${({ radioStyle, ...props }): string =>

@@ -167,25 +167,25 @@ const SelectDisplay = styled.p<SelectProps>`
         border-radius: ${theme.dimensions.radius};
         font-family: ${theme.font.family};
         ${
-            !disabled
-                ? `
+    !disabled
+        ? `
             &:hover:not(:disabled) {
                 box-shadow: ${theme.depth[1]};
             }
         `
-                : ''
-        }
+        : ''
+}
     `}
 
     // Background color
     ${({ theme, error = false, success = false }): string => `
         background-color: ${styledCondition(
-            error,
-            theme.colors.input.error,
-            success,
-            theme.colors.input.success,
-            theme.colors.input.default,
-        )};
+        error,
+        theme.colors.input.error,
+        success,
+        theme.colors.input.success,
+        theme.colors.input.default,
+    )};
     `}
 `;
 
@@ -217,15 +217,15 @@ const SelectList = styled.ul<{
     // Theme Stuff
     ${({ theme }): string => `
         ${transition(
-            [
-                'max-height',
-                {
-                    prop: 'opacity',
-                    duration: theme.speed.normal,
-                },
-            ],
-            theme.speed[SPEED],
-        )}
+        [
+            'max-height',
+            {
+                prop: 'opacity',
+                duration: theme.speed.normal,
+            },
+        ],
+        theme.speed[SPEED],
+    )}
         border-radius: ${theme.dimensions.radius};
         box-shadow: ${theme.depth[1]};
     `}
