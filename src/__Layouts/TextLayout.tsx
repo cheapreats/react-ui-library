@@ -15,7 +15,7 @@ export interface TextLayoutProps extends MainInterface, ResponsiveInterface {
     type?: string;
 }
 
-export const TextLayout: React.FunctionComponent<TextLayoutProps> = ({
+export const TextLayout: React.FC<TextLayoutProps> = ({
     children,
     color = 'text',
     size = 'default',

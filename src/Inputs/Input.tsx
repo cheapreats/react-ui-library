@@ -8,7 +8,7 @@ export interface InputProps extends LabelLayoutProps {
     placeholder?: string;
 }
 
-export const Input: React.FunctionComponent<InputProps> = ({
+export const Input: React.FC<InputProps> = ({
     ...props
 }): React.ReactElement => (
     <LabelLayout {...props}>

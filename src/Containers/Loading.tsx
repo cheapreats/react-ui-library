@@ -5,7 +5,7 @@ export interface LoadingProps {
     children?: React.ReactNode;
 }
 
-export const Loading: React.FunctionComponent<LoadingProps> = ({
+export const Loading: React.FC<LoadingProps> = ({
     children,
     ...props
 }): React.ReactElement => <Container {...props}>{children}</Container>;

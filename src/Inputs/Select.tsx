@@ -6,7 +6,7 @@ import React, {
     Children,
     isValidElement,
 } from 'react';
-import styled, { withTheme } from 'styled-components';
+import styled, { withTheme, DefaultTheme } from 'styled-components';
 import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
 import {
     flex,
@@ -17,7 +17,6 @@ import {
     styledCondition,
 } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
-import { MainThemeInterface } from '@Themes';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
 const ITEM_HEIGHT = 41;
@@ -25,7 +24,7 @@ const SPEED = 'slow';
 
 const createList = (
     children: React.ReactNode[],
-    onSelect: Function,
+    onSelect: React.MouseEventHandler,
     value?: string | number,
 ): React.ReactNode[] =>
     children.map((child): React.ReactElement | null => {
@@ -48,12 +47,12 @@ export interface SelectProps extends LabelLayoutProps {
     disabled?: boolean;
     placeholder?: string;
     value?: string | number;
-    theme: MainThemeInterface;
-    onChange?: Function;
+    theme: DefaultTheme;
+    onChange?: React.MouseEventHandler;
     limit?: number;
 }
 
-const _Select: React.FunctionComponent<SelectProps> = ({
+const _Select: React.FC<SelectProps> = ({
     disabled,
     value,
     children,

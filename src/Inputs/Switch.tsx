@@ -39,7 +39,7 @@ export interface SwitchProps extends LabelLayoutProps {
     switchStyle?: Function;
 }
 
-export const Switch: React.FunctionComponent<SwitchProps> = ({
+export const Switch: React.FC<SwitchProps> = ({
     tags,
     activeStyle,
     switchStyle,

@@ -13,7 +13,7 @@ export interface CardProps {
     flat?: boolean;
 }
 
-export const Card: React.FunctionComponent<CardProps> = ({
+export const Card: React.FC<CardProps> = ({
     children,
     ...props
 }): React.ReactElement => <CardBox {...props}>{children}</CardBox>;

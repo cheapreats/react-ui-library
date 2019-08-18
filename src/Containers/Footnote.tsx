@@ -15,7 +15,7 @@ export interface FootnoteProps extends MainInterface, ResponsiveInterface {
     position?: 'absolute' | 'fixed';
 }
 
-const _Footnote: React.FunctionComponent<FootnoteProps> = ({
+const _Footnote: React.FC<FootnoteProps> = ({
     children,
     position = 'fixed',
     theme,

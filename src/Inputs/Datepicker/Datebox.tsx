@@ -18,7 +18,7 @@ const sameDate = (date1: Date, date2: Date): boolean =>
 const buildCalendar = (
     date: Date,
     value: Date,
-    selectDate: (el: React.MouseEvent) => void,
+    selectDate: React.MouseEventHandler,
 ): React.ReactElement[] => {
     const start = new Date(date);
     start.setDate(1);
@@ -57,14 +57,14 @@ const buildCalendar = (
 };
 
 export interface DateboxProps {
-    changePage: Function;
+    changePage: (change?: Number) => React.MouseEventHandler;
     selectedDate: Date;
-    selectDate: (el: React.MouseEvent) => void;
+    selectDate: React.MouseEventHandler;
     animate: boolean;
     value: Date;
 }
 
-export const Datebox: React.FunctionComponent<DateboxProps> = ({
+export const Datebox: React.FC<DateboxProps> = ({
     changePage,
     selectedDate,
     selectDate,

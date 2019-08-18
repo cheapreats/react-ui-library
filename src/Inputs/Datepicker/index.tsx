@@ -21,7 +21,7 @@ export interface DatepickerProps extends LabelLayoutProps {
     value?: Date;
 }
 
-const _Datepicker: React.FunctionComponent<DatepickerProps> = ({
+const _Datepicker: React.FC<DatepickerProps> = ({
     value = new Date(),
     onChange = (): void => {},
     placeholder = 'MM-DD-YYYY',
@@ -40,35 +40,33 @@ const _Datepicker: React.FunctionComponent<DatepickerProps> = ({
     useEffect((): void => setDate(value), [value]);
 
     const handleText = useCallback(
-        ({ target }): void => {
-            const d = new Date(target.value);
-            if (d.getDate()) {
-                onChange({
-                    target: {
-                        name: props.name,
-                        value: d,
-                    },
-                });
+        (el): void => {
+            const d = new Date(el.target.value);
+            el.target = {
+                ...el.target,
+                name: props.name,
+                value: d,
             }
-            setText(target.value);
+            if (d.getDate()) onChange(el);
+            setText(el.target.value);
         },
         [text],
     );
 
-    const selectDate = useCallback(({ target }): void => {
-        const val = new Date(target.getAttribute('data'));
-        onChange({
-            target: {
-                name: props.name,
-                value: val,
-            },
-        });
+    const selectDate = useCallback((el): void => {
+        const val = new Date(el.target.getAttribute('data'));
+        el.target = {
+            ...el.target,
+            name: props.name,
+            value: val,
+        };
+        onChange(el);
         setText(printDate(val));
         setShow(false);
     }, []);
 
     const changePage = useCallback(
-        (change = 1): (() => void) => (): void => {
+        (change = 1): React.MouseEventHandler => (): void => {
             setDate(
                 (d): Date => {
                     const curr = new Date(d);

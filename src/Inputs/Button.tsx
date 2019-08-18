@@ -15,10 +15,10 @@ export interface ButtonProps extends MainInterface, ResponsiveInterface {
     primary?: boolean;
     loading?: boolean;
     full?: boolean;
-    onClick?: (el?: React.SyntheticEvent) => void;
+    onClick?: React.MouseEventHandler;
 }
 
-export const Button: React.FunctionComponent<ButtonProps> = ({
+export const Button: React.FC<ButtonProps> = ({
     children,
     icon,
     loading,
