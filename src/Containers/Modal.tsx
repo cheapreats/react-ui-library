@@ -17,12 +17,12 @@ export interface ModalProps extends ResponsiveInterface, MainInterface {
 }
 
 const _Modal: React.FC<ModalProps> = ({
-    onClose = () => {},
+    onClose = (): void => {},
     children,
     theme,
     state,
     ...props
-}) => {
+}): React.ReactElement => {
     const [show, setShow] = state;
     const el = useRef(document.createElement('div'));
     const [, mount, animation] = useTransition(show, {
