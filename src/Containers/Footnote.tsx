@@ -57,11 +57,13 @@ const Container = styled.div<FootnoteProps>`
             : ''}
 
     // Theme Stuff
-    ${({ theme }): string => `
-        padding: ${theme.dimensions.padding.default};
+    ${({ theme, ...props }): string => `
         box-shadow: ${theme.depth[1]};
+        ${Main({
+            padding: theme.dimensions.padding.container,
+            ...props
+        })}
     `}
 
     ${Responsive}
-    ${({ padding = '20px', ...props }): string => Main({ padding, ...props })}
 `;

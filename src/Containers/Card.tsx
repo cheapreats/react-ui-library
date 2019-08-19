@@ -24,11 +24,11 @@ const CardBox = styled.div<CardProps & MainInterface & ResponsiveInterface>`
 
     // Theme Stuff
     ${({ theme, ...props }): string => `
-        border-radius: ${theme.dimensions.card.radius};
+        border-radius: ${theme.dimensions.radius};
         font-family: ${theme.font.family};
         color: ${theme.colors.text};
         ${Main({
-            padding: theme.dimensions.card.padding,
+            padding: theme.dimensions.padding.container,
             ...props,
         })}
     `}

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 import { Global } from '../src';
 import { configure, addDecorator } from '@storybook/react';
 import {withInfo} from "@storybook/addon-info";
@@ -19,5 +19,12 @@ const style = theme => `
 `;
 
 addDecorator(withInfo);
-addDecorator(story => <Global style={ style }>{ story() }</Global>);
+addDecorator(story => {
+    if (!document.querySelector('#modal')) {
+        const modal = document.createElement('div');
+        document.body.append(modal);
+        modal.id = 'modal';
+    }
+    return <Global style={ style }>{ story() }</Global>;
+});
 configure(loadStories, module);

@@ -1,3 +1,5 @@
+import { number } from "prop-types";
+
 export interface ThemeTemplateInterface {
     font: {
         family: string;
@@ -15,8 +17,12 @@ export interface ThemeTemplateInterface {
     };
     dimensions: {
         padding: {
+            container: string | number;
             default: string | number;
             withBorder: string | number;
+        };
+        loading: {
+            height: number;
         };
         switch: {
             size: number;
@@ -30,10 +36,6 @@ export interface ThemeTemplateInterface {
         tag: {
             padding: string | number;
             fontSize: string;
-        };
-        card: {
-            padding: string | number;
-            radius: string | number;
         };
     };
     media: {
@@ -66,25 +68,25 @@ const Theme: ThemeTemplateInterface = {
     },
     dimensions: {
         padding: {
+            container: '16px',
             default: '12px 20px',
             withBorder: '10.5px 18.5px',
+        },
+        loading: {
+            height: 4,
         },
         switch: {
             size: 30,
             spacing: 5,
         },
         radio: {
-            size: 16,
-            spacing: 4,
+            size: 12,
+            spacing: 3,
         },
         radius: '8px',
         tag: {
             padding: '6px 12px',
             fontSize: '0.8rem',
-        },
-        card: {
-            padding: '20px',
-            radius: '20px',
         },
     },
     media: {
