@@ -61,7 +61,7 @@ const Container = styled.div<FootnoteProps>`
         box-shadow: ${theme.depth[1]};
         ${Main({
             padding: theme.dimensions.padding.container,
-            ...props
+            ...props,
         })}
     `}
 

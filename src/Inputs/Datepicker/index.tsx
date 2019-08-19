@@ -46,7 +46,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
                 ...el.target,
                 name: props.name,
                 value: d,
-            }
+            };
             if (d.getDate()) onChange(el);
             setText(el.target.value);
         },

@@ -12,14 +12,14 @@ export const Loading: React.FC<LoadingProps> = ({
     ...props
 }): React.ReactElement => (
     <Container {...props}>
-        {
-            loading ? (
-                <Fragment>
-                    <Bar/>
-                    <Text>Loading...</Text>
-                </Fragment>
-            ): children
-        }
+        {loading ? (
+            <Fragment>
+                <Bar />
+                <Text>Loading...</Text>
+            </Fragment>
+        ) : (
+            children
+        )}
     </Container>
 );
 
@@ -33,7 +33,7 @@ const Bar = styled.div`
     overflow: hidden;
     width: 100%;
 
-    ${({theme}) => `
+    ${({ theme }): string => `
         height: ${theme.dimensions.loading.height}px;
         background-color: ${theme.colors.input.default};
         &::before {
@@ -50,9 +50,15 @@ const Bar = styled.div`
     }
 
     @keyframes bar {
-        0% { transform: translateX(-100%) }
-        60% { transform: translateX(100%) }
-        100% { transform: translateX(100%) }
+        0% {
+            transform: translateX(-100%);
+        }
+        60% {
+            transform: translateX(100%);
+        }
+        100% {
+            transform: translateX(100%);
+        }
     }
 `;
 
@@ -62,9 +68,15 @@ const Text = styled.span`
     font-weight: bold;
     font-size: 0.8rem;
     @keyframes fader {
-        0% { opacity: 0.7 }
-        50% { opacity: 0.5 }
-        100% { opacity: 0.7 }
+        0% {
+            opacity: 0.7;
+        }
+        50% {
+            opacity: 0.5;
+        }
+        100% {
+            opacity: 0.7;
+        }
     }
 `;
 

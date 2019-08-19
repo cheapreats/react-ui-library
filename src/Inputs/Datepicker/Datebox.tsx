@@ -57,7 +57,7 @@ const buildCalendar = (
 };
 
 export interface DateboxProps {
-    changePage: (change?: Number) => React.MouseEventHandler;
+    changePage: (change?: number) => React.MouseEventHandler;
     selectedDate: Date;
     selectDate: React.MouseEventHandler;
     animate: boolean;

@@ -1,5 +1,3 @@
-import { number } from "prop-types";
-
 export interface ThemeTemplateInterface {
     font: {
         family: string;
