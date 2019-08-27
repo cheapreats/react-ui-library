@@ -1,12 +1,14 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
-import { Footnote } from '../../src';
+import { Footnote, SmallText } from '../../src';
 
 storiesOf('Footnote', module)
     .addDecorator(withKnobs)
     .add('with default', () => (
         <Footnote show={boolean('Show', true)}>
-            {text('Footnote Text', 'Toggle the show knob to hide me!')}
+            <SmallText bold>
+                {text('Footnote Text', 'Toggle the show knob to hide me!')}
+            </SmallText>
         </Footnote>
     ));

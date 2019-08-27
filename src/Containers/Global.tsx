@@ -30,7 +30,7 @@ export interface GlobalProps extends Props {
     extend?: (theme: object) => object;
 }
 
-export const Global: React.FunctionComponent<GlobalProps> = ({
+export const Global: React.FC<GlobalProps> = ({
     children,
     theme = 'MainTheme',
     style,

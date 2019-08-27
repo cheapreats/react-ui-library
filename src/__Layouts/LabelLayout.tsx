@@ -28,7 +28,7 @@ export interface LabelLayoutProps
     className?: string;
 }
 
-export const LabelLayout: React.FunctionComponent<LabelLayoutProps> = ({
+export const LabelLayout: React.FC<LabelLayoutProps> = ({
     name,
     label,
     description,

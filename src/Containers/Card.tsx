@@ -13,7 +13,7 @@ export interface CardProps {
     flat?: boolean;
 }
 
-export const Card: React.FunctionComponent<CardProps> = ({
+export const Card: React.FC<CardProps> = ({
     children,
     ...props
 }): React.ReactElement => <CardBox {...props}>{children}</CardBox>;
@@ -24,7 +24,7 @@ const CardBox = styled.div<CardProps & MainInterface & ResponsiveInterface>`
 
     // Theme Stuff
     ${({ theme, ...props }): string => `
-        border-radius: ${theme.dimensions.card.radius};
+        border-radius: ${theme.dimensions.radius};
         font-family: ${theme.font.family};
         color: ${theme.colors.text};
         ${Main({

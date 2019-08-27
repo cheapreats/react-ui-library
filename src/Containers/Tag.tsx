@@ -8,7 +8,7 @@ export interface TagProps {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
 }
 
-export const Tag: React.FunctionComponent<TagProps> = ({
+export const Tag: React.FC<TagProps> = ({
     icon = Times,
     children,
     ...props

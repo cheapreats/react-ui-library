@@ -3,7 +3,7 @@ import { TextLayout, TextLayoutProps } from '@Layouts/TextLayout';
 
 export interface HeadingProps extends TextLayoutProps {}
 
-export const Heading: React.FunctionComponent<HeadingProps> = ({
+export const Heading: React.FC<HeadingProps> = ({
     children,
     type = 'h1',
     size = type,
