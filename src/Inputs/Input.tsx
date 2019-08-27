@@ -43,12 +43,12 @@ const InputElement = styled.input<LabelLayoutProps>`
     // Background color
     ${({ theme, error = false, success = false }): string => `
         background-color: ${styledCondition(
-        error,
-        theme.colors.input.error,
-        success,
-        theme.colors.input.success,
-        theme.colors.input.default,
-    )};
+            error,
+            theme.colors.input.error,
+            success,
+            theme.colors.input.success,
+            theme.colors.input.default,
+        )};
     `}
 `;
 
