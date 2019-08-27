@@ -24,7 +24,7 @@ const SliderElement = styled.input<SliderProps>`
     -webkit-appearance: none;
     margin: 18px 0;
     width: 100%;
-    // styles for slider from: https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
+    // styles for slider adapted from: https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
     &:disabled {
         cursor: not-allowed;
         opacity: 0.6;
