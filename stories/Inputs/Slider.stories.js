@@ -7,39 +7,12 @@ storiesOf('Slider', module)
     .addDecorator(withKnobs)
     .add('with default', () => (
         <Slider
-            max={number('Max', 5)}
-            min={number('Min', 0)}
-            step={number('Step', 1)}
-            disabled={boolean('Disabled', false)}
-            value={number('Value', 3)}
+            max={number('max', 10)}
+            min={number('min', 0)}
+            step={number('step', 1)}
+            disabled={boolean('disabled', false)}
+            value={number('value', 3)}
+            trackColor={text('trackColor', '#010101')}
+            buttonColor={text('buttonColor', 'White')}
         />
     ));
-    // .add('with success', () => (
-    //     <Slider
-    //         name="demo"
-    //         label="Label"
-    //         description="This is an Slider with success state"
-    //         placeholder="Placeholder"
-    //         success={boolean('Success', true)}
-    //     />
-    // ))
-    // .add('with error', () => (
-    //     <Slider
-    //         name="demo"
-    //         label="Label"
-    //         description="This is an Slider with an error message"
-    //         placeholder="Placeholder"
-    //         error={text('Error Message', 'Error Message!')}
-    //     />
-    // ))
-    // .add('with disabled', () => (
-    //     <Slider
-    //         name="demo"
-    //         label="Label"
-    //         description="This is a disabled Slider"
-    //         placeholder="Placeholder"
-    //         error={text('Error Message')}
-    //         disabled={boolean('Disabled', true)}
-    //         success={boolean('Success', false)}
-    //     />
-    // ));
