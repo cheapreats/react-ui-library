@@ -5,4 +5,6 @@ import { Loading } from '../../src';
 
 storiesOf('Loading', module)
     .addDecorator(withKnobs)
-    .add('with default', () => <Loading loading={boolean('Loading', true)} />);
+    .add('with default', () => (
+        <Loading loading={boolean('Loading', true)}>Boo!</Loading>
+    ));

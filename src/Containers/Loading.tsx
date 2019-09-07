@@ -1,29 +1,48 @@
 import React, { Fragment } from 'react';
-import styled from 'styled-components';
-import { position, flex } from '@Utils/Mixins';
+import styled, { withTheme, DefaultTheme } from 'styled-components';
+import { position, flex, transition } from '@Utils/Mixins';
+import { useTransition } from '@Utils/Hooks';
 
 export interface LoadingProps {
     loading?: boolean;
+    theme: DefaultTheme;
 }
 
-export const Loading: React.FC<LoadingProps> = ({
+const _Loading: React.FC<LoadingProps> = ({
     children,
-    loading,
+    loading = false,
+    theme,
     ...props
-}): React.ReactElement => (
-    <Container {...props}>
-        {loading ? (
-            <Fragment>
-                <Bar />
-                <Text>Loading...</Text>
-            </Fragment>
-        ) : (
-            children
-        )}
-    </Container>
-);
+}): React.ReactElement => {
+    const [, mount, animate] = useTransition(loading, {
+        end: theme.speed.normal,
+    });
+    return (
+        <Container {...props} animate={animate} invert={mount}>
+            {mount ? (
+                <Fragment>
+                    <Bar />
+                    <Text>Loading...</Text>
+                </Fragment>
+            ) : (
+                children
+            )}
+        </Container>
+    );
+};
 
-const Container = styled.div`
+export const Loading = withTheme(_Loading);
+
+const Container = styled.div<{
+    animate: boolean;
+    invert: boolean;
+}>`
+    ${transition(['opacity'])}
+    opacity: ${({ animate, invert }): number => {
+        let res = animate ? 0 : 1;
+        if (invert) res = (res + 1) % 2;
+        return res;
+    }};
     position: relative;
 `;
 
@@ -63,7 +82,7 @@ const Bar = styled.div`
 `;
 
 const Text = styled.span`
-    ${position('absolute', '8px 0 auto auto', 0, 0, 0, 'auto')}
+    ${position('absolute', '8px 8px auto auto', 0, 0, 0, 'auto')}
     animation: fader 1.2s ease-in-out infinite;
     font-weight: bold;
     font-size: 0.8rem;
