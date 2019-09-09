@@ -211,6 +211,7 @@ const SelectList = styled.ul<{
     list-style-type: none;
     height: fit-content;
     overflow: auto;
+    z-index: 900;
     padding: 0;
 
     // Theme Stuff
