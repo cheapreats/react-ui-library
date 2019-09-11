@@ -24,11 +24,15 @@ export const useTransition = (
     const [initState, setInit] = useState(init);
     const timer = useRef<number>();
 
-    useEffect((): void => {
+    useEffect((): (() => void) => {
+        let mounted = true;
         window.clearTimeout(timer.current);
         timer.current = window.setTimeout((): void => {
-            setInit(init);
+            if (mounted) setInit(init);
         }, (init ? options.start : options.end) || 0);
+        return (): void => {
+            mounted = false;
+        };
     }, [init !== initState]);
 
     return [initState, initState || init, initState && init];
