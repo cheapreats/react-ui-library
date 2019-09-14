@@ -62,7 +62,7 @@ const Container = styled.div`
     ${flex('center')}
 `;
 
-const Box = styled.div<{ show: boolean } & ModalProps>`
+const Box = styled.div<{ show: boolean } & ResponsiveInterface & MainInterface>`
     ${transition(['transform', 'opacity'])}
     background-color: white;
     overflow: auto;
