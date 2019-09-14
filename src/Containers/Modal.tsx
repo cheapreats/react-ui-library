@@ -62,7 +62,7 @@ const Container = styled.div`
     ${flex('center')}
 `;
 
-const Box = styled.div<{ show: boolean } & ResponsiveInterface>`
+const Box = styled.div<{ show: boolean } & ModalProps>`
     ${transition(['transform', 'opacity'])}
     background-color: white;
     overflow: auto;
@@ -92,6 +92,7 @@ const Box = styled.div<{ show: boolean } & ResponsiveInterface>`
 
     ${Responsive}
     ${scroll}
+    ${Main}
 `;
 
 const Drop = styled.div<{ show: boolean }>`

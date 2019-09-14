@@ -1,9 +1,15 @@
 import React, { Fragment } from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
 import { position, flex, transition } from '@Utils/Mixins';
+import {
+    Main,
+    Responsive,
+    ResponsiveInterface,
+    MainInterface,
+} from '@Utils/BaseStyles';
 import { useTransition } from '@Utils/Hooks';
 
-export interface LoadingProps {
+export interface LoadingProps extends ResponsiveInterface, MainInterface {
     loading?: boolean;
     theme: DefaultTheme;
 }
@@ -33,10 +39,12 @@ const _Loading: React.FC<LoadingProps> = ({
 
 export const Loading = withTheme(_Loading);
 
-const Container = styled.div<{
-    animate: boolean;
-    invert: boolean;
-}>`
+const Container = styled.div<
+    {
+        animate: boolean;
+        invert: boolean;
+    } & LoadingProps
+>`
     ${transition(['opacity'])}
     opacity: ${({ animate, invert }): number => {
         let res = animate ? 0 : 1;
@@ -44,6 +52,8 @@ const Container = styled.div<{
         return res;
     }};
     position: relative;
+    ${Responsive}
+    ${Main}
 `;
 
 const Bar = styled.div`
