@@ -1,7 +1,8 @@
-import React, { Fragment, useState } from 'react';
+import React, { useState } from 'react';
 
-const MockElement = ({ init, render }) => render(useState(init));
+const MockElement = ({ init, render }) =>
+    render(...init.map(state => useState(state)));
 
-export const mockElement = (render, initState) => () => (
+export const mockElement = (render, ...initState) => () => (
     <MockElement render={render} init={initState} />
 );

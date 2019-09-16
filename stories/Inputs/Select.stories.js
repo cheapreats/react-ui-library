@@ -8,22 +8,25 @@ storiesOf('Select', module)
     .addDecorator(withKnobs)
     .add(
         'with default',
-        mockElement(([state, setState]) => (
-            <Select
-                name="demo"
-                label={text('Label', 'Label')}
-                description={text('Description', 'Description')}
-                placeholder={text('Placeholder', 'Placeholder')}
-                onChange={({ target }) => setState(target.value)}
-                value={state}
-            >
-                <option value="1">One</option>
-                <option value="2">Two</option>
-                <option value="3">Three</option>
-                <option value="4">Four</option>
-                <option value="5">Five</option>
-            </Select>
-        )),
+        mockElement(
+            ([state, setState]) => (
+                <Select
+                    name="demo"
+                    label={text('Label', 'Label')}
+                    description={text('Description', 'Description')}
+                    placeholder={text('Placeholder', 'Placeholder')}
+                    onChange={({ target }) => setState(target.value)}
+                    value={state}
+                >
+                    <option value="1">One</option>
+                    <option value="2">Two</option>
+                    <option value="3">Three</option>
+                    <option value="4">Four</option>
+                    <option value="5">Five</option>
+                </Select>
+            ),
+            '',
+        ),
     )
     .add('with success', () => (
         <Select

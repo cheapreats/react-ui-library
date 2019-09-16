@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
 import { position, flex, scroll, transition } from '@Utils/Mixins';
@@ -24,19 +24,9 @@ const _Modal: React.FC<ModalProps> = ({
     ...props
 }): React.ReactElement => {
     const [show, setShow] = state;
-    const el = useRef(document.createElement('div'));
     const [, mount, animation] = useTransition(show, {
         end: theme.speed.normal,
     });
-
-    useEffect((): void | (() => void | undefined) => {
-        const parent = document.querySelector(`#modal`);
-        if (parent) parent.appendChild(el.current);
-        el.current.className = 'ce__modal';
-        return (): void => {
-            el.current.remove();
-        };
-    }, []);
 
     useEffect((): void => {
         if (!mount) onClose();
@@ -51,7 +41,7 @@ const _Modal: React.FC<ModalProps> = ({
                 <Drop show={animation} onClick={(): void => setShow(false)} />
             </Container>
         ),
-        el.current,
+        document.querySelector(`#modal`) as Element,
     );
 };
 
@@ -99,7 +89,7 @@ const Drop = styled.div<{ show: boolean }>`
     ${transition(['opacity'])}
     ${position('absolute')}
     cursor: pointer;
-    .ce__modal:first-of-type & {
+    ${Container}:first-of-type & {
         background-color: rgba(0, 0, 0, 0.4);
     }
 

@@ -15,6 +15,7 @@ import {
     transition,
     clickable,
     styledCondition,
+    darken,
 } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
@@ -243,16 +244,22 @@ const SelectList = styled.ul<{
     `}
 `;
 
-const SelectItem = styled.li`
+const SelectItem = styled.li<{ selected: boolean }>`
     ${transition(['background-color'])}
     font-size: 0.85rem;
     font-weight: bold;
     cursor: pointer;
 
     // Theme Stuff
-    ${({ theme }): string => `
+    ${({ theme, selected }): string => `
         padding: ${theme.dimensions.padding.default};
-        ${clickable('#ffffff', 0.03)}
+        ${
+            selected
+                ? `
+            background-color: ${darken('#ffffff', 0.05)}
+        `
+                : clickable('#ffffff', 0.03)
+        }
     `}
 `;
 
