@@ -15,14 +15,17 @@ storiesOf('Select', module)
                     label={text('Label', 'Label')}
                     description={text('Description', 'Description')}
                     placeholder={text('Placeholder', 'Placeholder')}
-                    onChange={({ target }) => setState(target.value)}
+                    onChange={({ target }) => {
+                        console.log(target.value);
+                        setState(target.value);
+                    }}
                     value={state}
                 >
-                    <option value="1">One</option>
-                    <option value="2">Two</option>
-                    <option value="3">Three</option>
-                    <option value="4">Four</option>
-                    <option value="5">Five</option>
+                    <option value="a">One</option>
+                    <option value="b">Two</option>
+                    <option value="c">Three</option>
+                    <option value="d">Four</option>
+                    <option value="e">Five</option>
                 </Select>
             ),
             '',

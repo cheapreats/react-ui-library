@@ -35,7 +35,7 @@ const createList = (
             return (
                 <SelectItem
                     {...child.props}
-                    selected={selected}
+                    active={selected}
                     onClick={onSelect}
                     key={val}
                 />
@@ -201,7 +201,7 @@ const Icon = styled(AngleDown)`
     margin-left: auto;
 `;
 
-const SelectList = styled.ul<{
+const SelectList = styled.div<{
     expanded: boolean;
     limit: number;
 }>`
@@ -211,6 +211,7 @@ const SelectList = styled.ul<{
     background-color: white;
     list-style-type: none;
     height: fit-content;
+    appearance: none;
     overflow: auto;
     z-index: 900;
     padding: 0;
@@ -244,17 +245,17 @@ const SelectList = styled.ul<{
     `}
 `;
 
-const SelectItem = styled.li<{ selected: boolean }>`
+const SelectItem = styled.option<{ active: boolean }>`
     ${transition(['background-color'])}
     font-size: 0.85rem;
     font-weight: bold;
     cursor: pointer;
 
     // Theme Stuff
-    ${({ theme, selected }): string => `
+    ${({ theme, active }): string => `
         padding: ${theme.dimensions.padding.default};
         ${
-            selected
+            active
                 ? `
             background-color: ${darken('#ffffff', 0.05)}
         `

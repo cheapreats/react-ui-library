@@ -7,10 +7,10 @@ import { LabelLayout, LabelLayoutProps } from '@Layouts';
 import { Datebox } from './Datebox';
 
 const printDate = (date: Date): string => {
-    const day = String(date.getMonth()).padStart(2, '0');
-    const month = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
     const year = date.getFullYear();
-    return `${day}-${month}-${year}`;
+    return `${month}-${day}-${year}`;
 };
 
 export interface DatepickerProps extends LabelLayoutProps {
@@ -39,19 +39,9 @@ const _Datepicker: React.FC<DatepickerProps> = ({
 
     useEffect((): void => setDate(value), [value]);
 
-    const handleText = useCallback(
-        (el): void => {
-            const d = new Date(el.target.value);
-            el.target = {
-                ...el.target,
-                name: props.name,
-                value: d,
-            };
-            if (d.getDate()) onChange(el);
-            setText(el.target.value);
-        },
-        [text],
-    );
+    const handleText = useCallback((el): void => setText(el.target.value), [
+        text,
+    ]);
 
     const selectDate = useCallback((el): void => {
         const val = new Date(el.target.getAttribute('data'));
@@ -78,6 +68,28 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         [],
     );
 
+    const handleKeys = useCallback((el): void => {
+        const d = new Date(el.target.value);
+        switch (el.key) {
+            case 'Tab':
+                setShow(false);
+                break;
+            case 'Enter':
+                el.target = {
+                    ...el.target,
+                    name: props.name,
+                    value: d,
+                };
+                if (!Number.isNaN(d.getTime())) {
+                    onChange(el);
+                    setText(printDate(d));
+                }
+                break;
+            default:
+                break;
+        }
+    }, []);
+
     return (
         <LabelLayout {...props} className={className}>
             <Wrapper>
@@ -85,10 +97,8 @@ const _Datepicker: React.FC<DatepickerProps> = ({
                     {...props}
                     placeholder={placeholder}
                     onChange={handleText}
-                    onFocus={(): void => setShow(true)}
-                    onKeyDown={({ key }: React.KeyboardEvent): void => {
-                        if (key === 'Enter') setShow(false);
-                    }}
+                    onFocus={setShow}
+                    onKeyDown={handleKeys}
                     value={text}
                 />
                 <Icon />
