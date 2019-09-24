@@ -97,7 +97,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
                     {...props}
                     placeholder={placeholder}
                     onChange={handleText}
-                    onFocus={setShow}
+                    onFocus={(): void => setShow(true)}
                     onKeyDown={handleKeys}
                     value={text}
                 />
