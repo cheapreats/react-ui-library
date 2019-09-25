@@ -52,9 +52,9 @@ export const LabelLayout: React.FC<LabelLayoutProps> = ({
     return (
         <Layout {...layoutProps} {...implicitProps}>
             {label && <Label htmlFor={name}>{label}</Label>}
-            {description && <Info id={`#${name}-info`}>{description}</Info>}
+            {description && <Info id={`${name}-info`}>{description}</Info>}
             {children}
-            <ErrorLabel id={`#${name}-error`} error={error}>
+            <ErrorLabel id={`${name}-error`} error={error}>
                 {_error}
             </ErrorLabel>
         </Layout>

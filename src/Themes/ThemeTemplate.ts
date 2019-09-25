@@ -30,6 +30,10 @@ export interface ThemeTemplateInterface {
             size: string | number;
             spacing: number;
         };
+        checkbox: {
+            size: string | number;
+            spacing: number;
+        };
         radius: string | number;
         tag: {
             padding: string | number;
@@ -78,6 +82,10 @@ const Theme: ThemeTemplateInterface = {
             spacing: 5,
         },
         radio: {
+            size: 12,
+            spacing: 3,
+        },
+        checkbox: {
             size: 12,
             spacing: 3,
         },
