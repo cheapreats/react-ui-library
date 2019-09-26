@@ -5,6 +5,7 @@ import {
     ThemeProvider,
     DefaultTheme,
 } from 'styled-components';
+import { flex } from '@Utils/Mixins';
 import * as Themes from '@Themes';
 
 interface Props {
@@ -15,10 +16,15 @@ const GlobalContext = createGlobalStyle<Props>`
     body {
         margin: 0;
         padding: 0;
+        ${flex('column')}
         ${({ theme }): string => `
             color: ${theme.colors.text};
             font-family: ${theme.font.family};
         `}
+    }
+
+    #modal {
+        z-index: 1;
     }
 
     ${({ style, theme }): string => (style ? style(theme) : '')}

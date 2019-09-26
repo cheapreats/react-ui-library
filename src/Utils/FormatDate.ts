@@ -1,27 +1,4 @@
-const MONTHS = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-];
-
-const WEEKDAYS = [
-    'Sunday',
-    'Monday',
-    'Tueday',
-    'Wednesday',
-    'Thursday',
-    'Friday',
-    'Saturday',
-];
+import { MONTHS, WEEKDAYS } from './Constants';
 
 interface FormatDateOptions {
     prepend?: string;
