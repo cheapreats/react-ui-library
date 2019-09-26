@@ -2,8 +2,8 @@
     "compilerOptions": {
         "outDir": "dist",
         "module": "commonjs",
-        "target": "es5",
-        "lib": ["es5", "es6", "es7", "es2017", "dom"],
+        "target": "es2017",
+        "lib": ["es2017", "dom"],
         "sourceMap": false,
         "jsx": "react",
         "strict": true,

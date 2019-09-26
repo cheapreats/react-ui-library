@@ -1,4 +1,6 @@
 export interface ThemeTemplateInterface {
+    logo: string;
+    name: string;
     font: {
         family: string;
         lineHeight: number;
@@ -54,6 +56,8 @@ export interface ThemeTemplateInterface {
 }
 
 const Theme: ThemeTemplateInterface = {
+    logo: 'https://cheapreats.com/img/logo-white.png',
+    name: 'CheaprEats',
     font: {
         family: '"Quicksand", sans-serif',
         lineHeight: 1.6,

@@ -9,7 +9,7 @@ import {
 
 export interface TextLayoutProps extends MainInterface, ResponsiveInterface {
     color?: string;
-    lineHeight?: number;
+    lineHeight?: number | string;
     bold?: boolean;
     size?: string;
     type?: string;
