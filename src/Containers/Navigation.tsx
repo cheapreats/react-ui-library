@@ -95,6 +95,8 @@ const Container = styled.nav`
     ${({ theme }): string => `
         box-shadow: ${theme.depth[1]};
         background-color: ${theme.colors.primary};
+        max-width: ${theme.dimensions.navigation.width}px;
+        width: ${theme.dimensions.navigation.width}px;
         ${media(
             theme.media.tablet,
             `
@@ -103,9 +105,7 @@ const Container = styled.nav`
         )}
     `}
     box-sizing: border-box;
-    max-width: 255px;
     flex-shrink: 0;
-    width: 255px;
     padding: 16px 8px 8px;
     color: white;
 `;
@@ -153,7 +153,9 @@ const NavLink = styled.a<{ to: string }>`
 `;
 
 const Icon = styled.svg`
-    width: 30px;
+    ${({ theme }): string => `
+        width: ${theme.dimensions.navigation.icon}px;
+    `}
 `;
 
 const Heading = styled(H)`

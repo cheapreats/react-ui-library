@@ -41,6 +41,10 @@ export interface ThemeTemplateInterface {
             padding: string | number;
             fontSize: string;
         };
+        navigation: {
+            width: number;
+            icon: number;
+        };
     };
     media: {
         tablet: number;
@@ -97,6 +101,10 @@ const Theme: ThemeTemplateInterface = {
         tag: {
             padding: '6px 12px',
             fontSize: '0.8rem',
+        },
+        navigation: {
+            width: 225,
+            icon: 30,
         },
     },
     media: {
