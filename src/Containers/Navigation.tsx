@@ -69,6 +69,7 @@ const _Navigation: React.FC<NavigationProps> = ({
                             <NavLink
                                 as={tag as 'a'}
                                 to={hydratePath(to, params)}
+                                {...args}
                             >
                                 <Icon as={icon} />
                                 <Paragraph
