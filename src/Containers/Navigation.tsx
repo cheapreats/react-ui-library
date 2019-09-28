@@ -97,13 +97,8 @@ const Container = styled.nav`
         background-color: ${theme.colors.primary};
         max-width: ${theme.dimensions.navigation.width}px;
         width: ${theme.dimensions.navigation.width}px;
-        ${media(
-            theme.media.tablet,
-            `
-            width: auto;
-        `,
-        )}
     `}
+    ${media('tablet', 'width: auto;')}
     box-sizing: border-box;
     flex-shrink: 0;
     padding: 16px 8px 8px;
