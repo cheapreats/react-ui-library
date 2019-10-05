@@ -51,6 +51,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
             <CheckContainer>
                 <Input
                     type="checkbox"
+                    name={name}
                     {...props}
                     value={value === undefined ? '' : value.toString()}
                     checked={value}

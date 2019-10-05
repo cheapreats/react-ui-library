@@ -51,6 +51,7 @@ export const Radio: React.FC<RadioProps> = ({
                 <Input
                     type="checkbox"
                     {...props}
+                    name={name}
                     value={value === undefined ? '' : value.toString()}
                     checked={value}
                 />
