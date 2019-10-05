@@ -21,6 +21,7 @@ export interface RadioProps
     activeStyle?: Function;
     radioStyle?: Function;
     disabled?: boolean;
+    value?: boolean;
     name?: string;
 }
 
@@ -31,6 +32,7 @@ export const Radio: React.FC<RadioProps> = ({
     activeStyle,
     radioStyle,
     disabled,
+    value,
     name,
     ...props
 }): React.ReactElement => {
@@ -46,7 +48,12 @@ export const Radio: React.FC<RadioProps> = ({
     return (
         <Container className={className} column={column} {...implicitProps}>
             <RadioContainer>
-                <Input type="checkbox" {...props} />
+                <Input
+                    type="checkbox"
+                    {...props}
+                    value={value === undefined ? '' : value.toString()}
+                    checked={value}
+                />
                 <RadioBox {...radioProps} disabled={disabled}>
                     <RadioDot />
                 </RadioBox>

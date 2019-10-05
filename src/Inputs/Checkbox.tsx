@@ -23,6 +23,7 @@ export interface CheckboxProps
     checkboxStyle?: Function;
     disabled?: boolean;
     name?: string;
+    value?: boolean;
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({
@@ -32,6 +33,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     activeStyle,
     checkboxStyle,
     disabled,
+    value,
     name,
     ...props
 }): React.ReactElement => {
@@ -47,7 +49,12 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     return (
         <Container className={className} column={column} {...implicitProps}>
             <CheckContainer>
-                <Input type="checkbox" {...props} />
+                <Input
+                    type="checkbox"
+                    {...props}
+                    value={value === undefined ? '' : value.toString()}
+                    checked={value}
+                />
                 <CheckBox {...checkboxProps} disabled={disabled}>
                     <CheckIcon />
                 </CheckBox>

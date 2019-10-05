@@ -3,9 +3,18 @@ import { position, darken, flex, transition } from '@Utils/Mixins';
 import styled from 'styled-components';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
-const COMPONENT = (props = {}, innerProps = {}): React.ReactElement => (
+const COMPONENT = (
+    props = {},
+    innerProps = {},
+    value?: boolean,
+): React.ReactElement => (
     <Container>
-        <Input type="checkbox" {...props} />
+        <Input
+            type="checkbox"
+            {...props}
+            value={value === undefined ? '' : value.toString()}
+            checked={value}
+        />
         <SwitchBox {...innerProps}>
             <SwitchDot />
         </SwitchBox>
@@ -19,12 +28,13 @@ const withTags = (
         switchStyle?: Function;
     },
     tags?: string[],
+    value?: boolean,
 ): React.ReactElement => {
     if (tags) {
         return (
             <Tags>
                 {tags[0] && <Tag>{tags[0]}</Tag>}
-                {COMPONENT(props, innerProps)}
+                {COMPONENT(props, innerProps, value)}
                 {tags[1] && <Tag>{tags[1]}</Tag>}
             </Tags>
         );
@@ -37,15 +47,22 @@ export interface SwitchProps extends LabelLayoutProps {
     tags?: string[];
     activeStyle?: Function;
     switchStyle?: Function;
+    value?: boolean;
 }
 
 export const Switch: React.FC<SwitchProps> = ({
     tags,
     activeStyle,
     switchStyle,
+    value,
     ...props
 }): React.ReactElement => {
-    const component = withTags(props, { activeStyle, switchStyle }, tags);
+    const component = withTags(
+        props,
+        { activeStyle, switchStyle },
+        tags,
+        value,
+    );
     return <LabelLayout {...props}>{component}</LabelLayout>;
 };
 

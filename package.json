@@ -1,6 +1,6 @@
 {
   "name": "@cheapreats/react-ui",
-  "version": "2.2.4",
+  "version": "2.2.5",
   "description": "React UI library for CheaprEats",
   "main": "dist/index.js",
   "files": [
@@ -11,6 +11,7 @@
     "start": "start-storybook -p 6006",
     "deploy": "build-storybook --quiet -o .deploy",
     "build": "rm -rf dist && tsc && NODE_ENV=production babel dist -d dist",
+    "test": "tsc",
     "prepublish": "npm run lint && npm run build",
     "eslint": "eslint ./src --ext tsx,ts,jsx,js",
     "eslint:fix": "npm run eslint -- --fix",
