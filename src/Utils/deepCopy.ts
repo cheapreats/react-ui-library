@@ -14,8 +14,7 @@ export const deepCopy = (
             | number => deepCopy(item));
     }
 
-    if (typeof obj === 'object') {
-        if (obj === null || obj === undefined) return obj;
+    if (typeof obj === 'object' && obj !== null) {
         return Object.entries(obj).reduce((acc, [key, value]): object => {
             acc[key] = deepCopy(value);
             return acc;
