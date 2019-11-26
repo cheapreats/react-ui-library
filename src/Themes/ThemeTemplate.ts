@@ -46,6 +46,13 @@ export interface ThemeTemplateInterface {
             width: number;
             icon: number;
         };
+        modal: {
+            width: {
+                large: string | number;
+                default: string | number;
+                small: string | number;
+            };
+        };
     };
     media: {
         tablet: number;
@@ -107,6 +114,13 @@ const Theme: ThemeTemplateInterface = {
         navigation: {
             width: 225,
             icon: 30,
+        },
+        modal: {
+            width: {
+                large: '800px',
+                default: '600px',
+                small: '400px',
+            },
         },
     },
     media: {

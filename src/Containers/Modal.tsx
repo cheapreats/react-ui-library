@@ -13,11 +13,13 @@ import { useTransition } from '@Utils/Hooks';
 export interface ModalProps extends ResponsiveInterface, MainInterface {
     theme: DefaultTheme;
     onClose?: Function;
+    width?: string | number;
     state: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 const _Modal: React.FC<ModalProps> = ({
     onClose = (): void => {},
+    width = 'default',
     children,
     theme,
     state,
@@ -35,7 +37,7 @@ const _Modal: React.FC<ModalProps> = ({
     return createPortal(
         mount && (
             <Container>
-                <Box show={animation} {...props}>
+                <Box show={animation} width={width} {...props}>
                     {children}
                 </Box>
                 <Drop show={animation} onClick={(): void => setShow(false)} />
@@ -52,17 +54,24 @@ const Container = styled.div`
     ${flex('center')}
 `;
 
-const Box = styled.div<{ show: boolean } & ResponsiveInterface & MainInterface>`
+const Box = styled.div<
+    {
+        show: boolean;
+        width: string | number;
+    } & ResponsiveInterface &
+        MainInterface
+>`
     ${transition(['transform', 'opacity'])}
     background-color: white;
     overflow: auto;
-    max-width: 80%;
-    max-height: 80%;
+    max-width: 90%;
+    max-height: 90%;
     z-index: 1;
 
     ${({ theme, ...props }): string => `
         border-radius: ${theme.dimensions.radius};
         box-shadow: ${theme.depth[1]};
+        width: ${theme.dimensions.modal.width[props.width] || props.width};
         ${Main({
             padding: theme.dimensions.padding.container,
             ...props,
