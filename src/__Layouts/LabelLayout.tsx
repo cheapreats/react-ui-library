@@ -64,8 +64,8 @@ export const LabelLayout: React.FC<LabelLayoutProps> = ({
 const Layout = styled.div<ResponsiveInterface & MainInterface>`
     ${transition(['opacity'])}
     ${flex('column')}
+    ${(props): string => Main({ margin: '0 0 15px', ...props })}
     ${Responsive}
-    ${Main}
 `;
 
 const Label = styled.label`

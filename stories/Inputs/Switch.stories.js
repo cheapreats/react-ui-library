@@ -1,12 +1,16 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, boolean } from '@storybook/addon-knobs';
 import { Switch, Mixins } from '../../src';
 
 storiesOf('Switch', module)
     .addDecorator(withKnobs)
     .add('with default', () => (
-        <Switch label="Label" description="Description" />
+        <Switch
+            label="Label"
+            value={boolean('value', true)}
+            description="Description"
+        />
     ))
     .add('with tags', () => (
         <Switch label="Label" tags={['On', 'Off']} description="Description" />

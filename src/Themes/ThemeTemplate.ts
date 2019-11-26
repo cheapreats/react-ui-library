@@ -19,6 +19,7 @@ export interface ThemeTemplateInterface {
         padding: {
             container: string | number;
             default: string | number;
+            square: string | number;
             withBorder: string | number;
         };
         loading: {
@@ -80,6 +81,7 @@ const Theme: ThemeTemplateInterface = {
         padding: {
             container: '16px',
             default: '12px 20px',
+            square: '12px',
             withBorder: '10.5px 18.5px',
         },
         loading: {

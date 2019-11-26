@@ -6,13 +6,19 @@ import { LabelLayout, LabelLayoutProps } from '@Layouts';
 export interface TextareaProps extends LabelLayoutProps {
     disabled?: boolean;
     placeholder?: string;
+    value?: string;
+    rows: string | number;
 }
 
 export const Textarea: React.FC<TextareaProps> = ({
+    rows = 3,
     ...props
 }): React.ReactElement => (
     <LabelLayout {...props}>
-        <TextareaElement {...props} />
+        <TextareaElement
+            rows={typeof rows === 'string' ? parseInt(rows, 10) : rows}
+            {...props}
+        />
     </LabelLayout>
 );
 
@@ -21,6 +27,8 @@ const TextareaElement = styled.textarea<LabelLayoutProps>`
     ${scroll}
     font-size: 0.85rem;
     font-weight: bold;
+    box-sizing: border-box;
+    line-height: 1.4;
     outline: none;
     border: none;
     resize: vertical;
@@ -33,7 +41,7 @@ const TextareaElement = styled.textarea<LabelLayoutProps>`
 
     // Theme Stuff
     ${({ theme }): string => `
-        padding: ${theme.dimensions.padding.default};
+        padding: ${theme.dimensions.padding.square};
         border-radius: ${theme.dimensions.radius};
         font-family: ${theme.font.family};
         &:focus {

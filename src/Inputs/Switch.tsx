@@ -40,7 +40,7 @@ const withTags = (
         );
     }
 
-    return COMPONENT(props, innerProps);
+    return COMPONENT(props, innerProps, value);
 };
 
 export interface SwitchProps extends LabelLayoutProps {
