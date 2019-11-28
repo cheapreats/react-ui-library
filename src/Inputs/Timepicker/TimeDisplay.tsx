@@ -27,7 +27,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
     setShow,
     onChange,
 }): React.ReactElement => {
-    const [display, setDisplay] = useState<string>('');
+    const [display, setDisplay] = useState<string>(getDisplay(value));
     const lastValue = useRef<string>(getDisplay(value));
 
     const handleKeys = useCallback(({ key }): void => {
@@ -42,29 +42,34 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
         setDisplay(val);
     }, [value]);
 
-    useEffect((): void => {
-        if (
-            display !== lastValue.current &&
-            display.match(/[1]?\d:[0-5]\d [A|P]M/)
-        ) {
-            lastValue.current = display;
-            const [hour, rest] = display.split(':');
-            const min = rest.slice(0, 2);
-            const period = rest.slice(-2);
+    const handleDisplay = useCallback(
+        ({ target }): void => {
+            const val = (target as HTMLInputElement).value;
+            setDisplay(val);
+            if (
+                val !== lastValue.current &&
+                val.match(/[1]?\d:[0-5]\d [A|P]M/)
+            ) {
+                lastValue.current = val;
+                const [hour, rest] = val.split(':');
+                const min = rest.slice(0, 2);
+                const period = rest.slice(-2);
 
-            const val = new Date();
-            val.setHours(
-                (parseInt(hour, 10) % 12) + (period === 'PM' ? 12 : 0),
-            );
-            val.setMinutes(parseInt(min, 10));
-            onChange({
-                target: {
-                    name,
-                    value: val,
-                },
-            });
-        }
-    }, [display, onChange]);
+                const date = new Date();
+                date.setHours(
+                    (parseInt(hour, 10) % 12) + (period === 'PM' ? 12 : 0),
+                );
+                date.setMinutes(parseInt(min, 10));
+                onChange({
+                    target: {
+                        name,
+                        value: date,
+                    },
+                });
+            }
+        },
+        [onChange],
+    );
 
     return (
         <Wrapper>
@@ -72,9 +77,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
                 onFocus={(): void => setShow(true)}
                 onClick={(): void => setShow(true)}
                 onKeyDown={handleKeys}
-                onChange={({ target }): void => {
-                    setDisplay((target as HTMLInputElement).value);
-                }}
+                onChange={handleDisplay}
                 value={display}
             />
             <Button onClick={(): void => setShow(false)} show={show}>
