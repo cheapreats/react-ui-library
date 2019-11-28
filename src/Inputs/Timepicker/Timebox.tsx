@@ -111,4 +111,5 @@ const Container = styled.div<{ show?: boolean }>`
     margin: 10px auto auto 0;
     box-sizing: border-box;
     background-color: white;
+    display: inline-flex;
 `;

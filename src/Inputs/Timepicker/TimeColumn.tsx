@@ -20,8 +20,9 @@ export const TimeColumn: React.FC<TimeColumnProps> = ({
     const ref = useRef<HTMLUListElement>(null);
 
     const onSelect = useCallback(
-        ({ target }): void => {
-            const value = parseInt(target.getAttribute('data-index'), 10);
+        (el): void => {
+            el.stopPropagation();
+            const value = parseInt(el.target.getAttribute('data-index'), 10);
             onChange(name, value);
         },
         [name, onChange],

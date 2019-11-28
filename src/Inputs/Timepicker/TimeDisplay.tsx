@@ -75,7 +75,10 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
         <Wrapper>
             <InputFragment
                 onFocus={(): void => setShow(true)}
-                onClick={(): void => setShow(true)}
+                onClick={(el): void => {
+                    el.stopPropagation();
+                    setShow(true);
+                }}
                 onKeyDown={handleKeys}
                 onChange={handleDisplay}
                 value={display}

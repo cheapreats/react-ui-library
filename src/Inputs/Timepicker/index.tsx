@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { withTheme, DefaultTheme } from 'styled-components';
 import { useTransition } from '@Utils/Hooks';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
@@ -21,20 +21,42 @@ export const Timepicker: React.FC<TimepickerProps> = withTheme(
         ...props
     }): React.ReactElement => {
         value = new Date(value);
+        const ref = useRef<HTMLDivElement>(null);
         const [show, setShow] = useState<boolean>();
         const [, mount, animate] = useTransition(show, {
             end: theme.speed.normal,
         });
 
+        useEffect((): void | (() => undefined | void) => {
+            if (!mount) return undefined;
+            const handler = ({ target }: MouseEvent): void => {
+                if (
+                    ref.current &&
+                    ref.current.contains(target as HTMLElement)
+                ) {
+                    setShow(false);
+                }
+            };
+
+            window.setTimeout((): void => {
+                window.addEventListener('click', handler);
+            }, 100);
+            return (): void => {
+                window.removeEventListener('click', handler);
+            };
+        }, [mount]);
+
         return (
-            <LabelLayout {...props}>
-                <TimeDisplay
-                    name={name}
-                    value={value}
-                    setShow={setShow}
-                    show={animate}
-                    onChange={onChange}
-                />
+            <div ref={ref}>
+                <LabelLayout name={name} {...props}>
+                    <TimeDisplay
+                        name={name}
+                        value={value}
+                        setShow={setShow}
+                        show={animate}
+                        onChange={onChange}
+                    />
+                </LabelLayout>
                 {mount && (
                     <Timebox
                         name={name}
@@ -43,7 +65,9 @@ export const Timepicker: React.FC<TimepickerProps> = withTheme(
                         onChange={onChange}
                     />
                 )}
-            </LabelLayout>
+            </div>
         );
     },
 );
+
+export default Timepicker;

@@ -21,11 +21,13 @@ export const TextLayout: React.FC<TextLayoutProps> = ({
     size = 'default',
     type,
     ...props
-}): React.ReactElement => (
-    <Text as={type as 'span'} size={size} color={color} {...props}>
-        {children}
-    </Text>
-);
+}): React.ReactElement => {
+    return (
+        <Text as={type as 'span'} size={size} color={color} {...props}>
+            {children}
+        </Text>
+    );
+};
 
 const Text = styled.p<TextLayoutProps>`
     // Base Styles

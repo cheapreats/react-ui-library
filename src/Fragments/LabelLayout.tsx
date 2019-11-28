@@ -27,16 +27,10 @@ export interface LabelLayoutProps
     className?: string;
 }
 
-export const LabelLayout: React.FC<LabelLayoutProps> = ({
-    name,
-    label,
-    description,
-    error,
-    success,
-    children,
-    className,
-    ...props
-}): React.ReactElement => {
+export const LabelLayout: React.FC<LabelLayoutProps> = (
+    { name, label, description, error, success, children, className, ...props },
+    ref,
+): React.ReactElement => {
     const [, _error] = useTransition(error, { end: 250 });
     const implicitProps = __useImplicitProps(props, [
         ...MainProps,
@@ -49,7 +43,7 @@ export const LabelLayout: React.FC<LabelLayoutProps> = ({
     };
 
     return (
-        <Layout {...layoutProps} {...implicitProps}>
+        <Layout ref={ref} {...layoutProps} {...implicitProps}>
             {label && <Label htmlFor={name}>{label}</Label>}
             {description && <Info id={`${name}-info`}>{description}</Info>}
             {children}
