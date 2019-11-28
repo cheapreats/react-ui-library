@@ -12,7 +12,7 @@
                     "root": ["."],
                     "alias": {
                         "@Containers": "./dist/Containers",
-                        "@Layouts": "./dist/__Layouts",
+                        "@Layouts": "./dist/Fragments",
                         "@Inputs": "./dist/Inputs",
                         "@Text": "./dist/Text",
                         "@Themes": "./dist/Themes",
