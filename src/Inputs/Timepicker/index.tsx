@@ -9,13 +9,13 @@ export interface TimepickerProps extends LabelLayoutProps {
     value?: Date;
     period?: boolean;
     theme: DefaultTheme;
-    onChange: Function;
+    onChange?: Function;
 }
 
 export const Timepicker: React.FC<TimepickerProps> = withTheme(
     ({
         value = new Date(),
-        onChange,
+        onChange = (): void => {},
         theme,
         name,
         ...props

@@ -1,5 +1,4 @@
 const { aliases } = require('./package.json');
-const path = require('path');
 
 module.exports = {
     env: {
@@ -25,7 +24,7 @@ module.exports = {
         'import/resolver': {
             alias: {
                 map: Object.entries(aliases).map(item => {
-                    item[1] = path.resolve(__dirname, item[1]);
+                    item[1] = './' + item[1];
                     return item;
                 }),
                 extensions: ['.ts', '.tsx', '.json'],
