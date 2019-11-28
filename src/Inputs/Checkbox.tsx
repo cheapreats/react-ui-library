@@ -55,6 +55,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
                     {...props}
                     value={value === undefined ? '' : value.toString()}
                     checked={value}
+                    disabled={disabled}
                 />
                 <CheckBox {...checkboxProps} disabled={disabled}>
                     <CheckIcon />

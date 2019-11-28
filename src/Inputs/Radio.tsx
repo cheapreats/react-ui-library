@@ -54,6 +54,7 @@ export const Radio: React.FC<RadioProps> = ({
                     name={name}
                     value={value === undefined ? '' : value.toString()}
                     checked={value}
+                    disabled={disabled}
                 />
                 <RadioBox {...radioProps} disabled={disabled}>
                     <RadioDot />

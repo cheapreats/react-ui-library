@@ -73,7 +73,7 @@
   },
   "aliases": {
     "@Containers": "src/Containers",
-    "@Layouts": "src/__Layouts",
+    "@Layouts": "src/Fragments",
     "@Inputs": "src/Inputs",
     "@Text": "src/Text",
     "@Themes": "src/Themes",

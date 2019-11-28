@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useCallback, useMemo } from 'react';
 import { CalendarAlt } from 'styled-icons/fa-solid/CalendarAlt';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
-import { transition, styledCondition, position, flex } from '@Utils/Mixins';
+import { position, flex } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
-import { LabelLayout, LabelLayoutProps } from '@Layouts';
+import { LabelLayout, LabelLayoutProps, InputFragment } from '@Layouts';
 import { Datebox } from './Datebox';
 
 const printDate = (date: Date): string => {
@@ -68,32 +68,38 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         [],
     );
 
-    const handleKeys = useCallback((el): void => {
-        const d = new Date(el.target.value);
-        switch (el.key) {
-            case 'Tab':
-                setShow(false);
-                break;
-            case 'Enter':
-                el.target = {
-                    ...el.target,
-                    name: props.name,
-                    value: d,
-                };
-                if (!Number.isNaN(d.getTime())) {
-                    onChange(el);
-                    setText(printDate(d));
-                }
-                break;
-            default:
-                break;
-        }
-    }, []);
+    const handleKeys = useCallback(
+        (el): void => {
+            const d = new Date(el.target.value);
+            switch (el.key) {
+                case 'Tab':
+                    setShow(false);
+                    break;
+                case 'Enter':
+                    el.target = {
+                        ...el.target,
+                        name: props.name,
+                        value: d,
+                    };
+
+                    if (d.toDateString() === value.toDateString()) {
+                        setShow((v): boolean => !v);
+                    } else if (!Number.isNaN(d.getTime())) {
+                        setText(printDate(d));
+                        onChange(el);
+                    }
+                    break;
+                default:
+                    break;
+            }
+        },
+        [value],
+    );
 
     return (
         <LabelLayout {...props} className={className}>
             <Wrapper>
-                <InputElement
+                <InputFragment
                     {...props}
                     placeholder={placeholder}
                     onChange={handleText}
@@ -117,45 +123,6 @@ const _Datepicker: React.FC<DatepickerProps> = ({
 };
 
 export const Datepicker = withTheme(_Datepicker);
-
-const InputElement = styled.input<{
-    error?: boolean;
-    success?: boolean;
-}>`
-    ${transition(['background-color', 'opacity', 'box-shadow'])}
-    font-size: 0.85rem;
-    font-weight: bold;
-    outline: none;
-    border: none;
-
-
-    // Disabled
-    &:disabled {
-        cursor: not-allowed;
-        opacity: 0.6;
-    }
-
-    // Theme Stuff
-    ${({ theme }): string => `
-        padding: ${theme.dimensions.padding.default};
-        border-radius: ${theme.dimensions.radius};
-        font-family: ${theme.font.family};
-        &:focus {
-            box-shadow: ${theme.depth[1]};
-        }
-    `}
-
-    // Background color
-    ${({ theme, error = false, success = false }): string => `
-        background-color: ${styledCondition(
-            error,
-            theme.colors.input.error,
-            success,
-            theme.colors.input.success,
-            theme.colors.input.default,
-        )};
-    `}
-`;
 
 const Icon = styled(CalendarAlt)`
     ${position('absolute', 'auto 20px auto auto')}

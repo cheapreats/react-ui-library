@@ -1,3 +1,6 @@
+const { aliases } = require('./package.json');
+const path = require('path');
+
 module.exports = {
     env: {
         browser: true,
@@ -21,14 +24,10 @@ module.exports = {
     settings: {
         'import/resolver': {
             alias: {
-                map: [
-                    ['@Containers', './src/Containers'],
-                    ['@Layouts', './src/__Layouts'],
-                    ['@Inputs', './src/Inputs'],
-                    ['@Text', './src/Text'],
-                    ['@Themes', './src/Themes'],
-                    ['@Utils', './src/Utils'],
-                ],
+                map: Object.entries(aliases).map(item => {
+                    item[1] = path.resolve(__dirname, item[1]);
+                    return item;
+                }),
                 extensions: ['.ts', '.tsx', '.json'],
             },
         },
