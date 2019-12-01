@@ -21,7 +21,7 @@ import { useTransition } from '@Utils/Hooks';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
 const ITEM_HEIGHT = 41;
-const SPEED = 'slow';
+const SPEED = 'normal';
 
 const createList = (
     children: React.ReactNode[],
