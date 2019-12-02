@@ -64,7 +64,10 @@ const List = styled.ul`
     ${scroll}
     list-style-type: none;
     font-weight: bold;
-    overflow: auto;
+    overflow-y: scroll;
+    max-width: 80px;
+    flex-grow: 1;
+    width: 100%;
     padding: 0;
     margin: 0;
 `;
@@ -80,7 +83,8 @@ const Item = styled.li<{ active?: boolean }>`
         cursor: pointer;
     `
             : clickable('#ffffff', 0.03)}
+    box-sizing: border-box;
     padding: 0 15px;
     height: 40px;
-    width: 60px;
+    width: 100%;
 `;

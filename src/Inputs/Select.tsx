@@ -49,7 +49,7 @@ export interface SelectProps extends LabelLayoutProps {
     placeholder?: string;
     value?: string | number;
     theme: DefaultTheme;
-    onChange?: React.MouseEventHandler;
+    onChange?: Function;
     limit?: number;
 }
 
@@ -85,9 +85,13 @@ const _Select: React.FC<SelectProps> = ({
     );
 
     const onSelect = useCallback(
-        (el): void => {
-            el.target.name = name;
-            onChange(el);
+        ({ currentTarget }): void => {
+            onChange({
+                target: {
+                    value: currentTarget.getAttribute('value'),
+                    name: currentTarget.name,
+                },
+            });
         },
         [name],
     );
@@ -244,11 +248,12 @@ const SelectList = styled.div<{
     `}
 `;
 
-const SelectItem = styled.option<{ active: boolean }>`
+const SelectItem = styled.p<{ active: boolean }>`
     ${transition(['background-color'])}
     font-size: 0.85rem;
     font-weight: bold;
     cursor: pointer;
+    margin: 0;
 
     // Theme Stuff
     ${({ theme, active }): string => `

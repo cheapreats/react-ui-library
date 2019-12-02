@@ -113,5 +113,7 @@ const Container = styled.div<{ show?: boolean }>`
     background-color: white;
     display: inline-flex;
     height: 160px;
+    max-width: 100%;
+    width: 240px;
     z-index: 400;
 `;
