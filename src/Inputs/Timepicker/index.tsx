@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { withTheme, DefaultTheme } from 'styled-components';
+import styled, { withTheme, DefaultTheme } from 'styled-components';
 import { useTransition } from '@Utils/Hooks';
+import { flex } from '@Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 import { TimeDisplay } from './TimeDisplay';
 import { Timebox } from './Timebox';
@@ -32,7 +33,7 @@ export const Timepicker: React.FC<TimepickerProps> = withTheme(
             const handler = ({ target }: MouseEvent): void => {
                 if (
                     ref.current &&
-                    ref.current.contains(target as HTMLElement)
+                    !ref.current.contains(target as HTMLElement)
                 ) {
                     setShow(false);
                 }
@@ -47,8 +48,8 @@ export const Timepicker: React.FC<TimepickerProps> = withTheme(
         }, [mount]);
 
         return (
-            <div ref={ref}>
-                <LabelLayout name={name} {...props}>
+            <LabelLayout name={name} ref={ref} {...props}>
+                <Wrapper>
                     <TimeDisplay
                         name={name}
                         value={value}
@@ -56,18 +57,23 @@ export const Timepicker: React.FC<TimepickerProps> = withTheme(
                         show={animate}
                         onChange={onChange}
                     />
-                </LabelLayout>
-                {mount && (
-                    <Timebox
-                        name={name}
-                        show={animate}
-                        value={value}
-                        onChange={onChange}
-                    />
-                )}
-            </div>
+                    {mount && (
+                        <Timebox
+                            name={name}
+                            show={animate}
+                            value={value}
+                            onChange={onChange}
+                        />
+                    )}
+                </Wrapper>
+            </LabelLayout>
         );
     },
 );
+
+const Wrapper = styled.div`
+    ${flex('column')}
+    position: relative;
+`;
 
 export default Timepicker;

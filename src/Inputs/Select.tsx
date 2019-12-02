@@ -210,7 +210,6 @@ const SelectList = styled.div<{
     
     background-color: white;
     list-style-type: none;
-    height: fit-content;
     appearance: none;
     overflow: auto;
     z-index: 900;
@@ -220,7 +219,7 @@ const SelectList = styled.div<{
     ${({ theme }): string => `
         ${transition(
             [
-                'max-height',
+                'height',
                 {
                     prop: 'opacity',
                     duration: theme.speed.normal,
@@ -235,12 +234,12 @@ const SelectList = styled.div<{
     ${({ expanded, limit }): string =>
         expanded
             ? `
-        max-height: ${limit * ITEM_HEIGHT}px;
+        height: ${limit * ITEM_HEIGHT}px;
         opacity: 1;
     `
             : `
-        max-height: ${ITEM_HEIGHT}px;
         pointer-events: none;
+        height: 0px;
         opacity: 0;
     `}
 `;

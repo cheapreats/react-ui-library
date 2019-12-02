@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import styled from 'styled-components';
-import { transition, flex } from '@Utils/Mixins';
+import { transition, position, flex } from '@Utils/Mixins';
 import { TimeColumn } from './TimeColumn';
 
 const VALUES = {
@@ -90,15 +90,17 @@ export const Timebox: React.FC<TimeboxProps> = ({
 
 const Container = styled.div<{ show?: boolean }>`
     ${transition(['transform', 'opacity'])}
+    ${position('absolute', '10px 0 20px', '100%', 'auto', 0, 0)}
     ${flex()}
     ${({ show }): string =>
         show
             ? `
         transform: translateY(0);
-        opacity: 1;    
+        opacity: 1;
     `
             : `
         transform: translateY(-20px);
+        pointer-events: none;
         opacity: 0; 
     `}
 
@@ -107,9 +109,8 @@ const Container = styled.div<{ show?: boolean }>`
         font-family: ${theme.font.family};
         box-shadow: ${theme.depth[1]};
     `}
-
-    margin: 10px auto auto 0;
     box-sizing: border-box;
     background-color: white;
     display: inline-flex;
+    height: 160px;
 `;

@@ -65,7 +65,6 @@ const List = styled.ul`
     list-style-type: none;
     font-weight: bold;
     overflow: auto;
-    height: 160px;
     padding: 0;
     margin: 0;
 `;

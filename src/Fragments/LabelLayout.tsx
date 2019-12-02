@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import styled from 'styled-components';
 import {
     Main,
@@ -25,40 +25,49 @@ export interface LabelLayoutProps
     error?: boolean;
     success?: boolean;
     className?: string;
+    children?: React.ReactNode;
 }
 
-export const LabelLayout: React.FC<LabelLayoutProps> = ({
-    name,
-    label,
-    description,
-    error,
-    success,
-    children,
-    className,
-    ...props
-}): React.ReactElement => {
-    const [, _error] = useTransition(error, { end: 250 });
-    const implicitProps = __useImplicitProps(props, [
-        ...MainProps,
-        ...ResponsiveProps,
-    ]);
-    const layoutProps = {
-        description,
-        success,
-        className,
-    };
+export const LabelLayout: React.ForwardRefExoticComponent<LabelLayoutProps> = forwardRef<
+    HTMLDivElement,
+    LabelLayoutProps
+>(
+    (
+        {
+            name,
+            label,
+            description,
+            error,
+            success,
+            children,
+            className,
+            ...props
+        },
+        ref,
+    ): React.ReactElement => {
+        const [, _error] = useTransition(error, { end: 250 });
+        const implicitProps = __useImplicitProps(props, [
+            ...MainProps,
+            ...ResponsiveProps,
+        ]);
+        const layoutProps = {
+            description,
+            success,
+            className,
+        };
 
-    return (
-        <Layout {...layoutProps} {...implicitProps}>
-            {label && <Label htmlFor={name}>{label}</Label>}
-            {description && <Info id={`${name}-info`}>{description}</Info>}
-            {children}
-            <ErrorLabel id={`${name}-error`} error={error}>
-                {_error}
-            </ErrorLabel>
-        </Layout>
-    );
-};
+        return (
+            <Layout ref={ref} {...layoutProps} {...implicitProps}>
+                {label && <Label htmlFor={name}>{label}</Label>}
+                {description && <Info id={`${name}-info`}>{description}</Info>}
+                {children}
+                <ErrorLabel id={`${name}-error`} error={error}>
+                    {_error}
+                </ErrorLabel>
+            </Layout>
+        );
+    },
+);
 
 const Layout = styled.div<ResponsiveInterface & MainInterface>`
     ${transition(['opacity'])}
