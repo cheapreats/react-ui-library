@@ -88,7 +88,7 @@ const _Select: React.FC<SelectProps> = ({
             onChange({
                 target: {
                     value: currentTarget.getAttribute('value'),
-                    name: currentTarget.name,
+                    name,
                 },
             });
         },
