@@ -19,7 +19,6 @@ export const Card: React.FC<CardProps> = ({
 }): React.ReactElement => <CardBox {...props}>{children}</CardBox>;
 
 const CardBox = styled.div<CardProps & MainInterface & ResponsiveInterface>`
-    overflow: hidden;
     background-color: white;
 
     // Theme Stuff

@@ -20,7 +20,6 @@ import {
 import { useTransition } from '@Utils/Hooks';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
-const ITEM_HEIGHT = 41;
 const SPEED = 'normal';
 
 const createList = (
@@ -130,7 +129,10 @@ const _Select: React.FC<SelectProps> = ({
                     <Icon />
                 </SelectDisplay>
                 {mount && (
-                    <SelectList limit={limit} expanded={animation}>
+                    <SelectList
+                        limit={Math.min(options.length, limit)}
+                        expanded={animation}
+                    >
                         {createList(options, onSelect, value)}
                     </SelectList>
                 )}
@@ -235,10 +237,10 @@ const SelectList = styled.div<{
         box-shadow: ${theme.depth[1]};
     `}
 
-    ${({ expanded, limit }): string =>
+    ${({ expanded, limit, theme }): string =>
         expanded
             ? `
-        height: ${limit * ITEM_HEIGHT}px;
+        height: ${limit * theme.dimensions.select.itemHeight}px;
         opacity: 1;
     `
             : `

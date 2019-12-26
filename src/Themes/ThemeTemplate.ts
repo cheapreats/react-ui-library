@@ -53,6 +53,9 @@ export interface ThemeTemplateInterface {
                 small: string | number;
             };
         };
+        select: {
+            itemHeight: number;
+        };
     };
     media: {
         tablet: number;
@@ -121,6 +124,9 @@ const Theme: ThemeTemplateInterface = {
                 default: '600px',
                 small: '400px',
             },
+        },
+        select: {
+            itemHeight: 41,
         },
     },
     media: {
