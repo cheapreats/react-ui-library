@@ -1,6 +1,6 @@
 {
   "name": "@cheapreats/react-ui",
-  "version": "2.3.12",
+  "version": "2.3.13",
   "description": "React UI library for CheaprEats",
   "main": "dist/index.js",
   "files": [
