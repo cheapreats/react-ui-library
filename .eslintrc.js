@@ -48,6 +48,7 @@ module.exports = {
         'react/prop-types': 'off',
         'import/namespace': ['error', { allowComputed: true }],
         'import/prefer-default-export': 'off',
+        'import/extensions': 'off',
         'no-underscore-dangle': 'off',
         'no-param-reassign': 'off',
         indent: ['error', 4],

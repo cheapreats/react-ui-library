@@ -36,9 +36,9 @@
     "styled-icons": "*"
   },
   "devDependencies": {
-    "@babel/cli": "^7.7.4",
-    "@babel/core": "^7.7.4",
-    "@babel/preset-env": "^7.7.4",
+    "@babel/cli": "^7.7.7",
+    "@babel/core": "^7.7.7",
+    "@babel/preset-env": "^7.7.7",
     "@babel/preset-react": "^7.7.4",
     "@storybook/addon-actions": "^5.2.8",
     "@storybook/addon-info": "^5.2.8",
@@ -49,7 +49,7 @@
     "@storybook/react": "^5.2.8",
     "@types/react-dom": "^16.9.4",
     "@types/storybook__react": "^4.0.2",
-    "@types/styled-components": "^4.4.0",
+    "@types/styled-components": "^4.4.2",
     "@typescript-eslint/eslint-plugin": "^1.13.0",
     "@typescript-eslint/parser": "^1.13.0",
     "awesome-typescript-loader": "^5.2.1",
@@ -57,9 +57,9 @@
     "babel-plugin-module-resolver": "^3.2.0",
     "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.1",
-    "eslint-config-prettier": "^6.7.0",
+    "eslint-config-prettier": "^6.9.0",
     "eslint-import-resolver-alias": "^1.1.2",
-    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-import": "^2.19.1",
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.17.0",
     "husky": "^3.1.0",
@@ -69,7 +69,7 @@
     "react-dom": "^16.12.0",
     "styled-components": "^4.4.1",
     "styled-icons": "^7.15.1",
-    "typescript": "^3.7.2"
+    "typescript": "^3.7.4"
   },
   "aliases": {
     "@Containers": "src/Containers",

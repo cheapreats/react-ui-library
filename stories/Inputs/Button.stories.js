@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { Save } from 'styled-icons/fa-solid/Save';
 import { Button } from '../../src';
 
@@ -22,6 +22,7 @@ storiesOf('Button', module)
         <Button
             loading={boolean('Loading', true)}
             primary={boolean('Primary', true)}
+            color={text('Color', 'primary')}
             icon={Save}
         >
             Action Button

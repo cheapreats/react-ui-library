@@ -12,6 +12,7 @@ import { useTransition } from '@Utils/Hooks';
 
 export interface ButtonProps extends MainInterface, ResponsiveInterface {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+    color?: string;
     primary?: boolean;
     loading?: boolean;
     full?: boolean;
@@ -68,12 +69,12 @@ const StyledButton = styled.button<ButtonProps>`
     `}
 
     // Primary button
-    ${({ primary, theme }): string =>
+    ${({ color = 'primary', primary, theme }): string =>
         primary
             ? `
-        background-color: ${theme.colors.primary};
+        background-color: ${theme.colors[color] || color};
         color: white;
-        ${clickable(theme.colors.primary)}
+        ${clickable(theme.colors[color] || color)}
     `
             : ''}
 
