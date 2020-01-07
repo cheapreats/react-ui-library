@@ -31,7 +31,6 @@ const _Datepicker: React.FC<DatepickerProps> = ({
     value = new Date(),
     onChange = (): void => {},
     placeholder = 'MM-DD-YYYY',
-    className,
     theme,
     ...props
 }): React.ReactElement => {
