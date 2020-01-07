@@ -1,9 +1,15 @@
-import React, { useEffect, useState, useCallback, useMemo } from 'react';
+import React, {
+    useRef,
+    useEffect,
+    useState,
+    useCallback,
+    useMemo,
+} from 'react';
 import { CalendarAlt } from 'styled-icons/fa-solid/CalendarAlt';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
 import { position, flex } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
-import { LabelLayout, LabelLayoutProps, InputFragment } from '@Layouts';
+import { LabelLayout as LL, LabelLayoutProps, InputFragment } from '@Layouts';
 import { Datebox } from './Datebox';
 
 const printDate = (date: Date): string => {
@@ -30,12 +36,29 @@ const _Datepicker: React.FC<DatepickerProps> = ({
     ...props
 }): React.ReactElement => {
     const [selectedDate, setDate] = useState(value);
+    const ref = useRef<HTMLDivElement>(null);
     const dateText = useMemo((): string => printDate(value), [value]);
     const [show, setShow] = useState(false);
     const [text, setText] = useState(dateText);
     const [, mount, animate] = useTransition(show, {
         end: theme.speed.normal,
     });
+
+    useEffect((): void | (() => undefined | void) => {
+        if (!mount) return undefined;
+        const handler = ({ target }: MouseEvent): void => {
+            if (ref.current && !ref.current.contains(target as HTMLElement)) {
+                setShow(false);
+            }
+        };
+
+        window.setTimeout((): void => {
+            window.addEventListener('click', handler);
+        }, 100);
+        return (): void => {
+            window.removeEventListener('click', handler);
+        };
+    }, [mount]);
 
     useEffect((): void => setDate(value), [value]);
 
@@ -97,7 +120,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
     );
 
     return (
-        <LabelLayout {...props} className={className}>
+        <LabelLayout ref={ref} {...props}>
             <Wrapper>
                 <InputFragment
                     {...props}
@@ -123,6 +146,10 @@ const _Datepicker: React.FC<DatepickerProps> = ({
 };
 
 export const Datepicker = withTheme(_Datepicker);
+
+const LabelLayout = styled(LL)<{ ref: React.RefObject<HTMLDivElement> }>`
+    position: relative;
+`;
 
 const Icon = styled(CalendarAlt)`
     ${position('absolute', 'auto 20px auto auto')}

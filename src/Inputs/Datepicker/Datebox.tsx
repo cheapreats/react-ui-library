@@ -2,7 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
 import { AngleRight } from 'styled-icons/fa-solid/AngleRight';
-import { transition, styledCondition, flex, clickable } from '@Utils/Mixins';
+import {
+    transition,
+    styledCondition,
+    flex,
+    clickable,
+    position,
+} from '@Utils/Mixins';
 import { WEEKDAYS, MONTHS } from '@Utils/Constants';
 import { Button } from '../Button';
 
@@ -91,7 +97,8 @@ export const Datebox: React.FC<DateboxProps> = ({
 const DateBox = styled.div<{
     animate: boolean;
 }>`
-    margin: 10px auto auto 0;
+    ${position('absolute', 'auto', '100%', 'auto', 'auto')}
+    margin: 0 auto auto 0;
     padding: 15px 10px 10px;
     box-sizing: border-box;
     background-color: white;
