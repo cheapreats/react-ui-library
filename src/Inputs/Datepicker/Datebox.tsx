@@ -104,6 +104,7 @@ const DateBox = styled.div<{
     background-color: white;
     text-align: center;
     font-size: 0.9rem;
+    z-index: 90;
 
     // Theme Stuff
     ${({ theme }): string => `
