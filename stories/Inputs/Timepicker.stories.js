@@ -22,4 +22,11 @@ storiesOf('Timepicker', module)
             ),
             new Date(),
         ),
-    );
+    )
+    .add('with disabled', () => (
+        <Timepicker
+            label="Timepicker"
+            description="Click to pick a time"
+            disabled
+        />
+    ));

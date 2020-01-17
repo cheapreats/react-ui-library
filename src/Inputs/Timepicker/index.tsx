@@ -11,12 +11,14 @@ export interface TimepickerProps extends LabelLayoutProps {
     period?: boolean;
     theme: DefaultTheme;
     onChange?: Function;
+    disabled?: boolean;
 }
 
 export const Timepicker: React.FC<TimepickerProps> = withTheme(
     ({
         value = new Date(),
         onChange = (): void => {},
+        disabled,
         theme,
         name,
         ...props
@@ -44,8 +46,9 @@ export const Timepicker: React.FC<TimepickerProps> = withTheme(
             }, 100);
             return (): void => {
                 window.removeEventListener('click', handler);
+                if (disabled) setShow(false);
             };
-        }, [mount]);
+        }, [mount, disabled]);
 
         return (
             <LabelLayout name={name} ref={ref} {...props}>
@@ -56,6 +59,7 @@ export const Timepicker: React.FC<TimepickerProps> = withTheme(
                         setShow={setShow}
                         show={animate}
                         onChange={onChange}
+                        disabled={disabled}
                     />
                     {mount && (
                         <Timebox

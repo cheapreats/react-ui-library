@@ -18,6 +18,7 @@ interface TimeDisplayProps {
     show: boolean;
     setShow: React.Dispatch<React.SetStateAction<boolean | undefined>>;
     onChange: Function;
+    disabled?: boolean;
 }
 
 export const TimeDisplay: React.FC<TimeDisplayProps> = ({
@@ -25,6 +26,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
     value,
     show,
     setShow,
+    disabled,
     onChange,
 }): React.ReactElement => {
     const [display, setDisplay] = useState<string>(getDisplay(value));
@@ -74,14 +76,17 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
     return (
         <Wrapper>
             <InputFragment
-                onFocus={(): void => setShow(true)}
+                onFocus={(): void => {
+                    if (!disabled) setShow(true);
+                }}
                 onClick={(el): void => {
                     el.stopPropagation();
-                    setShow(true);
+                    if (!disabled) setShow(true);
                 }}
                 onKeyDown={handleKeys}
                 onChange={handleDisplay}
                 value={display}
+                disabled={disabled}
             />
             <Button onClick={(): void => setShow(false)} show={show}>
                 <Icon as={show ? Check : Clock} />
