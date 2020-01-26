@@ -22,6 +22,9 @@ export interface ThemeTemplateInterface {
             square: string | number;
             withBorder: string | number;
         };
+        multiSelect: {
+            spacing: number;
+        };
         loading: {
             height: number;
         };
@@ -93,6 +96,9 @@ const Theme: ThemeTemplateInterface = {
             default: '12px 20px',
             square: '12px',
             withBorder: '10.5px 18.5px',
+        },
+        multiSelect: {
+            spacing: 5,
         },
         loading: {
             height: 4,

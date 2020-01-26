@@ -1,4 +1,5 @@
 export * from './Datepicker';
+export * from './MutliSelect';
 export * from './Timepicker';
 export * from './Button';
 export * from './Checkbox';
