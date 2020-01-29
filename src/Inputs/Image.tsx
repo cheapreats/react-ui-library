@@ -20,42 +20,6 @@ export interface ImageProps
     onChange?: Function;
 }
 
-const Drop = styled.input`
-    ${position('absolute', 'auto', 0)}
-    opacity: 0;
-    cursor: pointer;
-    height: 100%;
-    width: 100%;
-`;
-
-const Container = styled.div<ImageProps>`
-    display: inline;
-    font-weight: bold;
-    padding: 10px 20px;
-    position: relative;
-    overflow: hidden;
-    background-color: ${({ theme }): string => theme.colors.primary};
-    color: white;
-    font-size: 0.9rem;
-    border-radius: 999px;
-    margin-right: auto;
-    margin-top: 10px;
-    box-shadow: ${({ theme }): string => theme.shadows[0]};
-    ${transition(['background-color'])}
-    &:hover, &:focus {
-        background-color: #b22330;
-    }
-    &:active {
-        background-color: #6c121a;
-    }
-`;
-
-const CropWrapper = styled.div`
-    ${flex('row', 'center')}
-    background-color: ${({ theme }): string => theme.colors.input.default};
-    padding: 20px;
-`;
-
 export const Image: React.FC<ImageProps> = ({
     accept = 'image/*',
     aspect = 1,
@@ -89,7 +53,7 @@ export const Image: React.FC<ImageProps> = ({
         URL.revokeObjectURL(image);
         setCrop({ aspect });
         img.current = { x: '', y: '', width: '', height: '' };
-        setImage(null);
+        setImage(undefined);
     }, []);
 
     const onCrop = useCallback(async (e, i) => {
@@ -158,3 +122,39 @@ export const Image: React.FC<ImageProps> = ({
     );
 };
 export default Image;
+
+const Drop = styled.input`
+    ${position('absolute', 'auto', 0)}
+    opacity: 0;
+    cursor: pointer;
+    height: 100%;
+    width: 100%;
+`;
+
+const Container = styled.div<ImageProps>`
+    display: inline;
+    font-weight: bold;
+    padding: 10px 20px;
+    position: relative;
+    overflow: hidden;
+    background-color: ${({ theme }): string => theme.colors.primary};
+    color: white;
+    font-size: 0.9rem;
+    border-radius: 999px;
+    margin-right: auto;
+    margin-top: 10px;
+    box-shadow: ${({ theme }): string => theme.depth[0]};
+    ${transition(['background-color'])}
+    &:hover, &:focus {
+        background-color: #b22330;
+    }
+    &:active {
+        background-color: #6c121a;
+    }
+`;
+
+const CropWrapper = styled.div`
+    ${flex('row', 'center')}
+    background-color: ${({ theme }): string => theme.colors.input.default};
+    padding: 20px;
+`;
