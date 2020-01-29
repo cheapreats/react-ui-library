@@ -4,7 +4,7 @@ import ReactCrop from 'react-image-crop';
 import styled from 'styled-components';
 
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { __useImplicitProps, ImplicitPropsInterface } from '@Utils/Hooks';
+import { ImplicitPropsInterface } from '@Utils/Hooks';
 import { transition, position, flex } from '../Utils/Mixins';
 import { Heading } from '../Text/Heading';
 import { Button } from './Button';
@@ -17,13 +17,11 @@ export interface ImageProps
     maxWidth?: number | undefined;
     accept?: string;
     aspect?: number;
-    onChange?: Function;
 }
 
 export const Image: React.FC<ImageProps> = ({
     accept = 'image/*',
     aspect = 1,
-    onChange = () => {},
     maxWidth = 1000,
     ...props
 }): React.ReactElement => {
