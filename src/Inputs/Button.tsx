@@ -17,17 +17,19 @@ export interface ButtonProps extends MainInterface, ResponsiveInterface {
     loading?: boolean;
     full?: boolean;
     onClick?: React.MouseEventHandler;
+    disabled?: boolean;
 }
 
 export const Button: React.FC<ButtonProps> = ({
     children,
     icon,
     loading,
+    disabled,
     ...props
 }): React.ReactElement => {
     const [, isLoading, isAnimated] = useTransition(loading);
     return (
-        <StyledButton {...props}>
+        <StyledButton {...props} disabled={disabled}>
             {icon && <Icon loading={isAnimated} as={icon} hasText={children} />}
             {children && <Content loading={isAnimated}>{children}</Content>}
             {isLoading && <Loader loading={isAnimated} />}

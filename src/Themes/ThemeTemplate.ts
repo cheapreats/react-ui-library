@@ -71,6 +71,7 @@ export interface ThemeTemplateInterface {
         page: number;
     };
     depth: string[];
+    shadows: string[];
 }
 
 const Theme: ThemeTemplateInterface = {
@@ -146,6 +147,7 @@ const Theme: ThemeTemplateInterface = {
         page: 600,
     },
     depth: ['none', '0 1px 3px rgba(0,0,0,0.2)', '0 2px 6px rgba(0,0,0,0.3)'],
+    shadows: ['0 1px 3px rgba(0,0,0,0.2)', '0 3px 8px rgba(0,0,0,0.4)'],
 };
 
 export default Theme;
