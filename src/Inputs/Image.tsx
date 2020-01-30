@@ -17,12 +17,14 @@ export interface ImageProps
     maxWidth?: number | undefined;
     accept?: string;
     aspect?: number;
+    onImageReturn?: Function;
 }
 
 export const Image: React.FC<ImageProps> = ({
     accept = 'image/*',
     aspect = 1,
     maxWidth = 1000,
+    onImageReturn = () => {},
     ...props
 }): React.ReactElement => {
     const [crop, setCrop] = useState({ aspect });
@@ -86,26 +88,29 @@ export const Image: React.FC<ImageProps> = ({
                     setLoading(false);
                     modal[1](false);
                     resolve(base);
+                    onImageReturn(base);
                 };
                 draw.src = image;
             }),
         [img.current],
     );
-
+    console.log(image);
     return (
         <div>
             <Container>
                 Upload Image
                 <Drop type="file" accept={accept} onChange={upload} />
             </Container>
-            <Modal padding="0" state={modal} onClose={onClose}>
+            <ModalStyled padding="0" state={modal} onClose={onClose}>
                 <Heading type="h2" bold margin="15px 25px">
                     Crop Image
                 </Heading>
-                <CropWrapper>
-                    <ReactCrop src={image} crop={crop} onChange={onCrop} />
-                </CropWrapper>
-                <div style={{ margin: '15px 25px' }}>
+                <CropDiv>
+                    <CropWrapper>
+                        <ReactCrop src={image} crop={crop} onChange={onCrop} />
+                    </CropWrapper>
+                </CropDiv>
+                <ButtonDiv>
                     <Button
                         loading={loading}
                         disabled={!crop.aspect}
@@ -114,8 +119,8 @@ export const Image: React.FC<ImageProps> = ({
                     >
                         Done
                     </Button>
-                </div>
-            </Modal>
+                </ButtonDiv>
+            </ModalStyled>
         </div>
     );
 };
@@ -155,4 +160,14 @@ const CropWrapper = styled.div`
     ${flex('row', 'center')}
     background-color: ${({ theme }): string => theme.colors.input.default};
     padding: 20px;
+`;
+const ModalStyled = styled(Modal)`
+    overflow: hidden;
+`;
+const CropDiv = styled.div`
+    height: 300px;
+    overflow: auto;
+`;
+const ButtonDiv = styled.div`
+    margin: 15px 25px;
 `;

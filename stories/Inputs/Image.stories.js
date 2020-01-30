@@ -5,4 +5,6 @@ import { Image } from '../../src';
 
 storiesOf('Image', module)
     .addDecorator(withKnobs)
-    .add('with default', () => <Image />);
+    .add('with default', () => (
+        <Image onImageReturn={data => console.log(data)} />
+    ));
