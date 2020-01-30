@@ -87,5 +87,8 @@
     ".storybook",
     ".deploy"
   ],
-  "dependencies": {}
+  "dependencies": {
+    "@types/react-image-crop": "^8.1.2",
+    "react-image-crop": "^8.5.0"
+  }
 }
