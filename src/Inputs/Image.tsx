@@ -17,7 +17,6 @@ export interface ImageProps
     maxWidth?: number | undefined;
     accept?: string;
     aspect?: number;
-    width?: number;
     onImageReturn?: Function;
 }
 
@@ -49,9 +48,12 @@ export const Image: React.FC<ImageProps> = ({
             modifiedImg.src = URL.createObjectURL(file);
             modifiedImg.onload = () => {
                 const elem = document.createElement('canvas');
-
+                const modalToViewPercent = 0.675;
+                const modalHeaderAndSubmitPercent = 0.71;
                 const imageHeight =
-                    document.documentElement.clientHeight * 0.675 * 0.71;
+                    document.documentElement.clientHeight *
+                    modalToViewPercent *
+                    modalHeaderAndSubmitPercent;
                 const imageWidth =
                     imageHeight / (modifiedImg.height / modifiedImg.width);
 
