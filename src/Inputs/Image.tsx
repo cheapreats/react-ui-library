@@ -17,6 +17,7 @@ export interface ImageProps
     maxWidth?: number | undefined;
     accept?: string;
     aspect?: number;
+    width?: number;
     onImageReturn?: Function;
 }
 
@@ -44,7 +45,27 @@ export const Image: React.FC<ImageProps> = ({
         URL.revokeObjectURL(image);
         const [file] = target.files;
         if (file && file.type.match(accept)) {
-            setImage(URL.createObjectURL(file));
+            const modifiedImg = new window.Image();
+            modifiedImg.src = URL.createObjectURL(file);
+            modifiedImg.onload = () => {
+                const elem = document.createElement('canvas');
+
+                const imageHeight =
+                    document.documentElement.clientHeight * 0.675 * 0.71;
+                const imageWidth =
+                    imageHeight / (modifiedImg.height / modifiedImg.width);
+
+                elem.width = imageWidth;
+                elem.height = imageHeight;
+
+                const ctx: any = elem.getContext('2d');
+                // img.width and img.height will contain the original dimensions
+                ctx.drawImage(modifiedImg, 0, 0, imageWidth, imageHeight);
+
+                ctx.canvas.toBlob((blob: BlobPart) => {
+                    setImage(URL.createObjectURL(blob));
+                });
+            };
             modal[1](true);
         }
     }, []);
@@ -94,22 +115,21 @@ export const Image: React.FC<ImageProps> = ({
             }),
         [img.current],
     );
-    console.log(image);
     return (
         <div>
             <Container>
                 Upload Image
                 <Drop type="file" accept={accept} onChange={upload} />
             </Container>
-            <ModalStyled padding="0" state={modal} onClose={onClose}>
+            <Modal padding="0" state={modal} onClose={onClose}>
                 <Heading type="h2" bold margin="15px 25px">
                     Crop Image
                 </Heading>
-                <CropDiv>
-                    <CropWrapper>
-                        <ReactCrop src={image} crop={crop} onChange={onCrop} />
-                    </CropWrapper>
-                </CropDiv>
+
+                <CropWrapper>
+                    <ReactCrop src={image} crop={crop} onChange={onCrop} />
+                </CropWrapper>
+
                 <ButtonDiv>
                     <Button
                         loading={loading}
@@ -120,7 +140,7 @@ export const Image: React.FC<ImageProps> = ({
                         Done
                     </Button>
                 </ButtonDiv>
-            </ModalStyled>
+            </Modal>
         </div>
     );
 };
@@ -159,14 +179,7 @@ const Container = styled.div<ImageProps>`
 const CropWrapper = styled.div`
     ${flex('row', 'center')}
     background-color: ${({ theme }): string => theme.colors.input.default};
-    padding: 20px;
-`;
-const ModalStyled = styled(Modal)`
-    overflow: hidden;
-`;
-const CropDiv = styled.div`
-    height: 300px;
-    overflow: auto;
+    
 `;
 const ButtonDiv = styled.div`
     margin: 15px 25px;
