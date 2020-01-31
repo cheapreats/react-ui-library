@@ -17,12 +17,14 @@ export interface ImageProps
     maxWidth?: number | undefined;
     accept?: string;
     aspect?: number;
+    onImageReturn?: Function;
 }
 
 export const Image: React.FC<ImageProps> = ({
     accept = 'image/*',
     aspect = 1,
     maxWidth = 1000,
+    onImageReturn = () => {},
     ...props
 }): React.ReactElement => {
     const [crop, setCrop] = useState({ aspect });
@@ -42,7 +44,30 @@ export const Image: React.FC<ImageProps> = ({
         URL.revokeObjectURL(image);
         const [file] = target.files;
         if (file && file.type.match(accept)) {
-            setImage(URL.createObjectURL(file));
+            const modifiedImg = new window.Image();
+            modifiedImg.src = URL.createObjectURL(file);
+            modifiedImg.onload = () => {
+                const elem = document.createElement('canvas');
+                const modalToViewPercent = 0.675;
+                const modalHeaderAndSubmitPercent = 0.71;
+                const imageHeight =
+                    document.documentElement.clientHeight *
+                    modalToViewPercent *
+                    modalHeaderAndSubmitPercent;
+                const imageWidth =
+                    imageHeight / (modifiedImg.height / modifiedImg.width);
+
+                elem.width = imageWidth;
+                elem.height = imageHeight;
+
+                const ctx: any = elem.getContext('2d');
+                // img.width and img.height will contain the original dimensions
+                ctx.drawImage(modifiedImg, 0, 0, imageWidth, imageHeight);
+
+                ctx.canvas.toBlob((blob: BlobPart) => {
+                    setImage(URL.createObjectURL(blob));
+                });
+            };
             modal[1](true);
         }
     }, []);
@@ -86,12 +111,12 @@ export const Image: React.FC<ImageProps> = ({
                     setLoading(false);
                     modal[1](false);
                     resolve(base);
+                    onImageReturn(base);
                 };
                 draw.src = image;
             }),
         [img.current],
     );
-
     return (
         <div>
             <Container>
@@ -102,10 +127,12 @@ export const Image: React.FC<ImageProps> = ({
                 <Heading type="h2" bold margin="15px 25px">
                     Crop Image
                 </Heading>
+
                 <CropWrapper>
                     <ReactCrop src={image} crop={crop} onChange={onCrop} />
                 </CropWrapper>
-                <div style={{ margin: '15px 25px' }}>
+
+                <ButtonDiv>
                     <Button
                         loading={loading}
                         disabled={!crop.aspect}
@@ -114,7 +141,7 @@ export const Image: React.FC<ImageProps> = ({
                     >
                         Done
                     </Button>
-                </div>
+                </ButtonDiv>
             </Modal>
         </div>
     );
@@ -154,5 +181,8 @@ const Container = styled.div<ImageProps>`
 const CropWrapper = styled.div`
     ${flex('row', 'center')}
     background-color: ${({ theme }): string => theme.colors.input.default};
-    padding: 20px;
+    
+`;
+const ButtonDiv = styled.div`
+    margin: 15px 25px;
 `;
