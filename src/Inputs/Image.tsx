@@ -18,16 +18,24 @@ export interface ImageProps
     accept?: string;
     aspect?: number;
     onImageReturn?: Function;
+    drawImage?: Function;
 }
 
 export const Image: React.FC<ImageProps> = ({
     accept = 'image/*',
     aspect = 1,
-    maxWidth = 1000,
+    maxWidth = 100,
     onImageReturn = () => {},
+    drawImage = () => {},
     ...props
 }): React.ReactElement => {
-    const [crop, setCrop] = useState({ aspect });
+    const [crop, setCrop] = useState({
+        x: 0,
+        y: 0,
+        width: 0,
+        height: 0,
+        aspect: 1,
+    });
     const [loading, setLoading] = useState(false);
     const [image, setImage] = useState();
     const modal = useState(false);
@@ -74,7 +82,7 @@ export const Image: React.FC<ImageProps> = ({
 
     const onClose = useCallback(() => {
         URL.revokeObjectURL(image);
-        setCrop({ aspect });
+        setCrop({ ...crop, aspect });
         img.current = { x: '', y: '', width: '', height: '' };
         setImage(undefined);
     }, []);
@@ -87,15 +95,16 @@ export const Image: React.FC<ImageProps> = ({
     const onSubmit = useCallback(
         () =>
             new Promise(resolve => {
+                const { x, y, width, height } = crop;
                 setLoading(true);
                 const canvas: any = document.createElement('canvas');
-                canvas.width = maxWidth;
-                canvas.height = (1 / aspect) * maxWidth;
+                canvas.width = width;
+                canvas.height = height;
                 const ctx = canvas.getContext('2d');
 
                 const draw = new window.Image();
+                draw.src = image;
                 draw.onload = () => {
-                    const { x, y, width, height } = img.current;
                     ctx.drawImage(
                         draw,
                         x,
@@ -107,11 +116,14 @@ export const Image: React.FC<ImageProps> = ({
                         canvas.width,
                         canvas.height,
                     );
+                    ctx.canvas.toBlob((blob: BlobPart) => {
+                        drawImage(URL.createObjectURL(blob));
+                        onImageReturn(URL.createObjectURL(blob));
+                    });
                     const base = canvas.toDataURL('image/jpeg');
                     setLoading(false);
                     modal[1](false);
                     resolve(base);
-                    onImageReturn(base);
                 };
                 draw.src = image;
             }),
