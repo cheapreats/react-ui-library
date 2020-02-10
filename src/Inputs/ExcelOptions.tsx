@@ -90,8 +90,8 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                 <DragDropContext onDragEnd={result => onDragEnd(result)}>
                     <div>
                         <Droppable droppableId="labels" direction="horizontal">
-                            {provided => (
-                                <div
+                            {(provided, snapshot) => (
+                                <DragDiv
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
                                 >
@@ -103,8 +103,12 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                                     index={index}
                                                     key={`draggable-${header}`}
                                                 >
-                                                    {dragProvided => (
-                                                        <span
+                                                    {(
+                                                        dragProvided,
+                                                        dragSnapshot,
+                                                    ) => (
+                                                        <div
+                                                            key={`span-${header}`}
                                                             ref={
                                                                 dragProvided.innerRef
                                                             }
@@ -121,24 +125,25 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                                             >
                                                                 {header}
                                                             </ChoiceTag>
-                                                        </span>
+                                                        </div>
                                                     )}
                                                 </Draggable>
                                             );
                                         },
                                     )}
                                     {provided.placeholder}
-                                </div>
+                                </DragDiv>
                             )}
                         </Droppable>
                     </div>
                 </DragDropContext>
                 <Select
                     placeholder="Add additional headers"
+                    disabled={headersInSelect.length === 0}
                     onChange={({ target }: { target: { value: string } }) => {
                         setResultObject(prevState => ({
                             ...prevState,
-                            headers: [...resultObject.headers, target.value],
+                            headers: [...prevState.headers, target.value],
                         }));
                     }}
                 >
@@ -153,8 +158,8 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                 <p>Date Picker</p>
                 {['from', 'to'].map((date, index) => {
                     return (
-                        <div>
-                            <p>
+                        <div key={`div-${date}`}>
+                            <p key={`p-${date}`}>
                                 {date.replace(
                                     /(^\w{1})|(\s{1}\w{1})/g,
                                     matchedLetter =>
@@ -164,8 +169,10 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                             <Datepicker
                                 key={date}
                                 value={
-                                    resultObject.dates[date] &&
-                                    resultObject.dates[date]
+                                    !resultObject.dates[date] && date === 'to'
+                                        ? new Date()
+                                        : resultObject.dates[date] &&
+                                          resultObject.dates[date]
                                 }
                                 onChange={({
                                     target,
@@ -175,7 +182,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                     setResultObject(prevState => ({
                                         ...prevState,
                                         dates: {
-                                            ...resultObject.dates,
+                                            ...prevState.dates,
                                             [date]: target.value,
                                         },
                                     }));
@@ -216,4 +223,8 @@ const ChoiceTag = styled(Tag)`
     margin-right: 5px;
     margin-top: 5px;
     padding: 7px 12px;
+`;
+const DragDiv = styled.div`
+    display: flex;
+    flex-direction: row;
 `;

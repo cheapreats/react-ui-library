@@ -13,8 +13,10 @@ import { WEEKDAYS, MONTHS } from '@Utils/Constants';
 import { Button } from '../Button';
 
 const SIZE = 40;
-const displayDate = (date: Date): string =>
-    `${MONTHS[date.getMonth()]}, ${date.getFullYear()}`;
+const displayDate = (date: Date | undefined) =>
+    `${MONTHS[date ? date.getMonth() : new Date().getMonth()]}, ${
+        date ? date.getFullYear() : new Date().getFullYear()
+    }`;
 
 const sameDate = (date1: Date, date2: Date): boolean =>
     date1.getMonth() === date2.getMonth() &&
@@ -64,10 +66,10 @@ const buildCalendar = (
 
 export interface DateboxProps {
     changePage: (change?: number) => React.MouseEventHandler;
-    selectedDate: Date;
+    selectedDate: Date | undefined;
     selectDate: React.MouseEventHandler;
     animate: boolean;
-    value: Date;
+    value: Date | undefined;
 }
 
 export const Datebox: React.FC<DateboxProps> = ({
@@ -90,7 +92,12 @@ export const Datebox: React.FC<DateboxProps> = ({
                 ),
             )}
         </WeekDays>
-        <Calendar>{buildCalendar(selectedDate, value, selectDate)}</Calendar>
+
+        <Calendar>
+            {value && selectedDate
+                ? buildCalendar(selectedDate, value, selectDate)
+                : buildCalendar(new Date(), new Date(), selectDate)}
+        </Calendar>
     </DateBox>
 );
 

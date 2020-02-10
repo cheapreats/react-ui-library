@@ -6,17 +6,17 @@ import { Main } from '@Utils/BaseStyles';
 
 export interface TagProps {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
-    onClick?: Function;
+    onClick?: () => void;
 }
 
 export const Tag: React.FC<TagProps> = ({
     icon = Times,
     children,
-    onClick = () => {},
+    onClick,
     ...props
 }): React.ReactElement => {
     return (
-        <TagDiv {...props}>
+        <TagDiv onClick={onClick} {...props}>
             {children}
             <Icon as={icon} />
         </TagDiv>
