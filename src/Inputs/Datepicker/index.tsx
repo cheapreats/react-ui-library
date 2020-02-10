@@ -59,7 +59,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         };
     }, [mount]);
 
-    useEffect((): void => setDate(value), [value]);
+    useEffect((): void => setDate(value), []);
 
     const handleText = useCallback((el): void => setText(el.target.value), [
         text,
@@ -75,6 +75,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         onChange(el);
         setText(printDate(val));
         setShow(false);
+        setDate(val);
     }, []);
 
     const changePage = useCallback(
