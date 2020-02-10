@@ -13,6 +13,7 @@ import { WEEKDAYS, MONTHS } from '@Utils/Constants';
 import { Button } from '../Button';
 
 const SIZE = 40;
+
 const displayDate = (date: Date | undefined) =>
     `${MONTHS[date ? date.getMonth() : new Date().getMonth()]}, ${
         date ? date.getFullYear() : new Date().getFullYear()
@@ -70,10 +71,12 @@ export interface DateboxProps {
     selectDate: React.MouseEventHandler;
     animate: boolean;
     value: Date | undefined;
+    clearDate?: Function;
 }
 
 export const Datebox: React.FC<DateboxProps> = ({
     changePage,
+    clearDate = () => {},
     selectedDate,
     selectDate,
     animate,
@@ -98,6 +101,7 @@ export const Datebox: React.FC<DateboxProps> = ({
                 ? buildCalendar(selectedDate, value, selectDate)
                 : buildCalendar(new Date(), new Date(), selectDate)}
         </Calendar>
+        <Button onClick={() => clearDate(undefined)}>Clear</Button>
     </DateBox>
 );
 

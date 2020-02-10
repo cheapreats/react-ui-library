@@ -18,7 +18,7 @@ export interface ExcelOptionsProps
     onClick?: Function;
 }
 
-const keyToHeader = (data: string[]) => {
+const keyToHeader = (data: string[]): string[] => {
     return data.map(header => {
         return header
             .replace(/[^a-zA-Z0-9 ]/g, ' ')
@@ -29,8 +29,16 @@ const keyToHeader = (data: string[]) => {
     });
 };
 
-let properHeaders: string[] = [];
-let properDefaultHeaders: string[] = [];
+const DATA_TYPE = {
+    NONE: 'None',
+    DAILY: 'Daily',
+    WEEKLY: 'Weekly',
+    MONTHLY: 'Monthly',
+    PAYMENT_METHOD: 'Payment Method',
+};
+
+let properHeaders: string[];
+let properDefaultHeaders: string[];
 
 export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
     headers = [],
@@ -40,7 +48,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
     const [resultObject, setResultObject] = useState({
         dates: { from: undefined, to: undefined },
         headers: [''],
-        groupBy: 'None',
+        groupBy: 'NONE',
     });
 
     useEffect(() => {
@@ -187,6 +195,15 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                         },
                                     }));
                                 }}
+                                onClear={(clear: undefined): void => {
+                                    setResultObject(prevState => ({
+                                        ...prevState,
+                                        dates: {
+                                            ...prevState.dates,
+                                            [date]: clear,
+                                        },
+                                    }));
+                                }}
                             />
                         </div>
                     );
@@ -194,7 +211,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
             </div>
             <div>
                 <p>Grouping Options</p>
-                <p>Group results by:</p>
+                <p>Group results into sheets by:</p>
                 <Select
                     value={resultObject.groupBy}
                     onChange={({ target }: { target: { value: string } }) => {
@@ -204,12 +221,13 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                         }));
                     }}
                 >
-                    <option key={1} value="None">
-                        None
-                    </option>
-                    <option key={2} value="Daily">
-                        Daily
-                    </option>
+                    {Object.keys(DATA_TYPE).map((type, index) => {
+                        return (
+                            <option key={type} value={type}>
+                                {DATA_TYPE[type]}
+                            </option>
+                        );
+                    })}
                 </Select>
             </div>
             <button type="submit" onClick={handleExport}>

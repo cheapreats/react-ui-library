@@ -26,6 +26,7 @@ export interface DatepickerProps extends LabelLayoutProps {
     disabled?: boolean;
     placeholder?: string;
     onChange?: Function;
+    onClear?: Function;
     theme: DefaultTheme;
     value?: Date | undefined;
 }
@@ -33,6 +34,7 @@ export interface DatepickerProps extends LabelLayoutProps {
 const _Datepicker: React.FC<DatepickerProps> = ({
     value,
     onChange = (): void => {},
+    onClear = (): void => {},
     placeholder = 'MM-DD-YYYY',
     theme,
     ...props
@@ -80,7 +82,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         };
         onChange(el);
         setText(printDate(val));
-        setShow(false);
+
         setDate(val);
     }, []);
 
@@ -96,6 +98,11 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         },
         [],
     );
+    const clearDate = () => {
+        setText(placeholder);
+        setShow(false);
+        onClear(undefined);
+    };
 
     const handleKeys = useCallback(
         (el): void => {
@@ -145,6 +152,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
                     selectDate={selectDate}
                     animate={animate}
                     value={value}
+                    clearDate={clearDate}
                 />
             )}
         </LabelLayout>
