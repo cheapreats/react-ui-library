@@ -37,8 +37,8 @@ const DATA_TYPE = {
     PAYMENT_METHOD: 'Payment Method',
 };
 
-let properHeaders: string[];
-let properDefaultHeaders: string[];
+let properHeaders: string[] = [];
+let properDefaultHeaders: string[] = [];
 
 export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
     headers = [],
