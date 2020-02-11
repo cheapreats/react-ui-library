@@ -37,9 +37,6 @@ const DATA_TYPE = {
     PAYMENT_METHOD: 'Payment Method',
 };
 
-let properHeaders: string[] = [];
-let properDefaultHeaders: string[] = [];
-
 export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
     headers = [],
     defaultHeaders = [],
@@ -52,15 +49,13 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
     });
 
     useEffect(() => {
-        properHeaders = keyToHeader(headers);
-        properDefaultHeaders = keyToHeader(defaultHeaders);
         setResultObject(prevState => ({
             ...prevState,
-            headers: properDefaultHeaders,
+            headers: defaultHeaders,
         }));
     }, []);
 
-    const headersInSelect = properHeaders.filter(
+    const headersInSelect = headers.filter(
         header => !resultObject.headers.includes(header),
     );
     const handleExport = () => {
@@ -103,7 +98,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
                                 >
-                                    {resultObject.headers.map(
+                                    {keyToHeader(resultObject.headers).map(
                                         (header, index) => {
                                             return (
                                                 <Draggable
@@ -155,7 +150,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                         }));
                     }}
                 >
-                    {headersInSelect.map((header, index) => (
+                    {keyToHeader(headersInSelect).map((header, index) => (
                         <option key={header} value={header}>
                             {header}
                         </option>
