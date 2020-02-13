@@ -4,19 +4,17 @@ import { Times } from 'styled-icons/fa-solid/Times';
 import { flex, darken, transition, clickable } from '@Utils/Mixins';
 import { Main } from '@Utils/BaseStyles';
 
-export interface TagProps {
+export interface TagProps extends React.HTMLAttributes<HTMLDivElement> {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
-    onClick?: () => void;
 }
 
 export const Tag: React.FC<TagProps> = ({
     icon = Times,
     children,
-    onClick,
     ...props
 }): React.ReactElement => {
     return (
-        <TagDiv onClick={onClick} {...props}>
+        <TagDiv {...props}>
             {children}
             <Icon as={icon} />
         </TagDiv>

@@ -18,6 +18,8 @@ export interface ExcelOptionsProps
     onClick?: Function;
 }
 
+const FROM_TO = ['from', 'to'];
+
 const keyToHeader = (data: string[]): string[] => {
     return data.map(header => {
         return header
@@ -159,7 +161,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
             </div>
             <div>
                 <p>Date Picker</p>
-                {['from', 'to'].map((date, index) => {
+                {FROM_TO.map((date, index) => {
                     return (
                         <div key={`div-${date}`}>
                             <p key={`p-${date}`}>

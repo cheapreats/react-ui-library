@@ -14,10 +14,8 @@ import { Button } from '../Button';
 
 const SIZE = 40;
 
-const displayDate = (date: Date | undefined) =>
-    `${MONTHS[date ? date.getMonth() : new Date().getMonth()]}, ${
-        date ? date.getFullYear() : new Date().getFullYear()
-    }`;
+const displayDate = (date: Date = new Date()) =>
+    `${MONTHS[date.getMonth()]}, ${date.getFullYear()}`;
 
 const sameDate = (date1: Date, date2: Date): boolean =>
     date1.getMonth() === date2.getMonth() &&
@@ -67,7 +65,7 @@ const buildCalendar = (
 
 export interface DateboxProps {
     changePage: (change?: number) => React.MouseEventHandler;
-    selectedDate: Date | undefined;
+    selectedDate?: Date;
     selectDate: React.MouseEventHandler;
     animate: boolean;
     value: Date | undefined;
