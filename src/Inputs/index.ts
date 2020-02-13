@@ -10,3 +10,4 @@ export * from './Slider';
 export * from './Switch';
 export * from './Textarea';
 export * from './Image';
+export * from './ExcelOptions';

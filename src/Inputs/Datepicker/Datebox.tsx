@@ -13,7 +13,8 @@ import { WEEKDAYS, MONTHS } from '@Utils/Constants';
 import { Button } from '../Button';
 
 const SIZE = 40;
-const displayDate = (date: Date): string =>
+
+const displayDate = (date: Date = new Date()) =>
     `${MONTHS[date.getMonth()]}, ${date.getFullYear()}`;
 
 const sameDate = (date1: Date, date2: Date): boolean =>
@@ -64,14 +65,16 @@ const buildCalendar = (
 
 export interface DateboxProps {
     changePage: (change?: number) => React.MouseEventHandler;
-    selectedDate: Date;
+    selectedDate?: Date;
     selectDate: React.MouseEventHandler;
     animate: boolean;
-    value: Date;
+    value: Date | undefined;
+    clearDate?: Function;
 }
 
 export const Datebox: React.FC<DateboxProps> = ({
     changePage,
+    clearDate = () => {},
     selectedDate,
     selectDate,
     animate,
@@ -90,7 +93,13 @@ export const Datebox: React.FC<DateboxProps> = ({
                 ),
             )}
         </WeekDays>
-        <Calendar>{buildCalendar(selectedDate, value, selectDate)}</Calendar>
+
+        <Calendar>
+            {value && selectedDate
+                ? buildCalendar(selectedDate, value, selectDate)
+                : buildCalendar(new Date(), new Date(), selectDate)}
+        </Calendar>
+        <Button onClick={() => clearDate(undefined)}>Clear</Button>
     </DateBox>
 );
 

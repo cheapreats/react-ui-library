@@ -12,31 +12,39 @@ import { useTransition } from '@Utils/Hooks';
 import { LabelLayout as LL, LabelLayoutProps, InputFragment } from '@Layouts';
 import { Datebox } from './Datebox';
 
-const printDate = (date: Date): string => {
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    const year = date.getFullYear();
-    return `${month}-${day}-${year}`;
+const printDate = (date: Date | undefined) => {
+    if (date) {
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+        const year = date.getFullYear();
+        return `${month}-${day}-${year}`;
+    }
+    return undefined;
 };
 
 export interface DatepickerProps extends LabelLayoutProps {
     disabled?: boolean;
     placeholder?: string;
     onChange?: Function;
+    onClear?: Function;
     theme: DefaultTheme;
-    value?: Date;
+    value?: Date | undefined;
 }
 
 const _Datepicker: React.FC<DatepickerProps> = ({
-    value = new Date(),
+    value,
     onChange = (): void => {},
+    onClear = (): void => {},
     placeholder = 'MM-DD-YYYY',
     theme,
     ...props
 }): React.ReactElement => {
     const [selectedDate, setDate] = useState(value);
     const ref = useRef<HTMLDivElement>(null);
-    const dateText = useMemo((): string => printDate(value), [value]);
+    const dateText = useMemo(
+        () => (printDate(value) ? printDate(value) : placeholder),
+        [value],
+    );
     const [show, setShow] = useState(false);
     const [text, setText] = useState(dateText);
     const [, mount, animate] = useTransition(show, {
@@ -59,7 +67,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         };
     }, [mount]);
 
-    useEffect((): void => setDate(value), [value]);
+    useEffect((): void => setDate(value), []);
 
     const handleText = useCallback((el): void => setText(el.target.value), [
         text,
@@ -74,14 +82,15 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         };
         onChange(el);
         setText(printDate(val));
-        setShow(false);
+
+        setDate(val);
     }, []);
 
     const changePage = useCallback(
         (change = 1): React.MouseEventHandler => (): void => {
             setDate(
                 (d): Date => {
-                    const curr = new Date(d);
+                    const curr: boolean | Date = new Date(d || new Date());
                     curr.setMonth(curr.getMonth() + change);
                     return curr;
                 },
@@ -89,6 +98,11 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         },
         [],
     );
+    const clearDate = () => {
+        setText(placeholder);
+        setShow(false);
+        onClear(undefined);
+    };
 
     const handleKeys = useCallback(
         (el): void => {
@@ -104,7 +118,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
                         value: d,
                     };
 
-                    if (d.toDateString() === value.toDateString()) {
+                    if (d.toDateString() === value?.toDateString()) {
                         setShow((v): boolean => !v);
                     } else if (!Number.isNaN(d.getTime())) {
                         setText(printDate(d));
@@ -138,6 +152,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
                     selectDate={selectDate}
                     animate={animate}
                     value={value}
+                    clearDate={clearDate}
                 />
             )}
         </LabelLayout>
