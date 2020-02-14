@@ -20,15 +20,13 @@ export interface ExcelOptionsProps
 
 const FROM_TO = ['from', 'to'];
 
-const keyToHeader = (data: string[]): string[] => {
-    return data.map(header => {
-        return header
-            .replace(/[^a-zA-Z0-9 ]/g, ' ')
-            .replace(/(^\w{1})|(\s{1}\w{1})/g, matchedLetter =>
-                matchedLetter.toUpperCase(),
-            )
-            .trim();
-    });
+const keyToHeader = (data: string): string => {
+    return data
+        .replace(/[^a-zA-Z0-9 ]/g, ' ')
+        .replace(/(^\w{1})|(\s{1}\w{1})/g, matchedLetter =>
+            matchedLetter.toUpperCase(),
+        )
+        .trim();
 };
 
 const DATA_TYPE = {
@@ -86,6 +84,14 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
             headers: headerCopy,
         }));
     };
+    console.log(
+        'IN SELECT',
+        headersInSelect,
+        'OBJECT',
+        resultObject.headers,
+        'HEDERS',
+        headers,
+    );
     return (
         <div>
             <div>
@@ -100,7 +106,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
                                 >
-                                    {keyToHeader(resultObject.headers).map(
+                                    {resultObject.headers.map(
                                         (header, index) => {
                                             return (
                                                 <Draggable
@@ -128,7 +134,9 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                                                     )
                                                                 }
                                                             >
-                                                                {header}
+                                                                {keyToHeader(
+                                                                    header,
+                                                                )}
                                                             </ChoiceTag>
                                                         </div>
                                                     )}
@@ -152,9 +160,9 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                         }));
                     }}
                 >
-                    {keyToHeader(headersInSelect).map((header, index) => (
+                    {headersInSelect.map((header, index) => (
                         <option key={header} value={header}>
-                            {header}
+                            {keyToHeader(header)}
                         </option>
                     ))}
                 </Select>
