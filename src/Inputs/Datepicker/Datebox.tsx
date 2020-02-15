@@ -180,7 +180,7 @@ const CalendarDay = styled.span<{
     margin: 2px;
     border-radius: 50%;
 
-    ${({ faded }): string => (faded ? 'opacity: 0.3' : '')}
+    ${({ faded }): string => (faded ? 'opacity: 0.3;' : '')}
     ${({ selected, theme }): string =>
         styledCondition(
             selected,
