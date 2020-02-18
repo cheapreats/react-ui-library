@@ -3,10 +3,11 @@ import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
 import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Heading } from '../Text';
+import { Heading, Paragraph } from '../Text';
 import { Tag } from '../Containers';
 import Select from './Select';
 import Datepicker from './Datepicker';
+import Button from './Button';
 
 export interface ExcelOptionsProps
     extends MainInterface,
@@ -99,7 +100,12 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                     <Heading>Customize</Heading>
                 </div>
                 <DragDropContext onDragEnd={result => onDragEnd(result)}>
-                    <div>
+                    <ShownHeadersDiv>
+                        <Heading type="h3">Headers</Heading>
+                        <Paragraph>
+                            You can <b>Add/Remove</b> desired headers and
+                            <b> Rearrange The Order</b> by dragging them
+                        </Paragraph>
                         <Droppable droppableId="labels" direction="horizontal">
                             {(provided, snapshot) => (
                                 <DragDiv
@@ -148,7 +154,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                 </DragDiv>
                             )}
                         </Droppable>
-                    </div>
+                    </ShownHeadersDiv>
                 </DragDropContext>
                 <Select
                     placeholder="Add additional headers"
@@ -168,16 +174,19 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                 </Select>
             </div>
             <div>
-                <p>Date Picker</p>
+                <Heading type="h3">Date Picker</Heading>
+                <Paragraph>Filter the results by Date</Paragraph>
                 {FROM_TO.map((date, index) => {
                     return (
                         <div key={`div-${date}`}>
                             <p key={`p-${date}`}>
-                                {date.replace(
-                                    /(^\w{1})|(\s{1}\w{1})/g,
-                                    matchedLetter =>
-                                        matchedLetter.toUpperCase(),
-                                )}
+                                <b>
+                                    {date.replace(
+                                        /(^\w{1})|(\s{1}\w{1})/g,
+                                        matchedLetter =>
+                                            matchedLetter.toUpperCase(),
+                                    )}
+                                </b>
                             </p>
                             <Datepicker
                                 key={date}
@@ -215,9 +224,9 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                 })}
             </div>
             <div>
-                <p>Grouping Options</p>
-                <p>Group results into sheets by:</p>
-                <Select
+                <Heading type="h3">Group Results</Heading>
+                <Paragraph>Group results into sheets by:</Paragraph>
+                <GroupBySelect
                     value={resultObject.groupBy}
                     onChange={({ target }: { target: { value: string } }) => {
                         setResultObject(prevState => ({
@@ -233,11 +242,9 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                             </option>
                         );
                     })}
-                </Select>
+                </GroupBySelect>
             </div>
-            <button type="submit" onClick={handleExport}>
-                Export
-            </button>
+            <Button onClick={handleExport}>Export</Button>
         </div>
     );
 };
@@ -250,4 +257,13 @@ const ChoiceTag = styled(Tag)`
 const DragDiv = styled.div`
     display: flex;
     flex-direction: row;
+    margin-top: 10px;
+`;
+const ShownHeadersDiv = styled.div`
+    margin-bottom: 20px;
+    margin-top: 10px;
+`;
+const GroupBySelect = styled(Select)`
+    margin-top: 10px;
+    margin-bottom: 10px;
 `;
