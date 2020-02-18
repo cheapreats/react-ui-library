@@ -16,7 +16,6 @@ export interface ExcelOptionsProps
     headers: string[];
     defaultHeaders: string[];
     onResult?: Function;
-    onClick?: Function;
 }
 
 const FROM_TO = ['from', 'to'];
@@ -85,19 +84,11 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
             headers: headerCopy,
         }));
     };
-    console.log(
-        'IN SELECT',
-        headersInSelect,
-        'OBJECT',
-        resultObject.headers,
-        'HEDERS',
-        headers,
-    );
     return (
         <div>
             <div>
                 <div>
-                    <Heading>Customize</Heading>
+                    <Heading>Customize Excel Export</Heading>
                 </div>
                 <DragDropContext onDragEnd={result => onDragEnd(result)}>
                     <ShownHeadersDiv>
