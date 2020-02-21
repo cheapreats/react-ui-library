@@ -118,9 +118,9 @@ export const Image: React.FC<ImageProps> = ({
                     );
                     ctx.canvas.toBlob((blob: BlobPart) => {
                         drawImage(URL.createObjectURL(blob));
-                        onImageReturn(URL.createObjectURL(blob));
                     });
                     const base = canvas.toDataURL('image/jpeg');
+                    onImageReturn(base);
                     setLoading(false);
                     modal[1](false);
                     resolve(base);

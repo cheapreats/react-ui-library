@@ -13,6 +13,7 @@ storiesOf('Image', module)
         return (
             <div>
                 <Image onImageReturn={data => addImage(data)} />
+                {console.log(src)}
                 <img style={{ marginTop: '30px' }} src={src}></img>
             </div>
         );
