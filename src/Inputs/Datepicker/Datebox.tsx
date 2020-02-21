@@ -95,9 +95,11 @@ export const Datebox: React.FC<DateboxProps> = ({
         </WeekDays>
 
         <Calendar>
-            {value && selectedDate
-                ? buildCalendar(selectedDate, value, selectDate)
-                : buildCalendar(new Date(), new Date(), selectDate)}
+            {buildCalendar(
+                selectedDate || new Date(),
+                value || new Date(),
+                selectDate,
+            )}
         </Calendar>
         <Button onClick={() => clearDate(undefined)}>Clear</Button>
     </DateBox>

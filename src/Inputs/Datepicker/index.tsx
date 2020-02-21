@@ -90,7 +90,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         (change = 1): React.MouseEventHandler => (): void => {
             setDate(
                 (d): Date => {
-                    const curr: boolean | Date = new Date(d || new Date());
+                    const curr: Date = new Date(d || new Date());
                     curr.setMonth(curr.getMonth() + change);
                     return curr;
                 },

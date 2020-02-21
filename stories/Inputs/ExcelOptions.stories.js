@@ -13,10 +13,18 @@ storiesOf('ExcelOptions', module)
                         '_id',
                         'created_at',
                         'total',
-                        'description',
                         'reason',
+                        'description',
+                        'status',
                     ]}
-                    defaultHeaders={['_id', 'created_at', 'total']}
+                    defaultHeaders={[
+                        '_id',
+                        'created_at',
+                        'total',
+                        'reason',
+                        'description',
+                        'status',
+                    ]}
                     onResult={data => console.log(data)}
                 />
             </div>

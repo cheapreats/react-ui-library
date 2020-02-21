@@ -3,10 +3,12 @@ import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
 import styled from 'styled-components';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
-import { Heading } from '../Text';
+import { Heading, Paragraph } from '../Text';
 import { Tag } from '../Containers';
 import Select from './Select';
 import Datepicker from './Datepicker';
+import Button from './Button';
+import { Mixins } from '../Utils';
 
 export interface ExcelOptionsProps
     extends MainInterface,
@@ -15,20 +17,17 @@ export interface ExcelOptionsProps
     headers: string[];
     defaultHeaders: string[];
     onResult?: Function;
-    onClick?: Function;
 }
 
 const FROM_TO = ['from', 'to'];
 
-const keyToHeader = (data: string[]): string[] => {
-    return data.map(header => {
-        return header
-            .replace(/[^a-zA-Z0-9 ]/g, ' ')
-            .replace(/(^\w{1})|(\s{1}\w{1})/g, matchedLetter =>
-                matchedLetter.toUpperCase(),
-            )
-            .trim();
-    });
+const keyToHeader = (data: string): string => {
+    return data
+        .replace(/[^a-zA-Z0-9 ]/g, ' ')
+        .replace(/(^\w{1})|(\s{1}\w{1})/g, (matchedLetter): string =>
+            matchedLetter.toUpperCase(),
+        )
+        .trim();
 };
 
 const DATA_TYPE = {
@@ -90,17 +89,22 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
         <div>
             <div>
                 <div>
-                    <Heading>Customize</Heading>
+                    <Heading>Customize Your Excel Export</Heading>
                 </div>
                 <DragDropContext onDragEnd={result => onDragEnd(result)}>
-                    <div>
+                    <ShownHeadersDiv>
+                        <Heading type="h3">Headers</Heading>
+                        <Paragraph>
+                            You can <b>Add/Remove</b> desired headers and
+                            <b> Rearrange The Order</b> by dragging them
+                        </Paragraph>
                         <Droppable droppableId="labels" direction="horizontal">
-                            {(provided, snapshot) => (
+                            {provided => (
                                 <DragDiv
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
                                 >
-                                    {keyToHeader(resultObject.headers).map(
+                                    {resultObject.headers.map(
                                         (header, index) => {
                                             return (
                                                 <Draggable
@@ -108,10 +112,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                                     index={index}
                                                     key={`draggable-${header}`}
                                                 >
-                                                    {(
-                                                        dragProvided,
-                                                        dragSnapshot,
-                                                    ) => (
+                                                    {dragProvided => (
                                                         <div
                                                             key={`span-${header}`}
                                                             ref={
@@ -128,7 +129,9 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                                                     )
                                                                 }
                                                             >
-                                                                {header}
+                                                                {keyToHeader(
+                                                                    header,
+                                                                )}
                                                             </ChoiceTag>
                                                         </div>
                                                     )}
@@ -140,7 +143,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                 </DragDiv>
                             )}
                         </Droppable>
-                    </div>
+                    </ShownHeadersDiv>
                 </DragDropContext>
                 <Select
                     placeholder="Add additional headers"
@@ -152,24 +155,27 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                         }));
                     }}
                 >
-                    {keyToHeader(headersInSelect).map((header, index) => (
+                    {headersInSelect.map(header => (
                         <option key={header} value={header}>
-                            {header}
+                            {keyToHeader(header)}
                         </option>
                     ))}
                 </Select>
             </div>
             <div>
-                <p>Date Picker</p>
-                {FROM_TO.map((date, index) => {
+                <Heading type="h3">Date Picker</Heading>
+                <Paragraph>Filter the results by Date</Paragraph>
+                {FROM_TO.map(date => {
                     return (
                         <div key={`div-${date}`}>
-                            <p key={`p-${date}`}>
-                                {date.replace(
-                                    /(^\w{1})|(\s{1}\w{1})/g,
-                                    matchedLetter =>
-                                        matchedLetter.toUpperCase(),
-                                )}
+                            <p>
+                                <b>
+                                    {date.replace(
+                                        /(^\w{1})|(\s{1}\w{1})/g,
+                                        matchedLetter =>
+                                            matchedLetter.toUpperCase(),
+                                    )}
+                                </b>
                             </p>
                             <Datepicker
                                 key={date}
@@ -207,9 +213,10 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                 })}
             </div>
             <div>
-                <p>Grouping Options</p>
-                <p>Group results into sheets by:</p>
+                <Heading type="h3">Group Results</Heading>
+                <Paragraph>Group results into sheets by:</Paragraph>
                 <Select
+                    margin="10px 0"
                     value={resultObject.groupBy}
                     onChange={({ target }: { target: { value: string } }) => {
                         setResultObject(prevState => ({
@@ -218,7 +225,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                         }));
                     }}
                 >
-                    {Object.keys(DATA_TYPE).map((type, index) => {
+                    {Object.keys(DATA_TYPE).map(type => {
                         return (
                             <option key={type} value={type}>
                                 {DATA_TYPE[type]}
@@ -227,9 +234,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                     })}
                 </Select>
             </div>
-            <button type="submit" onClick={handleExport}>
-                Export
-            </button>
+            <Button onClick={handleExport}>Export</Button>
         </div>
     );
 };
@@ -240,6 +245,10 @@ const ChoiceTag = styled(Tag)`
     padding: 7px 12px;
 `;
 const DragDiv = styled.div`
-    display: flex;
-    flex-direction: row;
+    ${Mixins.flex('row')};
+    margin-top: 10px;
+`;
+const ShownHeadersDiv = styled.div`
+    margin-bottom: 20px;
+    margin-top: 10px;
 `;
