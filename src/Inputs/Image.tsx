@@ -48,9 +48,10 @@ export const Image: React.FC<ImageProps> = ({
         [],
     );
 
-    const upload = useCallback(async ({ target }) => {
+    const upload = ({ target }: any) => {
         URL.revokeObjectURL(image);
         const [file] = target.files;
+
         if (file && file.type.match(accept)) {
             const modifiedImg = new window.Image();
             modifiedImg.src = URL.createObjectURL(file);
@@ -78,7 +79,7 @@ export const Image: React.FC<ImageProps> = ({
             };
             modal[1](true);
         }
-    }, []);
+    };
 
     const onClose = useCallback(() => {
         URL.revokeObjectURL(image);
@@ -133,7 +134,14 @@ export const Image: React.FC<ImageProps> = ({
         <div>
             <Container>
                 Upload Image
-                <Drop type="file" accept={accept} onChange={upload} />
+                <Drop
+                    type="file"
+                    accept={accept}
+                    onChange={event => {
+                        console.log(event);
+                        upload(event);
+                    }}
+                />
             </Container>
             <Modal padding="0" state={modal} onClose={onClose}>
                 <Heading type="h2" bold margin="15px 25px">
@@ -148,7 +156,11 @@ export const Image: React.FC<ImageProps> = ({
                     <Button
                         loading={loading}
                         disabled={!crop.aspect}
-                        onClick={onSubmit}
+                        onClick={() => {
+                            if (crop.width > 0 || crop.height > 0) {
+                                onSubmit();
+                            }
+                        }}
                         primary
                     >
                         Done
