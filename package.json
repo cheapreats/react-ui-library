@@ -88,8 +88,10 @@
         ".deploy"
     ],
     "dependencies": {
+        "@types/emoji-mart": "^2.11.3",
         "@types/react-beautiful-dnd": "^12.1.1",
         "@types/react-image-crop": "^8.1.2",
+        "emoji-mart": "^2.11.2",
         "react-beautiful-dnd": "^12.2.0",
         "react-image-crop": "^8.5.0"
     }
