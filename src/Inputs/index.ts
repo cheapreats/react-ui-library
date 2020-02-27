@@ -11,3 +11,4 @@ export * from './Switch';
 export * from './Textarea';
 export * from './Image';
 export * from './ExcelOptions';
+export * from './EmojiPicker';
