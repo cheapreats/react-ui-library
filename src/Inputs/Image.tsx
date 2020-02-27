@@ -40,6 +40,7 @@ export const Image: React.FC<ImageProps> = ({
     const [image, setImage] = useState();
     const modal = useState(false);
     const img = useRef({ x: '', y: '', width: '', height: '' });
+    const dropRef: any = useRef();
 
     useEffect(
         () => () => {
@@ -78,6 +79,7 @@ export const Image: React.FC<ImageProps> = ({
                 });
             };
             modal[1](true);
+            dropRef.current.value = null;
         }
     };
 
@@ -137,10 +139,8 @@ export const Image: React.FC<ImageProps> = ({
                 <Drop
                     type="file"
                     accept={accept}
-                    onChange={event => {
-                        console.log(event);
-                        upload(event);
-                    }}
+                    ref={dropRef}
+                    onChange={event => upload(event)}
                 />
             </Container>
             <Modal padding="0" state={modal} onClose={onClose}>
