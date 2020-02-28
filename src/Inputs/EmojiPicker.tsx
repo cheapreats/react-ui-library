@@ -4,50 +4,41 @@ import { Picker, BaseEmoji } from 'emoji-mart';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
+import { scroll } from '@Utils/Mixins';
 import { Modal } from '../Containers';
-import Button from './Button';
+import { Button } from './Button';
 
 export interface EmojiPickerProps
     extends MainInterface,
         ResponsiveInterface,
         ImplicitPropsInterface {
-    onChange: Function;
-    showEmoji: boolean;
-    text: string;
+    onChange?: Function;
+    showEmoji?: boolean;
+    text?: string;
 }
 
 export const EmojiPicker: React.FC<EmojiPickerProps> = ({
     onChange = (): void => {},
-    showEmoji = true,
     text = 'Pick an Emoji',
-}) => {
-    const [emoji, setEmoji] = useState('');
+}): React.ReactElement => {
     const modal = useState(false);
     return (
-        <div>
-            <ButtonStyled
-                onClick={() => modal[1](true)}
-                hasEmoji={showEmoji && !!emoji}
-            >
-                {!!emoji && showEmoji ? emoji : text}
-            </ButtonStyled>
-            <ModalStyled state={modal}>
+        <>
+            <Button onClick={(): void => modal[1](true)}>{text}</Button>
+            <ModalStyled width="auto" state={modal}>
                 <Picker
-                    onSelect={({ native }: BaseEmoji) => {
-                        setEmoji(native);
+                    onSelect={({ native }: BaseEmoji): void => {
                         onChange(native);
                         modal[1](false);
                     }}
                 />
             </ModalStyled>
-        </div>
+        </>
     );
 };
+
 const ModalStyled = styled(Modal)`
-    width: 338px;
-`;
-const ButtonStyled = styled(Button)<{
-    hasEmoji?: boolean;
-}>`
-    ${({ hasEmoji }) => `font-size: ${hasEmoji ? '2.5rem' : 'inherit'}`};
+    & .emoji-mart-scroll {
+        ${scroll}
+    }
 `;

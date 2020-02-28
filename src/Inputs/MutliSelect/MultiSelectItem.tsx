@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { transition, flex, clickable } from '@Utils/Mixins';
+import { MultiSelectContext } from './MultiSelectContext';
 import { Button, ButtonProps } from '../Button';
 
 export interface MultiSelectItemProps extends ButtonProps {
@@ -11,7 +12,12 @@ export const MultiSelectItem: React.FC<MultiSelectItemProps> = ({
     children,
     ...props
 }): React.ReactElement => {
-    return <Container {...props}>{children}</Container>;
+    const columns = useContext(MultiSelectContext);
+    return (
+        <Container columns={columns} {...props}>
+            {children}
+        </Container>
+    );
 };
 
 const Container = styled(Button)<{

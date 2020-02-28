@@ -14,7 +14,6 @@ export interface ImageProps
     extends MainInterface,
         ResponsiveInterface,
         ImplicitPropsInterface {
-    maxWidth?: number | undefined;
     accept?: string;
     aspect?: number;
     onImageReturn?: Function;
@@ -24,10 +23,8 @@ export interface ImageProps
 export const Image: React.FC<ImageProps> = ({
     accept = 'image/*',
     aspect = 1,
-    maxWidth = 100,
-    onImageReturn = () => {},
-    drawImage = () => {},
-    ...props
+    onImageReturn = (): void => {},
+    drawImage = (): void => {},
 }): React.ReactElement => {
     const [crop, setCrop] = useState({
         x: 0,
@@ -37,26 +34,27 @@ export const Image: React.FC<ImageProps> = ({
         aspect: 1,
     });
     const [loading, setLoading] = useState(false);
-    const [image, setImage] = useState();
+    const [image, setImage] = useState('');
     const modal = useState(false);
     const img = useRef({ x: '', y: '', width: '', height: '' });
-    const dropRef: any = useRef();
+    const dropRef = useRef<HTMLInputElement>(null);
 
     useEffect(
-        () => () => {
+        (): (() => void) => (): void => {
             URL.revokeObjectURL(image);
         },
         [],
     );
 
-    const upload = ({ target }: any) => {
-        URL.revokeObjectURL(image);
-        const [file] = target.files;
+    const upload = ({ target }: React.ChangeEvent<HTMLInputElement>): void => {
+        if (image) URL.revokeObjectURL(image);
+        if (!target.files) return;
+        const file = target.files[0];
 
         if (file && file.type.match(accept)) {
             const modifiedImg = new window.Image();
             modifiedImg.src = URL.createObjectURL(file);
-            modifiedImg.onload = () => {
+            modifiedImg.onload = (): void => {
                 const elem = document.createElement('canvas');
                 const modalToViewPercent = 0.675;
                 const modalHeaderAndSubmitPercent = 0.71;
@@ -70,44 +68,54 @@ export const Image: React.FC<ImageProps> = ({
                 elem.width = imageWidth;
                 elem.height = imageHeight;
 
-                const ctx: any = elem.getContext('2d');
-                // img.width and img.height will contain the original dimensions
-                ctx.drawImage(modifiedImg, 0, 0, imageWidth, imageHeight);
+                const ctx = elem.getContext('2d');
+                if (ctx) {
+                    // img.width and img.height will contain the original dimensions
+                    ctx.drawImage(modifiedImg, 0, 0, imageWidth, imageHeight);
 
-                ctx.canvas.toBlob((blob: BlobPart) => {
-                    setImage(URL.createObjectURL(blob));
-                });
+                    ctx.canvas.toBlob((blob: Blob | null): void => {
+                        setImage(URL.createObjectURL(blob));
+                    });
+                }
             };
             modal[1](true);
-            dropRef.current.value = null;
+            if (dropRef.current) {
+                dropRef.current.value = '';
+            }
         }
     };
 
-    const onClose = useCallback(() => {
+    const onClose = useCallback((): void => {
         URL.revokeObjectURL(image);
         setCrop({ ...crop, aspect });
         img.current = { x: '', y: '', width: '', height: '' };
-        setImage(undefined);
+        setImage('');
     }, []);
 
-    const onCrop = useCallback(async (e, i) => {
+    const onCrop = useCallback(async (e, i): Promise<void> => {
         setCrop(e);
         img.current = i;
     }, []);
 
     const onSubmit = useCallback(
-        () =>
-            new Promise(resolve => {
+        (): Promise<string> =>
+            new Promise((resolve): void => {
                 const { x, y, width, height } = crop;
                 setLoading(true);
-                const canvas: any = document.createElement('canvas');
+                const canvas = document.createElement('canvas');
+                if (!canvas) return;
+
                 canvas.width = width;
                 canvas.height = height;
                 const ctx = canvas.getContext('2d');
+                if (!ctx) {
+                    setLoading(false);
+                    return;
+                }
 
                 const draw = new window.Image();
                 draw.src = image;
-                draw.onload = () => {
+                draw.onload = (): void => {
                     ctx.drawImage(
                         draw,
                         x,
@@ -119,7 +127,7 @@ export const Image: React.FC<ImageProps> = ({
                         canvas.width,
                         canvas.height,
                     );
-                    ctx.canvas.toBlob((blob: BlobPart) => {
+                    ctx.canvas.toBlob((blob: Blob | null): void => {
                         drawImage(URL.createObjectURL(blob));
                     });
                     const base = canvas.toDataURL('image/jpeg');
@@ -140,7 +148,7 @@ export const Image: React.FC<ImageProps> = ({
                     type="file"
                     accept={accept}
                     ref={dropRef}
-                    onChange={event => upload(event)}
+                    onChange={upload}
                 />
             </Container>
             <Modal padding="0" state={modal} onClose={onClose}>
@@ -155,12 +163,8 @@ export const Image: React.FC<ImageProps> = ({
                 <ButtonDiv>
                     <Button
                         loading={loading}
-                        disabled={!crop.aspect}
-                        onClick={() => {
-                            if (crop.width > 0 || crop.height > 0) {
-                                onSubmit();
-                            }
-                        }}
+                        disabled={!crop.aspect || !(crop.width + crop.height)}
+                        onClick={onSubmit}
                         primary
                     >
                         Done

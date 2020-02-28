@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '../../Fragments/LabelLayout';
+import { MultiSelectContext } from './MultiSelectContext';
 
 export interface MultiSelectProps extends LabelLayoutProps {
     columns?: string | number;
@@ -13,18 +14,11 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     ...props
 }): React.ReactElement => {
     return (
-        <LabelLayout {...props}>
-            <Container columns={columns}>
-                {React.Children.map(
-                    children,
-                    (child): false | React.ReactElement =>
-                        React.isValidElement(child) &&
-                        React.cloneElement(child, {
-                            columns,
-                        }),
-                )}
-            </Container>
-        </LabelLayout>
+        <MultiSelectContext.Provider value={columns}>
+            <LabelLayout {...props}>
+                <Container columns={columns}>{children}</Container>
+            </LabelLayout>
+        </MultiSelectContext.Provider>
     );
 };
 
