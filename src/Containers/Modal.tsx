@@ -68,6 +68,10 @@ const Box = styled.div<
     max-height: 90%;
     z-index: 1;
 
+    ${Container}:not(:last-child) & {
+        opacity: 0.4;
+    }
+
     ${({ theme, ...props }): string => `
         border-radius: ${theme.dimensions.radius};
         box-shadow: ${theme.depth[1]};

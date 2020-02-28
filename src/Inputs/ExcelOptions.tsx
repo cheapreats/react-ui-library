@@ -2,12 +2,17 @@ import React, { useState, useEffect } from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
 import styled from 'styled-components';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import {
+    DragDropContext,
+    Droppable,
+    Draggable,
+    DropResult,
+} from 'react-beautiful-dnd';
 import { Heading, Paragraph } from '../Text';
 import { Tag } from '../Containers';
-import Select from './Select';
-import Datepicker from './Datepicker';
-import Button from './Button';
+import { Select } from './Select';
+import { Datepicker } from './Datepicker';
+import { Button } from './Button';
 import { Mixins } from '../Utils';
 
 export interface ExcelOptionsProps
@@ -38,52 +43,69 @@ const DATA_TYPE = {
     PAYMENT_METHOD: 'Payment Method',
 };
 
+interface ResultObjectType {
+    dates: {
+        from?: Date;
+        to?: Date;
+    };
+    headers: string[];
+    groupBy: string;
+}
+
 export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
     headers = [],
     defaultHeaders = [],
-    onResult = () => {},
-}) => {
-    const [resultObject, setResultObject] = useState({
+    onResult = (): void => {},
+}): React.ReactElement => {
+    const [resultObject, setResultObject] = useState<ResultObjectType>({
         dates: { from: undefined, to: undefined },
         headers: [''],
         groupBy: 'NONE',
     });
 
-    useEffect(() => {
-        setResultObject(prevState => ({
-            ...prevState,
-            headers: defaultHeaders,
-        }));
+    useEffect((): void | (() => undefined | void) => {
+        setResultObject(
+            (prevState): ResultObjectType => ({
+                ...prevState,
+                headers: defaultHeaders,
+            }),
+        );
     }, []);
 
     const headersInSelect = headers.filter(
-        header => !resultObject.headers.includes(header),
+        (header): boolean => !resultObject.headers.includes(header),
     );
-    const handleExport = () => {
+    const handleExport = (): void => {
         onResult(resultObject);
     };
-    const removeHeader = (index: number) => {
+    const removeHeader = (index: number): void => {
         const headersCopy = [...resultObject.headers];
         const updatedHeaders = headersCopy
             .slice(0, index)
             .concat(headersCopy.slice(index + 1));
-        setResultObject(prevState => ({
-            ...prevState,
-            headers: updatedHeaders,
-        }));
-    };
-    const onDragEnd = (event: any) => {
-        const headerCopy = [...resultObject.headers];
-        headerCopy.splice(event.source.index, 1);
-        headerCopy.splice(
-            event.destination.index,
-            0,
-            resultObject.headers[event.source.index],
+        setResultObject(
+            (prevState): ResultObjectType => ({
+                ...prevState,
+                headers: updatedHeaders,
+            }),
         );
-        setResultObject(prevState => ({
-            ...prevState,
-            headers: headerCopy,
-        }));
+    };
+    const onDragEnd = (event: DropResult): void => {
+        if (event.destination) {
+            const headerCopy = [...resultObject.headers];
+            headerCopy.splice(event.source.index, 1);
+            headerCopy.splice(
+                event.destination.index,
+                0,
+                resultObject.headers[event.source.index],
+            );
+            setResultObject(
+                (prevState: ResultObjectType): ResultObjectType => ({
+                    ...prevState,
+                    headers: headerCopy,
+                }),
+            );
+        }
     };
     return (
         <div>
@@ -91,7 +113,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                 <div>
                     <Heading>Customize Your Excel Export</Heading>
                 </div>
-                <DragDropContext onDragEnd={result => onDragEnd(result)}>
+                <DragDropContext onDragEnd={onDragEnd}>
                     <ShownHeadersDiv>
                         <Heading type="h3">Headers</Heading>
                         <Paragraph>
@@ -99,45 +121,47 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                             <b> Rearrange The Order</b> by dragging them
                         </Paragraph>
                         <Droppable droppableId="labels" direction="horizontal">
-                            {provided => (
+                            {(provided): React.ReactElement => (
                                 <DragDiv
                                     ref={provided.innerRef}
                                     {...provided.droppableProps}
                                 >
                                     {resultObject.headers.map(
-                                        (header, index) => {
-                                            return (
-                                                <Draggable
-                                                    draggableId={`draggable-${header}`}
-                                                    index={index}
-                                                    key={`draggable-${header}`}
-                                                >
-                                                    {dragProvided => (
-                                                        <div
-                                                            key={`span-${header}`}
-                                                            ref={
-                                                                dragProvided.innerRef
+                                        (
+                                            header: string,
+                                            index: number,
+                                        ): React.ReactElement => (
+                                            <Draggable
+                                                draggableId={`draggable-${header}`}
+                                                index={index}
+                                                key={header}
+                                            >
+                                                {(
+                                                    dragProvided,
+                                                ): React.ReactElement => (
+                                                    <div
+                                                        ref={
+                                                            dragProvided.innerRef
+                                                        }
+                                                        {...dragProvided.draggableProps}
+                                                        {...dragProvided.dragHandleProps}
+                                                    >
+                                                        <ChoiceTag
+                                                            key={header}
+                                                            onClick={(): void =>
+                                                                removeHeader(
+                                                                    index,
+                                                                )
                                                             }
-                                                            {...dragProvided.draggableProps}
-                                                            {...dragProvided.dragHandleProps}
                                                         >
-                                                            <ChoiceTag
-                                                                key={header}
-                                                                onClick={() =>
-                                                                    removeHeader(
-                                                                        index,
-                                                                    )
-                                                                }
-                                                            >
-                                                                {keyToHeader(
-                                                                    header,
-                                                                )}
-                                                            </ChoiceTag>
-                                                        </div>
-                                                    )}
-                                                </Draggable>
-                                            );
-                                        },
+                                                            {keyToHeader(
+                                                                header,
+                                                            )}
+                                                        </ChoiceTag>
+                                                    </div>
+                                                )}
+                                            </Draggable>
+                                        ),
                                     )}
                                     {provided.placeholder}
                                 </DragDiv>
@@ -148,31 +172,39 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                 <Select
                     placeholder="Add additional headers"
                     disabled={headersInSelect.length === 0}
-                    onChange={({ target }: { target: { value: string } }) => {
-                        setResultObject(prevState => ({
-                            ...prevState,
-                            headers: [...prevState.headers, target.value],
-                        }));
+                    onChange={({
+                        target,
+                    }: {
+                        target: { value: string };
+                    }): void => {
+                        setResultObject(
+                            (prevState): ResultObjectType => ({
+                                ...prevState,
+                                headers: [...prevState.headers, target.value],
+                            }),
+                        );
                     }}
                 >
-                    {headersInSelect.map(header => (
-                        <option key={header} value={header}>
-                            {keyToHeader(header)}
-                        </option>
-                    ))}
+                    {headersInSelect.map(
+                        (header): React.ReactElement => (
+                            <option key={header} value={header}>
+                                {keyToHeader(header)}
+                            </option>
+                        ),
+                    )}
                 </Select>
             </div>
             <div>
                 <Heading type="h3">Date Picker</Heading>
                 <Paragraph>Filter the results by Date</Paragraph>
-                {FROM_TO.map(date => {
-                    return (
-                        <div key={`div-${date}`}>
+                {FROM_TO.map(
+                    (date): React.ReactElement => (
+                        <div key={date}>
                             <p>
                                 <b>
                                     {date.replace(
                                         /(^\w{1})|(\s{1}\w{1})/g,
-                                        matchedLetter =>
+                                        (matchedLetter): string =>
                                             matchedLetter.toUpperCase(),
                                     )}
                                 </b>
@@ -187,30 +219,34 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                 }
                                 onChange={({
                                     target,
-                                }: {
-                                    target: { value: string };
-                                }) => {
-                                    setResultObject(prevState => ({
-                                        ...prevState,
-                                        dates: {
-                                            ...prevState.dates,
-                                            [date]: target.value,
-                                        },
-                                    }));
+                                }: React.ChangeEvent<
+                                    HTMLInputElement
+                                >): void => {
+                                    setResultObject(
+                                        (prevState): ResultObjectType => ({
+                                            ...prevState,
+                                            dates: {
+                                                ...prevState.dates,
+                                                [date]: target.value,
+                                            },
+                                        }),
+                                    );
                                 }}
-                                onClear={(clear: undefined): void => {
-                                    setResultObject(prevState => ({
-                                        ...prevState,
-                                        dates: {
-                                            ...prevState.dates,
-                                            [date]: clear,
-                                        },
-                                    }));
+                                onClear={(): void => {
+                                    setResultObject(
+                                        (prevState): ResultObjectType => ({
+                                            ...prevState,
+                                            dates: {
+                                                ...prevState.dates,
+                                                [date]: undefined,
+                                            },
+                                        }),
+                                    );
                                 }}
                             />
                         </div>
-                    );
-                })}
+                    ),
+                )}
             </div>
             <div>
                 <Heading type="h3">Group Results</Heading>
@@ -218,20 +254,24 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                 <Select
                     margin="10px 0"
                     value={resultObject.groupBy}
-                    onChange={({ target }: { target: { value: string } }) => {
-                        setResultObject(prevState => ({
-                            ...prevState,
-                            groupBy: target.value,
-                        }));
+                    onChange={({
+                        target,
+                    }: React.ChangeEvent<HTMLInputElement>): void => {
+                        setResultObject(
+                            (prevState): ResultObjectType => ({
+                                ...prevState,
+                                groupBy: target.value,
+                            }),
+                        );
                     }}
                 >
-                    {Object.keys(DATA_TYPE).map(type => {
-                        return (
+                    {Object.keys(DATA_TYPE).map(
+                        (type): React.ReactElement => (
                             <option key={type} value={type}>
                                 {DATA_TYPE[type]}
                             </option>
-                        );
-                    })}
+                        ),
+                    )}
                 </Select>
             </div>
             <Button onClick={handleExport}>Export</Button>

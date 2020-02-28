@@ -14,7 +14,7 @@ import { Button } from '../Button';
 
 const SIZE = 40;
 
-const displayDate = (date: Date = new Date()) =>
+const displayDate = (date: Date = new Date()): string =>
     `${MONTHS[date.getMonth()]}, ${date.getFullYear()}`;
 
 const sameDate = (date1: Date, date2: Date): boolean =>
@@ -74,7 +74,7 @@ export interface DateboxProps {
 
 export const Datebox: React.FC<DateboxProps> = ({
     changePage,
-    clearDate = () => {},
+    clearDate = (): void => {},
     selectedDate,
     selectDate,
     animate,
@@ -101,7 +101,7 @@ export const Datebox: React.FC<DateboxProps> = ({
                 selectDate,
             )}
         </Calendar>
-        <Button onClick={() => clearDate(undefined)}>Clear</Button>
+        <Button onClick={(): void => clearDate()}>Clear</Button>
     </DateBox>
 );
 
