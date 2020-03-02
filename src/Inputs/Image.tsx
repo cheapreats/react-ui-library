@@ -26,13 +26,14 @@ export const Image: React.FC<ImageProps> = ({
     aspect = 1,
     onImageReturn = (): void => {},
     drawImage = (): void => {},
+    ...props
 }): React.ReactElement => {
     const [crop, setCrop] = useState({
         x: 0,
         y: 0,
         width: 0,
         height: 0,
-        aspect: 1,
+        aspect,
     });
     const [image, setImage] = useState('');
     const modal = useState(false);
@@ -108,7 +109,7 @@ export const Image: React.FC<ImageProps> = ({
 
                 const draw = new window.Image();
                 draw.src = image;
-                draw.onload = (): void => {
+                draw.onload = async (): Promise<void> => {
                     ctx.drawImage(
                         draw,
                         x,
@@ -124,7 +125,7 @@ export const Image: React.FC<ImageProps> = ({
                         drawImage(URL.createObjectURL(blob));
                     });
                     const base = canvas.toDataURL('image/jpeg');
-                    onImageReturn(base);
+                    await onImageReturn(base);
                     modal[1](false);
                     resolve(base);
                 };
@@ -134,7 +135,7 @@ export const Image: React.FC<ImageProps> = ({
     );
     return (
         <>
-            <Button icon={FileUpload}>
+            <Button icon={FileUpload} {...props}>
                 Upload Image
                 <Drop type="file" accept={accept} onChange={upload} />
             </Button>
@@ -146,7 +147,7 @@ export const Image: React.FC<ImageProps> = ({
                     <ReactCrop src={image} crop={crop} onChange={onCrop} />
                 </CropWrapper>
                 <Button
-                    disabled={!crop.aspect || !(crop.width + crop.height)}
+                    disabled={!(crop.width + crop.height)}
                     onClick={onSubmit}
                     primary
                 >
