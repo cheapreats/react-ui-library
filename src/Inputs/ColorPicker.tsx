@@ -24,7 +24,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
         onChange(e);
     };
     return (
-        <div>
+        <>
             <Button
                 loading={!value}
                 {...props}
@@ -42,7 +42,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                     onChange={handleChange}
                 />
             </Button>
-        </div>
+        </>
     );
 };
 
