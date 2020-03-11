@@ -12,14 +12,14 @@ import { useTransition } from '@Utils/Hooks';
 import { LabelLayout as LL, LabelLayoutProps, InputFragment } from '@Layouts';
 import { Datebox } from './Datebox';
 
-const printDate = (date: Date | undefined) => {
+const printDate = (date?: Date): string => {
     if (date) {
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
         const year = date.getFullYear();
         return `${month}-${day}-${year}`;
     }
-    return undefined;
+    return '';
 };
 
 export interface DatepickerProps extends LabelLayoutProps {
@@ -28,7 +28,7 @@ export interface DatepickerProps extends LabelLayoutProps {
     onChange?: Function;
     onClear?: Function;
     theme: DefaultTheme;
-    value?: Date | undefined;
+    value?: Date;
 }
 
 const _Datepicker: React.FC<DatepickerProps> = ({
@@ -42,7 +42,7 @@ const _Datepicker: React.FC<DatepickerProps> = ({
     const [selectedDate, setDate] = useState(value);
     const ref = useRef<HTMLDivElement>(null);
     const dateText = useMemo(
-        () => (printDate(value) ? printDate(value) : placeholder),
+        (): string => (printDate(value) ? printDate(value) : placeholder),
         [value],
     );
     const [show, setShow] = useState(false);
@@ -98,10 +98,10 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         },
         [],
     );
-    const clearDate = () => {
+    const clearDate = (): void => {
         setText(placeholder);
         setShow(false);
-        onClear(undefined);
+        onClear();
     };
 
     const handleKeys = useCallback(
