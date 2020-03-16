@@ -35,7 +35,7 @@ export interface NavigationProps extends MainInterface, ResponsiveInterface {
     tag?: React.ReactElement | string;
     theme: DefaultTheme;
     label?: string;
-    footer?: string | number | React.FC;
+    footer?: React.ReactElement;
 }
 const _Navigation: React.FC<NavigationProps> = ({
     params = {},
