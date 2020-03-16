@@ -6,3 +6,4 @@ export * from './Loading';
 export * from './Modal';
 export * from './Navigation';
 export * from './Tag';
+export * from './NavigationFootnote';
