@@ -10,8 +10,8 @@ export interface NavigationFootnoteProps
     extends MainInterface,
         ResponsiveInterface,
         ImplicitPropsInterface {
-    url?: string;
-    text?: string;
+    url: string;
+    text: string;
 }
 
 export const NavigationFootnote: React.FC<NavigationFootnoteProps> = ({
