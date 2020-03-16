@@ -1,6 +1,6 @@
 {
     "name": "@cheapreats/react-ui",
-    "version": "2.3.26",
+    "version": "2.3.27",
     "description": "React UI library for CheaprEats",
     "main": "dist/index.js",
     "files": [
@@ -45,6 +45,7 @@
         "@storybook/addon-knobs": "^5.3.14",
         "@storybook/addon-links": "^5.3.14",
         "@storybook/addon-notes": "^5.3.14",
+        "@storybook/addon-viewport": "^5.3.17",
         "@storybook/addons": "^5.3.14",
         "@storybook/react": "^5.3.14",
         "awesome-typescript-loader": "^5.2.1",
