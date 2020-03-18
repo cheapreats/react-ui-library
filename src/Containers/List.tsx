@@ -22,6 +22,7 @@ export interface ListProps extends MainInterface, ResponsiveInterface {
     header: Function;
     footer: Function;
     label: string;
+    alternateContent?: React.ReactElement;
 }
 
 export const List: React.FC<ListProps> = ({
@@ -33,6 +34,7 @@ export const List: React.FC<ListProps> = ({
     header,
     footer,
     label,
+    alternateContent,
     ...props
 }): React.ReactElement => (
     <Container {...props}>
@@ -42,6 +44,7 @@ export const List: React.FC<ListProps> = ({
             </Heading>
             {header}
         </Header>
+        {alternateContent}
         <Items>
             {loading ? (
                 <Loading>Loading...</Loading>
