@@ -13,3 +13,4 @@ export * from './Image';
 export * from './ExcelOptions';
 export * from './EmojiPicker';
 export * from './ColorPicker';
+export * from './MaskedInput';
