@@ -1,15 +1,20 @@
 import React, { useState, useEffect } from 'react';
 import { LabelLayout, LabelLayoutProps, InputFragment } from '@Layouts';
 
+export enum MaskedInputPreset {
+    DOLLAR = 'DOLLAR',
+    PERCENTAGE = 'PERCENTAGE',
+}
+
 export interface MaskedInputProps extends LabelLayoutProps {
     disabled?: boolean;
     placeholder?: string;
     realValue: string;
     onRealValueChange: (value: string) => void;
-    mask: (value: string) => string;
+    mask: MaskedInputPreset | ((value: string) => string);
 }
 
-export const DOLLAR_FORMAT_MASK = (s: string): string => {
+const DOLLAR_FORMAT_MASK = (s: string): string => {
     const number = +s;
     if (Number.isNaN(number)) {
         return 'Invalid value.';
@@ -20,7 +25,7 @@ export const DOLLAR_FORMAT_MASK = (s: string): string => {
     return `$${number.toFixed(2)}`;
 };
 
-export const PERCENT_FORMAT_MASK = (s: string): string => {
+const PERCENT_FORMAT_MASK = (s: string): string => {
     const number = +s;
     if (Number.isNaN(number)) {
         return 'Invalid value.';
@@ -31,20 +36,40 @@ export const PERCENT_FORMAT_MASK = (s: string): string => {
     return `${number.toFixed(0)}%`;
 };
 
+const getMaskFunction_ = (
+    mask: MaskedInputPreset | ((value: string) => string),
+): ((value: string) => string) => {
+    if (mask in MaskedInputPreset) {
+        switch (mask) {
+            case MaskedInputPreset.DOLLAR:
+                return DOLLAR_FORMAT_MASK;
+            case MaskedInputPreset.PERCENTAGE:
+                return PERCENT_FORMAT_MASK;
+            default:
+                return (): string => 'Invalid mask.';
+        }
+    }
+    return mask as (value: string) => string;
+};
+
 export const MaskedInput: React.FC<MaskedInputProps> = ({
     mask,
     realValue,
     onRealValueChange,
     ...props
 }): React.ReactElement => {
-    const [displayValue, setDisplayValue] = useState(mask(realValue));
+    console.log(getMaskFunction_(mask));
+
+    const [displayValue, setDisplayValue] = useState(
+        getMaskFunction_(mask)(realValue),
+    );
     const [isFocused, setIsFocused] = useState(false);
 
     useEffect((): void => {
         if (isFocused) {
             setDisplayValue(realValue);
         } else {
-            setDisplayValue(mask(realValue));
+            setDisplayValue(getMaskFunction_(mask)(realValue));
         }
     }, [realValue]);
 
@@ -58,7 +83,7 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
                 }}
                 onBlur={(): void => {
                     setIsFocused(false);
-                    setDisplayValue(mask(realValue));
+                    setDisplayValue(getMaskFunction_(mask)(realValue));
                 }}
                 onChange={(e): void => {
                     if (isFocused) {

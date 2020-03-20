@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text } from '@storybook/addon-knobs';
-import MaskedInput, {
-    DOLLAR_FORMAT_MASK,
-    PERCENT_FORMAT_MASK,
-} from '../../src/Inputs/MaskedInput';
+import { MaskedInputPreset, MaskedInput } from '../../src/Inputs';
 
 storiesOf('MaskedInput', module)
     .addDecorator(withKnobs)
@@ -18,7 +15,7 @@ storiesOf('MaskedInput', module)
                 description={text('Enter a value', 'Enter a value')}
                 realValue={value}
                 onRealValueChange={setValue}
-                mask={DOLLAR_FORMAT_MASK}
+                mask={MaskedInputPreset.DOLLAR}
             />
         );
     })
@@ -35,7 +32,21 @@ storiesOf('MaskedInput', module)
                 placeholder={text('10.00', '10.00')}
                 realValue={value}
                 onRealValueChange={setValue}
-                mask={PERCENT_FORMAT_MASK}
+                mask={MaskedInputPreset.PERCENTAGE}
+            />
+        );
+    })
+    .add('with sensitive info hider', () => {
+        const [value, setValue] = useState('some sensitive info');
+        return (
+            <MaskedInput
+                name="demo"
+                label={text('Enter a value', 'Enter a value')}
+                description={text('Enter a value below', 'Enter a value below')}
+                placeholder={text('10.00', '10.00')}
+                realValue={value}
+                onRealValueChange={setValue}
+                mask={() => '*****'}
             />
         );
     });
