@@ -1,9 +1,12 @@
 import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text } from '@storybook/addon-knobs';
-import MaskedInput from '../../src/Inputs/MaskedInput';
+import MaskedInput, {
+    DOLLAR_FORMAT_MASK,
+    PERCENT_FORMAT_MASK,
+} from '../../src/Inputs/MaskedInput';
 
-storiesOf('FormattedInput', module)
+storiesOf('MaskedInput', module)
     .addDecorator(withKnobs)
     .add('with dollar formatter', () => {
         const [value, setValue] = useState('90');
@@ -15,7 +18,7 @@ storiesOf('FormattedInput', module)
                 description={text('Enter a value', 'Enter a value')}
                 realValue={value}
                 onRealValueChange={setValue}
-                mask={s => '$' + s}
+                mask={DOLLAR_FORMAT_MASK}
             />
         );
     })
@@ -32,7 +35,7 @@ storiesOf('FormattedInput', module)
                 placeholder={text('10.00', '10.00')}
                 realValue={value}
                 onRealValueChange={setValue}
-                mask={s => s + '%'}
+                mask={PERCENT_FORMAT_MASK}
             />
         );
     });

@@ -9,6 +9,28 @@ export interface MaskedInputProps extends LabelLayoutProps {
     mask: (value: string) => string;
 }
 
+export const DOLLAR_FORMAT_MASK = (s: string): string => {
+    const number = +s;
+    if (Number.isNaN(number)) {
+        return 'Invalid value.';
+    }
+    if (number < 0) {
+        return `-$${-number.toFixed(2)}`;
+    }
+    return `$${number.toFixed(2)}`;
+};
+
+export const PERCENT_FORMAT_MASK = (s: string): string => {
+    const number = +s;
+    if (Number.isNaN(number)) {
+        return 'Invalid value.';
+    }
+    if (number < 0) {
+        return `-${-number.toFixed(0)}%`;
+    }
+    return `${number.toFixed(0)}%`;
+};
+
 export const MaskedInput: React.FC<MaskedInputProps> = ({
     mask,
     realValue,
