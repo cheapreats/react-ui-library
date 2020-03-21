@@ -6,14 +6,15 @@ import { ResponsiveInterface, MainInterface } from '@Utils/BaseStyles';
 interface InputFragmentProps extends ResponsiveInterface, MainInterface {
     disabled?: boolean;
     placeholder?: string;
-    onChange?: React.ChangeEventHandler<HTMLElement>;
+    onChange?: React.ChangeEventHandler<HTMLInputElement>;
     value?: string | number;
     error?: boolean;
     success?: boolean;
     children?: React.ReactNode;
-    onFocus?: React.FocusEventHandler<HTMLElement>;
-    onKeyDown?: React.KeyboardEventHandler<HTMLElement>;
-    onClick?: React.MouseEventHandler<HTMLElement>;
+    onFocus?: React.FocusEventHandler<HTMLInputElement>;
+    onBlur?: React.FocusEventHandler<HTMLInputElement>;
+    onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
+    onClick?: React.MouseEventHandler<HTMLInputElement>;
     className?: string;
 }
 
