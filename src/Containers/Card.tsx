@@ -22,14 +22,14 @@ const CardBox = styled.div<CardProps & MainInterface & ResponsiveInterface>`
     background-color: white;
 
     // Theme Stuff
-    ${({ theme, ...props }): string => `
-        border-radius: ${theme.dimensions.radius};
-        font-family: ${theme.font.family};
-        color: ${theme.colors.text};
-        ${Main({
-            padding: theme.dimensions.padding.container,
-            ...props,
-        })}
+${({ theme, ...props }): string => `
+    border-radius: ${theme.dimensions.radius};
+    font-family: ${theme.font.family};
+    color: ${theme.colors.text};
+    ${Main({
+        padding: theme.dimensions.padding.container,
+        ...props,
+    })}
     `}
 
     // Flat
