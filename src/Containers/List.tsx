@@ -44,25 +44,27 @@ export const List: React.FC<ListProps> = ({
             </Heading>
             {header}
         </Header>
-        {stickyTopContent}
-        <Items>
-            {loading ? (
-                <Loading>Loading...</Loading>
-            ) : (
-                items.map(
-                    (...args): React.ReactElement => (
-                        <Item
-                            key={args[1]}
-                            data-index={args[1]}
-                            active={active === args[1]}
-                            {...itemProps}
-                        >
-                            {render(...args)}
-                        </Item>
-                    ),
-                )
-            )}
-        </Items>
+        <ScrollDiv>
+            {stickyTopContent}
+            <Items>
+                {loading ? (
+                    <Loading>Loading...</Loading>
+                ) : (
+                    items.map(
+                        (...args): React.ReactElement => (
+                            <Item
+                                key={args[1]}
+                                data-index={args[1]}
+                                active={active === args[1]}
+                                {...itemProps}
+                            >
+                                {render(...args)}
+                            </Item>
+                        ),
+                    )
+                )}
+            </Items>
+        </ScrollDiv>
         {footer && <Footer>{footer}</Footer>}
     </Container>
 );
@@ -130,4 +132,7 @@ const Loading = styled(Item)`
 
 const Footer = styled(Header)`
     margin-top: auto;
+`;
+const ScrollDiv = styled.div`
+    overflow: auto;
 `;
