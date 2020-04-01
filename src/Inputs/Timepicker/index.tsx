@@ -13,7 +13,7 @@ export interface TimepickerProps extends LabelLayoutProps {
     onChange?: Function;
     disabled?: boolean;
 }
-
+// @ts-ignore not sure why this is being highlighted as an issue
 export const Timepicker: React.FC<TimepickerProps> = withTheme(
     ({
         value = new Date(),

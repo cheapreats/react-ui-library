@@ -18,6 +18,7 @@ export interface ButtonProps extends MainInterface, ResponsiveInterface {
     full?: boolean;
     onClick?: React.MouseEventHandler;
     disabled?: boolean;
+    href?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -25,11 +26,16 @@ export const Button: React.FC<ButtonProps> = ({
     icon,
     loading,
     disabled,
+    href,
     ...props
 }): React.ReactElement => {
     const [, isLoading, isAnimated] = useTransition(loading);
     return (
-        <StyledButton {...props} disabled={disabled}>
+        <StyledButton
+            {...props}
+            onClick={() => `window.location.href = ${href}`}
+            disabled={disabled}
+        >
             {icon && <Icon loading={isAnimated} as={icon} hasText={children} />}
             {children && <Content loading={isAnimated}>{children}</Content>}
             {isLoading && <Loader loading={isAnimated} />}
