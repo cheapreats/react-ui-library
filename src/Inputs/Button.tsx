@@ -31,11 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
 }): React.ReactElement => {
     const [, isLoading, isAnimated] = useTransition(loading);
     return (
-        <StyledButton
-            {...props}
-            onClick={() => `window.location.href = ${href}`}
-            disabled={disabled}
-        >
+        <StyledButton {...props} disabled={disabled}>
             {icon && <Icon loading={isAnimated} as={icon} hasText={children} />}
             {children && <Content loading={isAnimated}>{children}</Content>}
             {isLoading && <Loader loading={isAnimated} />}

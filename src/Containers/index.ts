@@ -10,3 +10,4 @@ export * from './NavigationFootnote';
 export * from './ImageCarousel';
 export * from './Settings';
 export * from './SettingsCard';
+export * from './Copyright';
