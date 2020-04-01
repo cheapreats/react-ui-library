@@ -58,8 +58,6 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     onRealValueChange,
     ...props
 }): React.ReactElement => {
-    console.log(getMaskFunction_(mask));
-
     const [displayValue, setDisplayValue] = useState(
         getMaskFunction_(mask)(realValue),
     );
