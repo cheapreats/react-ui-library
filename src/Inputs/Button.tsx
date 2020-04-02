@@ -18,7 +18,6 @@ export interface ButtonProps extends MainInterface, ResponsiveInterface {
     full?: boolean;
     onClick?: React.MouseEventHandler;
     disabled?: boolean;
-    href?: string;
 }
 
 export const Button: React.FC<ButtonProps> = ({
@@ -26,7 +25,6 @@ export const Button: React.FC<ButtonProps> = ({
     icon,
     loading,
     disabled,
-    href,
     ...props
 }): React.ReactElement => {
     const [, isLoading, isAnimated] = useTransition(loading);
