@@ -15,7 +15,8 @@ const loadingStyle = `
 `;
 
 interface SettingsProps
-    extends MainInterface,
+    extends React.HTMLAttributes<HTMLDivElement>,
+        MainInterface,
         ResponsiveInterface,
         InfoProps,
         AccountProps {

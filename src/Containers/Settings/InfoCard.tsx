@@ -12,7 +12,10 @@ import { Button } from '../../Inputs/Button';
 import { Modal } from '../Modal';
 import { Copyright } from '../Copyright';
 
-export interface InfoProps extends MainInterface, ResponsiveInterface {
+export interface InfoProps
+    extends React.HTMLAttributes<HTMLDivElement>,
+        MainInterface,
+        ResponsiveInterface {
     faqName: string;
     faqLink: string;
     version: string | number;

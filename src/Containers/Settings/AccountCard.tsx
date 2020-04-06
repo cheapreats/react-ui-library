@@ -12,7 +12,10 @@ interface DisplayItemProps extends MainInterface, ResponsiveInterface {
     label: string;
     value: string;
 }
-export interface AccountProps extends MainInterface, ResponsiveInterface {
+export interface AccountProps
+    extends React.HTMLAttributes<HTMLDivElement>,
+        MainInterface,
+        ResponsiveInterface {
     employee: { username: string; role: string; _id: string };
     logout: Function;
 }

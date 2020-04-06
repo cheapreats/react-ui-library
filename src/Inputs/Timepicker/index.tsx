@@ -13,7 +13,7 @@ export interface TimepickerProps extends LabelLayoutProps {
     onChange?: Function;
     disabled?: boolean;
 }
-// @ts-ignore TimePicker throwing error because of withTheme
+// @ts-ignore Issue with withTheme
 export const Timepicker: React.FC<TimepickerProps> = withTheme(
     ({
         value = new Date(),
