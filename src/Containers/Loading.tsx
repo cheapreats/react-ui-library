@@ -9,7 +9,10 @@ import {
 } from '@Utils/BaseStyles';
 import { useTransition } from '@Utils/Hooks';
 
-export interface LoadingProps extends ResponsiveInterface, MainInterface {
+export interface LoadingProps
+    extends React.HTMLAttributes<HTMLDivElement>,
+        ResponsiveInterface,
+        MainInterface {
     loading?: boolean;
     theme: DefaultTheme;
 }
