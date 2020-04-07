@@ -23,6 +23,7 @@ interface SettingsProps
     loading: boolean;
     store?: React.ReactElement;
     terminal?: React.ReactElement;
+    title?: string;
 }
 
 export const Settings: React.FC<SettingsProps> = ({
@@ -34,13 +35,14 @@ export const Settings: React.FC<SettingsProps> = ({
     version,
     employee = { username: '', role: '', _id: '' },
     logout,
+    title,
     ...props
 }): React.ReactElement => {
     return (
         <Loading loading={loading} inlineStyle={loadingStyle} {...props}>
             <div>
                 <Heading type="h1" bold lineHeight="1.2" margin="0 0 10px">
-                    Terminal Settings
+                    {title}
                 </Heading>
                 {!loading && (
                     <Cards>
