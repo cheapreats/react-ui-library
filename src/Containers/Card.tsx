@@ -8,7 +8,7 @@ import {
 import { transition } from '@Utils/Mixins';
 import styled from 'styled-components';
 
-export interface CardProps {
+export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     animated?: boolean;
     flat?: boolean;
 }

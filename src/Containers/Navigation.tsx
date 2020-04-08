@@ -23,6 +23,7 @@ interface NavProps {
     icon: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
 }
 
+// no HTMLNavigationElement
 export interface NavigationProps extends MainInterface, ResponsiveInterface {
     params?: { [name: string]: string };
     pages?: [

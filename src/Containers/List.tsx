@@ -13,7 +13,10 @@ interface ItemProps {
     [name: string]: object | string | boolean | Function | number;
 }
 
-export interface ListProps extends MainInterface, ResponsiveInterface {
+export interface ListProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     loading: boolean;
     render: Function;
     items?: object[];

@@ -15,7 +15,8 @@ import { position, darken, flex, transition } from '@Utils/Mixins';
 export interface CheckboxProps
     extends MainInterface,
         ResponsiveInterface,
-        ImplicitPropsInterface {
+        ImplicitPropsInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     label?: string;
     column?: boolean;
     className?: string;

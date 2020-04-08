@@ -10,7 +10,10 @@ import {
 } from '@Utils/BaseStyles';
 import { useTransition } from '@Utils/Hooks';
 
-export interface ModalProps extends ResponsiveInterface, MainInterface {
+export interface ModalProps
+    extends ResponsiveInterface,
+        MainInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     theme: DefaultTheme;
     onClose?: Function;
     width?: string | number;

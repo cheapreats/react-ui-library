@@ -63,7 +63,7 @@ const buildCalendar = (
     return items;
 };
 
-export interface DateboxProps {
+export interface DateboxProps extends React.HTMLAttributes<HTMLDivElement> {
     changePage: (change?: number) => React.MouseEventHandler;
     selectedDate?: Date;
     selectDate: React.MouseEventHandler;

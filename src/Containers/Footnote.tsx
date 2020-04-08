@@ -9,7 +9,10 @@ import {
 import { flex, position as pos, scroll, transition } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 
-export interface FootnoteProps extends MainInterface, ResponsiveInterface {
+export interface FootnoteProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     show?: boolean;
     theme: DefaultTheme;
     position?: 'absolute' | 'fixed';
