@@ -11,6 +11,7 @@ import styled from 'styled-components';
 export interface CardProps {
     animated?: boolean;
     flat?: boolean;
+    maxWidth?:number;
 }
 
 export const Card: React.FC<CardProps> = ({
