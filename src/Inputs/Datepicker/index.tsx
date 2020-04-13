@@ -67,7 +67,10 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         };
     }, [mount]);
 
-    useEffect((): void => setDate(value), []);
+    useEffect((): void => {
+        setDate(value);
+        setText(printDate(value));
+    }, [value]);
 
     const handleText = useCallback((el): void => setText(el.target.value), [
         text,
