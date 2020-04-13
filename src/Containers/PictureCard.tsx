@@ -6,12 +6,17 @@ import { flex, position } from '@Utils/Mixins';
 import { Card as C } from './Card';
 
 const Card = styled(C)`
-    ${'max-width:300px;'}
+    max-width: 300px;
 `;
+
+interface TagProps {
+    icon: StyledIcon;
+    text: string;
+}
 
 interface PictureCardProps extends MainInterface, ResponsiveInterface {
     image: string;
-    tags: { icon: StyledIcon; text: string }[];
+    tags: TagProps[];
 }
 
 export const PictureCard: React.FC<PictureCardProps> = ({
@@ -24,7 +29,7 @@ export const PictureCard: React.FC<PictureCardProps> = ({
         <Card {...cardProps}>
             <ImageWrapper>
                 <Image src={image} />
-                {tags.length ? (
+                {tags && (
                     <Tags>
                         {tags.map(
                             ({ icon, text }): React.ReactElement => (
@@ -35,9 +40,9 @@ export const PictureCard: React.FC<PictureCardProps> = ({
                             ),
                         )}
                     </Tags>
-                ) : null}
+                )}
             </ImageWrapper>
-            {!children ? null : <Content>{children}</Content>}
+            {children && <Content>{children}</Content>}
         </Card>
     );
 };
