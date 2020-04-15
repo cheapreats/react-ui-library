@@ -30,6 +30,7 @@ export interface SelectProps extends LabelLayoutProps {
     theme: DefaultTheme;
     onChange?: Function;
     limit?: number;
+    NUM_VISIBLE_SELECTIONS:number;
 }
 
 const _Select: React.FC<SelectProps> = ({
@@ -41,6 +42,7 @@ const _Select: React.FC<SelectProps> = ({
     onChange = (): void => {},
     theme,
     name,
+    NUM_VISIBLE_SELECTIONS,
     ...props
 }): React.ReactElement => {
     const [expanded, setExpanded] = useState(false);
@@ -48,7 +50,7 @@ const _Select: React.FC<SelectProps> = ({
     const [, mount, animation] = useTransition(expanded, {
         end: theme.speed[SPEED],
     });
-
+    NUM_VISIBLE_SELECTIONS=3;
     const selected = useMemo(
         (): React.ReactNode =>
             options.find(
@@ -142,23 +144,18 @@ const _Select: React.FC<SelectProps> = ({
     return (
         <LabelLayout {...props}>
             <Container>
-
-                    <InputFragment value={myWindow.inputValue}
-                        onChange={e=>
-                            handleChange(e)
-                            } 
-                            onKeyDown={e=>
-                                handleChange(e)
-                                } 
+                <InputFragment value={myWindow.inputValue}
+                    onChange={e=>
+                        handleChange(e)} 
+                    onKeyDown={e=>
+                        handleChange(e)} 
                     onClick={e=>
-                        handleChange(e)
-                        } 
-                        
+                        handleChange(e)} 
                      />
 
                 {mount && (
                     <SelectList
-                        limit={Math.min(3, limit)}
+                        limit={Math.min(NUM_VISIBLE_SELECTIONS, limit)}
                         expanded={animation}
                     >
                         {createList(options, onSelect, value)}
