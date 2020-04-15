@@ -18,6 +18,8 @@ import {
 } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 import { LabelLayout, LabelLayoutProps,InputFragment } from '@Layouts';
+ 
+const NUM_VISIBLE_SELECTIONS=3;
 
 const SPEED = 'normal';
 
@@ -30,7 +32,7 @@ export interface SelectProps extends LabelLayoutProps {
     theme: DefaultTheme;
     onChange?: Function;
     limit?: number;
-    NUM_VISIBLE_SELECTIONS:number;
+    numVisible:number;
 }
 
 const _Select: React.FC<SelectProps> = ({
@@ -42,7 +44,7 @@ const _Select: React.FC<SelectProps> = ({
     onChange = (): void => {},
     theme,
     name,
-    NUM_VISIBLE_SELECTIONS,
+    numVisible=NUM_VISIBLE_SELECTIONS,
     ...props
 }): React.ReactElement => {
     const [expanded, setExpanded] = useState(false);
@@ -50,7 +52,6 @@ const _Select: React.FC<SelectProps> = ({
     const [, mount, animation] = useTransition(expanded, {
         end: theme.speed[SPEED],
     });
-    NUM_VISIBLE_SELECTIONS=3;
     const selected = useMemo(
         (): React.ReactNode =>
             options.find(
@@ -155,7 +156,7 @@ const _Select: React.FC<SelectProps> = ({
 
                 {mount && (
                     <SelectList
-                        limit={Math.min(NUM_VISIBLE_SELECTIONS, limit)}
+                        limit={Math.min(numVisible, limit)}
                         expanded={animation}
                     >
                         {createList(options, onSelect, value)}
