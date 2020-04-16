@@ -4,6 +4,7 @@ import React, {
     useCallback,
     Children,
     isValidElement,
+    SyntheticEvent, 
 } from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
 import {
@@ -110,7 +111,7 @@ const _Select: React.FC<SelectProps> = ({
         [name],
     );
 
-    useEffect((): void | (() => void | undefined) => {
+    useEffect(()=> {
         isMounted=true;
 
         if (expanded) {
@@ -127,18 +128,17 @@ const _Select: React.FC<SelectProps> = ({
                 window.addEventListener('click', listener, { once: true });
             }, 10);
             return (): void => {
-                isMounted=false;
                 window.clearTimeout(timerforkeydown);
                 window.clearTimeout(timerforclick);
                 window.removeEventListener('keydown', listener);
                 window.removeEventListener('click', listener);
             };
         }
-        return undefined;
+        return () => (isMounted = false);
     }, [expanded]);
 
-    const handleChange=(event:any)=>{
-        myWindow.inputValue=event.target.value;
+    const handleChange=(event:SyntheticEvent<HTMLInputElement>)=>{
+        myWindow.inputValue = event.currentTarget.value;
         setExpanded(true);
     }
 
@@ -146,9 +146,9 @@ const _Select: React.FC<SelectProps> = ({
         <LabelLayout {...props}>
             <Container>
                 <InputFragment value={myWindow.inputValue}
-                    onChange={e=>
+                    onChange = {e=>
                         handleChange(e)} 
-                    onKeyDown={e=>
+                    onKeyDown = {e=>
                         handleChange(e)} 
                     onClick={e=>
                         handleChange(e)} 
@@ -156,8 +156,8 @@ const _Select: React.FC<SelectProps> = ({
 
                 {mount && (
                     <SelectList
-                        limit={Math.min(numVisible, limit)}
-                        expanded={animation}
+                        limit = {Math.min(numVisible, limit)}
+                        expanded = {animation}
                     >
                         {createList(options, onSelect, value)}
                     </SelectList>
