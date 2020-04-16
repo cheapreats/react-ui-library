@@ -1,7 +1,6 @@
 import React, {
     useState,
     useEffect,
-    useMemo,
     useCallback,
     Children,
     isValidElement,
@@ -13,13 +12,16 @@ import {
     position,
     transition,
     clickable,
-    styledCondition,
     darken,
 } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 import { LabelLayout, LabelLayoutProps,InputFragment } from '@Layouts';
- 
-const NUM_VISIBLE_SELECTIONS=3;
+
+const NUM_VISIBLE_SELECTIONS = 3;
+
+var options:any = [];
+
+var isMounted=false;
 
 const SPEED = 'normal';
 
@@ -44,23 +46,15 @@ const _Select: React.FC<SelectProps> = ({
     onChange = (): void => {},
     theme,
     name,
-    numVisible=NUM_VISIBLE_SELECTIONS,
+    numVisible =NUM_VISIBLE_SELECTIONS,
     ...props
 }): React.ReactElement => {
     const [expanded, setExpanded] = useState(false);
-    const options = Children.toArray(children);
     const [, mount, animation] = useTransition(expanded, {
         end: theme.speed[SPEED],
     });
-    const selected = useMemo(
-        (): React.ReactNode =>
-            options.find(
-                (option): boolean =>
-                    isValidElement(option) &&
-                    option.props.value === String(value),
-            ),
-        [children, value],
-    );
+
+
 
     const createList = (
         children: React.ReactNode[],
@@ -117,19 +111,25 @@ const _Select: React.FC<SelectProps> = ({
     );
 
     useEffect((): void | (() => void | undefined) => {
+        isMounted=true;
+
         if (expanded) {
+            options = Children.toArray(children);
             const listener = (): void => {
-                setExpanded(false);
+                if (isMounted){
+                    setExpanded(false);}
             };
-            const timer = window.setTimeout((): void => {
+
+            const timerforkeydown = window.setTimeout((): void => {
                 window.addEventListener('keydown', listener, { once: true });
             }, 10);
-            const timer2 = window.setTimeout((): void => {
+            const timerforclick = window.setTimeout((): void => {
                 window.addEventListener('click', listener, { once: true });
             }, 10);
             return (): void => {
-                window.clearTimeout(timer);
-                window.clearTimeout(timer2);
+                isMounted=false;
+                window.clearTimeout(timerforkeydown);
+                window.clearTimeout(timerforclick);
                 window.removeEventListener('keydown', listener);
                 window.removeEventListener('click', listener);
             };
@@ -173,60 +173,6 @@ const Container = styled.div`
     ${flex('column')}
     position: relative;
 `;
-
-const SelectDisplay = styled.p<SelectProps>`
-    ${transition(['background-color', 'opacity', 'box-shadow'])}
-    ${flex('flex-start', 'center')}
-    font-size: 0.85rem;
-    font-weight: bold;
-    cursor: pointer;
-    outline: none;
-    border: none;
-    margin: 0;
-
-    // Disabled
-    ${({ disabled }): string =>
-        disabled
-            ? `
-        cursor: not-allowed;
-        opacity: 0.6;
-    `
-            : ''}
-
-    // Theme Stuff
-    ${({ theme, disabled }): string => `
-        padding: ${theme.dimensions.padding.default};
-        border-radius: ${theme.dimensions.radius};
-        font-family: ${theme.font.family};
-        ${
-            !disabled
-                ? `
-            &:hover:not(:disabled) {
-                box-shadow: ${theme.depth[1]};
-            }
-        `
-                : ''
-        }
-    `}
-
-    // Background color
-    ${({ theme, error = false, success = false }): string => `
-        background-color: ${styledCondition(
-            error,
-            theme.colors.input.error,
-            success,
-            theme.colors.input.success,
-            theme.colors.input.default,
-        )};
-    `}
-`;
-
-const SelectText = styled.span`
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-`;
-
 
 const SelectList = styled.div<{
     expanded: boolean;
