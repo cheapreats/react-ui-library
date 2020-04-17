@@ -1,13 +1,9 @@
 import React from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import styled from 'styled-components';
+import styled, { DefaultTheme } from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { flex, position } from '@Utils/Mixins';
 import { Card as C } from './Card';
-
-const Card = styled(C)`
-    max-width: 300px;
-`;
 
 interface TagProps {
     icon: StyledIcon;
@@ -16,19 +12,27 @@ interface TagProps {
 
 interface PictureCardProps extends MainInterface, ResponsiveInterface {
     image: string;
-    tags: TagProps[];
+    tags?: TagProps[];
+    theme: DefaultTheme;
+    alt?:  string;
+    height?: string;
+    width?:  string;
 }
 
 export const PictureCard: React.FC<PictureCardProps> = ({
     children,
     image,
     tags,
+    theme,
+    alt,
+    height,
+    width,
     ...cardProps
 }): React.ReactElement => {
     return (
-        <Card {...cardProps}>
+        <Card width={width} height={height} {...cardProps}>
             <ImageWrapper>
-                <Image src={image} />
+                <Image src={image} alt={alt} height={height} width={width} />
                 {tags && (
                     <Tags>
                         {tags.map(
@@ -47,14 +51,28 @@ export const PictureCard: React.FC<PictureCardProps> = ({
     );
 };
 
+interface CardProps{
+    width?:string;
+    height?:string;
+}
+
+const Card = styled(C)<CardProps>`
+    width: ${({width}) => width ? width : '300px'};
+    height:${({height}) => height ? height : 'auto'};
+    padding:4px;
+    border-radius:25px;
+`;
+
+
 const ImageWrapper = styled.div`
     position: relative;
     ${flex('column')}
 `;
 
 const Image = styled.img`
-    height: auto;
-    width: 100%;
+    border-radius:20px;
+    width: ${({width}) => width ? width : '100%'};
+    height:${({height}) => height ? height : 'auto'};
 `;
 
 const Tags = styled.div`
@@ -67,16 +85,20 @@ const Tags = styled.div`
         0,
         0,
     )}
+    ${({ theme }): string => `
+        color:${theme.colors.text};
+    `}
     font-size: 0.75rem;
     font-weight: bold;
-    color: #3c3c3c;
 `;
 
 const Tag = styled.span`
     ${flex('row', 'center')}
     display: inline-flex;
     background-color: white;
-    box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
+    ${({ theme }): string => `
+    box-shadow: ${theme.depth[1]};
+    `}
     border-radius: 999px;
     padding: 5px 10px;
     margin-right: 8px;
