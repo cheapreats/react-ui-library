@@ -57,7 +57,7 @@ interface CardProps{
 }
 
 const Card = styled(C)<CardProps>`
-    width: ${({width}) => width ? width : '300px'};
+    width: ${({width}) => width ? width : 'auto'};
     height:${({height}) => height ? height : 'auto'};
     padding:4px;
     border-radius:25px;
