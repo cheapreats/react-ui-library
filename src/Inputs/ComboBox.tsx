@@ -2,6 +2,7 @@ import React, {
     useState,
     useEffect,
     useCallback,
+    useMemo,
     Children,
     isValidElement,
     SyntheticEvent, 
@@ -20,17 +21,11 @@ import { LabelLayout, LabelLayoutProps,InputFragment } from '@Layouts';
 
 const NUM_VISIBLE_SELECTIONS = 3;
 
-var options:any = [];
-
-var isMounted=false;
-
 const SPEED = 'normal';
 
 let myWindow = window as any;
 
 export interface SelectProps extends LabelLayoutProps {
-    disabled?: boolean;
-    placeholder?: string;
     value?: string | number;
     theme: DefaultTheme;
     onChange?: Function;
@@ -39,11 +34,9 @@ export interface SelectProps extends LabelLayoutProps {
 }
 
 const _Select: React.FC<SelectProps> = ({
-    disabled,
     value,
     children,
     limit = 4,
-    placeholder = '',
     onChange = (): void => {},
     theme,
     name,
@@ -111,11 +104,14 @@ const _Select: React.FC<SelectProps> = ({
         [name],
     );
 
-    useEffect(()=> {
-        isMounted=true;
+    const options = useMemo ( ():any => { return Children.toArray(children); }, [expanded] );
+
+
+    useEffect((): void | (() => void )=> {
+        let isMounted=true;
 
         if (expanded) {
-            options = Children.toArray(children);
+            
             const listener = (): void => {
                 if (isMounted){
                     setExpanded(false);}
@@ -128,13 +124,14 @@ const _Select: React.FC<SelectProps> = ({
                 window.addEventListener('click', listener, { once: true });
             }, 10);
             return (): void => {
+                isMounted = false;
                 window.clearTimeout(timerforkeydown);
                 window.clearTimeout(timerforclick);
                 window.removeEventListener('keydown', listener);
                 window.removeEventListener('click', listener);
             };
         }
-        return () => (isMounted = false);
+        return (): false => (isMounted = false);
     }, [expanded]);
 
     const handleChange=(event:SyntheticEvent<HTMLInputElement>)=>{
