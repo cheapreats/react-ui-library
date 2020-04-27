@@ -8,8 +8,7 @@ import { ImplicitPropsInterface } from '@Utils/Hooks';
 export interface ImageCarouselProps
     extends MainInterface,
         ResponsiveInterface,
-        // doesn't work for some reason - havent been able to find a solution
-        // React.HTMLAttributes<HTMLUListElement>,
+        Omit<React.HTMLAttributes<HTMLUListElement>, 'onClick'>,
         ImplicitPropsInterface {
     imageData: string[];
     onClick: Function;
