@@ -1,18 +1,52 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text, boolean, number } from '@storybook/addon-knobs';
-import { Slider } from '../../src';
+import { Slider,SmallText } from '../../src';
 
 storiesOf('Slider', module)
     .addDecorator(withKnobs)
-    .add('with default', () => (
+    .add('basic', () => (
         <Slider
-            max={number('max', 10)}
-            min={number('min', 0)}
-            step={number('step', 1)}
-            disabled={boolean('disabled', false)}
-            value={number('value', 3)}
-            trackColor={text('trackColor', '#010101')}
-            buttonColor={text('buttonColor', 'White')}
-        />
-    ));
+            min={1}
+            max={100}
+            value={20}
+        ></Slider>
+    ))
+    .add('with rail', () => (
+        <Slider
+            min={1}
+            max={100}
+            value={20}
+            rail={boolean('rail', true)}
+        ></Slider>
+    ))
+    .add('disabled', () => (
+        <Slider
+            disabled={boolean('disabled', true)}
+        ></Slider>
+    )) 
+    .add('with popup', () => (
+        <Slider
+            min={20}
+            max={50}
+            padding="50px"
+            value={25}
+            popup={boolean('popup', true)}
+        ></Slider>
+    ))   
+    .add('with two input', () => (
+        <Slider
+            min={0}
+            max={200}
+            step={10}
+            padding="50px"
+            twoinputs={boolean('twoinputs', true)}
+            rail={boolean('rail', true)}
+            value={85}
+            valuestart={80}
+            popup={boolean('popup', true)}
+            marks={[{key:0,mark:'min'},{key:200,mark:'max'},{key:100,mark:'100'}]}
+        >
+        </Slider>
+    ))   
+    ;
