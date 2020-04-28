@@ -18,7 +18,8 @@ import { flex, transition } from '@Utils/Mixins';
 export interface LabelLayoutProps
     extends ResponsiveInterface,
         MainInterface,
-        ImplicitPropsInterface {
+        ImplicitPropsInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     name?: string;
     label?: string;
     description?: string;

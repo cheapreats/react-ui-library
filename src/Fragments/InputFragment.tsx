@@ -3,7 +3,10 @@ import styled from 'styled-components';
 import { transition, styledCondition } from '@Utils/Mixins';
 import { ResponsiveInterface, MainInterface } from '@Utils/BaseStyles';
 
-interface InputFragmentProps extends ResponsiveInterface, MainInterface {
+interface InputFragmentProps
+    extends ResponsiveInterface,
+        MainInterface,
+        React.HTMLAttributes<HTMLInputElement> {
     disabled?: boolean;
     placeholder?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;

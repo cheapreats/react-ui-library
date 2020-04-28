@@ -8,6 +8,7 @@ import { ImplicitPropsInterface } from '@Utils/Hooks';
 export interface ImageCarouselProps
     extends MainInterface,
         ResponsiveInterface,
+        Omit<React.HTMLAttributes<HTMLUListElement>, 'onClick'>,
         ImplicitPropsInterface {
     imageData: string[];
     onClick: Function;

@@ -9,7 +9,8 @@ import { Paragraph as P } from '../Text';
 export interface NavigationFootnoteProps
     extends MainInterface,
         ResponsiveInterface,
-        ImplicitPropsInterface {
+        ImplicitPropsInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     url: string;
     text: string;
 }

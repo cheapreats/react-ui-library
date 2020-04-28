@@ -18,7 +18,8 @@ import { Mixins } from '../Utils';
 export interface ExcelOptionsProps
     extends MainInterface,
         ResponsiveInterface,
-        ImplicitPropsInterface {
+        ImplicitPropsInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     headers: string[];
     defaultHeaders: string[];
     onResult?: Function;
