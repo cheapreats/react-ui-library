@@ -50,7 +50,7 @@ export const StoreFeatureCard: React.FC<StoreFeatureCardProps> = ({
                 borderradiusbottom="0px"
                 borderradiustop="8px"
             />
-            <Card>
+            <ContentCard>
                 <RowContainer>
                     <Paragraph bold>
                         {heading}
@@ -64,7 +64,7 @@ export const StoreFeatureCard: React.FC<StoreFeatureCardProps> = ({
                         {description}
                     </SmallText>
                 </RowContainer>
-            </Card>
+            </ContentCard>
         </Card>
     );
 };
@@ -73,6 +73,10 @@ interface CardProps{
     width?:string;
     height?:string;
 }
+
+const ContentCard = styled(C)<CardProps>`
+    border-radius:0px
+`;
 
 const Card = styled(C)<CardProps>`
     width: ${({width}) => width ? width : 'auto'};
@@ -96,5 +100,5 @@ const RatingContainer = styled.div`
 const RowContainer=styled.div`
     display:flex;
     justify-content:space-between;
-    padding:10px;
+    padding:0px;
 `;
