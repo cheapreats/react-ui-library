@@ -1,11 +1,11 @@
 import React from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import styled, { DefaultTheme } from 'styled-components';
+import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { Card as C } from './Card';
-import {PictureCard} from './PictureCard';
-import {Paragraph} from '../Text/Paragraph';
-import {SmallText} from '../Text/SmallText';
+import { PictureCard } from './PictureCard';
+import { Paragraph } from '../Text/Paragraph';
+import { SmallText } from '../Text/SmallText';
 
 interface TagProps {
     icon: StyledIcon;
@@ -13,15 +13,15 @@ interface TagProps {
 }
 
 interface StoreFeatureCardProps extends MainInterface, ResponsiveInterface {
-    image       : string;
-    tags       ?: TagProps[];
-    alt        ?: string;
-    height     ?: string;
-    width      ?: string;
-    rating     ?: string;
-    heading    ?: string;
-    description : string;
-    linktitle  ?: string;
+    image: string;
+    tags?: TagProps[];
+    alt?: string;
+    height?: string;
+    width?: string;
+    rating?: string;
+    heading?: string;
+    description: string;
+    linktitle?: string;
 }
 
 export const StoreFeatureCard: React.FC<StoreFeatureCardProps> = ({
@@ -49,44 +49,36 @@ export const StoreFeatureCard: React.FC<StoreFeatureCardProps> = ({
             />
             <ContentCard linktitle={linktitle}>
                 <RowContainer>
-                    <Paragraph bold>
-                        {heading}
-                    </Paragraph>
-                    <RatingContainer>
-                        {rating}
-                    </RatingContainer>
+                    <Paragraph bold>{heading}</Paragraph>
+                    <RatingContainer>{rating}</RatingContainer>
                 </RowContainer>
                 <RowContainer>
-                    <SmallText bold>
-                        {description}
-                    </SmallText>
+                    <SmallText bold>{description}</SmallText>
                 </RowContainer>
             </ContentCard>
-            {linktitle && (
-                <LinkCard>
-                    {linktitle}
-                </LinkCard>
-            )}
+            {linktitle && <LinkCard>{linktitle}</LinkCard>}
         </Card>
     );
 };
 
-interface CardProps{
-    width     ?: string;
-    height    ?: string;
-    linktitle ?: string;
+interface CardProps {
+    width?: string;
+    height?: string;
+    linktitle?: string;
 }
 
 const ContentCard = styled(C)<CardProps>`
-    border-top-left-radius:      0px;
-    border-top-right-radius:     0px;
-    border-bottom-left-radius:   ${ ({linktitle}) => linktitle ? '0px' : '8px' };
-    border-bottom-right-radius:  ${ ({linktitle}) => linktitle ? '0px' : '8px' };
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
+    border-bottom-left-radius: ${({ linktitle }) =>
+        linktitle ? '0px' : '8px'};
+    border-bottom-right-radius: ${({ linktitle }) =>
+        linktitle ? '0px' : '8px'};
 `;
 
 const LinkCard = styled(C)<CardProps>`
-    border-top-left-radius  : 0px;
-    border-top-right-radius : 0px;
+    border-top-left-radius: 0px;
+    border-top-right-radius: 0px;
     text-align: center;
     color: #b3aeae;
     font-weight: bold;
@@ -94,27 +86,25 @@ const LinkCard = styled(C)<CardProps>`
 `;
 
 const Card = styled(C)<CardProps>`
-    width:   ${({width}) => width ? width : 'auto'};
-    height:  ${({height}) => height ? height : 'auto'};
+    width: ${({ width }) => (width ? width : 'auto')};
+    height: ${({ height }) => (height ? height : 'auto')};
     padding: 0px;
-    border-radius: 50%;
 `;
 
 const RatingContainer = styled.div`
-    width:10px;
-    background-color:pink;
+    width: 10px;
+    background-color: pink;
     ${({ theme }): string => `
         color:${theme.colors.primary};
         font-size:${theme.font.size};
     `}
     padding:5px 11px;
-    font-weight:bold;
-    text-align:center;
-    border-radius:50%;
+    font-weight: bold;
+    text-align: center;
+    border-radius: 50%;
 `;
 
-const RowContainer=styled.div`
-    display:flex;
-    justify-content:space-between;
-    padding:0px;
+const RowContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
 `;

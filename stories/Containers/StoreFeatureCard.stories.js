@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { StoreFeatureCard } from '../../src';
-import {Dog} from 'styled-icons/fa-solid/Dog';
-import {Cat} from 'styled-icons/fa-solid/Cat';
+import { Dog } from 'styled-icons/fa-solid/Dog';
+import { Cat } from 'styled-icons/fa-solid/Cat';
 
 storiesOf('Store Feature Card', module)
     .add('with default', () => (
@@ -15,7 +15,8 @@ storiesOf('Store Feature Card', module)
             rating="4"
             heading="Hot Dog"
             description="this is a Store Feature Card"
-        />))
+        />
+    ))
     .add('as Store Review Card', () => (
         <StoreFeatureCard
             image="https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif"
@@ -27,5 +28,5 @@ storiesOf('Store Feature Card', module)
             heading="Hot Dog"
             linktitle="VISIT STORE"
             description="this is a Store Review Card"
-    />    
+        />
     ));
