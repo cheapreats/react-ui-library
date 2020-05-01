@@ -1,24 +1,23 @@
 import React from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import styled, { DefaultTheme } from 'styled-components';
+import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { flex, position } from '@Utils/Mixins';
 import { Card as C } from './Card';
 
 interface TagProps {
-    icon : StyledIcon;
-    text : string;
+    icon: StyledIcon;
+    text: string;
 }
 
-
 interface PictureCardProps extends MainInterface, ResponsiveInterface {
-    image               : string;
-    tags               ?: TagProps[];
-    alt                ?: string;
-    height             ?: string;
-    width              ?: string;
-    borderradiustop    ?: string;
-    borderradiusbottom ?: string;
+    image: string;
+    tags?: TagProps[];
+    alt?: string;
+    height?: string;
+    width?: string;
+    borderradiustop?: string;
+    borderradiusbottom?: string;
 }
 
 export const PictureCard: React.FC<PictureCardProps> = ({
@@ -33,9 +32,21 @@ export const PictureCard: React.FC<PictureCardProps> = ({
     ...cardProps
 }): React.ReactElement => {
     return (
-        <Card width={width} height={height} borderradiustop={borderradiustop} borderradiusbottom={borderradiusbottom} {...cardProps}>
+        <Card
+            width={width}
+            height={height}
+            borderradiustop={borderradiustop}
+            borderradiusbottom={borderradiusbottom}
+            {...cardProps}
+        >
             <ImageWrapper>
-                <Image src={image} alt={alt} height={height} borderradiustop={borderradiustop} borderradiusbottom={borderradiusbottom} />
+                <Image
+                    src={image}
+                    alt={alt}
+                    height={height}
+                    borderradiustop={borderradiustop}
+                    borderradiusbottom={borderradiusbottom}
+                />
                 {tags && (
                     <Tags>
                         {tags.map(
@@ -54,18 +65,18 @@ export const PictureCard: React.FC<PictureCardProps> = ({
     );
 };
 
-interface CardProps{
-    width              ?: string;
-    height             ?: string;
-    borderradiustop    ?: string;
-    borderradiusbottom ?: string;
+interface CardProps {
+    width?: string;
+    height?: string;
+    borderradiustop?: string;
+    borderradiusbottom?: string;
 }
 
 const Card = styled(C)<CardProps>`
-    width:  ${({width}) => width ? width : 'auto'};
-    height: ${({height}) => height ? height : 'auto'};
+    width: ${({ width }) => (width ? width : 'auto')};
+    height: ${({ height }) => (height ? height : 'auto')};
     padding: 0px; //overriding styles
-    ${({ borderradiustop,borderradiusbottom}): string => `
+    ${({ borderradiustop, borderradiusbottom }): string => `
         border-top-left-radius:     ${borderradiustop};
         border-top-right-radius:    ${borderradiustop};
         border-bottom-left-radius:  ${borderradiusbottom};
@@ -73,16 +84,15 @@ const Card = styled(C)<CardProps>`
     `}
 `;
 
-
-const ImageWrapper = styled.div<CardProps>`
+const ImageWrapper = styled.div`
     position: relative;
     ${flex('column')}
 `;
 
 const Image = styled.img<CardProps>`
-    width:  100%;
-    height: ${({height}) => height ? height : 'auto'};
-    ${({ borderradiustop,borderradiusbottom}): string => `
+    width: 100%;
+    height: ${({ height }) => (height ? height : 'auto')};
+    ${({ borderradiustop, borderradiusbottom }): string => `
         border-top-left-radius:     ${borderradiustop};
         border-top-right-radius:    ${borderradiustop};
         border-bottom-left-radius:  ${borderradiusbottom};
@@ -92,14 +102,7 @@ const Image = styled.img<CardProps>`
 
 const Tags = styled.div`
     ${flex('row', 'flex-start', 'stretch')}
-    ${position(
-        'absolute',
-        '0 0 10px 10px',
-        'auto',
-        'auto',
-        0,
-        0,
-    )}
+    ${position('absolute', '0 0 10px 10px', 'auto', 'auto', 0, 0)}
     ${({ theme }): string => `
         color:${theme.colors.text};
     `}
