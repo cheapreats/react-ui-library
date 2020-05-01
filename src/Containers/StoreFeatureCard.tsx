@@ -7,36 +7,33 @@ import {PictureCard} from './PictureCard';
 import {Paragraph} from '../Text/Paragraph';
 import {SmallText} from '../Text/SmallText';
 
-
-
-
 interface TagProps {
     icon: StyledIcon;
     text: string;
 }
 
 interface StoreFeatureCardProps extends MainInterface, ResponsiveInterface {
-    image: string;
-    tags?: TagProps[];
-    theme: DefaultTheme;
-    alt?:  string;
-    height?: string;
-    width?:  string;
-    rating?: string;
-    heading?: string;
-    description:string;
+    image       : string;
+    tags       ?: TagProps[];
+    alt        ?: string;
+    height     ?: string;
+    width      ?: string;
+    rating     ?: string;
+    heading    ?: string;
+    description : string;
+    linktitle  ?: string;
 }
 
 export const StoreFeatureCard: React.FC<StoreFeatureCardProps> = ({
     image,
     tags,
-    theme,
     alt,
     height,
     width,
     rating,
     heading,
     description,
+    linktitle,
     ...cardProps
 }): React.ReactElement => {
     return (
@@ -50,7 +47,7 @@ export const StoreFeatureCard: React.FC<StoreFeatureCardProps> = ({
                 borderradiusbottom="0px"
                 borderradiustop="8px"
             />
-            <ContentCard>
+            <ContentCard linktitle={linktitle}>
                 <RowContainer>
                     <Paragraph bold>
                         {heading}
@@ -65,23 +62,42 @@ export const StoreFeatureCard: React.FC<StoreFeatureCardProps> = ({
                     </SmallText>
                 </RowContainer>
             </ContentCard>
+            {linktitle && (
+                <LinkCard>
+                    {linktitle}
+                </LinkCard>
+            )}
         </Card>
     );
 };
 
 interface CardProps{
-    width?:string;
-    height?:string;
+    width     ?: string;
+    height    ?: string;
+    linktitle ?: string;
 }
 
 const ContentCard = styled(C)<CardProps>`
-    border-radius:0px
+    border-top-left-radius:      0px;
+    border-top-right-radius:     0px;
+    border-bottom-left-radius:   ${ ({linktitle}) => linktitle ? '0px' : '8px' };
+    border-bottom-right-radius:  ${ ({linktitle}) => linktitle ? '0px' : '8px' };
+`;
+
+const LinkCard = styled(C)<CardProps>`
+    border-top-left-radius  : 0px;
+    border-top-right-radius : 0px;
+    text-align: center;
+    color: #b3aeae;
+    font-weight: bold;
+    cursor: pointer;
 `;
 
 const Card = styled(C)<CardProps>`
-    width: ${({width}) => width ? width : 'auto'};
-    height:${({height}) => height ? height : 'auto'};
-    padding:0px;
+    width:   ${({width}) => width ? width : 'auto'};
+    height:  ${({height}) => height ? height : 'auto'};
+    padding: 0px;
+    border-radius: 50%;
 `;
 
 const RatingContainer = styled.div`
