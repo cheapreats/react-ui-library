@@ -6,33 +6,36 @@ import { flex, position } from '@Utils/Mixins';
 import { Card as C } from './Card';
 
 interface TagProps {
-    icon: StyledIcon;
-    text: string;
+    icon : StyledIcon;
+    text : string;
 }
 
+
 interface PictureCardProps extends MainInterface, ResponsiveInterface {
-    image: string;
-    tags?: TagProps[];
-    theme: DefaultTheme;
-    alt?:  string;
-    height?: string;
-    width?:  string;
+    image               : string;
+    tags               ?: TagProps[];
+    alt                ?: string;
+    height             ?: string;
+    width              ?: string;
+    borderradiustop    ?: string;
+    borderradiusbottom ?: string;
 }
 
 export const PictureCard: React.FC<PictureCardProps> = ({
     children,
     image,
     tags,
-    theme,
     alt,
     height,
     width,
+    borderradiustop,
+    borderradiusbottom,
     ...cardProps
 }): React.ReactElement => {
     return (
-        <Card width={width} height={height} {...cardProps}>
+        <Card width={width} height={height} borderradiustop={borderradiustop} borderradiusbottom={borderradiusbottom} {...cardProps}>
             <ImageWrapper>
-                <Image src={image} alt={alt} height={height} width={width} />
+                <Image src={image} alt={alt} height={height} borderradiustop={borderradiustop} borderradiusbottom={borderradiusbottom} />
                 {tags && (
                     <Tags>
                         {tags.map(
@@ -52,27 +55,39 @@ export const PictureCard: React.FC<PictureCardProps> = ({
 };
 
 interface CardProps{
-    width?:string;
-    height?:string;
+    width              ?: string;
+    height             ?: string;
+    borderradiustop    ?: string;
+    borderradiusbottom ?: string;
 }
 
 const Card = styled(C)<CardProps>`
-    width: ${({width}) => width ? width : 'auto'};
-    height:${({height}) => height ? height : 'auto'};
-    padding:4px;
-    border-radius:25px;
+    width:  ${({width}) => width ? width : 'auto'};
+    height: ${({height}) => height ? height : 'auto'};
+    padding: 0px; //overriding styles
+    ${({ borderradiustop,borderradiusbottom}): string => `
+        border-top-left-radius:     ${borderradiustop};
+        border-top-right-radius:    ${borderradiustop};
+        border-bottom-left-radius:  ${borderradiusbottom};
+        border-bottom-right-radius: ${borderradiusbottom};
+    `}
 `;
 
 
-const ImageWrapper = styled.div`
+const ImageWrapper = styled.div<CardProps>`
     position: relative;
     ${flex('column')}
 `;
 
-const Image = styled.img`
-    border-radius:20px;
-    width: ${({width}) => width ? width : '100%'};
-    height:${({height}) => height ? height : 'auto'};
+const Image = styled.img<CardProps>`
+    width:  100%;
+    height: ${({height}) => height ? height : 'auto'};
+    ${({ borderradiustop,borderradiusbottom}): string => `
+        border-top-left-radius:     ${borderradiustop};
+        border-top-right-radius:    ${borderradiustop};
+        border-bottom-left-radius:  ${borderradiusbottom};
+        border-bottom-right-radius: ${borderradiusbottom};
+`}
 `;
 
 const Tags = styled.div`

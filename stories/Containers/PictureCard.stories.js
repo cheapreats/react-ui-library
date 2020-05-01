@@ -12,6 +12,8 @@ storiesOf('PictureCard', module)
             alt="coding Dog"
             width="400px"
             height="200px"
+            borderradiustop="25px"
+            borderradiusbottom="0px"
         />
     ))
     .add('with tags', () => (
