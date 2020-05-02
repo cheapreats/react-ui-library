@@ -80,6 +80,8 @@ interface CardProps {
 const ContentCard = styled(C)`
     box-shadow: none;
     width: 65%;
+    display: flex;
+    flex-direction: column;
 `;
 
 const Card = styled(C)<CardProps>`
@@ -130,7 +132,9 @@ const Tag = styled.div`
 
 const TagRowContainer = styled.div`
     position: relative;
-    top: 58%;
+    margin-top: auto;
     display: flex;
     justify-content: space-evenly;
+    flex-wrap: wrap;
+    top: 10%;
 `;
