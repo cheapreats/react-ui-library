@@ -14,8 +14,8 @@ interface TagProps {
 
 interface HorizontalStoreCardProps extends MainInterface, ResponsiveInterface {
     image: string;
-    picturetags?: TagProps[];
-    headertags?: string[];
+    pictureTags?: TagProps[];
+    headerTags?: string[];
     tags?: string[];
     alt?: string;
     height?: string;
@@ -27,8 +27,8 @@ interface HorizontalStoreCardProps extends MainInterface, ResponsiveInterface {
 
 export const HorizontalStoreCard: React.FC<HorizontalStoreCardProps> = ({
     image,
-    picturetags,
-    headertags,
+    pictureTags,
+    headerTags,
     tags,
     alt,
     height,
@@ -42,19 +42,19 @@ export const HorizontalStoreCard: React.FC<HorizontalStoreCardProps> = ({
         <Card width={width} {...cardProps}>
             <PictureCard
                 image={image}
-                tags={picturetags}
+                tags={pictureTags}
                 alt={alt}
                 width="45%"
                 height={height}
-                borderradiusbottom="8px"
-                borderradiustop="8px"
+                borderRadiusBottom="8px"
+                borderRadiusTop="8px"
             />
             <ContentCard>
                 <RowContainer>
                     <Paragraph bold>{heading}</Paragraph>
                     <RatingContainer>{rating}</RatingContainer>
                 </RowContainer>
-                <HeaderTags>{headertags?.join(' * ')}</HeaderTags>
+                <HeaderTags>{headerTags?.join(' * ')}</HeaderTags>
                 <RowContainer>
                     <SmallText bold>{description}</SmallText>
                 </RowContainer>

@@ -6,8 +6,8 @@ import { Dog } from 'styled-icons/fa-solid/Dog';
 storiesOf('HorizontalStoreCard', module).add('with default', () => (
     <HorizontalStoreCard
         image="https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif"
-        picturetags={[{ icon: Dog, text: 'Dog' }]}
-        headertags={['$$', 'here', 'are', 'tags']}
+        pictureTags={[{ icon: Dog, text: 'Dog' }]}
+        headerTags={['$$', 'here', 'are', 'tags']}
         tags={['Free Shipping', 'Coupon', 'Coupon 2']}
         alt="coding Dog"
         width="600px"
