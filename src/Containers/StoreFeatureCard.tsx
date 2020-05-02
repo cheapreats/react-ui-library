@@ -44,8 +44,8 @@ export const StoreFeatureCard: React.FC<StoreFeatureCardProps> = ({
                 alt={alt}
                 width={width}
                 height={height}
-                borderradiusbottom="0px"
-                borderradiustop="8px"
+                borderRadiusBottom="0px"
+                borderRadiusTop="8px"
             />
             <ContentCard linktitle={linktitle}>
                 <RowContainer>

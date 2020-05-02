@@ -20,8 +20,8 @@ interface PictureCardProps
     alt?: string;
     height?: string;
     width?: string;
-    borderradiustop?: string;
-    borderradiusbottom?: string;
+    borderRadiusTop?: string;
+    borderRadiusBottom?: string;
 }
 
 export const PictureCard: React.FC<PictureCardProps> = ({
@@ -31,16 +31,16 @@ export const PictureCard: React.FC<PictureCardProps> = ({
     alt,
     height,
     width,
-    borderradiustop,
-    borderradiusbottom,
+    borderRadiusTop,
+    borderRadiusBottom,
     ...cardProps
 }): React.ReactElement => {
     return (
         <Card
             width={width}
             height={height}
-            borderradiustop={borderradiustop}
-            borderradiusbottom={borderradiusbottom}
+            borderRadiusTop={borderRadiusTop}
+            borderRadiusBottom={borderRadiusBottom}
             {...cardProps}
         >
             <ImageWrapper>
@@ -48,8 +48,8 @@ export const PictureCard: React.FC<PictureCardProps> = ({
                     src={image}
                     alt={alt}
                     height={height}
-                    borderradiustop={borderradiustop}
-                    borderradiusbottom={borderradiusbottom}
+                    borderRadiusTop={borderRadiusTop}
+                    borderRadiusBottom={borderRadiusBottom}
                 />
                 {tags && (
                     <Tags>
@@ -72,22 +72,22 @@ export const PictureCard: React.FC<PictureCardProps> = ({
 interface CardProps {
     width?: string;
     height?: string;
-    borderradiustop?: string;
-    borderradiusbottom?: string;
+    borderRadiusTop?: string;
+    borderRadiusBottom?: string;
 }
 
 const Card = styled(C)<CardProps>`
     width: ${({ width }) => (width ? width : 'auto')};
     height: ${({ height }) => (height ? height : 'auto')};
     padding: 0px; //overriding styles
-    border-top-left-radius: ${({ borderradiustop }) =>
-        borderradiustop ? borderradiustop : '0px'};
-    border-top-right-radius: ${({ borderradiustop }) =>
-        borderradiustop ? borderradiustop : '0px'};
-    border-bottom-left-radius: ${({ borderradiusbottom }) =>
-        borderradiusbottom ? borderradiusbottom : '0px'};
-    border-bottom-right-radius: ${({ borderradiusbottom }) =>
-        borderradiusbottom ? borderradiusbottom : '0px'};
+    border-top-left-radius: ${({ borderRadiusTop }) =>
+        borderRadiusTop ? borderRadiusTop : '0px'};
+    border-top-right-radius: ${({ borderRadiusTop }) =>
+        borderRadiusTop ? borderRadiusTop : '0px'};
+    border-bottom-left-radius: ${({ borderRadiusBottom }) =>
+        borderRadiusBottom ? borderRadiusBottom : '0px'};
+    border-bottom-right-radius: ${({ borderRadiusBottom }) =>
+        borderRadiusBottom ? borderRadiusBottom : '0px'};
 `;
 
 const ImageWrapper = styled.div`
@@ -98,14 +98,14 @@ const ImageWrapper = styled.div`
 const Image = styled.img<CardProps>`
     width: 100%;
     height: ${({ height }) => (height ? height : 'auto')};
-    border-top-left-radius: ${({ borderradiustop }) =>
-        borderradiustop ? borderradiustop : '0px'};
-    border-top-right-radius: ${({ borderradiustop }) =>
-        borderradiustop ? borderradiustop : '0px'};
-    border-bottom-left-radius: ${({ borderradiusbottom }) =>
-        borderradiusbottom ? borderradiusbottom : '0px'};
-    border-bottom-right-radius: ${({ borderradiusbottom }) =>
-        borderradiusbottom ? borderradiusbottom : '0px'};
+    border-top-left-radius: ${({ borderRadiusTop }) =>
+        borderRadiusTop ? borderRadiusTop : '0px'};
+    border-top-right-radius: ${({ borderRadiusTop }) =>
+        borderRadiusTop ? borderRadiusTop : '0px'};
+    border-bottom-left-radius: ${({ borderRadiusBottom }) =>
+        borderRadiusBottom ? borderRadiusBottom : '0px'};
+    border-bottom-right-radius: ${({ borderRadiusBottom }) =>
+        borderRadiusBottom ? borderRadiusBottom : '0px'};
 `;
 
 const Tags = styled.div`
