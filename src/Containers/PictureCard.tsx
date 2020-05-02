@@ -4,13 +4,17 @@ import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { flex, position } from '@Utils/Mixins';
 import { Card as C } from './Card';
+import { Tag as T } from './Tag';
 
 interface TagProps {
     icon: StyledIcon;
     text: string;
 }
 
-interface PictureCardProps extends MainInterface, ResponsiveInterface {
+interface PictureCardProps
+    extends MainInterface,
+        ResponsiveInterface,
+        CardProps {
     image: string;
     tags?: TagProps[];
     alt?: string;
@@ -76,12 +80,14 @@ const Card = styled(C)<CardProps>`
     width: ${({ width }) => (width ? width : 'auto')};
     height: ${({ height }) => (height ? height : 'auto')};
     padding: 0px; //overriding styles
-    ${({ borderradiustop, borderradiusbottom }): string => `
-        border-top-left-radius:     ${borderradiustop};
-        border-top-right-radius:    ${borderradiustop};
-        border-bottom-left-radius:  ${borderradiusbottom};
-        border-bottom-right-radius: ${borderradiusbottom};
-    `}
+    border-top-left-radius: ${({ borderradiustop }) =>
+        borderradiustop ? borderradiustop : '0px'};
+    border-top-right-radius: ${({ borderradiustop }) =>
+        borderradiustop ? borderradiustop : '0px'};
+    border-bottom-left-radius: ${({ borderradiusbottom }) =>
+        borderradiusbottom ? borderradiusbottom : '0px'};
+    border-bottom-right-radius: ${({ borderradiusbottom }) =>
+        borderradiusbottom ? borderradiusbottom : '0px'};
 `;
 
 const ImageWrapper = styled.div`
@@ -92,12 +98,14 @@ const ImageWrapper = styled.div`
 const Image = styled.img<CardProps>`
     width: 100%;
     height: ${({ height }) => (height ? height : 'auto')};
-    ${({ borderradiustop, borderradiusbottom }): string => `
-        border-top-left-radius:     ${borderradiustop};
-        border-top-right-radius:    ${borderradiustop};
-        border-bottom-left-radius:  ${borderradiusbottom};
-        border-bottom-right-radius: ${borderradiusbottom};
-`}
+    border-top-left-radius: ${({ borderradiustop }) =>
+        borderradiustop ? borderradiustop : '0px'};
+    border-top-right-radius: ${({ borderradiustop }) =>
+        borderradiustop ? borderradiustop : '0px'};
+    border-bottom-left-radius: ${({ borderradiusbottom }) =>
+        borderradiusbottom ? borderradiusbottom : '0px'};
+    border-bottom-right-radius: ${({ borderradiusbottom }) =>
+        borderradiusbottom ? borderradiusbottom : '0px'};
 `;
 
 const Tags = styled.div`
@@ -110,16 +118,9 @@ const Tags = styled.div`
     font-weight: bold;
 `;
 
-const Tag = styled.span`
-    ${flex('row', 'center')}
-    display: inline-flex;
+const Tag = styled(T)`
     background-color: white;
-    ${({ theme }): string => `
-    box-shadow: ${theme.depth[1]};
-    `}
-    border-radius: 999px;
-    padding: 5px 10px;
-    margin-right: 8px;
+    color: black;
 `;
 
 interface Iconprops {
