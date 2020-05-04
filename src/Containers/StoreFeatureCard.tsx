@@ -70,9 +70,9 @@ interface CardProps {
 const ContentCard = styled(C)<CardProps>`
     border-top-left-radius: 0px;
     border-top-right-radius: 0px;
-    border-bottom-left-radius: ${({ linktitle }) =>
+    border-bottom-left-radius: ${({ linktitle }): string =>
         linktitle ? '0px' : '8px'};
-    border-bottom-right-radius: ${({ linktitle }) =>
+    border-bottom-right-radius: ${({ linktitle }): string =>
         linktitle ? '0px' : '8px'};
 `;
 
@@ -86,8 +86,8 @@ const LinkCard = styled(C)<CardProps>`
 `;
 
 const Card = styled(C)<CardProps>`
-    width: ${({ width }) => (width ? width : 'auto')};
-    height: ${({ height }) => (height ? height : 'auto')};
+    width: ${({ width }): string => width || 'auto'};
+    height: ${({ height }): string => height || 'auto'};
     padding: 0px;
 `;
 
