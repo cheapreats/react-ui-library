@@ -77,17 +77,15 @@ interface CardProps {
 }
 
 const Card = styled(C)<CardProps>`
-    width: ${({ width }) => (width ? width : 'auto')};
-    height: ${({ height }) => (height ? height : 'auto')};
+    width: ${({ width }): string => width || 'auto'};
+    height: ${({ height }): string => height || 'auto'};
     padding: 0px; //overriding styles
-    border-top-left-radius: ${({ borderRadiusTop }) =>
-        borderRadiusTop ? borderRadiusTop : '0px'};
-    border-top-right-radius: ${({ borderRadiusTop }) =>
-        borderRadiusTop ? borderRadiusTop : '0px'};
-    border-bottom-left-radius: ${({ borderRadiusBottom }) =>
-        borderRadiusBottom ? borderRadiusBottom : '0px'};
-    border-bottom-right-radius: ${({ borderRadiusBottom }) =>
-        borderRadiusBottom ? borderRadiusBottom : '0px'};
+    ${({ borderRadiusTop, borderRadiusBottom }): string => `
+        border-top-left-radius: ${borderRadiusTop || '0px'} ;
+        border-top-right-radius:${borderRadiusTop || '0px'} ;
+        border-bottom-left-radius: ${borderRadiusBottom || '0px'} ;
+        border-bottom-right-radius: ${borderRadiusBottom || '0px'} ;
+`}
 `;
 
 const ImageWrapper = styled.div`
@@ -97,15 +95,13 @@ const ImageWrapper = styled.div`
 
 const Image = styled.img<CardProps>`
     width: 100%;
-    height: ${({ height }) => (height ? height : 'auto')};
-    border-top-left-radius: ${({ borderRadiusTop }) =>
-        borderRadiusTop ? borderRadiusTop : '0px'};
-    border-top-right-radius: ${({ borderRadiusTop }) =>
-        borderRadiusTop ? borderRadiusTop : '0px'};
-    border-bottom-left-radius: ${({ borderRadiusBottom }) =>
-        borderRadiusBottom ? borderRadiusBottom : '0px'};
-    border-bottom-right-radius: ${({ borderRadiusBottom }) =>
-        borderRadiusBottom ? borderRadiusBottom : '0px'};
+    height: ${({ height }): string => height || 'auto'};
+    ${({ borderRadiusTop, borderRadiusBottom }): string => `
+        border-top-left-radius: ${borderRadiusTop || '0px'} ;
+        border-top-right-radius:${borderRadiusTop || '0px'} ;
+        border-bottom-left-radius: ${borderRadiusBottom || '0px'} ;
+        border-bottom-right-radius: ${borderRadiusBottom || '0px'} ;
+`}
 `;
 
 const Tags = styled.div`
