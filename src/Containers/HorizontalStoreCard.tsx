@@ -54,7 +54,7 @@ export const HorizontalStoreCard: React.FC<HorizontalStoreCardProps> = ({
                     <Paragraph bold>{heading}</Paragraph>
                     <RatingContainer>{rating}</RatingContainer>
                 </RowContainer>
-                <HeaderTags>{headerTags?.join(' * ')}</HeaderTags>
+                <HeaderTags>{headerTags?.join(' • ')}</HeaderTags>
                 <RowContainer>
                     <SmallText bold>{description}</SmallText>
                 </RowContainer>
@@ -85,8 +85,8 @@ const ContentCard = styled(C)`
 `;
 
 const Card = styled(C)<CardProps>`
-    width: ${({ width }) => (width ? width : 'auto')};
-    height: ${({ height }) => (height ? height : 'auto')};
+    width: ${({ width }): string => width || 'auto'};
+    height: ${({ height }): string => height || 'auto'};
     padding: 10px; //override the property
     display: flex;
 `;
