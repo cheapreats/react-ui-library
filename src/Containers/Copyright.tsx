@@ -1,5 +1,5 @@
 import React from 'react';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import { SmallText } from '../Text/SmallText';
 
 interface CopyrightProps

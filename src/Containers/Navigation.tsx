@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import {
     scroll,
     transition,
@@ -8,7 +8,7 @@ import {
     clickable,
     darken,
     media,
-} from '@Utils/Mixins';
+} from '../Utils/Mixins';
 import { Paragraph as P, Heading as H } from '../Text';
 
 const hydratePath = (
