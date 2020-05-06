@@ -8,7 +8,7 @@
 
 **Atomic Design:** https://atomicdesign.bradfrost.com/
 
-This repository encompasses the Component Driven Design Methodology.
+This repository encompasses the [Component Driven Design Methodology](https://medium.com/the-s-curve/why-component-driven-design-drives-great-software-products-7cace364e815).
 
 ## src/
 This folder is where you will be building your UI, no-data-logic only components.
