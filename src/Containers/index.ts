@@ -11,3 +11,4 @@ export * from './ImageCarousel';
 export * from './Settings';
 export * from './SettingsCard';
 export * from './Copyright';
+export * from './PictureCard';
