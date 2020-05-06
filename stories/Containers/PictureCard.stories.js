@@ -25,3 +25,4 @@ storiesOf('PictureCard', module)
             height="200px"
         />
     ));
+
