@@ -1,9 +1,9 @@
 import React, {
     useState,
-    useEffect,
     useCallback,
     useMemo,
     Children,
+    useLayoutEffect,
 } from 'react';
 import {
     flex,
@@ -108,31 +108,21 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         return Children.toArray(suggestiveOptions);
     }, [expanded]);
 
-    useEffect((): void | (() => void) => {
-        let isMounted = true;
+    useLayoutEffect((): void | (() => void) => {
         if (expanded) {
             const listener = (): void => {
-                if (isMounted) {
-                    setExpanded(false);
-                }
+                setExpanded(false);
             };
 
-            const timerforkeydown = window.setTimeout((): void => {
-                window.addEventListener('keydown', listener, { once: true });
-            }, 10);
-            const timerforclick = window.setTimeout((): void => {
-                window.addEventListener('click', listener, { once: true });
-            }, 10);
+            window.addEventListener('keydown', listener, { once: true });
+            window.addEventListener('click', listener, { once: true });
+
             return (): void => {
-                isMounted = false;
-                window.clearTimeout(timerforkeydown);
-                window.clearTimeout(timerforclick);
                 window.removeEventListener('keydown', listener);
                 window.removeEventListener('click', listener);
             };
         }
-        // eslint-disable-next-line no-return-assign
-        return (): false => (isMounted = false);
+        return undefined;
     }, [expanded]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -164,13 +154,17 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
 const Icon = styled.svg`
     width: 20px;
-    height: 30px;
+    height: 41px;
     position: relative;
-    left: -37px;
-    top: 6px;
+    background-color: #f5f5f5;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    padding-right: 5px;
 `;
 const InputFragment = styled(I)`
-    flex-grow: 2;
+    flex-grow: 1;
+    border-top-right-radius: 0px;
+    border-bottom-right-radius: 0px;
 `;
 
 const Container = styled.div`
@@ -184,7 +178,6 @@ const SelectList = styled.div<{
 }>`
     ${position('absolute', '0 0 20px')}
     ${scroll}
-    
     background-color: white;
     list-style-type: none;
     appearance: none;
@@ -224,6 +217,7 @@ const SelectItem = styled.p<SelectItemProps>`
     font-weight: bold;
     cursor: pointer;
     margin: 0;
+
     order: ${({ order }): string => order};
     // Theme Stuff
     ${({ theme, active }): string => `
