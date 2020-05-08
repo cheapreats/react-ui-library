@@ -122,7 +122,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                 window.removeEventListener('click', listener);
             };
         }
-        return undefined;
     }, [expanded]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
