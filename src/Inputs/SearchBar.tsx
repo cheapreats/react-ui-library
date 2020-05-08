@@ -4,6 +4,8 @@ import React, {
     useMemo,
     Children,
     useLayoutEffect,
+    useRef,
+    RefObject,
 } from 'react';
 import {
     flex,
@@ -20,8 +22,6 @@ import { useTransition } from '@Utils/Hooks';
 import { Search } from 'styled-icons/fa-solid';
 import styled from 'styled-components';
 
-const NUM_VISIBLE_SELECTIONS = 3;
-
 export interface SearchBarProps extends LabelLayoutProps {
     suggestiveOptions?: string[];
     value?: string | number;
@@ -36,12 +36,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     limit = 4,
     onChange = (): void => {},
     name,
-    numVisible = NUM_VISIBLE_SELECTIONS,
     ...props
 }): React.ReactElement => {
     const [expanded, setExpanded] = useState(false);
     const [inputValue, setinputValue] = useState('');
     const [, mount, animation] = useTransition(expanded);
+    const refSelectList = useRef() as RefObject<HTMLDivElement>;
+    const [numVisibleSelection, setNumVisibleSelection] = useState(limit);
 
     const createList = (
         children: string[],
@@ -109,19 +110,21 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     }, [expanded]);
 
     useLayoutEffect((): void | (() => void) => {
-        if (expanded) {
-            const listener = (): void => {
-                setExpanded(false);
-            };
-
-            window.addEventListener('keydown', listener, { once: true });
-            window.addEventListener('click', listener, { once: true });
-
-            return (): void => {
-                window.removeEventListener('keydown', listener);
-                window.removeEventListener('click', listener);
-            };
+        if (refSelectList.current?.children.length) {
+            setNumVisibleSelection(refSelectList.current?.children.length);
         }
+
+        const listener = (): void => {
+            setExpanded(false);
+        };
+
+        window.addEventListener('keydown', listener, { once: true });
+        window.addEventListener('click', listener, { once: true });
+
+        return (): void => {
+            window.removeEventListener('keydown', listener);
+            window.removeEventListener('click', listener);
+        };
     }, [expanded]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -140,7 +143,8 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                 />
                 {mount && (
                     <SelectList
-                        limit={Math.min(numVisible, limit)}
+                        ref={refSelectList}
+                        limit={Math.min(numVisibleSelection, limit)}
                         expanded={animation}
                     >
                         {createList(options, onSelect)}
