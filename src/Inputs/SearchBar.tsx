@@ -44,6 +44,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     const refSelectList = useRef() as RefObject<HTMLDivElement>;
     const [numVisibleSelection, setNumVisibleSelection] = useState(limit);
 
+    const listener = (): void => {
+        setExpanded(false);
+    };
+
+    window.addEventListener('keydown', listener, { once: true });
+    window.addEventListener('click', listener, { once: true });
+
     const createList = (
         children: string[],
         onSelect: React.MouseEventHandler,
@@ -112,19 +119,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     useLayoutEffect((): void | (() => void) => {
         if (refSelectList.current?.children.length) {
             setNumVisibleSelection(refSelectList.current?.children.length);
+        } else {
+            setNumVisibleSelection(0);
         }
-
-        const listener = (): void => {
-            setExpanded(false);
-        };
-
-        window.addEventListener('keydown', listener, { once: true });
-        window.addEventListener('click', listener, { once: true });
-
-        return (): void => {
-            window.removeEventListener('keydown', listener);
-            window.removeEventListener('click', listener);
-        };
     }, [expanded]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
