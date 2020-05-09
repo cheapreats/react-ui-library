@@ -22,18 +22,20 @@ import { useTransition } from '@Utils/Hooks';
 import { Search } from 'styled-icons/fa-solid';
 import styled from 'styled-components';
 
+const MAX_VIEWING_LIMIT = 4;
+const REVERSE = '-1';
+
 export interface SearchBarProps extends LabelLayoutProps {
     suggestiveOptions?: string[];
     value?: string | number;
     onChange?: Function;
     limit?: number;
-    numVisible: number;
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({
     suggestiveOptions,
     value,
-    limit = 4,
+    limit = MAX_VIEWING_LIMIT,
     onChange = (): void => {},
     name,
     ...props
@@ -43,13 +45,6 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     const [, mount, animation] = useTransition(expanded);
     const refSelectList = useRef() as RefObject<HTMLDivElement>;
     const [numVisibleSelection, setNumVisibleSelection] = useState(limit);
-
-    const listener = (): void => {
-        setExpanded(false);
-    };
-
-    window.addEventListener('keydown', listener, { once: true });
-    window.addEventListener('click', listener, { once: true });
 
     const createList = (
         children: string[],
@@ -81,7 +76,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                 const order = child
                     .toLowerCase()
                     .startsWith(inputValue.toLowerCase())
-                    ? '-1'
+                    ? REVERSE
                     : '1';
                 return (
                     <SelectItem
@@ -118,10 +113,22 @@ export const SearchBar: React.FC<SearchBarProps> = ({
 
     useLayoutEffect((): void | (() => void) => {
         if (refSelectList.current?.children.length) {
-            setNumVisibleSelection(refSelectList.current?.children.length);
+            setNumVisibleSelection(refSelectList.current.children.length);
         } else {
             setNumVisibleSelection(0);
         }
+
+        const listener = (): void => {
+            setExpanded(false);
+        };
+
+        window.addEventListener('keydown', listener, { once: true });
+        window.addEventListener('click', listener, { once: true });
+
+        return (): void => {
+            window.removeEventListener('keydown', listener);
+            window.removeEventListener('click', listener);
+        };
     }, [expanded]);
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
