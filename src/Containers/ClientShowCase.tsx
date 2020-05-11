@@ -1,39 +1,48 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Button } from '../Inputs/Button';
 
+const COMPONENT_HEIGHT = '90px'
 
-export interface cardProps {
+export interface ClientProps {
     imgData: string[]
-    /*onHover: Function*/
     handleClick: (event: React.MouseEvent<Element, MouseEvent>) => void
+    buttonText: string
 }
 
-const componentHeight = '90px'
+ 
 
-export const ClientShowCase:React.FC<cardProps> = ({
+export const ClientShowCase:React.FC<ClientProps> = ({
     imgData,
     handleClick,
+    buttonText
 }):React.ReactElement => {
-    const [isHovering, setHovering] = useState(false);
 
 
-const NormalItem = styled.li`
-    display: inline-block;
-    padding: 2%;
-    vertical-align:middle;
-    @media (min-width: 550px) {
-        width: 15%
-    }
-    @media (max-width: 550px) {
-        width: 20%
-    }
-    @media (max-width: 350px) {
-        width: 30%
-    }
+
+    const ImageList = imgData.map((imgURL: string) =>
+    <IconListItem key={imgURL}>
+        <IconImg src={imgURL} />
+    </IconListItem>
+    );
+
+
+
+    return (
+        <ComponentDiv
+        onClick={handleClick}>
+            <List>{ImageList}</List>
+            <ButtonDiv><MyButton primary>{buttonText}</MyButton></ButtonDiv>
+        </ComponentDiv>
+    );
+};
+
+const ComponentDiv = styled.div`
+    height: ${COMPONENT_HEIGHT};
+    width: 100%;
 `;
 
-const BlurredItem = styled.li`
+const IconListItem = styled.li`
     display: inline-block;
     padding: 2%;
     vertical-align:middle;
@@ -46,14 +55,17 @@ const BlurredItem = styled.li`
     @media (max-width: 350px) {
         width: 30%
     }
-    -webkit-filter: blur(10px);
 `;
 
 const List = styled.ul`
     list-style-type: none;
     text-align: center;
+    ${ComponentDiv}:hover & {
+        filter: blur(7px);
+    };
+    padding: 0;
+    height: ${COMPONENT_HEIGHT};
 `;
-
 
 
 const ButtonDiv = styled.div`
@@ -67,42 +79,15 @@ const ButtonDiv = styled.div`
     align-items: center;
 `;
 
-const ClientImg = styled.img`
-`;
-const ComponentDiv = styled.div`
-    height: ${componentHeight};
-    width: 100%;
+const IconImg = styled.img`
+    height: auto;
+    max-width: 100%;
 `;
 
-    const NormalImages = imgData.map((imgURL: string) =>
-    <NormalItem>
-        <ClientImg src={imgURL} />
-    </NormalItem>
-    );
-
-    const BlurredImages = imgData.map((imgURL: string) =>
-    <BlurredItem>
-        <ClientImg src={imgURL} />
-    </BlurredItem>
-    );
-    
-
-
-    return (
-        <ComponentDiv
-        onClick={handleClick}
-        onMouseEnter={() => setHovering(true)}
-        onMouseLeave={() => setHovering(false)}>
-            {
-            isHovering
-            ?
-                <div>
-                    <List> {BlurredImages} </List>
-                    <ButtonDiv><Button primary>SEE OUR CUSTOMERS</Button></ButtonDiv>
-                </div>
-            :
-            <List> {NormalImages} </List>}
-            </ComponentDiv>
-    );
-};
-
+const MyButton = styled(Button)`
+    display: none;
+    ${ComponentDiv}:hover & {
+        display: block;
+    };
+    height: auto;
+`;
