@@ -10,7 +10,7 @@
     "scripts": {
         "start": "start-storybook -p 6006",
         "deploy": "build-storybook --quiet -o .deploy",
-        "build": "rm -rf dist && tsc && NODE_ENV=production babel dist -d dist",
+        "build": "rm -rf dist  && tsc && NODE_ENV=production babel dist -d dist",
         "test": "tsc && npm run eslint:fix",
         "prepublish": "npm run lint && npm run build",
         "eslint": "eslint ./src --ext tsx,ts,jsx,js",
@@ -50,7 +50,8 @@
         "@storybook/react": "^5.3.14",
         "awesome-typescript-loader": "^5.2.1",
         "babel-loader": "^8.0.6",
-        "babel-plugin-module-resolver": "^3.2.0",
+        "babel-plugin-module-resolver": "^4.0.0",
+        "css-loader": "^3.5.3",
         "eslint": "^5.16.0",
         "eslint-config-airbnb": "^17.1.1",
         "eslint-config-prettier": "^6.10.0",
@@ -58,6 +59,8 @@
         "eslint-plugin-import": "^2.20.1",
         "eslint-plugin-jsx-a11y": "^6.2.3",
         "eslint-plugin-react": "^7.18.3",
+        "gulp": "^4.0.2",
+        "gulp-tsc": "^1.3.2",
         "husky": "^3.1.0",
         "prettier": "^1.19.1",
         "react": "^16.13.0",
@@ -65,7 +68,11 @@
         "react-dom": "^16.13.0",
         "styled-components": "^5.0.1",
         "styled-icons": "^7.15.1",
-        "typescript": "^3.8.2"
+        "tsconfig-paths": "^3.9.0",
+        "tsconfig-paths-webpack-plugin": "^3.2.0",
+        "typescript": "^3.8.2",
+        "webpack": "^4.43.0",
+        "webpack-cli": "^3.3.11"
     },
     "aliases": {
         "@Containers": "src/Containers",
@@ -94,6 +101,8 @@
         "@typescript-eslint/parser": "^1.13.0",
         "emoji-mart": "^2.11.2",
         "react-beautiful-dnd": "^12.2.0",
-        "react-image-crop": "^8.5.0"
+        "react-image-crop": "^8.5.0",
+        "ts-loader": "^7.0.3",
+        "ts-node": "^8.10.1"
     }
 }

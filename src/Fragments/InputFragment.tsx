@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { transition, styledCondition } from '@Utils/Mixins';
-import { ResponsiveInterface, MainInterface } from '@Utils/BaseStyles';
+import { transition, styledCondition } from '../Utils/Mixins';
+import { ResponsiveInterface, MainInterface } from '../Utils/BaseStyles';
 
 export interface InputFragmentProps
     extends ResponsiveInterface,
