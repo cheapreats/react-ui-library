@@ -14,5 +14,4 @@ export * from './ExcelOptions';
 export * from './EmojiPicker';
 export * from './ColorPicker';
 export * from './MaskedInput';
-export * from './ComboBox';
 export * from './SearchBar';

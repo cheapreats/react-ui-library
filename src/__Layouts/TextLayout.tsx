@@ -5,7 +5,7 @@ import {
     MainInterface,
     Responsive,
     ResponsiveInterface,
-} from '@Utils/BaseStyles';
+} from '../Utils/BaseStyles';
 
 export interface TextLayoutProps
     extends MainInterface,

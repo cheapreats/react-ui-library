@@ -5,9 +5,9 @@ import {
     MainInterface,
     Responsive,
     ResponsiveInterface,
-} from '@Utils/BaseStyles';
-import { flex, position as pos, scroll, transition } from '@Utils/Mixins';
-import { useTransition } from '@Utils/Hooks';
+} from '../Utils/BaseStyles';
+import { flex, position as pos, scroll, transition } from '../Utils/Mixins';
+import { useTransition } from '../Utils/Hooks';
 
 export interface FootnoteProps
     extends MainInterface,

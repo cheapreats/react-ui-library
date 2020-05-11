@@ -4,8 +4,8 @@ import 'react-image-crop/dist/ReactCrop.css';
 import ReactCrop from 'react-image-crop';
 import styled from 'styled-components';
 
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { ImplicitPropsInterface } from '@Utils/Hooks';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
+import { ImplicitPropsInterface } from '../Utils/Hooks';
 import { position, flex } from '../Utils/Mixins';
 import { Heading } from '../Text/Heading';
 import { Button } from './Button';
