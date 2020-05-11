@@ -1,11 +1,13 @@
 import React, {
     useState,
-    useEffect,
     useCallback,
     useMemo,
     Children,
     isValidElement,
-    SyntheticEvent, 
+    SyntheticEvent,
+    useRef,
+    RefObject,
+    useLayoutEffect,
 } from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
 import {
@@ -17,49 +19,47 @@ import {
     darken,
 } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
-import { LabelLayout, LabelLayoutProps,InputFragment } from '@Layouts';
+import { LabelLayout, LabelLayoutProps, InputFragment } from '@Layouts';
 
-const NUM_VISIBLE_SELECTIONS = 3;
+const MAX_VIEWING_LIMIT = 4;
+const REVERSE = '-1';
 
 const SPEED = 'normal';
-
-let myWindow = window as any;
 
 export interface SelectProps extends LabelLayoutProps {
     value?: string | number;
     theme: DefaultTheme;
     onChange?: Function;
     limit?: number;
-    numVisible:number;
+    numVisible: number;
 }
 
 const _Select: React.FC<SelectProps> = ({
-    value,
     children,
-    limit = 4,
+    limit = MAX_VIEWING_LIMIT,
     onChange = (): void => {},
     theme,
     name,
-    numVisible =NUM_VISIBLE_SELECTIONS,
     ...props
 }): React.ReactElement => {
     const [expanded, setExpanded] = useState(false);
+    const [inputValue, setinputValue] = useState('');
     const [, mount, animation] = useTransition(expanded, {
         end: theme.speed[SPEED],
     });
-
-
+    const refSelectList = useRef() as RefObject<HTMLDivElement>;
+    const [numVisibleSelection, setNumVisibleSelection] = useState(limit);
 
     const createList = (
         children: React.ReactNode[],
         onSelect: React.MouseEventHandler,
         value?: string | number,
     ): React.ReactNode[] =>
-        children.map( (child): React.ReactElement | null => {
-
-            if (!myWindow.inputValue){
-                if (child && isValidElement(child)){
+        children.map((child): React.ReactElement | null => {
+            if (!inputValue) {
+                if (child && isValidElement(child)) {
                     const val = child.props.value;
+
                     const selected = String(value) === val;
                     return (
                         <SelectItem
@@ -67,29 +67,39 @@ const _Select: React.FC<SelectProps> = ({
                             active={selected}
                             onClick={onSelect}
                             key={val}
+                            order="1"
                         />
-                    );}
-            }
-
-            else
-
-            {
-
-            if ((child && isValidElement(child)) && (myWindow.inputValue && (((child.props.children).toLowerCase()).search(myWindow.inputValue.toLowerCase()))> (-1) )) {
+                    );
+                }
+            } else if (
+                child &&
+                isValidElement(child) &&
+                inputValue &&
+                child.props.children
+                    .toLowerCase()
+                    .search(inputValue.toLowerCase()) > -1
+            ) {
                 const val = child.props.value;
                 const selected = String(value) === val;
+                const order = child.props.value
+                    .toLowerCase()
+                    .startsWith(inputValue.toLowerCase())
+                    ? REVERSE
+                    : '1';
+
                 return (
                     <SelectItem
                         {...child.props}
                         active={selected}
                         onClick={onSelect}
                         key={val}
+                        order={order as string}
                     />
-                );}
+                );
+            }
 
-        }
-        
-        return null;} );
+            return null;
+        });
 
     const onSelect = useCallback(
         ({ currentTarget }): void => {
@@ -99,64 +109,57 @@ const _Select: React.FC<SelectProps> = ({
                     name,
                 },
             });
-            myWindow.inputValue=currentTarget.firstChild.nodeValue;
+            setinputValue(currentTarget.firstChild.nodeValue);
         },
         [name],
     );
 
-    const options = useMemo ( ():any => { return Children.toArray(children); }, [expanded] );
-
-
-    useEffect((): void | (() => void )=> {
-        let isMounted=true;
-
-        if (expanded) {
-            
-            const listener = (): void => {
-                if (isMounted){
-                    setExpanded(false);}
-            };
-
-            const timerforkeydown = window.setTimeout((): void => {
-                window.addEventListener('keydown', listener, { once: true });
-            }, 10);
-            const timerforclick = window.setTimeout((): void => {
-                window.addEventListener('click', listener, { once: true });
-            }, 10);
-            return (): void => {
-                isMounted = false;
-                window.clearTimeout(timerforkeydown);
-                window.clearTimeout(timerforclick);
-                window.removeEventListener('keydown', listener);
-                window.removeEventListener('click', listener);
-            };
-        }
-        return (): false => (isMounted = false);
+    const options = useMemo((): any => {
+        return Children.toArray(children);
     }, [expanded]);
 
-    const handleChange=(event:SyntheticEvent<HTMLInputElement>)=>{
-        myWindow.inputValue = event.currentTarget.value;
+    useLayoutEffect((): void | (() => void) => {
+        if (refSelectList.current?.children.length) {
+            setNumVisibleSelection(refSelectList.current.children.length);
+        } else {
+            setNumVisibleSelection(0);
+        }
+
+        const listener = (): void => {
+            setExpanded(false);
+        };
+
+        window.addEventListener('keydown', listener, { once: true });
+        window.addEventListener('click', listener, { once: true });
+
+        return (): void => {
+            window.removeEventListener('keydown', listener);
+            window.removeEventListener('click', listener);
+        };
+    }, [expanded]);
+
+    const handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
+        setinputValue(event.currentTarget.value);
         setExpanded(true);
-    }
+    };
 
     return (
         <LabelLayout {...props}>
             <Container>
-                <InputFragment value={myWindow.inputValue}
-                    onChange = {e=>
-                        handleChange(e)} 
-                    onKeyDown = {e=>
-                        handleChange(e)} 
-                    onClick={e=>
-                        handleChange(e)} 
-                     />
+                <InputFragment
+                    value={inputValue}
+                    onChange={e => handleChange(e)}
+                    onKeyDown={e => handleChange(e)}
+                    onClick={e => handleChange(e)}
+                />
 
                 {mount && (
                     <SelectList
-                        limit = {Math.min(numVisible, limit)}
-                        expanded = {animation}
+                        ref={refSelectList}
+                        limit={Math.min(numVisibleSelection, limit)}
+                        expanded={animation}
                     >
-                        {createList(options, onSelect, value)}
+                        {createList(options, onSelect)}
                     </SelectList>
                 )}
             </Container>
@@ -215,12 +218,18 @@ const SelectList = styled.div<{
     `}
 `;
 
-const SelectItem = styled.p<{ active: boolean }>`
+interface SelectItemProps {
+    active?: boolean;
+    order: string;
+}
+
+const SelectItem = styled.p<SelectItemProps>`
     ${transition(['background-color'])}
     font-size: 0.85rem;
     font-weight: bold;
     cursor: pointer;
     margin: 0;
+    order: ${({ order }): string => order};
 
     // Theme Stuff
     ${({ theme, active }): string => `
