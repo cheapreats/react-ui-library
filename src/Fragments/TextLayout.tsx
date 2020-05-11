@@ -5,9 +5,12 @@ import {
     MainInterface,
     Responsive,
     ResponsiveInterface,
-} from '@Utils/BaseStyles';
+} from '../Utils/BaseStyles';
 
-export interface TextLayoutProps extends MainInterface, ResponsiveInterface {
+export interface TextLayoutProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLParagraphElement> {
     color?: string;
     lineHeight?: number | string;
     bold?: boolean;

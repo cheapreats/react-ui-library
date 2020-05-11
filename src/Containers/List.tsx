@@ -5,15 +5,18 @@ import {
     Main,
     ResponsiveInterface,
     MainInterface,
-} from '@Utils/BaseStyles';
-import { scroll, flex } from '@Utils/Mixins';
-import { Heading } from '@Text';
+} from '../Utils/BaseStyles';
+import { scroll, flex } from '../Utils/Mixins';
+import { Heading } from '../Text';
 
 interface ItemProps {
     [name: string]: object | string | boolean | Function | number;
 }
 
-export interface ListProps extends MainInterface, ResponsiveInterface {
+export interface ListProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     loading: boolean;
     render: Function;
     items?: object[];

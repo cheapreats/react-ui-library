@@ -1,6 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { ImplicitPropsInterface } from '@Utils/Hooks';
 import styled from 'styled-components';
 import {
     DragDropContext,
@@ -8,6 +6,8 @@ import {
     Draggable,
     DropResult,
 } from 'react-beautiful-dnd';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
+import { ImplicitPropsInterface } from '../Utils/Hooks';
 import { Heading, Paragraph } from '../Text';
 import { Tag } from '../Containers';
 import { Select } from './Select';
@@ -18,7 +18,8 @@ import { Mixins } from '../Utils';
 export interface ExcelOptionsProps
     extends MainInterface,
         ResponsiveInterface,
-        ImplicitPropsInterface {
+        ImplicitPropsInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     headers: string[];
     defaultHeaders: string[];
     onResult?: Function;

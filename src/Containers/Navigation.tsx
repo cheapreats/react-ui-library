@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import {
     scroll,
     transition,
@@ -8,7 +8,7 @@ import {
     clickable,
     darken,
     media,
-} from '@Utils/Mixins';
+} from '../Utils/Mixins';
 import { Paragraph as P, Heading as H } from '../Text';
 
 const hydratePath = (
@@ -23,6 +23,7 @@ interface NavProps {
     icon: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
 }
 
+// no HTMLNavigationElement
 export interface NavigationProps extends MainInterface, ResponsiveInterface {
     params?: { [name: string]: string };
     pages?: [

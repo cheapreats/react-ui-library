@@ -1,12 +1,15 @@
 import React from 'react';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
-import { Mixins } from '@Utils';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
+import { Mixins } from '../Utils';
 import { Card as C } from './Card';
 import { Heading } from '../Text';
 
-interface SettingsCardProps extends MainInterface, ResponsiveInterface {
+interface SettingsCardProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     heading: string;
     icon: StyledIcon;
 }

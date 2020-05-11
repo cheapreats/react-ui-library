@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Times } from 'styled-icons/fa-solid/Times';
-import { flex, darken, transition, clickable } from '@Utils/Mixins';
-import { Main } from '@Utils/BaseStyles';
+import { flex, darken, transition, clickable } from '../Utils/Mixins';
+import { Main } from '../Utils/BaseStyles';
 
-export interface TagProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
 }
 

@@ -1,8 +1,8 @@
 import React, { useState, useRef, useEffect } from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
-import { useTransition } from '@Utils/Hooks';
-import { flex } from '@Utils/Mixins';
-import { LabelLayout, LabelLayoutProps } from '@Layouts';
+import { useTransition } from '../../Utils/Hooks';
+import { flex } from '../../Utils/Mixins';
+import { LabelLayout, LabelLayoutProps } from '../../Fragments';
 import { TimeDisplay } from './TimeDisplay';
 import { Timebox } from './Timebox';
 

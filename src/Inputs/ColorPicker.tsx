@@ -1,7 +1,7 @@
 import React, { useState, useRef } from 'react';
 import styled from 'styled-components';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { ImplicitPropsInterface } from '@Utils/Hooks';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
+import { ImplicitPropsInterface } from '../Utils/Hooks';
 import { Button } from './Button';
 
 export interface ColorPickerProps

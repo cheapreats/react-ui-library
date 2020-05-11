@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components';
 import { Check } from 'styled-icons/fa-solid/Check';
 import {
@@ -8,14 +8,15 @@ import {
     ResponsiveProps,
     MainInterface,
     ResponsiveInterface,
-} from '@Utils/BaseStyles';
-import { __useImplicitProps, ImplicitPropsInterface } from '@Utils/Hooks';
-import { position, darken, flex, transition } from '@Utils/Mixins';
+} from '../Utils/BaseStyles';
+import { __useImplicitProps, ImplicitPropsInterface } from '../Utils/Hooks';
+import { position, darken, flex, transition } from '../Utils/Mixins';
 
 export interface CheckboxProps
     extends MainInterface,
         ResponsiveInterface,
-        ImplicitPropsInterface {
+        ImplicitPropsInterface,
+        Omit<React.HTMLAttributes<HTMLInputElement>, 'onChange'> {
     label?: string;
     column?: boolean;
     className?: string;
@@ -24,6 +25,7 @@ export interface CheckboxProps
     disabled?: boolean;
     name?: string;
     value?: boolean;
+    onChange?: Function;
 }
 
 export const Checkbox: React.FC<CheckboxProps> = ({
@@ -35,6 +37,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     disabled,
     value,
     name,
+    onChange = () => {},
     ...props
 }): React.ReactElement => {
     const implicitProps = __useImplicitProps(props, [
@@ -52,6 +55,9 @@ export const Checkbox: React.FC<CheckboxProps> = ({
                 <Input
                     type="checkbox"
                     name={name}
+                    onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+                        onChange(event)
+                    }
                     {...props}
                     value={
                         value === undefined || value === null

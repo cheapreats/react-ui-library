@@ -8,8 +8,8 @@ import {
     flex,
     clickable,
     position,
-} from '@Utils/Mixins';
-import { WEEKDAYS, MONTHS } from '@Utils/Constants';
+} from '../../Utils/Mixins';
+import { WEEKDAYS, MONTHS } from '../../Utils/Constants';
 import { Button } from '../Button';
 
 const SIZE = 40;
@@ -63,7 +63,7 @@ const buildCalendar = (
     return items;
 };
 
-export interface DateboxProps {
+export interface DateboxProps extends React.HTMLAttributes<HTMLDivElement> {
     changePage: (change?: number) => React.MouseEventHandler;
     selectedDate?: Date;
     selectDate: React.MouseEventHandler;

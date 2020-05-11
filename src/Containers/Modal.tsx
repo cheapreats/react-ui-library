@@ -1,16 +1,19 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
-import { position, flex, scroll, transition } from '@Utils/Mixins';
+import { position, flex, scroll, transition } from '../Utils/Mixins';
 import {
     Main,
     Responsive,
     ResponsiveInterface,
     MainInterface,
-} from '@Utils/BaseStyles';
-import { useTransition } from '@Utils/Hooks';
+} from '../Utils/BaseStyles';
+import { useTransition } from '../Utils/Hooks';
 
-export interface ModalProps extends ResponsiveInterface, MainInterface {
+export interface ModalProps
+    extends ResponsiveInterface,
+        MainInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     theme: DefaultTheme;
     onClose?: Function;
     width?: string | number;
