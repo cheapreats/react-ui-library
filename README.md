@@ -1,5 +1,9 @@
 # CheaprEats UI Library
 
+## Installation Requirements
+
+**Prettier:** https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
+
 ## *Getting Started*
 
 **Storybook:** https://storybook.js.org/
