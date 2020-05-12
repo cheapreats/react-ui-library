@@ -11,19 +11,16 @@ export interface ClientProps {
     animationTime: number
 }
 
- 
-
 export const ClientShowCase:React.FC<ClientProps> = ({
     imgData,
     handleClick,
     buttonText,
-    animationTime
 }):React.ReactElement => {
 
     return (
-        <ComponentDiv
+        <ImageListDiv
         onClick={handleClick}>
-            <List animationTime={animationTime}>
+            <List>
                 {imgData.map((imgURL: string) => (
                     <IconListItem key={imgURL}>
                         <IconImg src={imgURL} />
@@ -33,11 +30,11 @@ export const ClientShowCase:React.FC<ClientProps> = ({
             <ButtonDiv>
                 <MyButton primary>{buttonText}</MyButton>
             </ButtonDiv>
-        </ComponentDiv>
+        </ImageListDiv>
     );
 };
 
-const ComponentDiv = styled.div`
+const ImageListDiv = styled.div`
     width: 100%;
     height: auto;
 `;
@@ -53,8 +50,8 @@ const List = styled.ul`
     display: inline-block;
     list-style-type: none;
     text-align: center;
-    ${ComponentDiv}:hover & {
-        transition: filter ${props => props.animationTime}s;
+    ${ImageListDiv}:hover & {
+        transition: filter 1.5s;
         filter: blur(7px);
     };
     padding: 0;
@@ -81,7 +78,7 @@ const IconImg = styled.img`
 
 const MyButton = styled(Button)`
     display: none;
-    ${ComponentDiv}:hover & {
+    ${ImageListDiv}:hover & {
         display: flex;
     };
     height: auto;

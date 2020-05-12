@@ -23,6 +23,5 @@ storiesOf('ClientShowCase', module)
             ]}
             handleClick={consoleLog}
             buttonText='SEE OUR CUSTOMERS'
-            animationTime={1}
         />
     ));
