@@ -8,7 +8,6 @@ export interface ClientProps {
     imgData: string[]
     handleClick: (event: React.MouseEvent<Element, MouseEvent>) => void
     buttonText: string
-    animationTime: number
 }
 
 export const ClientShowCase:React.FC<ClientProps> = ({
