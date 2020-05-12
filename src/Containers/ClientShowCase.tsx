@@ -4,28 +4,33 @@ import { Button } from '../Inputs/Button';
 
 const IMAGE_HEIGHT = 30;
 
-export interface ClientProps {
-    imgData: string[]
-    handleClick: (event: React.MouseEvent<Element, MouseEvent>) => void
-    buttonText: string
+export interface ClientProps extends React.HTMLAttributes<HTMLDivElement> {
+    imgData: string[];
+    handleClick: (event: React.MouseEvent<Element, MouseEvent>) => void;
+    buttonText: string;
+    animationTime: number;
 }
 
-export const ClientShowCase:React.FC<ClientProps> = ({
+export interface ImageListProps {
+    animationTime: number;
+}
+
+export const ClientShowCase: React.FC<ClientProps> = ({
     imgData,
     handleClick,
-    buttonText,
-}):React.ReactElement => {
-
+    buttonText = 'SEE OUR CUSTOMERS',
+    animationTime = 1.5,
+    ...props
+}): React.ReactElement => {
     return (
-        <ImageListDiv
-        onClick={handleClick}>
-            <List>
+        <ImageListDiv onClick={handleClick} {...props}>
+            <ImageList animationTime={animationTime}>
                 {imgData.map((imgURL: string) => (
                     <IconListItem key={imgURL}>
                         <IconImg src={imgURL} />
                     </IconListItem>
                 ))}
-            </List>
+            </ImageList>
             <ButtonDiv>
                 <MyButton primary>{buttonText}</MyButton>
             </ButtonDiv>
@@ -38,26 +43,25 @@ const ImageListDiv = styled.div`
     height: auto;
 `;
 
+const ImageList = styled.ul<ImageListProps>`
+    display: inline-block;
+    list-style-type: none;
+    text-align: center;
+    ${ImageListDiv}:hover & {
+        transition: filter ${({ animationTime }): number => animationTime}s;
+        filter: blur(7px);
+    }
+    padding: 0;
+    width: 100%;
+    height: auto;
+`;
+
 const IconListItem = styled.li`
     display: inline-block;
     padding: 2%;
     vertical-align: middle;
     width: auto;
 `;
-
-const List = styled.ul`
-    display: inline-block;
-    list-style-type: none;
-    text-align: center;
-    ${ImageListDiv}:hover & {
-        transition: filter 1.5s;
-        filter: blur(7px);
-    };
-    padding: 0;
-    width: 100%;
-    height: auto;
-`;
-
 
 const ButtonDiv = styled.div`
     display: flex;
@@ -79,6 +83,6 @@ const MyButton = styled(Button)`
     display: none;
     ${ImageListDiv}:hover & {
         display: flex;
-    };
+    }
     height: auto;
 `;
