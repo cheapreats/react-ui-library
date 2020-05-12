@@ -25,3 +25,5 @@ This folder contains code generation scripts to help make development faster.
 ### Helpful Resources
 #### Themes/ 
 Contains all the styling that CheaprEats uses so you don't have to guess to color codes, Also your components will automatically translate to dark mode!
+##### Mixins (Responsiveness)
+- Ensure that you are using the consistent Mixins for your Media Queries: https://github.com/cheapreats/react-ui-library/blob/v2/src/Themes/ThemeTemplate.ts#L138
