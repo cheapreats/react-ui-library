@@ -1,5 +1,11 @@
 # CheaprEats UI Library
 
+## PR Requirements
+- Showcase Visual Layer through an Image on your Pull Request
+- Showcase Interactions / Animations Layer through a GIF / Video on your Pull Request
+  - Macbook: Command+Shift+5
+  - Windows: Snip Tool
+
 ## Installation Requirements
 
 **Prettier:** https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
