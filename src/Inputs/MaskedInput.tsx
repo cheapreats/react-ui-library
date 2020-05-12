@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { LabelLayout, LabelLayoutProps, InputFragment } from '@Layouts';
+import { LabelLayout, LabelLayoutProps, InputFragment } from '../Fragments';
 
 export enum MaskedInputPreset {
     DOLLAR = 'DOLLAR',
