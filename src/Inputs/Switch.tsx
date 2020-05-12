@@ -1,7 +1,7 @@
 import React from 'react';
-import { position, darken, flex, transition } from '@Utils/Mixins';
 import styled from 'styled-components';
-import { LabelLayout, LabelLayoutProps } from '@Layouts';
+import { position, darken, flex, transition } from '../Utils/Mixins';
+import { LabelLayout, LabelLayoutProps } from '../Fragments';
 
 const COMPONENT = (
     props = {},

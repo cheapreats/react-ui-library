@@ -1,7 +1,7 @@
 import React from 'react';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import styled from 'styled-components';
-import { Mixins } from '@Utils';
+import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
+import { Mixins } from '../../Utils';
 import { Heading } from '../../Text';
 import { Loading } from '../Loading';
 import { AccountCard, AccountProps } from './AccountCard';

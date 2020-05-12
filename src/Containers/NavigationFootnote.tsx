@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { ImplicitPropsInterface } from '@Utils/Hooks';
-import { Mixins } from '@Utils';
 import { Compass } from 'styled-icons/fa-solid/Compass';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
+import { ImplicitPropsInterface } from '../Utils/Hooks';
+import { Mixins } from '../Utils';
 import { Paragraph as P } from '../Text';
 
 export interface NavigationFootnoteProps

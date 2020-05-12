@@ -7,9 +7,9 @@ import {
     ResponsiveProps,
     MainInterface,
     ResponsiveInterface,
-} from '@Utils/BaseStyles';
-import { __useImplicitProps, ImplicitPropsInterface } from '@Utils/Hooks';
-import { position, darken, flex, transition } from '@Utils/Mixins';
+} from '../Utils/BaseStyles';
+import { __useImplicitProps, ImplicitPropsInterface } from '../Utils/Hooks';
+import { position, darken, flex, transition } from '../Utils/Mixins';
 
 export interface RadioProps
     extends MainInterface,

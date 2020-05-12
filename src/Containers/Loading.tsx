@@ -1,13 +1,13 @@
 import React, { Fragment } from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
-import { position, flex, transition } from '@Utils/Mixins';
+import { position, flex, transition } from '../Utils/Mixins';
 import {
     Main,
     Responsive,
     ResponsiveInterface,
     MainInterface,
-} from '@Utils/BaseStyles';
-import { useTransition } from '@Utils/Hooks';
+} from '../Utils/BaseStyles';
+import { useTransition } from '../Utils/Hooks';
 
 export interface LoadingProps
     extends React.HTMLAttributes<HTMLDivElement>,

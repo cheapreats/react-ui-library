@@ -1,6 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
 import styled from 'styled-components';
-import { transition, position, flex } from '@Utils/Mixins';
+import { transition, position, flex } from '../../Utils/Mixins';
 import { TimeColumn } from './TimeColumn';
 
 const VALUES = {

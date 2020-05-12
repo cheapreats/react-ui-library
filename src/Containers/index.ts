@@ -12,3 +12,6 @@ export * from './Settings';
 export * from './SettingsCard';
 export * from './Copyright';
 export * from './ClientShowCase';
+export * from './PictureCard';
+export * from './StoreFeatureCard';
+export * from './HorizontalStoreCard';
