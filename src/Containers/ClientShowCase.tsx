@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Button } from '../Inputs/Button';
 
-const COMPONENT_HEIGHT = 90;
 const IMAGE_HEIGHT = 30;
 
 export interface ClientProps {
