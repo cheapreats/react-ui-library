@@ -62,8 +62,11 @@ const ButtonDiv = styled.div`
     left: 0;
     justify-content: center;
     align-items: center;
-    .button {
-        filter: blur(7px);
+    & {
+        display: none;
+    }
+    ${ImageListDiv}:hover & {
+        display: flex;
     }
 `;
 
@@ -71,11 +74,3 @@ const IconImg = styled.img`
     height: ${IMAGE_HEIGHT}px;
     max-width: 100%;
 `;
-/*
-const MyButton = styled(Button)`
-    display: none;
-    ${ImageListDiv}:hover & {
-        display: flex;
-    }
-    height: auto;
-`;*/
