@@ -7,10 +7,10 @@ const IMAGE_HEIGHT = 30;
 
 export interface ClientProps extends React.HTMLAttributes<HTMLDivElement> {
     imgData: string[];
-    handleImageListClick: (
+    handleImageListClick?: (
         event: React.MouseEvent<Element, MouseEvent>,
     ) => void;
-    button: React.ReactNode;
+    button?: React.ReactNode;
 }
 
 export const ClientShowCase: React.FC<ClientProps> = ({
