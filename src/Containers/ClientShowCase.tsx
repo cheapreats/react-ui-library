@@ -1,59 +1,49 @@
-import React from 'react';
+import React, { Component } from 'react';
 import styled from 'styled-components';
+import { Mixins } from '../Utils';
 import { Button } from '../Inputs/Button';
 
 const IMAGE_HEIGHT = 30;
 
 export interface ClientProps extends React.HTMLAttributes<HTMLDivElement> {
     imgData: string[];
-    handleClick: (event: React.MouseEvent<Element, MouseEvent>) => void;
-    buttonText: string;
-    animationTime: number;
-}
-
-export interface ImageListProps {
-    animationTime: number;
+    handleImageListClick: (
+        event: React.MouseEvent<Element, MouseEvent>,
+    ) => void;
+    button: React.ReactNode;
 }
 
 export const ClientShowCase: React.FC<ClientProps> = ({
     imgData,
-    handleClick,
-    buttonText = 'SEE OUR CUSTOMERS',
-    animationTime = 1.5,
+    handleImageListClick,
+    button,
     ...props
 }): React.ReactElement => {
     return (
-        <ImageListDiv onClick={handleClick} {...props}>
-            <ImageList animationTime={animationTime}>
+        <ImageListDiv onClick={handleImageListClick} {...props}>
+            <ImageList>
                 {imgData.map((imgURL: string) => (
                     <IconListItem key={imgURL}>
                         <IconImg src={imgURL} />
                     </IconListItem>
                 ))}
+                {console.log('wow')}
             </ImageList>
-            <ButtonDiv>
-                <MyButton primary>{buttonText}</MyButton>
-            </ButtonDiv>
+            <ButtonDiv>{button}</ButtonDiv>
         </ImageListDiv>
     );
 };
 
-const ImageListDiv = styled.div`
-    width: 100%;
-    height: auto;
-`;
+const ImageListDiv = styled.div``;
 
-const ImageList = styled.ul<ImageListProps>`
-    display: inline-block;
+const ImageList = styled.ul`
     list-style-type: none;
     text-align: center;
     ${ImageListDiv}:hover & {
-        transition: filter ${({ animationTime }): number => animationTime}s;
+        ${Mixins.transition(['filter'], '1s')}
         filter: blur(7px);
     }
     padding: 0;
-    width: 100%;
-    height: auto;
 `;
 
 const IconListItem = styled.li`
@@ -72,17 +62,20 @@ const ButtonDiv = styled.div`
     left: 0;
     justify-content: center;
     align-items: center;
+    .button {
+        filter: blur(7px);
+    }
 `;
 
 const IconImg = styled.img`
     height: ${IMAGE_HEIGHT}px;
     max-width: 100%;
 `;
-
+/*
 const MyButton = styled(Button)`
     display: none;
     ${ImageListDiv}:hover & {
         display: flex;
     }
     height: auto;
-`;
+`;*/
