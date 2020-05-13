@@ -1,34 +1,52 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { flex, position, transition, scroll } from '../Utils/Mixins';
+import { flex, scroll } from '../Utils/Mixins';
 import { Select } from '../Inputs/Select';
 
 export interface ScrollListProps {
     labelArray: string[];
     menuName: string;
+    menuWidth: number;
+    labelPadding: string;
+    hoveredStyle?: Function;
+    selectedStyle?: Function;
+}
+
+export interface ScrollListDivProps {
+    menuWidth?: number;
 }
 
 export interface ListItemProps {
-    hoveredLabelProp: string;
     label: string;
+    hoveredStyle: Function;
+    selectedStyle: Function;
+    isSelected: boolean;
 }
 
 export const HorizontalScrollList: React.FC<ScrollListProps> = ({
     labelArray,
     menuName = 'Menu',
+    hoveredStyle,
+    menuWidth,
+    selectedStyle,
     ...props
 }): React.ReactElement => {
     const [hoveredLabel, setHoveredLabel] = useState('string');
+    const setLabel = (label: string) => {
+        console.log('label set to: ' + label);
+        setHoveredLabel(label);
+    };
+
     return (
-        <HorizontalListDiv>
-            <DropDownDiv>
+        <HorizontalListDiv {...props}>
+            <DropDownDiv menuWidth={menuWidth}>
                 <Select
-                    name="demo"
                     placeholder={menuName}
-                    onChange={({ target }) => {
+                    onChange={({ target }: { target: any }) => {
                         console.log(target.value);
                         setHoveredLabel(target.value);
                     }}
+                    value={hoveredLabel}
                 >
                     {labelArray.map(label => (
                         <option value={label}>{label}</option>
@@ -36,10 +54,18 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
                 </Select>
             </DropDownDiv>
             <HorizontalList>
-                {labelArray.map(label => (
+                {labelArray.map((label, index) => (
                     <HorizontalListItem
+                        key={label + index}
+                        onClick={() => setLabel(label)}
                         label={label}
-                        hoveredLabelProp={hoveredLabel}
+                        hoveredStyle={
+                            hoveredStyle ? hoveredStyle : defaultHoveredStyle
+                        }
+                        selectedStyle={
+                            selectedStyle ? selectedStyle : defaultSelectedStyle
+                        }
+                        isSelected={label == hoveredLabel ? true : false}
                     >
                         {label}
                     </HorizontalListItem>
@@ -49,8 +75,23 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
     );
 };
 
-const DropDownDiv = styled.div`
-    min-width: 100px;
+const defaultHoveredStyle = () => `
+    color: red;
+`;
+
+const defaultSelectedStyle = () => `
+    color: red;
+    font-weight: bold;
+`;
+
+const DropDownDiv = styled.div<ScrollListDivProps>`
+    ${flex('flex-start', 'center')}
+    ${({ menuWidth }): string =>
+        menuWidth
+            ? `
+           width: ${menuWidth}px;
+            `
+            : 'width: auto'}
 `;
 
 const HorizontalList = styled.ul`
@@ -58,17 +99,25 @@ const HorizontalList = styled.ul`
     ${flex()}
     overflow: auto;
     list-style-type: none;
-    padding-left: 10px;
+    margin-left: 20px;
+    padding: 0;
 `;
 
 const HorizontalListItem = styled.li<ListItemProps>`
+    ${flex()}
     position: relative;
-    flex-shrink: 0;
     cursor: pointer;
-    padding: 0px 10px 10px 0px;
+    padding: 10px;
+
+    &:hover {
+        ${({ hoveredStyle, isSelected }): string =>
+            isSelected ? `` : `${hoveredStyle()}`}
+    }
+
+    ${({ isSelected, selectedStyle }): string =>
+        isSelected ? `${selectedStyle()}` : ``};
 `;
 
 const HorizontalListDiv = styled.div`
-    ${flex()}
-    align-items: center;
+    ${flex('flex-start', 'center')}
 `;
