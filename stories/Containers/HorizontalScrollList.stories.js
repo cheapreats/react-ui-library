@@ -31,7 +31,7 @@ storiesOf('HorizontalScrollList', module)
         return (
             <HorizontalScrollList
                 labelArray={exampleLabelArray}
-                menuName={text('Name of Menu', 'Menu')}
+                menuName={text('Name of Menu', 'MENU')}
                 hoveredStyle={defaultHoveredStyle}
                 selectedStyle={defaultSelectedStyle}
                 menuWidth={number('Fix Dropdown Menu Width')}
