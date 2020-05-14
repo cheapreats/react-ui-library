@@ -38,7 +38,6 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
                 <Select
                     placeholder={menuName}
                     onChange={({ target }: { target: any }) => {
-                        console.log(target.value);
                         setHoveredLabel(target.value);
                     }}
                     value={hoveredLabel}
