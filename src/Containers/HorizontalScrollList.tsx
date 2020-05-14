@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { flex, scroll } from '../Utils/Mixins';
 import { Select } from '../Inputs/Select';
 
-export interface ScrollListProps {
+export interface ScrollListProps extends React.HTMLAttributes<HTMLDivElement> {
     labelArray: string[];
     menuName: string;
     menuWidth: number;
