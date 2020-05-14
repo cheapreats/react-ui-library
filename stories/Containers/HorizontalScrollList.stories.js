@@ -35,7 +35,7 @@ storiesOf('HorizontalScrollList', module)
                 hoveredStyle={defaultHoveredStyle}
                 selectedStyle={defaultSelectedStyle}
                 menuWidth={number('Fix Dropdown Menu Width')}
-                menuNameVary={boolean('menuNameVary', true)}
+                displaySelected={boolean('displaySelected', true)}
                 displayDropDown={boolean('displayDropDown', true)}
             />
         );
