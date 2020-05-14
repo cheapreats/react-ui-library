@@ -15,22 +15,48 @@ export interface ShowCaseProps extends React.HTMLAttributes<HTMLDivElement> {
         event: React.MouseEvent<Element, MouseEvent>,
     ) => void;
     button?: React.ReactNode;
-    imgHeightEnum: string;
+    imgHeightEnum?: string;
+    blurOnHover?: boolean;
 }
 
-export interface ClientListProps {
+interface ClientListProps {
     imgData: string[];
     imgHeight: number;
+    blurOnHover: boolean;
 }
 
-export interface ClientProps {
+interface ClientProps {
     src: string;
     imgHeight: number;
 }
 
-export interface ImgProps {
+interface ImgProps {
     imgHeight: number;
 }
+
+interface ImgListProps {
+    blurOnHover: boolean;
+}
+
+export const ClientShowCase: React.FC<ShowCaseProps> = ({
+    imgData,
+    handleImageListClick,
+    button,
+    imgHeightEnum = 'medium',
+    blurOnHover = true,
+    ...props
+}): React.ReactElement => {
+    return (
+        <ImageListDiv onClick={handleImageListClick} {...props}>
+            <ClientList
+                imgData={imgData}
+                imgHeight={IMAGE_HEIGHTS[imgHeightEnum]}
+                blurOnHover={blurOnHover}
+            />
+            <ButtonDiv>{button}</ButtonDiv>
+        </ImageListDiv>
+    );
+};
 
 const ClientImg: React.FC<ClientProps> = ({ src, imgHeight }) => {
     return (
@@ -40,9 +66,13 @@ const ClientImg: React.FC<ClientProps> = ({ src, imgHeight }) => {
     );
 };
 
-const ClientList: React.FC<ClientListProps> = ({ imgData, imgHeight }) => {
+const ClientList: React.FC<ClientListProps> = ({
+    imgData,
+    imgHeight,
+    blurOnHover,
+}) => {
     return (
-        <ImageList>
+        <ImageList blurOnHover={blurOnHover}>
             {imgData.map((imgURL: string) => (
                 <ClientImg imgHeight={imgHeight} src={imgURL} />
             ))}
@@ -50,33 +80,18 @@ const ClientList: React.FC<ClientListProps> = ({ imgData, imgHeight }) => {
     );
 };
 
-export const ClientShowCase: React.FC<ShowCaseProps> = ({
-    imgData,
-    handleImageListClick,
-    button,
-    imgHeightEnum,
-    ...props
-}): React.ReactElement => {
-    return (
-        <ImageListDiv onClick={handleImageListClick} {...props}>
-            <ClientList
-                imgData={imgData}
-                imgHeight={IMAGE_HEIGHTS[imgHeightEnum]}
-            />
-            <ButtonDiv>{button}</ButtonDiv>
-        </ImageListDiv>
-    );
-};
-
 const ImageListDiv = styled.div``;
 
-const ImageList = styled.ul`
+const ImageList = styled.ul<ImgListProps>`
     list-style-type: none;
     text-align: center;
-    ${ImageListDiv}:hover & {
-        ${Mixins.transition(['filter'], '1s')}
-        filter: blur(7px);
-    }
+    ${({ blurOnHover }) =>
+        blurOnHover
+            ? `${ImageListDiv}:hover & {
+                ${Mixins.transition(['filter'], '1s')}
+                filter: blur(7px);
+            }`
+            : ''}
     padding: 0;
 `;
 
