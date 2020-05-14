@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { Mixins } from '../../src';
-import { withKnobs, text, number } from '@storybook/addon-knobs';
+import { withKnobs, text, number, boolean } from '@storybook/addon-knobs';
 import { HorizontalScrollList } from '../../src';
 
 storiesOf('HorizontalScrollList', module)
@@ -35,6 +35,8 @@ storiesOf('HorizontalScrollList', module)
                 hoveredStyle={defaultHoveredStyle}
                 selectedStyle={defaultSelectedStyle}
                 menuWidth={number('Fix Dropdown Menu Width')}
+                menuNameVary={boolean('menuNameVary', true)}
+                displayDropDown={boolean('displayDropDown', true)}
             />
         );
     });

@@ -10,6 +10,8 @@ export interface ScrollListProps extends React.HTMLAttributes<HTMLDivElement> {
     labelPadding: string;
     hoveredStyle?: Function;
     selectedStyle?: Function;
+    menuNameVary?: boolean;
+    displayDropDown?: boolean;
 }
 
 export interface ScrollListDivProps {
@@ -29,24 +31,28 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
     hoveredStyle,
     menuWidth,
     selectedStyle,
+    menuNameVary = true,
+    displayDropDown = true,
     ...props
 }): React.ReactElement => {
     const [selectedLabel, setSelectedLabel] = useState('');
     return (
         <HorizontalListDiv {...props}>
-            <DropDownDiv menuWidth={menuWidth}>
-                <Select
-                    placeholder={menuName}
-                    onChange={({ target }: { target: any }) => {
-                        setSelectedLabel(target.value);
-                    }}
-                    value={selectedLabel}
-                >
-                    {labelArray.map(label => (
-                        <option value={label}>{label}</option>
-                    ))}
-                </Select>
-            </DropDownDiv>
+            {displayDropDown && (
+                <DropDownDiv menuWidth={menuWidth}>
+                    <Select
+                        placeholder={menuName}
+                        onChange={({ target }: { target: any }) => {
+                            setSelectedLabel(target.value);
+                        }}
+                        value={menuNameVary ? selectedLabel : menuName}
+                    >
+                        {labelArray.map(label => (
+                            <option value={label}>{label}</option>
+                        ))}
+                    </Select>
+                </DropDownDiv>
+            )}
             <HorizontalList>
                 {labelArray.map((label, index) => (
                     <HorizontalListItem
