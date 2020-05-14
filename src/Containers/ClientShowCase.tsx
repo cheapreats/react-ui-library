@@ -1,34 +1,68 @@
-import React, { Component } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Mixins } from '../Utils';
-import { Button } from '../Inputs/Button';
 
-const IMAGE_HEIGHT = 30;
+const IMAGE_HEIGHTS: object = {
+    small: 15,
+    medium: 30,
+    large: 45,
+    extraLarge: 60,
+};
 
-export interface ClientProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ShowCaseProps extends React.HTMLAttributes<HTMLDivElement> {
     imgData: string[];
     handleImageListClick?: (
         event: React.MouseEvent<Element, MouseEvent>,
     ) => void;
     button?: React.ReactNode;
+    imgHeightEnum: string;
 }
 
-export const ClientShowCase: React.FC<ClientProps> = ({
+export interface ClientListProps {
+    imgData: string[];
+    imgHeight: number;
+}
+
+export interface ClientProps {
+    src: string;
+    imgHeight: number;
+}
+
+export interface ImgProps {
+    imgHeight: number;
+}
+
+const ClientImg: React.FC<ClientProps> = ({ src, imgHeight }) => {
+    return (
+        <IconListItem key={src}>
+            <IconImg imgHeight={imgHeight} src={src} />
+        </IconListItem>
+    );
+};
+
+const ClientList: React.FC<ClientListProps> = ({ imgData, imgHeight }) => {
+    return (
+        <ImageList>
+            {imgData.map((imgURL: string) => (
+                <ClientImg imgHeight={imgHeight} src={imgURL} />
+            ))}
+        </ImageList>
+    );
+};
+
+export const ClientShowCase: React.FC<ShowCaseProps> = ({
     imgData,
     handleImageListClick,
     button,
+    imgHeightEnum,
     ...props
 }): React.ReactElement => {
     return (
         <ImageListDiv onClick={handleImageListClick} {...props}>
-            <ImageList>
-                {imgData.map((imgURL: string) => (
-                    <IconListItem key={imgURL}>
-                        <IconImg src={imgURL} />
-                    </IconListItem>
-                ))}
-                {console.log('wow')}
-            </ImageList>
+            <ClientList
+                imgData={imgData}
+                imgHeight={IMAGE_HEIGHTS[imgHeightEnum]}
+            />
             <ButtonDiv>{button}</ButtonDiv>
         </ImageListDiv>
     );
@@ -70,7 +104,7 @@ const ButtonDiv = styled.div`
     }
 `;
 
-const IconImg = styled.img`
-    height: ${IMAGE_HEIGHT}px;
+const IconImg = styled.img<ImgProps>`
+    height: ${({ imgHeight }): number => imgHeight}px;
     max-width: 100%;
 `;

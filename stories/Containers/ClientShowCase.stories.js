@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, text, number } from '@storybook/addon-knobs';
+import { withKnobs, text, number, select } from '@storybook/addon-knobs';
 import styled from 'styled-components';
 import { Button } from '../../src/Inputs/Button';
 import { ClientShowCase } from '../../src';
@@ -35,5 +35,15 @@ storiesOf('ClientShowCase', module)
                     SEE OUR CUSTOMERS
                 </MyButton>
             }
+            imgHeightEnum={select(
+                'Image Sizes',
+                {
+                    small: 'small',
+                    medium: 'medium',
+                    large: 'large',
+                    extraLarge: 'extraLarge',
+                },
+                'small',
+            )}
         />
     ));
