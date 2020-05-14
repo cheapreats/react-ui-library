@@ -32,11 +32,6 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
     ...props
 }): React.ReactElement => {
     const [hoveredLabel, setHoveredLabel] = useState('string');
-    const setLabel = (label: string) => {
-        console.log('label set to: ' + label);
-        setHoveredLabel(label);
-    };
-
     return (
         <HorizontalListDiv {...props}>
             <DropDownDiv menuWidth={menuWidth}>
@@ -57,7 +52,7 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
                 {labelArray.map((label, index) => (
                     <HorizontalListItem
                         key={label + index}
-                        onClick={() => setLabel(label)}
+                        onClick={() => setHoveredLabel(label)}
                         label={label}
                         hoveredStyle={
                             hoveredStyle ? hoveredStyle : defaultHoveredStyle
@@ -85,13 +80,12 @@ const defaultSelectedStyle = () => `
 `;
 
 const DropDownDiv = styled.div<ScrollListDivProps>`
-    ${flex('flex-start', 'center')}
     ${({ menuWidth }): string =>
         menuWidth
             ? `
            width: ${menuWidth}px;
             `
-            : 'width: auto'}
+            : 'width: auto'};
 `;
 
 const HorizontalList = styled.ul`
@@ -108,7 +102,6 @@ const HorizontalListItem = styled.li<ListItemProps>`
     position: relative;
     cursor: pointer;
     padding: 10px;
-
     &:hover {
         ${({ hoveredStyle, isSelected }): string =>
             isSelected ? `` : `${hoveredStyle()}`}
