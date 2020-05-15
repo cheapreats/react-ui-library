@@ -1,6 +1,7 @@
 import React from 'react';
+import { ClientImg } from './ClientShowCaseItem';
 import styled from 'styled-components';
-import { Mixins } from '../Utils';
+import { Mixins } from '../../Utils';
 
 enum IMAGE_HEIGHTS {
     small = 15,
@@ -25,15 +26,6 @@ interface ClientListProps {
     blurOnHover: boolean;
 }
 
-interface ClientProps {
-    src: string;
-    imgHeight: number;
-}
-
-interface ImgProps {
-    imgHeight: number;
-}
-
 interface ImgListProps {
     blurOnHover: boolean;
 }
@@ -55,14 +47,6 @@ export const ClientShowCase: React.FC<ShowCaseProps> = ({
             />
             <OnHoverComponentDiv>{onHoverComponent}</OnHoverComponentDiv>
         </ImageListDiv>
-    );
-};
-
-const ClientImg: React.FC<ClientProps> = ({ src, imgHeight }) => {
-    return (
-        <IconListItem key={src}>
-            <IconImg imgHeight={imgHeight} src={src} />
-        </IconListItem>
     );
 };
 
@@ -95,13 +79,6 @@ const ImageList = styled.ul<ImgListProps>`
     padding: 0;
 `;
 
-const IconListItem = styled.li`
-    display: inline-block;
-    padding: 2%;
-    vertical-align: middle;
-    width: auto;
-`;
-
 const OnHoverComponentDiv = styled.div`
     display: flex;
     position: absolute;
@@ -117,9 +94,4 @@ const OnHoverComponentDiv = styled.div`
     ${ImageListDiv}:hover & {
         display: flex;
     }
-`;
-
-const IconImg = styled.img<ImgProps>`
-    height: ${({ imgHeight }): number => imgHeight}px;
-    max-width: 100%;
 `;
