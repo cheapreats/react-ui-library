@@ -28,9 +28,9 @@ export interface ListItemProps {
 export const HorizontalScrollList: React.FC<ScrollListProps> = ({
     labelArray,
     menuName = 'Menu',
-    hoveredStyle,
     menuWidth,
-    selectedStyle,
+    hoveredStyle = defaultHoveredStyle,
+    selectedStyle = defaultSelectedStyle,
     displaySelected = true,
     displayDropDown = true,
     ...props
@@ -59,12 +59,8 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
                         key={label + index}
                         onClick={() => setSelectedLabel(label)}
                         label={label}
-                        hoveredStyle={
-                            hoveredStyle ? hoveredStyle : defaultHoveredStyle
-                        }
-                        selectedStyle={
-                            selectedStyle ? selectedStyle : defaultSelectedStyle
-                        }
+                        hoveredStyle={hoveredStyle}
+                        selectedStyle={selectedStyle}
                         isSelected={label == selectedLabel ? true : false}
                     >
                         {label}
