@@ -2,19 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import { Mixins } from '../Utils';
 
-const IMAGE_HEIGHTS: object = {
-    small: 15,
-    medium: 30,
-    large: 45,
-    extraLarge: 60,
-};
+enum IMAGE_HEIGHTS {
+    small = 15,
+    medium = 30,
+    large = 45,
+    extraLarge = 60,
+}
 
 export interface ShowCaseProps extends React.HTMLAttributes<HTMLDivElement> {
     imgData: string[];
     handleImageListClick?: (
         event: React.MouseEvent<Element, MouseEvent>,
     ) => void;
-    button?: React.ReactNode;
+    onHoverComponent?: React.ReactNode;
     imgHeightEnum?: string;
     blurOnHover?: boolean;
 }
@@ -41,7 +41,7 @@ interface ImgListProps {
 export const ClientShowCase: React.FC<ShowCaseProps> = ({
     imgData,
     handleImageListClick,
-    button,
+    onHoverComponent,
     imgHeightEnum = 'medium',
     blurOnHover = true,
     ...props
@@ -53,7 +53,7 @@ export const ClientShowCase: React.FC<ShowCaseProps> = ({
                 imgHeight={IMAGE_HEIGHTS[imgHeightEnum]}
                 blurOnHover={blurOnHover}
             />
-            <ButtonDiv>{button}</ButtonDiv>
+            <OnHoverComponentDiv>{onHoverComponent}</OnHoverComponentDiv>
         </ImageListDiv>
     );
 };
@@ -102,7 +102,7 @@ const IconListItem = styled.li`
     width: auto;
 `;
 
-const ButtonDiv = styled.div`
+const OnHoverComponentDiv = styled.div`
     display: flex;
     position: absolute;
     width: 100%;
