@@ -166,7 +166,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     );
 };
 
-export interface SelectProps extends LabelLayoutProps {
+interface SelectProps extends LabelLayoutProps {
     disabled?: boolean;
     placeholder?: string;
     value?: string | number;

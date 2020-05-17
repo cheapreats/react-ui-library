@@ -26,7 +26,7 @@ const REVERSE = '-1';
 
 const SPEED = 'normal';
 
-export interface SelectProps extends LabelLayoutProps {
+interface SelectProps extends LabelLayoutProps {
     value?: string | number;
     theme: DefaultTheme;
     onChange?: Function;
