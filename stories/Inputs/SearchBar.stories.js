@@ -14,11 +14,9 @@ storiesOf('Search Bar', module)
                     placeholder="Search for..."
                     onInput={({ target }) => {
                         setState(target.value);
-                        console.log(state);
                     }}
                     onChange={({ target }) => {
                         setState(target.value);
-                        console.log(state);
                     }}
                     value={state}
                 >

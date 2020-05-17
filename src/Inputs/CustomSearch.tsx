@@ -91,7 +91,6 @@ export const CustomSearch: React.FC<StoreFeatureCardProps> = ({
                     placeholder={foodPlaceholder}
                     suggestiveOptions={foodOptions}
                     onChange={({ target }: any): void => {
-                        console.log(target);
                         onCustomFoodChange(target);
                     }}
                     onInput={(value: any): void => {
