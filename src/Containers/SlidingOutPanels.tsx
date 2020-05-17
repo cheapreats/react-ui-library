@@ -2,22 +2,28 @@ import React from 'react';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 
+interface ImageProps {
+    key: number;
+    imageLink: string;
+    alt: string;
+}
+
 export interface SlidingOutPanelProps
     extends MainInterface,
         ResponsiveInterface {
-    imageLink: string;
+    images: ImageProps[];
 }
 
 export const SlidingOutPanels: React.FC<SlidingOutPanelProps> = ({
-    imageLink,
+    images,
 }): React.ReactElement => {
     return (
         <Items>
             <Overlay>
-                <Image src={imageLink} alt="Display Image" />
-                <Image1 src={imageLink} alt="Display Image" />
-                <Image2 src={imageLink} alt="Display Image" />
-                <Image3 src={imageLink} alt="Display Image" />
+                <Image src={images[0].imageLink} alt={images[0].alt} />
+                <Image1 src={images[1].imageLink} alt={images[1].alt} />
+                <Image2 src={images[2].imageLink} alt={images[2].alt} />
+                <Image3 src={images[3].imageLink} alt={images[3].alt} />
             </Overlay>
         </Items>
     );
@@ -123,9 +129,10 @@ const Image3 = styled.img`
                 rotateY(33deg) rotateX(12deg);
         }
         to {
-            transform: translate(-50%, -10%) scale(1) perspective(2038px)
+            transform: translate(-50%, -1%) scale(1) perspective(2038px)
                 rotateY(33deg) rotateX(-90deg);
             opacity: 0;
+            top: 90%;
         }
     }
 `;
