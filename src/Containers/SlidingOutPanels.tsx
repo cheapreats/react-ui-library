@@ -4,7 +4,7 @@ import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 
 interface ImageProps {
     id: string;
-    imageLink: string;
+    imageSource: string;
     alt: string;
 }
 
@@ -21,8 +21,8 @@ export const SlidingOutPanels: React.FC<SlidingOutPanelProps> = ({
         <Items>
             <Overlay>
                 {images.map(
-                    ({ id, imageLink, alt }): React.ReactElement => (
-                        <Image key={id} id={id} src={imageLink} alt={alt} />
+                    ({ id, imageSource, alt }): React.ReactElement => (
+                        <Image key={id} id={id} src={imageSource} alt={alt} />
                     ),
                 )}
             </Overlay>
@@ -45,14 +45,18 @@ const Overlay = styled.div`
     border-radius: 15px;
 `;
 
-const Image = styled.img`
+interface IdProps {
+    id: string;
+}
+
+const Image = styled.img<IdProps>`
     width: 400px;
     height: 180px;
     position: absolute;
     border-radius: 15px;
     opacity: 1;
 
-    ${({ id }: { id: string }): {} =>
+    ${({ id }): {} =>
         id === '1' &&
         css`
             top: 50%;
@@ -77,7 +81,7 @@ const Image = styled.img`
             }
         `}
 
-    ${({ id }: { id: string }): {} =>
+    ${({ id }): {} =>
         id === '2' &&
         css`
             top: 55%;
@@ -100,7 +104,7 @@ const Image = styled.img`
             }
         `}
 
-    ${({ id }: { id: string }): {} =>
+    ${({ id }): {} =>
         id === '3' &&
         css`
             top: 60%;
@@ -123,7 +127,7 @@ const Image = styled.img`
             }
         `}
 
-    ${({ id }: { id: string }): {} =>
+    ${({ id }): {} =>
         id >= '4' &&
         css`
             top: 65%;
