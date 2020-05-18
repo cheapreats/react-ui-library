@@ -13,7 +13,7 @@ interface TagProps {
     text: string;
 }
 
-interface StoreFeatureCardProps extends MainInterface, ResponsiveInterface {
+interface CustomSearchProps extends MainInterface, ResponsiveInterface {
     image: string;
     tags?: TagProps[];
     alt?: string;
@@ -22,7 +22,6 @@ interface StoreFeatureCardProps extends MainInterface, ResponsiveInterface {
     rating?: string;
     heading?: string;
     description: string;
-    linktitle?: string;
     priceValue?: string | number;
     locationValue?: string | number;
     foodValue?: string | number;
@@ -37,7 +36,7 @@ interface StoreFeatureCardProps extends MainInterface, ResponsiveInterface {
     onFoodChange?: Function;
 }
 
-export const CustomSearch: React.FC<StoreFeatureCardProps> = ({
+export const CustomSearch: React.FC<CustomSearchProps> = ({
     height,
     width,
     priceOptions,
@@ -89,7 +88,6 @@ export const CustomSearch: React.FC<StoreFeatureCardProps> = ({
                 <SearchBar
                     label="FOOD"
                     placeholder={foodPlaceholder}
-                    suggestiveOptions={foodOptions}
                     onChange={({ target }: any): void => {
                         onCustomFoodChange(target);
                     }}
@@ -121,7 +119,6 @@ export const CustomSearch: React.FC<StoreFeatureCardProps> = ({
 interface CardProps {
     width?: string;
     height?: string;
-    linktitle?: string;
 }
 
 const FirstColumnContainer = styled(C)`

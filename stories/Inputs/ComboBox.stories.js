@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import { mockElement } from '../Tools';
 import { ComboBox } from '../../src';
 
@@ -10,9 +9,9 @@ storiesOf('ComboBox', module).add(
         ([state, setState]) => (
             <ComboBox
                 name="demo"
-                label={text('Label', 'Label')}
-                description={text('Description', 'Description')}
-                placeholder={text('', '')}
+                label="Label"
+                description="Description"
+                placeholder=""
                 onChange={({ target }) => {
                     setState(target.value);
                 }}
