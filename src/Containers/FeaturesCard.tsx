@@ -1,53 +1,71 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
-import { StyledIcon } from 'styled-icons/types';
 import styled from 'styled-components';
-import { Card, CardProps } from './Card';
+import { Card as C, CardProps } from './Card';
+import { transition, position } from '../Utils/Mixins';
 
 export interface FeaturesCardProps extends MainInterface, ResponsiveInterface {
-    icon: StyledIcon;
-    iconColor: string;
-    width: number;
+    iconComponent: ReactNode;
+    footerComponent: ReactNode;
+    width: string;
 }
-
-const CardWrapper = styled.div<FeaturesCardProps>`
-    position: relative;
-    padding-top: 30px;
-    ${({ width }): string => (width ? `width: ${width}px;` : '')}
-`;
-
-const IconWrapper = styled(Card)<CardProps>`
-    position: absolute;
-    left: calc(50% - 30px);
-    top: 0;
-    border-radius: 50%;
-`;
-
-const Icon = styled.svg`
-    width: 30px;
-    height: 30px;
-    ${({ color }) => (color ? `color: ${color};` : '')}
-`;
-
-const Content = styled.div`
-    padding-top: 25px;
-`;
 
 export const FeaturesCard: React.FC<FeaturesCardProps> = ({
     children,
-    icon,
-    iconColor,
+    iconComponent,
+    footerComponent,
     width,
     ...props
 }): React.ReactElement => (
     <CardWrapper width={width} {...props}>
-        <IconWrapper>
-            <Icon as={icon} color={iconColor} />
-        </IconWrapper>
+        <IconWrapper>{iconComponent}</IconWrapper>
         <Card>
             <Content>{children}</Content>
+            <FooterWrapper>{footerComponent}</FooterWrapper>
         </Card>
     </CardWrapper>
 );
 
 export default FeaturesCard;
+
+const IconWrapper = styled(C)<CardProps>`
+    ${position('absolute', 'auto', 0, 0, 'auto', 0)}
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    z-index: 1;
+    ${transition(['transform'])}
+`;
+
+const FooterWrapper = styled.div`
+    width: 100%;
+    ${position('absolute', 0, 'auto', 'auto', 0, 0)}
+    transform: translateY(50%);
+    opacity: 0;
+    ${transition(['transform', 'opacity'])}
+`;
+
+const Content = styled.div`
+    padding: 25px 0 20px;
+    transform: translateY(10px);
+    ${transition(['transform'])}
+`;
+
+const Card = styled(C)<CardProps>`
+    position: relative;
+    overflow: hidden;
+`;
+
+const CardWrapper = styled.div<FeaturesCardProps>`
+    position: relative;
+    cursor: pointer;
+    padding-top: 20px;
+    width: ${({ width }): string => width || 'auto'};
+    &:hover ${FooterWrapper}, &:hover ${Content} {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    &:hover ${IconWrapper} {
+        transform: translateY(-15px) scale(0.9);
+    }
+`;
