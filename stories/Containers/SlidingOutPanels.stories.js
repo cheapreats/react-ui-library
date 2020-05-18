@@ -11,7 +11,7 @@ const images = [
         id: '1',
         alt: 'Display Image',
         imageSource:
-            'https://stripe.com/img/docs/billing/hosted-invoice-page.png',
+            'https://cdn.dribbble.com/users/1405795/screenshots/11465017/media/680463571eb6f82d27953d20f1627baa.png',
     },
     {
         id: '2',
