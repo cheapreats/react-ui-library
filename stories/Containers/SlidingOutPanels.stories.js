@@ -8,25 +8,25 @@ storiesOf('Sliding Out Panel', module).add('with default', () => (
 
 const images = [
     {
-        key: 1,
+        id: '1',
         alt: 'Display Image',
         imageLink:
             'https://stripe.com/img/docs/billing/hosted-invoice-page.png',
     },
     {
-        key: 2,
+        id: '2',
         alt: 'Display Image',
         imageLink:
             'https://stripe.com/img/docs/billing/hosted-invoice-page.png',
     },
     {
-        key: 3,
+        id: '3',
         alt: 'Display Image',
         imageLink:
             'https://stripe.com/img/docs/billing/hosted-invoice-page.png',
     },
     {
-        key: 4,
+        id: '4',
         alt: 'Display Image',
         imageLink:
             'https://stripe.com/img/docs/billing/hosted-invoice-page.png',
