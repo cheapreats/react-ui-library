@@ -2,8 +2,8 @@ import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Clock } from 'styled-icons/fa-solid/Clock';
 import { Check } from 'styled-icons/fa-solid/Check';
 import styled from 'styled-components';
-import { position, flex, transition, clickable } from '@Utils/Mixins';
-import { InputFragment } from '@Layouts';
+import { position, flex, transition, clickable } from '../../Utils/Mixins';
+import { InputFragment } from '../../Fragments';
 
 const getDisplay = (date: Date): string =>
     date.toLocaleString('en-US', {

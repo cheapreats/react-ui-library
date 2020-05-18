@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LabelLayout, LabelLayoutProps } from '@Layouts';
+import { LabelLayout, LabelLayoutProps } from '../Fragments';
 
 export interface SliderProps extends LabelLayoutProps {
     max?: number;

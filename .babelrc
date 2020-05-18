@@ -1,25 +1,19 @@
 {
-    "env": {
-        "development": {
-            "presets": [
-                "@babel/preset-env",
-                "@babel/preset-react"
-            ]
-        },
-        "production": {
-            "plugins": [
-                ["module-resolver", {
-                    "root": ["."],
-                    "alias": {
-                        "@Containers": "./dist/Containers",
-                        "@Layouts": "./dist/Fragments",
-                        "@Inputs": "./dist/Inputs",
-                        "@Text": "./dist/Text",
-                        "@Themes": "./dist/Themes",
-                        "@Utils": "./dist/Utils"
-                      }
-                }]
-            ]
-        }
-    }
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "root": "./dist",
+                "extensions": [".ts"],
+                "alias": {
+                    "@Containers": "./dist/Containers",
+                    "@Layouts": "./dist/Fragments",
+                    "@Inputs": "./dist/Inputs",
+                    "@Text": "./dist/Text",
+                    "@Themes": "./dist/Themes",
+                    "@Utils": "./dist/Utils"
+                }
+            }
+        ]
+    ]
 }

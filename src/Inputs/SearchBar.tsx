@@ -41,6 +41,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     onInput = (): void => {},
     name,
     placeholder,
+
     ...props
 }): React.ReactElement => {
     const [expanded, setExpanded] = useState(false);
@@ -67,6 +68,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                             key={val as string}
                             order="1"
                         />
+
                     );
                 }
             } else if (
@@ -80,6 +82,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                 const val = child.props.value;
                 const selected = String(value) === val;
                 const order = child.props.children
+
                     .toLowerCase()
                     .startsWith(inputValue.toLowerCase())
                     ? REVERSE
@@ -87,11 +90,13 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                 return (
                     <SelectItem
                         {...child.props}
+
                         active={selected}
                         onClick={onSelect}
                         key={val as string}
                         order={order as string}
                     />
+
                 );
             }
 
