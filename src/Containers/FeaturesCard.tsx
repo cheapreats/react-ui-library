@@ -8,18 +8,19 @@ export interface FeaturesCardProps extends MainInterface, ResponsiveInterface {
     iconComponent: ReactNode;
     footerComponent: ReactNode;
     width: string;
+    cardProps: CardProps;
 }
 
 export const FeaturesCard: React.FC<FeaturesCardProps> = ({
     children,
     iconComponent,
     footerComponent,
-    width,
+    cardProps,
     ...props
 }): React.ReactElement => (
-    <CardWrapper width={width} {...props}>
+    <CardWrapper {...props}>
         <IconWrapper>{iconComponent}</IconWrapper>
-        <Card>
+        <Card {...cardProps}>
             <Content>{children}</Content>
             <FooterWrapper>{footerComponent}</FooterWrapper>
         </Card>

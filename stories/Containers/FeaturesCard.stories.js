@@ -1,6 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { FeaturesCard, SmallText, Paragraph, Footnote } from '../../src';
+import { FeaturesCard, SmallText, Paragraph } from '../../src';
 import { ShoppingBasket } from 'styled-icons/fa-solid';
 
 const icon = <ShoppingBasket color="dodgerblue" />;
@@ -17,12 +17,31 @@ const footer = (
     </div>
 );
 
-storiesOf('FeaturesCard', module).add('with default', () => (
-    <FeaturesCard iconComponent={icon} footerComponent={footer} width={'250px'}>
-        <Paragraph bold>Increase Conversion</Paragraph>
-        <SmallText>
-            Add a fully optimized checkout flow for any device, billing,
-            schedule or payment schedule, or payment method
-        </SmallText>
-    </FeaturesCard>
-));
+storiesOf('FeaturesCard', module)
+    .add('with default', () => (
+        <FeaturesCard
+            iconComponent={icon}
+            footerComponent={footer}
+            width={'250px'}
+        >
+            <Paragraph bold>Increase Conversion</Paragraph>
+            <SmallText>
+                Add a fully optimized checkout flow for any device, billing,
+                schedule or payment schedule, or payment method
+            </SmallText>
+        </FeaturesCard>
+    ))
+    .add('with cardProps', () => (
+        <FeaturesCard
+            iconComponent={icon}
+            footerComponent={footer}
+            width={'250px'}
+            cardProps={{ animated: true }}
+        >
+            <Paragraph bold>Increase Conversion</Paragraph>
+            <SmallText>
+                Add a fully optimized checkout flow for any device, billing,
+                schedule or payment schedule, or payment method
+            </SmallText>
+        </FeaturesCard>
+    ));
