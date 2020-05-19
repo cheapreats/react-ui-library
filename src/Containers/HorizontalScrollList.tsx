@@ -42,7 +42,11 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
                 <DropDownDiv menuWidth={menuWidth}>
                     <Select
                         placeholder={menuName}
-                        onChange={({ target }: { target: any }) => {
+                        onChange={({
+                            target,
+                        }: {
+                            target: HTMLInputElement;
+                        }) => {
                             setSelectedLabel(target.value);
                         }}
                         value={displaySelected ? selectedLabel : menuName}
