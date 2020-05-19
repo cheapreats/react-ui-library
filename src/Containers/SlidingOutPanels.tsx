@@ -4,8 +4,9 @@ import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 
 interface ImageProps {
     id: string;
-    imageSource?: string;
-    alt?: string;
+    imageSource: string;
+    alt: string;
+    imagePanelClick?(imageLink: string): void;
 }
 
 export interface SlidingOutPanelProps
@@ -17,12 +18,13 @@ export interface SlidingOutPanelProps
 export const SlidingOutPanels: React.FC<SlidingOutPanelProps> = ({
     images,
 }): React.ReactElement => {
+    const imagePanelClick = (imageLink: string): void => { window.location.replace(imageLink) }
     return (
         <Items>
             <Overlay>
                 {images.map(
                     ({ id, imageSource, alt }): React.ReactElement => (
-                        <Image key={id} id={id} src={imageSource} alt={alt} />
+                        <Image key={id} id={id} src={imageSource} alt={alt} onClick={(): void => imagePanelClick(imageSource)} />
                     ),
                 )}
             </Overlay>
@@ -45,12 +47,17 @@ const Overlay = styled.div`
     border-radius: 15px;
 `;
 
-const Image = styled.img<ImageProps>`
+interface StyledImageProps {
+    id: string;
+}
+
+const Image = styled.img<StyledImageProps>`
     width: 400px;
     height: 180px;
     position: absolute;
     border-radius: 15px;
     opacity: 1;
+    cursor: pointer;
 
     ${({ id }): {} =>
         id === '1' &&

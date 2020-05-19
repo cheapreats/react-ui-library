@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { SlidingOutPanels } from '../../src';
 
 storiesOf('Sliding Out Panel', module).add('with default', () => (
-    <SlidingOutPanels images={images} />
+    <SlidingOutPanels images={images} onClick={() => imagePanelClick()} />
 ));
 
 const images = [
