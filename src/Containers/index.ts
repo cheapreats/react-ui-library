@@ -14,3 +14,4 @@ export * from './Copyright';
 export * from './PictureCard';
 export * from './StoreFeatureCard';
 export * from './HorizontalStoreCard';
+export * from './FeaturesCard';
