@@ -4,8 +4,8 @@ import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 
 interface ImageProps {
     id: string;
-    imageSource: string;
-    alt: string;
+    imageSource?: string;
+    alt?: string;
 }
 
 export interface SlidingOutPanelProps
@@ -45,11 +45,7 @@ const Overlay = styled.div`
     border-radius: 15px;
 `;
 
-interface IdProps {
-    id: string;
-}
-
-const Image = styled.img<IdProps>`
+const Image = styled.img<ImageProps>`
     width: 400px;
     height: 180px;
     position: absolute;
