@@ -16,7 +16,7 @@ export interface ShowCaseProps extends React.HTMLAttributes<HTMLDivElement> {
         event: React.MouseEvent<Element, MouseEvent>,
     ) => void;
     onHoverComponent?: React.ReactNode;
-    imgHeightEnum?: string;
+    imgHeightEnum?: IMAGE_HEIGHTS;
     blurOnHover?: boolean;
 }
 

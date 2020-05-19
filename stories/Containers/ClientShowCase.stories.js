@@ -43,7 +43,7 @@ storiesOf('ClientShowCase', module)
                     large: 'large',
                     extraLarge: 'extraLarge',
                 },
-                'small',
+                'medium',
             )}
             blurOnHover={boolean('blurOnHover', true)}
         />
@@ -66,7 +66,7 @@ storiesOf('ClientShowCase', module)
                     large: 'large',
                     extraLarge: 'extraLarge',
                 },
-                'small',
+                'medium',
             )}
             blurOnHover={boolean('blurOnHover', true)}
         />
