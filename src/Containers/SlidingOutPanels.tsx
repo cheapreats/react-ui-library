@@ -6,7 +6,7 @@ interface ImageProps {
     id: string;
     imageSource: string;
     alt: string;
-    imagePanelClick?(imageLink: string): void;
+    imagePanelClick?(imageLink: string): Function;
 }
 
 export interface SlidingOutPanelProps
