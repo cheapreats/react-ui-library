@@ -1,9 +1,9 @@
 import React from 'react';
 import { Times } from 'styled-icons/fa-solid/Times';
-import { flex, position, transition, scroll } from '@Utils/Mixins';
 import styled from 'styled-components';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { ImplicitPropsInterface } from '@Utils/Hooks';
+import { flex, position, transition, scroll } from '../Utils/Mixins';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
+import { ImplicitPropsInterface } from '../Utils/Hooks';
 
 export interface ImageCarouselProps
     extends MainInterface,

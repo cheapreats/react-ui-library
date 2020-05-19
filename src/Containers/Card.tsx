@@ -1,12 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
 import {
     Main,
     MainInterface,
     Responsive,
     ResponsiveInterface,
-} from '@Utils/BaseStyles';
-import { transition } from '@Utils/Mixins';
-import styled from 'styled-components';
+} from '../Utils/BaseStyles';
+import { transition } from '../Utils/Mixins';
 
 export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
     animated?: boolean;

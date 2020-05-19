@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { flex } from '@Utils/Mixins';
+import { flex } from '../../Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '../../Fragments/LabelLayout';
 import { MultiSelectContext } from './MultiSelectContext';
 

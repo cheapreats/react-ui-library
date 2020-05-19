@@ -1,9 +1,7 @@
 import React, { useState, useLayoutEffect } from 'react';
 import { flex, transition } from '@Utils/Mixins';
-
 import { LabelLayout, InputFragment as I, LabelLayoutProps } from '@Layouts';
 import { useTransition } from '@Utils/Hooks';
-
 import { Search } from 'styled-icons/fa-solid/Search';
 import styled from 'styled-components';
 
@@ -75,7 +73,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                         selectedTarget={selectedTarget}
                     >
                         {children}
-                    </SelectList>
+                </SelectList>
                 )}
             </Container>
         </LabelLayout>
@@ -121,6 +119,6 @@ const Container = styled.div`
     flex-direction: columns;
     position: relative;
     width: 100%;
-`;
+ `;
 
 export default SearchBar;

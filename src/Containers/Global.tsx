@@ -5,8 +5,8 @@ import {
     ThemeProvider,
     DefaultTheme,
 } from 'styled-components';
-import { flex } from '@Utils/Mixins';
-import * as Themes from '@Themes';
+import { flex } from '../Utils/Mixins';
+import * as Themes from '../Themes';
 
 interface Props {
     style?: (theme: DefaultTheme) => string;

@@ -7,13 +7,13 @@ import {
     Responsive,
     ResponsiveProps,
     ResponsiveInterface,
-} from '@Utils/BaseStyles';
+} from '../Utils/BaseStyles';
 import {
     __useImplicitProps,
     useTransition,
     ImplicitPropsInterface,
-} from '@Utils/Hooks';
-import { flex, transition } from '@Utils/Mixins';
+} from '../Utils/Hooks';
+import { flex, transition } from '../Utils/Mixins';
 
 export interface LabelLayoutProps
     extends ResponsiveInterface,
