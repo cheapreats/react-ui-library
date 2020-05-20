@@ -26,7 +26,7 @@ const REVERSE = '-1';
 
 const SPEED = 'normal';
 
-export interface SelectProps extends LabelLayoutProps {
+export interface ComboBoxSelectorProps extends LabelLayoutProps {
     value?: string | number;
     theme: DefaultTheme;
     onChange?: Function;
@@ -34,7 +34,7 @@ export interface SelectProps extends LabelLayoutProps {
     numVisible: number;
 }
 
-const _Select: React.FC<SelectProps> = ({
+const _Select: React.FC<ComboBoxSelectorProps> = ({
     children,
     limit = MAX_VIEWING_LIMIT,
     onChange = (): void => {},
