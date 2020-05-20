@@ -16,9 +16,9 @@ import {
     clickable,
     styledCondition,
     darken,
-} from '../Utils/Mixins';
-import { useTransition } from '../Utils/Hooks';
-import { LabelLayout, LabelLayoutProps } from '../Fragments';
+} from '@Utils/Mixins';
+import { useTransition } from '@Utils/Hooks';
+import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
 const SPEED = 'normal';
 
