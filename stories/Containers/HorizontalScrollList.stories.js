@@ -7,11 +7,11 @@ import { HorizontalScrollList } from '../../src';
 storiesOf('HorizontalScrollList', module)
     .addDecorator(withKnobs)
     .add('with default', () => {
-        const defaultHoveredStyle = () => `
+        const exampleHoveredStyle = () => `
             color: red;
         `;
 
-        const defaultSelectedStyle = () => `
+        const exampleSelectedStyle = () => `
             color: red;
             font-weight: bold;
         `;
@@ -32,8 +32,8 @@ storiesOf('HorizontalScrollList', module)
             <HorizontalScrollList
                 labelArray={exampleLabelArray}
                 menuName={text('Name of Menu', 'MENU')}
-                hoveredStyle={defaultHoveredStyle}
-                selectedStyle={defaultSelectedStyle}
+                hoveredStyle={exampleHoveredStyle}
+                selectedStyle={exampleSelectedStyle}
                 menuWidth={number('Fix Dropdown Menu Width')}
                 displaySelected={boolean('displaySelected', true)}
                 displayDropDown={boolean('displayDropDown', true)}
