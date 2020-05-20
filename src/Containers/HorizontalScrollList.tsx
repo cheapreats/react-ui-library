@@ -3,6 +3,15 @@ import styled from 'styled-components';
 import { flex, scroll } from '../Utils/Mixins';
 import { Select } from '../Inputs/Select';
 
+const defaultHoveredStyle = (): string => `
+    color: red;
+`;
+
+const defaultSelectedStyle = (): string => `
+    color: red;
+    font-weight: bold;
+`;
+
 export interface ScrollListProps extends React.HTMLAttributes<HTMLDivElement> {
     labelArray: string[];
     menuName: string;
@@ -51,38 +60,31 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
                         }}
                         value={displaySelected ? selectedLabel : menuName}
                     >
-                        {labelArray.map(label => (
-                            <option value={label}>{label}</option>
-                        ))}
+                        {labelArray.map(label => {
+                            return <option value={label}>{label}</option>;
+                        })}
                     </Select>
                 </DropDownDiv>
             )}
             <HorizontalList>
-                {labelArray.map((label, index) => (
-                    <HorizontalListItem
-                        key={label + index}
-                        onClick={() => setSelectedLabel(label)}
-                        label={label}
-                        hoveredStyle={hoveredStyle}
-                        selectedStyle={selectedStyle}
-                        isSelected={label == selectedLabel ? true : false}
-                    >
-                        {label}
-                    </HorizontalListItem>
-                ))}
+                {labelArray.map(label => {
+                    return (
+                        <HorizontalListItem
+                            key={label}
+                            onClick={() => setSelectedLabel(label)}
+                            label={label}
+                            hoveredStyle={hoveredStyle}
+                            selectedStyle={selectedStyle}
+                            isSelected={label === selectedLabel}
+                        >
+                            {label}
+                        </HorizontalListItem>
+                    );
+                })}
             </HorizontalList>
         </HorizontalListDiv>
     );
 };
-
-const defaultHoveredStyle = () => `
-    color: red;
-`;
-
-const defaultSelectedStyle = () => `
-    color: red;
-    font-weight: bold;
-`;
 
 const DropDownDiv = styled.div<ScrollListDivProps>`
     ${({ menuWidth }): string =>

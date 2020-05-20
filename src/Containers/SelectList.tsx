@@ -17,7 +17,7 @@ import styled from 'styled-components';
 
 const REVERSE = '-1';
 
-export interface SearchBarProps extends LabelLayoutProps {
+export interface SelectSearchBarProps extends LabelLayoutProps {
     value?: string | number;
     onChange?: Function;
     limit: number;
@@ -25,7 +25,7 @@ export interface SearchBarProps extends LabelLayoutProps {
     inputValue?: string;
 }
 
-export const SelectList: React.FC<SearchBarProps> = ({
+export const SelectList: React.FC<SelectSearchBarProps> = ({
     children,
     limit,
     expanded,

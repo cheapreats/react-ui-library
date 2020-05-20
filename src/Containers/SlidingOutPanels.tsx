@@ -18,13 +18,21 @@ export interface SlidingOutPanelProps
 export const SlidingOutPanels: React.FC<SlidingOutPanelProps> = ({
     images,
 }): React.ReactElement => {
-    const imagePanelClick = (imageLink: string): void => { window.location.replace(imageLink) }
+    const imagePanelClick = (imageLink: string): void => {
+        window.location.replace(imageLink);
+    };
     return (
         <Items>
             <Overlay>
                 {images.map(
                     ({ id, imageSource, alt }): React.ReactElement => (
-                        <Image key={id} id={id} src={imageSource} alt={alt} onClick={(): void => imagePanelClick(imageSource)} />
+                        <Image
+                            key={id}
+                            id={id}
+                            src={imageSource}
+                            alt={alt}
+                            onClick={(): void => imagePanelClick(imageSource)}
+                        />
                     ),
                 )}
             </Overlay>

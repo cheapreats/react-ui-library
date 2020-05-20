@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import styled from 'styled-components';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import { Card as C, CardProps } from './Card';
 import { transition, position } from '../Utils/Mixins';
 
