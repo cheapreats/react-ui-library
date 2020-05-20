@@ -16,3 +16,4 @@ export * from './ColorPicker';
 export * from './MaskedInput';
 export * from './ComboBox';
 export * from './SearchBar';
+export * from './CustomSearch';
