@@ -127,10 +127,7 @@ const FirstColumnContainer = styled(C)`
     width: 20%;
 `;
 const SecondColumnContainer = styled(C)`
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-radius: 0px;
     width: 20%;
     svg {
         display: none;
@@ -142,10 +139,7 @@ const SecondColumnContainer = styled(C)`
 `;
 
 const ThirdColumnContainer = styled(C)`
-    border-top-left-radius: 0px;
-    border-top-right-radius: 0px;
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+    border-radius: 0px;
     width: 40%;
 `;
 
