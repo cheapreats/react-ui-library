@@ -26,12 +26,12 @@ const REVERSE = '-1';
 
 const SPEED = 'normal';
 
-export interface SelectProps extends LabelLayoutProps {
+interface SelectProps extends LabelLayoutProps {
     value?: string | number;
     theme: DefaultTheme;
     onChange?: Function;
     limit?: number;
-    numVisible: number;
+    placeholder?: string;
 }
 
 const _Select: React.FC<SelectProps> = ({
@@ -39,6 +39,7 @@ const _Select: React.FC<SelectProps> = ({
     limit = MAX_VIEWING_LIMIT,
     onChange = (): void => {},
     theme,
+    placeholder,
     name,
     ...props
 }): React.ReactElement => {
@@ -51,11 +52,11 @@ const _Select: React.FC<SelectProps> = ({
     const [numVisibleSelection, setNumVisibleSelection] = useState(limit);
 
     const createList = (
-        children: React.ReactNode[],
+        thechildren: React.ReactNode[],
         onSelect: React.MouseEventHandler,
         value?: string | number,
     ): React.ReactNode[] =>
-        children.map((child): React.ReactElement | null => {
+        thechildren.map((child): React.ReactElement | null => {
             if (!inputValue) {
                 if (child && isValidElement(child)) {
                     const val = child.props.value;
@@ -147,7 +148,9 @@ const _Select: React.FC<SelectProps> = ({
         <LabelLayout {...props}>
             <Container>
                 <InputFragment
+                    {...props}
                     value={inputValue}
+                    placeholder={placeholder}
                     onChange={e => handleChange(e)}
                     onKeyDown={e => handleChange(e)}
                     onClick={e => handleChange(e)}
