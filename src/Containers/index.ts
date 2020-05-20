@@ -15,3 +15,6 @@ export * from './ClientShowCase';
 export * from './PictureCard';
 export * from './StoreFeatureCard';
 export * from './HorizontalStoreCard';
+export * from './SlidingOutPanels';
+export * from './FeaturesCard';
+export * from './SelectList';
