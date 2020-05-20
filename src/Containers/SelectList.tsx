@@ -34,7 +34,7 @@ export const SelectList: React.FC<SearchBarProps> = ({
     name,
 }): React.ReactElement => {
     const refSelectList = useRef() as RefObject<HTMLDivElement>;
-    const [numVisibleSelection, setNumVisibleSelection] = useState(limit);
+    const [numVisibleSelection, setNumVisibleSelection] = useState(0);
     const [animation] = useTransition(expanded);
 
     useLayoutEffect((): void | (() => void) => {
