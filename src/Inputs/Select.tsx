@@ -205,6 +205,7 @@ const Icon = styled(AngleDown)`
     width: 10px;
     flex-shrink: 0;
     margin-left: auto;
+    margin-top: auto;
 `;
 
 const SelectList = styled.div<{

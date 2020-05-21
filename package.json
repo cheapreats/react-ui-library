@@ -15,7 +15,7 @@
         "prepublish": "npm run lint && npm run build",
         "eslint": "eslint ./src --ext tsx,ts,jsx,js",
         "eslint:fix": "npm run eslint -- --fix",
-        "prettier": "prettier '**/*.ts' '**/*.tsx' '**/*.js' '**/*.jsx'",
+        "prettier": "prettier **/*.ts **/*.tsx **/*.js **/*.jsx",
         "prettier:fix": "npm run prettier -- --write",
         "lint": "npm run prettier:fix"
     },
@@ -65,7 +65,7 @@
         "react-dom": "^16.13.0",
         "styled-components": "^5.0.1",
         "styled-icons": "^7.15.1",
-        "typescript": "^3.8.2"
+        "typescript": "^3.9.3"
     },
     "aliases": {
         "@Containers": "src/Containers",

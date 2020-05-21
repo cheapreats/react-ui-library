@@ -81,14 +81,14 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     );
 };
 
-interface SelectProps extends LabelLayoutProps {
+interface SearchBarSelectProps extends LabelLayoutProps {
     disabled?: boolean;
     placeholder?: string;
     value?: string | number;
     onChange?: Function;
     limit?: number;
 }
-const SelectDisplay = styled.p<SelectProps>`
+const SelectDisplay = styled.p<SearchBarSelectProps>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
     ${flex('flex-start', 'center')}
     font-size: 0.85rem;

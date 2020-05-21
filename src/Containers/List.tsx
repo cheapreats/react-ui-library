@@ -115,7 +115,7 @@ const Item = styled.li<MainInterface & ItemProps>`
         border-bottom: none;
     }
 `;
-
+// @ts-ignore
 const Loading = styled(Item)`
     animation: fader 1.2s ease-in-out infinite;
     font-weight: bold;
