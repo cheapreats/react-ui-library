@@ -69,7 +69,7 @@ const ImageListDiv = styled.div``;
 const ImageList = styled.ul<ImgListProps>`
     list-style-type: none;
     text-align: center;
-    ${({ blurOnHover }) =>
+    ${({ blurOnHover }): string =>
         blurOnHover
             ? `${ImageListDiv}:hover & {
                 ${Mixins.transition(['filter'], '1s')}

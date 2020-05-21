@@ -55,7 +55,7 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
                             target,
                         }: {
                             target: HTMLInputElement;
-                        }) => {
+                        }): void => {
                             setSelectedLabel(target.value);
                         }}
                         value={displaySelected ? selectedLabel : menuName}
