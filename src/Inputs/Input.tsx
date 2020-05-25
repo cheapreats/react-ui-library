@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-    LabelLayout,
-    LabelLayoutProps,
-    InputFragment,
-    InputFragmentProps,
-} from '../Fragments';
+import { LabelLayout, LabelLayoutProps, InputFragment } from '@Layouts';
 
-export interface InputProps extends LabelLayoutProps, InputFragmentProps {
+export interface InputProps extends LabelLayoutProps {
     disabled?: boolean;
     placeholder?: string;
 }
