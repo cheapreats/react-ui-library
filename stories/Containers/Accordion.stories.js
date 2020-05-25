@@ -1,14 +1,32 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
+import { withKnobs } from '@storybook/addon-knobs';
 import { Accordion } from '../../src';
+import { Paragraph } from '../../src';
 
-storiesOf('Accordion', module).add('with default', () => (
-    <Accordion>
-        <potato headerType={'h1'} header={'title 1'} mainText={'main text 1'}>
-            <div>
-                <h2>hello world</h2>
-            </div>
-        </potato>
-        <potato headerType={'h1'} header={'title 2'} mainText={'main text 2'} />
-    </Accordion>
-));
+const defaultActiveStyle = () => `
+    :& {
+        color: red;
+    }
+`;
+
+storiesOf('Accordion', module)
+    .addDecorator(withKnobs)
+    .add('with default', () => (
+        <Accordion activeStyle={defaultActiveStyle}>
+            <section header={'Accordion Header 1'}>
+                <Paragraph>{'Accordion children'}.</Paragraph>
+                <Paragraph>{'Accordion children'}.</Paragraph>
+                <Paragraph>{'Accordion children'}.</Paragraph>
+                <Paragraph>{'Accordion children'}.</Paragraph>
+                <Paragraph>{'Accordion children'}.</Paragraph>
+            </section>
+            <section header={'Accordion Header 2'}>
+                <Paragraph>{'Accordion children'}.</Paragraph>
+                <Paragraph>{'Accordion children'}.</Paragraph>
+                <Paragraph>{'Accordion children'}.</Paragraph>
+                <Paragraph>{'Accordion children'}.</Paragraph>
+                <Paragraph>{'Accordion children'}.</Paragraph>
+            </section>
+        </Accordion>
+    ));

@@ -115,7 +115,7 @@ const _Select: React.FC<ComboBoxSelectorProps> = ({
         [name],
     );
 
-    const options = useMemo((): any => {
+    const options = useMemo((): React.ReactNode[] => {
         return Children.toArray(children);
     }, [expanded]);
 

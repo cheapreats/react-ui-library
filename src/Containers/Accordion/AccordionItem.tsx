@@ -1,68 +1,105 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import { Heading } from '../../Text';
+import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
 import { Mixins } from '../../Utils';
+import { transition } from '../../Utils/Mixins';
+import { Heading } from '../../Text';
 
-export interface AccordionItemProps {
+export interface AccordionItemProps
+    extends React.HTMLAttributes<HTMLDivElement> {
     header: string;
-    headerType: string;
-    mainText: string;
-    hoveredStyle: Function;
     activeStyle: Function;
 }
 
-export interface TextDivProps {
+export interface SectionDivProps {
     isActive: boolean;
+    height: number;
 }
 
-export interface SectionDivProps {
+export interface HeaderDivProps {
+    isActive: boolean;
+    activeStyle: Function;
+}
+
+export interface IconProps {
     isActive: boolean;
 }
 
 export const AccordionItem: React.FC<AccordionItemProps> = ({
     header,
-    mainText,
-    hoveredStyle,
     activeStyle,
-    headerType,
-    children,
     ...props
 }) => {
     const [isActive, setIsActive] = useState(false);
+    const [height, setHeight] = useState(0);
     const toggleIsActive = () => {
         setIsActive(!isActive);
     };
+    const bodyRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
+    const { children } = props;
+
+    useLayoutEffect(() => {
+        const bodyNode = bodyRef.current;
+        const headerNode = headerRef.current;
+        if (bodyNode && headerNode) {
+            if (isActive) {
+                setHeight(bodyNode.clientHeight + headerNode.clientHeight);
+            } else {
+                setHeight(headerNode.clientHeight);
+            }
+        }
+    }, [isActive]);
+
     return (
-        <SectionDiv {...props} isActive={isActive}>
-            <HeaderDiv onClick={toggleIsActive}>
-                <Heading type={headerType}>{header}</Heading>
+        <SectionDiv {...props} height={height} isActive={isActive}>
+            <HeaderDiv
+                ref={headerRef}
+                activeStyle={activeStyle}
+                isActive={isActive}
+                onClick={toggleIsActive}
+            >
+                <Header>{header}</Header>
+                <Icon isActive={isActive} />
             </HeaderDiv>
-            <TextDiv isActive={isActive}>
-                <MainText>{mainText}</MainText>
-                {children}
-            </TextDiv>
+            <BodyDiv ref={bodyRef}>{children}</BodyDiv>
         </SectionDiv>
     );
 };
 
-const SectionDiv = styled.div<SectionDivProps>``;
+const SectionDiv = styled.div<SectionDivProps>`
+    overflow: hidden;
+    height: ${({ height }) => height}px;
+    ${Mixins.transition(['height'], '0.5s')}
+`;
 
-const HeaderDiv = styled.div`
+const HeaderDiv = styled.div<HeaderDivProps>`
+    display: flex;
     user-select: none;
-    padding: 1%;
     cursor: pointer;
+    padding: 5px 0 5px 0;
+
+    ${({ isActive, activeStyle }): string =>
+        isActive ? `${activeStyle()}` : ``};
+    justify-content: space-between;
+    align-items: center;
+`;
+
+const BodyDiv = styled.div``;
+
+const Icon = styled(AngleUp)<IconProps>`
+    ${transition(['transform'])}
+    transform: rotate(${({ isActive }) => (isActive ? 180 : 0)}deg);
+    width: 8px;
+    float: right;
+    margin-bottom: auto;
+    margin-top: auto;
+
+`;
+
+const Header = styled(Heading).attrs({ type: 'h5' })`
     :hover {
-        ${Mixins.transition(['background-color'], '1s')};
-        background-color: lightgrey;
+        ${Mixins.transition(['color'], '0.5s')};
+        color: #ee2434;
     }
-`;
-
-const TextDiv = styled.div<TextDivProps>`
-    ${Mixins.transition(['display'], '5s')};
-    display: ${({ isActive }) => (isActive ? 'block' : 'none')};
-    padding: 1%;
-`;
-
-const MainText = styled.p`
-    margin: 0;
 `;
