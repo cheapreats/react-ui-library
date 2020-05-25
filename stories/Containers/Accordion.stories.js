@@ -15,18 +15,18 @@ storiesOf('Accordion', module)
     .add('with default', () => (
         <Accordion activeStyle={defaultActiveStyle}>
             <section header={'Accordion Header 1'}>
-                <Paragraph>{'Accordion children'}.</Paragraph>
-                <Paragraph>{'Accordion children'}.</Paragraph>
-                <Paragraph>{'Accordion children'}.</Paragraph>
-                <Paragraph>{'Accordion children'}.</Paragraph>
-                <Paragraph>{'Accordion children'}.</Paragraph>
+                <Paragraph>{'Accordion children 1'}.</Paragraph>
+                <Paragraph>{'Accordion children 1'}.</Paragraph>
+                <Paragraph>{'Accordion children 1'}.</Paragraph>
+                <Paragraph>{'Accordion children 1'}.</Paragraph>
+                <Paragraph>{'Accordion children 1'}.</Paragraph>
             </section>
             <section header={'Accordion Header 2'}>
-                <Paragraph>{'Accordion children'}.</Paragraph>
-                <Paragraph>{'Accordion children'}.</Paragraph>
-                <Paragraph>{'Accordion children'}.</Paragraph>
-                <Paragraph>{'Accordion children'}.</Paragraph>
-                <Paragraph>{'Accordion children'}.</Paragraph>
+                <Paragraph>{'Accordion children 2'}.</Paragraph>
+                <Paragraph>{'Accordion children 2'}.</Paragraph>
+                <Paragraph>{'Accordion children 2'}.</Paragraph>
+                <Paragraph>{'Accordion children 2'}.</Paragraph>
+                <Paragraph>{'Accordion children 2'}.</Paragraph>
             </section>
         </Accordion>
     ));
