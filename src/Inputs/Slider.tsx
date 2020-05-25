@@ -1,79 +1,440 @@
-import React from 'react';
-import styled from 'styled-components';
-import { LabelLayout, LabelLayoutProps } from '../Fragments';
+import React, {
+    useState,
+    useLayoutEffect,
+    useRef,
+    RefObject,
+    MouseEvent,
+    useMemo,
+} from 'react';
+import styled, { DefaultTheme } from 'styled-components';
+import { LabelLayout, LabelLayoutProps } from '@Layouts';
+import { Popup } from '../Containers/Popup';
+
+export interface MarkProps {
+    key: number;
+    mark: string;
+}
+
+export interface ResultValues {
+    lowValue: number;
+    highValue: number;
+}
 
 export interface SliderProps extends LabelLayoutProps {
+    result?: ResultValues;
     max?: number;
     min?: number;
     step?: number;
     disabled?: boolean;
-    value?: number;
-    trackColor?: string;
-    buttonColor?: string;
+    hasTwoInputs?: boolean;
+    marks?: MarkProps[];
+    onChange?: Function;
+    valueFinish?: number;
+    valueStart?: number;
+    hasRail?: boolean;
+    left?: number;
+    right?: number;
+    hasPopup?: boolean;
+    popupleft?: number;
+    popuptop?: number;
+    popupwidth?: number;
+    popupheight?: number;
+    theme?: DefaultTheme;
 }
 
 export const Slider: React.FunctionComponent<SliderProps> = ({
+    disabled = false,
+    marks,
+    min = 0,
+    max = 100,
+    hasRail,
+    hasTwoInputs = false,
+    valueFinish = max,
+    valueStart = min,
+    hasPopup,
+    step = 1,
+    onChange = (): void => {},
+    popupleft = -17,
+    popuptop = -51,
+    popupwidth = 'auto',
+    popupheight = 20,
+    theme,
     ...props
-}): React.ReactElement => (
-    <LabelLayout {...props}>
-        <SliderElement {...props} type="range" />
-    </LabelLayout>
-);
+}): React.ReactElement => {
+    // DOM Elements
+    const bar = useRef() as RefObject<HTMLDivElement>;
+    const selectedBar = useRef() as RefObject<HTMLDivElement>;
+    const startThumb = useRef() as RefObject<HTMLDivElement>;
+    const finishThumb = useRef() as RefObject<HTMLDivElement>;
+    const marksBar = useRef() as RefObject<HTMLDivElement>;
 
-const SliderElement = styled.input<SliderProps>`
-    -webkit-appearance: none;
-    margin: 18px 0;
-    width: 100%;
-    // styles for slider adapted from: https://css-tricks.com/styling-cross-browser-compatible-range-inputs-css/
-    &:disabled {
+    // Thumb Positions in Px
+    const [finishThumbLeft, setFinishThumbLeft] = useState(max);
+    const [startThumbLeft, setStartThumbLeft] = useState(min);
+
+    const MaxAndMinDifference = max - min;
+
+    let draggingThumb = 'Finish';
+
+    // Translate a value to Pixel
+    const translateToPixels = (theValue: number): number => {
+        const pixelTranslator =
+            (bar.current?.clientWidth as number) / MaxAndMinDifference;
+        return ((theValue as number) - min) * pixelTranslator;
+    };
+
+    // Translate pixels to a value and rounding up/down to steps
+    const translateToValue = (theValue: number): number => {
+        return (
+            Math.round(
+                ((theValue * MaxAndMinDifference) /
+                    (bar.current?.clientWidth as number) +
+                    min) /
+                    step,
+            ) * step
+        );
+    };
+
+    // thumb positions in values whenever it changes (by pixels)
+    const finishThumbLeftInValue = useMemo((): number => {
+        const Value = finishThumbLeft
+            ? translateToValue(finishThumbLeft)
+            : valueFinish;
+        return Value;
+    }, [finishThumbLeft]);
+
+    const startThumbLeftInValue = useMemo((): number => {
+        const Value = startThumbLeft
+            ? translateToValue(startThumbLeft)
+            : valueStart;
+        return Value;
+    }, [startThumbLeft]);
+
+    // Final Result
+    useMemo((): void => {
+        onChange({
+            values: {
+                lowValue: startThumbLeftInValue,
+                highValue: finishThumbLeftInValue,
+            },
+        });
+    }, [finishThumbLeftInValue, startThumbLeftInValue]);
+
+    // Calcs of Positioning a thumb in the specific scale with provided steps
+    const calculatePosition = (theValue: number): number => {
+        return translateToPixels(translateToValue(theValue));
+    };
+
+    useLayoutEffect((): void => {
+        if (bar.current) {
+            // setting up initial positions
+            if (valueFinish) {
+                setFinishThumbLeft(translateToPixels(valueFinish));
+            }
+            if (valueStart) {
+                setStartThumbLeft(translateToPixels(valueStart));
+            }
+
+            // placing the marks
+            if (marksBar.current) {
+                const theMarks = marksBar.current.children as any;
+                theMarks.forEach((child: HTMLElement): void => {
+                    child.style.left = `${translateToPixels(
+                        parseInt(child.style.left, 10),
+                    )}px`;
+                });
+            }
+        }
+    }, []);
+
+    // repositions marks and thumbs when resizing
+    function resizing(): void {
+        if (finishThumbLeftInValue) {
+            setFinishThumbLeft(translateToPixels(finishThumbLeftInValue));
+        }
+        if (startThumbLeftInValue) {
+            setStartThumbLeft(translateToPixels(startThumbLeftInValue));
+        }
+
+        if (marksBar.current && marks) {
+            const theMarks = marksBar.current.children as any;
+            theMarks.forEach((child: HTMLElement): void => {
+                child.style.left = `${translateToPixels(
+                    marks[
+                        Array.from(
+                            (child.parentNode as HTMLElement)
+                                .children as HTMLCollection,
+                        ).indexOf(child)
+                    ].key,
+                )}px`;
+            });
+        }
+    }
+
+    window.onresize = resizing;
+
+    function onMouseMove(theevent: MouseEvent): void {
+        // clicked on pure position
+        const newLeft =
+            theevent.clientX -
+            (bar.current as HTMLElement).getBoundingClientRect().left;
+
+        // new position based on steps
+        const newPosition = calculatePosition(newLeft);
+
+        // setting the positions
+        if (newLeft < (bar.current?.clientWidth as number) && newLeft >= 0) {
+            if (draggingThumb === 'Finish' && newPosition > startThumbLeft) {
+                setFinishThumbLeft(newPosition);
+            } else if (
+                draggingThumb === 'Start' &&
+                newPosition < finishThumbLeft
+            ) {
+                setStartThumbLeft(newPosition);
+            }
+        }
+    }
+
+    function onMouseUp(): void {
+        document.removeEventListener('mouseup', onMouseUp);
+        document.removeEventListener('mousemove', onMouseMove as any);
+    }
+
+    const handleMouseDown = (e: MouseEvent): void => {
+        if (!disabled) {
+            // position the clicked taken placed on based on the position of bar
+            const clickedOn =
+                e.clientX -
+                (bar.current as HTMLElement).getBoundingClientRect().left;
+
+            if (clickedOn >= (finishThumbLeft + startThumbLeft) / 2) {
+                draggingThumb = 'Finish';
+
+                // in Case user clicks on the Bar
+                if (
+                    e.target === bar.current ||
+                    e.target === selectedBar.current
+                ) {
+                    setFinishThumbLeft(calculatePosition(clickedOn));
+                }
+            } else {
+                draggingThumb = 'Start';
+
+                // in Case user clicks on the Bar
+                if (
+                    e.target === bar.current ||
+                    e.target === selectedBar.current
+                ) {
+                    setStartThumbLeft(calculatePosition(clickedOn));
+                }
+            }
+            document.addEventListener('mousemove', onMouseMove as any);
+            document.addEventListener('mouseup', onMouseUp);
+        }
+    };
+
+    return (
+        <LabelLayout {...props}>
+            <SliderBoard
+                ref={bar}
+                disabled={disabled}
+                onMouseDown={(event): void => handleMouseDown(event)}
+                theme={theme}
+            >
+                <SliderBoardSelected
+                    ref={selectedBar}
+                    left={startThumbLeft}
+                    right={finishThumbLeft - startThumbLeft}
+                    disabled={disabled}
+                    hasRail={hasRail}
+                    theme={theme}
+                />
+                {hasTwoInputs && (
+                    <SliderThumbStart
+                        ref={startThumb}
+                        left={startThumbLeft}
+                        disabled={disabled}
+                        hasTwoInputs={hasTwoInputs}
+                        onMouseDown={(event): void =>
+                            handleMouseDown(event as MouseEvent)
+                        }
+                    >
+                        {hasPopup && (
+                            <Popup
+                                top={popuptop}
+                                left={popupleft}
+                                width={popupwidth}
+                                height={popupheight}
+                            >
+                                {startThumbLeftInValue}
+                            </Popup>
+                        )}
+                    </SliderThumbStart>
+                )}
+
+                <SliderThumb
+                    ref={finishThumb}
+                    disabled={disabled}
+                    hasTwoInputs={hasTwoInputs}
+                    left={finishThumbLeft}
+                    onMouseDown={(event): any =>
+                        handleMouseDown(event as MouseEvent)
+                    }
+                >
+                    {hasPopup && (
+                        <Popup
+                            top={popuptop}
+                            left={popupleft}
+                            width={popupwidth}
+                            height={popupheight}
+                        >
+                            {finishThumbLeftInValue}
+                        </Popup>
+                    )}
+                </SliderThumb>
+            </SliderBoard>
+            {marks && (
+                <SliderBoardMarks
+                    ref={marksBar}
+                    theme={theme}
+                    disabled={disabled}
+                >
+                    {marks.map(
+                        ({ key, mark }): React.ReactElement => (
+                            <div
+                                style={{
+                                    position: 'absolute',
+                                    left: `${key}px`,
+                                }}
+                            >
+                                {mark}
+                            </div>
+                        ),
+                    )}
+                </SliderBoardMarks>
+            )}
+        </LabelLayout>
+    );
+};
+
+const SliderBoard = styled.div<SliderProps>`
+        width: 100%;
+        height: 4px;
+        animate: 0.2s;
+        background: #e9e9e9;
+        cursor:pointer;
+        ${({ theme }): string => `
+            border-radius: ${theme.dimensions.radius};
+            box-shadow: ${theme.depth[1]};
+        `}
+        // Disabled
+        ${({ disabled }): string =>
+            disabled
+                ? `
+            cursor: not-allowed;
+            opacity: 0.6;
+        `
+                : ''}
+        `;
+
+const SliderBoardSelected = styled.div<SliderProps>`
+    top: 1px;
+    height: 4px;
+    animate: 0.2s;
+    position: relative;
+    left: ${({ left }): string => `${left}px` || '0px'};
+    ${({ theme, hasRail }): string => `
+            border-radius: ${theme.dimensions.radius};
+            box-shadow: ${theme.depth[1]};
+            background: ${hasRail ? theme.colors.primary : '#e9e9e9'};
+        `}
+    width: ${({ right }): string => `${right}px` || '0px'};
+    ${({ disabled }): string =>
+        disabled
+            ? `
         cursor: not-allowed;
         opacity: 0.6;
+    `
+            : ''}
+`;
+
+const SliderBoardMarks = styled.div<SliderProps>`
+    display: flex;
+    width: 100%;
+    animate: 0.2s;
+    position: relative;
+    font-weight: bold;
+    top: 6px;
+    ${({ disabled }): string =>
+        disabled
+            ? `
+            cursor: not-allowed;
+            opacity: 0.6;
+        `
+            : ''}
+    ${({ theme }): string => `
+                border-radius: ${theme.dimensions.radius};
+                box-shadow: ${theme.depth[1]};
+            `}
+`;
+
+export interface ThumbProps {
+    left: number;
+    hasTwoInputs: boolean;
+    disabled: boolean;
+}
+
+const SliderThumb = styled.div<ThumbProps>`
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    position: relative;
+    left: ${({ left }): string => `${left}px` || '100px'};
+    ${({ hasTwoInputs }): string =>
+        hasTwoInputs
+            ? `
+         top: -21px;
+`
+            : 'top: -7px; '}
+
+    cursor: grab;
+    ${({ theme }): string => `
+            background: ${theme.colors.primary};
+        `}
+    &:active {
+        border: solid 2px #96dbfa;
+        cursor: grabbing;
     }
-    &:focus {
-        outline: none;
-    }
-    &::-webkit-slider-runnable-track {
-        width: 100%;
-        height: 6px;
-        cursor: pointer;
-        animate: 0.2s;
-        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-        background: #3071a9;
-        border-radius: 10px;
-        border: 0.2px solid ${(props): string => props.trackColor || '#010101'};
-    }
-    &::-webkit-slider-thumb {
-        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-        border: 1px solid #000000;
-        height: 16px;
-        width: 16px;
-        border-radius: 50%;
-        background: ${(props): string => props.buttonColor || '#ffffff'};
-        cursor: pointer;
-        -webkit-appearance: none;
-        margin-top: -5px;
-    }
-    &:focus::-webkit-slider-runnable-track {
-        background: #367ebd;
-    }
-    &::-moz-range-track {
-        width: 100%;
-        height: 8.4px;
-        cursor: pointer;
-        animate: 0.2s;
-        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-        background: #3071a9;
-        border-radius: 1.3px;
-        border: 0.2px solid #010101;
-    }
-    &::-moz-range-thumb {
-        box-shadow: 1px 1px 1px #000000, 0px 0px 1px #0d0d0d;
-        border: 1px solid #000000;
-        height: 36px;
-        width: 16px;
-        border-radius: 50%;
-        background: #ffffff;
-        cursor: pointer;
+    ${({ disabled }): string =>
+        disabled
+            ? `
+        cursor: not-allowed;
+        opacity: 0.6;
+    `
+            : ' '}
+`;
+
+const SliderThumbStart = styled.div<ThumbProps>`
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    position: relative;
+    top: -7px;
+    cursor: grab;
+    left: ${({ left }): string => `${left}px` || '0px'};
+    ${({ disabled }): string =>
+        disabled
+            ? `
+        cursor: not-allowed;
+        opacity: 0.6;
+    `
+            : ' '}
+    ${({ theme }): string => `
+            background: ${theme.colors.primary};
+        `}
+        &:active {
+        border: solid 2px #96dbfa;
+        cursor: grabbing;
     }
 `;
 
