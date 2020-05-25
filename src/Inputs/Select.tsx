@@ -16,9 +16,9 @@ import {
     clickable,
     styledCondition,
     darken,
-} from '../Utils/Mixins';
-import { useTransition } from '../Utils/Hooks';
-import { LabelLayout, LabelLayoutProps } from '../Fragments';
+} from '@Utils/Mixins';
+import { useTransition } from '@Utils/Hooks';
+import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
 const SPEED = 'normal';
 
@@ -205,6 +205,7 @@ const Icon = styled(AngleDown)`
     width: 10px;
     flex-shrink: 0;
     margin-left: auto;
+    margin-top: auto;
 `;
 
 const SelectList = styled.div<{

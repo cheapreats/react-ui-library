@@ -1,6 +1,6 @@
 import React, { ReactNode } from 'react';
-import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import styled from 'styled-components';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import { Card as C, CardProps } from './Card';
 import { transition, position } from '../Utils/Mixins';
 
@@ -11,14 +11,19 @@ export interface FeaturesCardProps extends MainInterface, ResponsiveInterface {
     cardProps: CardProps;
 }
 
+export interface CardWrapperProps {
+    width: string;
+}
+
 export const FeaturesCard: React.FC<FeaturesCardProps> = ({
     children,
     iconComponent,
     footerComponent,
     cardProps,
+    width,
     ...props
 }): React.ReactElement => (
-    <CardWrapper {...props}>
+    <CardWrapper width={width} {...props}>
         <IconWrapper>{iconComponent}</IconWrapper>
         <Card {...cardProps}>
             <Content>{children}</Content>
@@ -57,7 +62,7 @@ const Card = styled(C)<CardProps>`
     overflow: hidden;
 `;
 
-const CardWrapper = styled.div<FeaturesCardProps>`
+const CardWrapper = styled.div<CardWrapperProps>`
     position: relative;
     cursor: pointer;
     padding-top: 20px;

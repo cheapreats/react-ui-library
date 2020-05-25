@@ -14,6 +14,7 @@ export const MultiSelectItem: React.FC<MultiSelectItemProps> = ({
 }): React.ReactElement => {
     const columns = useContext(MultiSelectContext);
     return (
+        // @ts-ignore
         <Container columns={columns} {...props}>
             {children}
         </Container>
