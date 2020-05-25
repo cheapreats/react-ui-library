@@ -71,12 +71,17 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     // Thumb Positions in Px
     const [finishThumbLeft, setFinishThumbLeft] = useState(max);
     const [startThumbLeft, setStartThumbLeft] = useState(min);
-    const [activeThumb, setActiveThumb] = useState('');
+    const [isRightThumbDragging, setIsRightThumbDragging] = useState(false);
+    const [isLeftThumbDragging, setIsLeftThumbDragging] = useState(false);
+
+    const maxAndMinDifference = useMemo((): number => {
+        return max - min;
+    }, [max, min]);
 
     // Translate a value to Pixel
     const translateToPixels = (theValue: number): number => {
         const pixelTranslator =
-            (bar.current?.clientWidth as number) / (max - min);
+            (bar.current?.clientWidth as number) / maxAndMinDifference;
         return (theValue - min) * pixelTranslator;
     };
 
@@ -84,7 +89,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     const translateToValue = (theValue: number): number => {
         return (
             Math.round(
-                ((theValue * (max - min)) /
+                ((theValue * maxAndMinDifference) /
                     (bar.current?.clientWidth as number) +
                     min) /
                     step,
@@ -181,12 +186,9 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
 
         // setting the positions
         if (newLeft < (bar.current?.clientWidth as number) && newLeft >= 0) {
-            if (activeThumb === 'Finish' && newPosition > startThumbLeft) {
+            if (isLeftThumbDragging && newPosition > startThumbLeft) {
                 setFinishThumbLeft(newPosition);
-            } else if (
-                activeThumb === 'Start' &&
-                newPosition < finishThumbLeft
-            ) {
+            } else if (isRightThumbDragging && newPosition < finishThumbLeft) {
                 setStartThumbLeft(newPosition);
             }
         }
@@ -205,7 +207,8 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                 (bar.current as HTMLElement).getBoundingClientRect().left;
 
             if (clickedOn >= (finishThumbLeft + startThumbLeft) / 2) {
-                setActiveThumb('Finish');
+                setIsRightThumbDragging(true);
+                setIsLeftThumbDragging(false);
 
                 // in Case user clicks on the Bar
                 if (
@@ -215,7 +218,8 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                     setFinishThumbLeft(calculatePosition(clickedOn));
                 }
             } else {
-                setActiveThumb('Start');
+                setIsRightThumbDragging(false);
+                setIsLeftThumbDragging(true);
 
                 // in Case user clicks on the Bar
                 if (
