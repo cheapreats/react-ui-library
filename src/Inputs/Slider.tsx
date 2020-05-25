@@ -10,8 +10,6 @@ import styled, { DefaultTheme } from 'styled-components';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 import { Popup } from '../Containers/Popup';
 
-let draggingThumb = 'Finish';
-
 export interface MarkProps {
     key: number;
     mark: string;
@@ -37,12 +35,11 @@ export interface SliderProps extends LabelLayoutProps {
     left?: number;
     right?: number;
     hasPopup?: boolean;
-    popupleft?: number;
-    popuptop?: number;
-    popupwidth?: number;
-    popupheight?: number;
+    popupLeft?: number;
+    popupTop?: number;
+    popupWidth?: number;
+    popupHeight?: number;
     theme?: DefaultTheme;
-    maxAndMinDifference?: number;
 }
 
 export const Slider: React.FunctionComponent<SliderProps> = ({
@@ -57,12 +54,11 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     hasPopup,
     step = 1,
     onChange = (): void => {},
-    popupleft = -17,
-    popuptop = -51,
-    popupwidth = 'auto',
-    popupheight = 20,
+    popupLeft = -17,
+    popupTop = -51,
+    popupWidth = 'auto',
+    popupHeight = 20,
     theme,
-    maxAndMinDifference = max - min,
     ...props
 }): React.ReactElement => {
     // DOM Elements
@@ -75,11 +71,12 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     // Thumb Positions in Px
     const [finishThumbLeft, setFinishThumbLeft] = useState(max);
     const [startThumbLeft, setStartThumbLeft] = useState(min);
+    const [activeThumb, setActiveThumb] = useState('');
 
     // Translate a value to Pixel
     const translateToPixels = (theValue: number): number => {
         const pixelTranslator =
-            (bar.current?.clientWidth as number) / maxAndMinDifference;
+            (bar.current?.clientWidth as number) / (max - min);
         return (theValue - min) * pixelTranslator;
     };
 
@@ -87,7 +84,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     const translateToValue = (theValue: number): number => {
         return (
             Math.round(
-                ((theValue * maxAndMinDifference) /
+                ((theValue * (max - min)) /
                     (bar.current?.clientWidth as number) +
                     min) /
                     step,
@@ -184,10 +181,10 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
 
         // setting the positions
         if (newLeft < (bar.current?.clientWidth as number) && newLeft >= 0) {
-            if (draggingThumb === 'Finish' && newPosition > startThumbLeft) {
+            if (activeThumb === 'Finish' && newPosition > startThumbLeft) {
                 setFinishThumbLeft(newPosition);
             } else if (
-                draggingThumb === 'Start' &&
+                activeThumb === 'Start' &&
                 newPosition < finishThumbLeft
             ) {
                 setStartThumbLeft(newPosition);
@@ -208,7 +205,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                 (bar.current as HTMLElement).getBoundingClientRect().left;
 
             if (clickedOn >= (finishThumbLeft + startThumbLeft) / 2) {
-                draggingThumb = 'Finish';
+                setActiveThumb('Finish');
 
                 // in Case user clicks on the Bar
                 if (
@@ -218,7 +215,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                     setFinishThumbLeft(calculatePosition(clickedOn));
                 }
             } else {
-                draggingThumb = 'Start';
+                setActiveThumb('Start');
 
                 // in Case user clicks on the Bar
                 if (
@@ -259,10 +256,10 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                     >
                         {hasPopup && (
                             <Popup
-                                top={popuptop}
-                                left={popupleft}
-                                width={popupwidth}
-                                height={popupheight}
+                                top={popupTop}
+                                left={popupLeft}
+                                width={popupWidth}
+                                height={popupHeight}
                             >
                                 {startThumbLeftInValue}
                             </Popup>
@@ -279,10 +276,10 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                 >
                     {hasPopup && (
                         <Popup
-                            top={popuptop}
-                            left={popupleft}
-                            width={popupwidth}
-                            height={popupheight}
+                            top={popupTop}
+                            left={popupLeft}
+                            width={popupWidth}
+                            height={popupHeight}
                         >
                             {finishThumbLeftInValue}
                         </Popup>
