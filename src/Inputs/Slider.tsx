@@ -64,13 +64,18 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     // DOM Elements
     const bar = useRef() as RefObject<HTMLDivElement>;
     const selectedBar = useRef() as RefObject<HTMLDivElement>;
-    const startThumb = useRef() as RefObject<HTMLDivElement>;
-    const finishThumb = useRef() as RefObject<HTMLDivElement>;
+    const leftThumb = useRef() as RefObject<HTMLDivElement>;
+    const rightThumb = useRef() as RefObject<HTMLDivElement>;
     const marksBar = useRef() as RefObject<HTMLDivElement>;
 
     // Thumb Positions in Px
-    const [finishThumbLeft, setFinishThumbLeft] = useState(max);
-    const [startThumbLeft, setStartThumbLeft] = useState(min);
+    const [
+        rightThumbPositionInPixels,
+        setRightThumbPositionInPixels,
+    ] = useState(max);
+    const [leftThumbPositionInPixels, setLeftThumbPositionInPixels] = useState(
+        min,
+    );
     const [isRightThumbDragging, setIsRightThumbDragging] = useState(false);
     const [isLeftThumbDragging, setIsLeftThumbDragging] = useState(false);
 
@@ -98,29 +103,29 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     };
 
     // thumb positions in values whenever it changes (by pixels)
-    const finishThumbLeftInValue = useMemo((): number => {
-        const value = finishThumbLeft
-            ? translateToValue(finishThumbLeft)
+    const rightThumbPositionInValue = useMemo((): number => {
+        const value = rightThumbPositionInPixels
+            ? translateToValue(rightThumbPositionInPixels)
             : valueFinish;
         return value;
-    }, [finishThumbLeft]);
+    }, [rightThumbPositionInPixels]);
 
-    const startThumbLeftInValue = useMemo((): number => {
-        const value = startThumbLeft
-            ? translateToValue(startThumbLeft)
+    const leftThumbPositionInValue = useMemo((): number => {
+        const value = leftThumbPositionInPixels
+            ? translateToValue(leftThumbPositionInPixels)
             : valueStart;
         return value;
-    }, [startThumbLeft]);
+    }, [leftThumbPositionInPixels]);
 
     // Final Result
     useMemo((): void => {
         onChange({
             values: {
-                lowValue: startThumbLeftInValue,
-                highValue: finishThumbLeftInValue,
+                lowValue: leftThumbPositionInValue,
+                highValue: rightThumbPositionInValue,
             },
         });
-    }, [finishThumbLeftInValue, startThumbLeftInValue]);
+    }, [rightThumbPositionInValue, leftThumbPositionInValue]);
 
     // Calcs of Positioning a thumb in the specific scale with provided steps
     const calculatePosition = (theValue: number): number => {
@@ -131,10 +136,10 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
         if (bar.current) {
             // setting up initial positions
             if (valueFinish) {
-                setFinishThumbLeft(translateToPixels(valueFinish));
+                setRightThumbPositionInPixels(translateToPixels(valueFinish));
             }
             if (valueStart) {
-                setStartThumbLeft(translateToPixels(valueStart));
+                setLeftThumbPositionInPixels(translateToPixels(valueStart));
             }
 
             // placing the marks
@@ -151,11 +156,15 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
 
     // repositions marks and thumbs when resizing
     const resizing = (): void => {
-        if (finishThumbLeftInValue) {
-            setFinishThumbLeft(translateToPixels(finishThumbLeftInValue));
+        if (rightThumbPositionInValue) {
+            setRightThumbPositionInPixels(
+                translateToPixels(rightThumbPositionInValue),
+            );
         }
-        if (startThumbLeftInValue) {
-            setStartThumbLeft(translateToPixels(startThumbLeftInValue));
+        if (leftThumbPositionInValue) {
+            setLeftThumbPositionInPixels(
+                translateToPixels(leftThumbPositionInValue),
+            );
         }
 
         if (marksBar.current && marks) {
@@ -186,10 +195,16 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
 
         // setting the positions
         if (newLeft < (bar.current?.clientWidth as number) && newLeft >= 0) {
-            if (isLeftThumbDragging && newPosition > startThumbLeft) {
-                setFinishThumbLeft(newPosition);
-            } else if (isRightThumbDragging && newPosition < finishThumbLeft) {
-                setStartThumbLeft(newPosition);
+            if (
+                isRightThumbDragging &&
+                newPosition > leftThumbPositionInPixels
+            ) {
+                setRightThumbPositionInPixels(newPosition);
+            } else if (
+                isLeftThumbDragging &&
+                newPosition < rightThumbPositionInPixels
+            ) {
+                setLeftThumbPositionInPixels(newPosition);
             }
         }
     };
@@ -206,27 +221,28 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                 e.clientX -
                 (bar.current as HTMLElement).getBoundingClientRect().left;
 
-            if (clickedOn >= (finishThumbLeft + startThumbLeft) / 2) {
+            if (
+                clickedOn >=
+                (rightThumbPositionInPixels + leftThumbPositionInPixels) / 2
+            ) {
                 setIsRightThumbDragging(true);
                 setIsLeftThumbDragging(false);
-
                 // in Case user clicks on the Bar
                 if (
                     e.target === bar.current ||
                     e.target === selectedBar.current
                 ) {
-                    setFinishThumbLeft(calculatePosition(clickedOn));
+                    setRightThumbPositionInPixels(calculatePosition(clickedOn));
                 }
             } else {
                 setIsRightThumbDragging(false);
                 setIsLeftThumbDragging(true);
-
                 // in Case user clicks on the Bar
                 if (
                     e.target === bar.current ||
                     e.target === selectedBar.current
                 ) {
-                    setStartThumbLeft(calculatePosition(clickedOn));
+                    setLeftThumbPositionInPixels(calculatePosition(clickedOn));
                 }
             }
             document.addEventListener('mousemove', onMouseMove as any);
@@ -244,16 +260,18 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
             >
                 <SliderBoardSelected
                     ref={selectedBar}
-                    left={startThumbLeft}
-                    right={finishThumbLeft - startThumbLeft}
+                    left={leftThumbPositionInPixels}
+                    right={
+                        rightThumbPositionInPixels - leftThumbPositionInPixels
+                    }
                     disabled={disabled}
                     hasRail={hasRail}
                     theme={theme}
                 />
                 {hasTwoInputs && (
-                    <SliderThumbStart
-                        ref={startThumb}
-                        left={startThumbLeft}
+                    <SliderThumbLeft
+                        ref={leftThumb}
+                        left={leftThumbPositionInPixels}
                         disabled={disabled}
                         hasTwoInputs={hasTwoInputs}
                         onMouseDown={(event): void => handleMouseDown(event)}
@@ -265,17 +283,17 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                                 width={popupWidth}
                                 height={popupHeight}
                             >
-                                {startThumbLeftInValue}
+                                {leftThumbPositionInValue}
                             </Popup>
                         )}
-                    </SliderThumbStart>
+                    </SliderThumbLeft>
                 )}
 
-                <SliderThumb
-                    ref={finishThumb}
+                <SliderThumbRight
+                    ref={rightThumb}
                     disabled={disabled}
                     hasTwoInputs={hasTwoInputs}
-                    left={finishThumbLeft}
+                    left={rightThumbPositionInPixels}
                     onMouseDown={(event): void => handleMouseDown(event)}
                 >
                     {hasPopup && (
@@ -285,10 +303,10 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                             width={popupWidth}
                             height={popupHeight}
                         >
-                            {finishThumbLeftInValue}
+                            {rightThumbPositionInValue}
                         </Popup>
                     )}
-                </SliderThumb>
+                </SliderThumbRight>
             </SliderBoard>
             {marks && (
                 <SliderBoardMarks
@@ -382,7 +400,7 @@ export interface ThumbProps {
     disabled: boolean;
 }
 
-const SliderThumb = styled.div<ThumbProps>`
+const SliderThumbRight = styled.div<ThumbProps>`
     width: 14px;
     height: 14px;
     border-radius: 50%;
@@ -412,7 +430,7 @@ const SliderThumb = styled.div<ThumbProps>`
             : ' '}
 `;
 
-const SliderThumbStart = styled.div<ThumbProps>`
+const SliderThumbLeft = styled.div<ThumbProps>`
     width: 14px;
     height: 14px;
     border-radius: 50%;
