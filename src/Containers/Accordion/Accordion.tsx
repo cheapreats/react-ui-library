@@ -1,9 +1,9 @@
 import React, { Children, isValidElement } from 'react';
 import { AccordionItem } from './AccordionItem';
 
-const defaultActiveStyle = () => `
-    font-color: red;
-
+const defaultActiveStyle = (): string => `
+    color: #ee2434;
+    font-weight: bold;
 `;
 
 export interface AccordionProps {

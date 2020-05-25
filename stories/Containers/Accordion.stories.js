@@ -5,9 +5,8 @@ import { Accordion } from '../../src';
 import { Paragraph } from '../../src';
 
 const defaultActiveStyle = () => `
-    :& {
-        color: red;
-    }
+    color: #ee2434;
+    font-weight: bold;
 `;
 
 storiesOf('Accordion', module)

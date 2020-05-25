@@ -18,6 +18,10 @@ export interface SectionDivProps {
 
 export interface HeaderDivProps {
     isActive: boolean;
+}
+
+export interface HeaderProps {
+    isActive: boolean;
     activeStyle: Function;
 }
 
@@ -55,11 +59,12 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
         <SectionDiv {...props} height={height} isActive={isActive}>
             <HeaderDiv
                 ref={headerRef}
-                activeStyle={activeStyle}
                 isActive={isActive}
                 onClick={toggleIsActive}
             >
-                <Header>{header}</Header>
+                <Header isActive={isActive} activeStyle={activeStyle}>
+                    {header}
+                </Header>
                 <Icon isActive={isActive} />
             </HeaderDiv>
             <BodyDiv ref={bodyRef}>{children}</BodyDiv>
@@ -78,9 +83,6 @@ const HeaderDiv = styled.div<HeaderDivProps>`
     user-select: none;
     cursor: pointer;
     padding: 5px 0 5px 0;
-
-    ${({ isActive, activeStyle }): string =>
-        isActive ? `${activeStyle()}` : ``};
     justify-content: space-between;
     align-items: center;
 `;
@@ -97,9 +99,11 @@ const Icon = styled(AngleUp)<IconProps>`
 
 `;
 
-const Header = styled(Heading).attrs({ type: 'h5' })`
+const Header = styled(Heading).attrs({ type: 'h5' })<HeaderProps>`
     :hover {
         ${Mixins.transition(['color'], '0.5s')};
         color: #ee2434;
     }
+    ${({ isActive, activeStyle }): string =>
+        isActive ? `${activeStyle()}` : ``};
 `;
