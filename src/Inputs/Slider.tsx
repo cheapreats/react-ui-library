@@ -5,6 +5,7 @@ import React, {
     RefObject,
     MouseEvent,
     useMemo,
+    ReactNode,
 } from 'react';
 import styled, { DefaultTheme } from 'styled-components';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
@@ -73,14 +74,13 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     const [startThumbLeft, setStartThumbLeft] = useState(min);
 
     const MaxAndMinDifference = max - min;
-
     let draggingThumb = 'Finish';
 
     // Translate a value to Pixel
     const translateToPixels = (theValue: number): number => {
         const pixelTranslator =
             (bar.current?.clientWidth as number) / MaxAndMinDifference;
-        return ((theValue as number) - min) * pixelTranslator;
+        return (theValue - min) * pixelTranslator;
     };
 
     // Translate pixels to a value and rounding up/down to steps
@@ -148,7 +148,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     }, []);
 
     // repositions marks and thumbs when resizing
-    function resizing(): void {
+    const resizing = (): void => {
         if (finishThumbLeftInValue) {
             setFinishThumbLeft(translateToPixels(finishThumbLeftInValue));
         }
@@ -169,11 +169,11 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                 )}px`;
             });
         }
-    }
+    };
 
     window.onresize = resizing;
 
-    function onMouseMove(theevent: MouseEvent): void {
+    const onMouseMove = (theevent: MouseEvent): void => {
         // clicked on pure position
         const newLeft =
             theevent.clientX -
@@ -193,12 +193,12 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                 setStartThumbLeft(newPosition);
             }
         }
-    }
+    };
 
-    function onMouseUp(): void {
+    const onMouseUp = (): void => {
         document.removeEventListener('mouseup', onMouseUp);
         document.removeEventListener('mousemove', onMouseMove as any);
-    }
+    };
 
     const handleMouseDown = (e: MouseEvent): void => {
         if (!disabled) {
@@ -255,9 +255,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                         left={startThumbLeft}
                         disabled={disabled}
                         hasTwoInputs={hasTwoInputs}
-                        onMouseDown={(event): void =>
-                            handleMouseDown(event as MouseEvent)
-                        }
+                        onMouseDown={(event): void => handleMouseDown(event)}
                     >
                         {hasPopup && (
                             <Popup
@@ -277,9 +275,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                     disabled={disabled}
                     hasTwoInputs={hasTwoInputs}
                     left={finishThumbLeft}
-                    onMouseDown={(event): any =>
-                        handleMouseDown(event as MouseEvent)
-                    }
+                    onMouseDown={(event): void => handleMouseDown(event)}
                 >
                     {hasPopup && (
                         <Popup
@@ -302,6 +298,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                     {marks.map(
                         ({ key, mark }): React.ReactElement => (
                             <div
+                                key={key}
                                 style={{
                                     position: 'absolute',
                                     left: `${key}px`,
