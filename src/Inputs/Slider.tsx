@@ -10,6 +10,8 @@ import styled, { DefaultTheme } from 'styled-components';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 import { Popup } from '../Containers/Popup';
 
+let draggingThumb = 'Finish';
+
 export interface MarkProps {
     key: number;
     mark: string;
@@ -40,6 +42,7 @@ export interface SliderProps extends LabelLayoutProps {
     popupwidth?: number;
     popupheight?: number;
     theme?: DefaultTheme;
+    maxAndMinDifference?: number;
 }
 
 export const Slider: React.FunctionComponent<SliderProps> = ({
@@ -59,6 +62,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     popupwidth = 'auto',
     popupheight = 20,
     theme,
+    maxAndMinDifference = max - min,
     ...props
 }): React.ReactElement => {
     // DOM Elements
@@ -72,13 +76,10 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     const [finishThumbLeft, setFinishThumbLeft] = useState(max);
     const [startThumbLeft, setStartThumbLeft] = useState(min);
 
-    const MaxAndMinDifference = max - min;
-    let draggingThumb = 'Finish';
-
     // Translate a value to Pixel
     const translateToPixels = (theValue: number): number => {
         const pixelTranslator =
-            (bar.current?.clientWidth as number) / MaxAndMinDifference;
+            (bar.current?.clientWidth as number) / maxAndMinDifference;
         return (theValue - min) * pixelTranslator;
     };
 
@@ -86,7 +87,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     const translateToValue = (theValue: number): number => {
         return (
             Math.round(
-                ((theValue * MaxAndMinDifference) /
+                ((theValue * maxAndMinDifference) /
                     (bar.current?.clientWidth as number) +
                     min) /
                     step,
@@ -96,17 +97,17 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
 
     // thumb positions in values whenever it changes (by pixels)
     const finishThumbLeftInValue = useMemo((): number => {
-        const Value = finishThumbLeft
+        const value = finishThumbLeft
             ? translateToValue(finishThumbLeft)
             : valueFinish;
-        return Value;
+        return value;
     }, [finishThumbLeft]);
 
     const startThumbLeftInValue = useMemo((): number => {
-        const Value = startThumbLeft
+        const value = startThumbLeft
             ? translateToValue(startThumbLeft)
             : valueStart;
-        return Value;
+        return value;
     }, [startThumbLeft]);
 
     // Final Result
