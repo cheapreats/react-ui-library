@@ -10,21 +10,24 @@ export interface ColorCardProps extends CardProps {
     label: string;
 }
 
+interface ColorProps {
+    color: string;
+}
+
 interface LabelProps extends React.HTMLAttributes<HTMLDivElement> {
     label: string;
     value: string;
 }
 
-const getRGBFromHEX = (value: string) => {
+const getRGBFromHEX = (value: string): string => {
     let hex = value.substring(1);
     if (hex.length === 3) {
         const [r, g, b] = [...hex];
         hex = `${r}${r}${g}${g}${b}${b}`;
     }
-    const hexValue = parseInt(hex, 16);
-    const r = (hexValue >> 16) & 255;
-    const g = (hexValue >> 8) & 255;
-    const b = hexValue & 255;
+    const r = parseInt(hex.substring(0, 2), 16);
+    const g = parseInt(hex.substring(2, 4), 16);
+    const b = parseInt(hex.substring(4, 6), 16);
     return `${r},${g},${b}`;
 };
 
@@ -32,7 +35,7 @@ export const ColorCard: React.FC<ColorCardProps> = ({
     color,
     label,
     ...props
-}) => {
+}): React.ReactElement => {
     return (
         <Card {...props}>
             <Color color={color} />
@@ -51,7 +54,7 @@ export const ColorCard: React.FC<ColorCardProps> = ({
 
 export default ColorCard;
 
-const Label: React.FC<LabelProps> = ({ label, value }) => (
+const Label: React.FC<LabelProps> = ({ label, value }): React.ReactElement => (
     <div>
         <SmallText>{label}</SmallText>
         <Paragraph bold>{value}</Paragraph>
@@ -68,8 +71,8 @@ const Title = styled(Heading)`
     word-break: break-all;
 `;
 
-const Color = styled.div`
-    background-color: ${({ color }) => color};
+const Color = styled.div<ColorProps>`
+    background-color: ${({ color }): string => color};
     width: 100%;
     height: 100%;
 `;
