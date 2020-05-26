@@ -10,6 +10,10 @@ import {
     ColorCard,
 } from '../../src';
 
+const Main = styled.main`
+    max-width: 800px;
+`;
+
 const Section = styled.section`
     margin: 15px 0;
 `;
@@ -53,7 +57,7 @@ storiesOf('Overview', module)
     .add(
         'Typography',
         () => (
-            <main style={{ maxWidth: '800px' }}>
+            <Main>
                 <Heading type="h1" bold>
                     Typography
                 </Heading>
@@ -134,7 +138,7 @@ storiesOf('Overview', module)
                             ))}
                     </ListGrid>
                 </Section>
-            </main>
+            </Main>
         ),
         {
             notes: `
