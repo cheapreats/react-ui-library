@@ -1,66 +1,49 @@
 import React, { Fragment } from 'react';
+import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { MainTheme } from '../../src/Themes/MainTheme';
-import { Heading, Paragraph, SmallText, Card } from '../../src';
+import {
+    TextLayout,
+    Heading,
+    Paragraph,
+    SmallText,
+    ColorCard,
+} from '../../src';
 
-const Section = ({ children }) => (
-    <>
-        <section style={{ margin: '15px 0' }}>{children}</section> <hr />
-    </>
-);
+const Section = styled.section`
+    margin: 15px 0;
+`;
 
-const Letters = ({ children }) => (
-    <div
-        style={{
-            margin: '10px 0',
-            textAlign: 'center',
-            wordBreak: 'break-all',
-        }}
-    >
-        {children}
-    </div>
-);
+const Letters = styled.div`
+    margin: 10px 0;
+    text-align: center;
+    word-break: break-all;
+`;
 
-const ListGrid = ({ children, columnWidth, gap }) => (
-    <ul
-        style={{
-            listStyleType: 'none',
-            display: 'grid',
-            gridTemplateColumns: `repeat(auto-fit, minmax(${columnWidth}px, 1fr)`,
-            alignItems: 'end',
-            gridGap: `${gap || 5}px`,
-            margin: '20px 0',
-            padding: 0,
-        }}
-    >
-        {children}
-    </ul>
-);
+const ListGrid = styled.ul`
+    list-style-type: none;
+    display: grid;
+    align-items: end;
+    margin: 20px 0;
+    padding: 0;
+    ${({ columnWidth, gap }) => `
+    grid-template-columns: repeat(auto-fill, minmax(${columnWidth}px, 1fr));
+    grid-gap: ${gap || 5}px;
+    `}
+`;
 
-const Color = ({ children, color }) => (
-    <Card>
-        {children}
-        <div
-            style={{
-                backgroundColor: color,
-                width: '100px',
-                height: '100px',
-                borderRadius: '50%',
-                margin: '10px auto',
-            }}
-        ></div>
-    </Card>
-);
-
-const flattenColors = (key, value, label) => (
+const flattenColors = (value, label) => (
     <Fragment key={label}>
         {Object.entries(value).map(([innerKey, value]) =>
             typeof value === 'object' ? (
-                flattenColors(innerKey, value, `${label}.${innerKey}`)
+                flattenColors(value, `${label}.${innerKey}`)
             ) : (
-                <Color key={`${label}.${innerKey}`} color={value}>
-                    {`${label}.${innerKey}`}: {value}
-                </Color>
+                <li key={`${label}.${innerKey}`}>
+                    <ColorCard
+                        color={value}
+                        label={`${label}.${innerKey}`}
+                    ></ColorCard>
+                </li>
             ),
         )}
     </Fragment>
@@ -114,12 +97,13 @@ storiesOf('Overview', module)
                         application and internet.
                     </Paragraph>
                     <ListGrid columnWidth={120}>
-                        {Object.keys(MainTheme.font.size)
-                            .filter(key => key.match(/^h\d$/))
-                            .map((type, index) => (
+                        {Object.entries(MainTheme.font.size)
+                            .filter(([key]) => key.match(/^h[1-6]$/))
+                            .map(([type, size], index) => (
                                 <li key={type}>
-                                    <Heading type={type}>H{index + 1}</Heading>
+                                    <Heading type={type}>{type}</Heading>
                                     <Paragraph>Heading {index + 1}</Paragraph>
+                                    <SmallText>{size}</SmallText>
                                 </li>
                             ))}
                     </ListGrid>
@@ -138,8 +122,17 @@ storiesOf('Overview', module)
                 </Section>
 
                 <Section>
-                    <Heading type="h2">SmallText</Heading>
-                    <SmallText>Insert SmallText Description here</SmallText>
+                    <Heading type="h2">Other Font Sizes</Heading>
+                    <ListGrid columnWidth={120}>
+                        {Object.entries(MainTheme.font.size)
+                            .filter(([key]) => !key.match(/^h[1-6]$/))
+                            .map(([type, size], index) => (
+                                <li key={type}>
+                                    <TextLayout size={type}>{type}</TextLayout>
+                                    <SmallText>{size}</SmallText>
+                                </li>
+                            ))}
+                    </ListGrid>
                 </Section>
             </main>
         ),
@@ -156,20 +149,20 @@ storiesOf('Overview', module)
         },
     )
     .add('Colors', () => (
-        <div style={{ maxWidth: '800px' }}>
+        <div>
             <Heading type="h1" bold>
                 Colors
             </Heading>
 
             <Heading type="h2">Main Theme</Heading>
-            <ListGrid columnWidth={200} gap={15}>
+            <ListGrid columnWidth={300} gap={15}>
                 {Object.entries(MainTheme.colors).map(([key, value]) =>
                     typeof value === 'object' ? (
-                        flattenColors(key, value, key)
+                        flattenColors(value, key)
                     ) : (
-                        <Color key={key} color={value}>
-                            {key}: {value}
-                        </Color>
+                        <li key={key}>
+                            <ColorCard color={value} label={key}></ColorCard>
+                        </li>
                     ),
                 )}
             </ListGrid>
