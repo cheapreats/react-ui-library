@@ -12,7 +12,7 @@ storiesOf('Popup', module).add(
             height={0}
             popup={true}
             content="Content"
-        ></Popup>
+        />
     ),
     {},
 );

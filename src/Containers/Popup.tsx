@@ -24,7 +24,7 @@ export const Popup: React.FC<PopupProps> = ({
                 {children}
             </Rectangle>
             <Triangle>
-                <InnerTriangle> </InnerTriangle>
+                <InnerTriangle />
             </Triangle>
         </Container>
     );

@@ -17,7 +17,7 @@ storiesOf('Slider', module)
                         setState(target);
                     }}
                     values={state}
-                ></Slider>
+                />
             ),
             '',
         ),
@@ -34,7 +34,7 @@ storiesOf('Slider', module)
                         setState(target);
                     }}
                     values={state}
-                ></Slider>
+                />
             ),
             '',
         ),
@@ -52,11 +52,10 @@ storiesOf('Slider', module)
                     padding="50px"
                     hasPopup={boolean('hasPopup', true)}
                     onChange={target => {
-                        console.log(target);
                         setState(target);
                     }}
                     values={{ rightValue: 30 }}
-                ></Slider>
+                />
             ),
             '',
         ),
@@ -73,7 +72,6 @@ storiesOf('Slider', module)
                     max={300}
                     step={50}
                     onChange={target => {
-                        console.log(target);
                         setState(target);
                     }}
                     padding="50px"
@@ -84,7 +82,7 @@ storiesOf('Slider', module)
                         { key: 300, mark: '300' },
                         { key: 200, mark: '200' },
                     ]}
-                ></Slider>
+                />
             ),
             '',
         ),
