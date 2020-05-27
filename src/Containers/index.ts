@@ -19,3 +19,4 @@ export * from './HorizontalScrollList';
 export * from './SlidingOutPanels';
 export * from './FeaturesCard';
 export * from './SelectList';
+export * from './ColorCard';

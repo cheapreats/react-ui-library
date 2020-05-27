@@ -1,6 +1,6 @@
 import React from 'react';
-import { ClientImg } from './ClientShowCaseItem';
 import styled from 'styled-components';
+import { ClientImg } from './ClientShowCaseItem';
 import { Mixins } from '../../Utils';
 
 enum IMAGE_HEIGHTS {
