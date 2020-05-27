@@ -2,7 +2,6 @@ import React, {
     useState,
     useLayoutEffect,
     useRef,
-    RefObject,
     MouseEvent,
     useMemo,
 } from 'react';
@@ -15,26 +14,25 @@ export interface MarkProps {
     mark: string;
 }
 
-export interface ResultValues {
-    lowValue: number;
-    highValue: number;
+export interface Values {
+    leftValue: number;
+    rightValue: number;
 }
 
 export interface SliderProps extends LabelLayoutProps {
-    result?: ResultValues;
+    values?: Values;
+    onChange?: Function;
+
+    disabled?: boolean;
+    hasTwoKnobs?: boolean;
+    hasRail?: boolean;
+    hasPopup?: boolean;
+    step?: number;
+
     max?: number;
     min?: number;
-    step?: number;
-    disabled?: boolean;
-    hasTwoInputs?: boolean;
+
     marks?: MarkProps[];
-    onChange?: Function;
-    valueFinish?: number;
-    valueStart?: number;
-    hasRail?: boolean;
-    left?: number;
-    right?: number;
-    hasPopup?: boolean;
     popupLeft?: number;
     popupTop?: number;
     popupWidth?: number;
@@ -43,41 +41,37 @@ export interface SliderProps extends LabelLayoutProps {
 }
 
 export const Slider: React.FunctionComponent<SliderProps> = ({
+    onChange = (): void => {},
+    hasPopup = false,
     disabled = false,
-    marks,
+    hasRail = false,
+    hasTwoKnobs = false,
+    step = 1,
     min = 0,
     max = 100,
-    hasRail,
-    hasTwoInputs = false,
-    valueFinish = max,
-    valueStart = min,
-    hasPopup,
-    step = 1,
-    onChange = (): void => {},
-    popupLeft = -17,
+    marks,
+    values = { leftValue: min, rightValue: max },
+    popupLeft = -12,
     popupTop = -51,
-    popupWidth = 'auto',
+    popupWidth,
     popupHeight = 20,
     theme,
     ...props
 }): React.ReactElement => {
     // DOM Elements
-    const bar = useRef() as RefObject<HTMLDivElement>;
-    const selectedBar = useRef() as RefObject<HTMLDivElement>;
-    const leftThumb = useRef() as RefObject<HTMLDivElement>;
-    const rightThumb = useRef() as RefObject<HTMLDivElement>;
-    const marksBar = useRef() as RefObject<HTMLDivElement>;
+    const barRef = useRef<HTMLDivElement>(null);
+    const selectedBarRef = useRef<HTMLDivElement>(null);
+    const marksBarRef = useRef<HTMLDivElement>(null);
 
-    // Thumb Positions in Px
-    const [
-        rightThumbPositionInPixels,
-        setRightThumbPositionInPixels,
-    ] = useState(max);
-    const [leftThumbPositionInPixels, setLeftThumbPositionInPixels] = useState(
-        min,
+    // Knob Positions
+    const [rightKnobPosition, setRightKnobPosition] = useState(
+        values.rightValue,
     );
-    const [isRightThumbDragging, setIsRightThumbDragging] = useState(false);
-    const [isLeftThumbDragging, setIsLeftThumbDragging] = useState(false);
+
+    const [leftKnobPosition, setLeftKnobPosition] = useState(values.leftValue);
+
+    const [isRightKnobDragging, setIsRightKnobDragging] = useState(false);
+    const [isLeftKnobDragging, setIsLeftKnobDragging] = useState(false);
 
     const maxAndMinDifference = useMemo((): number => {
         return max - min;
@@ -86,125 +80,49 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     // Translate a value to Pixel
     const translateToPixels = (theValue: number): number => {
         const pixelTranslator =
-            (bar.current?.clientWidth as number) / maxAndMinDifference;
+            (barRef.current?.clientWidth as number) / maxAndMinDifference;
         return (theValue - min) * pixelTranslator;
     };
 
-    // Translate pixels to a value and rounding up/down to steps
-    const translateToValue = (theValue: number): number => {
+    // Rounding up/down to steps
+    const roundToSteps = (theValue: number): number => {
         return (
             Math.round(
                 ((theValue * maxAndMinDifference) /
-                    (bar.current?.clientWidth as number) +
+                    (barRef.current?.clientWidth as number) +
                     min) /
                     step,
             ) * step
         );
     };
 
-    // thumb positions in values whenever it changes (by pixels)
-    const rightThumbPositionInValue = useMemo((): number => {
-        const value = rightThumbPositionInPixels
-            ? translateToValue(rightThumbPositionInPixels)
-            : valueFinish;
-        return value;
-    }, [rightThumbPositionInPixels]);
-
-    const leftThumbPositionInValue = useMemo((): number => {
-        const value = leftThumbPositionInPixels
-            ? translateToValue(leftThumbPositionInPixels)
-            : valueStart;
-        return value;
-    }, [leftThumbPositionInPixels]);
-
-    // Final Result
-    useMemo((): void => {
+    useLayoutEffect((): void => {
         onChange({
             values: {
-                lowValue: leftThumbPositionInValue,
-                highValue: rightThumbPositionInValue,
+                leftValue: leftKnobPosition,
+                rightValue: rightKnobPosition,
             },
         });
-    }, [rightThumbPositionInValue, leftThumbPositionInValue]);
-
-    // Calcs of Positioning a thumb in the specific scale with provided steps
-    const calculatePosition = (theValue: number): number => {
-        return translateToPixels(translateToValue(theValue));
-    };
-
-    useLayoutEffect((): void => {
-        if (bar.current) {
-            // setting up initial positions
-            if (valueFinish) {
-                setRightThumbPositionInPixels(translateToPixels(valueFinish));
-            }
-            if (valueStart) {
-                setLeftThumbPositionInPixels(translateToPixels(valueStart));
-            }
-
-            // placing the marks
-            if (marksBar.current) {
-                const theMarks = marksBar.current.children as any;
-                theMarks.forEach((child: HTMLElement): void => {
-                    child.style.left = `${translateToPixels(
-                        parseInt(child.style.left, 10),
-                    )}px`;
-                });
-            }
-        }
-    }, []);
-
-    // repositions marks and thumbs when resizing
-    const resizing = (): void => {
-        if (rightThumbPositionInValue) {
-            setRightThumbPositionInPixels(
-                translateToPixels(rightThumbPositionInValue),
-            );
-        }
-        if (leftThumbPositionInValue) {
-            setLeftThumbPositionInPixels(
-                translateToPixels(leftThumbPositionInValue),
-            );
-        }
-
-        if (marksBar.current && marks) {
-            const theMarks = marksBar.current.children as any;
-            theMarks.forEach((child: HTMLElement): void => {
-                child.style.left = `${translateToPixels(
-                    marks[
-                        Array.from(
-                            (child.parentNode as HTMLElement)
-                                .children as HTMLCollection,
-                        ).indexOf(child)
-                    ].key,
-                )}px`;
-            });
-        }
-    };
-
-    window.onresize = resizing;
+    }, [rightKnobPosition, leftKnobPosition]);
 
     const onMouseMove = (theevent: MouseEvent): void => {
         // clicked on pure position
         const newLeft =
             theevent.clientX -
-            (bar.current as HTMLElement).getBoundingClientRect().left;
+            (barRef.current as HTMLElement).getBoundingClientRect().left;
 
         // new position based on steps
-        const newPosition = calculatePosition(newLeft);
+        const newPosition = roundToSteps(newLeft);
 
         // setting the positions
-        if (newLeft < (bar.current?.clientWidth as number) && newLeft >= 0) {
+        if (newLeft < (barRef.current?.clientWidth as number) && newLeft >= 0) {
             if (
-                isRightThumbDragging &&
-                newPosition > leftThumbPositionInPixels
+                (isRightKnobDragging && newPosition > leftKnobPosition) ||
+                !hasTwoKnobs
             ) {
-                setRightThumbPositionInPixels(newPosition);
-            } else if (
-                isLeftThumbDragging &&
-                newPosition < rightThumbPositionInPixels
-            ) {
-                setLeftThumbPositionInPixels(newPosition);
+                setRightKnobPosition(newPosition);
+            } else if (isLeftKnobDragging && newPosition < rightKnobPosition) {
+                setLeftKnobPosition(newPosition);
             }
         }
     };
@@ -216,33 +134,37 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
 
     const handleMouseDown = (e: MouseEvent): void => {
         if (!disabled) {
-            // position the clicked taken placed on based on the position of bar
+            // position the clicked taken placed on based on the position of Bar
             const clickedOn =
                 e.clientX -
-                (bar.current as HTMLElement).getBoundingClientRect().left;
+                (barRef.current as HTMLElement).getBoundingClientRect().left;
 
             if (
                 clickedOn >=
-                (rightThumbPositionInPixels + leftThumbPositionInPixels) / 2
+                    (translateToPixels(rightKnobPosition) +
+                        translateToPixels(leftKnobPosition)) /
+                        2 ||
+                !hasTwoKnobs
             ) {
-                setIsRightThumbDragging(true);
-                setIsLeftThumbDragging(false);
+                setIsRightKnobDragging(true);
+                setIsLeftKnobDragging(false);
+
                 // in Case user clicks on the Bar
                 if (
-                    e.target === bar.current ||
-                    e.target === selectedBar.current
+                    e.target === barRef.current ||
+                    e.target === selectedBarRef.current
                 ) {
-                    setRightThumbPositionInPixels(calculatePosition(clickedOn));
+                    setRightKnobPosition(roundToSteps(clickedOn));
                 }
             } else {
-                setIsRightThumbDragging(false);
-                setIsLeftThumbDragging(true);
+                setIsRightKnobDragging(false);
+                setIsLeftKnobDragging(true);
                 // in Case user clicks on the Bar
                 if (
-                    e.target === bar.current ||
-                    e.target === selectedBar.current
+                    e.target === barRef.current ||
+                    e.target === selectedBarRef.current
                 ) {
-                    setLeftThumbPositionInPixels(calculatePosition(clickedOn));
+                    setLeftKnobPosition(roundToSteps(clickedOn));
                 }
             }
             document.addEventListener('mousemove', onMouseMove as any);
@@ -253,27 +175,27 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     return (
         <LabelLayout {...props}>
             <SliderBoard
-                ref={bar}
+                ref={barRef}
                 disabled={disabled}
                 onMouseDown={(event): void => handleMouseDown(event)}
                 theme={theme}
             >
                 <SliderBoardSelected
-                    ref={selectedBar}
-                    left={leftThumbPositionInPixels}
+                    ref={selectedBarRef}
+                    left={translateToPixels(leftKnobPosition)}
                     right={
-                        rightThumbPositionInPixels - leftThumbPositionInPixels
+                        translateToPixels(rightKnobPosition) -
+                        translateToPixels(leftKnobPosition)
                     }
                     disabled={disabled}
                     hasRail={hasRail}
                     theme={theme}
                 />
-                {hasTwoInputs && (
-                    <SliderThumbLeft
-                        ref={leftThumb}
-                        left={leftThumbPositionInPixels}
+                {hasTwoKnobs && (
+                    <SliderKnobLeft
+                        left={translateToPixels(leftKnobPosition)}
                         disabled={disabled}
-                        hasTwoInputs={hasTwoInputs}
+                        hasTwoKnobs={hasTwoKnobs}
                         onMouseDown={(event): void => handleMouseDown(event)}
                     >
                         {hasPopup && (
@@ -283,17 +205,16 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                                 width={popupWidth}
                                 height={popupHeight}
                             >
-                                {leftThumbPositionInValue}
+                                {leftKnobPosition}
                             </Popup>
                         )}
-                    </SliderThumbLeft>
+                    </SliderKnobLeft>
                 )}
 
-                <SliderThumbRight
-                    ref={rightThumb}
+                <SliderKnobRight
                     disabled={disabled}
-                    hasTwoInputs={hasTwoInputs}
-                    left={rightThumbPositionInPixels}
+                    hasTwoKnobs={hasTwoKnobs}
+                    left={translateToPixels(rightKnobPosition)}
                     onMouseDown={(event): void => handleMouseDown(event)}
                 >
                     {hasPopup && (
@@ -303,14 +224,14 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                             width={popupWidth}
                             height={popupHeight}
                         >
-                            {rightThumbPositionInValue}
+                            {rightKnobPosition}
                         </Popup>
                     )}
-                </SliderThumbRight>
+                </SliderKnobRight>
             </SliderBoard>
             {marks && (
                 <SliderBoardMarks
-                    ref={marksBar}
+                    ref={marksBarRef}
                     theme={theme}
                     disabled={disabled}
                 >
@@ -320,7 +241,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                                 key={key}
                                 style={{
                                     position: 'absolute',
-                                    left: `${key}px`,
+                                    left: `${translateToPixels(key)}px`,
                                 }}
                             >
                                 {mark}
@@ -353,7 +274,14 @@ const SliderBoard = styled.div<SliderProps>`
                 : ''}
         `;
 
-const SliderBoardSelected = styled.div<SliderProps>`
+export interface SelectedBarProps {
+    left: number;
+    right: number;
+    disabled: boolean;
+    hasRail: boolean;
+}
+
+const SliderBoardSelected = styled.div<SelectedBarProps>`
     top: 1px;
     height: 4px;
     animate: 0.2s;
@@ -394,20 +322,20 @@ const SliderBoardMarks = styled.div<SliderProps>`
             `}
 `;
 
-export interface ThumbProps {
+export interface KnobProps {
     left: number;
-    hasTwoInputs: boolean;
+    hasTwoKnobs: boolean;
     disabled: boolean;
 }
 
-const SliderThumbRight = styled.div<ThumbProps>`
+const SliderKnobRight = styled.div<KnobProps>`
     width: 14px;
     height: 14px;
     border-radius: 50%;
     position: relative;
     left: ${({ left }): string => `${left}px` || '100px'};
-    ${({ hasTwoInputs }): string =>
-        hasTwoInputs
+    ${({ hasTwoKnobs }): string =>
+        hasTwoKnobs
             ? `
          top: -21px;
 `
@@ -430,7 +358,7 @@ const SliderThumbRight = styled.div<ThumbProps>`
             : ' '}
 `;
 
-const SliderThumbLeft = styled.div<ThumbProps>`
+const SliderKnobLeft = styled.div<KnobProps>`
     width: 14px;
     height: 14px;
     border-radius: 50%;

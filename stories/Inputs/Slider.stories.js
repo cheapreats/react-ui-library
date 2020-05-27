@@ -13,11 +13,10 @@ storiesOf('Slider', module)
                 <Slider
                     min={1}
                     max={100}
-                    value={20}
                     onChange={target => {
                         setState(target);
                     }}
-                    result={state}
+                    values={state}
                 ></Slider>
             ),
             '',
@@ -30,12 +29,11 @@ storiesOf('Slider', module)
                 <Slider
                     min={1}
                     max={100}
-                    valuevalueFinish={20}
                     hasRail={boolean('hasRail', true)}
                     onChange={target => {
                         setState(target);
                     }}
-                    result={state}
+                    values={state}
                 ></Slider>
             ),
             '',
@@ -52,12 +50,12 @@ storiesOf('Slider', module)
                     min={20}
                     max={50}
                     padding="50px"
-                    valueFinish={25}
                     hasPopup={boolean('hasPopup', true)}
                     onChange={target => {
+                        console.log(target);
                         setState(target);
                     }}
-                    result={state}
+                    values={{ rightValue: 30 }}
                 ></Slider>
             ),
             '',
@@ -68,15 +66,17 @@ storiesOf('Slider', module)
         mockElement(
             ([state, setState]) => (
                 <Slider
+                    hasTwoKnobs={boolean('twoinputs', true)}
+                    hasRail={boolean('hasRail', true)}
+                    hasPopup={boolean('hasPopup', true)}
                     min={100}
                     max={300}
                     step={50}
+                    onChange={target => {
+                        console.log(target);
+                        setState(target);
+                    }}
                     padding="50px"
-                    hasTwoInputs={boolean('twoinputs', true)}
-                    hasRail={boolean('hasRail', true)}
-                    valueFinish={200}
-                    valueStart={100}
-                    hasPopup={boolean('hasPopup', true)}
                     marks={[
                         { key: 100, mark: '100' },
                         { key: 150, mark: '150' },
@@ -84,10 +84,6 @@ storiesOf('Slider', module)
                         { key: 300, mark: '300' },
                         { key: 200, mark: '200' },
                     ]}
-                    onChange={target => {
-                        setState(target);
-                    }}
-                    result={state}
                 ></Slider>
             ),
             '',

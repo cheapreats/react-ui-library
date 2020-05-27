@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import { LabelLayoutProps } from '@Layouts';
 
 export interface PopupProps extends LabelLayoutProps {
-    left?: string | number;
-    top?: string | number;
-    width?: string | number;
-    height?: string | number;
+    left?: number;
+    top?: number;
+    width?: number;
+    height?: number;
     popup?: boolean;
 }
 
@@ -31,8 +31,8 @@ export const Popup: React.FC<PopupProps> = ({
 };
 
 const Rectangle = styled.div<PopupProps>`
-    height: ${({ height }) => (height ? `${height}px` : 'auto')};
-    width: ${({ width }) => (width ? `${width}px` : 'auto')};
+    height: ${({ height }): string => (height ? `${height}px` : 'auto')};
+    width: ${({ width }): string => (width ? `${width}px` : 'auto')};
     background-color: white;
     border: 1px solid #cec0c0;
     box-shadow: 3px 3px #827474;
@@ -63,8 +63,8 @@ const InnerTriangle = styled.div`
 const Container = styled.div<PopupProps>`
     width: 100px;
     height: 100px;
-    left: ${({ left }) => (left ? `${left}px` : '')};
-    top: ${({ top }) => (top ? `${top}px` : '')};
+    left: ${({ left }): string => (left ? `${left}px` : '')};
+    top: ${({ top }): string => (top ? `${top}px` : '')};
     z-index: 10;
     opacity: 1;
     pointer-events: none;
