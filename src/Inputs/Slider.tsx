@@ -4,6 +4,7 @@ import React, {
     useRef,
     MouseEvent,
     useMemo,
+    useEffect,
 } from 'react';
 import styled, { DefaultTheme } from 'styled-components';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
@@ -28,15 +29,9 @@ export interface SliderProps extends LabelLayoutProps {
     hasRail?: boolean;
     hasPopup?: boolean;
     step?: number;
-
     max?: number;
     min?: number;
-
     marks?: MarkProps[];
-    popupLeft?: number;
-    popupTop?: number;
-    popupWidth?: number;
-    popupHeight?: number;
     theme?: DefaultTheme;
 }
 
@@ -51,10 +46,6 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     max = 100,
     marks,
     values = { leftValue: min, rightValue: max },
-    popupLeft = -12,
-    popupTop = -51,
-    popupWidth,
-    popupHeight = 20,
     theme,
     ...props
 }): React.ReactElement => {
@@ -128,6 +119,8 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     };
 
     const onMouseUp = (): void => {
+        setIsRightKnobDragging(false);
+        setIsLeftKnobDragging(false);
         document.removeEventListener('mouseup', onMouseUp);
         document.removeEventListener('mousemove', onMouseMove as any);
     };
@@ -139,38 +132,31 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                 e.clientX -
                 (barRef.current as HTMLElement).getBoundingClientRect().left;
 
-            if (
+            const isOnRightSide =
                 clickedOn >=
                     (translateToPixels(rightKnobPosition) +
                         translateToPixels(leftKnobPosition)) /
-                        2 ||
-                !hasTwoKnobs
-            ) {
-                setIsRightKnobDragging(true);
-                setIsLeftKnobDragging(false);
+                        2 || !hasTwoKnobs;
 
-                // in Case user clicks on the Bar
-                if (
-                    e.target === barRef.current ||
-                    e.target === selectedBarRef.current
-                ) {
+            setIsRightKnobDragging(isOnRightSide);
+            setIsLeftKnobDragging(!isOnRightSide);
+
+            if (
+                e.target === barRef.current ||
+                e.target === selectedBarRef.current
+            ) {
+                if (isOnRightSide) {
                     setRightKnobPosition(roundToSteps(clickedOn));
-                }
-            } else {
-                setIsRightKnobDragging(false);
-                setIsLeftKnobDragging(true);
-                // in Case user clicks on the Bar
-                if (
-                    e.target === barRef.current ||
-                    e.target === selectedBarRef.current
-                ) {
+                } else {
                     setLeftKnobPosition(roundToSteps(clickedOn));
                 }
             }
-            document.addEventListener('mousemove', onMouseMove as any);
-            document.addEventListener('mouseup', onMouseUp);
         }
     };
+    useEffect((): void => {
+        document.addEventListener('mousemove', onMouseMove as any);
+        document.addEventListener('mouseup', onMouseUp);
+    }, [isRightKnobDragging, isLeftKnobDragging]);
 
     return (
         <LabelLayout {...props}>
@@ -200,10 +186,11 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                     >
                         {hasPopup && (
                             <Popup
-                                top={popupTop}
-                                left={popupLeft}
-                                width={popupWidth}
-                                height={popupHeight}
+                                left={-11}
+                                top={-50}
+                                height={20}
+                                width={50}
+                                {...props}
                             >
                                 {leftKnobPosition}
                             </Popup>
@@ -219,10 +206,11 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
                 >
                     {hasPopup && (
                         <Popup
-                            top={popupTop}
-                            left={popupLeft}
-                            width={popupWidth}
-                            height={popupHeight}
+                            left={-11}
+                            top={-50}
+                            height={20}
+                            width={50}
+                            {...props}
                         >
                             {rightKnobPosition}
                         </Popup>
@@ -346,6 +334,7 @@ const SliderKnobRight = styled.div<KnobProps>`
             background: ${theme.colors.primary};
         `}
     &:active {
+        box-sizing: border-box
         border: solid 2px #96dbfa;
         cursor: grabbing;
     }
@@ -377,6 +366,7 @@ const SliderKnobLeft = styled.div<KnobProps>`
             background: ${theme.colors.primary};
         `}
         &:active {
+        box-sizing: border-box
         border: solid 2px #96dbfa;
         cursor: grabbing;
     }

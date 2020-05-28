@@ -6,10 +6,10 @@ storiesOf('Popup', module).add(
     'with nothing',
     () => (
         <Popup
-            left={0}
-            top={0}
-            width={0}
-            height={0}
+            left={10}
+            top={10}
+            width={40}
+            height={30}
             popup={true}
             content="Content"
         />

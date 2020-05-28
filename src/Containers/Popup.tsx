@@ -17,10 +17,11 @@ export const Popup: React.FC<PopupProps> = ({
     width,
     height,
     popup,
+    ...props
 }): React.ReactElement => {
     return (
         <Container popup={popup} left={left} top={top}>
-            <Rectangle width={width} height={height}>
+            <Rectangle width={width} height={height} {...props}>
                 {children}
             </Rectangle>
             <Triangle>
