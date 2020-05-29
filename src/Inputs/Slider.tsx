@@ -155,7 +155,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     };
 
     useEffect((): void => {
-        if (isRightKnobDragging === true || isLeftKnobDragging === true) {
+        if (isRightKnobDragging || isLeftKnobDragging) {
             document.addEventListener('mousemove', onMouseMove as any);
             document.addEventListener('mouseup', onMouseUp);
         }

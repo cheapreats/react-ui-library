@@ -62,8 +62,6 @@ const InnerTriangle = styled.div`
 `;
 
 const Container = styled.div<PopupProps>`
-    width: 100px;
-    height: 100px;
     left: ${({ left }): string => (left ? `${left}px` : '')};
     top: ${({ top }): string => (top ? `${top}px` : '')};
     z-index: 10;
