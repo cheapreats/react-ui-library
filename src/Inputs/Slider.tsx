@@ -97,6 +97,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     }, [rightKnobPosition, leftKnobPosition]);
 
     const onMouseMove = (theevent: MouseEvent): void => {
+        theevent.preventDefault();
         // clicked on pure position
         const newLeft =
             theevent.clientX -
@@ -126,6 +127,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     };
 
     const handleMouseDown = (e: MouseEvent): void => {
+        e.preventDefault();
         if (!disabled) {
             // position the clicked taken placed on based on the position of Bar
             const clickedOn =
