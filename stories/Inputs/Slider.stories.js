@@ -16,7 +16,7 @@ storiesOf('Slider', module)
                     onChange={target => {
                         setState(target);
                     }}
-                    values={state}
+                    values={{ rightValue: 30 }}
                 />
             ),
             '',
@@ -33,7 +33,6 @@ storiesOf('Slider', module)
                     onChange={target => {
                         setState(target);
                     }}
-                    values={state}
                 />
             ),
             '',
@@ -54,7 +53,6 @@ storiesOf('Slider', module)
                     onChange={target => {
                         setState(target);
                     }}
-                    values={{ rightValue: 30 }}
                 />
             ),
             '',
