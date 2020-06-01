@@ -17,3 +17,4 @@ export * from './MaskedInput';
 export * from './ComboBox';
 export * from './SearchBar';
 export * from './CustomSearch';
+export * from './LocationFinder';
