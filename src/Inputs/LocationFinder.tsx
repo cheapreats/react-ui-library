@@ -16,7 +16,7 @@ export const LocationFinder: React.FC<LocationFinderProps> = ({
     const [locationValue, setLocationValue] = useState('');
 
     const onLocationFinderChange = (target: Record<string, string>): void => {
-        onLocationChange(target.value);
+        onLocationChange(target);
         setLocationValue(target.value);
     };
 
@@ -39,9 +39,7 @@ export const LocationFinder: React.FC<LocationFinderProps> = ({
         <ComboBox
             label="LOCATION"
             placeholder={locationPlaceholder}
-            onChange={({ target }: any): void => {
-                onLocationFinderChange(target);
-            }}
+            onChange={onLocationFinderChange}
             value={locationValue}
         >
             {[
