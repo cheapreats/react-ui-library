@@ -18,5 +18,6 @@ export * from './HorizontalStoreCard';
 export * from './HorizontalScrollList';
 export * from './SlidingOutPanels';
 export * from './FeaturesCard';
+export * from './Popup';
 export * from './SelectList';
 export * from './ColorCard';
