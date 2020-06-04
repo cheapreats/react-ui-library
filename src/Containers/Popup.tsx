@@ -7,7 +7,6 @@ export interface PopupProps extends LabelLayoutProps {
     top?: number;
     width?: number;
     height?: number;
-    popup?: boolean;
 }
 
 export const Popup: React.FC<PopupProps> = ({
@@ -16,11 +15,10 @@ export const Popup: React.FC<PopupProps> = ({
     top,
     width,
     height,
-    popup,
     ...props
 }): React.ReactElement => {
     return (
-        <Container popup={popup} left={left} top={top}>
+        <Container left={left} top={top}>
             <Rectangle width={width} height={height} {...props}>
                 {children}
             </Rectangle>

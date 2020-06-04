@@ -250,7 +250,6 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
 const SliderBoard = styled.div<SliderProps>`
         width: 100%;
         height: 4px;
-        animate: 0.2s;
         background: #e9e9e9;
         cursor:pointer;
         ${({ theme }): string => `
@@ -277,7 +276,6 @@ export interface SelectedBarProps {
 const SliderBoardSelected = styled.div<SelectedBarProps>`
     top: 1px;
     height: 4px;
-    animate: 0.2s;
     position: relative;
     left: ${({ left }): string => `${left}px` || '0px'};
     ${({ theme, hasRail }): string => `
@@ -298,7 +296,6 @@ const SliderBoardSelected = styled.div<SelectedBarProps>`
 const SliderBoardMarks = styled.div<SliderProps>`
     display: flex;
     width: 100%;
-    animate: 0.2s;
     position: relative;
     font-weight: bold;
     top: 6px;
@@ -339,7 +336,7 @@ const SliderKnobRight = styled.div<KnobProps>`
             background: ${theme.colors.primary};
         `}
     &:active {
-        box-sizing: border-box
+        box-sizing: border-box;
         border: solid 2px #96dbfa;
         cursor: grabbing;
     }
@@ -371,7 +368,7 @@ const SliderKnobLeft = styled.div<KnobProps>`
             background: ${theme.colors.primary};
         `}
         &:active {
-        box-sizing: border-box
+        box-sizing: border-box;
         border: solid 2px #96dbfa;
         cursor: grabbing;
     }
