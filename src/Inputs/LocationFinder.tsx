@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ComboBox } from './ComboBox';
 
@@ -15,42 +15,45 @@ export const LocationFinder: React.FC<LocationFinderProps> = ({
     const [data, setData] = useState([]);
     const [locationValue, setLocationValue] = useState('');
 
+    const makeRequest = async (address: string) => {
+        const proxyurl = `https://cors-anywhere.herokuapp.com/`;
+        const url = `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${address}&types=address&components=country:ca&key=AIzaSyA77BC1uUzfkd1WdlCkvXCfuf8BmPpSliI
+    `;
+        try {
+            const res = await fetch(proxyurl + url);
+            const resJSON = await res.json();
+            setData(resJSON.predictions);
+        } catch (error) {
+            alert(`Error${error}`);
+        }
+    };
+
     const onLocationFinderChange = (target: Record<string, string>): void => {
         onLocationChange(target);
         setLocationValue(target.value);
+        makeRequest('mayfiel');
     };
-
-    const proxyurl = 'https://cors-anywhere.herokuapp.com/';
-    const url =
-        'https://maps.googleapis.com/maps/api/place/autocomplete/json?input=21+merrittonia&types=address&key=AIzaSyAnZ1I81qFChNHTOfnjn2JiEurapRIb4Fc';
-
-    useEffect(() => {
-        fetch(proxyurl + url)
-            .then(res => res.json())
-            .then(result => {
-                console.log(result);
-                setData(result);
-            });
-    }, []);
 
     console.log(data);
 
     return (
-        <ComboBox
-            label="LOCATION"
-            placeholder={locationPlaceholder}
-            onChange={onLocationFinderChange}
-            value={locationValue}
-        >
-            {[
-                <option value="a" key="a">
-                    hi
-                </option>,
-                <option value="b" key="b">
-                    congrats
-                </option>,
-            ]}
-        </ComboBox>
+        <div>
+            <ComboBox
+                label="LOCATION"
+                placeholder={locationPlaceholder}
+                onChange={onLocationFinderChange}
+                value={locationValue}
+            >
+                {[
+                    <option value="a" key="a">
+                        merrittonia
+                    </option>,
+                    <option value="b" key="b">
+                        congrats
+                    </option>,
+                ]}
+            </ComboBox>
+        </div>
     );
 };
 
