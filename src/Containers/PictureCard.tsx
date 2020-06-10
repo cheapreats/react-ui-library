@@ -1,8 +1,8 @@
 import React from 'react';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
-import { flex, position } from '@Utils/Mixins';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
+import { flex, position } from '../Utils/Mixins';
 import { Card as C } from './Card';
 import { Tag as T } from './Tag';
 

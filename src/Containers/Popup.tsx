@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { LabelLayoutProps } from '@Layouts';
+import { LabelLayoutProps } from '../Fragments';
 
 export interface PopupProps extends LabelLayoutProps {
     left?: number;

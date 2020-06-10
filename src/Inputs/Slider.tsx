@@ -7,7 +7,7 @@ import React, {
     useEffect,
 } from 'react';
 import styled, { DefaultTheme } from 'styled-components';
-import { LabelLayout, LabelLayoutProps } from '@Layouts';
+import { LabelLayout, LabelLayoutProps } from '../Fragments';
 import { Popup } from '../Containers/Popup';
 
 export interface MarkProps {
