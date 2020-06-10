@@ -4,7 +4,7 @@ import {
     LabelLayoutProps,
     InputFragment,
     InputFragmentProps,
-} from '@Layouts';
+} from '../Fragments';
 
 export interface InputProps extends LabelLayoutProps, InputFragmentProps {
     disabled?: boolean;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import { Card as C } from '../Containers/Card';
 import { Button as B } from './Button';
 import { Select } from './Select';

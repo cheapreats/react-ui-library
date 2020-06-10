@@ -17,9 +17,9 @@ import {
     transition,
     clickable,
     darken,
-} from '@Utils/Mixins';
-import { useTransition } from '@Utils/Hooks';
-import { LabelLayout, LabelLayoutProps, InputFragment } from '@Layouts';
+} from '../Utils/Mixins';
+import { useTransition } from '../Utils/Hooks';
+import { LabelLayout, LabelLayoutProps, InputFragment } from '../Fragments';
 
 const MAX_VIEWING_LIMIT = 4;
 const REVERSE = '-1';

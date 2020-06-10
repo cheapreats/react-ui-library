@@ -1,7 +1,7 @@
 import React from 'react';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import { Card as C } from './Card';
 import { PictureCard } from './PictureCard';
 import { Paragraph } from '../Text/Paragraph';

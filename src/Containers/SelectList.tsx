@@ -8,12 +8,17 @@ import React, {
     isValidElement,
     RefObject,
 } from 'react';
-import { scroll, position, transition, clickable, darken } from '@Utils/Mixins';
-
-import { LabelLayoutProps } from '@Layouts';
-import { useTransition } from '@Utils/Hooks';
-
 import styled from 'styled-components';
+import {
+    scroll,
+    position,
+    transition,
+    clickable,
+    darken,
+} from '../Utils/Mixins';
+
+import { LabelLayoutProps } from '../Fragments';
+import { useTransition } from '../Utils/Hooks';
 
 const REVERSE = '-1';
 
