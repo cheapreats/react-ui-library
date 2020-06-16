@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs, text, select } from '@storybook/addon-knobs';
 import { MaskedInputPreset, MaskedInput } from '../../src/Inputs';
+import { ViewArray } from 'styled-icons/material';
 
 storiesOf('MaskedInput', module)
     .addDecorator(withKnobs)
@@ -47,6 +48,28 @@ storiesOf('MaskedInput', module)
                 realValue={value}
                 onRealValueChange={setValue}
                 mask={() => '*****'}
+            />
+        );
+    })
+    .add('with changing mask', () => {
+        const [value, setValue] = useState('90');
+
+        return (
+            <MaskedInput
+                name="demo"
+                label={text('Enter a value', 'Enter a value')}
+                placeholder={text('Enter a value', 'Enter a value')}
+                description={text('Enter a value', 'Enter a value')}
+                realValue={value}
+                onRealValueChange={setValue}
+                mask={select(
+                    'Masks',
+                    {
+                        dollar: 'DOLLAR',
+                        percentage: 'PERCENTAGE',
+                    },
+                    'DOLLAR',
+                )}
             />
         );
     });
