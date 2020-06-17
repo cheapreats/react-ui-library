@@ -17,14 +17,14 @@ export interface ListProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    loading: boolean;
-    render: Function;
+    loading?: boolean;
+    render?: Function;
     items?: object[];
-    itemProps: ItemProps;
-    active: string | number;
-    header: Function;
-    footer: Function;
-    label: string;
+    itemProps?: ItemProps;
+    active?: string | number;
+    header?: React.ReactElement;
+    footer?: React.ReactElement;
+    label?: string;
     stickyTopContent?: React.ReactElement;
 }
 
@@ -61,7 +61,7 @@ export const List: React.FC<ListProps> = ({
                                 active={active === args[1]}
                                 {...itemProps}
                             >
-                                {render(...args)}
+                                {render && render(...args)}
                             </Item>
                         ),
                     )
