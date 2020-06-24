@@ -5,7 +5,7 @@ import React, {
     useCallback,
     useMemo,
 } from 'react';
-import { CalendarAlt } from 'styled-icons/fa-solid/CalendarAlt';
+import { CalendarAlt } from '@styled-icons/fa-solid/CalendarAlt';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
 import { position, flex } from '../../Utils/Mixins';
 import { useTransition } from '../../Utils/Hooks';

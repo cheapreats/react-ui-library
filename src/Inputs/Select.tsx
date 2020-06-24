@@ -7,7 +7,7 @@ import React, {
     isValidElement,
 } from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
-import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
+import { AngleDown } from '@styled-icons/fa-solid/AngleDown';
 import {
     flex,
     scroll,

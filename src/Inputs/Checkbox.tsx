@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components';
-import { Check } from 'styled-icons/fa-solid/Check';
+import { Check } from '@styled-icons/fa-solid/Check';
 import {
     Main,
     Responsive,

@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
-import { Save } from 'styled-icons/fa-solid/Save';
+import { Save } from '@styled-icons/fa-solid/Save';
 import { Button } from '../../src';
 
 storiesOf('Button', module)
