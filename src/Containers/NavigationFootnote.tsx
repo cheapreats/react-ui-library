@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Compass } from 'styled-icons/fa-solid/Compass';
+import { Compass } from '@styled-icons/fa-solid/Compass';
 import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import { ImplicitPropsInterface } from '../Utils/Hooks';
 import { Mixins } from '../Utils';

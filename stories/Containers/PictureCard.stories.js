@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { PictureCard, Paragraph, SmallText } from '../../src';
-import { Dog } from 'styled-icons/fa-solid/Dog';
-import { Cat } from 'styled-icons/fa-solid/Cat';
+import { Dog } from '@styled-icons/fa-solid/Dog';
+import { Cat } from '@styled-icons/fa-solid/Cat';
 
 storiesOf('PictureCard', module)
     .add('with image', () => (

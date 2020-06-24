@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { SignOutAlt } from 'styled-icons/fa-solid/SignOutAlt';
-import { UserCircle } from 'styled-icons/fa-solid/UserCircle';
+import { SignOutAlt } from '@styled-icons/fa-solid/SignOutAlt';
+import { UserCircle } from '@styled-icons/fa-solid/UserCircle';
 import { BaseStyles } from '../../Utils';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Paragraph, SmallText } from '../../Text';

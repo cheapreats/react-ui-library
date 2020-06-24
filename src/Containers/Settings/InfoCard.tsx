@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { InfoCircle } from 'styled-icons/fa-solid/InfoCircle';
-import { Wrench } from 'styled-icons/fa-solid/Wrench';
-import { Book } from 'styled-icons/fa-solid/Book';
-import { QuestionCircle } from 'styled-icons/fa-solid/QuestionCircle';
+import { InfoCircle } from '@styled-icons/fa-solid/InfoCircle';
+import { Wrench } from '@styled-icons/fa-solid/Wrench';
+import { Book } from '@styled-icons/fa-solid/Book';
+import { QuestionCircle } from '@styled-icons/fa-solid/QuestionCircle';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 import { Heading, Paragraph } from '../../Text';

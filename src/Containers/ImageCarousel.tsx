@@ -1,5 +1,5 @@
 import React from 'react';
-import { Times } from 'styled-icons/fa-solid/Times';
+import { Times } from '@styled-icons/fa-solid/Times';
 import styled from 'styled-components';
 import { flex, position, transition, scroll } from '../Utils/Mixins';
 import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';

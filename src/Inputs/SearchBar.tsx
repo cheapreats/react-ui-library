@@ -1,5 +1,5 @@
 import React, { useState, useLayoutEffect } from 'react';
-import { Search } from 'styled-icons/fa-solid/Search';
+import { Search } from '@styled-icons/fa-solid/Search';
 import styled from 'styled-components';
 import { flex, transition } from '../Utils/Mixins';
 

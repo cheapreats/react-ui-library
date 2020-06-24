@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
-import { AngleRight } from 'styled-icons/fa-solid/AngleRight';
+import { AngleLeft } from '@styled-icons/fa-solid/AngleLeft';
+import { AngleRight } from '@styled-icons/fa-solid/AngleRight';
 import {
     transition,
     styledCondition,
