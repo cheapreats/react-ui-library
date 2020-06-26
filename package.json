@@ -95,5 +95,8 @@
         "emoji-mart": "^2.11.2",
         "react-beautiful-dnd": "^12.2.0",
         "react-image-crop": "^8.5.0"
+    },
+    "optionalDependencies": {
+        "win-node-env": "^0.4.0"
     }
 }
