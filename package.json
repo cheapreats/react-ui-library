@@ -1,6 +1,6 @@
 {
     "name": "@cheapreats/react-ui",
-    "version": "2.3.36",
+    "version": "2.3.37",
     "description": "React UI library for CheaprEats",
     "main": "dist/index.js",
     "files": [
@@ -95,5 +95,8 @@
         "emoji-mart": "^2.11.2",
         "react-beautiful-dnd": "^12.2.0",
         "react-image-crop": "^8.5.0"
+    },
+    "optionalDependencies": {
+        "win-node-env": "^0.4.0"
     }
 }
