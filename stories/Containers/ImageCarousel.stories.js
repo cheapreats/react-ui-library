@@ -14,7 +14,11 @@ storiesOf('Image Carousel', module)
     .add('with default', () => (
         <ImageCarousel
             imageData={images}
-            altText="Funny Image"
+            pointer
             onClick={() => console.log('Clicked!')}
+            icon
+            overlay
+            overlayText="Editable Text"
+            altText="Funny Image"
         ></ImageCarousel>
     ));

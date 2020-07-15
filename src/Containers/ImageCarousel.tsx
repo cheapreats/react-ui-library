@@ -11,7 +11,11 @@ export interface ImageCarouselProps
         Omit<React.HTMLAttributes<HTMLUListElement>, 'onClick'>,
         ImplicitPropsInterface {
     imageData: string[];
+    pointer:boolean;
     onClick: Function;
+    icon:boolean;
+    overlay:boolean;
+    overlayText:string;
     altText: string;
     width?: number;
     height?: number;
@@ -20,6 +24,10 @@ export interface ImageCarouselProps
 export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     imageData,
     onClick,
+    pointer,
+    icon,
+    overlay,
+    overlayText,
     altText,
     width = 150,
     height = 75,
@@ -28,10 +36,12 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     return (
         <Items {...props}>
             {imageData.map(image => (
-                <Item key={image} onClick={() => onClick(image)}>
-                    <Overlay>
-                        <Icon /> Delete
-                    </Overlay>
+                <Item key={image} onClick={() => onClick(image)} cursor={pointer}>
+                    {overlay &&
+                        <Overlay>
+                        {icon && <Icon />} {overlayText}
+                        </Overlay>
+                    }
                     <img
                         width={width}
                         height={height}
@@ -44,6 +54,10 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     );
 };
 
+interface StyledItemProps {
+    cursor: boolean;
+}
+
 const Items = styled.ul`
     ${flex()}
     ${scroll}
@@ -53,7 +67,7 @@ const Items = styled.ul`
     margin: 15px 0 0;
 `;
 
-const Item = styled.li`
+const Item = styled.li<StyledItemProps>`
     ${transition(['background-color'])}
     ${flex('row', 'center')}
     position: relative;
@@ -61,7 +75,7 @@ const Item = styled.li`
     margin: 0 7px 7px 0;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     flex-shrink: 0;
-    cursor: pointer;
+    cursor: ${({ cursor }): {} => cursor ? "pointer": ""};
     overflow: hidden;
 `;
 
