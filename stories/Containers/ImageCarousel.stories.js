@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { ImageCarousel } from '../../src';
+import {Plus} from "@styled-icons/boxicons-regular/Plus";
 
 const images = [
     'https://image.shutterstock.com/image-photo/image-250nw-1081879181.jpg',
@@ -14,11 +15,7 @@ storiesOf('Image Carousel', module)
     .add('with default', () => (
         <ImageCarousel
             imageData={images}
-            pointer
-            onClick={() => console.log('Clicked!')}
-            icon
-            overlay
-            overlayText="Editable Text"
             altText="Funny Image"
+            onClick={() => console.log('Clicked!')}
         ></ImageCarousel>
     ));

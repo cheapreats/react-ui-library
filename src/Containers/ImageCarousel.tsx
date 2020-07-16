@@ -11,11 +11,13 @@ export interface ImageCarouselProps
         Omit<React.HTMLAttributes<HTMLUListElement>, 'onClick'>,
         ImplicitPropsInterface {
     imageData: string[];
-    pointer:boolean;
+    pointer: boolean;
     onClick: Function;
-    icon:boolean;
-    overlay:boolean;
-    overlayText:string;
+    hoverIcon: React.ForwardRefExoticComponent<
+        React.RefAttributes<SVGSVGElement>
+    >;
+    hoverOverlay: boolean;
+    hoverText: string;
     altText: string;
     width?: number;
     height?: number;
@@ -24,10 +26,10 @@ export interface ImageCarouselProps
 export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     imageData,
     onClick,
-    pointer,
-    icon,
-    overlay,
-    overlayText,
+    pointer = true,
+    hoverIcon = Times,
+    hoverOverlay = true,
+    hoverText = 'Delete',
     altText,
     width = 150,
     height = 75,
@@ -36,12 +38,16 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     return (
         <Items {...props}>
             {imageData.map(image => (
-                <Item key={image} onClick={() => onClick(image)} cursor={pointer}>
-                    {overlay &&
+                <Item
+                    key={image}
+                    onClick={() => onClick(image)}
+                    cursor={pointer}
+                >
+                    {hoverOverlay && (
                         <Overlay>
-                        {icon && <Icon />} {overlayText}
+                            <Icon as={hoverIcon} /> {hoverText}
                         </Overlay>
-                    }
+                    )}
                     <img
                         width={width}
                         height={height}
@@ -75,7 +81,7 @@ const Item = styled.li<StyledItemProps>`
     margin: 0 7px 7px 0;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     flex-shrink: 0;
-    cursor: ${({ cursor }): {} => cursor ? "pointer": ""};
+    cursor: ${({ cursor }): {} => (cursor ? 'pointer' : '')};
     overflow: hidden;
 `;
 
@@ -96,7 +102,7 @@ const Overlay = styled.div`
     }
 `;
 
-const Icon = styled(Times)`
+const Icon = styled.svg`
     width: 16px;
     height: 16px;
     margin-right: 3px;
