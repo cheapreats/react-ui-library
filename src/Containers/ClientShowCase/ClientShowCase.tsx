@@ -54,12 +54,14 @@ const ClientList: React.FC<ClientListProps> = ({
     imgData,
     imgHeight,
     blurOnHover,
-}) => {
+}): React.ReactElement => {
     return (
         <ImageList blurOnHover={blurOnHover}>
-            {imgData.map((imgURL: string) => (
-                <ClientImg imgHeight={imgHeight} src={imgURL} />
-            ))}
+            {imgData.map(
+                (imgURL: string): React.ReactElement => (
+                    <ClientImg imgHeight={imgHeight} src={imgURL} />
+                ),
+            )}
         </ImageList>
     );
 };
@@ -69,7 +71,7 @@ const ImageListDiv = styled.div``;
 const ImageList = styled.ul<ImgListProps>`
     list-style-type: none;
     text-align: center;
-    ${({ blurOnHover }) =>
+    ${({ blurOnHover }): string =>
         blurOnHover
             ? `${ImageListDiv}:hover & {
                 ${Mixins.transition(['filter'], '1s')}

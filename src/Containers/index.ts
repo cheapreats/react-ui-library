@@ -21,3 +21,4 @@ export * from './FeaturesCard';
 export * from './Popup';
 export * from './SelectList';
 export * from './ColorCard';
+export * from './RankingTable';

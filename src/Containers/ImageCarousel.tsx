@@ -34,28 +34,30 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     width = 150,
     height = 75,
     ...props
-}) => {
+}): React.ReactElement => {
     return (
         <Items {...props}>
-            {imageData.map(image => (
-                <Item
-                    key={image}
-                    onClick={() => onClick(image)}
-                    cursor={pointer}
-                >
-                    {hoverOverlay && (
-                        <Overlay>
-                            <Icon as={hoverIcon} /> {hoverText}
-                        </Overlay>
-                    )}
-                    <img
-                        width={width}
-                        height={height}
-                        alt={altText}
-                        src={image}
-                    />
-                </Item>
-            ))}
+            {imageData.map(
+                (image: string): React.ReactElement => (
+                    <Item
+                        key={image}
+                        onClick={(): void => onClick(image)}
+                        cursor={pointer}
+                    >
+                        {hoverOverlay && (
+                            <Overlay>
+                                <Icon as={hoverIcon} /> {hoverText}
+                            </Overlay>
+                        )}
+                        <img
+                            width={width}
+                            height={height}
+                            alt={altText}
+                            src={image}
+                        />
+                    </Item>
+                ),
+            )}
         </Items>
     );
 };

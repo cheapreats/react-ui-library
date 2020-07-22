@@ -20,7 +20,10 @@ export interface AccountProps
     logout: Function;
 }
 
-export const AccountCard: React.FC<AccountProps> = ({ employee, logout }) => {
+export const AccountCard: React.FC<AccountProps> = ({
+    employee,
+    logout,
+}): React.ReactElement => {
     return (
         <SettingsCard heading="Account Information" icon={UserCircle}>
             <DisplayItem label="Username" value={employee.username} />
@@ -38,7 +41,7 @@ export const AccountCard: React.FC<AccountProps> = ({ employee, logout }) => {
             />
             <Button
                 margin="20px 0 0"
-                onClick={() => logout()}
+                onClick={(): void => logout()}
                 icon={SignOutAlt}
             >
                 Logout
@@ -62,7 +65,7 @@ const DisplayItem: React.FC<DisplayItemProps> = ({
 );
 
 const Item = styled.div`
-    ${props => BaseStyles.Main({ margin: '2px 0', ...props })}
+    ${(props): string => BaseStyles.Main({ margin: '2px 0', ...props })}
 `;
 
 const Text = styled(Paragraph)`
