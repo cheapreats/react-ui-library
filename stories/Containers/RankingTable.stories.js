@@ -7,7 +7,7 @@ const data = [
     {
         image:
             'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
-        name: 'hot dog',
+        name: 'chilly chesseburger with bacon',
         totalSpent: 2000000,
     },
     {
@@ -52,9 +52,9 @@ const dataTwo = new Array(100).fill({
     image:
         'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
     name: 'hot dog',
-    totalSpent: Math.random(10),
+    totalSpent: 500,
 });
 
 storiesOf('Ranking Table', module)
     .addDecorator(withKnobs)
-    .add('with Default', () => <RankingTable data={data} rowsVisible={3} />);
+    .add('with Default', () => <RankingTable data={data} rowsVisible={5} />);
