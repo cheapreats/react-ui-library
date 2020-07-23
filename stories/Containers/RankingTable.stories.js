@@ -11,8 +11,7 @@ const data = [
         totalSpent: 2000000,
     },
     {
-        image:
-            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
+        image: 'https://media.giphy.com/media/Dh9jqNm8YcGVG/giphy.gif',
         name: 'hot dog',
         totalSpent: 2000000,
     },

@@ -70,7 +70,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                         {columns &&
                             columns.map(
                                 (heading): React.ReactElement => (
-                                    <TableHeading>
+                                    <TableHeading key={heading}>
                                         {heading === 'totalSpent' ? (
                                             <span
                                                 role="button"
@@ -100,7 +100,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                             (
                                 item: CustomerProps | ItemProps,
                             ): React.ReactElement => (
-                                <TableRow>
+                                <TableRow key={item.name}>
                                     <TableData>
                                         <Image
                                             src={item.image}
