@@ -11,7 +11,8 @@ const data = [
         totalSpent: 2000000,
     },
     {
-        image: 'https://media.giphy.com/media/Dh9jqNm8YcGVG/giphy.gif',
+        image:
+            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
         name: 'hot dog',
         totalSpent: 2000000,
     },
@@ -56,4 +57,4 @@ const dataTwo = new Array(100).fill({
 
 storiesOf('Ranking Table', module)
     .addDecorator(withKnobs)
-    .add('with Default', () => <RankingTable data={data} rowsVisible={5} />);
+    .add('with Default', () => <RankingTable data={data} rowsVisible={3} />);

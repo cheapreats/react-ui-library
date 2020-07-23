@@ -1,6 +1,7 @@
 /* eslint-disable indent */
 import React, { useState } from 'react';
 import styled from 'styled-components';
+
 import { Mixins } from '../Utils';
 
 interface CustomerProps {
@@ -70,7 +71,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                         {columns &&
                             columns.map(
                                 (heading): React.ReactElement => (
-                                    <TableHeading key={heading}>
+                                    <TableHeading>
                                         {heading === 'totalSpent' ? (
                                             <span
                                                 role="button"
@@ -100,7 +101,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                             (
                                 item: CustomerProps | ItemProps,
                             ): React.ReactElement => (
-                                <TableRow key={item.name}>
+                                <TableRow>
                                     <TableData>
                                         <Image
                                             src={item.image}
