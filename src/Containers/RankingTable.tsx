@@ -1,7 +1,8 @@
 /* eslint-disable indent */
 import React, { useState } from 'react';
 import styled from 'styled-components';
-
+import { CaretUp as AngleUp } from '@styled-icons/fa-solid/CaretUp';
+import { transition } from '@Utils/Mixins';
 import { Mixins } from '../Utils';
 
 interface CustomerProps {
@@ -19,6 +20,10 @@ interface RankingTableProps {
     data: CustomerProps[] | ItemProps[];
     rowsVisible?: number;
     IsTimeIntervalFilterVisible?: boolean;
+}
+
+interface StyledIconProps {
+    isAscending: boolean;
 }
 
 interface UseSortReturnType {
@@ -73,18 +78,28 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                                 (heading): React.ReactElement => (
                                     <TableHeading>
                                         {heading === 'totalSpent' ? (
-                                            <span
-                                                role="button"
-                                                tabIndex={0}
-                                                onKeyDown={(): void =>
-                                                    setIsAscending(!isAscending)
-                                                }
-                                                onClick={(): void =>
-                                                    setIsAscending(!isAscending)
-                                                }
-                                            >
-                                                {heading.toUpperCase()}
-                                            </span>
+                                            <TotalSpentDiv>
+                                                <span
+                                                    role="button"
+                                                    tabIndex={0}
+                                                    onKeyDown={(): void =>
+                                                        setIsAscending(
+                                                            !isAscending,
+                                                        )
+                                                    }
+                                                    onClick={(): void =>
+                                                        setIsAscending(
+                                                            !isAscending,
+                                                        )
+                                                    }
+                                                >
+                                                    {heading.toUpperCase()}
+                                                </span>
+
+                                                <StyledArrowIcon
+                                                    isAscending={isAscending}
+                                                />
+                                            </TotalSpentDiv>
                                         ) : (
                                             <span>{heading.toUpperCase()}</span>
                                         )}
@@ -146,6 +161,21 @@ const Image = styled.img`
     `,
     )}
 `;
+
+const TotalSpentDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+`;
+
+const StyledArrowIcon = styled(AngleUp)<StyledIconProps>`
+    ${transition(['transform'])};
+    ${({ isAscending }): string =>
+        isAscending ? 'transform:rotate(0)' : 'transform:rotate(180deg)'};
+    margin-top: 2px;
+    width: 17px;
+    height: 17px;
+`;
+
 const TableHeaderDiv = styled.div`
     ${({ theme }): string => `
     border: 1.5px solid ${theme.colors.text + 20};
