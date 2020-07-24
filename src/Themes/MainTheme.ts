@@ -10,6 +10,7 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
             error: string;
         };
         background: string;
+        border: string;
     };
 }
 
@@ -23,6 +24,7 @@ export const MainTheme: MainThemeInterface = {
             success: '#f5fff5',
             error: '#fff5f5',
         },
-        background: '#f7fff7',
+        background: '#ffffff',
+        border: 'rgba(0,0,0,0.1)',
     },
 };

@@ -178,8 +178,8 @@ const StyledArrowIcon = styled(AngleUp)<StyledIconProps>`
 
 const TableHeaderDiv = styled.div`
     ${({ theme }): string => `
-    border: 1.5px solid ${theme.colors.text + 20};
-    background: ${theme.colors.input};
+    border: 1.5px solid ${theme.colors.border};
+    background: ${theme.colors.background};
     `}
     border-bottom: none;
     border-radius: 8px 8px 0 0;
@@ -207,7 +207,7 @@ const TableRow = styled.tr`
     padding-left: 20px;
     grid-template-columns: 1fr 3fr 1fr;
     ${({ theme }): string => `
-    border-bottom: 1.5px solid ${theme.colors.text + 20};
+    border-bottom: 1.5px solid ${theme.colors.border};
      padding: ${theme.dimensions.padding.default};
     `};
 
@@ -223,8 +223,8 @@ const TableRow = styled.tr`
 const TableBody = styled.tbody`
     display: block;
     ${({ theme }): string => `
-    background: ${theme.colors.input};
-    border-color: ${theme.colors.text + 20};
+    background: ${theme.colors.background};
+    border-color: ${theme.colors.border};
     border-style: solid;
     border-width: 0 1.5px;
     `}
