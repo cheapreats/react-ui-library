@@ -33,20 +33,20 @@ const formatter = new Intl.NumberFormat('en-US', {
 });
 
 const useSort = (
-    data: CustomerProps[] | ItemProps[],
-    rows: number,
+    rowData: CustomerProps[] | ItemProps[],
+    rowLimit: number,
 ): UseSortReturnType => {
     const [isAscending, setIsAscending] = useState(true);
 
     let sortedItems;
     if (isAscending) {
-        sortedItems = [...data]
+        sortedItems = [...rowData]
             .sort((a, b): number => +b.totalSpent - +a.totalSpent)
-            .slice(0, rows);
+            .slice(0, rowLimit);
     } else {
-        sortedItems = [...data]
+        sortedItems = [...rowData]
             .sort((a, b): number => +a.totalSpent - +b.totalSpent)
-            .slice(0, rows);
+            .slice(0, rowLimit);
     }
     return { sortedItems, setIsAscending, isAscending };
 };
@@ -122,14 +122,12 @@ export const RankingTable: React.FC<RankingTableProps> = ({
 };
 
 const Image = styled.img`
-    width: 100px;
-    height: 100px;
+    width: 75px;
+    height: 75px;
     max-height: 100%;
     display: block;
-    ${({ theme }): string => `
-   border-radius:${theme.dimensions.radius};
-    `}
-    border-radius: 20px;
+    border-radius: 15px;
+
     margin: 10px 0;
     ${Mixins.media(
         'tablet',
@@ -149,8 +147,10 @@ const Image = styled.img`
     )}
 `;
 const TableHeaderDiv = styled.div`
-    border: 1.5px solid rgba(0, 0, 0, 0.1);
-    background: white;
+    ${({ theme }): string => `
+    border: 1.5px solid ${theme.colors.text + 20};
+    background: ${theme.colors.input};
+    `}
     border-bottom: none;
     border-radius: 8px 8px 0 0;
 `;
@@ -176,8 +176,10 @@ const TableRow = styled.tr`
     display: grid;
     padding-left: 20px;
     grid-template-columns: 1fr 3fr 1fr;
-    border-bottom: 1.5px solid rgba(0, 0, 0, 0.1);
-    padding: 10px;
+    ${({ theme }): string => `
+    border-bottom: 1.5px solid ${theme.colors.text + 20};
+     padding: ${theme.dimensions.padding.default};
+    `};
 
     ${Mixins.media(
         'tablet',
@@ -190,10 +192,14 @@ const TableRow = styled.tr`
 
 const TableBody = styled.tbody`
     display: block;
-    background: white;
+    ${({ theme }): string => `
+    background: ${theme.colors.input};
+    border-color: ${theme.colors.text + 20};
+    border-style: solid;
+    border-width: 0 1.5px;
+    `}
+
     border-radius: 0 0 8px 8px;
-    border-right: 1.5px solid rgba(0, 0, 0, 0.1);
-    border-left: 1.5px solid rgba(0, 0, 0, 0.1);
 `;
 
 const TableBodyDiv = styled.div`
