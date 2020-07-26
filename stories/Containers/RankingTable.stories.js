@@ -57,4 +57,4 @@ const dataTwo = new Array(100).fill({
 
 storiesOf('Ranking Table', module)
     .addDecorator(withKnobs)
-    .add('with Default', () => <RankingTable data={data} rowsVisible={3} />);
+    .add('with Default', () => <RankingTable data={dataTwo} rowsVisible={4} />);

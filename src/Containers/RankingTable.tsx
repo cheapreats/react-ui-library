@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable indent */
 import React, { useState } from 'react';
 import styled from 'styled-components';
@@ -82,11 +83,6 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                                                 <span
                                                     role="button"
                                                     tabIndex={0}
-                                                    onKeyDown={(): void =>
-                                                        setIsAscending(
-                                                            !isAscending,
-                                                        )
-                                                    }
                                                     onClick={(): void =>
                                                         setIsAscending(
                                                             !isAscending,
