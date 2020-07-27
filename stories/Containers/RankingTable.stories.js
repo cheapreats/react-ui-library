@@ -57,4 +57,11 @@ const dataTwo = new Array(100).fill({
 
 storiesOf('Ranking Table', module)
     .addDecorator(withKnobs)
-    .add('with Default', () => <RankingTable data={dataTwo} rowsVisible={4} />);
+    .add('with Default', () => (
+        <RankingTable
+            title="Top 10 Products"
+            IsTimeIntervalFilterVisible={true}
+            data={data}
+            rowsVisible={4}
+        />
+    ));

@@ -4,6 +4,8 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CaretUp as AngleUp } from '@styled-icons/fa-solid/CaretUp';
 import { transition } from '@Utils/Mixins';
+import { Select } from '../Inputs/Select';
+import { Heading } from '../Text/Heading';
 import { Mixins } from '../Utils';
 
 interface CustomerProps {
@@ -21,6 +23,7 @@ interface RankingTableProps {
     data: CustomerProps[] | ItemProps[];
     rowsVisible?: number;
     IsTimeIntervalFilterVisible?: boolean;
+    title: string;
 }
 
 interface StyledIconProps {
@@ -60,8 +63,12 @@ const useSort = (
 export const RankingTable: React.FC<RankingTableProps> = ({
     data,
     rowsVisible = 10,
+    title,
     IsTimeIntervalFilterVisible = false,
 }): React.ReactElement => {
+    const [selectedTimeInterval, setSelectedTimeInterval] = useState(
+        'All time',
+    );
     const columns = data[0] && Object.keys(data[0]);
 
     const { sortedItems, setIsAscending, isAscending } = useSort(
@@ -70,65 +77,94 @@ export const RankingTable: React.FC<RankingTableProps> = ({
     );
 
     return (
-        <Table>
-            <TableHeaderDiv>
-                <TableHead>
-                    <TableRow>
-                        {columns &&
-                            columns.map(
-                                (heading): React.ReactElement => (
-                                    <TableHeading>
-                                        {heading === 'totalSpent' ? (
-                                            <TotalSpentDiv>
-                                                <span
-                                                    role="button"
-                                                    tabIndex={0}
-                                                    onClick={(): void =>
-                                                        setIsAscending(
-                                                            !isAscending,
-                                                        )
-                                                    }
-                                                >
+        <>
+            <TitleAndTimeIntervalDiv>
+                <Title>{title}</Title>
+                {IsTimeIntervalFilterVisible && (
+                    <TimeIntervalDiv>
+                        <Select
+                            placeholder="All time"
+                            onChange={({
+                                target,
+                            }: {
+                                target: HTMLInputElement;
+                            }): void => {
+                                setSelectedTimeInterval(target.value);
+                            }}
+                            value={selectedTimeInterval}
+                        >
+                            <option value="One week">One week</option>
+                            <option value="One Month">One Month</option>
+                            <option value="One Year">One Year</option>
+                            <option value="All time">All time</option>
+                        </Select>
+                    </TimeIntervalDiv>
+                )}
+            </TitleAndTimeIntervalDiv>
+            <Table>
+                <TableHeaderDiv>
+                    <TableHead>
+                        <TableRow>
+                            {columns &&
+                                columns.map(
+                                    (heading): React.ReactElement => (
+                                        <TableHeading>
+                                            {heading === 'totalSpent' ? (
+                                                <TotalSpentDiv>
+                                                    <span
+                                                        role="button"
+                                                        tabIndex={0}
+                                                        onClick={(): void =>
+                                                            setIsAscending(
+                                                                !isAscending,
+                                                            )
+                                                        }
+                                                    >
+                                                        {heading.toUpperCase()}
+                                                    </span>
+
+                                                    <StyledArrowIcon
+                                                        isAscending={
+                                                            isAscending
+                                                        }
+                                                    />
+                                                </TotalSpentDiv>
+                                            ) : (
+                                                <span>
                                                     {heading.toUpperCase()}
                                                 </span>
-
-                                                <StyledArrowIcon
-                                                    isAscending={isAscending}
-                                                />
-                                            </TotalSpentDiv>
-                                        ) : (
-                                            <span>{heading.toUpperCase()}</span>
-                                        )}
-                                    </TableHeading>
+                                            )}
+                                        </TableHeading>
+                                    ),
+                                )}
+                        </TableRow>
+                    </TableHead>
+                </TableHeaderDiv>
+                <TableBodyDiv>
+                    <TableBody>
+                        {sortedItems &&
+                            sortedItems.map(
+                                (
+                                    item: CustomerProps | ItemProps,
+                                ): React.ReactElement => (
+                                    <TableRow>
+                                        <TableData>
+                                            <Image
+                                                src={item.image}
+                                                alt={item.name}
+                                            />
+                                        </TableData>
+                                        <TableData>{item.name}</TableData>
+                                        <TableData>
+                                            {formatter.format(item.totalSpent)}
+                                        </TableData>
+                                    </TableRow>
                                 ),
                             )}
-                    </TableRow>
-                </TableHead>
-            </TableHeaderDiv>
-            <TableBodyDiv>
-                <TableBody>
-                    {sortedItems &&
-                        sortedItems.map(
-                            (
-                                item: CustomerProps | ItemProps,
-                            ): React.ReactElement => (
-                                <TableRow>
-                                    <TableData>
-                                        <Image
-                                            src={item.image}
-                                            alt={item.name}
-                                        />
-                                    </TableData>
-                                    <TableData>{item.name}</TableData>
-                                    <TableData>
-                                        {formatter.format(item.totalSpent)}
-                                    </TableData>
-                                </TableRow>
-                            ),
-                        )}
-                </TableBody>
-            </TableBodyDiv>
-        </Table>
+                    </TableBody>
+                </TableBodyDiv>
+            </Table>
+        </>
     );
 };
 
@@ -153,6 +189,30 @@ const Image = styled.img`
         `
         width: 50px;
         height: 50px;
+       
+    `,
+    )}
+`;
+
+const TimeIntervalDiv = styled.div`
+    padding-top: 5px;
+    width: 100%;
+    max-width: 20%;
+`;
+
+const TitleAndTimeIntervalDiv = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 5px;
+`;
+
+const Title = styled(Heading)`
+    margin-bottom: 4px;
+    ${Mixins.media(
+        'tablet',
+        `
+    
+      font-size: 22px;
        
     `,
     )}
