@@ -16,7 +16,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
     value = undefined,
     onChange = (): void => {},
     ...props
-}) => {
+}): React.ReactElement => {
     const [cardColor, setColor] = useState(value);
     const colorRef = useRef<HTMLInputElement>(null);
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -28,7 +28,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
             <Button
                 loading={!value}
                 {...props}
-                onClick={() => {
+                onClick={(): void => {
                     if (colorRef.current) {
                         colorRef.current.click();
                     }
@@ -60,6 +60,6 @@ const ColorInput = styled.input`
     }
     ::-webkit-color-swatch {
         border-radius: 50%;
-        poadding: 0;
+        padding: 0;
     }
 `;

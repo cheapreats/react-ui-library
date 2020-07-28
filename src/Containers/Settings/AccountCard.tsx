@@ -17,10 +17,13 @@ export interface AccountProps
         MainInterface,
         ResponsiveInterface {
     employee: { username: string; role: string; _id: string };
-    logout: Function;
+    logout: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-export const AccountCard: React.FC<AccountProps> = ({ employee, logout }) => {
+export const AccountCard: React.FC<AccountProps> = ({
+    employee,
+    logout,
+}): React.ReactElement => {
     return (
         <SettingsCard heading="Account Information" icon={UserCircle}>
             <DisplayItem label="Username" value={employee.username} />
@@ -36,11 +39,7 @@ export const AccountCard: React.FC<AccountProps> = ({ employee, logout }) => {
                 value={employee._id}
                 margin="2px 0 auto"
             />
-            <Button
-                margin="20px 0 0"
-                onClick={() => logout()}
-                icon={SignOutAlt}
-            >
+            <Button margin="20px 0 0" onClick={logout} icon={SignOutAlt}>
                 Logout
             </Button>
         </SettingsCard>
@@ -62,7 +61,7 @@ const DisplayItem: React.FC<DisplayItemProps> = ({
 );
 
 const Item = styled.div`
-    ${props => BaseStyles.Main({ margin: '2px 0', ...props })}
+    ${(props): string => BaseStyles.Main({ margin: '2px 0', ...props })}
 `;
 
 const Text = styled(Paragraph)`

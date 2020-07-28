@@ -25,7 +25,7 @@ export const InfoCard: React.FC<InfoProps> = ({
     faqName,
     faqLink,
     version,
-}) => {
+}): React.ReactElement => {
     const state = useState(false);
     return (
         <SettingsCard heading="Additional Information" icon={InfoCircle}>
@@ -33,7 +33,7 @@ export const InfoCard: React.FC<InfoProps> = ({
                 <Button
                     margin="5px"
                     icon={Book}
-                    onClick={() =>
+                    onClick={(): null | Window =>
                         window.open(
                             'https://legal.cheapreats.com/privacy-policy.html',
                             '_blank',
@@ -45,14 +45,16 @@ export const InfoCard: React.FC<InfoProps> = ({
                 <Button
                     margin="5px"
                     icon={Wrench}
-                    onClick={() => state[1](true)}
+                    onClick={(): void => state[1](true)}
                 >
                     Technical Support
                 </Button>
                 <Button
                     margin="5px"
                     icon={QuestionCircle}
-                    onClick={() => window.open(faqLink, '_blank')}
+                    onClick={(): Window | null =>
+                        window.open(faqLink, '_blank')
+                    }
                 >
                     {faqName}
                 </Button>
@@ -74,7 +76,7 @@ export const InfoCard: React.FC<InfoProps> = ({
                     {'If you require immediate assistance, please call/text: '}
                     <a href="tel:13063411035">+1 (306) 341-1035</a>
                 </Paragraph>
-                <Button onClick={() => state[1](false)}>Close</Button>
+                <Button onClick={(): void => state[1](false)}>Close</Button>
             </Modal>
         </SettingsCard>
     );

@@ -6,7 +6,10 @@ export interface ClientProps {
     imgHeight: number;
 }
 
-export const ClientImg: React.FC<ClientProps> = ({ src, imgHeight }) => {
+export const ClientImg: React.FC<ClientProps> = ({
+    src,
+    imgHeight,
+}): React.ReactElement => {
     return (
         <IconListItem key={src}>
             <IconImg imgHeight={imgHeight} src={src} />

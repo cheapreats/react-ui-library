@@ -139,7 +139,7 @@ const _Select: React.FC<ComboBoxSelectorProps> = ({
         };
     }, [expanded]);
 
-    const handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
+    const handleChange = (event: SyntheticEvent<HTMLInputElement>): void => {
         setinputValue(event.currentTarget.value);
         setExpanded(true);
     };
@@ -151,9 +151,9 @@ const _Select: React.FC<ComboBoxSelectorProps> = ({
                     {...props}
                     value={inputValue}
                     placeholder={placeholder}
-                    onChange={e => handleChange(e)}
-                    onKeyDown={e => handleChange(e)}
-                    onClick={e => handleChange(e)}
+                    onChange={(e): void => handleChange(e)}
+                    onKeyDown={(e): void => handleChange(e)}
+                    onClick={(e): void => handleChange(e)}
                 />
 
                 {mount && (
