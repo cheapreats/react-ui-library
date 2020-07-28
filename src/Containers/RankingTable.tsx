@@ -52,17 +52,18 @@ const formatter = new Intl.NumberFormat('en-US', {
 const useSort = (
     rowData: CustomerProps[] | ItemProps[],
     rowLimit: number,
+    timeInterval: string,
 ): UseSortReturnType => {
     const [isAscending, setIsAscending] = useState(true);
 
     let sortedItems;
     if (isAscending) {
         sortedItems = [...rowData]
-            .sort((a, b): number => +b.totalSpent - +a.totalSpent)
+            .sort((a, b): number => +b[timeInterval] - +a[timeInterval])
             .slice(0, rowLimit);
     } else {
         sortedItems = [...rowData]
-            .sort((a, b): number => +a.totalSpent - +b.totalSpent)
+            .sort((a, b): number => +a[timeInterval] - +b[timeInterval])
             .slice(0, rowLimit);
     }
     return { sortedItems, setIsAscending, isAscending };
@@ -82,6 +83,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
     const { sortedItems, setIsAscending, isAscending } = useSort(
         data,
         rowsVisible,
+        selectedTimeInterval,
     );
 
     const filterTotalSpent = (timeInterval: string = 'totalSpent'): void => {

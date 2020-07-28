@@ -19,7 +19,7 @@ const data = [
             'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
         name: 'chilly chesseburger with bacon',
         totalSpent: 4000000,
-        totalSpent1D: 1000,
+        totalSpent1D: 2000,
         totalSpent1W: 20000,
         totalSpent1M: 90000,
         totalSpent1Y: 600000,
@@ -29,6 +29,16 @@ const data = [
             'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
         name: 'chilly chesseburger with bacon',
         totalSpent: 10000,
+        totalSpent1D: 6000,
+        totalSpent1W: 20000,
+        totalSpent1M: 30000,
+        totalSpent1Y: 600000,
+    },
+    {
+        image:
+            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
+        name: 'chilly chesseburger with bacon',
+        totalSpent: 20000,
         totalSpent1D: 1000,
         totalSpent1W: 20000,
         totalSpent1M: 30000,
@@ -43,6 +53,26 @@ const data = [
         totalSpent1W: 20000,
         totalSpent1M: 30000,
         totalSpent1Y: 600000,
+    },
+    {
+        image:
+            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
+        name: 'chilly chesseburger with bacon',
+        totalSpent: 200,
+        totalSpent1D: 1000,
+        totalSpent1W: 500,
+        totalSpent1M: 30000,
+        totalSpent1Y: 600000,
+    },
+    {
+        image:
+            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
+        name: 'chilly chesseburger with bacon',
+        totalSpent: 20000,
+        totalSpent1D: 100,
+        totalSpent1W: 20000,
+        totalSpent1M: 3000000,
+        totalSpent1Y: 300,
     },
 ];
 
@@ -60,7 +90,7 @@ storiesOf('Ranking Table', module)
             title="Top 10 Products"
             IsTimeIntervalFilterVisible={false}
             data={data}
-            rowsVisible={10}
+            rowsVisible={3}
         />
     ))
     .add('with time interval', () => (
@@ -68,6 +98,6 @@ storiesOf('Ranking Table', module)
             title="Top 10 Products"
             IsTimeIntervalFilterVisible={true}
             data={data}
-            rowsVisible={10}
+            rowsVisible={3}
         />
     ));
