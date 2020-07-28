@@ -12,11 +12,19 @@ interface CustomerProps {
     name: string;
     image: string;
     totalSpent: number;
+    totalSpent1D: number;
+    totalSpent1W: number;
+    totalSpent1M: number;
+    totalSpent1Y?: number;
 }
 interface ItemProps {
     name: string;
     image: string;
     totalSpent: number;
+    totalSpent1D: number;
+    totalSpent1W: number;
+    totalSpent1M: number;
+    totalSpent1Y?: number;
 }
 
 interface RankingTableProps {
@@ -67,36 +75,59 @@ export const RankingTable: React.FC<RankingTableProps> = ({
     IsTimeIntervalFilterVisible = false,
 }): React.ReactElement => {
     const [selectedTimeInterval, setSelectedTimeInterval] = useState(
-        'All time',
+        'totalSpent',
     );
-    const columns = data[0] && Object.keys(data[0]);
+    const columns = data[0] && Object.keys(data[0]).slice(0, 3);
 
     const { sortedItems, setIsAscending, isAscending } = useSort(
         data,
         rowsVisible,
     );
 
+    const filterTotalSpent = (timeInterval: string = 'totalSpent'): void => {
+        switch (timeInterval) {
+            case 'totalSpent1D':
+                setSelectedTimeInterval('totalSpent1D');
+                break;
+            case 'totalSpent1W':
+                setSelectedTimeInterval('totalSpent1W');
+                break;
+            case 'totalSpent1M':
+                setSelectedTimeInterval('totalSpent1M');
+                break;
+            case 'totalSpent1Y':
+                setSelectedTimeInterval('totalSpent1Y');
+                break;
+            case 'totalSpent':
+                setSelectedTimeInterval('totalSpent');
+                break;
+            default:
+                setSelectedTimeInterval('totalSpent');
+        }
+    };
+
     return (
         <>
             <TitleAndTimeIntervalDiv>
-                <Title>{title}</Title>
+                <Title bold>{title}</Title>
                 {IsTimeIntervalFilterVisible && (
                     <TimeIntervalDiv>
                         <Select
-                            placeholder="All time"
+                            placeholder="All Time"
                             onChange={({
                                 target,
                             }: {
                                 target: HTMLInputElement;
                             }): void => {
-                                setSelectedTimeInterval(target.value);
+                                filterTotalSpent(target.value);
                             }}
                             value={selectedTimeInterval}
                         >
-                            <option value="One week">One week</option>
-                            <option value="One Month">One Month</option>
-                            <option value="One Year">One Year</option>
-                            <option value="All time">All time</option>
+                            <option value="totalSpent1D">One Day</option>
+                            <option value="totalSpent1W">One Week</option>
+                            <option value="totalSpent1M">One Month</option>
+                            <option value="totalSpent1Y">One Year</option>
+                            <option value="totalSpent">All Time</option>
                         </Select>
                     </TimeIntervalDiv>
                 )}
@@ -156,7 +187,9 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                                         </TableData>
                                         <TableData>{item.name}</TableData>
                                         <TableData>
-                                            {formatter.format(item.totalSpent)}
+                                            {formatter.format(
+                                                item[selectedTimeInterval],
+                                            )}
                                         </TableData>
                                     </TableRow>
                                 ),
@@ -197,7 +230,15 @@ const Image = styled.img`
 const TimeIntervalDiv = styled.div`
     padding-top: 5px;
     width: 100%;
-    max-width: 20%;
+    max-width: 200px;
+    ${Mixins.media(
+        'tablet',
+        `
+    
+      max-width: 100px;
+       
+    `,
+    )}
 `;
 
 const TitleAndTimeIntervalDiv = styled.div`
