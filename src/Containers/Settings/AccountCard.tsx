@@ -39,11 +39,7 @@ export const AccountCard: React.FC<AccountProps> = ({
                 value={employee._id}
                 margin="2px 0 auto"
             />
-            <Button
-                margin="20px 0 0"
-                onClick={logout} //COME BACK LATER AND FIX THIS TS ERROR
-                icon={SignOutAlt}
-            >
+            <Button margin="20px 0 0" onClick={logout} icon={SignOutAlt}>
                 Logout
             </Button>
         </SettingsCard>
