@@ -17,7 +17,7 @@ export interface AccountProps
         MainInterface,
         ResponsiveInterface {
     employee: { username: string; role: string; _id: string };
-    logout: Function;
+    logout: (event: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 export const AccountCard: React.FC<AccountProps> = ({
@@ -41,7 +41,7 @@ export const AccountCard: React.FC<AccountProps> = ({
             />
             <Button
                 margin="20px 0 0"
-                onClick={(): void => logout()}
+                onClick={logout} //COME BACK LATER AND FIX THIS TS ERROR
                 icon={SignOutAlt}
             >
                 Logout

@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CaretUp as AngleUp } from '@styled-icons/fa-solid/CaretUp';
-import { transition } from '@Utils/Mixins';
+import { transition, scroll } from '@Utils/Mixins';
 import { Select } from '../Inputs/Select';
 import { Heading } from '../Text/Heading';
 import { Mixins } from '../Utils';
@@ -42,6 +42,14 @@ interface UseSortReturnType {
     sortedItems: (CustomerProps | ItemProps)[];
     setIsAscending: React.Dispatch<React.SetStateAction<boolean>>;
     isAscending: boolean;
+}
+
+enum TimeIntervalEnum {
+    totalSpent1D = 'totalSpent1D',
+    totalSpent1W = 'totalSpent1W',
+    totalSpent1M = 'totalSpent1M',
+    totalSpent1Y = 'totalSpent1Y',
+    totalSpent = 'totalSpent',
 }
 
 const formatter = new Intl.NumberFormat('en-US', {
@@ -86,25 +94,25 @@ export const RankingTable: React.FC<RankingTableProps> = ({
         selectedTimeInterval,
     );
 
-    const filterTotalSpent = (timeInterval: string = 'totalSpent'): void => {
+    const filterTotalSpent = (timeInterval: TimeIntervalEnum): void => {
         switch (timeInterval) {
-            case 'totalSpent1D':
-                setSelectedTimeInterval('totalSpent1D');
+            case TimeIntervalEnum.totalSpent1D:
+                setSelectedTimeInterval(TimeIntervalEnum.totalSpent1D);
                 break;
-            case 'totalSpent1W':
-                setSelectedTimeInterval('totalSpent1W');
+            case TimeIntervalEnum.totalSpent1W:
+                setSelectedTimeInterval(TimeIntervalEnum.totalSpent1W);
                 break;
-            case 'totalSpent1M':
-                setSelectedTimeInterval('totalSpent1M');
+            case TimeIntervalEnum.totalSpent1M:
+                setSelectedTimeInterval(TimeIntervalEnum.totalSpent1M);
                 break;
-            case 'totalSpent1Y':
-                setSelectedTimeInterval('totalSpent1Y');
+            case TimeIntervalEnum.totalSpent1Y:
+                setSelectedTimeInterval(TimeIntervalEnum.totalSpent1Y);
                 break;
-            case 'totalSpent':
-                setSelectedTimeInterval('totalSpent');
+            case TimeIntervalEnum.totalSpent:
+                setSelectedTimeInterval(TimeIntervalEnum.totalSpent);
                 break;
             default:
-                setSelectedTimeInterval('totalSpent');
+                setSelectedTimeInterval(TimeIntervalEnum.totalSpent);
         }
     };
 
@@ -121,15 +129,27 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                             }: {
                                 target: HTMLInputElement;
                             }): void => {
-                                filterTotalSpent(target.value);
+                                filterTotalSpent(
+                                    target.value as TimeIntervalEnum,
+                                );
                             }}
                             value={selectedTimeInterval}
                         >
-                            <option value="totalSpent1D">One Day</option>
-                            <option value="totalSpent1W">One Week</option>
-                            <option value="totalSpent1M">One Month</option>
-                            <option value="totalSpent1Y">One Year</option>
-                            <option value="totalSpent">All Time</option>
+                            <option value={TimeIntervalEnum.totalSpent1D}>
+                                One Day
+                            </option>
+                            <option value={TimeIntervalEnum.totalSpent1W}>
+                                One Week
+                            </option>
+                            <option value={TimeIntervalEnum.totalSpent1M}>
+                                One Month
+                            </option>
+                            <option value={TimeIntervalEnum.totalSpent1Y}>
+                                One Year
+                            </option>
+                            <option value={TimeIntervalEnum.totalSpent}>
+                                All Time
+                            </option>
                         </Select>
                     </TimeIntervalDiv>
                 )}
@@ -141,7 +161,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                             {columns &&
                                 columns.map(
                                     (heading): React.ReactElement => (
-                                        <TableHeading>
+                                        <TableHeading key={heading}>
                                             {heading === 'totalSpent' ? (
                                                 <TotalSpentDiv>
                                                     <span
@@ -180,7 +200,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                                 (
                                     item: CustomerProps | ItemProps,
                                 ): React.ReactElement => (
-                                    <TableRow>
+                                    <TableRow key={item.name}>
                                         <TableData>
                                             <Image
                                                 src={item.image}
@@ -332,6 +352,7 @@ const TableBody = styled.tbody`
 `;
 
 const TableBodyDiv = styled.div`
+    ${scroll};
     height: 100%;
     max-height: 600px;
     overflow: auto;

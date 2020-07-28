@@ -91,6 +91,6 @@ storiesOf('Ranking Table', module)
             title="Top 3 Products"
             IsTimeIntervalFilterVisible={true}
             data={data}
-            rowsVisible={3}
+            rowsVisible={10}
         />
     ));
