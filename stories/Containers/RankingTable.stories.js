@@ -76,18 +76,11 @@ const data = [
     },
 ];
 
-const dataTwo = new Array(100).fill({
-    image:
-        'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
-    name: 'hot dog',
-    totalSpent: 500,
-});
-
 storiesOf('Ranking Table', module)
     .addDecorator(withKnobs)
     .add('with default', () => (
         <RankingTable
-            title="Top 10 Products"
+            title="Top 3 Products"
             IsTimeIntervalFilterVisible={false}
             data={data}
             rowsVisible={3}
@@ -95,7 +88,7 @@ storiesOf('Ranking Table', module)
     ))
     .add('with time interval', () => (
         <RankingTable
-            title="Top 10 Products"
+            title="Top 3 Products"
             IsTimeIntervalFilterVisible={true}
             data={data}
             rowsVisible={3}
