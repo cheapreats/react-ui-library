@@ -8,21 +8,25 @@ import { User } from '@styled-icons/boxicons-solid/User';
 
 const data = [
     {
+        id: '1',
         icon: <Scissors size="40" color="white" />,
         title: "$100.00 off discount applied to the customer's account ",
         time: '3 days ago',
     },
     {
+        id: '2',
         icon: <Documents size="40" color="white" />,
         title: 'Changed subscription from bronze plan to gold plan',
         time: '1 day ago',
     },
     {
+        id: '3',
         icon: <Cross size="40" color="white" />,
         title: 'Payment failed and an alert was sent',
         time: '5 hours ago',
     },
     {
+        id: '4',
         icon: <User size="40" color="white" />,
         title: 'User Amin Ajao was created for testing the dashboard',
         time: '6 hours ago',
