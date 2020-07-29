@@ -3,7 +3,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CaretUp as AngleUp } from '@styled-icons/fa-solid/CaretUp';
-import { transition, scroll } from '@Utils/Mixins';
 import { Select } from '../Inputs/Select';
 import { Heading } from '../Text/Heading';
 import { Mixins } from '../Utils';
@@ -287,7 +286,7 @@ const TotalSpentDiv = styled.div`
 `;
 
 const StyledArrowIcon = styled(AngleUp)<StyledIconProps>`
-    ${transition(['transform'])};
+    ${Mixins.transition(['transform'])};
     ${({ isAscending }): string =>
         isAscending ? 'transform:rotate(0)' : 'transform:rotate(180deg)'};
     margin-top: 2px;
@@ -352,7 +351,7 @@ const TableBody = styled.tbody`
 `;
 
 const TableBodyDiv = styled.div`
-    ${scroll};
+    ${Mixins.scroll};
     height: 100%;
     max-height: 600px;
     overflow: auto;
