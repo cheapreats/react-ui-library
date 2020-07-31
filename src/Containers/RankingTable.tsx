@@ -52,7 +52,7 @@ enum TimeIntervalEnum {
     totalSpent = 'totalSpent',
 }
 
-function abbreviateNumber(value: number | string): string {
+const abbreviateNumber = (value: number | string): string => {
     const EXPENSE_INDICATOR = '$';
 
     let newValue = value;
@@ -80,7 +80,7 @@ function abbreviateNumber(value: number | string): string {
         newValue = shortValue + suffixes[suffixNum];
     }
     return (EXPENSE_INDICATOR + newValue) as string;
-}
+};
 
 const useSort = (
     rowData: CustomerProps[] | ItemProps[],
