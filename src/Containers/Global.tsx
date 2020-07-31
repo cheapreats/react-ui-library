@@ -12,7 +12,7 @@ interface Props {
     style?: (theme: DefaultTheme) => string;
 }
 
-enum ThemeTypes {
+export enum ThemeTypes {
     DARK = 'DarkTheme',
     MAIN = 'MainTheme',
 }
