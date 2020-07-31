@@ -337,6 +337,14 @@ const Table = styled.table`
 const TableHeading = styled.th`
     text-align: left;
     cursor: pointer;
+
+    ${Mixins.media(
+        'phone',
+        `
+       font-size: 0.85rem;
+       
+    `,
+    )}
 `;
 
 const TableData = styled.td`
