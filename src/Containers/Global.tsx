@@ -8,6 +8,11 @@ import {
 import { flex } from '../Utils/Mixins';
 import * as Themes from '../Themes';
 
+enum ThemeTypes {
+    DARK = 'DarkTheme',
+    MAIN = 'MainTheme',
+}
+
 interface Props {
     style?: (theme: DefaultTheme) => string;
 }
@@ -38,7 +43,7 @@ export interface GlobalProps extends Props {
 
 export const Global: React.FC<GlobalProps> = ({
     children,
-    theme = 'MainTheme',
+    theme = ThemeTypes.MAIN,
     style,
     extend,
 }): React.ReactElement => (
