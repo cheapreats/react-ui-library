@@ -23,7 +23,7 @@ const sortFiles = (f1, f2) => {
 }
 
 // automatically import all files ending in *.stories.js
-const req = require.context('../stories', true, /\.stories\.js$/);
+const req = require.context('../stories', true, /\.stories\.js|tsx$/);
 function loadStories() {
     req.keys().sort(sortFiles).forEach(filename => req(filename));
 }

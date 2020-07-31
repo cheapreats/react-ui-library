@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CaretUp as AngleUp } from '@styled-icons/fa-solid/CaretUp';
 import { Select } from '../Inputs/Select';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import { Heading } from '../Text/Heading';
 import { Mixins } from '../Utils';
 
@@ -26,7 +27,7 @@ interface ItemProps {
     totalSpent1Y?: number;
 }
 
-interface RankingTableProps {
+interface RankingTableProps extends MainInterface, ResponsiveInterface {
     data: CustomerProps[] | ItemProps[];
     rowsVisible?: number;
     IsTimeIntervalFilterVisible?: boolean;
@@ -51,10 +52,35 @@ enum TimeIntervalEnum {
     totalSpent = 'totalSpent',
 }
 
-const formatter = new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
-});
+function abbreviateNumber(value: number | string): string {
+    const EXPENSE_INDICATOR = '$';
+
+    let newValue = value;
+    if (value >= 1000) {
+        const suffixes = ['', 'k', 'm', 'b', 't'];
+        const suffixNum = Math.floor(`${value}`.length / 3);
+        let shortValue: string | number = '';
+        for (let precision = 2; precision >= 1; precision -= 1) {
+            shortValue = parseFloat(
+                (suffixNum !== 0
+                    ? (value as number) / 1000 ** suffixNum
+                    : (value as number)
+                ).toPrecision(precision),
+            );
+            const dotLessShortValue = `${shortValue}`.replace(
+                /[^a-zA-Z 0-9]+/g,
+                '',
+            );
+            if (dotLessShortValue.length <= 2) {
+                break;
+            }
+        }
+        if ((shortValue as number) % 1 !== 0)
+            shortValue = (shortValue as number).toFixed(1);
+        newValue = shortValue + suffixes[suffixNum];
+    }
+    return (EXPENSE_INDICATOR + newValue) as string;
+}
 
 const useSort = (
     rowData: CustomerProps[] | ItemProps[],
@@ -81,6 +107,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
     rowsVisible = 10,
     title,
     IsTimeIntervalFilterVisible = false,
+    ...restProps
 }): React.ReactElement => {
     const [selectedTimeInterval, setSelectedTimeInterval] = useState(
         'totalSpent',
@@ -116,7 +143,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
     };
 
     return (
-        <>
+        <div {...restProps}>
             <TitleAndTimeIntervalDiv>
                 <Title bold>{title}</Title>
                 {IsTimeIntervalFilterVisible && (
@@ -208,7 +235,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                                         </TableData>
                                         <TableData>{item.name}</TableData>
                                         <TableData>
-                                            {formatter.format(
+                                            {abbreviateNumber(
                                                 item[selectedTimeInterval],
                                             )}
                                         </TableData>
@@ -218,7 +245,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                     </TableBody>
                 </TableBodyDiv>
             </Table>
-        </>
+        </div>
     );
 };
 
