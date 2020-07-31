@@ -12,6 +12,11 @@ interface Props {
     style?: (theme: DefaultTheme) => string;
 }
 
+enum ThemeTypes {
+    DARK = 'DarkTheme',
+    MAIN = 'MainTheme',
+}
+
 const GlobalContext = createGlobalStyle<Props>`
     body {
         margin: 0;
@@ -38,7 +43,7 @@ export interface GlobalProps extends Props {
 
 export const Global: React.FC<GlobalProps> = ({
     children,
-    theme = 'MainTheme',
+    theme = ThemeTypes.MAIN,
     style,
     extend,
 }): React.ReactElement => (
