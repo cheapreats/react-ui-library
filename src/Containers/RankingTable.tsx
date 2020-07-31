@@ -250,8 +250,8 @@ export const RankingTable: React.FC<RankingTableProps> = ({
 };
 
 const Image = styled.img`
-    width: 75px;
-    height: 75px;
+    width: 65px;
+    height: 65px;
     max-height: 100%;
     display: block;
     border-radius: 15px;
@@ -260,16 +260,16 @@ const Image = styled.img`
     ${Mixins.media(
         'tablet',
         `
-        width: 60px;
-        height: 60px;
+        width: 50px;
+        height: 50px;
        
     `,
     )}
     ${Mixins.media(
         'phone',
         `
-        width: 50px;
-        height: 50px;
+        width: 40px;
+        height: 40px;
        
     `,
     )}
@@ -345,6 +345,13 @@ const TableData = styled.td`
         color:${theme.colors.text};
         font-size:${theme.font.size.default};
     `}
+    ${Mixins.media(
+        'phone',
+        `
+       font-size: 0.85rem;
+       
+    `,
+    )}
 `;
 
 const TableRow = styled.tr`
