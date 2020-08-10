@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { ImageCarousel } from '../../src';
-import {Plus} from "@styled-icons/boxicons-regular/Plus";
+import { Plus } from '@styled-icons/boxicons-regular/Plus';
 
 const images = [
     'https://image.shutterstock.com/image-photo/image-250nw-1081879181.jpg',
