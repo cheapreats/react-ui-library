@@ -30,21 +30,22 @@ export const DiningReservation: React.FC<DiningReservationProps> = ({
                     label="How many people are u booking for?"
                     placeholder="Enter number of people you are booking for"
                 />
-                <>
-                    <Datepicker name="date" label="Pick a date" />
+                <Datepicker name="date" label="Pick a date" />
 
-                    <Timepicker
-                        name="time"
-                        label="Pick a time"
-                        theme={MainTheme}
-                    />
-                    <Input
-                        name="phone"
-                        label="Phone Number"
-                        placeholder="Enter your phone number"
-                        type="number"
-                    />
-                </>
+                <Timepicker name="time" label="Pick a time" theme={MainTheme} />
+                <Input
+                    name="phone"
+                    label="Phone Number"
+                    placeholder="Enter your phone number"
+                    type="number"
+                />
+                <Button
+                    style={{
+                        marginTop: '10px',
+                    }}
+                >
+                    Confirm Booking
+                </Button>
             </Modal>
         </>
     );
