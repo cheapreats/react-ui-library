@@ -2,7 +2,6 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { mockElement } from '../Tools';
-import { Button } from '../../src';
 
 import { DiningReservation } from '../../src/Containers/DiningReservation';
 
