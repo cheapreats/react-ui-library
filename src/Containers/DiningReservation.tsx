@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 import { MainTheme } from '../Themes/MainTheme';
 import { Modal } from './Modal';
 import { Input, Datepicker, Timepicker, Button } from '..';
@@ -12,18 +13,9 @@ export const DiningReservation: React.FC<DiningReservationProps> = ({
 }): React.ReactElement => {
     return (
         <>
-            <Button
-                style={{
-                    position: 'fixed',
-                    bottom: '0',
-                    right: '0',
-                    marginRight: '20px',
-                    marginBottom: '20px',
-                }}
-                onClick={() => modalState[1](true)}
-            >
+            <CreateBooking onClick={() => modalState[1](true)}>
                 Create Booking
-            </Button>
+            </CreateBooking>
             <Modal state={modalState} padding="40px">
                 <Input
                     name="bookings"
@@ -39,14 +31,20 @@ export const DiningReservation: React.FC<DiningReservationProps> = ({
                     placeholder="Enter your phone number"
                     type="number"
                 />
-                <Button
-                    style={{
-                        marginTop: '10px',
-                    }}
-                >
-                    Confirm Booking
-                </Button>
+                <ConfirmBooking>Confirm Booking</ConfirmBooking>
             </Modal>
         </>
     );
 };
+
+const ConfirmBooking = styled(Button)`
+    margin-top: 10px;
+`;
+
+const CreateBooking = styled(Button)`
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    margin-right: 20px;
+    margin-bottom: 20px;
+`;
