@@ -258,12 +258,12 @@ const SliderBoard = styled.div<SliderProps>`
         `}
         // Disabled
         ${({ disabled }): string =>
-            disabled
-                ? `
+        disabled
+            ? `
             cursor: not-allowed;
             opacity: 0.6;
         `
-                : ''}
+            : ''}
         `;
 
 export interface SelectedBarProps {

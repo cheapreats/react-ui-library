@@ -46,7 +46,9 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
                     >
                         {hoverOverlay && (
                             <Overlay>
-                                <Icon as={hoverIcon} /> {hoverText}
+                                <Icon as={hoverIcon} /> 
+                                {' '}
+                                {hoverText}
                             </Overlay>
                         )}
                         <img

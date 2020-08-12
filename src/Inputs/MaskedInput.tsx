@@ -41,12 +41,12 @@ const getMaskFunction_ = (
 ): ((value: string) => string) => {
     if (mask in MaskedInputPreset) {
         switch (mask) {
-            case MaskedInputPreset.DOLLAR:
-                return DOLLAR_FORMAT_MASK;
-            case MaskedInputPreset.PERCENTAGE:
-                return PERCENT_FORMAT_MASK;
-            default:
-                return (): string => 'Invalid mask.';
+        case MaskedInputPreset.DOLLAR:
+            return DOLLAR_FORMAT_MASK;
+        case MaskedInputPreset.PERCENTAGE:
+            return PERCENT_FORMAT_MASK;
+        default:
+            return (): string => 'Invalid mask.';
         }
     }
     return mask as (value: string) => string;

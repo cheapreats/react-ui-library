@@ -115,7 +115,7 @@ const HorizontalListItem = styled.li<ListItemProps>`
     padding: 10px;
     &:hover {
         ${({ hoveredStyle, isSelected }): string =>
-            isSelected ? `` : `${hoveredStyle()}`}
+        isSelected ? `` : `${hoveredStyle()}`}
     }
 
     ${({ isSelected, selectedStyle }): string =>

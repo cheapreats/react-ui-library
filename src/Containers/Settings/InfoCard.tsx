@@ -19,12 +19,16 @@ export interface InfoProps
     faqName: string;
     faqLink: string;
     version: string | number;
+    supportEmail: string;
+    companyNumber: string;
 }
 
 export const InfoCard: React.FC<InfoProps> = ({
     faqName,
     faqLink,
     version,
+    supportEmail,
+    companyNumber,
 }): React.ReactElement => {
     const state = useState(false);
     return (
@@ -68,13 +72,13 @@ export const InfoCard: React.FC<InfoProps> = ({
                 <Paragraph bold>
                     {'For non-emergency inquiries, shoot us an email at '}
                     <a href="mailto:support@cheapreats.com">
-                        support@cheapreats.com
+                        {supportEmail}
                     </a>
                     .
                 </Paragraph>
                 <Paragraph margin="15px 0" bold>
                     {'If you require immediate assistance, please call/text: '}
-                    <a href="tel:13063411035">+1 (306) 341-1035</a>
+                    <a href="tel:13063411035">{companyNumber}</a>
                 </Paragraph>
                 <Button onClick={(): void => state[1](false)}>Close</Button>
             </Modal>

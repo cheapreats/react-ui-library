@@ -64,7 +64,7 @@
         "react-docgen-typescript-loader": "^3.6.0",
         "react-dom": "^16.13.0",
         "styled-components": "^5.1.1",
-        "styled-icons": "^10.4.1",
+        "styled-icons": "^10.15.0",
         "typescript": "^3.9.3"
     },
     "aliases": {

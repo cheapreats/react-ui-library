@@ -36,6 +36,8 @@ export const Settings: React.FC<SettingsProps> = ({
     employee = { username: '', role: '', _id: '' },
     logout,
     title,
+    supportEmail,
+    companyNumber,
     ...props
 }): React.ReactElement => {
     return (
@@ -53,6 +55,9 @@ export const Settings: React.FC<SettingsProps> = ({
                             faqLink={faqLink}
                             faqName={faqName}
                             version={version}
+                            supportEmail={supportEmail}
+                            companyNumber={companyNumber}
+
                         />
                     </Cards>
                 )}
