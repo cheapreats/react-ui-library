@@ -21,6 +21,7 @@ export interface InfoProps
     version: string | number;
     supportEmail: string;
     companyNumber: string;
+    privacyLink: string;
 }
 
 export const InfoCard: React.FC<InfoProps> = ({
@@ -29,6 +30,7 @@ export const InfoCard: React.FC<InfoProps> = ({
     version,
     supportEmail,
     companyNumber,
+    privacyLink,
 }): React.ReactElement => {
     const state = useState(false);
     return (
@@ -39,7 +41,7 @@ export const InfoCard: React.FC<InfoProps> = ({
                     icon={Book}
                     onClick={(): null | Window =>
                         window.open(
-                            'https://legal.cheapreats.com/privacy-policy.html',
+                            privacyLink,
                             '_blank',
                         )
                     }
@@ -74,7 +76,7 @@ export const InfoCard: React.FC<InfoProps> = ({
                     <a href="mailto:support@cheapreats.com">
                         {supportEmail}
                     </a>
-                    .
+                    
                 </Paragraph>
                 <Paragraph margin="15px 0" bold>
                     {'If you require immediate assistance, please call/text: '}

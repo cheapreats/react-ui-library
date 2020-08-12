@@ -24,6 +24,8 @@ interface SettingsProps
     store?: React.ReactElement;
     terminal?: React.ReactElement;
     title?: string;
+    privacyLink: string;
+    companyNumber: string;
 }
 
 export const Settings: React.FC<SettingsProps> = ({
@@ -36,8 +38,10 @@ export const Settings: React.FC<SettingsProps> = ({
     employee = { username: '', role: '', _id: '' },
     logout,
     title,
-    supportEmail,
-    companyNumber,
+    supportEmail = 'support@cheapreats.com',
+    companyNumber = '13063411035',
+    privacyLink = 'https://legal.cheapreats.com/privacy-policy.html',
+    accountID,
     ...props
 }): React.ReactElement => {
     return (
@@ -48,7 +52,7 @@ export const Settings: React.FC<SettingsProps> = ({
                 </Heading>
                 {!loading && (
                     <Cards>
-                        <AccountCard employee={employee} logout={logout} />
+                        <AccountCard employee={employee} logout={logout} accountID={accountID}/>
                         {store}
                         {terminal}
                         <InfoCard
@@ -57,6 +61,7 @@ export const Settings: React.FC<SettingsProps> = ({
                             version={version}
                             supportEmail={supportEmail}
                             companyNumber={companyNumber}
+                            privacyLink={privacyLink}
 
                         />
                     </Cards>

@@ -18,11 +18,13 @@ export interface AccountProps
         ResponsiveInterface {
     employee: { username: string; role: string; _id: string };
     logout: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    accountID: string;
 }
 
 export const AccountCard: React.FC<AccountProps> = ({
     employee,
     logout,
+    accountID,
 }): React.ReactElement => {
     return (
         <SettingsCard heading="Account Information" icon={UserCircle}>
@@ -35,7 +37,7 @@ export const AccountCard: React.FC<AccountProps> = ({
                 }
             />
             <DisplayItem
-                label="Account Id"
+                label={accountID}
                 value={employee._id}
                 margin="2px 0 auto"
             />
