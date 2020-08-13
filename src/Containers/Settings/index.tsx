@@ -24,6 +24,19 @@ interface SettingsProps
     store?: React.ReactElement;
     terminal?: React.ReactElement;
     title?: string;
+    companyPrivacyURL: string;
+    companySupportEmail: string;
+    companyPhoneNumberDigits: string;
+    closeButton: string;
+    techSupportButton: string;
+    privacyPolicyButton: string;
+    accountInfo: string;
+    userName: string;
+    accountID: string;
+    logoutButton: string;
+    role: string;
+    nonEmergencyLabel: string;
+    assistanceLabel: string;
 }
 
 export const Settings: React.FC<SettingsProps> = ({
@@ -36,6 +49,19 @@ export const Settings: React.FC<SettingsProps> = ({
     employee = { username: '', role: '', _id: '' },
     logout,
     title,
+    companyPrivacyURL,
+    companySupportEmail,
+    companyPhoneNumberDigits,
+    closeButton,
+    techSupportButton,
+    privacyPolicyButton,
+    accountInfo,
+    userName,
+    accountID,
+    logoutButton,
+    role,
+    nonEmergencyLabel,
+    assistanceLabel,
     ...props
 }): React.ReactElement => {
     return (
@@ -46,13 +72,21 @@ export const Settings: React.FC<SettingsProps> = ({
                 </Heading>
                 {!loading && (
                     <Cards>
-                        <AccountCard employee={employee} logout={logout} />
+                        <AccountCard employee={employee} logout={logout} accountInfo={accountInfo} userName={userName} accountID={accountID} logoutButton={logoutButton} role={role} />
                         {store}
                         {terminal}
                         <InfoCard
                             faqLink={faqLink}
                             faqName={faqName}
                             version={version}
+                            companyPrivacyURL={companyPrivacyURL}
+                            companySupportEmail={companySupportEmail}
+                            companyPhoneNumberDigits={companyPhoneNumberDigits}
+                            closeButton={closeButton}
+                            techSupportButton={techSupportButton}
+                            privacyPolicyButton={privacyPolicyButton}
+                            nonEmergencyLabel= {nonEmergencyLabel}
+                            assistanceLabel={assistanceLabel}
                         />
                     </Cards>
                 )}
