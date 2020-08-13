@@ -47,7 +47,7 @@ export const InfoCard: React.FC<InfoProps> = ({
     
 }): React.ReactElement => {
     const state = useState(false);
-    function formatPhoneNumber(companyPhoneNumberDigits: string) {
+    const PHONENUMBER = function formatPhoneNumber(companyPhoneNumberDigits: string) {
         var cleaned = ('' + companyPhoneNumberDigits).replace(/\D/g, '')
         var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
         if (match) {
@@ -103,7 +103,7 @@ export const InfoCard: React.FC<InfoProps> = ({
                 </Paragraph>
                 <Paragraph margin="15px 0" bold>
                     {assistanceLabel}
-                    <a href={`tel:${companyPhoneNumberDigits}`}>{formatPhoneNumber(companyPhoneNumberDigits)}</a>
+                    <a href={`tel:${companyPhoneNumberDigits}`}>{PHONENUMBER}</a>
                 </Paragraph>
                 <Button onClick={(): void => state[1](false)}>{closeButton}</Button>
             </Modal>
