@@ -18,29 +18,39 @@ export interface AccountProps
         ResponsiveInterface {
     employee: { username: string; role: string; _id: string };
     logout: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    accountInfo: string;
+    userName: string;
+    accountID: string;
+    logoutButton: string;
+    role: string;
 }
 
 export const AccountCard: React.FC<AccountProps> = ({
     employee,
     logout,
+    accountInfo = "Account Information",
+    userName = "Username",
+    accountID = "Account Id",
+    logoutButton = "Logout",
+    role = "Role",
 }): React.ReactElement => {
     return (
-        <SettingsCard heading="Account Information" icon={UserCircle}>
-            <DisplayItem label="Username" value={employee.username} />
+        <SettingsCard heading={accountInfo} icon={UserCircle}>
+            <DisplayItem label={userName} value={employee.username} />
             <DisplayItem
-                label="Role"
+                label={role}
                 value={
                     employee.role.charAt(0).toUpperCase() +
                     employee.role.slice(1)
                 }
             />
             <DisplayItem
-                label="Account Id"
+                label={accountID}
                 value={employee._id}
                 margin="2px 0 auto"
             />
             <Button margin="20px 0 0" onClick={logout} icon={SignOutAlt}>
-                Logout
+                {logoutButton}
             </Button>
         </SettingsCard>
     );

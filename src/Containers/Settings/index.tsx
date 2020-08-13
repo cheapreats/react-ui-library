@@ -24,6 +24,18 @@ interface SettingsProps
     store?: React.ReactElement;
     terminal?: React.ReactElement;
     title?: string;
+    companyPrivacyURL: string;
+    companySupportEmail: string;
+    companyPhoneNumber: string;
+    companyPhoneNumberDigits: string;
+    closeButton: string;
+    techSupportButton: string;
+    privacyPolicyButton: string;
+    accountInfo: string;
+    userName: string;
+    accountID: string;
+    logoutButton: string;
+    role: string;
 }
 
 export const Settings: React.FC<SettingsProps> = ({
@@ -36,6 +48,18 @@ export const Settings: React.FC<SettingsProps> = ({
     employee = { username: '', role: '', _id: '' },
     logout,
     title,
+    companyPrivacyURL,
+    companySupportEmail,
+    companyPhoneNumber,
+    companyPhoneNumberDigits,
+    closeButton,
+    techSupportButton,
+    privacyPolicyButton,
+    accountInfo,
+    userName,
+    accountID,
+    logoutButton,
+    role,
     ...props
 }): React.ReactElement => {
     return (
@@ -46,13 +70,20 @@ export const Settings: React.FC<SettingsProps> = ({
                 </Heading>
                 {!loading && (
                     <Cards>
-                        <AccountCard employee={employee} logout={logout} />
+                        <AccountCard employee={employee} logout={logout} accountInfo={accountInfo} userName={userName} accountID={accountID} logoutButton={logoutButton} role={role} />
                         {store}
                         {terminal}
                         <InfoCard
                             faqLink={faqLink}
                             faqName={faqName}
                             version={version}
+                            companyPrivacyURL={companyPrivacyURL}
+                            companySupportEmail={companySupportEmail}
+                            companyPhoneNumber={companyPhoneNumber}
+                            companyPhoneNumberDigits={companyPhoneNumberDigits}
+                            closeButton={closeButton}
+                            techSupportButton={techSupportButton}
+                            privacyPolicyButton={privacyPolicyButton}
                         />
                     </Cards>
                 )}
