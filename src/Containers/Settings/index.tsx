@@ -35,6 +35,8 @@ interface SettingsProps
     accountID: string;
     logoutButton: string;
     role: string;
+    nonEmergencyLabel: string;
+    assistanceLabel: string;
 }
 
 export const Settings: React.FC<SettingsProps> = ({
@@ -58,6 +60,8 @@ export const Settings: React.FC<SettingsProps> = ({
     accountID,
     logoutButton,
     role,
+    nonEmergencyLabel,
+    assistanceLabel,
     ...props
 }): React.ReactElement => {
     return (
@@ -81,6 +85,8 @@ export const Settings: React.FC<SettingsProps> = ({
                             closeButton={closeButton}
                             techSupportButton={techSupportButton}
                             privacyPolicyButton={privacyPolicyButton}
+                            nonEmergencyLabel= {nonEmergencyLabel}
+                            assistanceLabel={assistanceLabel}
                         />
                     </Cards>
                 )}
