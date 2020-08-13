@@ -26,7 +26,20 @@ export interface InfoProps
     companyPhoneNumberDigits: string;
     techSupportButton: string;
     privacyPolicyButton: string;
+    nonEmergencyLabel: string;
+    assistanceLabel: string;
 }
+
+
+function formatPhoneNumber(companyPhoneNumberDigits) {
+    var cleaned = ('' + companyPhoneNumberDigits).replace(/\D/g, '')
+    var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
+    if (match) {
+      var intlCode = (match[1] ? '+1 ' : '')
+      return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
+    }
+    return null
+  }
 
 export const InfoCard: React.FC<InfoProps> = ({
     faqName,
@@ -39,6 +52,8 @@ export const InfoCard: React.FC<InfoProps> = ({
     closeButton = "Close",
     techSupportButton = "Technical Support",
     privacyPolicyButton = "Privacy Policy",
+    nonEmergencyLabel = `For non-emergency inquiries, shoot us an email at `,
+    assistanceLabel = `If you require immediate assistance, please call/text: `,
     
 }): React.ReactElement => {
     const state = useState(false);
@@ -81,21 +96,23 @@ export const InfoCard: React.FC<InfoProps> = ({
                     {techSupportButton}
                 </Heading>
                 <Paragraph bold>
-                    {'For non-emergency inquiries, shoot us an email at '}
+                    {nonEmergencyLabel}
                     <a href={`mailto:${companySupportEmail}`}>
                         {companySupportEmail}
                     </a>
                     .
                 </Paragraph>
                 <Paragraph margin="15px 0" bold>
-                    {'If you require immediate assistance, please call/text: '}
-                    <a href={`tel:${companyPhoneNumberDigits}`}>{companyPhoneNumber}</a>
+                    {assistanceLabel}
+                    <a href={`tel:${companyPhoneNumberDigits}`}>formatPhoneNumber({companyPhoneNumberDigits})</a>
                 </Paragraph>
                 <Button onClick={(): void => state[1](false)}>{closeButton}</Button>
             </Modal>
         </SettingsCard>
     );
 };
+
+
 const Buttons = styled.div`
     ${Mixins.flex()}
     margin: 0 -5px 10px;
