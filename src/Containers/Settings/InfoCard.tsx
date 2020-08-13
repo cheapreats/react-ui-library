@@ -21,7 +21,6 @@ export interface InfoProps
     version: string | number;
     companyPrivacyURL: string;
     companySupportEmail: string;
-    companyPhoneNumber: string;
     closeButton: string;
     companyPhoneNumberDigits: string;
     techSupportButton: string;
@@ -47,7 +46,6 @@ export const InfoCard: React.FC<InfoProps> = ({
     version,
     companyPrivacyURL = 'https://legal.cheapreats.com/privacy-policy.html',
     companySupportEmail = 'support@cheapreats.com',
-    companyPhoneNumber = `+1 (306) 341-1035`,
     companyPhoneNumberDigits = '13063411035',
     closeButton = "Close",
     techSupportButton = "Technical Support",
@@ -104,7 +102,7 @@ export const InfoCard: React.FC<InfoProps> = ({
                 </Paragraph>
                 <Paragraph margin="15px 0" bold>
                     {assistanceLabel}
-                    <a href={`tel:${companyPhoneNumberDigits}`}>formatPhoneNumber({companyPhoneNumberDigits})</a>
+                    <a href={`tel:${companyPhoneNumberDigits}`}>{formatPhoneNumber(companyPhoneNumberDigits)}</a>
                 </Paragraph>
                 <Button onClick={(): void => state[1](false)}>{closeButton}</Button>
             </Modal>

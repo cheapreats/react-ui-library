@@ -26,7 +26,6 @@ interface SettingsProps
     title?: string;
     companyPrivacyURL: string;
     companySupportEmail: string;
-    companyPhoneNumber: string;
     companyPhoneNumberDigits: string;
     closeButton: string;
     techSupportButton: string;
@@ -50,7 +49,6 @@ export const Settings: React.FC<SettingsProps> = ({
     title,
     companyPrivacyURL,
     companySupportEmail,
-    companyPhoneNumber,
     companyPhoneNumberDigits,
     closeButton,
     techSupportButton,
@@ -79,7 +77,6 @@ export const Settings: React.FC<SettingsProps> = ({
                             version={version}
                             companyPrivacyURL={companyPrivacyURL}
                             companySupportEmail={companySupportEmail}
-                            companyPhoneNumber={companyPhoneNumber}
                             companyPhoneNumberDigits={companyPhoneNumberDigits}
                             closeButton={closeButton}
                             techSupportButton={techSupportButton}
