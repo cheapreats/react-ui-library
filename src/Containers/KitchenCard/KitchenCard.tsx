@@ -8,6 +8,8 @@ import { flex, media } from '../../Utils/Mixins';
 import {KitchenCardItems} from "./KitchenCardItems";
 
 const CUSTOMER_FIRST_NAME = /^([\w-]+)/g;
+const UNDERSCORE_FORMAT = '_';
+const LABEL_FORMAT = -4;
 
 interface Item{
     name:string;
@@ -48,7 +50,7 @@ export const KitchenCard: React.FC<KitchenProps> = ({
         <Card key={index} cardWidth={cardWidth} cardMargin={cardMargin} cardHeight={cardHeight}>
             <HeaderRow
                 type="h4"
-                label={`#${_id.slice(-4)}`}
+                label={`#${_id.slice(LABEL_FORMAT)}`}
                 display="space-between"
                 padding="0 5px"
             >
@@ -56,7 +58,7 @@ export const KitchenCard: React.FC<KitchenProps> = ({
             </HeaderRow>
             <Grid>
                 <Paragraph bold align="left">
-                    {order_type.replace('_', ' ').toLowerCase()}
+                    {order_type.replace(UNDERSCORE_FORMAT, ' ').toLowerCase()}
                 </Paragraph>
                 <Paragraph bold align="center">
                     {customer.name.match(CUSTOMER_FIRST_NAME)}
@@ -65,7 +67,7 @@ export const KitchenCard: React.FC<KitchenProps> = ({
                     {TimeComponent}
                 </Paragraph>
             </Grid>
-            <KitchenCardItems items={items} modifiers={modifiers} isFullName={isFullName}/>
+            <KitchenCardItems items={items} modifiers={modifiers} isFullName={isFullName} />
         </Card>
     );
 };

@@ -20,19 +20,18 @@ export interface KitchenCardItemsProps
     modifiers: [][];
 }
 
-export const KitchenCardItems: React.FC<KitchenCardItemsProps> = ({ items, isFullName, modifiers }) => {
+export const KitchenCardItems: React.FC<KitchenCardItemsProps> = ({ items, isFullName, modifiers }): React.ReactElement => {
     return (
         <ItemsRow>
-            {items.map((item, index) => (
-                <Item key={index}>
+            {items.map((item, index): React.ReactElement => (
+                <Item>
                     <Heading type="h5" bold size="h5" margin="0 0 0 5px" isFullName={isFullName}>
                         {item.name}
                     </Heading>
-                    {modifiers[index].map((fil, i) => (
-                                <Paragraph key={i} margin="0 0 0 20px">
-                                    {fil}
-                                </Paragraph>
-                            
+                    {modifiers[index].map((fil): React.ReactElement => (
+                        <Paragraph margin="0 0 0 20px">
+                            {fil}
+                        </Paragraph>
                     ))}
                     <Bar />
                 </Item>
@@ -68,7 +67,10 @@ const Item = styled.div`
 `;
 const Heading = styled(H)<HeadingProps>`
     display:block;
-    ${props=> !props.isFullName && 'overflow:hidden; white-space:nowrap; text-overflow:ellipsis'};
+    ${(props): string | false => !props.isFullName && (
+        'overflow:hidden; ' +
+        'white-space:nowrap; ' +
+        'text-overflow:ellipsis')};
     
 `
 const Bar = styled.div<MainInterface & ResponsiveInterface>`

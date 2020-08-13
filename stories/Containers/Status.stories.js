@@ -5,11 +5,11 @@ import { Status } from '../../src';
 
 
 storiesOf('Status', module)
-.addDecorator(withKnobs)
+    .addDecorator(withKnobs)
     .add('with default', () => (
         <Status  
-        status={text("prepared preparing placed cancelled complete", "complete")}
-        large={boolean("Large", false)}
+            status={text("prepared preparing placed cancelled complete", "complete")}
+            large={boolean("Large", false)}
         >
             {text("Child Text", "Test Status Text")}
         </Status>
