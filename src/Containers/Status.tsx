@@ -2,32 +2,28 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 import { transition, flex, position } from '../Utils/Mixins';
 import { SmallText, SmallTextProps } from '../Text';
-const STATUS_COLORS = {
-    prepared: '#28af00',
-    preparing: '#f98300',
-    placed: '#ee2434',
-    cancelled: '#ee2434',
-    complete: '#28af00',
-};
+import {
+    MainInterface,
+} from '../Utils/BaseStyles';
 
 interface StatusProps extends TextProps, DotProps {
+    large?: boolean;
+}
+
+interface TextProps extends SmallTextProps, MainInterface {
+    large?: boolean;
+    status:string;
+}
+
+interface DotProps extends MainInterface {
+    large?: boolean;
     status: string;
-    large?: boolean;
-}
-
-interface TextProps extends SmallTextProps {
-    large?: boolean;
-}
-
-interface DotProps {
-    large?: boolean;
-    color?: string;
 }
 
 export const Status: React.FC<StatusProps> = memo(
     ({ children, status, large, ...props }): React.ReactElement => (
-        <Text bold large={large} color={STATUS_COLORS[status]} {...props}>
-            <Dot large={large} color={STATUS_COLORS[status]} />
+        <Text bold large={large} status={status} {...props}>
+            <Dot large={large} status={status} />
             {children}
         </Text>
     ),
@@ -37,19 +33,19 @@ const Text = styled(SmallText)<TextProps>`
     ${flex('flex-start', 'center')}
     ${transition(['color'])}
     display: inline-flex;
-    ${({ color }): string => `
-        color: ${color};
+    ${({ status, theme }): string => `
+        color: ${theme.colors.status[status]};
     `}
     ${({ large }): string => (large ? `font-size: 1.4rem;` : '')}
 `;
 
 const Dot = styled.span<DotProps>`
     ${transition(['background-color'])}
-    ${({ color }): string => `
-        background-color: ${color};
+    ${({ status, theme }): string => `
+        background-color: ${theme.colors.status[status]};
         &:before {
             ${transition(['background-color'])}
-            background-color: ${color};
+            background-color: ${theme.colors.status[status]};
         }
     `}
 
@@ -59,12 +55,12 @@ const Dot = styled.span<DotProps>`
     &,
     &:before {
         ${({ large }): string =>
-            large
-                ? `
+        large
+            ? `
             width: 11px;
             height: 11px;
         `
-                : `
+            : `
             width: 9px;
             height: 9px;
         `}
@@ -74,8 +70,8 @@ const Dot = styled.span<DotProps>`
     &:before {
         ${transition(['transform', 'opacity'])}
         ${position(
-            'absolute',
-        )}
+        'absolute',
+    )}
         animation: pulse 1s ease-in-out 0s infinite;
         content: '';
 
