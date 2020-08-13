@@ -47,7 +47,7 @@ export const InfoCard: React.FC<InfoProps> = ({
     
 }): React.ReactElement => {
     const state = useState(false);
-    function formatPhoneNumber(companyPhoneNumberDigits) {
+    function formatPhoneNumber(companyPhoneNumberDigits: string) {
         var cleaned = ('' + companyPhoneNumberDigits).replace(/\D/g, '')
         var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
         if (match) {
