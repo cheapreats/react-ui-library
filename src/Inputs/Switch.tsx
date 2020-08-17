@@ -12,7 +12,7 @@ export interface SwitchProps extends InputProps {
     description?:string;
 }
 
-interface InputProps extends Omit<React.HTMLAttributes<HTMLInputElement>, 'onChange'> {
+interface InputProps {
     isChecked?: boolean;
     onChange?: Function;
     disabled?: boolean;
@@ -39,7 +39,7 @@ export const Switch: React.FC<SwitchProps> = ({
             <Container>
                 <Input
                     type="checkbox"
-                    onChange={(): void => onChange()}
+                    onChange={(e): void => onChange(e)}
                     checked={isChecked}
                     disabled={disabled}
                 />
