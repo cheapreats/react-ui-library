@@ -1,46 +1,55 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Heading as H, Paragraph} from '../../Text';
+import { Heading as H, Paragraph } from '../../Text';
 import { flex, media, scroll } from '../../Utils/Mixins';
-import {
-    ResponsiveInterface,
-    MainInterface,
-} from '../../Utils/BaseStyles';
+import { ResponsiveInterface, MainInterface } from '../../Utils/BaseStyles';
 
-interface Item{
-    name:string,
+interface Item {
+    name: string;
 }
 
-export interface KitchenCardItemsProps 
+export interface KitchenCardItemsProps
     extends MainInterface,
         ResponsiveInterface,
-        React.HTMLAttributes<HTMLDivElement>{
-    items:[Item];
-    isFullName:boolean;
+        React.HTMLAttributes<HTMLDivElement> {
+    items: [Item];
+    isFullName: boolean;
     modifiers: [][];
 }
 
-export const KitchenCardItems: React.FC<KitchenCardItemsProps> = ({ items, isFullName, modifiers }): React.ReactElement => {
+export const KitchenCardItems: React.FC<KitchenCardItemsProps> = ({
+    items,
+    isFullName,
+    modifiers,
+}): React.ReactElement => {
     return (
         <ItemsRow>
-            {items.map((item, index): React.ReactElement => (
-                <Item>
-                    <Heading type="h5" bold size="h5" margin="0 0 0 5px" isFullName={isFullName}>
-                        {item.name}
-                    </Heading>
-                    {modifiers[index].map((fil): React.ReactElement => (
-                        <Paragraph margin="0 0 0 20px">
-                            {fil}
-                        </Paragraph>
-                    ))}
-                    <Bar />
-                </Item>
-            ))}
+            {items.map(
+                (item, index): React.ReactElement => (
+                    <Item>
+                        <Heading
+                            type="h5"
+                            bold
+                            size="h5"
+                            margin="0 0 0 5px"
+                            isFullName={isFullName}
+                        >
+                            {item.name}
+                        </Heading>
+                        {modifiers[index].map(
+                            (fil): React.ReactElement => (
+                                <Paragraph margin="0 0 0 20px">{fil}</Paragraph>
+                            ),
+                        )}
+                        <Bar />
+                    </Item>
+                ),
+            )}
         </ItemsRow>
     );
 };
-interface HeadingProps{
-    isFullName: boolean
+interface HeadingProps {
+    isFullName: boolean;
 }
 const ItemsRow = styled.div<MainInterface & ResponsiveInterface>`
     ${({ theme }): string => `
@@ -66,15 +75,15 @@ const Item = styled.div`
     )}
 `;
 const Heading = styled(H)<HeadingProps>`
-    display:block;
-    ${(props): string | false => !props.isFullName && (
+    display: block;
+    ${(props): string | false =>
+        !props.isFullName &&
         'overflow:hidden; ' +
-        'white-space:nowrap; ' +
-        'text-overflow:ellipsis')};
-    
-`
+            'white-space:nowrap; ' +
+            'text-overflow:ellipsis'};
+`;
 const Bar = styled.div<MainInterface & ResponsiveInterface>`
-    ${({ theme }) : string => `
+    ${({ theme }): string => `
         background-color: ${theme.colors.text}20;
     `}
     margin: 10px auto 0;

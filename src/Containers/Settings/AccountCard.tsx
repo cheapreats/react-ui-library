@@ -28,11 +28,11 @@ export interface AccountProps
 export const AccountCard: React.FC<AccountProps> = ({
     employee,
     logout,
-    accountInfo = "Account Information",
-    userName = "Username",
-    accountID = "Account Id",
-    logoutButton = "Logout",
-    role = "Role",
+    accountInfo = 'Account Information',
+    userName = 'Username',
+    accountID = 'Account Id',
+    logoutButton = 'Logout',
+    role = 'Role',
 }): React.ReactElement => {
     return (
         <SettingsCard heading={accountInfo} icon={UserCircle}>

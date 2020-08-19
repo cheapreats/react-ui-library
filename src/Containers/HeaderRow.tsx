@@ -17,7 +17,7 @@ export interface HeaderRowProps {
     display?: string;
     type?: string;
     padding?: string;
-    width?:number;
+    width?: number;
 }
 
 export const HeaderRow: React.FC<HeaderRowProps> = ({

@@ -11,13 +11,13 @@ export interface ImageCarouselProps
         Omit<React.HTMLAttributes<HTMLUListElement>, 'onClick'>,
         ImplicitPropsInterface {
     imageData: string[];
-    pointer: boolean;
-    onClick: Function;
-    hoverIcon: React.ForwardRefExoticComponent<
+    pointer?: boolean;
+    onClick?: Function;
+    hoverIcon?: React.ForwardRefExoticComponent<
         React.RefAttributes<SVGSVGElement>
     >;
-    hoverOverlay: boolean;
-    hoverText: string;
+    hoverOverlay?: boolean;
+    hoverText?: string;
     altText: string;
     width?: number;
     height?: number;
@@ -25,7 +25,7 @@ export interface ImageCarouselProps
 
 export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     imageData,
-    onClick,
+    onClick = () => {},
     pointer = true,
     hoverIcon = Times,
     hoverOverlay = true,

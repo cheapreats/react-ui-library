@@ -2,9 +2,7 @@ import React, { memo } from 'react';
 import styled from 'styled-components';
 import { transition, flex, position } from '../Utils/Mixins';
 import { SmallText, SmallTextProps } from '../Text';
-import {
-    MainInterface,
-} from '../Utils/BaseStyles';
+import { MainInterface } from '../Utils/BaseStyles';
 
 interface StatusProps extends TextProps, DotProps {
     large?: boolean;
@@ -12,7 +10,7 @@ interface StatusProps extends TextProps, DotProps {
 
 interface TextProps extends SmallTextProps, MainInterface {
     large?: boolean;
-    status:string;
+    status: string;
 }
 
 interface DotProps extends MainInterface {
@@ -55,12 +53,12 @@ const Dot = styled.span<DotProps>`
     &,
     &:before {
         ${({ large }): string =>
-        large
-            ? `
+            large
+                ? `
             width: 11px;
             height: 11px;
         `
-            : `
+                : `
             width: 9px;
             height: 9px;
         `}
@@ -70,8 +68,8 @@ const Dot = styled.span<DotProps>`
     &:before {
         ${transition(['transform', 'opacity'])}
         ${position(
-        'absolute',
-    )}
+            'absolute',
+        )}
         animation: pulse 1s ease-in-out 0s infinite;
         content: '';
 

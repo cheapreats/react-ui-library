@@ -9,13 +9,13 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
             success: string;
             error: string;
         };
-        status:{
+        status: {
             prepared: string;
             preparing: string;
             placed: string;
             cancelled: string;
             complete: string;
-        }
+        };
         background: string;
         border: string;
     };
@@ -31,7 +31,7 @@ export const MainTheme: MainThemeInterface = {
             success: '#f5fff5',
             error: '#fff5f5',
         },
-        status:{
+        status: {
             prepared: '#28af00',
             preparing: '#f98300',
             placed: '#ee2434',

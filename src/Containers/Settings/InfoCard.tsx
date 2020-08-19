@@ -29,9 +29,6 @@ export interface InfoProps
     assistanceLabel: string;
 }
 
-
-
-
 export const InfoCard: React.FC<InfoProps> = ({
     faqName,
     faqLink,
@@ -39,23 +36,30 @@ export const InfoCard: React.FC<InfoProps> = ({
     companyPrivacyURL = 'https://legal.cheapreats.com/privacy-policy.html',
     companySupportEmail = 'support@cheapreats.com',
     companyPhoneNumberDigits = '13063411035',
-    closeButton = "Close",
-    techSupportButton = "Technical Support",
-    privacyPolicyButton = "Privacy Policy",
+    closeButton = 'Close',
+    techSupportButton = 'Technical Support',
+    privacyPolicyButton = 'Privacy Policy',
     nonEmergencyLabel = `For non-emergency inquiries, shoot us an email at `,
     assistanceLabel = `If you require immediate assistance, please call/text: `,
-    
 }): React.ReactElement => {
     const state = useState(false);
-    function formatPhoneNumber(companyPhoneNumberDigits: string) {
-        var cleaned = ('' + companyPhoneNumberDigits).replace(/\D/g, '')
-        var match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/)
+    function formatPhoneNumber(companyPhoneNumberDigitString: string) {
+        const cleaned = `${companyPhoneNumberDigitString}`.replace(/\D/g, '');
+        const match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
         if (match) {
-          var intlCode = (match[1] ? '+1 ' : '')
-          return [intlCode, '(', match[2], ') ', match[3], '-', match[4]].join('')
+            const intlCode = match[1] ? '+1 ' : '';
+            return [
+                intlCode,
+                '(',
+                match[2],
+                ') ',
+                match[3],
+                '-',
+                match[4],
+            ].join('');
         }
-        return null
-      }
+        return null;
+    }
     return (
         <SettingsCard heading="Additional Information" icon={InfoCircle}>
             <Buttons>
@@ -63,10 +67,7 @@ export const InfoCard: React.FC<InfoProps> = ({
                     margin="5px"
                     icon={Book}
                     onClick={(): null | Window =>
-                        window.open(
-                            companyPrivacyURL,
-                            '_blank',
-                        )
+                        window.open(companyPrivacyURL, '_blank')
                     }
                 >
                     {privacyPolicyButton}
@@ -103,14 +104,17 @@ export const InfoCard: React.FC<InfoProps> = ({
                 </Paragraph>
                 <Paragraph margin="15px 0" bold>
                     {assistanceLabel}
-                    <a href={`tel:${companyPhoneNumberDigits}`}>{formatPhoneNumber(companyPhoneNumberDigits)}</a>
+                    <a href={`tel:${companyPhoneNumberDigits}`}>
+                        {formatPhoneNumber(companyPhoneNumberDigits)}
+                    </a>
                 </Paragraph>
-                <Button onClick={(): void => state[1](false)}>{closeButton}</Button>
+                <Button onClick={(): void => state[1](false)}>
+                    {closeButton}
+                </Button>
             </Modal>
         </SettingsCard>
     );
 };
-
 
 const Buttons = styled.div`
     ${Mixins.flex()}
