@@ -5,14 +5,14 @@ import { HeaderRow } from '../HeaderRow';
 import { Status } from '../Status';
 import { Paragraph as P } from '../../Text';
 import { flex, media } from '../../Utils/Mixins';
-import {KitchenCardItems} from "./KitchenCardItems";
+import { KitchenCardItems } from './KitchenCardItems';
 
 const CUSTOMER_FIRST_NAME = /^([\w-]+)/g;
 const UNDERSCORE_FORMAT = '_';
 const LABEL_FORMAT = -4;
 
-interface Item{
-    name:string;
+interface Item {
+    name: string;
 }
 
 export interface KitchenProps {
@@ -21,7 +21,7 @@ export interface KitchenProps {
     };
     _id: string;
     items: [Item];
-    order_type: string;
+    orderType: string;
     status: string;
     index: number;
     modifiers: [];
@@ -36,7 +36,7 @@ export const KitchenCard: React.FC<KitchenProps> = ({
     customer,
     _id,
     items,
-    order_type,
+    orderType,
     modifiers,
     status,
     index,
@@ -47,7 +47,12 @@ export const KitchenCard: React.FC<KitchenProps> = ({
     TimeComponent,
 }): React.ReactElement => {
     return (
-        <Card key={index} cardWidth={cardWidth} cardMargin={cardMargin} cardHeight={cardHeight}>
+        <Card
+            key={index}
+            cardWidth={cardWidth}
+            cardMargin={cardMargin}
+            cardHeight={cardHeight}
+        >
             <HeaderRow
                 type="h4"
                 label={`#${_id.slice(LABEL_FORMAT)}`}
@@ -58,7 +63,7 @@ export const KitchenCard: React.FC<KitchenProps> = ({
             </HeaderRow>
             <Grid>
                 <Paragraph bold align="left">
-                    {order_type.replace(UNDERSCORE_FORMAT, ' ').toLowerCase()}
+                    {orderType.replace(UNDERSCORE_FORMAT, ' ').toLowerCase()}
                 </Paragraph>
                 <Paragraph bold align="center">
                     {customer.name.match(CUSTOMER_FIRST_NAME)}
@@ -67,7 +72,11 @@ export const KitchenCard: React.FC<KitchenProps> = ({
                     {TimeComponent}
                 </Paragraph>
             </Grid>
-            <KitchenCardItems items={items} modifiers={modifiers} isFullName={isFullName} />
+            <KitchenCardItems
+                items={items}
+                modifiers={modifiers}
+                isFullName={isFullName}
+            />
         </Card>
     );
 };
@@ -86,7 +95,7 @@ const Card = styled(C)<CardProps>`
     ${flex('column')};
     box-sizing: border-box;
     width: ${(props): number => props.cardWidth - props.cardMargin}px;
-    height:${(props): number | undefined => props.cardHeight }px;
+    height: ${(props): number | undefined => props.cardHeight}px;
     padding: 10px;
     margin: 10px 0;
     flex: none;

@@ -72,7 +72,15 @@ export const Settings: React.FC<SettingsProps> = ({
                 </Heading>
                 {!loading && (
                     <Cards>
-                        <AccountCard employee={employee} logout={logout} accountInfo={accountInfo} userName={userName} accountID={accountID} logoutButton={logoutButton} role={role} />
+                        <AccountCard
+                            employee={employee}
+                            logout={logout}
+                            accountInfo={accountInfo}
+                            userName={userName}
+                            accountID={accountID}
+                            logoutButton={logoutButton}
+                            role={role}
+                        />
                         {store}
                         {terminal}
                         <InfoCard
@@ -85,7 +93,7 @@ export const Settings: React.FC<SettingsProps> = ({
                             closeButton={closeButton}
                             techSupportButton={techSupportButton}
                             privacyPolicyButton={privacyPolicyButton}
-                            nonEmergencyLabel= {nonEmergencyLabel}
+                            nonEmergencyLabel={nonEmergencyLabel}
                             assistanceLabel={assistanceLabel}
                         />
                     </Cards>
