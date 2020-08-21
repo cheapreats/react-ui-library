@@ -20,6 +20,7 @@ export * from './SlidingOutPanels';
 export * from './FeaturesCard';
 export * from './Popup';
 export * from './SelectList';
+export * from './Accordion';
 export * from './ColorCard';
 export * from './RankingTable';
 export * from './KitchenCard';
