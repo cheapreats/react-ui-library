@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { HorizontalStoreCard } from '../../src';
-import { Dog } from 'styled-icons/fa-solid/Dog';
+import { Dog } from '@styled-icons/fa-solid/Dog';
 
 storiesOf('HorizontalStoreCard', module).add('with default', () => (
     <HorizontalStoreCard

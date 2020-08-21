@@ -1,6 +1,6 @@
 import React, { useState, useRef, useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import { AngleUp } from 'styled-icons/fa-solid/AngleUp';
+import { AngleUp } from '@styled-icons/fa-solid/AngleUp';
 import { Mixins } from '../../Utils';
 import { transition } from '../../Utils/Mixins';
 import { Heading } from '../../Text';

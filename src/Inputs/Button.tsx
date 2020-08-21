@@ -1,6 +1,6 @@
 import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
 import styled from 'styled-components';
-import { CircleNotch } from 'styled-icons/fa-solid/CircleNotch';
+import { CircleNotch } from '@styled-icons/fa-solid/CircleNotch';
 import {
     Main,
     MainInterface,

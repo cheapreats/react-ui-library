@@ -1,5 +1,5 @@
 import React from 'react';
-import { Times } from 'styled-icons/fa-solid/Times';
+import { Times } from '@styled-icons/fa-solid/Times';
 import styled from 'styled-components';
 import { flex, position, transition, scroll } from '../Utils/Mixins';
 import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
@@ -11,7 +11,13 @@ export interface ImageCarouselProps
         Omit<React.HTMLAttributes<HTMLUListElement>, 'onClick'>,
         ImplicitPropsInterface {
     imageData: string[];
-    onClick: Function;
+    pointer?: boolean;
+    onClick?: Function;
+    hoverIcon?: React.ForwardRefExoticComponent<
+        React.RefAttributes<SVGSVGElement>
+    >;
+    hoverOverlay?: boolean;
+    hoverText?: string;
     altText: string;
     width?: number;
     height?: number;
@@ -19,30 +25,46 @@ export interface ImageCarouselProps
 
 export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     imageData,
-    onClick,
+    onClick = () => {},
+    pointer = true,
+    hoverIcon = Times,
+    hoverOverlay = true,
+    hoverText = 'Delete',
     altText,
     width = 150,
     height = 75,
     ...props
-}) => {
+}): React.ReactElement => {
     return (
         <Items {...props}>
-            {imageData.map(image => (
-                <Item key={image} onClick={() => onClick(image)}>
-                    <Overlay>
-                        <Icon /> Delete
-                    </Overlay>
-                    <img
-                        width={width}
-                        height={height}
-                        alt={altText}
-                        src={image}
-                    />
-                </Item>
-            ))}
+            {imageData.map(
+                (image: string): React.ReactElement => (
+                    <Item
+                        key={image}
+                        onClick={(): void => onClick(image)}
+                        cursor={pointer}
+                    >
+                        {hoverOverlay && (
+                            <Overlay>
+                                <Icon as={hoverIcon} /> {hoverText}
+                            </Overlay>
+                        )}
+                        <img
+                            width={width}
+                            height={height}
+                            alt={altText}
+                            src={image}
+                        />
+                    </Item>
+                ),
+            )}
         </Items>
     );
 };
+
+interface StyledItemProps {
+    cursor: boolean;
+}
 
 const Items = styled.ul`
     ${flex()}
@@ -53,7 +75,7 @@ const Items = styled.ul`
     margin: 15px 0 0;
 `;
 
-const Item = styled.li`
+const Item = styled.li<StyledItemProps>`
     ${transition(['background-color'])}
     ${flex('row', 'center')}
     position: relative;
@@ -61,7 +83,7 @@ const Item = styled.li`
     margin: 0 7px 7px 0;
     box-shadow: 0 0 3px rgba(0, 0, 0, 0.3);
     flex-shrink: 0;
-    cursor: pointer;
+    cursor: ${({ cursor }): {} => (cursor ? 'pointer' : '')};
     overflow: hidden;
 `;
 
@@ -82,7 +104,7 @@ const Overlay = styled.div`
     }
 `;
 
-const Icon = styled(Times)`
+const Icon = styled.svg`
     width: 16px;
     height: 16px;
     margin-right: 3px;

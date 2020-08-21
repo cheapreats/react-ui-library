@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Compass } from 'styled-icons/fa-solid/Compass';
+import { Compass } from '@styled-icons/fa-solid/Compass';
 import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import { ImplicitPropsInterface } from '../Utils/Hooks';
 import { Mixins } from '../Utils';
@@ -19,7 +19,7 @@ export const NavigationFootnote: React.FC<NavigationFootnoteProps> = ({
     url,
     text,
     ...props
-}) => (
+}): React.ReactElement => (
     <NavigationFooter {...props}>
         <Button href={url} rel="noopener noreferrer" target="_blank">
             <Icon />
@@ -33,7 +33,7 @@ export const NavigationFootnote: React.FC<NavigationFootnoteProps> = ({
 const Button = styled.a`
     ${Mixins.transition(['background-color'])}
     ${Mixins.flex('center')}
-    ${({ theme }) => `
+    ${({ theme }): string => `
         background-color: ${Mixins.darken(theme.colors.primary, 0.1)};
         ${Mixins.clickable(Mixins.darken(theme.colors.primary, 0.1), 0.1)}
     `}

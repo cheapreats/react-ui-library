@@ -19,6 +19,7 @@ export interface InputFragmentProps
     onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
     onClick?: React.MouseEventHandler<HTMLInputElement>;
     className?: string;
+    type?: string;
 }
 
 export const InputFragment: React.FC<InputFragmentProps> = ({

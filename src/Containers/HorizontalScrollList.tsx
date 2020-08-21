@@ -60,27 +60,31 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
                         }}
                         value={displaySelected ? selectedLabel : menuName}
                     >
-                        {labelArray.map(label => {
-                            return <option value={label}>{label}</option>;
-                        })}
+                        {labelArray.map(
+                            (label): React.ReactElement => {
+                                return <option value={label}>{label}</option>;
+                            },
+                        )}
                     </Select>
                 </DropDownDiv>
             )}
             <HorizontalList>
-                {labelArray.map(label => {
-                    return (
-                        <HorizontalListItem
-                            key={label}
-                            onClick={() => setSelectedLabel(label)}
-                            label={label}
-                            hoveredStyle={hoveredStyle}
-                            selectedStyle={selectedStyle}
-                            isSelected={label === selectedLabel}
-                        >
-                            {label}
-                        </HorizontalListItem>
-                    );
-                })}
+                {labelArray.map(
+                    (label): React.ReactElement => {
+                        return (
+                            <HorizontalListItem
+                                key={label}
+                                onClick={(): void => setSelectedLabel(label)}
+                                label={label}
+                                hoveredStyle={hoveredStyle}
+                                selectedStyle={selectedStyle}
+                                isSelected={label === selectedLabel}
+                            >
+                                {label}
+                            </HorizontalListItem>
+                        );
+                    },
+                )}
             </HorizontalList>
         </HorizontalListDiv>
     );

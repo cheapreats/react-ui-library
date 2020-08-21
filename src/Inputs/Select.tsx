@@ -7,7 +7,7 @@ import React, {
     isValidElement,
 } from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
-import { AngleDown } from 'styled-icons/fa-solid/AngleDown';
+import { AngleDown } from '@styled-icons/fa-solid/AngleDown';
 import {
     flex,
     scroll,
@@ -16,9 +16,9 @@ import {
     clickable,
     styledCondition,
     darken,
-} from '@Utils/Mixins';
-import { useTransition } from '@Utils/Hooks';
-import { LabelLayout, LabelLayoutProps } from '@Layouts';
+} from '../Utils/Mixins';
+import { useTransition } from '../Utils/Hooks';
+import { LabelLayout, LabelLayoutProps } from '../Fragments';
 
 const SPEED = 'normal';
 

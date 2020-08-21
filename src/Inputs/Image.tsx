@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, useRef } from 'react';
-import { FileUpload } from 'styled-icons/fa-solid/FileUpload';
+import { FileUpload } from '@styled-icons/fa-solid/FileUpload';
 import 'react-image-crop/dist/ReactCrop.css';
 import ReactCrop from 'react-image-crop';
 import styled from 'styled-components';

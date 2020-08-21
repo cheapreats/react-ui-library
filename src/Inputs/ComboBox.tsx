@@ -17,9 +17,9 @@ import {
     transition,
     clickable,
     darken,
-} from '@Utils/Mixins';
-import { useTransition } from '@Utils/Hooks';
-import { LabelLayout, LabelLayoutProps, InputFragment } from '@Layouts';
+} from '../Utils/Mixins';
+import { useTransition } from '../Utils/Hooks';
+import { LabelLayout, LabelLayoutProps, InputFragment } from '../Fragments';
 
 const MAX_VIEWING_LIMIT = 4;
 const REVERSE = '-1';
@@ -139,7 +139,7 @@ const _Select: React.FC<ComboBoxSelectorProps> = ({
         };
     }, [expanded]);
 
-    const handleChange = (event: SyntheticEvent<HTMLInputElement>) => {
+    const handleChange = (event: SyntheticEvent<HTMLInputElement>): void => {
         setinputValue(event.currentTarget.value);
         setExpanded(true);
     };
@@ -151,9 +151,9 @@ const _Select: React.FC<ComboBoxSelectorProps> = ({
                     {...props}
                     value={inputValue}
                     placeholder={placeholder}
-                    onChange={e => handleChange(e)}
-                    onKeyDown={e => handleChange(e)}
-                    onClick={e => handleChange(e)}
+                    onChange={(e): void => handleChange(e)}
+                    onKeyDown={(e): void => handleChange(e)}
+                    onClick={(e): void => handleChange(e)}
                 />
 
                 {mount && (

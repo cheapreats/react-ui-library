@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components';
-import { Check } from 'styled-icons/fa-solid/Check';
+import { Check } from '@styled-icons/fa-solid/Check';
 import {
     Main,
     Responsive,
@@ -37,7 +37,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     disabled,
     value,
     name,
-    onChange = () => {},
+    onChange = (): void => {},
     ...props
 }): React.ReactElement => {
     const implicitProps = __useImplicitProps(props, [
@@ -55,7 +55,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
                 <Input
                     type="checkbox"
                     name={name}
-                    onChange={(event: SyntheticEvent<HTMLInputElement>) =>
+                    onChange={(event: SyntheticEvent<HTMLInputElement>): void =>
                         onChange(event)
                     }
                     {...props}

@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { FeaturesCard, SmallText, Paragraph } from '../../src';
-import { ShoppingBasket } from 'styled-icons/fa-solid';
+import { ShoppingBasket } from '@styled-icons/fa-solid/ShoppingBasket';
 
 const icon = <ShoppingBasket color="dodgerblue" />;
 const footer = (

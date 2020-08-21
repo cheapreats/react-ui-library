@@ -69,7 +69,7 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
         } else {
             setDisplayValue(getMaskFunction_(mask)(realValue));
         }
-    }, [realValue]);
+    }, [realValue, mask]);
 
     return (
         <LabelLayout {...props}>
