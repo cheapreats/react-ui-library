@@ -3,7 +3,6 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, text, boolean, array } from '@storybook/addon-knobs';
 import { KitchenCard } from '../../src';
 import {Button} from '../../src/Inputs/Button'
-import styled from 'styled-components';
 
 const sampleOrder = {
     _id: '5f15ff0d1689a01c4b9cc72f',
