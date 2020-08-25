@@ -11,6 +11,7 @@ storiesOf('Input', module)
             label={text('Label', 'Label')}
             description={text('Description', 'Description')}
             placeholder={text('Placeholder', 'Placeholder')}
+            
         />
     ))
     .add('with success', () => (
@@ -28,7 +29,8 @@ storiesOf('Input', module)
             label="Label"
             description="This is an input with an error message"
             placeholder="Placeholder"
-            error={text('Error Message', 'Error Message!')}
+            error={boolean('error', false)}
+            errorMessage={text('error message', 'Error')}
         />
     ))
     .add('with disabled', () => (
@@ -37,7 +39,8 @@ storiesOf('Input', module)
             label="Label"
             description="This is a disabled input"
             placeholder="Placeholder"
-            error={text('Error Message')}
+            error={boolean('error', false)}
+            errorMessage={text('error message', 'Error')}
             disabled={boolean('Disabled', true)}
             success={boolean('Success', false)}
         />
