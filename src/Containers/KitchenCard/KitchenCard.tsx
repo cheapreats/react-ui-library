@@ -30,6 +30,7 @@ export interface KitchenProps {
     cardWidth: number;
     cardMargin: number;
     TimeComponent: React.ReactNode | string;
+    StatusModifierComponent: React.ReactNode | string;
 }
 
 export const KitchenCard: React.FC<KitchenProps> = ({
@@ -45,6 +46,7 @@ export const KitchenCard: React.FC<KitchenProps> = ({
     cardWidth,
     cardMargin,
     TimeComponent,
+    StatusModifierComponent,
 }): React.ReactElement => {
     return (
         <Card
@@ -77,6 +79,7 @@ export const KitchenCard: React.FC<KitchenProps> = ({
                 modifiers={modifiers}
                 isFullName={isFullName}
             />
+            {StatusModifierComponent}
         </Card>
     );
 };

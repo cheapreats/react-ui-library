@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text, boolean, array } from '@storybook/addon-knobs';
 import { KitchenCard } from '../../src';
+import {Button} from '../../src/Inputs/Button'
 
 const sampleOrder = {
     _id: '5f15ff0d1689a01c4b9cc72f',
@@ -56,6 +57,9 @@ const sampleOrderMany = {
     order_type: 'EAT_IN',
 };
 
+const StatusModifierComponent = <><Button loading={false} margin="0 6px 5px 0">Hello</Button><Button loading={false} margin="0 6px 0 0">Hello</Button></>
+
+
 storiesOf('KitchenCard', module)
     .addDecorator(withKnobs)
     .add('with default', () => (
@@ -69,6 +73,7 @@ storiesOf('KitchenCard', module)
             ]}
             isFullName={boolean('displayFullName', false)}
             TimeComponent={text('Time', '10:00')}
+            orderType={sampleOrder.order_type}
             {...sampleOrder}
         />
     ))
@@ -83,6 +88,7 @@ storiesOf('KitchenCard', module)
             ]}
             isFullName={boolean('displayFullName', true)}
             TimeComponent={text('Time', '10:00')}
+            orderType={sampleOrder.order_type}
             {...sampleOrder}
         />
     ))
@@ -102,6 +108,28 @@ storiesOf('KitchenCard', module)
             ]}
             isFullName={boolean('displayFullName', true)}
             TimeComponent={text('Time', '10:00')}
+            orderType={sampleOrder.order_type}
+            {...sampleOrderMany}
+        />
+    ))
+    .add('StatusModifier Component', () => (
+        <KitchenCard
+            cardWidth={230}
+            cardMargin={10}
+            cardHeight={400}
+            modifiers={[
+                ['Add Lettuce', 'Mayo'],
+                ['No Ketchup', 'Add Bacon', 'Add Olives'],
+                [],
+                ['Add Lettuce'],
+                [],
+                ['No Ketchup'],
+                [],
+            ]}
+            isFullName={boolean('displayFullName', true)}
+            TimeComponent={text('Time', '10:00')}
+            StatusModifierComponent={StatusModifierComponent}
+            orderType={sampleOrder.order_type}
             {...sampleOrderMany}
         />
     ));
