@@ -22,8 +22,7 @@ export interface LabelLayoutProps
     name?: string;
     label?: string;
     description?: string;
-    error?: boolean;
-    errorMessage?:string;
+    error?: boolean | string;
     success?: boolean;
     className?: string;
     children?: React.ReactNode;
@@ -39,7 +38,6 @@ export const LabelLayout: React.ForwardRefExoticComponent<LabelLayoutProps> = fo
             label,
             description,
             error,
-            errorMessage,
             success,
             children,
             className,
@@ -47,7 +45,7 @@ export const LabelLayout: React.ForwardRefExoticComponent<LabelLayoutProps> = fo
         },
         ref,
     ): React.ReactElement => {
-        const [, mount, animation] = useTransition(error, {
+        const [, mount, animation] = useTransition(!!error, {
             end: 250,
         });
         const implicitProps = __useImplicitProps(props, [
@@ -67,7 +65,7 @@ export const LabelLayout: React.ForwardRefExoticComponent<LabelLayoutProps> = fo
                 {children}
                 {mount && (
                     <ErrorLabel id={`${name}-error`} error={animation}>
-                        {errorMessage}
+                        {error}
                     </ErrorLabel>
                 )}
             </Layout>
