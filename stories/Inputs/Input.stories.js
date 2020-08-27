@@ -21,6 +21,7 @@ storiesOf('Input', module)
             description="This is an input with success state"
             placeholder="Placeholder"
             success={boolean('Success', true)}
+            error={boolean('Error', false)}
         />
     ))
     .add('with error', () => (

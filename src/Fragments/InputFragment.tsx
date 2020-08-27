@@ -11,7 +11,7 @@ export interface InputFragmentProps
     placeholder?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     value?: string | number;
-    error?: boolean;
+    error?: boolean | string;
     success?: boolean;
     children?: React.ReactNode;
     onFocus?: React.FocusEventHandler<HTMLInputElement>;
