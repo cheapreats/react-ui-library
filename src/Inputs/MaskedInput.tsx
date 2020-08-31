@@ -6,9 +6,9 @@ export enum MaskedInputPreset {
     PERCENTAGE = 'PERCENTAGE',
 }
 
-export interface MaskedInputProps extends LabelLayoutProps {
-    disabled?: boolean;
-    placeholder?: string;
+export interface MaskedInputProps
+    extends LabelLayoutProps,
+        React.HTMLAttributes<HTMLInputElement> {
     realValue: string;
     onRealValueChange: (value: string) => void;
     mask: MaskedInputPreset | ((value: string) => string);
