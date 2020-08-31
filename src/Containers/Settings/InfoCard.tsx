@@ -43,7 +43,9 @@ export const InfoCard: React.FC<InfoProps> = ({
     assistanceLabel = `If you require immediate assistance, please call/text: `,
 }): React.ReactElement => {
     const state = useState(false);
-    function formatPhoneNumber(companyPhoneNumberDigitString: string) {
+    function formatPhoneNumber(
+        companyPhoneNumberDigitString: string,
+    ): string | null {
         const cleaned = `${companyPhoneNumberDigitString}`.replace(/\D/g, '');
         const match = cleaned.match(/^(1|)?(\d{3})(\d{3})(\d{4})$/);
         if (match) {

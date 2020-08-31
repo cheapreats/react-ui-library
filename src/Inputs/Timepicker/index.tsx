@@ -6,10 +6,12 @@ import { LabelLayout, LabelLayoutProps } from '../../Fragments';
 import { TimeDisplay } from './TimeDisplay';
 import { Timebox } from './Timebox';
 
-export interface TimepickerProps extends LabelLayoutProps {
+export interface TimepickerProps
+    extends LabelLayoutProps,
+        Omit<React.HTMLAttributes<HTMLElement>, 'onChange'> {
     value?: Date;
     period?: boolean;
-    theme: DefaultTheme;
+    theme?: DefaultTheme;
     onChange?: Function;
     disabled?: boolean;
 }
@@ -27,7 +29,7 @@ export const Timepicker: React.FC<TimepickerProps> = withTheme(
         const ref = useRef<HTMLDivElement>(null);
         const [show, setShow] = useState<boolean>();
         const [, mount, animate] = useTransition(show, {
-            end: theme.speed.normal,
+            end: theme.speed.normal || 250,
         });
 
         useEffect((): void | (() => undefined | void) => {

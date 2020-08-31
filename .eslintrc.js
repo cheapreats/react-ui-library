@@ -49,6 +49,7 @@ module.exports = {
         'import/namespace': ['error', { allowComputed: true }],
         'import/prefer-default-export': 'off',
         'import/extensions': 'off',
+        'import/no-extraneous-dependencies': 'off',
         'no-underscore-dangle': 'off',
         'no-param-reassign': 'off',
         indent: ['error', 4],

@@ -25,7 +25,7 @@ export interface ImageCarouselProps
 
 export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     imageData,
-    onClick = () => {},
+    onClick = (): void => {},
     pointer = true,
     hoverIcon = Times,
     hoverOverlay = true,
@@ -46,7 +46,8 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
                     >
                         {hoverOverlay && (
                             <Overlay>
-                                <Icon as={hoverIcon} /> {hoverText}
+                                <Icon as={hoverIcon} />
+                                {hoverText}
                             </Overlay>
                         )}
                         <img
