@@ -11,7 +11,7 @@ export interface InputFragmentProps
     placeholder?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
     value?: string | number;
-    error?: boolean;
+    error?: boolean | string;
     success?: boolean;
     children?: React.ReactNode;
     onFocus?: React.FocusEventHandler<HTMLInputElement>;
@@ -53,12 +53,12 @@ const InputElement = styled.input<InputFragmentProps>`
     // Background color
     ${({ theme, error = false, success = false }): string => `
         background-color: ${styledCondition(
-            error,
-            theme.colors.input.error,
-            success,
-            theme.colors.input.success,
-            theme.colors.input.default,
-        )};
+        error,
+        theme.colors.input.error,
+        success,
+        theme.colors.input.success,
+        theme.colors.input.default,
+    )};
     `}
 `;
 
