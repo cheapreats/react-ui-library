@@ -2,14 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { position, darken, flex, transition } from '../Utils/Mixins';
 
-
 export interface SwitchProps extends InputProps {
-    leftTag?:string;
-    rightTag?:string;
-    activeColor?:string;
-    switchColor?:string;
-    label?:string;
-    description?:string;
+    leftTag?: string;
+    rightTag?: string;
+    activeColor?: string;
+    switchColor?: string;
+    label?: string;
+    description?: string;
 }
 
 interface InputProps {
@@ -27,7 +26,7 @@ export const Switch: React.FC<SwitchProps> = ({
     isChecked,
     label,
     description,
-    disabled
+    disabled,
 }): React.ReactElement => (
     <Container>
         <Layout>
@@ -52,8 +51,8 @@ export const Switch: React.FC<SwitchProps> = ({
     </Container>
 );
 
-interface TagProps{
-    margin:string;
+interface TagProps {
+    margin: string;
 }
 const Tag = styled.label<TagProps>`
     margin: ${(props): string => props.margin};
@@ -104,8 +103,10 @@ const SwitchBox = styled.div<SwitchProps>`
     }
     
     ${({ switchColor }): string =>
-        switchColor ? `
-        background-color:${switchColor};` : ''}
+        switchColor
+            ? `
+        background-color:${switchColor};`
+            : ''}
 `;
 const Layout = styled.div`
     ${transition(['opacity'])}

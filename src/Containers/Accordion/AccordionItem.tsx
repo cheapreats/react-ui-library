@@ -33,17 +33,17 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
     header,
     activeStyle,
     ...props
-}) => {
+}): React.ReactElement => {
     const [isActive, setIsActive] = useState(false);
     const [height, setHeight] = useState(0);
-    const toggleIsActive = () => {
+    const toggleIsActive = (): void => {
         setIsActive(!isActive);
     };
     const bodyRef = useRef<HTMLDivElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
     const { children } = props;
 
-    useLayoutEffect(() => {
+    useLayoutEffect((): void => {
         const bodyNode = bodyRef.current;
         const headerNode = headerRef.current;
         if (bodyNode && headerNode) {
@@ -74,7 +74,7 @@ export const AccordionItem: React.FC<AccordionItemProps> = ({
 
 const SectionDiv = styled.div<SectionDivProps>`
     overflow: hidden;
-    height: ${({ height }) => height}px;
+    height: ${({ height }): number => height}px;
     ${Mixins.transition(['height'], '0.5s')}
 `;
 
@@ -91,7 +91,7 @@ const BodyDiv = styled.div``;
 
 const Icon = styled(AngleUp)<IconProps>`
     ${transition(['transform'])}
-    transform: rotate(${({ isActive }) => (isActive ? 180 : 0)}deg);
+    transform: rotate(${({ isActive }): number => (isActive ? 180 : 0)}deg);
     width: 8px;
     float: right;
     margin-bottom: auto;

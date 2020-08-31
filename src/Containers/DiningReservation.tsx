@@ -5,7 +5,7 @@ import { Modal } from './Modal';
 import { Input, Datepicker, Timepicker, Button } from '..';
 
 interface DiningReservationProps {
-    modalState: any;
+    modalState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 export const DiningReservation: React.FC<DiningReservationProps> = ({
@@ -13,7 +13,7 @@ export const DiningReservation: React.FC<DiningReservationProps> = ({
 }): React.ReactElement => {
     return (
         <>
-            <CreateBooking onClick={() => modalState[1](true)}>
+            <CreateBooking onClick={(): void => modalState[1](true)}>
                 Create Booking
             </CreateBooking>
             <Modal state={modalState} padding="40px">
