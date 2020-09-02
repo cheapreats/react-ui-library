@@ -10,7 +10,7 @@ export interface InputFragmentProps
     disabled?: boolean;
     placeholder?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
-    value?: string | number;
+    value?: string | number | string[];
     error?: boolean | string;
     success?: boolean;
     children?: React.ReactNode;

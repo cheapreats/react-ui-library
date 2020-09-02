@@ -8,7 +8,7 @@ export enum MaskedInputPreset {
 
 export interface MaskedInputProps
     extends LabelLayoutProps,
-        React.HTMLAttributes<HTMLInputElement> {
+        React.InputHTMLAttributes<HTMLInputElement> {
     realValue: string;
     onRealValueChange: (value: string) => void;
     mask: MaskedInputPreset | ((value: string) => string);
