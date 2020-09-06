@@ -4,19 +4,14 @@ import { BusinessTime } from '@styled-icons/fa-solid/BusinessTime';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { CircleWithCross } from '@styled-icons/entypo/CircleWithCross';
+import { sampleCategories, sampleActiveCategorySchedule, CategoryWithHoursTypes } from './constants';
 import { Alert } from './Alert';
 import { SettingsCard } from '../SettingsCard';
 import { Modal } from '../Modal';
 import { Tag } from '../Tag';
 import { Heading, SmallText } from '../../Text';
 // eslint-disable-next-line import/no-cycle
-import { 
-    Button,
-    Checkbox,
-    Select,
-    Timepicker,
-    Input
-} from '../../Inputs';
+import { Button, Checkbox, Select, Timepicker, Input } from '../../Inputs';
 import { Mixins } from '../../Utils';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
@@ -28,20 +23,9 @@ interface StoreHoursListProps
             firstModalHeader?: string,
             secondModalHeader?: string,
             secondModalSubtitle?: string,
-            secondModalSecondSubtitle?: string
-};
-
-interface CategoryWithHoursTypes {
-    category: string,
-    hoursByDay: {
-        monday: { to: string, from: string }[],
-        tuesday: { to: string, from: string }[],
-        wednesday: { to: string, from: string }[],
-        thursday: { to: string, from: string }[],
-        friday: { to: string, from: string }[],
-        saturday: { to: string, from: string }[],
-        sunday: { to: string, from: string }[]
-    }
+            secondModalSecondSubtitle?: string,
+            allCategories: CategoryWithHoursTypes[],
+            oneCategorySchedule: CategoryWithHoursTypes
 };
 
 interface TimeTypes {
@@ -54,7 +38,9 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     firstModalHeader = 'Edit Store Hours',
     secondModalHeader = 'Add Store Hours',
     secondModalSubtitle = 'Select a day',
-    secondModalSecondSubtitle = 'Select a Category'
+    secondModalSecondSubtitle = 'Select a Category',
+    allCategories = sampleCategories,
+    oneCategorySchedule = sampleActiveCategorySchedule
 }): React.ReactElement => {
     const editModal = useState(false);
     const [editModalState, setEditModalState] = editModal
@@ -72,95 +58,41 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         saturday: false,
         sunday: false
     };
-
+    const [checkboxes, setCheckboxes] = useState(initialCheckboxState);
+    
     const [storeHours, setStoreHours] = useState({
         from: new Date(),
         to: new Date()
     });
 
-    const [checkboxes, setCheckboxes] = useState(initialCheckboxState);
-
-    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<CategoryWithHoursTypes []>([
-        {
-            category: 'Winter',
-            hoursByDay: {
-                monday: [                    
-                    {
-                        from: '12:00',
-                        to: '20:00'
-                    }], 
-                tuesday: [], 
-                wednesday: [], 
-                thursday: [
-                    {
-                        from: '12:00',
-                        to: '20:00'
-                    }
-                ], 
-                friday: [], 
-                saturday: [], 
-                sunday: [] 
-            }
-        },
-        {
-            category: 'Summer',
-            hoursByDay: {
-                monday: [], 
-                tuesday: [], 
-                wednesday: [], 
-                thursday: [], 
-                friday: [], 
-                saturday: [], 
-                sunday: [] 
-            }  
-        },
-        {
-            category: 'Holidays',
-            hoursByDay: {
-                monday: [], 
-                tuesday: [], 
-                wednesday: [], 
-                thursday: [], 
-                friday: [], 
-                saturday: [], 
-                sunday: [] 
-            }  
-        }
-    ]);
+    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<CategoryWithHoursTypes []>(allCategories);
 
     const [input, setInput] = useState('');
 
-    const [success, setSuccess] = useState(false);
-
     const [activeCategory, setActiveCategory] = useState(allCategoriesWithHours[0].category);
-
     const [selectActiveCategory, setSelectActiveCategory] = useState(allCategoriesWithHours[0].category);
 
+    const [success, setSuccess] = useState(false);
     const [showEmptyError, setShowEmptyError] = useState(false);
-
     const [cannotDeleteActiveError, setCannotDeleteActiveError] = useState(false);
-
     const [onlyOneTimeError, setOnlyOneTimeError] = useState(false);
 
     const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(allCategoriesWithHours[0].category);
 
     const [is24, setIs24] = useState(true);
     
-
-    const CHECKED_INITIAL_INDEX = 0;
-    const CHECKED_VALUE_AFTER_INITIAL_INDEX = 1;
-    const INITIAL_DAY_INDEX = 0;
-    const DAY_AFTER_INITIAL_INDEX = 1;
-    const INITIAL_TIME_INDEX = 0;
     const START_INDEX_OF_SELECTION = 0;
     const START_INDEX_OF_SELECTION_FOR_DATE = -2;
-    const ADDITIONAL_INDEX_OF_SELECTION = 1;
     const END_INDEX_OF_SELECTION_FOR_CONST_D = 2;
     const END_INDEX_OF_SELECTION_DATE_TO_HOURS = -3;
     const FIRST_HALF_OF_A_DAY_IN_HOURS = 12;
+    const CHECKED_INITIAL_INDEX = 0; // for days of week
+    const INITIAL_TIME_INDEX = 0; // for from/to
+    const INITIAL_DATE_INDEX = 1; // date
+    const TEXT = 'Current Hours of Operations for ';
 
     const convert = (date: string, toggle: boolean): string => {
-        if (!is24) {
+        if (!toggle) {
             const d = parseInt(
                 date.slice(
                     START_INDEX_OF_SELECTION,
@@ -175,27 +107,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         return date;
     };
 
-    const [activeCategorySchedule, setActiveCategorySchedule] = useState<CategoryWithHoursTypes>({
-        category: 'Winter',
-        hoursByDay: {
-            monday: [                    
-                {
-                    from: '12:00',
-                    to: '20:00'
-                }],
-            tuesday: [], 
-            wednesday: [], 
-            thursday: [
-                {
-                    from: '12:00',
-                    to: '20:00'
-                }
-            ], 
-            friday: [], 
-            saturday: [], 
-            sunday: [] 
-        }
-    });
+    const [activeCategorySchedule, setActiveCategorySchedule] = useState<CategoryWithHoursTypes>(oneCategorySchedule);
 
     const createCategoryWithHours = (categoryName: string): CategoryWithHoursTypes => {
         const oneCategoryWithHours: CategoryWithHoursTypes = {
@@ -242,8 +154,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         return null;
     }
 
-    const convertDateToHours = (timeObject: TimeTypes): TimeTypes => {
-        let timeClone: TimeTypes = Object.assign({}, timeObject);
+    const convertDateToHours = (timeClone: TimeTypes): TimeTypes => {
         const parsedDate = new Date(timeClone.to);
         const to = parsedDate.toLocaleTimeString('it-IT')
             .slice(START_INDEX_OF_SELECTION, END_INDEX_OF_SELECTION_DATE_TO_HOURS);
@@ -253,7 +164,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         timeClone = {
             'to': to,
             'from': from
-        }
+        };
         return timeClone;
     };
     
@@ -261,13 +172,15 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         if (Object.values(checkboxes).includes(true)) {
             const timedArray = allCategoriesWithHours.find((el: CategoryWithHoursTypes): CategoryWithHoursTypes | null | boolean => el.category === categoryName);
             if (timedArray !== undefined) {
-                Object.entries(checkboxes).map((el): CategoryWithHoursTypes | null | void  => {
-                    if (el[1]) {
-                        const convertedTime = convertDateToHours(storeHours)
+                Object.entries(checkboxes).map((el): CategoryWithHoursTypes | null => {
+                    if (el[1] && timedArray.hoursByDay[el[0]].length >= 1) {
+                        setOnlyOneTimeError(true);
+                    } else if (el[1] && timedArray.hoursByDay[el[0]].length === 0) {
+                        const convertedTime = convertDateToHours(storeHours);
                         timedArray.hoursByDay[el[0]].push({
                             from: convertedTime.from,
                             to: convertedTime.to
-                        })
+                        });
                         setCheckboxes(initialCheckboxState);
                         return timedArray;
                     }
@@ -278,7 +191,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     };
 
     const getActiveSchedule = (categoryName: string): CategoryWithHoursTypes => {
-        setActiveCategory(categoryName)
+        setActiveCategory(categoryName);
         const activeSchedule = allCategoriesWithHours.find((el): CategoryWithHoursTypes | null | boolean => categoryName === el.category);
 
         if (activeSchedule) {
@@ -290,11 +203,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     useEffect((): void => {
         setActiveCategorySchedule(getActiveSchedule(activeCategory))
     }, [activeCategorySchedule])
-
-    // const CHECKED_INITIAL_INDEX = 0; // for days of week
-    // const INITIAL_TIME_INDEX = 0; // for from/to
-    const INITIAL_DATE_INDEX = 1; // date
-    const TEXT = 'Current Hours of Operations for ';
 
     return (    
         <StoreHoursContainer>
@@ -316,39 +224,37 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     { TEXT }
                     { activeCategorySchedule.category }
                 </StyledHeading>
-                {
-                    Object.entries(activeCategorySchedule.hoursByDay).map((day): React.ReactElement | null => {
-                        const capitalDay = day[0].replace(/^\w/, (chr: string): string =>
-                            chr.toUpperCase(),
-                        );
-                        return day[1].length > 0 ? (
-                            <div>
-                                <Heading bold size='0.95em' margin='0'>
-                                    { capitalDay }
-                                </Heading>
-                                <StyledTag 
-                                    key={day[0]}
-                                    onClick={(): void => {
-                                        const arr = activeCategorySchedule.hoursByDay[day[0]];
-                                        arr.pop() // only works with one time tag
-                                        setActiveCategorySchedule({
-                                            ...activeCategorySchedule,
-                                            [day[0]]: []
-                                        });
-                                    }}
-                                >
-                                    { convert(day[1][0].from, is24) } 
-                                    {` - `} 
-                                    { convert(day[1][0].to, is24) }
-                                </StyledTag>
-                            </div>
-                        ) : (
-                            <Heading bold size='0.95em' margin='0'>
+                {Object.entries(activeCategorySchedule.hoursByDay).map((day): React.ReactElement | null => {
+                    const capitalDay = day[0].replace(/^\w/, (chr: string): string =>
+                        chr.toUpperCase(),
+                    );
+                    return day[1].length > 0 ? (
+                        <div>
+                            <Heading bold size='0.95em' padding='5'>
                                 { capitalDay }
                             </Heading>
-                        )
-                    })
-                }
+                            <StyledTag 
+                                key={day[0]}
+                                onClick={(): void => {
+                                    const arr = activeCategorySchedule.hoursByDay[day[0]];
+                                    arr.pop() // only works with one time tag
+                                    setActiveCategorySchedule({
+                                        ...activeCategorySchedule,
+                                        [day[0]]: []
+                                    });
+                                }}
+                            >
+                                { convert(day[1][0].from, is24) } 
+                                {` - `} 
+                                { convert(day[1][0].to, is24) }
+                            </StyledTag>
+                        </div>
+                    ) : (
+                        <Heading bold size='0.95em' margin='0'>
+                            { capitalDay }
+                        </Heading>
+                    )
+                })}
             </SettingsCard>
             <StyledModal state={editModal}>
                 <StyledHeading type='h3'> 
@@ -359,7 +265,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         icon={Add}
                         onClick={(): void => {
                             setAddModalState(!addModalState)
-
                             setOnlyOneTimeError(false)
                         }}
                     > 
@@ -396,27 +301,25 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         </SmallText>
                     </TextContainer>
                     <TagContainer>
-                        {
-                            Object.entries(allCategoriesWithHours).map((listAllCategories): React.ReactElement => {
-                                return (
-                                    <StyledTag
-                                        key={`delete-${listAllCategories[0]}`} 
-                                        onClick={(): void => {
-                                            if (listAllCategories[1].category === activeCategory) { // prevent deleting active category as it would throw many errors
-                                                setCannotDeleteActiveError(true);
-                                            }
-                                            else if (allCategoriesWithHours.length !== 1) {
-                                                setAllCategoriesWithHours(allCategoriesWithHours.filter((el): CategoryWithHoursTypes | null | boolean => el.category !==  listAllCategories[1].category)); 
-                                            } else {
-                                                setShowEmptyError(true);
-                                            }
-                                        }}
-                                    >
-                                        { listAllCategories[1].category }
-                                    </StyledTag>
-                                )
-                            })
-                        }
+                        {Object.entries(allCategoriesWithHours).map((listAllCategories): React.ReactElement => {
+                            return (
+                                <StyledTag
+                                    key={`delete-${listAllCategories[0]}`} 
+                                    onClick={(): void => {
+                                        if (listAllCategories[1].category === activeCategory) { // prevent deleting active category as it would throw errors
+                                            setCannotDeleteActiveError(true);
+                                        }
+                                        else if (allCategoriesWithHours.length !== 1) {
+                                            setAllCategoriesWithHours(allCategoriesWithHours.filter((el): CategoryWithHoursTypes | null | boolean => el.category !==  listAllCategories[1].category)); 
+                                        } else {
+                                            setShowEmptyError(true);
+                                        }
+                                    }}
+                                >
+                                    { listAllCategories[1].category }
+                                </StyledTag>
+                            )
+                        })}
                     </TagContainer>
                     { showSuccess('Category has been sucessfully created.') }
                     { showError() }
@@ -433,14 +336,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         Add Category 
                     </CenteredButton> 
                 </StyledModal>
-                <TextContainer>
-                    <StyledHeading type='h6'> 
-                        Current Active Category
-                    </StyledHeading>
-                    <SmallText>
-                        { activeCategory }
-                    </SmallText>
-                </TextContainer>
                 <StyledSelect
                     label='Change the active category'
                     description='This will be the category of times shown to the customers'
@@ -450,18 +345,16 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     }}
                     value={selectActiveCategory}
                 >
-                    {
-                        Object.entries(allCategoriesWithHours).map((listAllCategories): React.ReactElement => {
-                            return (
-                                <option
-                                    key={`active-${listAllCategories[0]}`} 
-                                    value={listAllCategories[1].category}
-                                >
-                                    { listAllCategories[1].category}
-                                </option>
-                            )
-                        }) 
-                    }
+                    {Object.entries(allCategoriesWithHours).map((listAllCategories): React.ReactElement => {
+                        return (
+                            <option
+                                key={`active-${listAllCategories[0]}`} 
+                                value={listAllCategories[1].category}
+                            >
+                                { listAllCategories[1].category}
+                            </option>
+                        )
+                    })}
                 </StyledSelect>
                 <ButtonsContainer>
                     <StyledButton 
@@ -482,48 +375,44 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     <StyledHeading type='h6'> 
                         { secondModalSubtitle } 
                     </StyledHeading>
-                    {
-                        Object.entries(checkboxes).map((checked): React.ReactElement => {
-                            return (
-                                <StyledCheckbox
-                                    key={checked[CHECKED_INITIAL_INDEX]}
-                                    label={checked[CHECKED_INITIAL_INDEX].replace(
-                                        /^\w/,
-                                        (char: string): string => char.toUpperCase(),
-                                    )}
-                                    onChange={(): void => {
-                                        setCheckboxes({
-                                            ...checkboxes,
-                                            [checked[CHECKED_INITIAL_INDEX]]: !checked[1]
-                                        })
-
-                                    }}
-                                />
-                            );
-                        })
-                    }
-                </DaysDiv>
-                {
-                    Object.entries(storeHours).map((time): React.ReactElement => {
+                    {Object.entries(checkboxes).map((checked): React.ReactElement => {
                         return (
-                            <Timepicker 
-                                key={`add-hours-${time[INITIAL_TIME_INDEX]}`}
-                                name={time[INITIAL_TIME_INDEX]}
-                                label={time[INITIAL_TIME_INDEX].replace(
+                            <StyledCheckbox
+                                key={checked[CHECKED_INITIAL_INDEX]}
+                                label={checked[CHECKED_INITIAL_INDEX].replace(
                                     /^\w/,
-                                    (char): string => char.toUpperCase()
+                                    (char: string): string => char.toUpperCase(),
                                 )}
-                                value={time[INITIAL_DATE_INDEX]}
-                                onChange={(e: React.ChangeEvent<HTMLInputElement>): void => 
-                                    setStoreHours({
-                                        ...storeHours,
-                                        [time[INITIAL_TIME_INDEX]]: e.target.value
+                                onChange={(): void => {
+                                    setCheckboxes({
+                                        ...checkboxes,
+                                        [checked[CHECKED_INITIAL_INDEX]]: !checked[1]
                                     })
-                                }
-                            /> //do a from to check
+
+                                }}
+                            />
                         );
-                    }) 
-                }
+                    })}
+                </DaysDiv>
+                {Object.entries(storeHours).map((time): React.ReactElement => {
+                    return (
+                        <Timepicker 
+                            key={`add-hours-${time[INITIAL_TIME_INDEX]}`}
+                            name={time[INITIAL_TIME_INDEX]}
+                            label={time[INITIAL_TIME_INDEX].replace(
+                                /^\w/,
+                                (char): string => char.toUpperCase()
+                            )}
+                            value={time[INITIAL_DATE_INDEX]}
+                            onChange={(e: React.ChangeEvent<HTMLInputElement>): void => 
+                                setStoreHours({
+                                    ...storeHours,
+                                    [time[INITIAL_TIME_INDEX]]: e.target.value
+                                })
+                            }
+                        /> //do a from to check
+                    );
+                })}
                 <StyledHeading type='h6'>
                     { secondModalSecondSubtitle }
                 </StyledHeading>
@@ -534,42 +423,22 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     }}
                     value={addStoreHoursCategory}
                 >
-                    {
-                        Object.entries(allCategoriesWithHours).map((listAllCategories): React.ReactElement => {
-                            return ( 
-                                <option
-                                    key={listAllCategories[0]} 
-                                    value={listAllCategories[1].category}
-                                >
-                                    { listAllCategories[1].category }
-                                </option>
-                            );
-                        }) 
-                    }
+                    {Object.entries(allCategoriesWithHours).map((listAllCategories): React.ReactElement => {
+                        return ( 
+                            <option
+                                key={listAllCategories[0]} 
+                                value={listAllCategories[1].category}
+                            >
+                                { listAllCategories[1].category }
+                            </option>
+                        );
+                    })}
                 </StyledSelect>
                 <CenteredButton 
                     onClick={(): void => {
-                        setAddModalState(!addModalState)
-                        const arr = getActiveSchedule(addStoreHoursCategory)
-                        const func = (): string[] => {
-                            const array: string [] = [];
-                            Object.entries(checkboxes).forEach((el): void => {
-                                if (el[1]) {
-                                    array.push(el[0])
-                                }
-                            })
-                            return array
-                        }
-                        func().forEach((el): void => {
-                            if (arr.hoursByDay[el].length >= 1) {
-                                setCheckboxes(initialCheckboxState)
-                                setOnlyOneTimeError(true)
-                            } else {
-                                saveHours(addStoreHoursCategory)
-                            }
-                        })
+                        setAddModalState(!addModalState);
+                        saveHours(addStoreHoursCategory);
                     }}
-
                 >
                     Add Hours 
                 </CenteredButton> 
@@ -582,7 +451,6 @@ const StoreHoursContainer = styled.div`
 `;
 const ButtonsContainer = styled.div`
     ${Mixins.flex('center')};
-
     ${Mixins.media(
         'phone',
         `
@@ -592,7 +460,6 @@ const ButtonsContainer = styled.div`
 `;
 const TextContainer = styled.div`
     ${Mixins.flex('center')};
-
     ${Mixins.flex('column')};  
 `;
 const StyledButton = styled(Button)`
@@ -636,7 +503,4 @@ const TagContainer = styled.div`
 `;
 const StyledTag = styled(Tag)`
     margin: 5px;
-`;
-const Hours = styled.div`
-    margin: 0 0 15px;
 `;
