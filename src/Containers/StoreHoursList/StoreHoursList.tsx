@@ -255,6 +255,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         onClick={(): void => {
                             setAddModalState(!addModalState);
                             setOnlyOneTimeError(false);
+                            setSuccess(false);
                         }}
                     > 
                         { constants.BUTTONS.ADD_HOURS }
@@ -273,6 +274,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     </StyledButton>
                 </ButtonsContainer>
                 { showError() }
+                { showSuccess(constants.SUCCESS.CATEGORY_CREATED) }
                 <StyledModal state={editCategoryModal}>
                     <StyledHeading type='h3'> 
                         { constants.TITLES.THIRD_MODAL_HEADER }
@@ -297,6 +299,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                                     onClick={(): void => {
                                         if (listAllCategories[1].category === activeCategory) { // prevent deleting active category as it would throw errors
                                             setCannotDeleteActiveError(true);
+                                            setEditCategoryModalState(!editCategoryModal);
                                         }
                                         else if (allCategoriesWithHours.length !== 1) { 
                                             setAllCategoriesWithHours(allCategoriesWithHours.filter((el): CategoryWithHoursTypes | null | boolean => el.category !==  listAllCategories[1].category)); 
@@ -310,8 +313,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                             )
                         })}
                     </TagContainer>
-                    { showSuccess(constants.SUCCESS.CATEGORY_CREATED) }
-                    { showError() }
                     <CenteredButton 
                         icon={Add} 
                         onClick={(): void => {
@@ -320,6 +321,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                                 setAllCategoriesWithHours([...allCategoriesWithHours, newCategory]);
                                 setSuccess(true);
                             }
+                            setEditCategoryModalState(!editCategoryModal);
                         }}
                     > 
                         { constants.BUTTONS.ADD_CATEGORY } 
