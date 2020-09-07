@@ -13,7 +13,7 @@ interface AlertProps extends
             icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>,
             success?: boolean,
             error?: boolean
-}
+};
 
 export const Alert: React.FC<AlertProps> = ({
     text = 'Some text here',
@@ -27,7 +27,7 @@ export const Alert: React.FC<AlertProps> = ({
             { text }
         </StyledCard>
     );
-}
+};
 
 const StyledCard = styled(Card)<AlertProps>`
     ${({ theme, error = false, success = false }): string => `
