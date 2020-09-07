@@ -199,8 +199,9 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     <StyledButton
                         icon={Edit}
                         onClick={(): void => {
-                            setOnlyOneTimeError(false)
-                            setEditModalState(!editModalState)
+                            setOnlyOneTimeError(false);
+                            setCannotDeleteActiveError(false);
+                            setEditModalState(!editModalState);
                         }}
                     >
                         { constants.BUTTONS.EDIT }
@@ -352,6 +353,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         onClick={(): void => {
                             setActiveCategorySchedule(getActiveSchedule(selectActiveCategory));
                             setOnlyOneTimeError(false);
+                            setCannotDeleteActiveError(false);
                         }}
                     > 
                         { constants.BUTTONS.SET_ACTIVE }
@@ -428,6 +430,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     onClick={(): void => {
                         setAddModalState(!addModalState);
                         saveHours(addStoreHoursCategory);
+                        setCannotDeleteActiveError(false);
                     }}
                 >
                     { constants.BUTTONS.ADD_HOURS } 
