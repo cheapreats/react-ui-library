@@ -1,6 +1,5 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, boolean } from '@storybook/addon-knobs';
 import { SettingsSwitch} from '../../src';
 
 const switcher = (value) => console.log(value);
