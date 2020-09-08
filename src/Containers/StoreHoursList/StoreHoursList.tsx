@@ -4,7 +4,7 @@ import { BusinessTime } from '@styled-icons/fa-solid/BusinessTime';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { CircleWithCross } from '@styled-icons/entypo/CircleWithCross';
-import { sampleCategories, sampleActiveCategorySchedule, CategoryWithHoursTypes, constants, index } from './constants';
+import { ICategoryWithHoursTypes, constants, index } from './constants';
 import { Alert } from './Alert';
 import { SettingsCard } from '../SettingsCard';
 import { Modal } from '../Modal';
@@ -19,8 +19,8 @@ interface StoreHoursListProps
     extends MainInterface, 
         ResponsiveInterface, 
         React.HTMLAttributes<HTMLDivElement> {
-            allCategories: CategoryWithHoursTypes[],
-            oneCategorySchedule: CategoryWithHoursTypes
+            allCategories: ICategoryWithHoursTypes[],
+            oneCategorySchedule: ICategoryWithHoursTypes
 };
 
 interface TimeTypes {
@@ -29,8 +29,8 @@ interface TimeTypes {
 };
 
 export const StoreHoursList: React.FC<StoreHoursListProps> = ({
-    allCategories = sampleCategories,
-    oneCategorySchedule = sampleActiveCategorySchedule
+    allCategories,
+    oneCategorySchedule
 }): React.ReactElement => {
     const editModal = useState(false);
     const [editModalState, setEditModalState] = editModal
@@ -55,12 +55,12 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         to: new Date()
     });
 
-    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<CategoryWithHoursTypes []>(allCategories);
+    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryWithHoursTypes []>(allCategories);
     const [input, setInput] = useState('');
     const [activeCategory, setActiveCategory] = useState(allCategoriesWithHours[index.FIRST_CATEGORY].category);
     const [selectActiveCategory, setSelectActiveCategory] = useState(allCategoriesWithHours[index.FIRST_CATEGORY].category);
     const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(allCategoriesWithHours[index.FIRST_CATEGORY].category);
-    const [activeCategorySchedule, setActiveCategorySchedule] = useState<CategoryWithHoursTypes>(oneCategorySchedule);
+    const [activeCategorySchedule, setActiveCategorySchedule] = useState<ICategoryWithHoursTypes>(oneCategorySchedule);
 
     const [success, setSuccess] = useState(false);
     const [showEmptyError, setShowEmptyError] = useState(false);
@@ -83,8 +83,8 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const ALL_CATEGORIES_INDEX = 0;
     const ALL_CATEGORIES_TIMES = 1;
 
-    const createCategoryWithHours = (categoryName: string): CategoryWithHoursTypes => {
-        const oneCategoryWithHours: CategoryWithHoursTypes = {
+    const createCategoryWithHours = (categoryName: string): ICategoryWithHoursTypes => {
+        const oneCategoryWithHours: ICategoryWithHoursTypes = {
             category: categoryName,
             hoursByDay: {
                 monday: [], 
@@ -159,9 +159,9 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     
     const saveHours = (categoryName: string): void => {
         if (Object.values(checkboxes).includes(true)) {
-            const timedArray = allCategoriesWithHours.find((categorySchedule: CategoryWithHoursTypes): CategoryWithHoursTypes | null | boolean => categorySchedule.category === categoryName);
+            const timedArray = allCategoriesWithHours.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === categoryName);
             if (timedArray !== undefined) {
-                Object.entries(checkboxes).map((checkbox): CategoryWithHoursTypes | null => {
+                Object.entries(checkboxes).map((checkbox): ICategoryWithHoursTypes | null => {
                     if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length >= 1) { // cannot have more than one time per day
                         setOnlyOneTimeError(true);
                     } else if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length === 0) { // add time
@@ -179,9 +179,9 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         }
     };
 
-    const getActiveSchedule = (categoryName: string): CategoryWithHoursTypes => {
+    const getActiveSchedule = (categoryName: string): ICategoryWithHoursTypes => {
         setActiveCategory(categoryName);
-        const activeSchedule = allCategoriesWithHours.find((el): CategoryWithHoursTypes | null | boolean => categoryName === el.category);
+        const activeSchedule = allCategoriesWithHours.find((el): ICategoryWithHoursTypes | null | boolean => categoryName === el.category);
         if (activeSchedule) {
             return activeSchedule;
         }
@@ -303,7 +303,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                                             setEditCategoryModalState(!editCategoryModal);
                                         }
                                         else if (allCategoriesWithHours.length !== 1) { 
-                                            setAllCategoriesWithHours(allCategoriesWithHours.filter((el): CategoryWithHoursTypes | null | boolean => el.category !==  listAllCategories[1].category)); 
+                                            setAllCategoriesWithHours(allCategoriesWithHours.filter((el): ICategoryWithHoursTypes | null | boolean => el.category !==  listAllCategories[1].category)); 
                                         } else {
                                             setShowEmptyError(true);
                                         }

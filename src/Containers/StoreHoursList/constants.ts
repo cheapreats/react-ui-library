@@ -1,14 +1,14 @@
-interface DICT {
+interface IDICT {
     [key: string]: {
         [key: string]: string; 
     };
 }
 
-interface DICTINDEXES {
+interface IDICTINDEXES {
     [key: string]: number
 };
 
-export const constants: DICT = { 
+export const constants: IDICT = { 
     TITLES: {
         HEADING: 'Hours of Operation Management',
         FIRST_MODAL_HEADER: 'Edit Store Hours and Categories',
@@ -40,11 +40,11 @@ export const constants: DICT = {
     }
 };
 
-export const index: DICTINDEXES = {
+export const index: IDICTINDEXES = {
     FIRST_CATEGORY: 0,
 };
 
-export interface CategoryWithHoursTypes {
+export interface ICategoryWithHoursTypes {
     category: string,
     hoursByDay: {
         monday: { to: string, from: string }[],
@@ -54,93 +54,5 @@ export interface CategoryWithHoursTypes {
         friday: { to: string, from: string }[],
         saturday: { to: string, from: string }[],
         sunday: { to: string, from: string }[]
-    }
-};
-
-export const sampleCategories: CategoryWithHoursTypes [] = [
-    {
-        category: 'Winter',
-        hoursByDay: {
-            monday: [                    
-                {
-                    from: '12:00',
-                    to: '20:00'
-                }], 
-            tuesday: [], 
-            wednesday: [], 
-            thursday: [
-                {
-                    from: '12:00',
-                    to: '20:00'
-                }
-            ], 
-            friday: [], 
-            saturday: [], 
-            sunday: [] 
-        }
-    },
-    {
-        category: 'Summer',
-        hoursByDay: {
-            monday: [                    
-                {
-                    from: '12:00',
-                    to: '20:00'
-                }], 
-            tuesday: [], 
-            wednesday: [], 
-            thursday: [
-                {
-                    from: '12:00',
-                    to: '20:00'
-                }
-            ], 
-            friday: [], 
-            saturday: [], 
-            sunday: [] 
-        } 
-    },
-    {
-        category: 'Holidays',
-        hoursByDay: {
-            monday: [                    
-                {
-                    from: '12:00',
-                    to: '20:00'
-                }], 
-            tuesday: [], 
-            wednesday: [], 
-            thursday: [
-                {
-                    from: '12:00',
-                    to: '20:00'
-                }
-            ], 
-            friday: [], 
-            saturday: [], 
-            sunday: [] 
-        }
-    }
-];
-
-export const sampleActiveCategorySchedule: CategoryWithHoursTypes = {
-    category: 'Winter',
-    hoursByDay: {
-        monday: [                    
-            {
-                from: '12:00',
-                to: '20:00'
-            }],
-        tuesday: [], 
-        wednesday: [], 
-        thursday: [
-            {
-                from: '12:00',
-                to: '20:00'
-            }
-        ], 
-        friday: [], 
-        saturday: [], 
-        sunday: [] 
     }
 };
