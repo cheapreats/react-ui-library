@@ -8,7 +8,10 @@ import {
 } from '../Utils/BaseStyles';
 import { transition } from '../Utils/Mixins';
 
-export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface CardProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     animated?: boolean;
     flat?: boolean;
 }

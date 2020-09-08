@@ -20,7 +20,7 @@ export interface KitchenProps {
         name: string;
     };
     _id: string;
-    items: [Item];
+    items: Item[];
     orderType: string;
     status: string;
     index: number;
