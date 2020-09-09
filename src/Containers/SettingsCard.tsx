@@ -12,24 +12,29 @@ interface SettingsCardProps
         React.HTMLAttributes<HTMLDivElement> {
     heading: string;
     icon: StyledIcon;
+    onClick?: (event: React.MouseEvent<Element, MouseEvent>) => void;
 }
 
 export const SettingsCard: React.FC<SettingsCardProps> = ({
     children,
     heading,
     icon,
+    onClick,
     ...props
 }): React.ReactElement => {
     return (
         <Card {...props}>
             <CardHeading type="h2">
-                <HeadingIcon as={icon} />
+                <HeadingIcon as={icon} onClick={onClick} />
                 {heading}
             </CardHeading>
             {children}
         </Card>
     );
 };
+interface HeadingIconProps {
+    onClick?: (event: React.MouseEvent<Element, MouseEvent>) => void;
+}
 
 const CardHeading = styled(Heading)`
     ${Mixins.flex('center')}
@@ -40,10 +45,11 @@ const CardHeading = styled(Heading)`
     font-size: 1.4rem;
     text-align: center;
 `;
-const HeadingIcon = styled.svg`
+const HeadingIcon = styled.svg<HeadingIconProps>`
     width: 22px;
     flex-shrink: 0;
     margin: 5px 12px;
+    ${(props): string => (props.onClick ? 'cursor: pointer;' : '')}
 `;
 const Card = styled(C)`
     ${Mixins.flex('column')}
