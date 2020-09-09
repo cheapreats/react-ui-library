@@ -23,7 +23,7 @@ interface StoreHoursListProps
             oneCategorySchedule: ICategoryWithHoursTypes
 };
 
-interface TimeTypes {
+interface ITimeTypes {
     to: Date | string 
     from: Date | string 
 };
@@ -102,7 +102,11 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const showSuccess = (content: string): React.ReactElement | null => {
         if (success) {
             return (
-                <Alert success text={content} />
+                <Alert success> 
+                    {' '}
+                    { content }
+                    {' '}
+                </Alert> 
             );
         } 
         return null;
@@ -111,17 +115,27 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const showError = (): React.ReactElement | null => {
         if (showEmptyError) {
             return (
-                <Alert error icon={CircleWithCross} text={constants.ERRORS.ONE_ACTIVE_CATEGORY} />
+                <Alert error icon={CircleWithCross}> 
+                    {' '}
+                    { constants.ERRORS.ONE_ACTIVE_CATEGORY }
+                    {' '}
+                </Alert> 
             );
         } 
         if (cannotDeleteActiveError) {
             return (
-                <Alert error icon={CircleWithCross} text={constants.ERRORS.CANNOT_DELETE_ACTIVE_CATEGORY} />
+                <Alert error icon={CircleWithCross}> 
+                    {' '}
+                    { constants.ERRORS.CANNOT_DELETE_ACTIVE_CATEGORY }
+                    {' '}
+                </Alert> 
             );
         }
         if (onlyOneTimeError) {
             return (
-                <Alert error icon={CircleWithCross} text={constants.ERRORS.ONLY_ONE_TIME} />
+                <Alert error icon={CircleWithCross}>
+                    { constants.ERRORS.ONLY_ONE_TIME } 
+                </Alert>
             )
         }
         return null;
@@ -143,7 +157,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         return date;
     };
 
-    const convertDateToHours = (timeObj: TimeTypes): TimeTypes => {
+    const convertDateToHours = (timeObj: ITimeTypes): ITimeTypes => {
         const parsedToDate = new Date(timeObj.to);
         const to = parsedToDate.toLocaleTimeString('it-IT')
             .slice(START_INDEX_OF_SELECTION, END_INDEX_OF_SELECTION_DATE_TO_HOURS);

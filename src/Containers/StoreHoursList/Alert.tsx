@@ -9,22 +9,22 @@ interface AlertProps extends
     MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLSpanElement> {
-            text: string,
             icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>,
             success?: boolean,
             error?: boolean
 };
 
 export const Alert: React.FC<AlertProps> = ({
-    text,
+    children,
     icon = CheckCircle,
     success = false,
-    error = false
+    error = false,
+    ...props
 }): React.ReactElement => {
     return (
-        <StyledCard success={success} error={error}> 
+        <StyledCard success={success} error={error} {...props}> 
             <Icon as={icon} />
-            { text }
+            { children } 
         </StyledCard>
     );
 };
