@@ -12,7 +12,7 @@ export interface KitchenCardItemsProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    items: [Item];
+    items: Item[];
     isFullName: boolean;
     modifiers: [][];
 }
