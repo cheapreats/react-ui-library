@@ -4,7 +4,6 @@ import { BusinessTime } from '@styled-icons/fa-solid/BusinessTime';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { CircleWithCross } from '@styled-icons/entypo/CircleWithCross';
-import { ICategoryWithHoursTypes, constants, index } from './constants';
 import { Alert } from './Alert';
 import { SettingsCard } from '../SettingsCard';
 import { Modal } from '../Modal';
@@ -15,22 +14,41 @@ import { Button, Checkbox, Select, Timepicker, Input } from '../../Inputs';
 import { Mixins } from '../../Utils';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
-interface StoreHoursListProps 
-    extends MainInterface, 
-        ResponsiveInterface, 
-        React.HTMLAttributes<HTMLDivElement> {
-            allCategories: ICategoryWithHoursTypes[],
-            oneCategorySchedule: ICategoryWithHoursTypes
+interface ICategoryWithHoursTypes {
+    category: string,
+    hoursByDay: {
+        monday: { to: string, from: string }[],
+        tuesday: { to: string, from: string }[],
+        wednesday: { to: string, from: string }[],
+        thursday: { to: string, from: string }[],
+        friday: { to: string, from: string }[],
+        saturday: { to: string, from: string }[],
+        sunday: { to: string, from: string }[]
+    }
 };
+
+interface I_DICT {
+    [key: string]: {
+        [key: string]: string; 
+    };
+}
 
 interface ITimeTypes {
     to: Date | string 
     from: Date | string 
 };
 
+interface StoreHoursListProps 
+    extends MainInterface, 
+        ResponsiveInterface, 
+        React.HTMLAttributes<HTMLDivElement> {
+            allCategories: ICategoryWithHoursTypes[],
+            constants: I_DICT
+};
+
 export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     allCategories,
-    oneCategorySchedule
+    constants
 }): React.ReactElement => {
     const editModal = useState(false);
     const [editModalState, setEditModalState] = editModal
@@ -55,20 +73,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         to: new Date()
     });
 
-    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryWithHoursTypes []>(allCategories);
-    const [input, setInput] = useState('');
-    const [activeCategory, setActiveCategory] = useState(allCategoriesWithHours[index.FIRST_CATEGORY].category);
-    const [selectActiveCategory, setSelectActiveCategory] = useState(allCategoriesWithHours[index.FIRST_CATEGORY].category);
-    const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(allCategoriesWithHours[index.FIRST_CATEGORY].category);
-    const [activeCategorySchedule, setActiveCategorySchedule] = useState<ICategoryWithHoursTypes>(oneCategorySchedule);
-
-    const [success, setSuccess] = useState(false);
-    const [showEmptyError, setShowEmptyError] = useState(false);
-    const [cannotDeleteActiveError, setCannotDeleteActiveError] = useState(false);
-    const [onlyOneTimeError, setOnlyOneTimeError] = useState(false);
-
-    const [is24, setIs24] = useState(true);
-    
     const START_INDEX_OF_SELECTION = 0;
     const START_INDEX_OF_SELECTION_FOR_DATE = -2;
     const END_INDEX_OF_SELECTION_FOR_CONST_D = 2;
@@ -82,6 +86,22 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const FIRST_TIME = 0;
     const ALL_CATEGORIES_INDEX = 0;
     const ALL_CATEGORIES_TIMES = 1;
+    const FIRST_CATEGORY = 0;
+
+    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryWithHoursTypes []>(allCategories);
+    const [input, setInput] = useState('');
+    const [activeCategory, setActiveCategory] = useState(allCategoriesWithHours[FIRST_CATEGORY].category);
+    const [selectActiveCategory, setSelectActiveCategory] = useState(allCategoriesWithHours[FIRST_CATEGORY].category);
+    const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(allCategoriesWithHours[FIRST_CATEGORY].category);
+    const [activeCategorySchedule, setActiveCategorySchedule] = useState<ICategoryWithHoursTypes>(allCategoriesWithHours[FIRST_CATEGORY]);
+
+    const [success, setSuccess] = useState(false);
+    const [showEmptyError, setShowEmptyError] = useState(false);
+    const [cannotDeleteActiveError, setCannotDeleteActiveError] = useState(false);
+    const [onlyOneTimeError, setOnlyOneTimeError] = useState(false);
+    const [fromTimeTooBigError, setFromTimeTooBigError] = useState(false);
+
+    const [is24, setIs24] = useState(true);
 
     const createCategoryWithHours = (categoryName: string): ICategoryWithHoursTypes => {
         const oneCategoryWithHours: ICategoryWithHoursTypes = {
@@ -138,6 +158,13 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 </Alert>
             )
         }
+        if (fromTimeTooBigError) {
+            return (
+                <Alert error icon={CircleWithCross}>
+                    { constants.ERRORS.FROM_TIME_TOO_BIG }
+                </Alert>
+            );
+        }
         return null;
     };
 
@@ -157,13 +184,17 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         return date;
     };
 
-    const convertDateToHours = (timeObj: ITimeTypes): ITimeTypes => {
+    const convertDateToHours = (timeObj: ITimeTypes): ITimeTypes | null => {
         const parsedToDate = new Date(timeObj.to);
         const to = parsedToDate.toLocaleTimeString('it-IT')
             .slice(START_INDEX_OF_SELECTION, END_INDEX_OF_SELECTION_DATE_TO_HOURS);
         const parsedFromDate = new Date(timeObj.from);
         const from = parsedFromDate.toLocaleTimeString('it-IT')
             .slice(START_INDEX_OF_SELECTION, END_INDEX_OF_SELECTION_DATE_TO_HOURS);
+        if (parsedFromDate >= parsedToDate) {
+            setFromTimeTooBigError(true);
+            return null;
+        } 
         timeObj = {
             'to': to,
             'from': from
@@ -180,12 +211,14 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         setOnlyOneTimeError(true);
                     } else if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length === 0) { // add time
                         const convertedTime = convertDateToHours(storeHours);
-                        timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].push({
-                            from: convertedTime.from,
-                            to: convertedTime.to
-                        });
-                        setCheckboxes(initialCheckboxState);
-                        return timedArray;
+                        if (convertedTime !== null) {
+                            timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].push({
+                                from: convertedTime.from,
+                                to: convertedTime.to
+                            });
+                            setCheckboxes(initialCheckboxState);
+                            return timedArray;
+                        }
                     }
                     return null;
                 })
@@ -215,6 +248,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         onClick={(): void => {
                             setOnlyOneTimeError(false);
                             setCannotDeleteActiveError(false);
+                            setFromTimeTooBigError(false);
                             setEditModalState(!editModalState);
                         }}
                     >
@@ -271,6 +305,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                             setAddModalState(!addModalState);
                             setOnlyOneTimeError(false);
                             setSuccess(false);
+                            setFromTimeTooBigError(false);
                         }}
                     > 
                         { constants.BUTTONS.ADD_HOURS }
@@ -283,6 +318,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                             setShowEmptyError(false);
                             setCannotDeleteActiveError(false);
                             setOnlyOneTimeError(false);
+                            setFromTimeTooBigError(false);
                         }}
                     > 
                         { constants.BUTTONS.EDIT_CATEGORIES }
@@ -368,6 +404,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                             setActiveCategorySchedule(getActiveSchedule(selectActiveCategory));
                             setOnlyOneTimeError(false);
                             setCannotDeleteActiveError(false);
+                            setFromTimeTooBigError(false);
                         }}
                     > 
                         { constants.BUTTONS.SET_ACTIVE }
