@@ -91,7 +91,6 @@ const constants = {
         SET_ACTIVE: 'Set As Active'
     },
     ERRORS: {
-        ONE_ACTIVE_CATEGORY: 'You must have at least one category at all times.',
         CANNOT_DELETE_ACTIVE_CATEGORY: 'You cannot delete an active category.',
         ONLY_ONE_TIME: 'You cannot add more than one time per day.',
         FROM_TIME_TOO_BIG: 'The from time has to be earlier than the to time.'
