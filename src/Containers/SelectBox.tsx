@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
     text?: string;
     align?: string;
-    selected?: boolean;
+    isSelected?: boolean;
     children?: React.ReactNode;
     padding?: string;
     margin?: string;
@@ -32,8 +32,8 @@ const SelectBoxDiv = styled.div<SelectBoxProps>`
     ${({ theme, ...props }): string => `
         box-shadow: ${theme.depth[2]};
         border-radius: ${theme.dimensions.radius};
-        background-color: ${props.selected && theme.colors.primary};
-        color: ${props.selected && theme.colors.background};
+        background-color: ${props.isSelected && theme.colors.primary};
+        color: ${props.isSelected && theme.colors.background};
         padding: ${props.padding || theme.dimensions.padding.default};
         text-align: ${props.align || 'center'};
         margin: ${props.margin};

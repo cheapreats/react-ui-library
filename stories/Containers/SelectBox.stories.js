@@ -6,10 +6,10 @@ import { withKnobs } from '@storybook/addon-knobs';
 storiesOf('SelectBox', module)
     .addDecorator(withKnobs)
     .add('with default', () =>{ 
-        const [selected, setSelected] = useState(false);
-        const setSelectedFunction = () => setSelected(!selected);
+        const [isSelected, setSelected] = useState(false);
+        const setSelectedFunction = () => setSelected(!isSelected);
         return (
-            <SelectBox selected={selected} onSelect={setSelectedFunction}>
+            <SelectBox isSelected={isSelected} onSelect={setSelectedFunction}>
                 Hello
             </SelectBox>
         );     
