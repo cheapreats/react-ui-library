@@ -22,7 +22,8 @@ const sampleCategories = [
             friday: [], 
             saturday: [], 
             sunday: [] 
-        }
+        },
+        isActive: true
     },
     {
         category: 'Summer',
@@ -43,7 +44,8 @@ const sampleCategories = [
             friday: [], 
             saturday: [], 
             sunday: [] 
-        } 
+        },
+        isActive: false
     },
     {
         category: 'Holidays',
@@ -64,11 +66,12 @@ const sampleCategories = [
             friday: [], 
             saturday: [], 
             sunday: [] 
-        }
+        },
+        isActive: false
     }
 ];
 
-const constants = { 
+const textHeaders = { 
     TITLES: {
         HEADING: 'Hours of Operation Management',
         FIRST_MODAL_HEADER: 'Edit Store Hours and Categories',
@@ -104,6 +107,6 @@ storiesOf('StoreHoursList', module)
     .add('with default', () => (
         <StoreHoursList
             allCategories={sampleCategories}
-            constants={constants}
+            textHeaders={textHeaders}
             />
     ));
