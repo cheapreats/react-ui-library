@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
     text?: string;
     align?: string;
-    selected?: string;
+    selected?: boolean;
     children?: React.ReactNode;
     padding?: string;
     margin?: string;
