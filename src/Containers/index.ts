@@ -27,3 +27,4 @@ export * from './KitchenCard';
 export * from './HeaderRow';
 export * from './Status';
 export * from './SelectBox';
+export * from './DisplayItem';
