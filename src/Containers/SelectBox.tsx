@@ -1,32 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export interface BoxProps {
+export interface SelectBoxProps extends React.HTMLAttributes<HTMLDivElement> {
     text?: string;
     align?: string;
-    selected?: boolean;
+    selected?: string;
     children?: React.ReactNode;
     padding?: string;
     margin?: string;
     bold?: boolean;
     size: string;
+    onSelect?: (event: React.SyntheticEvent<HTMLDivElement, Event>) => void;
 }
 
-export const Box: React.FC<BoxProps> = ({
+export const SelectBox: React.FC<SelectBoxProps> = ({
     text,
     children,
     size = 'default',
+    onSelect,
     ...props
 }): React.ReactElement => {
     return (
-        <BoxDiv {...props} size={size}>
+        <SelectBoxDiv {...props} size={size} onClick={onSelect}>
             {text}
             {children}
-        </BoxDiv>
+        </SelectBoxDiv>
     );
 };
 
-const BoxDiv = styled.div<BoxProps>`
+const SelectBoxDiv = styled.div<SelectBoxProps>`
     ${({ theme, ...props }): string => `
         box-shadow: ${theme.depth[2]};
         border-radius: ${theme.dimensions.radius};

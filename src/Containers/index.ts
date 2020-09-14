@@ -26,4 +26,4 @@ export * from './RankingTable';
 export * from './KitchenCard';
 export * from './HeaderRow';
 export * from './Status';
-export * from './Box';
+export * from './SelectBox';
