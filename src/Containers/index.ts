@@ -27,4 +27,4 @@ export * from './KitchenCard';
 export * from './HeaderRow';
 export * from './Status';
 export * from './DisplayItem';
-export * from './Content';
+export * from './ScrollableListContent';

@@ -2,12 +2,13 @@ import React from 'react';
 import styled, { DefaultTheme, InterpolationFunction } from 'styled-components';
 import { scroll, media } from '../Utils/Mixins';
 
-export interface ContentProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ScrollableListContentProps
+    extends React.HTMLAttributes<HTMLDivElement> {
     containerProps?: React.HTMLAttributes<HTMLDivElement>;
     withList?: boolean;
 }
 
-export const Content: React.FC<ContentProps> = ({
+export const ScrollableListContent: React.FC<ScrollableListContentProps> = ({
     containerProps,
     children,
     withList,
