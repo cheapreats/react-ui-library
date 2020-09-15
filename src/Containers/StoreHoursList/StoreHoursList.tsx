@@ -5,8 +5,8 @@ import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { CircleWithCross } from '@styled-icons/entypo/CircleWithCross';
 import { Alert } from './Alert';
-import { ICategoryWithHoursTypes, ITimeTypes } from './types';
-import { convertTime } from './TimeFunctions';
+import { ICategoryWithHoursTypes } from './types';
+import { convertTime, convertDateToHours } from './TimeFunctions';
 import { SettingsCard } from '../SettingsCard';
 import { Modal } from '../Modal';
 import { Tag } from '../Tag';
@@ -25,8 +25,6 @@ interface StoreHoursListProps extends MainInterface, ResponsiveInterface, React.
     textHeaders: I_DICT
 };
 
-const START_INDEX_OF_SELECTION = 0;
-const END_INDEX_OF_SELECTION_DATE_TO_HOURS = -3;
 const CHECKED_INITIAL_INDEX = 0; 
 const INITIAL_TIME_INDEX = 0; 
 const INITIAL_DATE_INDEX = 1; 
@@ -36,6 +34,8 @@ const FIRST_TIME = 0;
 const ALL_CATEGORIES_INDEX = 0;
 const ALL_CATEGORIES_TIMES = 1;
 const FIRST_CATEGORY = 0;
+const CATEGORY_INDEX = 0;
+const CATEGORY_SCHEDULE = 1;
 const MATCH_FIRST_LETTER_PATTERN = /^\w/;
 
 export const StoreHoursList: React.FC<StoreHoursListProps> = ({
@@ -160,29 +160,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
             return null; 
         }
     };
-
-    /**
-     * Converts a date type to time string type (hour:minute)
-     * @param {ITimeTypes} timeObj - Date type for added 
-     * @returns {ITimeTypes | null} 
-     */
-    const convertDateToHours = (timeObj: ITimeTypes): ITimeTypes | null => {
-        const parsedToDate = new Date(timeObj.to);
-        const to = parsedToDate.toLocaleTimeString('it-IT')
-            .slice(START_INDEX_OF_SELECTION, END_INDEX_OF_SELECTION_DATE_TO_HOURS);
-        const parsedFromDate = new Date(timeObj.from);
-        const from = parsedFromDate.toLocaleTimeString('it-IT')
-            .slice(START_INDEX_OF_SELECTION, END_INDEX_OF_SELECTION_DATE_TO_HOURS);
-        if (parsedFromDate >= parsedToDate) {
-            setError('From time too big');
-            return null;
-        } 
-        timeObj = {
-            'to': to,
-            'from': from
-        };
-        return timeObj;
-    };
     
     /**
      * Saves selected time from user
@@ -205,7 +182,8 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                             });
                             setCheckboxes(initialCheckboxState);
                             return timedArray;
-                        }
+                        } 
+                        setError('From time too big');
                     }
                     return null;
                 })
@@ -214,7 +192,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     };
     
     /**
-     * Gets the active schedule
+     * Gets the active schedule 
      * @param {string} categoryName - Name of category user creates
      * @returns {ICategoryWithHoursTypes} 
      */
@@ -234,10 +212,11 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     }, [activeCategorySchedule]);
 
     return (    
-        <div>
+        <>
             <SettingsCard heading={textHeaders.TITLES.HEADING} icon={BusinessTime}>
                 <ButtonsContainer>
-                    <StyledButton
+                    <Section
+                        as={Button}
                         icon={Edit}
                         onClick={(): void => {
                             setError('');
@@ -245,17 +224,19 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         }}
                     >
                         { textHeaders.BUTTONS.EDIT }
-                    </StyledButton>
-                    <StyledButton onClick={(): void => setIs24(!is24)}> 
+                    </Section>
+                    <Section
+                        as={Button}
+                        onClick={(): void => setIs24(!is24)}> 
                         { textHeaders.BUTTONS.TOGGLE } 
-                    </StyledButton>
+                    </Section>
                 </ButtonsContainer>
                 <StyledHeading type='h6'>
                     { textHeaders.TITLES.OPERATIONS }
                     { activeCategorySchedule.category }
                 </StyledHeading>
                 {Object.entries(activeCategorySchedule.hoursByDay).map((day): React.ReactElement | null => {
-                    const capitalDay = day[0].replace(MATCH_FIRST_LETTER_PATTERN, (chr: string): string =>
+                    const capitalDay = day[CHECKBOX_DAY].replace(MATCH_FIRST_LETTER_PATTERN, (chr: string): string =>
                         chr.toUpperCase(),
                     );
                     return day[CHECKBOX_TIME].length > 0 ? (
@@ -263,7 +244,8 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                             <Heading bold size='0.95em' padding='5'>
                                 { capitalDay }
                             </Heading>
-                            <StyledTag 
+                            <Section
+                                as={Tag}
                                 key={day[CHECKBOX_DAY]}
                                 onClick={(): void => {
                                     const firstTime = activeCategorySchedule.hoursByDay[day[CHECKBOX_DAY]];
@@ -277,7 +259,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                                 { convertTime(day[CHECKBOX_TIME][FIRST_TIME].from, is24) } 
                                 {` - `} 
                                 { convertTime(day[CHECKBOX_TIME][FIRST_TIME].to, is24) }
-                            </StyledTag>
+                            </Section>
                         </div>
                     ) : (
                         <Heading bold size='0.95em' margin='0'>
@@ -291,7 +273,8 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     { textHeaders.TITLES.FIRST_MODAL_HEADER } 
                 </StyledHeading>
                 <ButtonsContainer>
-                    <StyledButton
+                    <Section
+                        as={Button}
                         icon={Add}
                         onClick={(): void => {
                             setAddModalState(!addModalState);
@@ -300,8 +283,9 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         }}
                     > 
                         { textHeaders.BUTTONS.ADD_HOURS }
-                    </StyledButton>
-                    <StyledButton
+                    </Section>
+                    <Section
+                        as={Button}
                         icon={Edit}
                         onClick={(): void => {
                             setEditCategoryModalState(!editCategoryModalState);
@@ -310,7 +294,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         }}
                     > 
                         { textHeaders.BUTTONS.EDIT_CATEGORIES }
-                    </StyledButton>
+                    </Section>
                 </ButtonsContainer>
                 { showError(error) }
                 { showSuccess(textHeaders.SUCCESS.CATEGORY_CREATED) }
@@ -330,13 +314,14 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                             { textHeaders.TITLES.ALL_CATEGORIES_SUBTITLE }
                         </SmallText>
                     </TextContainer>
-                    <TagContainer>
+                    <Container>
                         {Object.entries(allCategoriesWithHours).map((listAllCategories): React.ReactElement => {
                             return (
-                                <StyledTag
-                                    key={listAllCategories[0]} 
+                                <Section
+                                    as={Tag}
+                                    key={listAllCategories[CATEGORY_INDEX]} 
                                     onClick={(): void => {
-                                        if (listAllCategories[1].category === activeCategory) { // prevent deleting active category as it would throw errors
+                                        if (listAllCategories[CATEGORY_SCHEDULE].category === activeCategory) { // prevent deleting active category as it would throw errors
                                             setError('Cannot delete active');
                                             setEditCategoryModalState(!editCategoryModal);
                                         }
@@ -346,10 +331,10 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                                     }}
                                 >
                                     { listAllCategories[1].category }
-                                </StyledTag>
+                                </Section>
                             )
                         })}
-                    </TagContainer>
+                    </Container>
                     <CenteredButton 
                         icon={Add} 
                         onClick={(): void => {
@@ -364,7 +349,8 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         { textHeaders.BUTTONS.ADD_CATEGORY } 
                     </CenteredButton> 
                 </StyledModal>
-                <StyledSelect
+                <Section
+                    as={Select}
                     label={textHeaders.TITLES.CHANGE_ACTIVE}
                     description={textHeaders.TITLES.CHANGE_ACTIVE_SUBTITLE}
                     placeholder={activeCategory}
@@ -376,23 +362,24 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     {Object.entries(allCategoriesWithHours).map((listAllCategories): React.ReactElement => {
                         return (
                             <option
-                                key={listAllCategories[0]} 
-                                value={listAllCategories[1].category}
+                                key={listAllCategories[CATEGORY_INDEX]} 
+                                value={listAllCategories[CATEGORY_SCHEDULE].category}
                             >
-                                { listAllCategories[1].category}
+                                { listAllCategories[CATEGORY_SCHEDULE].category}
                             </option>
                         )
                     })}
-                </StyledSelect>
+                </Section>
                 <ButtonsContainer>
-                    <StyledButton 
+                    <Section
+                        as={Button}
                         onClick={(): void => {
                             setActiveCategorySchedule(getActiveSchedule(selectActiveCategory));
                             setError('');
                         }}
                     > 
                         { textHeaders.BUTTONS.SET_ACTIVE }
-                    </StyledButton>
+                    </Section>
                 </ButtonsContainer>        
             </StyledModal>
             <StyledModal state={addModal}>
@@ -405,7 +392,8 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     </StyledHeading>
                     {Object.entries(checkboxes).map((checked): React.ReactElement => {
                         return (
-                            <StyledCheckbox
+                            <Section 
+                                as={Checkbox}
                                 key={checked[CHECKED_INITIAL_INDEX]}
                                 label={checked[CHECKED_INITIAL_INDEX].replace(
                                     MATCH_FIRST_LETTER_PATTERN,
@@ -424,7 +412,8 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 </DaysDiv>
                 {Object.entries(storeHours).map((time): React.ReactElement => {
                     return (
-                        <StyledTimepicker 
+                        <Container
+                            as={Timepicker} 
                             key={time[INITIAL_TIME_INDEX]}
                             name={time[INITIAL_TIME_INDEX]}
                             label={time[INITIAL_TIME_INDEX].replace(
@@ -444,7 +433,8 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 <StyledHeading type='h6'>
                     { textHeaders.TITLES.SELECT_A_CATEGORY }
                 </StyledHeading>
-                <StyledSelect
+                <Section
+                    as={Select}
                     onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                         setAddStoreHoursCategory(e.target.value);
                     }}
@@ -460,7 +450,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                             </option>
                         );
                     })}
-                </StyledSelect>
+                </Section>
                 <CenteredButton 
                     onClick={(): void => {
                         setAddModalState(!addModalState);
@@ -470,17 +460,17 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     { textHeaders.BUTTONS.ADD_HOURS } 
                 </CenteredButton> 
             </StyledModal>
-        </div>
+        </>
     );
 };
 
-const BaseContainerPadding = css`
+const ContainerPadding = css`
     margin: auto;
     ${({ theme }): string => `
         padding: ${theme.dimensions.padding.container};
     `};
 `;
-const MediaResponsiveness = css`
+const ButtonsContainer = styled.div`
     ${Mixins.flex('center')};
     ${Mixins.media(
         'phone',
@@ -489,25 +479,22 @@ const MediaResponsiveness = css`
     `,
     )}
 `;
-const ButtonsContainer = styled.div`
-    ${MediaResponsiveness};
-`;
 const TextContainer = styled.div`
     ${Mixins.flex('center')};
     ${Mixins.flex('column')};
 `;
-const StyledButton = styled(Button)`
-    margin: 10px;
+const Section = styled.div`
+    margin: 5px;
+`;
+const Container = styled.div`
+    ${ContainerPadding};
 `;
 const CenteredButton = styled(Button)`
     margin: 10px auto;
 `;
 const StyledModal = styled(Modal)`
-    max-height: 60%;
-    ${BaseContainerPadding};
-`;
-const StyledTimepicker = styled(Timepicker)`
-    ${BaseContainerPadding};
+    max-height: 70%;
+    ${ContainerPadding};
 `;
 const StyledHeading = styled(Heading)`
     font-weight: bold;
@@ -523,16 +510,4 @@ const DaysDiv = styled.div`
         ${Mixins.flex('column')};  
     `,
     )}
-`;
-const StyledCheckbox = styled(Checkbox)`
-    margin: 5px;
-`;
-const StyledSelect = styled(Select)`
-    margin: 5px;
-`;
-const StyledTag = styled(Tag)`
-    margin: 5px;
-`;
-const TagContainer = styled.div`
-    ${BaseContainerPadding};
 `;
