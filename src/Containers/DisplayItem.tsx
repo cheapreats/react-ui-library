@@ -5,8 +5,8 @@ import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import { Paragraph, SmallText } from '../Text';
 
 export interface DisplayItemProps extends MainInterface, ResponsiveInterface {
-    label: string;
-    value: string;
+    label?: string;
+    value?: string;
 }
 
 export const DisplayItem: React.FC<DisplayItemProps> = ({
