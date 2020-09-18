@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { FeaturesCard, SmallText, Paragraph } from '../../src';
 import { ShoppingBasket } from '@styled-icons/fa-solid/ShoppingBasket';
+import {createStoryTitle} from "../Constants";
 
 const icon = <ShoppingBasket color="dodgerblue" />;
 const footer = (
@@ -17,7 +18,7 @@ const footer = (
     </div>
 );
 
-storiesOf('FeaturesCard', module)
+storiesOf(createStoryTitle('Features Card'), module)
     .add('with default', () => (
         <FeaturesCard
             iconComponent={icon}

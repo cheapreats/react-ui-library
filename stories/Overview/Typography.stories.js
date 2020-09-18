@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React  from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { MainTheme } from '../../src/Themes/MainTheme';
@@ -7,7 +7,6 @@ import {
     Heading,
     Paragraph,
     SmallText,
-    ColorCard,
 } from '../../src';
 
 const Main = styled.main`
@@ -36,26 +35,9 @@ const ListGrid = styled.ul`
     `}
 `;
 
-const flattenColors = (value, label) => (
-    <Fragment key={label}>
-        {Object.entries(value).map(([innerKey, value]) =>
-            typeof value === 'object' ? (
-                flattenColors(value, `${label}.${innerKey}`)
-            ) : (
-                <li key={`${label}.${innerKey}`}>
-                    <ColorCard
-                        color={value}
-                        label={`${label}.${innerKey}`}
-                    ></ColorCard>
-                </li>
-            ),
-        )}
-    </Fragment>
-);
-
-storiesOf('Overview', module)
+storiesOf('Design System/Typography', module)
     .add(
-        'Typography',
+        'Overview',
         () => (
             <Main>
                 <Heading type="h1" bold>
@@ -151,24 +133,5 @@ storiesOf('Overview', module)
         Be generous with line-height, it makes big blocks of text less intimidating and boring
         `,
         },
-    )
-    .add('Colors', () => (
-        <div>
-            <Heading type="h1" bold>
-                Colors
-            </Heading>
+    );
 
-            <Heading type="h2">Main Theme</Heading>
-            <ListGrid columnWidth={300} gap={15}>
-                {Object.entries(MainTheme.colors).map(([key, value]) =>
-                    typeof value === 'object' ? (
-                        flattenColors(value, key)
-                    ) : (
-                        <li key={key}>
-                            <ColorCard color={value} label={key}></ColorCard>
-                        </li>
-                    ),
-                )}
-            </ListGrid>
-        </div>
-    ));

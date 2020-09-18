@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { ColorPicker, Paragraph } from '../../src';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('Color Picker', module)
+storiesOf(createStoryTitle('Color Picker'), module)
     .addDecorator(withKnobs)
     .add('with default', () => {
         const [color, setColor] = useState('#ff0000');

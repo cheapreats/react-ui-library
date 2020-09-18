@@ -96,7 +96,6 @@ const Icon = styled(AngleUp)<IconProps>`
     float: right;
     margin-bottom: auto;
     margin-top: auto;
-
 `;
 
 const Header = styled(Heading).attrs({ type: 'h5' })<HeaderProps>`

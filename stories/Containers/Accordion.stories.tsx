@@ -3,13 +3,14 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { Accordion } from '../../src';
 import { Paragraph } from '../../src';
+import {createStoryTitle} from "../Constants";
 
 const defaultActiveStyle = () => `
     color: #ee2434;
     font-weight: bold;
 `;
 
-storiesOf('Accordion', module)
+storiesOf(createStoryTitle('Accordion'), module)
     .addDecorator(withKnobs)
     .add('with default', () => (
         <Accordion activeStyle={defaultActiveStyle}>

@@ -3,8 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { PictureCard, Paragraph, SmallText } from '../../src';
 import { Dog } from '@styled-icons/fa-solid/Dog';
 import { Cat } from '@styled-icons/fa-solid/Cat';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('PictureCard', module)
+storiesOf(createStoryTitle('Picture Card'), module)
     .add('with image', () => (
         <PictureCard
             image="https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif"

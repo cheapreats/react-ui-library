@@ -67,9 +67,7 @@ const Dot = styled.span<DotProps>`
 
     &:before {
         ${transition(['transform', 'opacity'])}
-        ${position(
-            'absolute',
-        )}
+        ${position('absolute')}
         animation: pulse 1s ease-in-out 0s infinite;
         content: '';
 

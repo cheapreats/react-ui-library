@@ -25,7 +25,7 @@ const CardBox = styled.div<CardProps & MainInterface & ResponsiveInterface>`
     background-color: white;
 
     // Theme Stuff
-${({ theme, ...props }): string => `
+    ${({ theme, ...props }): string => `
     border-radius: ${theme.dimensions.radius};
     font-family: ${theme.font.family};
     color: ${theme.colors.text};

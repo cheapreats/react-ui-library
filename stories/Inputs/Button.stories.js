@@ -3,8 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { Save } from '@styled-icons/fa-solid/Save';
 import { Button } from '../../src';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('Button', module)
+storiesOf(createStoryTitle('Button'), module)
     .addDecorator(withKnobs)
     .add('with text', () => <Button>Normal Button</Button>)
     .add('with primary', () => <Button primary>Primary Button</Button>)

@@ -3,8 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import { Slider } from '../../src';
 import { mockElement } from '../Tools';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('Slider', module)
+storiesOf(createStoryTitle('Slider'), module)
     .addDecorator(withKnobs)
     .add(
         'basic',

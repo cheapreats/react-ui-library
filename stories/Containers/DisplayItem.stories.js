@@ -1,8 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { DisplayItem } from '../../src';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('DisplayItem', module)
+storiesOf(createStoryTitle('Display Item'), module)
     .add('with default', () => (
         <DisplayItem 
             label='DisplayItemLabel'

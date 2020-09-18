@@ -23,6 +23,15 @@ export interface ButtonProps
     disabled?: boolean;
 }
 
+/**
+ * A CheaprEats Button with Loading Capability
+ * @param children
+ * @param icon
+ * @param loading
+ * @param disabled
+ * @param props
+ * @constructor
+ */
 export const Button: React.FC<ButtonProps> = ({
     children,
     icon,

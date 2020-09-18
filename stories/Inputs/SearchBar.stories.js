@@ -3,8 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { SearchBar } from '../../src';
 import { mockElement } from '../Tools';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('Search Bar', module)
+storiesOf(createStoryTitle('Search Bar'), module)
     .addDecorator(withKnobs)
     .add(
         'with default',

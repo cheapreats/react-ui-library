@@ -2,8 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { List, Button } from '../../src';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('List', module)
+storiesOf(createStoryTitle('List'), module)
     .addDecorator(withKnobs)
     .add('with default', () => <List label={text('Label', 'List Label')} />)
     .add('with inner scroll', () => (
