@@ -3,10 +3,11 @@ import styled, { css } from 'styled-components';
 import { BusinessTime } from '@styled-icons/fa-solid/BusinessTime';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { Add } from '@styled-icons/ionicons-outline/Add';
-import { CircleWithCross } from '@styled-icons/entypo/CircleWithCross';
-import { Alert } from './Alert';
+import { Check } from '@styled-icons/boxicons-regular/Check';
+import { Cross } from '@styled-icons/entypo/Cross';
 import { ICategoryWithHoursTypes } from './types';
 import { convertTime, convertDateToHours } from './TimeFunctions';
+import { ErrorModal } from './ErrorModal';
 import { SettingsCard } from '../SettingsCard';
 import { Modal } from '../Modal';
 import { Tag } from '../Tag';
@@ -49,6 +50,10 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const [addModalState, setAddModalState] = addModal;
     const editCategoryModal = useState(false);
     const [editCategoryModalState, setEditCategoryModalState] = editCategoryModal;
+    const confirmModal = useState(false);
+    const [confirmModalState, setConfirmModalState] = confirmModal;
+    const errorModal = useState(false);
+    const [errorModalState, setErrorModalState] = errorModal;
 
     const initialCheckboxState = {
         monday: false,
@@ -68,6 +73,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
 
     const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryWithHoursTypes []>(allCategories);
     const [input, setInput] = useState('');
+    const [deletedCategory, setDeletedCategory] = useState('');
 
     /**
      * Finds the active category schedulebased on the isActive boolean value
@@ -81,15 +87,21 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         }
         return categorySchedules[FIRST_CATEGORY];
     };
-
     
     const [activeCategory, setActiveCategory] = useState(findActive(allCategoriesWithHours).category);
     const [selectActiveCategory, setSelectActiveCategory] = useState(findActive(allCategoriesWithHours).category);
     const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(findActive(allCategoriesWithHours).category);
     const [activeCategorySchedule, setActiveCategorySchedule] = useState<ICategoryWithHoursTypes>(findActive(allCategoriesWithHours));
 
-    const [success, setSuccess] = useState(false);
     const [error, setError] = useState('');
+
+    const errors = {
+        empty: input.trim().length === 0 ? textHeaders.ERRORS.CANNOT_ADD_EMPTY : '',
+        alreadyExists: allCategoriesWithHours.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === input) 
+            ? textHeaders.ERRORS.CATEGORY_EXISTS
+            : '',
+        fromTooBig: storeHours.from > storeHours.to ? textHeaders.ERRORS.FROM_TIME_TOO_BIG : ''
+    }
 
     const [is24, setIs24] = useState(true);
 
@@ -114,52 +126,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         };
         return oneCategoryWithHours;
     };
-
-    /**
-     * Shows success message when category is created
-     * @param {string} categoryName - Name of category user creates
-     * @returns {React.ReactElement | null} 
-     */
-    const showSuccess = (content: string): React.ReactElement | null => {
-        if (success) {
-            return (
-                <Alert success> 
-                    { ` ${content} ` }
-                </Alert> 
-            );
-        } 
-        return null;
-    };
-    
-    /**
-     * Shows error messages depending on the error flagged
-     * @param {string} err - Name of error
-     * @returns {React.ReactElement | null} 
-     */
-    const showError = (err: string): React.ReactElement | null => {
-        switch(err) {
-        case ('Cannot delete active'):
-            return (
-                <Alert error icon={CircleWithCross}> 
-                    { ` ${textHeaders.ERRORS.CANNOT_DELETE_ACTIVE_CATEGORY} ` }
-                </Alert> 
-            );
-        case ('Only one time allowed'):
-            return (
-                <Alert error icon={CircleWithCross}> 
-                    { ` ${textHeaders.ERRORS.ONLY_ONE_TIME} ` }
-                </Alert>   
-            );
-        case ('From time too big'):
-            return (
-                <Alert error icon={CircleWithCross}>
-                    { ` ${textHeaders.ERRORS.FROM_TIME_TOO_BIG} ` }
-                </Alert>
-            );
-        default:
-            return null; 
-        }
-    };
     
     /**
      * Saves selected time from user
@@ -172,7 +138,8 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
             if (timedArray !== undefined) {
                 Object.entries(checkboxes).map((checkbox): ICategoryWithHoursTypes | null => {
                     if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length >= 1) { // cannot have more than one time per day
-                        setError('Only one time allowed');
+                        setError(textHeaders.ERRORS.ONLY_ONE_TIME);
+                        setErrorModalState(!errorModalState);
                     } else if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length === 0) { // add time
                         const convertedTime = convertDateToHours(storeHours);
                         if (convertedTime !== null) {
@@ -183,7 +150,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                             setCheckboxes(initialCheckboxState);
                             return timedArray;
                         } 
-                        setError('From time too big');
                     }
                     return null;
                 })
@@ -227,7 +193,8 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     </Section>
                     <Section
                         as={Button}
-                        onClick={(): void => setIs24(!is24)}> 
+                        onClick={(): void => setIs24(!is24)}
+                    > 
                         { textHeaders.BUTTONS.TOGGLE } 
                     </Section>
                 </ButtonsContainer>
@@ -278,7 +245,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         icon={Add}
                         onClick={(): void => {
                             setAddModalState(!addModalState);
-                            setSuccess(false);
                             setError('');
                         }}
                     > 
@@ -289,22 +255,21 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         icon={Edit}
                         onClick={(): void => {
                             setEditCategoryModalState(!editCategoryModalState);
-                            setSuccess(false);
                             setError('');
                         }}
                     > 
                         { textHeaders.BUTTONS.EDIT_CATEGORIES }
                     </Section>
                 </ButtonsContainer>
-                { showError(error) }
-                { showSuccess(textHeaders.SUCCESS.CATEGORY_CREATED) }
                 <StyledModal state={editCategoryModal}>
                     <StyledHeading type='h3'> 
                         { textHeaders.TITLES.THIRD_MODAL_HEADER }
                     </StyledHeading>
-                    <Input onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                        setInput(e.target.value);
-                    }} 
+                    <Input 
+                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                            setInput(e.target.value);
+                        }}
+                        error={errors['empty'] || errors['alreadyExists']} 
                     /> 
                     <TextContainer>
                         <StyledHeading type='h6'> 
@@ -322,15 +287,16 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                                     key={listAllCategories[CATEGORY_INDEX]} 
                                     onClick={(): void => {
                                         if (listAllCategories[CATEGORY_SCHEDULE].category === activeCategory) { // prevent deleting active category as it would throw errors
-                                            setError('Cannot delete active');
-                                            setEditCategoryModalState(!editCategoryModal);
+                                            setError(textHeaders.ERRORS.CANNOT_DELETE_ACTIVE_CATEGORY);
+                                            setErrorModalState(!errorModalState);
                                         }
                                         else if (allCategoriesWithHours.length !== 1) { 
-                                            setAllCategoriesWithHours(allCategoriesWithHours.filter((el): ICategoryWithHoursTypes | null | boolean => el.category !==  listAllCategories[1].category)); 
+                                            setDeletedCategory(listAllCategories[CATEGORY_SCHEDULE].category);
+                                            setConfirmModalState(!confirmModalState);
                                         } 
                                     }}
                                 >
-                                    { listAllCategories[1].category }
+                                    { listAllCategories[CATEGORY_SCHEDULE].category }
                                 </Section>
                             )
                         })}
@@ -338,13 +304,10 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     <CenteredButton 
                         icon={Add} 
                         onClick={(): void => {
-                            if(input !== null || input !== undefined || input === '') {
-                                const newCategory = createCategoryWithHours(input);
-                                setAllCategoriesWithHours([...allCategoriesWithHours, newCategory]);
-                                setSuccess(true);
-                            }
-                            setEditCategoryModalState(!editCategoryModal);
+                            const newCategory = createCategoryWithHours(input);
+                            setAllCategoriesWithHours([...allCategoriesWithHours, newCategory]);
                         }}
+                        disabled={errors['empty'] || errors['alreadyExists']}
                     > 
                         { textHeaders.BUTTONS.ADD_CATEGORY } 
                     </CenteredButton> 
@@ -427,6 +390,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                                     [time[INITIAL_TIME_INDEX]]: e.target.value
                                 })
                             }
+                            error={errors['fromTooBig']}
                         /> 
                     );
                 })}
@@ -456,10 +420,41 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         setAddModalState(!addModalState);
                         saveHours(addStoreHoursCategory);
                     }}
+                    disabled={errors["fromTooBig"]}
                 >
                     { textHeaders.BUTTONS.ADD_HOURS } 
                 </CenteredButton> 
             </StyledModal>
+            <StyledModal state={confirmModal}>
+                <StyledHeading type='h6'>
+                    { textHeaders.TITLES.CONFIRM_DELETE }
+                </StyledHeading>
+                <ButtonsContainer>
+                    <Section
+                        as={Button}
+                        icon={Check}
+                        onClick={(): void =>  {
+                            setAllCategoriesWithHours(allCategoriesWithHours.filter((el): ICategoryWithHoursTypes | null | boolean => el.category !== deletedCategory)); 
+                            setConfirmModalState(!confirmModalState);
+                        }}
+                    >
+                        { textHeaders.BUTTONS.YES }
+                    </Section>
+                    <Section
+                        as={Button}
+                        icon={Cross}
+                        onClick={(): void => {
+                            setConfirmModalState(!confirmModalState);
+                        }}
+                    >
+                        { textHeaders.BUTTONS.NO }
+                    </Section>
+                </ButtonsContainer>
+            </StyledModal>
+            <ErrorModal
+                modalState={errorModal}
+                errorMessage={error}
+            />
         </>
     );
 };

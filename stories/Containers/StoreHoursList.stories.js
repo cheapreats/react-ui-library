@@ -83,7 +83,8 @@ const textHeaders = {
         SELECT_A_DAY: 'Select a day',
         SELECT_A_CATEGORY: 'Select a category',
         ALL_CATEGORIES: 'Current Categories',
-        ALL_CATEGORIES_SUBTITLE: 'Hover over and click the categories to delete them.'
+        ALL_CATEGORIES_SUBTITLE: 'Hover over and click the categories to delete them.',
+        CONFIRM_DELETE: 'Are you sure you want to delete this category?'
     },
     BUTTONS: {
         EDIT: 'Edit',
@@ -91,16 +92,17 @@ const textHeaders = {
         ADD_HOURS: 'Add Hours',
         EDIT_CATEGORIES: 'Edit Categories',
         ADD_CATEGORY: 'Add Category',
-        SET_ACTIVE: 'Set As Active'
+        SET_ACTIVE: 'Set As Active',
+        YES: 'Yes',
+        NO: 'No'
     },
     ERRORS: {
         CANNOT_DELETE_ACTIVE_CATEGORY: 'You cannot delete an active category.',
         ONLY_ONE_TIME: 'You cannot add more than one time per day.',
-        FROM_TIME_TOO_BIG: 'The from time has to be earlier than the to time.'
+        FROM_TIME_TOO_BIG: 'The from time has to be earlier than the to time.',
+        CANNOT_ADD_EMPTY: 'You cannot create an empty category',
+        CATEGORY_EXISTS: 'This category already exists'
     },
-    SUCCESS: {
-        CATEGORY_CREATED: 'Category has been sucessfully created.'
-    }
 };
 
 storiesOf('StoreHoursList', module)

@@ -33,16 +33,13 @@ export const convertTime = (date: string, toggle: boolean): string => {
  * @param {ITimeTypes} timeObj - Date type for added 
  * @returns {ITimeTypes | null} 
  */
-export const convertDateToHours = (timeObj: ITimeTypes): ITimeTypes | null => {
+export const convertDateToHours = (timeObj: ITimeTypes): ITimeTypes => {
     const parsedToDate = new Date(timeObj.to);
     const to = parsedToDate.toLocaleTimeString('it-IT')
         .slice(START_INDEX_OF_SELECTION, END_INDEX_OF_SELECTION_DATE_TO_HOURS);
     const parsedFromDate = new Date(timeObj.from);
     const from = parsedFromDate.toLocaleTimeString('it-IT')
         .slice(START_INDEX_OF_SELECTION, END_INDEX_OF_SELECTION_DATE_TO_HOURS);
-    if (parsedFromDate >= parsedToDate) {
-        return null;
-    } 
     timeObj = {
         'to': to,
         'from': from
