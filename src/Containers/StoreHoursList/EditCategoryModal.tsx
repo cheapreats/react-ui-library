@@ -28,6 +28,9 @@ interface EditCategoryProps extends MainInterface, ResponsiveInterface, React.HT
     setDeletedCategory: React.Dispatch<React.SetStateAction<string>>
 };
 
+const CATEGORY_INDEX = 0;
+const CATEGORY_SCHEDULE = 1;
+
 export const EditCategoryModal: React.FC<EditCategoryProps> = ({
     isVisible,
     thirdModalHeader,
@@ -50,15 +53,20 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
     const [errorModalState, setErrorModalState] = errorModal;
 
     const [error, setError] = useState('');
+
+    const findCategory = (): boolean => {
+        const foundCategory = allCategories.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === input);
+        if (foundCategory) {
+            return true;
+        }
+        return false;
+    }
     const errors = {
         empty: input.trim().length === 0 ? CANNOT_ADD_EMPTY : '',
-        alreadyExists: allCategories.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === input) 
+        alreadyExists: findCategory() 
             ? CATEGORY_EXISTS
             : '',
     };
-
-    const CATEGORY_INDEX = 0;
-    const CATEGORY_SCHEDULE = 1;
 
     return (
         <>
@@ -108,7 +116,7 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
                         const newCategory = createCategoryWithHours(input);
                         setAllCategories([...allCategories, newCategory]);
                     }}
-                    disabled={input.trim().length === 0 || allCategories.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === input)}
+                    disabled={input.trim().length === 0 || findCategory()}
                 > 
                     { ADD_CATEGORY_BUTTON } 
                 </CenteredButton> 
