@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { BusinessTime } from '@styled-icons/fa-solid/BusinessTime';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { ICategoryWithHoursTypes } from './types';
@@ -11,7 +11,6 @@ import { EditTimesModal } from './EditTimesModal';
 import { EditCategoryModal } from './EditCategoryModal';
 import { CreateHoursModal } from './CreateHoursModal';
 import { SettingsCard } from '../SettingsCard';
-import { Modal } from '../Modal';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button';
 import { Mixins } from '../../Utils';
@@ -40,7 +39,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const [activeCategory, setActiveCategory] = useState(findActive(allCategoriesWithHours).category);
     const [activeCategorySchedule, setActiveCategorySchedule] = useState<ICategoryWithHoursTypes>(findActive(allCategoriesWithHours));
 
-    const [error, setError] = useState('');
+    const [error] = useState('');
 
     const [is24, setIs24] = useState(true);
     
@@ -153,12 +152,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     );
 };
 
-const ContainerPadding = css`
-    margin: auto;
-    ${({ theme }): string => `
-        padding: ${theme.dimensions.padding.container};
-    `};
-`;
 const ButtonsContainer = styled.div`
     ${Mixins.flex('center')};
     ${Mixins.media(
@@ -170,10 +163,6 @@ const ButtonsContainer = styled.div`
 `;
 const Section = styled.div`
     margin: 5px;
-`;
-const StyledModal = styled(Modal)`
-    max-height: 70%;
-    ${ContainerPadding};
 `;
 const StyledHeading = styled(Heading)`
     font-weight: bold;

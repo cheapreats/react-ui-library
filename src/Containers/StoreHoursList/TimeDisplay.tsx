@@ -20,7 +20,8 @@ const MATCH_FIRST_LETTER_PATTERN = /^\w/;
 export const TimeDisplay: React.FC<TimeDisplayProps> = ({
     activeCategorySchedule,
     setActiveCategorySchedule,
-    is24
+    is24,
+    ...props
 }): React.ReactElement => {
     return (
         <>
@@ -44,6 +45,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
                                     [day[CHECKBOX_DAY]]: []
                                 });
                             }}
+                            {...props}
                         >
                             { convertTime(day[CHECKBOX_TIME][FIRST_TIME].from, is24) } 
                             {` - `} 

@@ -44,7 +44,8 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
     setAllCategories,
     activeCategory,
     isConfirmModal,
-    setDeletedCategory
+    setDeletedCategory,
+    ...props
 }): React.ReactElement => {
     const [input, setInput] = useState('');
 
@@ -70,7 +71,7 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
 
     return (
         <>
-            <StyledModal state={isVisible}>
+            <StyledModal state={isVisible} {...props}>
                 <StyledHeading type='h3'> 
                     { thirdModalHeader }
                 </StyledHeading>

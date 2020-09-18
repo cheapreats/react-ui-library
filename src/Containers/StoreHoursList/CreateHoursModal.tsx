@@ -42,7 +42,8 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     SELECT_A_CATEGORY,
     ADD_HOURS_BUTTON,
     errorMessage,
-    allCategories
+    allCategories,
+    ...props
 }): React.ReactElement => {
 
     const [addModalState, setAddModalState] = isVisible;
@@ -109,7 +110,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
 
     return (
         <>
-            <StyledModal state={isVisible}>
+            <StyledModal state={isVisible} {...props}>
                 <StyledHeading type='h3'> 
                     { MODAL_HEADER }
                 </StyledHeading>

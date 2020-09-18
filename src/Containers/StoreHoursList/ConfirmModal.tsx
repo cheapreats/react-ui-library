@@ -26,7 +26,8 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
     noButtonLabel,
     allCategories,
     setAllCategories,
-    deletedCategory
+    deletedCategory,
+    ...props
 }): React.ReactElement => {
     const [confirmModalState, setConfirmModalState] = isVisible;
 
@@ -36,7 +37,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
     };
 
     return (
-        <StyledModal state={isVisible}>
+        <StyledModal state={isVisible} {...props}>
             <StyledHeading type='h6'>
                 { confirmDelete }
             </StyledHeading>

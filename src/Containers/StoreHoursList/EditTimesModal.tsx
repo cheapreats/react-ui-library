@@ -46,7 +46,8 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
     setActiveCategory,
     activeCategorySchedule,
     setActiveCategorySchedule,
-    allCategories
+    allCategories,
+    ...props
 }): React.ReactElement => {
     const [addModalState, setAddModalState] = addModal;
     const [editCategoryModalState, setEditCategoryModalState] = editCategoryModal;
@@ -70,7 +71,7 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
     };
 
     return (
-        <StyledModal state={isVisible}>
+        <StyledModal state={isVisible} {...props}>
             <StyledHeading type='h3'> 
                 { FIRST_MODAL_HEADER } 
             </StyledHeading>
