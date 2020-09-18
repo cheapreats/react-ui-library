@@ -108,7 +108,7 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
                         const newCategory = createCategoryWithHours(input);
                         setAllCategories([...allCategories, newCategory]);
                     }}
-                    disabled={errors.empty || errors.alreadyExists}
+                    disabled={input.trim().length === 0 || allCategories.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === input)}
                 > 
                     { ADD_CATEGORY_BUTTON } 
                 </CenteredButton> 

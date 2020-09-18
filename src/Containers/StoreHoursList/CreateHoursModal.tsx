@@ -181,7 +181,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                 </Section>
                 <CenteredButton 
                     onClick={handleChange}
-                    disabled={errors.fromTooBig}
+                    disabled={storeHours.from > storeHours.to}
                 >
                     { ADD_HOURS_BUTTON } 
                 </CenteredButton> 
