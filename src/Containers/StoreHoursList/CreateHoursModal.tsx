@@ -15,11 +15,11 @@ import { Mixins } from '../../Utils';
 
 interface CreateHoursProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     isVisible: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
-    modalHeader: string,
-    selectADayTitle: string,
+    MODAL_HEADER: string,
+    SELECT_A_DAY_TITLE: string,
     fromTimeTooBigError: string,
-    selectACategory: string,
-    addHoursButton: string,
+    SELECT_A_CATEGORY: string,
+    ADD_HOURS_BUTTON: string,
     errorMessage: string,
     allCategories: ICategoryWithHoursTypes[]
 };
@@ -36,11 +36,11 @@ const MATCH_FIRST_LETTER_PATTERN = /^\w/;
 
 export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     isVisible,
-    modalHeader,
-    selectADayTitle,
+    MODAL_HEADER,
+    SELECT_A_DAY_TITLE,
     fromTimeTooBigError,
-    selectACategory,
-    addHoursButton,
+    SELECT_A_CATEGORY,
+    ADD_HOURS_BUTTON,
     errorMessage,
     allCategories
 }): React.ReactElement => {
@@ -65,8 +65,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
         to: new Date()
     });
 
-    const allCategoriesWithHours = allCategories;
-    const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(findActive(allCategoriesWithHours).category);
+    const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(findActive(allCategories).category);
 
     const errors = {
         fromTooBig: storeHours.from > storeHours.to ? fromTimeTooBigError : ''
@@ -80,7 +79,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
      */
     const saveHours = (categoryName: string): void => {
         if (Object.values(checkboxes).includes(true)) {
-            const timedArray = allCategoriesWithHours.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === categoryName);
+            const timedArray = allCategories.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === categoryName);
             if (timedArray !== undefined) {
                 Object.entries(checkboxes).map((checkbox): ICategoryWithHoursTypes | null => {
                     if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length >= 1) { // cannot have more than one time per day
@@ -112,11 +111,11 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
         <>
             <StyledModal state={isVisible}>
                 <StyledHeading type='h3'> 
-                    { modalHeader }
+                    { MODAL_HEADER }
                 </StyledHeading>
                 <DaysDiv>
                     <StyledHeading type='h6'> 
-                        { selectADayTitle } 
+                        { SELECT_A_DAY_TITLE } 
                     </StyledHeading>
                     {Object.entries(checkboxes).map((checked): React.ReactElement => {
                         return (
@@ -160,7 +159,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     );
                 })}
                 <StyledHeading type='h6'>
-                    { selectACategory }
+                    { SELECT_A_CATEGORY }
                 </StyledHeading>
                 <Section
                     as={Select}
@@ -169,7 +168,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     }}
                     value={addStoreHoursCategory}
                 >
-                    {Object.entries(allCategoriesWithHours).map((listAllCategories): React.ReactElement => {
+                    {Object.entries(allCategories).map((listAllCategories): React.ReactElement => {
                         return ( 
                             <option
                                 key={listAllCategories[ALL_CATEGORIES_INDEX]} 
@@ -184,7 +183,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     onClick={handleChange}
                     disabled={errors.fromTooBig}
                 >
-                    { addHoursButton } 
+                    { ADD_HOURS_BUTTON } 
                 </CenteredButton> 
             </StyledModal>
             <ErrorModal

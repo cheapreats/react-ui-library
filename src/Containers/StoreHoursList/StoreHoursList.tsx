@@ -4,7 +4,7 @@ import { BusinessTime } from '@styled-icons/fa-solid/BusinessTime';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { ICategoryWithHoursTypes } from './types';
 import { findActive } from './CategoryScheduleFunctions';
-import { convertTime } from './TimeFunctions';
+import { TimeDisplay } from './TimeDisplay';
 import { ErrorModal } from './ErrorModal';
 import { ConfirmModal } from './ConfirmModal';
 import { EditTimesModal } from './EditTimesModal';
@@ -12,7 +12,6 @@ import { EditCategoryModal } from './EditCategoryModal';
 import { CreateHoursModal } from './CreateHoursModal';
 import { SettingsCard } from '../SettingsCard';
 import { Modal } from '../Modal';
-import { Tag } from '../Tag';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button';
 import { Mixins } from '../../Utils';
@@ -23,11 +22,6 @@ interface StoreHoursListProps extends MainInterface, ResponsiveInterface, React.
     allCategories: ICategoryWithHoursTypes[],
     textHeaders: I_DICT
 };
-
-const CHECKBOX_DAY = 0;
-const CHECKBOX_TIME = 1;
-const FIRST_TIME = 0;
-const MATCH_FIRST_LETTER_PATTERN = /^\w/;
 
 export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     allCategories,
@@ -94,38 +88,11 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     { textHeaders.TITLES.OPERATIONS }
                     { activeCategorySchedule.category }
                 </StyledHeading>
-                {Object.entries(activeCategorySchedule.hoursByDay).map((day): React.ReactElement | null => {
-                    const capitalDay = day[CHECKBOX_DAY].replace(MATCH_FIRST_LETTER_PATTERN, (chr: string): string =>
-                        chr.toUpperCase(),
-                    );
-                    return day[CHECKBOX_TIME].length > 0 ? (
-                        <div>
-                            <Heading bold size='0.95em' padding='5'>
-                                { capitalDay }
-                            </Heading>
-                            <Section
-                                as={Tag}
-                                key={day[CHECKBOX_DAY]}
-                                onClick={(): void => {
-                                    const firstTime = activeCategorySchedule.hoursByDay[day[CHECKBOX_DAY]];
-                                    firstTime.pop() // only works with one time tag
-                                    setActiveCategorySchedule({
-                                        ...activeCategorySchedule,
-                                        [day[CHECKBOX_DAY]]: []
-                                    });
-                                }}
-                            >
-                                { convertTime(day[CHECKBOX_TIME][FIRST_TIME].from, is24) } 
-                                {` - `} 
-                                { convertTime(day[CHECKBOX_TIME][FIRST_TIME].to, is24) }
-                            </Section>
-                        </div>
-                    ) : (
-                        <Heading bold size='0.95em' margin='0'>
-                            { capitalDay }
-                        </Heading>
-                    )
-                })}
+                <TimeDisplay
+                    activeCategorySchedule={activeCategorySchedule}
+                    setActiveCategorySchedule={setActiveCategorySchedule}
+                    is24={is24}
+                />
             </SettingsCard>
             <EditTimesModal
                 isVisible={editModal}
@@ -144,62 +111,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 activeCategorySchedule={activeCategorySchedule}
                 setActiveCategorySchedule={setActiveCategorySchedule}
             />
-            {/* <StyledModal state={editModal}>
-                <StyledHeading type='h3'> 
-                    { textHeaders.TITLES.FIRST_MODAL_HEADER } 
-                </StyledHeading>
-                <ButtonsContainer>
-                    <Section
-                        as={Button}
-                        icon={Add}
-                        onClick={(): void => {
-                            setAddModalState(!addModalState);
-                        }}
-                    > 
-                        { textHeaders.BUTTONS.ADD_HOURS }
-                    </Section>
-                    <Section
-                        as={Button}
-                        icon={Edit}
-                        onClick={(): void => {
-                            setEditCategoryModalState(!editCategoryModalState);
-                        }}
-                    > 
-                        { textHeaders.BUTTONS.EDIT_CATEGORIES }
-                    </Section>
-                </ButtonsContainer>
-                <Section
-                    as={Select}
-                    label={textHeaders.TITLES.CHANGE_ACTIVE}
-                    description={textHeaders.TITLES.CHANGE_ACTIVE_SUBTITLE}
-                    placeholder={activeCategory}
-                    onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                        setSelectActiveCategory(e.target.value);
-                    }}
-                    value={selectActiveCategory}
-                >
-                    {Object.entries(allCategoriesWithHours).map((listAllCategories): React.ReactElement => {
-                        return (
-                            <option
-                                key={listAllCategories[CATEGORY_INDEX]} 
-                                value={listAllCategories[CATEGORY_SCHEDULE].category}
-                            >
-                                { listAllCategories[CATEGORY_SCHEDULE].category}
-                            </option>
-                        )
-                    })}
-                </Section>
-                <ButtonsContainer>
-                    <Section
-                        as={Button}
-                        onClick={(): void => {
-                            setActiveCategorySchedule(getActiveSchedule(selectActiveCategory));
-                        }}
-                    > 
-                        { textHeaders.BUTTONS.SET_ACTIVE }
-                    </Section>
-                </ButtonsContainer>        
-            </StyledModal> */}
             <EditCategoryModal
                 isVisible={editCategoryModal}
                 thirdModalHeader={textHeaders.TITLES.THIRD_MODAL_HEADER}
@@ -217,11 +128,11 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
             />
             <CreateHoursModal
                 isVisible={addModal}
-                modalHeader={textHeaders.TITLES.SECOND_MODAL_HEADER} 
-                selectADayTitle={textHeaders.TITLES.SELECT_A_DAY}
+                MODAL_HEADER={textHeaders.TITLES.SECOND_MODAL_HEADER} 
+                SELECT_A_DAY_TITLE={textHeaders.TITLES.SELECT_A_DAY}
                 fromTimeTooBigError={textHeaders.ERRORS.FROM_TIME_TOO_BIG}
-                selectACategory={textHeaders.TITLES.SELECT_A_CATEGORY}
-                addHoursButton={textHeaders.BUTTONS.ADD_HOURS}
+                SELECT_A_CATEGORY={textHeaders.TITLES.SELECT_A_CATEGORY}
+                ADD_HOURS_BUTTON={textHeaders.BUTTONS.ADD_HOURS}
                 errorMessage={textHeaders.ERRORS.ONLY_ONE_TIME}
                 allCategories={allCategoriesWithHours}
             />
