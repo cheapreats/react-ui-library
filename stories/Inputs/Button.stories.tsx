@@ -1,7 +1,7 @@
 import React from 'react';
 import { Save } from '@styled-icons/fa-solid/Save';
 import {Button, ButtonProps} from '../../src';
-import {createStoryTitle} from "../Constants";
+import {createStoryTitle, getCaptionForLocale} from "../Constants";
 import {Meta, Story} from "@storybook/react";
 
 export default {
@@ -15,8 +15,8 @@ export default {
         color: 'primary',
         icon: Save,
         full: false,
-        children: 'Normal Button',
+        children: 'hellfo',
     }
 } as Meta;
 
-export const Basic: Story<ButtonProps>  = (args) => <Button {...args}>{args.children}</Button>;
+export const Basic: Story<ButtonProps>  = (args) => <Button {...args}>{getCaptionForLocale(args.children)}</Button>;

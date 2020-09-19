@@ -49,6 +49,25 @@ export const parameters = {
     },
 };
 
+export const globalTypes = {
+    locale: {
+        name: 'Locale',
+        description: 'Internationalization locale',
+        defaultValue: 'none',
+        toolbar: {
+            icon: 'globe',
+            items: [
+                { value: 'none', right: '', title: 'None' },
+                { value: 'en', right: '🇺🇸', title: 'English' },
+                { value: 'fr', right: '🇫🇷', title: 'Français' },
+                { value: 'es', right: '🇪🇸', title: 'Español' },
+                { value: 'zh', right: '🇨🇳', title: '中文' },
+                { value: 'kr', right: '🇰🇷', title: '한국어' },
+            ],
+        },
+    },
+};
+
 // Global provider
 const style = theme => `
     body {
