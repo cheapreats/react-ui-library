@@ -6,7 +6,7 @@ export const createStoryTitle = (componentName: string) => {
     return `${COMPONENTS_TITLE}/${componentName}`;
 }
 
-export const getCaptionForLocale = (children?: any) => {
+export const getCaptionForLocale = (children?: any): string => {
     const [{ locale }] = useGlobals();
     if (children && locale === 'none') {
         return children
