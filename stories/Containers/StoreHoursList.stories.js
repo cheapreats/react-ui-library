@@ -97,9 +97,10 @@ const textHeaders = {
         NO: 'No'
     },
     ERRORS: {
-        CANNOT_DELETE_ACTIVE_CATEGORY: 'You cannot delete an active category.',
-        ONLY_ONE_TIME: 'You cannot add more than one time per day.',
-        FROM_TIME_TOO_BIG: 'The from time has to be earlier than the to time.',
+        CANNOT_DELETE_ACTIVE_CATEGORY: 'You cannot delete an active category',
+        ONLY_ONE_TIME: 'You cannot add more than one time per day',
+        FROM_TIME_TOO_BIG: 'The from time has to be earlier',
+        TO_TIME_TOO_SMALL: 'Please choose another time',
         CANNOT_ADD_EMPTY: 'You cannot create an empty category',
         CATEGORY_EXISTS: 'This category already exists'
     },

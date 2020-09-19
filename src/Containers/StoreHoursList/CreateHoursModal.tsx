@@ -4,11 +4,11 @@ import { ICategoryWithHoursTypes } from './types';
 import { convertDateToHours } from './TimeFunctions';
 import { findActive } from './CategoryScheduleFunctions';
 import { ErrorModal } from './ErrorModal';
+import { TwoTimeSelector } from './TwoTimeSelector';
 import { Modal } from '../Modal';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button';
 import { Checkbox } from '../../Inputs/Checkbox';
-import { Timepicker } from '../../Inputs/Timepicker';
 import { Select } from '../../Inputs/Select';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
@@ -18,6 +18,7 @@ interface CreateHoursProps extends MainInterface, ResponsiveInterface, React.HTM
     MODAL_HEADER: string,
     SELECT_A_DAY_TITLE: string,
     fromTimeTooBigError: string,
+    toTimeTooSmallError: string
     SELECT_A_CATEGORY: string,
     ADD_HOURS_BUTTON: string,
     errorMessage: string,
@@ -26,8 +27,6 @@ interface CreateHoursProps extends MainInterface, ResponsiveInterface, React.HTM
 
 const CHECKED_INITIAL_INDEX = 0; 
 const CHECKED_VALUE = 1;
-const INITIAL_TIME_INDEX = 0; 
-const INITIAL_DATE_INDEX = 1; 
 const ALL_CATEGORIES_INDEX = 0;
 const ALL_CATEGORIES_TIMES = 1;
 const CHECKBOX_DAY = 0;
@@ -39,6 +38,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     MODAL_HEADER,
     SELECT_A_DAY_TITLE,
     fromTimeTooBigError,
+    toTimeTooSmallError,
     SELECT_A_CATEGORY,
     ADD_HOURS_BUTTON,
     errorMessage,
@@ -68,9 +68,6 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
 
     const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(findActive(allCategories).category);
 
-    const errors = {
-        fromTooBig: storeHours.from > storeHours.to ? fromTimeTooBigError : ''
-    }
     const [error, setError] = useState('');
 
     /**
@@ -106,7 +103,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     const handleChange = (): void => {
         setAddModalState(!addModalState);
         saveHours(addStoreHoursCategory);
-    }
+    };
 
     return (
         <>
@@ -138,27 +135,12 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                         );
                     })}
                 </DaysDiv>
-                {Object.entries(storeHours).map((time): React.ReactElement => {
-                    return (
-                        <Container
-                            as={Timepicker} 
-                            key={time[INITIAL_TIME_INDEX]}
-                            name={time[INITIAL_TIME_INDEX]}
-                            label={time[INITIAL_TIME_INDEX].replace(
-                                MATCH_FIRST_LETTER_PATTERN,
-                                (char): string => char.toUpperCase()
-                            )}
-                            value={time[INITIAL_DATE_INDEX]}
-                            onChange={(e: React.ChangeEvent<HTMLInputElement>): void => 
-                                setStoreHours({
-                                    ...storeHours,
-                                    [time[INITIAL_TIME_INDEX]]: e.target.value
-                                })
-                            }
-                            error={errors.fromTooBig}
-                        /> 
-                    );
-                })}
+                <TwoTimeSelector 
+                    fromTimeTooBigError={fromTimeTooBigError}
+                    toTimeTooSmallError={toTimeTooSmallError}
+                    storeHours={storeHours}
+                    setStoreHours={setStoreHours}
+                />
                 <StyledHeading type='h6'>
                     { SELECT_A_CATEGORY }
                 </StyledHeading>
@@ -197,12 +179,6 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
 
 const Section = styled.div`
     margin: 5px;
-`;
-const Container = styled.div`
-    margin: auto;
-    ${({ theme }): string => `
-        padding: ${theme.dimensions.padding.container};
-    `};
 `;
 const StyledModal = styled(Modal)`
     max-height: 70%;

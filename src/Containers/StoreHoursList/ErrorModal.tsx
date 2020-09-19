@@ -15,10 +15,11 @@ export const ErrorModal: React.FC<ErrorModalProps> = ({
     modalState,
     errorMessage,
     icon = CircleWithCross,
-    children
+    children,
+    ...props
 }): React.ReactElement => {
     return (
-        <StyledModal state={modalState}>
+        <StyledModal state={modalState} {...props}>
             <StyledHeading type='h6'>
                 <Icon as={icon} />
                 { errorMessage }

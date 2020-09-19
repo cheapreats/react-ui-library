@@ -130,6 +130,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 MODAL_HEADER={textHeaders.TITLES.SECOND_MODAL_HEADER} 
                 SELECT_A_DAY_TITLE={textHeaders.TITLES.SELECT_A_DAY}
                 fromTimeTooBigError={textHeaders.ERRORS.FROM_TIME_TOO_BIG}
+                toTimeTooSmallError={textHeaders.ERRORS.TO_TIME_TOO_SMALL}
                 SELECT_A_CATEGORY={textHeaders.TITLES.SELECT_A_CATEGORY}
                 ADD_HOURS_BUTTON={textHeaders.BUTTONS.ADD_HOURS}
                 errorMessage={textHeaders.ERRORS.ONLY_ONE_TIME}

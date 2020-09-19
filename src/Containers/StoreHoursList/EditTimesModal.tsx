@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { AddCircle }from '@styled-icons/ionicons-solid/AddCircle';
+import { Add } from '@styled-icons/ionicons-outline/Add';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { ICategoryWithHoursTypes } from './types';
 import { findActive } from './CategoryScheduleFunctions';
@@ -78,7 +78,7 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
             <ButtonsContainer>
                 <Section
                     as={Button}
-                    icon={AddCircle}
+                    icon={Add}
                     onClick={(): void => {
                         setAddModalState(!addModalState);
                     }}

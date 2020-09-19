@@ -24,7 +24,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
     ...props
 }): React.ReactElement => {
     return (
-        <>
+        <Section {...props}>
             {Object.entries(activeCategorySchedule.hoursByDay).map((day): React.ReactElement | null => {
                 const capitalDay = day[CHECKBOX_DAY].replace(MATCH_FIRST_LETTER_PATTERN, (chr: string): string =>
                     chr.toUpperCase(),
@@ -45,7 +45,6 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
                                     [day[CHECKBOX_DAY]]: []
                                 });
                             }}
-                            {...props}
                         >
                             { convertTime(day[CHECKBOX_TIME][FIRST_TIME].from, is24) } 
                             {` - `} 
@@ -58,7 +57,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
                     </Heading>
                 )
             })}
-        </>
+        </Section>
     );
 }
 const Section = styled.div`
