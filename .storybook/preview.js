@@ -1,3 +1,25 @@
+import React  from 'react';
+import { Global } from '../src';
+import { addDecorator } from '@storybook/react';
+import { MINIMAL_VIEWPORTS} from '@storybook/addon-viewport';
+
+const customViewports = {
+    kindleFire2: {
+        name: 'Kindle Fire 2',
+        styles: {
+            width: '600px',
+            height: '963px',
+        },
+    },
+    kindleFireHD: {
+        name: 'Kindle Fire HD',
+        styles: {
+            width: '533px',
+            height: '801px',
+        },
+    },
+};
+
 export const parameters = {
     options: {
         storySort: {
@@ -18,12 +40,14 @@ export const parameters = {
                 value: '#3b5998'
             },
         ],
-    }
+    },
+    viewport: {
+        viewports: {
+            ...MINIMAL_VIEWPORTS,
+            ...customViewports,
+        },
+    },
 };
-
-import React  from 'react';
-import { Global } from '../src';
-import { addDecorator } from '@storybook/react';
 
 // Global provider
 const style = theme => `
