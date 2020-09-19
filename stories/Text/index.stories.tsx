@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text as textKnob, boolean } from '@storybook/addon-knobs';
 import { Heading, Paragraph, SmallText } from '../../src';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 
 const knobs = ({ text = 'Text', bold = false, color = 'Black' }) => ({
     text: textKnob('Text', text),
@@ -19,7 +19,7 @@ storiesOf(createStoryTitle('Text'), module)
         });
         return (
             <Fragment>
-                {types.map(type => (
+                {types.map((type) => (
                     <Heading key={type} type={type} {...props}>
                         {text}
                     </Heading>

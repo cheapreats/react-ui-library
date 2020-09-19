@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { RankingTable } from '../../src';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 
 const data = [
     {

@@ -1,8 +1,8 @@
 import React from 'react';
-import {Accordion, AccordionProps} from '../../src';
+import { Accordion, AccordionProps } from '../../src';
 import { Paragraph } from '../../src';
-import {createStoryTitle} from "../Constants";
-import {Meta, Story} from "@storybook/react";
+import { createStoryTitle } from '../Constants';
+import { Meta, Story } from '@storybook/react';
 
 const defaultActiveStyle = () => `
     color: #ee2434;
@@ -14,8 +14,7 @@ export default {
     component: Accordion,
 } as Meta;
 
-
-export const Basic: Story<AccordionProps>  = (args) => (
+export const Basic: Story<AccordionProps> = (args) => (
     <Accordion {...args} activeStyle={defaultActiveStyle}>
         {/* @ts-ignore */}
         <section header={'Accordion Header 1'}>
