@@ -84,6 +84,8 @@
         ".deploy"
     ],
     "dependencies": {
+        "@storybook/addon-backgrounds": "^6.0.21",
+        "@storybook/addon-controls": "^6.0.21",
         "@storybook/addon-docs": "^6.0.21",
         "@types/emoji-mart": "^3.0.2",
         "@types/react-beautiful-dnd": "^13.0.0",

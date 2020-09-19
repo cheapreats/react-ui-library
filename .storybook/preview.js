@@ -6,6 +6,19 @@ export const parameters = {
             locales: 'en-US',
         },
     },
+    backgrounds: {
+        default: '',
+        values: [
+            {
+                name: 'CheaprEats White',
+                value: '#00aced'
+            },
+            {
+                name: 'CheaprEats Black',
+                value: '#3b5998'
+            },
+        ],
+    }
 };
 
 import React  from 'react';
