@@ -88,7 +88,7 @@ const textHeaders = {
     },
     BUTTONS: {
         EDIT: 'Edit',
-        TOGGLE: 'Toggle AM/PM',
+        TOGGLE: 'Toggle 24hrs',
         ADD_HOURS: 'Add Hours',
         EDIT_CATEGORIES: 'Edit Categories',
         ADD_CATEGORY: 'Add Category',

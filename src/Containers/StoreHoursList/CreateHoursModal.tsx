@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ICategoryWithHoursTypes } from './types';
 import { convertDateToHours } from './TimeFunctions';
 import { findActive } from './CategoryScheduleFunctions';
 import { ErrorModal } from './ErrorModal';
-import { TwoTimeSelector } from './TwoTimeSelector';
+import { TwoTimeSelector } from './FromToDualTimeSelector';
 import { Modal } from '../Modal';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button';
@@ -33,6 +33,16 @@ const CHECKBOX_DAY = 0;
 const CHECKBOX_TIME = 1;
 const MATCH_FIRST_LETTER_PATTERN = /^\w/;
 
+const initialCheckboxState = {
+    monday: false,
+    tuesday: false,
+    wednesday: false,
+    thursday: false,
+    friday: false,
+    saturday: false,
+    sunday: false
+};
+
 export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     isVisible,
     MODAL_HEADER,
@@ -50,15 +60,6 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     const errorModal = useState(false);
     const [errorModalState, setErrorModalState] = errorModal;
 
-    const initialCheckboxState = {
-        monday: false,
-        tuesday: false,
-        wednesday: false,
-        thursday: false,
-        friday: false,
-        saturday: false,
-        sunday: false
-    };
     const [checkboxes, setCheckboxes] = useState(initialCheckboxState);
 
     const [storeHours, setStoreHours] = useState({
@@ -70,6 +71,28 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
 
     const [error, setError] = useState('');
 
+    useEffect((): void => {
+        setCheckboxes(initialCheckboxState);
+    }, [addModalState])
+
+    /**
+     * Checks if there is more than one time
+     * @param {string} categoryName - Name of category that needs hours to be saved
+     * @returns {boolean} - Returns true if more than one category appears
+     */
+    const notMoreThanOneTime = (categoryName: string): boolean => {
+        let check = false;
+        const timedArray = allCategories.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === categoryName);
+        if (timedArray !== undefined) {
+            Object.entries(checkboxes).forEach((checkbox): void => {
+                if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length >= 1) { // cannot have more than one time per day
+                    check = true;
+                } 
+            });
+        }
+        return check;
+    };
+
     /**
      * Saves selected time from user
      * @param {string} categoryName - Name of category that needs hours to be saved
@@ -80,10 +103,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
             const timedArray = allCategories.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === categoryName);
             if (timedArray !== undefined) {
                 Object.entries(checkboxes).map((checkbox): ICategoryWithHoursTypes | null => {
-                    if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length >= 1) { // cannot have more than one time per day
-                        setError(errorMessage);
-                        setErrorModalState(!errorModalState);
-                    } else if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length === 0) { // add time
+                    if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length === 0) { // add time
                         const convertedTime = convertDateToHours(storeHours);
                         if (convertedTime !== null) {
                             timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].push({
@@ -101,8 +121,13 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     };
 
     const handleChange = (): void => {
-        setAddModalState(!addModalState);
-        saveHours(addStoreHoursCategory);
+        if(notMoreThanOneTime(addStoreHoursCategory)) {
+            setError(errorMessage);
+            setErrorModalState(!errorModalState);
+        } else {
+            saveHours(addStoreHoursCategory);
+            setAddModalState(!addModalState);
+        }
     };
 
     return (
@@ -129,7 +154,6 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                                         ...checkboxes,
                                         [checked[CHECKED_INITIAL_INDEX]]: !checked[CHECKED_VALUE]
                                     })
-
                                 }}
                             />
                         );
@@ -164,7 +188,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                 </Section>
                 <CenteredButton 
                     onClick={handleChange}
-                    disabled={storeHours.from > storeHours.to}
+                    disabled={storeHours.from > storeHours.to || checkboxes === initialCheckboxState}
                 >
                     { ADD_HOURS_BUTTON } 
                 </CenteredButton> 

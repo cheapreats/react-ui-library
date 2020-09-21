@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
-import { ICategoryWithHoursTypes } from './types';
+import { ICategoryWithHoursTypes } from './constants';
 import { findActive } from './CategoryScheduleFunctions';
 import { Modal } from '../Modal';
 import { Heading } from '../../Text';
