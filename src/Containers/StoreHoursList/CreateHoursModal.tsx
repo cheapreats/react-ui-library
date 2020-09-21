@@ -99,24 +99,22 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
      * @returns {ICategoryWithHoursType | null} - Updated category schedule with new time 
      */
     const saveHours = (categoryName: string): void => {
-        if (Object.values(checkboxes).includes(true)) {
-            const timedArray = allCategories.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === categoryName);
-            if (timedArray !== undefined) {
-                Object.entries(checkboxes).map((checkbox): ICategoryWithHoursTypes | null => {
-                    if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length === 0) { // add time
-                        const convertedTime = convertDateToHours(storeHours);
-                        if (convertedTime !== null) {
-                            timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].push({
-                                from: convertedTime.from,
-                                to: convertedTime.to
-                            });
-                            setCheckboxes(initialCheckboxState);
-                            return timedArray;
-                        } 
-                    }
-                    return null;
-                })
-            }
+        const timedArray = allCategories.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === categoryName);
+        if (timedArray !== undefined) {
+            Object.entries(checkboxes).map((checkbox): ICategoryWithHoursTypes | null => {
+                if (checkbox[CHECKBOX_TIME] && timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length === 0) { // add time
+                    const convertedTime = convertDateToHours(storeHours);
+                    if (convertedTime !== null) {
+                        timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].push({
+                            from: convertedTime.from,
+                            to: convertedTime.to
+                        });
+                        setCheckboxes(initialCheckboxState);
+                        return timedArray;
+                    } 
+                }
+                return null;
+            })
         }
     };
 
