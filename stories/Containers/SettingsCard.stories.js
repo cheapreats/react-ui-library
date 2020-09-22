@@ -2,8 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { SettingsCard } from '../../src';
 import { Plus } from '@styled-icons/boxicons-regular/Plus';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('SettingsCard', module)
+storiesOf(createStoryTitle('Settings Card'), module)
     .add('with default', () => (
         <SettingsCard
             heading="SettingsCard"

@@ -2,8 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { HeaderRow, Status } from '../../src';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('HeaderRow', module)
+storiesOf(createStoryTitle('Header Row'), module)
     .addDecorator(withKnobs)
     .add('with default', () => (
         <HeaderRow

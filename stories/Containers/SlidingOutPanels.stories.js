@@ -1,8 +1,9 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { SlidingOutPanels } from '../../src';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('Sliding Out Panel', module).add('with default', () => (
+storiesOf(createStoryTitle('Sliding Out Panels'), module).add('with default', () => (
     <SlidingOutPanels images={images} onClick={() => imagePanelClick()} />
 ));
 

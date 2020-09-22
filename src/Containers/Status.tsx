@@ -4,18 +4,26 @@ import { transition, flex, position } from '../Utils/Mixins';
 import { SmallText, SmallTextProps } from '../Text';
 import { MainInterface } from '../Utils/BaseStyles';
 
-interface StatusProps extends TextProps, DotProps {
+export enum StatusColors {
+    prepared = 'prepared',
+    preparing = 'preparing',
+    placed = 'placed',
+    cancelled = 'cancelled',
+    complete = 'complete',
+}
+
+export interface StatusProps extends TextProps, DotProps {
     large?: boolean;
 }
 
 interface TextProps extends SmallTextProps, MainInterface {
     large?: boolean;
-    status: string;
+    status: StatusColors;
 }
 
 interface DotProps extends MainInterface {
     large?: boolean;
-    status: string;
+    status: StatusColors;
 }
 
 export const Status: React.FC<StatusProps> = memo(
@@ -61,15 +69,13 @@ const Dot = styled.span<DotProps>`
                 : `
             width: 9px;
             height: 9px;
-        `}
+        `};
         border-radius: 50%;
     }
 
     &:before {
         ${transition(['transform', 'opacity'])}
-        ${position(
-            'absolute',
-        )}
+        ${position('absolute')}
         animation: pulse 1s ease-in-out 0s infinite;
         content: '';
 

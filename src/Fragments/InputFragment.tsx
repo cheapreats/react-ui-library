@@ -33,7 +33,6 @@ const InputElement = styled.input<InputFragmentProps>`
     outline: none;
     border: none;
 
-
     // Disabled
     &:disabled {
         cursor: not-allowed;

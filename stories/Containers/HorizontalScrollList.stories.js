@@ -3,8 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { Mixins } from '../../src';
 import { withKnobs, text, number, boolean } from '@storybook/addon-knobs';
 import { HorizontalScrollList } from '../../src';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('HorizontalScrollList', module)
+storiesOf(createStoryTitle('Horizontal Scroll List'), module)
     .addDecorator(withKnobs)
     .add('with default', () => {
         const exampleHoveredStyle = () => `

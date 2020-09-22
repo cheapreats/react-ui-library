@@ -1,10 +1,11 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { SettingsSwitch} from '../../src';
+import {createStoryTitle} from "../Constants";
 
 const switcher = (value) => console.log(value);
 
-storiesOf('SettingsSwitch', module)
+storiesOf(createStoryTitle('Settings Switch'), module)
     .add('with default', () => (
         <SettingsSwitch
             label="Label"

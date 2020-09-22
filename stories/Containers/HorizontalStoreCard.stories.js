@@ -2,8 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { HorizontalStoreCard } from '../../src';
 import { Dog } from '@styled-icons/fa-solid/Dog';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('HorizontalStoreCard', module).add('with default', () => (
+storiesOf(createStoryTitle('Horizontal Store Card'), module).add('with default', () => (
     <HorizontalStoreCard
         image="https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif"
         pictureTags={[{ icon: Dog, text: 'Dog' }]}

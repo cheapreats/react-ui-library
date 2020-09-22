@@ -3,8 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { mockElement } from '../Tools';
 import { Modal, Button } from '../../src';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('Modal', module)
+storiesOf(createStoryTitle('Modal'), module)
     .addDecorator(withKnobs)
     .add(
         'with mock',

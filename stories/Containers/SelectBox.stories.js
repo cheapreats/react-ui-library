@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { SelectBox } from '../../src';
 import { withKnobs } from '@storybook/addon-knobs';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('SelectBox', module)
+storiesOf(createStoryTitle('Select Box'), module)
     .addDecorator(withKnobs)
     .add('with default', () =>{ 
         const [isSelected, setSelected] = useState(false);
