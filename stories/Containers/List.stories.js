@@ -1,41 +1,12 @@
 import React from 'react';
+import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
-import { withKnobs, text } from '@storybook/addon-knobs';
-import { List, Button } from '../../src';
+import { withKnobs } from '@storybook/addon-knobs';
+import { List, ListHeader, ListFooter, ListItem } from '../../src';
+import { Cog } from '@styled-icons/fa-solid/Cog';
 
-storiesOf('List', module)
-    .addDecorator(withKnobs)
-    .add('with default', () => <List label={text('Label', 'List Label')} />)
-    .add('with inner scroll', () => (
-        <div style={{ height: '80vh' }}>
-            <List
-                label="List"
-                stickyTopContent={<StickyComponent />}
-                items={items}
-                footer={<Footer />}
-                render={props => (
-                    <div>
-                        <p>{props.key}</p>
-                        <p>{props.data}</p>
-                        <p>{props.date}</p>
-                    </div>
-                )}
-            />
-        </div>
-    ));
+const COG_WHEEL_ICON = Cog;
 
-const StickyComponent = () => (
-    <div>
-        {items.map(item => (
-            <div style={{ padding: '15px', backgroundColor: 'lightgrey' }}>
-                <p>{item.key}</p>
-                <p>{item.data}</p>
-                <p>{item.date}</p>
-            </div>
-        ))}
-    </div>
-);
-const Footer = () => <Button>Click Me</Button>;
 const items = [
     { key: '1', data: 'data', date: 'today' },
     { key: '2', data: 'data', date: 'yesterday' },
@@ -44,3 +15,35 @@ const items = [
     { key: '5', data: 'data', date: 'today' },
     { key: '7', data: 'data', date: 'yesterday' },
 ];
+
+storiesOf('List', module)
+    .addDecorator(withKnobs)
+    .add('with default', () => (
+        <Container>
+            <List
+                header={<ListHeader 
+                    label="List Header" 
+                    headerFlex="space-between"
+                    icon={COG_WHEEL_ICON }
+                    iconProps={'width: 20px; margin-right: 10px'}
+                    iconClick={() => alert('Icon Clicked')}
+                    />}
+                footer={<ListFooter>
+                    <p>This is a list Footer</p>
+                </ListFooter>}
+                loading={false}
+                id="1"
+            >
+                {items.map((item, index) => (
+                    <ListItem index={index} onClick={()=>alert(`You clicked ${item.date}`)}>
+                        <p>{item.date}</p>
+                    </ListItem>
+                ))}
+            </List>
+        </Container>
+    ));
+
+const Container = styled.div`
+    width:30vw;
+    height:70vh;
+`

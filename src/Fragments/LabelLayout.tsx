@@ -73,6 +73,10 @@ export const LabelLayout: React.ForwardRefExoticComponent<LabelLayoutProps> = fo
     },
 );
 
+interface ErrorLabelProps {
+    error?: boolean;
+}
+
 const Layout = styled.div<ResponsiveInterface & MainInterface>`
     ${transition(['opacity'])}
     ${flex('column')}
@@ -86,15 +90,16 @@ const Label = styled.label`
     margin-bottom: 5px;
 `;
 
-const ErrorLabel = styled(Label)<{
-    error?: boolean;
-}>`
+const ErrorLabel = styled.label<ErrorLabelProps>`
     ${transition(['max-height', 'opacity'])}
     overflow: hidden;
     margin-top: 5px;
     max-height: 0;
     opacity: 0;
     color: red;
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin-bottom: 5px;
 
     ${({ error }): string =>
         error
