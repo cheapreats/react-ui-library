@@ -6,7 +6,7 @@ import { Loading } from '../Loading';
 import { ListStateContext, ListDispatchContext } from './ListContext';
 import { ListToggle } from './ListToggle';
 
-export interface ListProps {
+export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
     loading: boolean;
     header?: React.ReactElement;
     footer?: React.ReactElement;

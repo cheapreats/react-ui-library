@@ -14,6 +14,11 @@ const items = [
     { key: '4', data: 'data', date: 'yesterday' },
     { key: '5', data: 'data', date: 'today' },
     { key: '7', data: 'data', date: 'yesterday' },
+    { key: '8', data: 'data', date: 'today' },
+    { key: '9', data: 'data', date: 'yesterday' },
+    { key: '10', data: 'data', date: 'today' },
+    { key: '11', data: 'data', date: 'yesterday' },
+    { key: '12', data: 'data', date: 'today' },
 ];
 
 storiesOf(createStoryTitle('List'), module)
@@ -45,5 +50,5 @@ storiesOf(createStoryTitle('List'), module)
 
 const Container = styled.div`
     width:30vw;
-    height:70vh;
+    height:400px;
 `
