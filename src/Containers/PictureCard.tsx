@@ -11,7 +11,7 @@ interface TagProps {
     text: string;
 }
 
-interface PictureCardProps
+export interface PictureCardProps
     extends MainInterface,
         ResponsiveInterface,
         CardProps {
