@@ -6,7 +6,7 @@ import { Mixins } from '../Utils';
 import { Card as C } from './Card';
 import { Heading } from '../Text';
 
-interface SettingsCardProps
+export interface SettingsCardProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
