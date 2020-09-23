@@ -13,14 +13,14 @@ export default {
         description: "this is a Store Review Card",
         rating: "4",
         heading: "Hot Dog",
-        image: "https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif"
+        image: "https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif",
+        tags: [{ icon: Dog, text: 'Dog' }, { icon: Cat, text: 'hmm?' }]
     },
 } as Meta;
 
 export const Basic: Story<StoreFeatureCardProps> = (args) => (
     <StoreFeatureCard {...args}         
     alt="coding Dog"
-    tags={[{ icon: Dog, text: 'Dog' }, { icon: Cat, text: 'hmm?' }]}
     width="400px"
     height="200px"
 />
