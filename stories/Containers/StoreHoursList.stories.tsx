@@ -122,5 +122,6 @@ const textHeaders = {
 export const Basic: Story<StoreHoursListProps> = (args) => (
     <StoreHoursList 
         {...args}
-        textHeaders={textHeaders}/>
+        textHeaders={textHeaders}
+    />
 );
