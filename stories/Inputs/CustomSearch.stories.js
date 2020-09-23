@@ -3,8 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { CustomSearch } from '../../src';
 import { mockElement } from '../Tools';
 import { withKnobs } from '@storybook/addon-knobs';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('Custom Search', module)
+storiesOf(createStoryTitle('Custom Search'), module)
     .addDecorator(withKnobs)
     .add(
         'with states',

@@ -4,7 +4,7 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { List, ListHeader, ListFooter, ListItem } from '../../src';
 import { Cog } from '@styled-icons/fa-solid/Cog';
-
+import {createStoryTitle} from "../Constants";
 const COG_WHEEL_ICON = Cog;
 
 const items = [
@@ -16,10 +16,10 @@ const items = [
     { key: '7', data: 'data', date: 'yesterday' },
 ];
 
-storiesOf('List', module)
+storiesOf(createStoryTitle('List'), module)
     .addDecorator(withKnobs)
     .add('with default', () => (
-        <Container>
+         <Container>
             <List
                 header={<ListHeader 
                     label="List Header" 

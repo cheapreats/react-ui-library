@@ -2,8 +2,9 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import { Switch} from '../../src';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('Switch', module)
+storiesOf(createStoryTitle('Switch'), module)
     .addDecorator(withKnobs)
     .add('with default', () => (
         <Switch

@@ -4,8 +4,9 @@ import { withKnobs, text } from '@storybook/addon-knobs';
 import { mockElement } from '../Tools';
 
 import { DiningReservation } from '../../src/Containers/DiningReservation';
+import {COMPONENTS_TITLE, createStoryTitle} from "../Constants";
 
-storiesOf('DiningReservation', module)
+storiesOf(createStoryTitle('Dining Reservation'), module)
     .addDecorator(withKnobs)
     .add(
         'with default',

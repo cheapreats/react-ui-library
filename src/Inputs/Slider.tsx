@@ -248,23 +248,23 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
 };
 
 const SliderBoard = styled.div<SliderProps>`
-        width: 100%;
-        height: 4px;
-        background: #e9e9e9;
-        cursor:pointer;
-        ${({ theme }): string => `
+    width: 100%;
+    height: 4px;
+    background: #e9e9e9;
+    cursor: pointer;
+    ${({ theme }): string => `
             border-radius: ${theme.dimensions.radius};
             box-shadow: ${theme.depth[1]};
         `}
-        // Disabled
+    // Disabled
         ${({ disabled }): string =>
-            disabled
-                ? `
+        disabled
+            ? `
             cursor: not-allowed;
             opacity: 0.6;
         `
-                : ''}
-        `;
+            : ''}
+`;
 
 export interface SelectedBarProps {
     left: number;

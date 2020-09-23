@@ -3,8 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { mockElement } from '../Tools';
 import { Timepicker } from '../../src';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('Timepicker', module)
+storiesOf(createStoryTitle('ClientShowCase'), module)
     .addDecorator(withKnobs)
     .add(
         'with default',

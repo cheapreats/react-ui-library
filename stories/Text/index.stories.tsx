@@ -2,14 +2,15 @@ import React, { Fragment } from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text as textKnob, boolean } from '@storybook/addon-knobs';
 import { Heading, Paragraph, SmallText } from '../../src';
+import { createStoryTitle } from '../Constants';
 
-const knobs = ({ text = 'Text', bold = false, color }) => ({
+const knobs = ({ text = 'Text', bold = false, color = 'Black' }) => ({
     text: textKnob('Text', text),
     bold: boolean('Bold', bold),
     color: textKnob('Color', color),
 });
 
-storiesOf('Text', module)
+storiesOf(createStoryTitle('Text'), module)
     .addDecorator(withKnobs)
     .add('with Heading', () => {
         const types = ['h1', 'h2', 'h3', 'h4', 'h5', 'h6'];
@@ -18,7 +19,7 @@ storiesOf('Text', module)
         });
         return (
             <Fragment>
-                {types.map(type => (
+                {types.map((type) => (
                     <Heading key={type} type={type} {...props}>
                         {text}
                     </Heading>

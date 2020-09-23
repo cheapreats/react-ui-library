@@ -86,7 +86,7 @@ const Input = styled.input<InputProps>`
 const SwitchBox = styled.div<SwitchProps>`
     ${flex('flex-start', 'center')};
     box-sizing: border-box;
-    border-radius:999px;
+    border-radius: 999px;
     ${({ theme, activeColor }): string => `
         background-color: ${darken(theme.colors.input.default, 0.05)};
         padding: ${theme.dimensions.switch.spacing}px;
@@ -101,7 +101,7 @@ const SwitchBox = styled.div<SwitchProps>`
     ${Input}:disabled ~ & {
         opacity: 0.6;
     }
-    
+
     ${({ switchColor }): string =>
         switchColor
             ? `

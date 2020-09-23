@@ -3,8 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { Datepicker } from '../../src';
 import { mockElement } from '../Tools';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('Datepicker', module)
+storiesOf(createStoryTitle('Date Picker'), module)
     .addDecorator(withKnobs)
     .add(
         'with mock',

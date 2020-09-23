@@ -3,8 +3,9 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, text, select } from '@storybook/addon-knobs';
 import { MaskedInputPreset, MaskedInput } from '../../src/Inputs';
 import { ViewArray } from 'styled-icons/material';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('MaskedInput', module)
+storiesOf(createStoryTitle('Masked Input'), module)
     .addDecorator(withKnobs)
     .add('with dollar formatter', () => {
         const [value, setValue] = useState('90');

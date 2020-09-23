@@ -2,6 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { RankingTable } from '../../src';
+import { createStoryTitle } from '../Constants';
 
 const data = [
     {
@@ -76,7 +77,7 @@ const data = [
     },
 ];
 
-storiesOf('Ranking Table', module)
+storiesOf(createStoryTitle('Ranking Table'), module)
     .addDecorator(withKnobs)
     .add('with default', () => (
         <RankingTable

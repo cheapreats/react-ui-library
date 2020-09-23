@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import { ExcelOptions } from '../../src';
+import {createStoryTitle} from "../Constants";
 
-storiesOf('ExcelOptions', module)
+storiesOf(createStoryTitle('Excel Options'), module)
     .addDecorator(withKnobs)
     .add('with default', () => {
         return (
