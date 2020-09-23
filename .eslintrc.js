@@ -24,7 +24,7 @@ module.exports = {
         'import/resolver': {
             alias: {
                 map: Object.entries(aliases).map(item => {
-                    item[1] = `./${  item[1]}`;
+                    item[1] = `./${item[1]}`;
                     return item;
                 }),
                 extensions: ['.ts', '.tsx', '.json'],
