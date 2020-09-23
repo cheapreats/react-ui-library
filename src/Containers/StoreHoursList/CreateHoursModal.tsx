@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { ICategoryWithHoursTypes } from './types';
+import { ICategoryWithHoursTypes, I_InitialCheckboxState } from './types';
 import { convertDateToHours } from './TimeFunctions';
 import { findActive } from './CategoryScheduleFunctions';
 import { ErrorModal } from './ErrorModal';
-import { TwoTimeSelector } from './FromToDualTimeSelector';
+import { FromToDualTimeSelector } from './FromToDualTimeSelector';
 import { Modal } from '../Modal';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button';
@@ -32,8 +32,7 @@ const ALL_CATEGORIES_TIMES = 1;
 const CHECKBOX_DAY = 0;
 const CHECKBOX_TIME = 1;
 const MATCH_FIRST_LETTER_PATTERN = /^\w/;
-
-const initialCheckboxState = {
+const initialCheckboxState: I_InitialCheckboxState = {
     monday: false,
     tuesday: false,
     wednesday: false,
@@ -76,11 +75,11 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     }, [addModalState])
 
     /**
-     * Checks if there is more than one time
+     * Checks if there is more than one time in a day given a category name
      * @param {string} categoryName - Name of category that needs hours to be saved
      * @returns {boolean} - Returns true if more than one category appears
      */
-    const notMoreThanOneTime = (categoryName: string): boolean => {
+    const onlyOneTimePerDay = (categoryName: string): boolean => {
         let check = false;
         const timedArray = allCategories.find((categorySchedule: ICategoryWithHoursTypes): ICategoryWithHoursTypes | null | boolean => categorySchedule.category === categoryName);
         if (timedArray !== undefined) {
@@ -119,7 +118,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     };
 
     const handleChange = (): void => {
-        if(notMoreThanOneTime(addStoreHoursCategory)) {
+        if(onlyOneTimePerDay(addStoreHoursCategory)) {
             setError(errorMessage);
             setErrorModalState(!errorModalState);
         } else {
@@ -157,7 +156,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                         );
                     })}
                 </DaysDiv>
-                <TwoTimeSelector 
+                <FromToDualTimeSelector 
                     fromTimeTooBigError={fromTimeTooBigError}
                     toTimeTooSmallError={toTimeTooSmallError}
                     storeHours={storeHours}

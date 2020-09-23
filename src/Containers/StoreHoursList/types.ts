@@ -16,3 +16,13 @@ export interface ITimeTypes {
     to: Date | string 
     from: Date | string 
 };
+
+export interface I_InitialCheckboxState {
+    monday: boolean,
+    tuesday: boolean,
+    wednesday: boolean,
+    thursday: boolean,
+    friday: boolean,
+    saturday: boolean,
+    sunday: boolean
+};

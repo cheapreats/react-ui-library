@@ -4,7 +4,7 @@ import { Timepicker } from '../../Inputs/Timepicker';
 import { MainInterface, ResponsiveInterface, Main } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 
-interface TwoTimeSelectorProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
+interface FromToDualTimeSelectorProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     fromTimeTooBigError: string,
     toTimeTooSmallError: string,
     storeHours: { from: Date, to: Date }
@@ -17,7 +17,7 @@ const MATCH_FIRST_LETTER_PATTERN = /^\w/;
 const FROM = 'from';
 const TO = 'to';
 
-export const TwoTimeSelector: React.FC<TwoTimeSelectorProps> = ({
+export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
     fromTimeTooBigError,
     toTimeTooSmallError,
     storeHours,
