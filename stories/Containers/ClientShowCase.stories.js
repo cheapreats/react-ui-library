@@ -4,6 +4,7 @@ import { withKnobs, boolean, select } from '@storybook/addon-knobs';
 import styled from 'styled-components';
 import { Button } from '../../src/Inputs/Button';
 import { ClientShowCase } from '../../src';
+import {COMPONENTS_TITLE, createStoryTitle} from "../Constants";
 
 const onComponentClick = e => {
     console.log('You clicked the div!');
@@ -18,7 +19,7 @@ const MyButton = styled(Button)`
     height: auto;
 `;
 
-storiesOf('ClientShowCase', module)
+storiesOf(createStoryTitle('ClientShowCase'), module)
     .addDecorator(withKnobs)
     .add('with hover component', () => (
         <ClientShowCase

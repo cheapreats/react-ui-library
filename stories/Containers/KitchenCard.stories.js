@@ -3,6 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, text, boolean, array } from '@storybook/addon-knobs';
 import { KitchenCard } from '../../src';
 import {Button} from '../../src/Inputs/Button'
+import {createStoryTitle} from "../Constants";
 
 const sampleOrder = {
     _id: '5f15ff0d1689a01c4b9cc72f',
@@ -60,7 +61,7 @@ const sampleOrderMany = {
 const StatusModifierComponent = <><Button loading={false} margin="0 6px 5px 0">Hello</Button><Button loading={false} margin="0 6px 0 0">Hello</Button></>
 
 
-storiesOf('KitchenCard', module)
+storiesOf(createStoryTitle('Kitchen Card'), module)
     .addDecorator(withKnobs)
     .add('with default', () => (
         <KitchenCard

@@ -6,6 +6,7 @@ import { Main } from '../Utils/BaseStyles';
 
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+    children: React.ReactNode;
 }
 
 export const Tag: React.FC<TagProps> = ({

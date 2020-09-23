@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { ImageCarousel } from '../../src';
-import { Plus } from '@styled-icons/boxicons-regular/Plus';
+import {createStoryTitle} from "../Constants";
 
 const images = [
     'https://image.shutterstock.com/image-photo/image-250nw-1081879181.jpg',
@@ -10,7 +10,7 @@ const images = [
     'https://boygeniusreport.files.wordpress.com/2016/05/scared-surprised-cat-face.jpg?quality=98&strip=all&w=782',
 ];
 
-storiesOf('Image Carousel', module)
+storiesOf(createStoryTitle('Image Carousel'), module)
     .addDecorator(withKnobs)
     .add('with default', () => (
         <ImageCarousel

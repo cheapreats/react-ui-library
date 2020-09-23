@@ -11,7 +11,7 @@ storiesOf('${name}', module)
 ;
 `;
 
-const COMPONENT_TEMPLATE = name =>
+const COMPONENT_TEMPLATE = (name) =>
     `import React from 'react';
 import styled from 'styled-components';
 

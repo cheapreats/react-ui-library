@@ -8,7 +8,7 @@ export enum MaskedInputPreset {
 
 export interface MaskedInputProps
     extends LabelLayoutProps,
-        React.HTMLAttributes<HTMLInputElement> {
+        React.InputHTMLAttributes<HTMLInputElement> {
     realValue: string;
     onRealValueChange: (value: string) => void;
     mask: MaskedInputPreset | ((value: string) => string);
@@ -39,17 +39,14 @@ const PERCENT_FORMAT_MASK = (s: string): string => {
 const getMaskFunction_ = (
     mask: MaskedInputPreset | ((value: string) => string),
 ): ((value: string) => string) => {
-    if (mask in MaskedInputPreset) {
-        switch (mask) {
-            case MaskedInputPreset.DOLLAR:
-                return DOLLAR_FORMAT_MASK;
-            case MaskedInputPreset.PERCENTAGE:
-                return PERCENT_FORMAT_MASK;
-            default:
-                return (): string => 'Invalid mask.';
-        }
+    switch (mask) {
+        case MaskedInputPreset.DOLLAR:
+            return DOLLAR_FORMAT_MASK;
+        case MaskedInputPreset.PERCENTAGE:
+            return PERCENT_FORMAT_MASK;
+        default:
+            return mask as (value: string) => string;
     }
-    return mask as (value: string) => string;
 };
 
 export const MaskedInput: React.FC<MaskedInputProps> = ({
