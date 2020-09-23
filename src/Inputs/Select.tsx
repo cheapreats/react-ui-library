@@ -58,7 +58,9 @@ const _Select: React.FC<SelectProps> = ({
     children,
     limit = 4,
     placeholder = '',
-    onChange = (): void => {},
+    onChange = (): void => {
+        return undefined;
+    },
     theme,
     name,
     ...props

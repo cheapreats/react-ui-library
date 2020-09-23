@@ -1,7 +1,7 @@
 import React from 'react';
-import {Checkbox, CheckboxProps} from '../../src';
-import {createStoryTitle} from "../Constants";
-import {Meta, Story} from "@storybook/react";
+import { Checkbox, CheckboxProps } from '../../src';
+import { createStoryTitle } from '../Constants';
+import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('CheckBox'),
@@ -9,9 +9,9 @@ export default {
     argTypes: { onChange: { action: 'Checkbox Click Occurred' } },
     args: {
         name: 'demo',
-        label: "This is a checkbox",
+        label: 'This is a checkbox',
         value: false,
-    }
+    },
 } as Meta;
 
-export const Basic: Story<CheckboxProps>  = (args) => <Checkbox {...args}/>;
+export const Basic: Story<CheckboxProps> = (args) => <Checkbox {...args} />;
