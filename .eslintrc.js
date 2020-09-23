@@ -42,7 +42,6 @@ module.exports = {
     rules: {
         '@typescript-eslint/no-empty-interface': 'off',
         '@typescript-eslint/no-var-requires': 'off',
-        '@typescript-eslint/no-use-before-define': ['off'],
         '@typescript-eslint/no-shadow': 'error',
         '@typescript-eslint/ban-types': [ 'off' ],
         'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
