@@ -10,18 +10,17 @@ export default {
     component: StoreFeatureCard,
     args: {
         linktitle: "VISIT STORE",
-        description: "this is a Store Review Card"
+        description: "this is a Store Review Card",
+        rating: "4",
+        heading: "Hot Dog",
+        image: "https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif"
     },
 } as Meta;
 
 export const Basic: Story<StoreFeatureCardProps> = (args) => (
     <StoreFeatureCard {...args}         
-    image="https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif"
-    tags={[{ icon: Dog, text: 'Dog' }, { icon: Cat, text: 'hmm?' }]}
     alt="coding Dog"
     width="400px"
     height="200px"
-    rating="4"
-    heading="Hot Dog"
-    description="this is a Store Feature Card"/>
+/>
 );
