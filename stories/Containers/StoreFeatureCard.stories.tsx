@@ -20,6 +20,7 @@ export default {
 export const Basic: Story<StoreFeatureCardProps> = (args) => (
     <StoreFeatureCard {...args}         
     alt="coding Dog"
+    tags={[{ icon: Dog, text: 'Dog' }, { icon: Cat, text: 'hmm?' }]}
     width="400px"
     height="200px"
 />
