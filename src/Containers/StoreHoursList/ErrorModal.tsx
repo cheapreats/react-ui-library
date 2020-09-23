@@ -5,11 +5,14 @@ import { Modal } from '../Modal';
 import { Heading } from '../../Text';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
-interface ErrorModalProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    modalState: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
-    errorMessage: string,
-    icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>,
-};
+interface ErrorModalProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    modalState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+    errorMessage: string;
+    icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+}
 
 export const ErrorModal: React.FC<ErrorModalProps> = ({
     modalState,
@@ -20,13 +23,12 @@ export const ErrorModal: React.FC<ErrorModalProps> = ({
 }): React.ReactElement => {
     return (
         <StyledModal state={modalState} {...props}>
-            <StyledHeading type='h6'>
+            <StyledHeading type="h6">
                 <Icon as={icon} />
-                { errorMessage }
+                {errorMessage}
             </StyledHeading>
-            { children }
+            {children}
         </StyledModal>
-
     );
 };
 

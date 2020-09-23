@@ -9,15 +9,20 @@ import { Button } from '../../Inputs/Button';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 
-interface ConfirmModalProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    isVisible: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
-    confirmDelete: string,
-    yesButtonLabel: string,
-    noButtonLabel: string,
-    allCategories: ICategoryWithHoursTypes[],
-    setAllCategories: React.Dispatch<React.SetStateAction<ICategoryWithHoursTypes[]>>
-    deletedCategory: string
-};
+interface ConfirmModalProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    isVisible: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+    confirmDelete: string;
+    yesButtonLabel: string;
+    noButtonLabel: string;
+    allCategories: ICategoryWithHoursTypes[];
+    setAllCategories: React.Dispatch<
+        React.SetStateAction<ICategoryWithHoursTypes[]>
+    >;
+    deletedCategory: string;
+}
 
 export const ConfirmModal: React.FC<ConfirmModalProps> = ({
     isVisible,
@@ -33,21 +38,20 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
 
     const handleClick = (): void => {
         setConfirmModalState(!confirmModalState);
-        setAllCategories(allCategories.filter((el): ICategoryWithHoursTypes | null | boolean => el.category !== deletedCategory)); 
+        setAllCategories(
+            allCategories.filter(
+                (el): ICategoryWithHoursTypes | null | boolean =>
+                    el.category !== deletedCategory,
+            ),
+        );
     };
 
     return (
         <StyledModal state={isVisible} {...props}>
-            <StyledHeading type='h6'>
-                { confirmDelete }
-            </StyledHeading>
+            <StyledHeading type="h6">{confirmDelete}</StyledHeading>
             <ButtonsContainer>
-                <Section
-                    as={Button}
-                    icon={Check}
-                    onClick={handleClick}
-                >
-                    { yesButtonLabel }
+                <Section as={Button} icon={Check} onClick={handleClick}>
+                    {yesButtonLabel}
                 </Section>
                 <Section
                     as={Button}
@@ -56,11 +60,10 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
                         setConfirmModalState(!confirmModalState);
                     }}
                 >
-                    { noButtonLabel }
+                    {noButtonLabel}
                 </Section>
             </ButtonsContainer>
         </StyledModal>
-
     );
 };
 

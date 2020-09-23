@@ -11,23 +11,30 @@ import { Select } from '../../Inputs/Select';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 
-interface EditTimeProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    isVisible: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
-    addModal: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
-    editCategoryModal: [boolean, React.Dispatch<React.SetStateAction<boolean>>],
-    FIRST_MODAL_HEADER: string,
-    ADD_HOURS_BUTTON: string,
-    EDIT_CATEGORY_BUTTON: string,
-    CHANGE_ACTIVE: string,
-    CHANGE_ACTIVE_SUBTITLE: string,
-    SET_ACTIVE_BUTTON: string,
-    allCategories: ICategoryWithHoursTypes[],
-    setAllCategories: React.Dispatch<React.SetStateAction<ICategoryWithHoursTypes[]>>,
-    activeCategory: string,
-    setActiveCategory: React.Dispatch<React.SetStateAction<string>>,
-    activeCategorySchedule: ICategoryWithHoursTypes,
-    setActiveCategorySchedule: React.Dispatch<React.SetStateAction<ICategoryWithHoursTypes>>,
-};
+interface EditTimeProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    isVisible: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+    addModal: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+    editCategoryModal: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+    FIRST_MODAL_HEADER: string;
+    ADD_HOURS_BUTTON: string;
+    EDIT_CATEGORY_BUTTON: string;
+    CHANGE_ACTIVE: string;
+    CHANGE_ACTIVE_SUBTITLE: string;
+    SET_ACTIVE_BUTTON: string;
+    allCategories: ICategoryWithHoursTypes[];
+    setAllCategories: React.Dispatch<
+        React.SetStateAction<ICategoryWithHoursTypes[]>
+    >;
+    activeCategory: string;
+    setActiveCategory: React.Dispatch<React.SetStateAction<string>>;
+    activeCategorySchedule: ICategoryWithHoursTypes;
+    setActiveCategorySchedule: React.Dispatch<
+        React.SetStateAction<ICategoryWithHoursTypes>
+    >;
+}
 
 const CATEGORY_INDEX = 0;
 const CATEGORY_SCHEDULE = 1;
@@ -50,19 +57,29 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
     ...props
 }): React.ReactElement => {
     const [addModalState, setAddModalState] = addModal;
-    const [editCategoryModalState, setEditCategoryModalState] = editCategoryModal;
+    const [
+        editCategoryModalState,
+        setEditCategoryModalState,
+    ] = editCategoryModal;
 
-    const [selectActiveCategory, setSelectActiveCategory] = useState(findActive(allCategories).category);
+    const [selectActiveCategory, setSelectActiveCategory] = useState(
+        findActive(allCategories).category,
+    );
 
     /**
-     * Gets the active schedule 
+     * Gets the active schedule
      * @param {string} categoryName - Name of category user creates
-     * @returns {ICategoryWithHoursTypes} 
+     * @returns {ICategoryWithHoursTypes}
      */
-    const getActiveSchedule = (categoryName: string): ICategoryWithHoursTypes => {
+    const getActiveSchedule = (
+        categoryName: string,
+    ): ICategoryWithHoursTypes => {
         findActive(allCategories).isActive = false;
         setActiveCategory(categoryName);
-        const activeSchedule = allCategories.find((el): ICategoryWithHoursTypes | null | boolean => categoryName === el.category);
+        const activeSchedule = allCategories.find(
+            (el): ICategoryWithHoursTypes | null | boolean =>
+                categoryName === el.category,
+        );
         if (activeSchedule) {
             activeSchedule.isActive = true;
             return activeSchedule;
@@ -72,9 +89,7 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
 
     return (
         <StyledModal state={isVisible} {...props}>
-            <StyledHeading type='h3'> 
-                { FIRST_MODAL_HEADER } 
-            </StyledHeading>
+            <StyledHeading type="h3">{FIRST_MODAL_HEADER}</StyledHeading>
             <ButtonsContainer>
                 <Section
                     as={Button}
@@ -82,8 +97,8 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
                     onClick={(): void => {
                         setAddModalState(!addModalState);
                     }}
-                > 
-                    { ADD_HOURS_BUTTON }
+                >
+                    {ADD_HOURS_BUTTON}
                 </Section>
                 <Section
                     as={Button}
@@ -91,8 +106,8 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
                     onClick={(): void => {
                         setEditCategoryModalState(!editCategoryModalState);
                     }}
-                > 
-                    { EDIT_CATEGORY_BUTTON }
+                >
+                    {EDIT_CATEGORY_BUTTON}
                 </Section>
             </ButtonsContainer>
             <Section
@@ -105,27 +120,34 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
                 }}
                 value={selectActiveCategory}
             >
-                {Object.entries(allCategories).map((listAllCategories): React.ReactElement => {
-                    return (
-                        <option
-                            key={listAllCategories[CATEGORY_INDEX]} 
-                            value={listAllCategories[CATEGORY_SCHEDULE].category}
-                        >
-                            { listAllCategories[CATEGORY_SCHEDULE].category}
-                        </option>
-                    )
-                })}
+                {Object.entries(allCategories).map(
+                    (listAllCategories): React.ReactElement => {
+                        return (
+                            <option
+                                key={listAllCategories[CATEGORY_INDEX]}
+                                value={
+                                    listAllCategories[CATEGORY_SCHEDULE]
+                                        .category
+                                }
+                            >
+                                {listAllCategories[CATEGORY_SCHEDULE].category}
+                            </option>
+                        );
+                    },
+                )}
             </Section>
             <ButtonsContainer>
                 <Section
                     as={Button}
                     onClick={(): void => {
-                        setActiveCategorySchedule(getActiveSchedule(selectActiveCategory));
+                        setActiveCategorySchedule(
+                            getActiveSchedule(selectActiveCategory),
+                        );
                     }}
-                > 
-                    { SET_ACTIVE_BUTTON }
+                >
+                    {SET_ACTIVE_BUTTON}
                 </Section>
-            </ButtonsContainer>        
+            </ButtonsContainer>
         </StyledModal>
     );
 };
