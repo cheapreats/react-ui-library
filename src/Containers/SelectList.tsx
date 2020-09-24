@@ -35,7 +35,9 @@ export const SelectList: React.FC<SelectSearchBarProps> = ({
     limit,
     expanded,
     inputValue,
-    onChange = (): void => {},
+    onChange = (): void => {
+        return undefined;
+    },
     name,
 }): React.ReactElement => {
     const refSelectList = useRef() as RefObject<HTMLDivElement>;

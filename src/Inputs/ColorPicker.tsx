@@ -14,7 +14,9 @@ export interface ColorPickerProps
 
 export const ColorPicker: React.FC<ColorPickerProps> = ({
     value = undefined,
-    onChange = (): void => {},
+    onChange = (): void => {
+        return undefined;
+    },
     ...props
 }): React.ReactElement => {
     const [cardColor, setColor] = useState(value);

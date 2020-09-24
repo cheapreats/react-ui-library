@@ -56,7 +56,9 @@ interface ResultObjectType {
 export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
     headers = [],
     defaultHeaders = [],
-    onResult = (): void => {},
+    onResult = (): void => {
+        return undefined;
+    },
 }): React.ReactElement => {
     const [resultObject, setResultObject] = useState<ResultObjectType>({
         dates: { from: undefined, to: undefined },

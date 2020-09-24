@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { LabelLayout, LabelLayoutProps, InputFragment } from '../Fragments';
+import {
+    LabelLayout,
+    LabelLayoutProps,
+    InputFragment,
+    InputFragmentProps,
+} from '../Fragments';
 
 export enum MaskedInputPreset {
     DOLLAR = 'DOLLAR',
     PERCENTAGE = 'PERCENTAGE',
 }
 
-export interface MaskedInputProps
-    extends LabelLayoutProps,
-        React.InputHTMLAttributes<HTMLInputElement> {
+export interface MaskedInputProps extends LabelLayoutProps, InputFragmentProps {
     realValue: string;
     onRealValueChange: (value: string) => void;
     mask: MaskedInputPreset | ((value: string) => string);

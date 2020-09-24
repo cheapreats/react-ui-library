@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
 import { position, flex, transition } from '../Utils/Mixins';
 import {
@@ -29,10 +29,10 @@ const _Loading: React.FC<LoadingProps> = ({
     return (
         <Container {...props} animate={animate} invert={mount}>
             {mount ? (
-                <Fragment>
+                <>
                     <Bar />
                     <Text>Loading...</Text>
-                </Fragment>
+                </>
             ) : (
                 children
             )}

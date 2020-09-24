@@ -25,8 +25,12 @@ export interface SearchBarProps extends LabelLayoutProps {
 export const SearchBar: React.FC<SearchBarProps> = ({
     children,
     limit = MAX_VIEWING_LIMIT,
-    onChange = (): void => {},
-    onInput = (): void => {},
+    onChange = (): void => {
+        return undefined;
+    },
+    onInput = (): void => {
+        return undefined;
+    },
     placeholder,
     ...props
 }): React.ReactElement => {

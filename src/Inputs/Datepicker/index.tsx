@@ -37,8 +37,12 @@ export interface DatepickerProps extends LabelLayoutProps {
 
 const _Datepicker: React.FC<DatepickerProps> = ({
     value,
-    onChange = (): void => {},
-    onClear = (): void => {},
+    onChange = (): void => {
+        return undefined;
+    },
+    onClear = (): void => {
+        return undefined;
+    },
     placeholder = 'MM-DD-YYYY',
     theme,
     ...props

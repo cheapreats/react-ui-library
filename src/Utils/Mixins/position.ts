@@ -9,7 +9,7 @@
  * @returns {string} Styling for consistent and stable positioning
  */
 export const position = (
-    value: string = 'absolute',
+    value = 'absolute',
     margin: number | string = 'auto',
     top: number | string = 0,
     right: number | string = top,

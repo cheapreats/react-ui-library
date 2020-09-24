@@ -18,7 +18,7 @@ export interface UseTransitionType {
  * @returns {boolean[]} [ state, or, and ];
  */
 export const useTransition = (
-    init: boolean = false,
+    init = false,
     options: UseTransitionType = {},
 ): [boolean, boolean, boolean] => {
     const [initState, setInit] = useState(init);

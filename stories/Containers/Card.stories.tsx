@@ -14,7 +14,7 @@ export default {
 
 export const Basic: Story<CardProps> = (args) => (
     <Card {...args}>
-        <Paragraph bold>{getCaptionForLocale("Hmmmmmm....... wtf")}</Paragraph>
-        <SmallText bold>{getCaptionForLocale("- Jun Zheng 2019")}</SmallText>
+        <Paragraph bold>{getCaptionForLocale('Hmmmmmm....... wtf')}</Paragraph>
+        <SmallText bold>{getCaptionForLocale('- Jun Zheng 2019')}</SmallText>
     </Card>
 );
