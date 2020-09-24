@@ -45,8 +45,8 @@ export const convertDateToHours = (timeObj: ITimeTypes): ITimeTypes => {
         .toLocaleTimeString('it-IT')
         .slice(START_INDEX_OF_SELECTION, END_INDEX_OF_SELECTION_DATE_TO_HOURS);
     timeObj = {
-        to: to,
-        from: from,
+        to,
+        from,
     };
     return timeObj;
 };

@@ -78,7 +78,7 @@ export default {
                 isActive: false,
             },
         ],
-    }
+    },
 } as Meta;
 
 const textHeaders = {
@@ -109,8 +109,7 @@ const textHeaders = {
         NO: 'No',
     },
     ERRORS: {
-        CANNOT_DELETE_ACTIVE_CATEGORY:
-            'You cannot delete an active category',
+        CANNOT_DELETE_ACTIVE_CATEGORY: 'You cannot delete an active category',
         ONLY_ONE_TIME: 'You cannot add more than one time per day',
         FROM_TIME_TOO_BIG: 'The from time has to be earlier',
         TO_TIME_TOO_SMALL: 'Please choose another time',
@@ -120,8 +119,5 @@ const textHeaders = {
 };
 
 export const Basic: Story<StoreHoursListProps> = (args) => (
-    <StoreHoursList 
-        {...args}
-        textHeaders={textHeaders}
-    />
+    <StoreHoursList {...args} textHeaders={textHeaders} />
 );
