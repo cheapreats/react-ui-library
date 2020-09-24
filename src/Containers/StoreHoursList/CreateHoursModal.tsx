@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { ICategoryWithHoursTypes, I_InitialCheckboxState } from './types';
+import { ICategoryWithHoursTypes, InitialCheckboxState } from './types';
 import { convertDateToHours } from './TimeFunctions';
 import { findActive } from './CategoryScheduleFunctions';
 import { ErrorModal } from './ErrorModal';
@@ -35,7 +35,7 @@ const ALL_CATEGORIES_TIMES = 1;
 const CHECKBOX_DAY = 0;
 const CHECKBOX_TIME = 1;
 const MATCH_FIRST_LETTER_PATTERN = /^\w/;
-const initialCheckboxState: I_InitialCheckboxState = {
+const initialCheckboxState: InitialCheckboxState = {
     monday: false,
     tuesday: false,
     wednesday: false,

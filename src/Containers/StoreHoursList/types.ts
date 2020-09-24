@@ -17,7 +17,7 @@ export interface ITimeTypes {
     from: Date | string 
 };
 
-export interface I_InitialCheckboxState {
+export interface InitialCheckboxState {
     monday: boolean,
     tuesday: boolean,
     wednesday: boolean,
