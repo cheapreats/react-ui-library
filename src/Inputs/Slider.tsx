@@ -36,7 +36,9 @@ export interface SliderProps extends LabelLayoutProps {
 }
 
 export const Slider: React.FunctionComponent<SliderProps> = ({
-    onChange = (): void => {},
+    onChange = (): void => {
+        return undefined;
+    },
     hasPopup = false,
     disabled = false,
     hasRail = false,

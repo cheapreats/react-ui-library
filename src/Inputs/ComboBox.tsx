@@ -37,7 +37,9 @@ export interface ComboBoxSelectorProps extends LabelLayoutProps {
 const _Select: React.FC<ComboBoxSelectorProps> = ({
     children,
     limit = MAX_VIEWING_LIMIT,
-    onChange = (): void => {},
+    onChange = (): void => {
+        return undefined;
+    },
     theme,
     placeholder,
     name,

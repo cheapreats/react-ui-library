@@ -15,11 +15,13 @@ export interface TimepickerProps
     onChange?: Function;
     disabled?: boolean;
 }
-// @ts-ignore Issue with withTheme
+
 export const Timepicker: React.FC<TimepickerProps> = withTheme(
     ({
         value = new Date(),
-        onChange = (): void => {},
+        onChange = (): void => {
+            return undefined;
+        },
         disabled,
         theme,
         name,

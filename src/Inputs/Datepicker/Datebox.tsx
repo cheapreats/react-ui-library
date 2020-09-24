@@ -74,7 +74,9 @@ export interface DateboxProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Datebox: React.FC<DateboxProps> = ({
     changePage,
-    clearDate = (): void => {},
+    clearDate = (): void => {
+        return undefined;
+    },
     selectedDate,
     selectDate,
     animate,

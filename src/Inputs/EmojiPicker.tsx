@@ -18,7 +18,9 @@ export interface EmojiPickerProps
 }
 
 export const EmojiPicker: React.FC<EmojiPickerProps> = ({
-    onChange = (): void => {},
+    onChange = (): void => {
+        return undefined;
+    },
     text = 'Pick an Emoji',
 }): React.ReactElement => {
     const modal = useState(false);

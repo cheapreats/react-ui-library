@@ -19,7 +19,9 @@ interface SettingsSwitchProps extends SwitchProps {
 export const SettingsSwitch: React.FC<SettingsSwitchProps> = ({
     text,
     type,
-    onSwitch = (): void => {},
+    onSwitch = (): void => {
+        return undefined;
+    },
     onSwitchValue,
     flexDirection,
     height,

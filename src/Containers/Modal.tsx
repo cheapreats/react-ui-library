@@ -21,7 +21,9 @@ export interface ModalProps
 }
 
 const _Modal: React.FC<ModalProps> = ({
-    onClose = (): void => {},
+    onClose = (): void => {
+        return undefined;
+    },
     width = 'default',
     children,
     theme,
