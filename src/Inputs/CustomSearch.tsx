@@ -45,9 +45,15 @@ export const CustomSearch: React.FC<CustomSearchProps> = ({
     pricePlaceholder,
     locationPlaceholder,
     foodPlaceholder,
-    onPriceChange = (): void => {},
-    onLocationChange = (): void => {},
-    onFoodChange = (): void => {},
+    onPriceChange = (): void => {
+        return undefined;
+    },
+    onLocationChange = (): void => {
+        return undefined;
+    },
+    onFoodChange = (): void => {
+        return undefined;
+    },
     ...cardProps
 }): React.ReactElement => {
     const [priceValue, setPriceValue] = useState('');

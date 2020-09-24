@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import {
     createGlobalStyle,
@@ -48,10 +48,10 @@ export const Global: React.FC<GlobalProps> = ({
     extend,
 }): React.ReactElement => (
     <ThemeProvider theme={extend ? extend(Themes[theme]) : Themes[theme]}>
-        <Fragment>
+        <>
             <GlobalContext style={style} />
             {children}
-        </Fragment>
+        </>
     </ThemeProvider>
 );
 

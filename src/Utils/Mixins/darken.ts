@@ -6,7 +6,7 @@ const COLOR_RANGE = 255;
  * @param {number} [amount=0.1] - Percentage of darkening
  * @returns {string} Darkened color
  */
-export const darken = (color: string, amount: number = 0.1): string => {
+export const darken = (color: string, amount = 0.1): string => {
     let res = '#';
     const val = Math.floor(COLOR_RANGE * amount);
 

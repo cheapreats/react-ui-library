@@ -12,7 +12,9 @@ interface TagProps {
     text: string;
 }
 
-interface StoreFeatureCardProps extends MainInterface, ResponsiveInterface {
+export interface StoreFeatureCardProps
+    extends MainInterface,
+        ResponsiveInterface {
     image: string;
     tags?: TagProps[];
     alt?: string;

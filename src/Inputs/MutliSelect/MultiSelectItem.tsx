@@ -5,25 +5,27 @@ import { MultiSelectContext } from './MultiSelectContext';
 import { Button, ButtonProps } from '../Button';
 
 export interface MultiSelectItemProps extends ButtonProps {
-    columns: string | number;
+    containerColumns: string | number;
 }
 
 export const MultiSelectItem: React.FC<MultiSelectItemProps> = ({
     children,
+    containerColumns,
     ...props
 }): React.ReactElement => {
     const columns = useContext(MultiSelectContext);
     return (
-        // @ts-ignore
-        <Container columns={columns} {...props}>
+        <Container columns={columns || containerColumns} {...props}>
             {children}
         </Container>
     );
 };
 
-const Container = styled(Button)<{
+interface ContainerProps {
     columns: string | number;
-}>`
+}
+
+const Container = styled(Button)<ContainerProps>`
     ${transition(['background-color', 'color', 'box-shadow'])}
     ${flex('flex-start', 'center')}
     ${({ theme }): string => `
