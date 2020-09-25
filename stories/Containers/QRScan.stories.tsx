@@ -10,11 +10,7 @@ export default {
     component: QRScan,
 } as Meta;
 
-const Template: Story<QRScanProps> = (args) => <QRScan {...args}></QRScan>;
-
-export const Basic = Template.bind({});
-
-Basic.args = {
+const defaultArgs = {
     title: 'ORDER HERE',
     qrImgURL: qrImgURL1,
     contentRightTitle: 'TABLE',
@@ -36,26 +32,19 @@ Basic.args = {
     footer3body: 'or ...',
 };
 
+const Template: Story<QRScanProps> = (args) => <QRScan {...args}></QRScan>;
+
+export const Basic = Template.bind({});
+
+Basic.args = {
+    ...defaultArgs,
+};
+
 export const NotIconInMiddleFooter = Template.bind({});
 
 NotIconInMiddleFooter.args = {
-    title: 'ORDER HERE',
-    qrImgURL: qrImgURL1,
-    contentRightTitle: 'TABLE',
+    ...defaultArgs,
     contentRightBig: 31,
-    middleFooterText: 'Snackpass',
     MiddleFooterIcon: '',
     middleFooterIconWidth: 0,
-    FooterIcon1: <PhoneBox />,
-    footerIcon1width: 10,
-    FooterIcon2: <PhoneBox />,
-    footerIcon2width: 10,
-    FooterIcon3: <PhoneBox />,
-    footerIcon3width: 10,
-    footer1header: 'QR code with',
-    footer1body: "your phone's camera",
-    footer2header: 'Order & Pay',
-    footer2body: 'in your browser',
-    footer3header: 'Pick up',
-    footer3body: 'or ...',
 };
