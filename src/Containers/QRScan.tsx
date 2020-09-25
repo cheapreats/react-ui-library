@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import phoneIcon from '../svg/smartphone.svg';
 import { flex } from '../Utils/Mixins';
 import { MainTheme } from '../Themes';
 import {
