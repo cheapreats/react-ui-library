@@ -1,19 +1,19 @@
-import React, { useState } from 'react';
-import { SelectBox,SelectBoxProps, Select } from '../../src';
-import {createStoryTitle} from "../Constants";
+import React from 'react';
+import { SelectBox,SelectBoxProps } from '../../src';
+import { createStoryTitle, getCaptionForLocale } from '../Constants';
 import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Select Box'),
     component: SelectBox,
+    argTypes: { onSelect: { action: 'onSelect clicked!' } },
     args: {
         isSelected: false,
-        onSelect: false,
+        children: 'Hello'
     },
 } as Meta;
 
 export const Basic: Story<SelectBoxProps> = (args) => (
-    <SelectBox {...args}>
-    Hello
+    <SelectBox {...args}>{getCaptionForLocale(args.children)}
     </SelectBox>
 );
