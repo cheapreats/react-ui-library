@@ -1,11 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { SlidingOutPanels } from '../../src';
-import {createStoryTitle} from "../Constants";
-
-storiesOf(createStoryTitle('Sliding Out Panels'), module).add('with default', () => (
-    <SlidingOutPanels images={images} onClick={() => imagePanelClick()} />
-));
+import { SlidingOutPanels, SlidingOutPanelProps } from '../../src';
+import { createStoryTitle } from "../Constants";
+import { Meta, Story } from '@storybook/react';
 
 const images = [
     {
@@ -33,3 +30,16 @@ const images = [
             'https://cdn.dribbble.com/users/255/screenshots/11445792/media/6083d5496c6b6ba70805d9e0a60b718a.png',
     },
 ];
+
+export default {
+    title: createStoryTitle('Sliding Out Panels'),
+    component: SlidingOutPanels,
+    argTypes: { onClick: { action: 'Clicked' } },
+    args: { 
+	    images: images 
+    },
+} as Meta;
+
+export const Basic: Story<SlidingOutPanelProps> = (args) => (
+        <SlidingOutPanels {...args} />
+);
