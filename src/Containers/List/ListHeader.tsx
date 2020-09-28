@@ -45,6 +45,9 @@ interface IconProps {
 
 const Header = styled.div`
     padding: 10px 20px;
+    ${({ theme }): string => `
+    border-bottom: 2px solid ${theme.colors.text}20;
+`}
 `;
 
 const Row = styled.div<RowProps>`

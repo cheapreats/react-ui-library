@@ -2,40 +2,33 @@ import React from 'react';
 import styled from 'styled-components';
 import { AngleRight } from '@styled-icons/fa-solid/AngleRight';
 import { AngleLeft } from '@styled-icons/fa-solid/AngleLeft';
-import { PositionArgs } from './constants';
 import { Mixins } from '../../Utils';
 
 const LIST_TOGGLE_RIGHT = AngleRight;
 const LIST_TOGGLE_LEFT = AngleLeft;
 
 interface ListToggleProps extends ButtonProps {
-    toggleState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+    isToggled: boolean;
+    setIsToggled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ListToggle: React.FC<ListToggleProps> = ({
-    toggleState,
-    positionArgs,
-    isLeft,
+    isToggled,
+    setIsToggled,
+    isLeftToggle,
 }): React.ReactElement => {
-    const [show, setShow]: [
-        boolean,
-        React.Dispatch<React.SetStateAction<boolean>>,
-    ] = toggleState;
-
     const toggleList = (): void => {
-        setShow((_show): boolean => !_show);
+        setIsToggled(!isToggled);
     };
-
     return (
         <Button
             onClick={toggleList}
             id="togg-button"
-            positionArgs={positionArgs}
-            isLeft={isLeft}
+            isLeftToggle={isLeftToggle}
         >
             <Icon
-                show={show}
-                as={isLeft ? LIST_TOGGLE_RIGHT : LIST_TOGGLE_LEFT}
+                show={isToggled}
+                as={isLeftToggle ? LIST_TOGGLE_LEFT : LIST_TOGGLE_RIGHT}
             />
         </Button>
     );
@@ -46,23 +39,24 @@ interface IconProps {
 }
 
 interface ButtonProps {
-    positionArgs: PositionArgs;
-    isLeft: boolean;
+    isLeftToggle?: boolean;
 }
 
 const Button = styled.button<ButtonProps>`
     ${Mixins.transition(['background-color'])}
     ${Mixins.clickable('#ffffff', 0.04)}
-    ${({ theme, positionArgs, isLeft }): string => `
+    ${({ theme, isLeftToggle }): string => `
         box-shadow: ${theme.depth[1]};
-        border-radius: ${isLeft ? '0 9999px 9999px 0' : '9999px 0 0 9999px'};
+        border-radius: ${
+            isLeftToggle ? '0 9999px 9999px 0' : '9999px 0 0 9999px'
+        };
         ${Mixins.position(
-            positionArgs.value,
-            positionArgs.margin,
-            positionArgs.top,
-            positionArgs.right,
-            positionArgs.bottom,
-            positionArgs.left,
+            'absolute',
+            0,
+            '20px',
+            isLeftToggle ? '-32px' : 'auto',
+            'auto',
+            isLeftToggle ? 'auto' : '-32px',
         )}
     `}
     background-color: white;

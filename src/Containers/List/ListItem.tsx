@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Mixins } from '../../Utils';
 import { Main } from '../../Utils/BaseStyles';
 
 interface ListItemProps
@@ -16,14 +15,10 @@ export const ListItem: React.FC<ListItemProps> = ({
     setIsToggled,
     ...props
 }): React.ReactElement => {
-    const setIsToggledState:
-        | React.Dispatch<React.SetStateAction<boolean>>
-        | undefined = setIsToggled;
-
     return (
         <Item
             onClick={(el): void => {
-                if (setIsToggledState) setIsToggledState(false);
+                if (setIsToggled) setIsToggled(false);
                 if (onClick) onClick(el);
             }}
             padding={padding}
@@ -39,7 +34,6 @@ interface ItemProps {
 }
 
 const Item = styled.li<ItemProps>`
-    ${Mixins.flex()}
     ${({ theme }): string => `
         border-bottom: 2px solid ${theme.colors.text}20;
     `}

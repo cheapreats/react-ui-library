@@ -1,13 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Cog } from '@styled-icons/fa-solid/Cog';
-import {
-    List,
-    ListProps,
-    ListHeader,
-    ListFooter,
-    ListItem,
-    SideBarCollapseType,
-} from '../../src';
+import { List, ListProps, ListHeader, ListFooter, ListItem } from '../../src';
 import { Meta, Story } from '@storybook/react';
 import { createStoryTitle } from '../Constants';
 
@@ -30,14 +23,6 @@ const items = [
 export default {
     title: createStoryTitle('List'),
     component: List,
-    argTypes: {
-        direction: {
-            control: {
-                type: 'radio',
-                options: SideBarCollapseType,
-            },
-        },
-    },
     args: {
         header: (
             <ListHeader
@@ -54,18 +39,26 @@ export default {
             </ListFooter>
         ),
         loading: false,
-        direction: SideBarCollapseType.LEFT,
-        isToggleable: false,
+        position: 'absolute',
+        margin: '0',
+        left: '0',
+        right: 'auto',
+        translateX: '-100%',
+        isToggleable: true,
+        isLeftToggle: true,
         id: '1',
     },
 } as Meta;
 
-export const Basic: Story<ListProps> = (args) => (
-    <List {...args}>
-        {items.map((item, index) => (
-            <ListItem onClick={() => alert(`You clicked ${item.date}`)}>
-                <p>{item.date}</p>
-            </ListItem>
-        ))}
-    </List>
-);
+export const Basic: Story<ListProps> = (args) => {
+    const [isToggled, setIsToggled] = useState(false);
+    return (
+        <List {...args} isToggled={isToggled} setIsToggled={setIsToggled}>
+            {items.map((item) => (
+                <ListItem onClick={() => alert(`You clicked ${item.date}`)}>
+                    <p>{item.date}</p>
+                </ListItem>
+            ))}
+        </List>
+    );
+};

@@ -4,7 +4,6 @@ import { Mixins } from '../../Utils';
 import { Responsive, Main } from '../../Utils/BaseStyles';
 import { Loading } from '../Loading';
 import { ListToggle } from './ListToggle';
-import { PositionArgs, WrapperPos, SideBarCollapseType } from './constants';
 
 export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
     loading: boolean;
@@ -12,9 +11,15 @@ export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
     footer?: React.ReactElement;
     id: string;
     columnWidth?: string;
+    margin?: string;
+    right?: string;
+    left?: string;
+    translateX?: string;
+    position?: string;
     isToggleable?: boolean;
-    toggleState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-    direction: SideBarCollapseType;
+    isLeftToggle?: boolean;
+    isToggled: boolean;
+    setIsToggled: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const List: React.FC<ListProps> = ({
@@ -24,12 +29,12 @@ export const List: React.FC<ListProps> = ({
     footer,
     columnWidth = '280px',
     isToggleable,
-    toggleState,
-    direction,
+    isToggled,
+    setIsToggled,
+    isLeftToggle,
     id,
     ...props
 }): React.ReactElement => {
-    const [isToggled, setIsToggled] = toggleState;
     useEffect((): void | (() => void | undefined) => {
         const handler = ({ type }: { type: string }): void => {
             switch (type) {
@@ -52,22 +57,17 @@ export const List: React.FC<ListProps> = ({
     }, []);
 
     return (
-        <Wrapper
-            isToggled={isToggled}
-            positionArgs={WrapperPos[direction].wrapper}
-            translation={WrapperPos[direction].translation}
-            isToggleable={isToggleable}
-        >
-            <Container columnWidth={columnWidth} id={id} {...props}>
+        <Wrapper isToggled={isToggled} {...props}>
+            <Container columnWidth={columnWidth} id={id}>
                 {header}
                 <Items>{loading ? <Loading /> : children}</Items>
                 {footer}
             </Container>
             {isToggleable && (
                 <ListToggle
-                    toggleState={[isToggled, setIsToggled]}
-                    positionArgs={WrapperPos[direction].toggle}
-                    isLeft={WrapperPos[direction].isLeft}
+                    isToggled={isToggled}
+                    setIsToggled={setIsToggled}
+                    isLeftToggle={isLeftToggle}
                 />
             )}
         </Wrapper>
@@ -76,9 +76,12 @@ export const List: React.FC<ListProps> = ({
 
 interface WrapperProps {
     isToggled: boolean;
-    positionArgs: PositionArgs;
-    isToggleable?: boolean;
-    translation: string;
+    columnWidth?: string;
+    margin?: string;
+    right?: string;
+    left?: string;
+    position?: string;
+    translateX?: string;
 }
 
 interface ColumnProps {
@@ -88,24 +91,20 @@ interface ColumnProps {
 const Wrapper = styled.div<WrapperProps>`
     ${Mixins.flex()}
     ${Mixins.transition(['transform'])} 
-    position: relative;
     z-index: 99;
     height: 100%;
-    ${({ isToggled, positionArgs, isToggleable, translation }): string => `
-        ${Mixins.position(
-            positionArgs.value,
-            positionArgs.margin,
-            positionArgs.top,
-            positionArgs.right,
-            positionArgs.bottom,
-            positionArgs.left,
-        )}
-        ${
-            isToggleable &&
-            `
-            transform: translateX(${isToggled ? '0' : translation});
-        `
-        }
+    ${({
+        isToggled,
+        translateX,
+        columnWidth,
+        margin,
+        right,
+        left,
+        position,
+    }): string => `
+        transform: translateX(${isToggled ? translateX : '0'});
+        width: ${columnWidth};
+        ${Mixins.position(position, margin, 0, right, 0, left)}        
     `}
 `;
 
@@ -125,10 +124,6 @@ const Container = styled.div<ColumnProps>`
 
 const Items = styled.ul`
     ${Mixins.scroll}
-    ${({ theme }): string => `
-        border-top: 2px solid ${theme.colors.text}20;
-        border-bottom: 2px solid ${theme.colors.text}20;
-    `}
     list-style-type: none;
     overflow: auto;
     padding: 0;
