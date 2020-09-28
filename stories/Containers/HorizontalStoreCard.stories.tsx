@@ -15,12 +15,12 @@ export default {
         rating: "4",
         heading: "Hot Dog",
         description: "this is a Horizontal Store Card",
+        alt="coding Dog"
     },
 } as Meta;
 
 export const Basic: Story<HorizontalStoreCardProps> = (args) => (
     <HorizontalStoreCard {...args}         
-    alt="coding Dog"
     width="600px"
     height="200px"
 />
