@@ -6,7 +6,6 @@ import { Meta, Story } from '@storybook/react';
 export default {
     title: createStoryTitle('Scrollable List Content'),
     component: ScrollableListContent,
-    //argTypes: { onSelect: { action: imagePanelClick() } },
     args: { 
         withList: false
     },
