@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button } from '../../src/Inputs/Button';
+import { select } from '@storybook/addon-knobs';
 import { ClientShowCase, ShowCaseProps } from '../../src';
 import { createStoryTitle } from "../Constants";
 import { Meta, Story } from '@storybook/react';
@@ -31,11 +32,16 @@ export default {
             ],
             handleImageListClick: onComponentClick,
             onHoverComponent: <MyButton onClick={onButtonClick} primary>SEE OUR CUSTOMERS</MyButton>,
-            imgHeightEnum:{  
-            select(small: 'small',
-            medium: 'medium',
-            large: 'large',
-            extraLarge: 'extraLarge')},
+            imgHeightEnum: select(
+                'Image Sizes',
+                {
+                    small: 'small',
+                    medium: 'medium',
+                    large: 'large',
+                    extraLarge: 'extraLarge',
+                },
+                'medium',
+            ),
             blurOnHover: true
         },
 } as Meta;
