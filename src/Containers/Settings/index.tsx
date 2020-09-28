@@ -14,7 +14,7 @@ const loadingStyle = `
     width: 100%;
 `;
 
-interface SettingsProps
+export interface SettingsProps
     extends React.HTMLAttributes<HTMLDivElement>,
         MainInterface,
         ResponsiveInterface,
