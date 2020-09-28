@@ -4,7 +4,7 @@ import { MainTheme } from '../Themes/MainTheme';
 import { Modal } from './Modal';
 import { Input, Datepicker, Timepicker, Button } from '..';
 
-interface DiningReservationProps {
+export interface DiningReservationProps {
     modalState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
