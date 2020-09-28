@@ -30,3 +30,4 @@ export * from './StoreHoursList';
 export * from './SelectBox';
 export * from './DisplayItem';
 export * from './ScrollableListContent';
+export * from './QRScan';
