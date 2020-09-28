@@ -15,7 +15,7 @@ export default {
         rating: "4",
         heading: "Hot Dog",
         description: "this is a Horizontal Store Card",
-        alt="coding Dog"
+        alt: "coding Dog"
     },
 } as Meta;
 
