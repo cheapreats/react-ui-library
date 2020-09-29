@@ -18,7 +18,7 @@ export const Coupon: React.FC<CouponProps> = ({
     couponTitle,
     couponDescription,
     couponSubdescription,
-    color = 'background',
+    color = 'primary',
     ...props
 }): React.ReactElement => (
     <CouponBox {...props} color={color}>
