@@ -39,11 +39,11 @@ export default {
             </ListFooter>
         ),
         loading: false,
-        position: 'absolute',
+        cssPosition: 'absolute',
         margin: '0',
         left: '0',
         right: 'auto',
-        translateX: '-100%',
+        onToggleTranslateXAxis: '-100%',
         isToggleable: true,
         isLeftToggle: true,
         id: '1',
@@ -52,6 +52,7 @@ export default {
 
 export const Basic: Story<ListProps> = (args) => {
     const [isToggled, setIsToggled] = useState(false);
+
     return (
         <List {...args} isToggled={isToggled} setIsToggled={setIsToggled}>
             {items.map((item) => (

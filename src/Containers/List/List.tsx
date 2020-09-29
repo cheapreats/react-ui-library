@@ -14,8 +14,8 @@ export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
     margin?: string;
     right?: string;
     left?: string;
-    translateX?: string;
-    position?: string;
+    onToggleTranslateXAxis?: string;
+    cssPosition?: string;
     isToggleable?: boolean;
     isLeftToggle?: boolean;
     isToggled: boolean;
@@ -80,8 +80,8 @@ interface WrapperProps {
     margin?: string;
     right?: string;
     left?: string;
-    position?: string;
-    translateX?: string;
+    cssPosition?: string;
+    onToggleTranslateXAxis?: string;
 }
 
 interface ColumnProps {
@@ -95,16 +95,16 @@ const Wrapper = styled.div<WrapperProps>`
     height: 100%;
     ${({
         isToggled,
-        translateX,
+        onToggleTranslateXAxis,
         columnWidth,
         margin,
         right,
         left,
-        position,
+        cssPosition,
     }): string => `
-        transform: translateX(${isToggled ? translateX : '0'});
+        transform: translateX(${isToggled ? onToggleTranslateXAxis : '0'});
         width: ${columnWidth};
-        ${Mixins.position(position, margin, 0, right, 0, left)}        
+        ${Mixins.position(cssPosition, margin, 0, right, 0, left)}        
     `}
 `;
 
