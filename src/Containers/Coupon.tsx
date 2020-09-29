@@ -12,27 +12,27 @@ export interface CouponProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    bg: sring;
-    text1: string;
-    text2: string;
-    text3: string;
+    color: sring;
+    couponTitle: string;
+    couponDescription: string;
+    couponSubdescription: string;
 }
 
 export const Coupon: React.FC<CouponProps> = ({
-    text1,
-    text2,
-    text3,
-    ...rest
+    couponTitle,
+    couponDescription,
+    couponSubdescription,
+    ...props
 }): React.ReactElement => (
-    <CouponBox {...rest}>
+    <CouponBox {...props}>
         <TextBig>
-            <strong>{text1}</strong>
+            <strong>{couponTitle}</strong>
         </TextBig>
         <DashedLine />
         <TextSmall1>
-            <strong>{text2}</strong>
+            <strong>{couponDescription}</strong>
         </TextSmall1>
-        <TextSmall2>{text3}</TextSmall2>
+        <TextSmall2>{couponSubdescription}</TextSmall2>
     </CouponBox>
 );
 
@@ -85,19 +85,19 @@ const DashedLine = styled.div`
 `;
 
 const CouponBox = styled.div<MainInterface & ResponsiveInterface>`
-    ${({ theme, ...rest }): string => `
-    background-color:${rest.bg};
+    ${({ theme, ...props }): string => `
+    background-color:${props.color};
     `}
     width: fit-content;
     min-width: 150px;
 
     // Theme Stuff
-    ${({ theme, ...rest }): string => `
+    ${({ theme, ...props }): string => `
     border-radius: ${theme.dimensions.radius};
     font-family: ${theme.font.family};
     color: ${theme.colors.text};
     ${Main({
-        ...rest,
+        ...props,
     })}
     `}
     // Base Styles
@@ -126,7 +126,7 @@ const CouponBox = styled.div<MainInterface & ResponsiveInterface>`
         height: 12px;
         border-radius: 5000px;
         position: absolute;
-        right: -4%;
+        right: -3%;
         top: 44%;
         ${({ theme }): string => `
             background-color:${theme.colors.background};

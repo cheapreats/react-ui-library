@@ -9,10 +9,10 @@ export default {
 } as Meta;
 
 const defaultArgs = {
-    text1: '-40%',
-    text2: 'Applies to off-season items',
-    text3: 'Edit',
-    bg: 'lightblue',
+    couponTitle: '-40%',
+    couponDescription: 'Applies to off-season items',
+    couponSubdescription: 'Edit',
+    color: 'lightblue',
 };
 
 const Template: Story<CouponProps> = (args) => <Coupon {...args}></Coupon>;
