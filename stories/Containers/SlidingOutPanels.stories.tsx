@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { SlidingOutPanels, SlidingOutPanelProps } from '../../src';
-import { createStoryTitle } from "../Constants";
+import { createStoryTitle } from '../Constants';
 import { Meta, Story } from '@storybook/react';
 
 const images = [
@@ -35,11 +35,11 @@ export default {
     title: createStoryTitle('Sliding Out Panels'),
     component: SlidingOutPanels,
     argTypes: { onClick: { action: 'Clicked' } },
-    args: { 
-	    images: images 
+    args: {
+        images: images,
     },
 } as Meta;
 
 export const Basic: Story<SlidingOutPanelProps> = (args) => (
-        <SlidingOutPanels {...args} />
+    <SlidingOutPanels {...args} />
 );

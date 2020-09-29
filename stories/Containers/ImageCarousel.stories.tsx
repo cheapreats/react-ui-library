@@ -1,6 +1,6 @@
 import React from 'react';
 import { ImageCarousel, ImageCarouselProps } from '../../src';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 import { Meta, Story } from '@storybook/react';
 
 const images = [
@@ -14,11 +14,11 @@ export default {
     component: ImageCarousel,
     argTypes: { onClick: { action: 'Clicked!' } },
     args: {
-            imageData: images,
-            altText: "Funny Image",
+        imageData: images,
+        altText: 'Funny Image',
     },
 } as Meta;
 
 export const Basic: Story<ImageCarouselProps> = (args) => (
-            <ImageCarousel {...args}></ImageCarousel>
+    <ImageCarousel {...args}></ImageCarousel>
 );

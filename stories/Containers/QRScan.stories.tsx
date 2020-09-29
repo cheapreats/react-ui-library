@@ -3,8 +3,6 @@ import { QRScan, QRScanProps, PhoneBox, qrImgURL1 } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Meta, Story } from '@storybook/react';
 
-import { MainTheme } from '../../src/Themes';
-
 export default {
     title: createStoryTitle('QRScan'),
     component: QRScan,
