@@ -9,12 +9,10 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
             success: string;
             error: string;
         };
-        status: {
-            prepared: string;
-            preparing: string;
-            placed: string;
-            cancelled: string;
-            complete: string;
+        statusColors: {
+            green: string;
+            orange: string;
+            red: string;
         };
         background: string;
         border: string;
@@ -31,12 +29,10 @@ export const MainTheme: MainThemeInterface = {
             success: '#f5fff5',
             error: '#fff5f5',
         },
-        status: {
-            prepared: '#28af00',
-            preparing: '#f98300',
-            placed: '#ee2434',
-            cancelled: '#ee2434',
-            complete: '#28af00',
+        statusColors: {
+            green: '#28af00',
+            orange: '#f98300',
+            red: '#ee2434',
         },
         background: '#ffffff',
         border: 'rgba(0,0,0,0.1)',
