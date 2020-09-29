@@ -61,6 +61,7 @@ export interface ThemeTemplateInterface {
         };
     };
     media: {
+        tabletLarge: number;
         tablet: number;
         phone: number;
     };
@@ -136,6 +137,7 @@ const Theme: ThemeTemplateInterface = {
         },
     },
     media: {
+        tabletLarge: 1024,
         tablet: 768,
         phone: 425,
     },

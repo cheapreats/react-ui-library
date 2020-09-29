@@ -61,7 +61,7 @@ export const KitchenCard: React.FC<KitchenProps> = ({
                 display="space-between"
                 padding="0 5px"
             >
-                <Status status={status}>{status}</Status>
+                <Status statusColor={status}>{status}</Status>
             </HeaderRow>
             <Grid>
                 <Paragraph bold align="left">

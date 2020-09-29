@@ -5,11 +5,9 @@ import { SmallText, SmallTextProps } from '../Text';
 import { MainInterface } from '../Utils/BaseStyles';
 
 export enum StatusColors {
-    prepared = 'prepared',
-    preparing = 'preparing',
-    placed = 'placed',
-    cancelled = 'cancelled',
-    complete = 'complete',
+    green = 'green',
+    orange = 'orange',
+    red = 'red'
 }
 
 export interface StatusProps extends TextProps, DotProps {
@@ -18,18 +16,18 @@ export interface StatusProps extends TextProps, DotProps {
 
 interface TextProps extends SmallTextProps, MainInterface {
     large?: boolean;
-    status: StatusColors;
+    statusColor: StatusColors;
 }
 
 interface DotProps extends MainInterface {
     large?: boolean;
-    status: StatusColors;
+    statusColor: StatusColors;
 }
 
 export const Status: React.FC<StatusProps> = memo(
-    ({ children, status, large, ...props }): React.ReactElement => (
-        <Text bold large={large} status={status} {...props}>
-            <Dot large={large} status={status} />
+    ({ children, statusColor, large, ...props }): React.ReactElement => (
+        <Text bold large={large} statusColor={statusColor} {...props}>
+            <Dot large={large} statusColor={statusColor} />
             {children}
         </Text>
     ),
@@ -39,19 +37,19 @@ const Text = styled(SmallText)<TextProps>`
     ${flex('flex-start', 'center')}
     ${transition(['color'])}
     display: inline-flex;
-    ${({ status, theme }): string => `
-        color: ${theme.colors.status[status]};
+    ${({ statusColor, theme }): string => `
+        color: ${theme.colors.statusColors[statusColor]};
     `}
     ${({ large }): string => (large ? `font-size: 1.4rem;` : '')}
 `;
 
 const Dot = styled.span<DotProps>`
     ${transition(['background-color'])}
-    ${({ status, theme }): string => `
-        background-color: ${theme.colors.status[status]};
+    ${({ statusColor, theme }): string => `
+        background-color: ${theme.colors.statusColors[statusColor]};
         &:before {
             ${transition(['background-color'])}
-            background-color: ${theme.colors.status[status]};
+            background-color: ${theme.colors.statusColors[statusColor]};
         }
     `}
 
@@ -61,12 +59,12 @@ const Dot = styled.span<DotProps>`
     &,
     &:before {
         ${({ large }): string =>
-            large
-                ? `
+        large
+            ? `
             width: 11px;
             height: 11px;
         `
-                : `
+            : `
             width: 9px;
             height: 9px;
         `};
