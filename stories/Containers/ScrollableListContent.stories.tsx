@@ -7,13 +7,14 @@ export default {
     title: createStoryTitle('Scrollable List Content'),
     component: ScrollableListContent,
     args: { 
-        withList: false
+        withList: false,
+        bold: true
     },
 } as Meta;
 
 export const Basic: Story<ScrollableListContentProps> = (args) => (
-        <ScrollableListContent>
-            <SmallText bold>
+        <ScrollableListContent {...args}>
+            <SmallText {...args}>
                 Text Here
             </SmallText>
         </ScrollableListContent>
