@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { flex } from '../Utils/Mixins';
-import { MainTheme } from '../Themes';
 import {
     Main,
     MainInterface,
@@ -221,11 +220,14 @@ const Title = styled.div`
 `;
 
 interface IconContainerCompProps
-    extends MainInterface,
+    extends IconContainerProps,
+        MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    width: number;
     Icon: React.FC;
+}
+interface IconContainerProps {
+    width: number;
 }
 
 const IconContainerComp: React.FC<IconContainerCompProps> = ({
@@ -233,7 +235,7 @@ const IconContainerComp: React.FC<IconContainerCompProps> = ({
     width,
 }): React.ReactElement => <IconContainer width={width}>{Icon}</IconContainer>;
 
-const IconContainer = styled.div`
+const IconContainer = styled.div<IconContainerProps>`
     width: ${(props) => props.width}px;
     margin: 5px;
 `;
@@ -269,6 +271,7 @@ interface MiddleFooterCompProps
         React.HTMLAttributes<HTMLDivElement> {
     text: string;
     Icon: React.FC;
+    width: number;
 }
 
 const MiddleFooterComp: React.FC<MiddleFooterCompProps> = ({
@@ -292,11 +295,13 @@ const MiddleFooterCompBox = styled.div`
 
 // these are components to be placed somewhere else
 
-export const PhoneBox = styled.div`
-    ${({ theme, ...rest }): string => `
-    border:1px solid ${
-        rest.inverted ? theme.colors.background : theme.colors.text
-    };
+interface PhoneBoxProps {
+    inverted?: boolean;
+}
+
+export const PhoneBox = styled.div<PhoneBoxProps>`
+    ${({ theme, inverted }): string => `
+    border:1px solid ${inverted ? theme.colors.background : theme.colors.text};
     `}
     border-radius: 2px;
     box-sizing: border-box;
@@ -313,10 +318,8 @@ export const PhoneBox = styled.div`
         left: calc(50% - 32%);
         top: 0;
         width: 70%;
-        ${({ theme, ...rest }): string => `
-        background: ${
-            rest.inverted ? theme.colors.background : theme.colors.text
-        };
+        ${({ theme, inverted }): string => `
+        background: ${inverted ? theme.colors.background : theme.colors.text};
         `}
         height: 1px;
         content: '';
@@ -328,18 +331,20 @@ interface IconCompProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    color: string;
+    height: string;
+    color?: string;
 }
 
 export const PhoneIconComp: React.FC<IconCompProps> = ({
     color,
     height,
 }): React.ReactElement => (
-    <svg
+    <StyledSVG
         x="0px"
         y="0px"
         viewBox="0 0 512 512"
-        style={{ enableBackground: 'new 0 0 512 512', height }}
+        height={height}
+        enableBackground="new 0 0 512 512"
     >
         <g color={color}>
             <g>
@@ -390,33 +395,33 @@ export const PhoneIconComp: React.FC<IconCompProps> = ({
                 />
             </g>
         </g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-    </svg>
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+    </StyledSVG>
 );
 
 export const DinosaurIconComp: React.FC<IconCompProps> = ({
     height,
-    color,
 }): React.ReactElement => (
-    <svg
+    <StyledSVG
         x="0px"
         y="0px"
         viewBox="0 0 460 460"
-        style={{ enableBackground: 'new 0 0 460 460', height }}
+        enableBackground="new 0 0 460 460"
+        height={height}
     >
         <g id="XMLID_93_">
             <path
@@ -504,23 +509,35 @@ export const DinosaurIconComp: React.FC<IconCompProps> = ({
                 height="30"
             />
         </g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-        <g></g>
-    </svg>
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+        <g />
+    </StyledSVG>
 );
+
+interface StyleSVGProps {
+    height?: string;
+    enableBackground?: string;
+}
+
+const StyledSVG = styled.svg<StyleSVGProps>`
+    ${({ height, enableBackground }) => `
+        height: ${height};
+        enable-background: ${enableBackground};
+    `}
+`;
 
 export const qrImgURL1 =
     'https://storage.googleapis.com/support-forums-api/attachment/thread-13090132-506909745012483037.png';

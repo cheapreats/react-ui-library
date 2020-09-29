@@ -1,6 +1,6 @@
 import React from 'react';
 import { HorizontalScrollList, ScrollListProps } from '../../src';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 import { Meta, Story } from '@storybook/react';
 
 const exampleHoveredStyle = () => `
@@ -34,7 +34,7 @@ export default {
         selectedStyle: exampleSelectedStyle,
         menuWidth: 'Fix Dropdown Menu Width',
         displaySelected: true,
-        displayDropDown: true
+        displayDropDown: true,
     },
 } as Meta;
 

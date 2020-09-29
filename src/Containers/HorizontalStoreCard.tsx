@@ -12,7 +12,9 @@ interface TagProps {
     text: string;
 }
 
-export interface HorizontalStoreCardProps extends MainInterface, ResponsiveInterface {
+export interface HorizontalStoreCardProps
+    extends MainInterface,
+        ResponsiveInterface {
     image: string;
     pictureTags?: TagProps[];
     headerTags?: string[];

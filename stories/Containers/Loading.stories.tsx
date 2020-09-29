@@ -8,10 +8,10 @@ export default {
     component: Loading,
     args: {
         loading: true,
-	    children: 'Boo!'
+        children: 'Boo!',
     },
 } as Meta;
 
 export const Basic: Story<LoadingProps> = (args) => (
-   <Loading {...args}>{getCaptionForLocale(args.children)}</Loading>
+    <Loading {...args}>{getCaptionForLocale(args.children)}</Loading>
 );

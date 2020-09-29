@@ -8,11 +8,7 @@ import {
     ResponsiveInterface,
 } from '../Utils/BaseStyles';
 
-export interface CouponProps
-    extends MainInterface,
-        ResponsiveInterface,
-        React.HTMLAttributes<HTMLDivElement> {
-    color: sring;
+export interface CouponProps extends CouponBoxProps {
     couponTitle: string;
     couponDescription: string;
     couponSubdescription: string;
@@ -22,9 +18,10 @@ export const Coupon: React.FC<CouponProps> = ({
     couponTitle,
     couponDescription,
     couponSubdescription,
+    color = 'primary',
     ...props
 }): React.ReactElement => (
-    <CouponBox {...props}>
+    <CouponBox {...props} color={color}>
         <TextBig>
             <strong>{couponTitle}</strong>
         </TextBig>
@@ -83,10 +80,16 @@ const DashedLine = styled.div`
     left: 9%;
     width: 80%;
 `;
+interface CouponBoxProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    color: string;
+}
 
-const CouponBox = styled.div<MainInterface & ResponsiveInterface>`
-    ${({ theme, ...props }): string => `
-    background-color:${props.color};
+const CouponBox = styled.div<CouponBoxProps>`
+    ${({ theme, color }): string => `
+    background-color:${theme.colors[color] || color};
     `}
     width: fit-content;
     min-width: 150px;

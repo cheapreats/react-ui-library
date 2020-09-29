@@ -1,6 +1,6 @@
 import React from 'react';
 import { Navigation, NavigationProps, NavigationFootnote } from '../../src';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 import { Meta, Story } from '@storybook/react';
 
 export default {
@@ -11,6 +11,4 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<NavigationProps> = (args) => (
-    <Navigation {...args}/>
-);
+export const Basic: Story<NavigationProps> = (args) => <Navigation {...args} />;
