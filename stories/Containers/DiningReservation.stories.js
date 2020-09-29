@@ -12,3 +12,4 @@ storiesOf(createStoryTitle('Dining Reservation'), module)
         'with default',
         mockElement(modal1 => <DiningReservation modalState={modal1} />, false),
     );
+
