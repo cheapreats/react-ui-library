@@ -34,7 +34,6 @@ const _Modal: React.FC<ModalProps> = ({
     const [, mount, animation] = useTransition(show, {
         end: theme.speed.normal,
     });
-
     useEffect((): void => {
         if (!mount) onClose();
     }, [mount]);
