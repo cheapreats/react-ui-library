@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { Heading as H, Paragraph } from '../../Text';
 import { flex, media, scroll } from '../../Utils/Mixins';
@@ -17,6 +17,26 @@ export const KitchenCardItems: React.FC<KitchenCardItemsProps> = ({
     items,
     isFullName,
 }): React.ReactElement => {
+    const itemModifierRender = useCallback(
+        (item: Item) => {
+            return item.modifiers.map((modifier) =>
+                modifier.choices.map(
+                    (choice: Choice): React.ReactElement => (
+                        <Paragraph margin="5px 0 0 20px">
+                            {`${
+                                choice.choice_type ===
+                                ModifierChoiceTypeEnum.DEFAULT
+                                    ? ''
+                                    : choice.choice_type
+                            } ${choice.name}`}
+                        </Paragraph>
+                    ),
+                ),
+            );
+        },
+        [items],
+    );
+
     return (
         <ItemsRow>
             {items.map(
@@ -31,20 +51,7 @@ export const KitchenCardItems: React.FC<KitchenCardItemsProps> = ({
                         >
                             {item.name}
                         </Heading>
-                        {item.modifiers.map((modifier) =>
-                            modifier.choices.map(
-                                (choice: Choice): React.ReactElement => (
-                                    <Paragraph margin="5px 0 0 20px">
-                                        {`${
-                                            choice.choice_type ===
-                                            ModifierChoiceTypeEnum.DEFAULT
-                                                ? ''
-                                                : choice.choice_type
-                                        } ${choice.name}`}
-                                    </Paragraph>
-                                ),
-                            ),
-                        )}
+                        {itemModifierRender(item)}
                         <Bar />
                     </Item>
                 ),

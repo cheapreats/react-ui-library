@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { Card as C, CardProps as Cprops } from '../Card';
 import { HeaderRow } from '../HeaderRow';
@@ -46,6 +46,13 @@ export const KitchenCard: React.FC<KitchenCardProps> = ({
     TimeComponent,
     StatusModifierComponent,
 }): React.ReactElement => {
+    const statusFormat = useCallback(
+        (orderStatus: string) => {
+            return orderStatus.charAt(0) + orderStatus.slice(1).toLowerCase();
+        },
+        [status],
+    );
+
     return (
         <Card
             key={index}
@@ -60,7 +67,7 @@ export const KitchenCard: React.FC<KitchenCardProps> = ({
                 padding="0 5px"
             >
                 <Status statusColor={statusColor}>
-                    {status.charAt(0) + status.slice(1).toLowerCase()}
+                    {statusFormat(status)}
                 </Status>
             </HeaderRow>
             <Grid>

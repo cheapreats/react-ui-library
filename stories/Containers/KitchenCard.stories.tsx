@@ -12,9 +12,17 @@ enum StatusColorFilter {
     PREPARED = 'green',
 }
 
+enum StatusTypes {
+    PREPARING = 'PREPARING',
+    PLACED = 'PLACED',
+    COMPLETE = 'COMPLETE',
+    CANCELLED = 'CANCELLED',
+    PREPARED = 'PREPARED',
+}
+
 const sampleOrder = {
     _id: '5f15ff0d1689a01c4b9cc72f',
-    status: 'PREPARING',
+    status: 'CANCELLED',
     items: [
         {
             name: 'Cool Sandwich',
@@ -206,15 +214,15 @@ export default {
     title: createStoryTitle('KitchenCard'),
     component: KitchenCard,
     argTypes: {
-        statusColor: {
+        status: {
             control: {
                 type: 'select',
-                options: StatusColorFilter,
+                options: StatusTypes,
             },
-            isFullName: {
-                type: 'radio',
-                options: [true, false],
-            },
+        },
+        isFullName: {
+            type: 'radio',
+            options: [true, false],
         },
     },
     args: {
@@ -226,13 +234,17 @@ export default {
         TimeComponent: '10:00',
         orderType: sampleOrder.order_type,
         customer: sampleOrder.customer,
-        status: sampleOrder.status,
-        statusColor: StatusColorFilter[sampleOrder.status],
+        status: StatusTypes[sampleOrder.status],
         StatusModifierComponent: StatusModifierComponent,
         _id: sampleOrder._id,
     },
 } as Meta;
 
 export const Basic: Story<KitchenCardProps> = (args) => {
-    return <KitchenCard {...args}></KitchenCard>;
+    return (
+        <KitchenCard
+            {...args}
+            statusColor={StatusColorFilter[args.status]}
+        ></KitchenCard>
+    );
 };
