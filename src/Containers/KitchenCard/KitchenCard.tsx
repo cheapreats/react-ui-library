@@ -46,12 +46,9 @@ export const KitchenCard: React.FC<KitchenCardProps> = ({
     TimeComponent,
     StatusModifierComponent,
 }): React.ReactElement => {
-    const statusFormat = useCallback(
-        (orderStatus: string) => {
-            return orderStatus.charAt(0) + orderStatus.slice(1).toLowerCase();
-        },
-        [status],
-    );
+    const statusFormat = useCallback(() => {
+        return status.charAt(0) + status.slice(1).toLowerCase();
+    }, [status]);
 
     return (
         <Card
@@ -66,9 +63,7 @@ export const KitchenCard: React.FC<KitchenCardProps> = ({
                 display="space-between"
                 padding="0 5px"
             >
-                <Status statusColor={statusColor}>
-                    {statusFormat(status)}
-                </Status>
+                <Status statusColor={statusColor}>{statusFormat()}</Status>
             </HeaderRow>
             <Grid>
                 <Paragraph bold align="left">
