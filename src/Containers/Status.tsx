@@ -7,7 +7,7 @@ import { MainInterface } from '../Utils/BaseStyles';
 export enum StatusColors {
     green = 'green',
     orange = 'orange',
-    red = 'red'
+    red = 'red',
 }
 
 export interface StatusProps extends TextProps, DotProps {
@@ -59,12 +59,12 @@ const Dot = styled.span<DotProps>`
     &,
     &:before {
         ${({ large }): string =>
-        large
-            ? `
+            large
+                ? `
             width: 11px;
             height: 11px;
         `
-            : `
+                : `
             width: 9px;
             height: 9px;
         `};
