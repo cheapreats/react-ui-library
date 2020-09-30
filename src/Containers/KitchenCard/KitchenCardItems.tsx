@@ -3,10 +3,7 @@ import styled from 'styled-components';
 import { Heading as H, Paragraph } from '../../Text';
 import { flex, media, scroll } from '../../Utils/Mixins';
 import { ResponsiveInterface, MainInterface } from '../../Utils/BaseStyles';
-
-interface Item {
-    name: string;
-}
+import { Item, Choice, ModifierChoiceTypeEnum } from './constants';
 
 export interface KitchenCardItemsProps
     extends MainInterface,
@@ -14,18 +11,16 @@ export interface KitchenCardItemsProps
         React.HTMLAttributes<HTMLDivElement> {
     items: Item[];
     isFullName: boolean;
-    modifiers: [][];
 }
 
 export const KitchenCardItems: React.FC<KitchenCardItemsProps> = ({
     items,
     isFullName,
-    modifiers,
 }): React.ReactElement => {
     return (
         <ItemsRow>
             {items.map(
-                (item, index): React.ReactElement => (
+                (item): React.ReactElement => (
                     <Item>
                         <Heading
                             type="h5"
@@ -36,9 +31,18 @@ export const KitchenCardItems: React.FC<KitchenCardItemsProps> = ({
                         >
                             {item.name}
                         </Heading>
-                        {modifiers[index].map(
-                            (fil): React.ReactElement => (
-                                <Paragraph margin="0 0 0 20px">{fil}</Paragraph>
+                        {item.modifiers.map((modifier) =>
+                            modifier.choices.map(
+                                (choice: Choice): React.ReactElement => (
+                                    <Paragraph margin="5px 0 0 20px">
+                                        {`${
+                                            choice.choice_type ===
+                                            ModifierChoiceTypeEnum.DEFAULT
+                                                ? ''
+                                                : choice.choice_type
+                                        } ${choice.name}`}
+                                    </Paragraph>
+                                ),
                             ),
                         )}
                         <Bar />

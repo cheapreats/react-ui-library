@@ -10,8 +10,8 @@ export default {
         statusColor: {
             control: {
                 type: 'radio',
-                options: StatusColors
-            }
+                options: StatusColors,
+            },
         },
     },
     args: {

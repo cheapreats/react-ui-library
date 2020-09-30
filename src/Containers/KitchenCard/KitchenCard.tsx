@@ -6,23 +6,21 @@ import { Status, StatusColors } from '../Status';
 import { Paragraph as P } from '../../Text';
 import { flex, media } from '../../Utils/Mixins';
 import { KitchenCardItems } from './KitchenCardItems';
+import { Item } from './constants';
 
 const CUSTOMER_FIRST_NAME = /^([\w-]+)/g;
 const UNDERSCORE_FORMAT = '_';
 const LABEL_FORMAT = -4;
 
-interface Item {
-    name: string;
-}
-
-export interface KitchenProps {
+export interface KitchenCardProps {
     customer: {
         name: string;
     };
     _id: string;
     items: Item[];
     orderType: string;
-    status: StatusColors;
+    statusColor: StatusColors;
+    status: string;
     index: number;
     modifiers: [];
     isFullName?: boolean;
@@ -33,12 +31,12 @@ export interface KitchenProps {
     StatusModifierComponent: React.ReactNode | string;
 }
 
-export const KitchenCard: React.FC<KitchenProps> = ({
+export const KitchenCard: React.FC<KitchenCardProps> = ({
     customer,
     _id,
     items,
     orderType,
-    modifiers,
+    statusColor,
     status,
     index,
     isFullName = true,
@@ -61,7 +59,9 @@ export const KitchenCard: React.FC<KitchenProps> = ({
                 display="space-between"
                 padding="0 5px"
             >
-                <Status statusColor={status}>{status}</Status>
+                <Status statusColor={statusColor}>
+                    {status.charAt(0) + status.slice(1).toLowerCase()}
+                </Status>
             </HeaderRow>
             <Grid>
                 <Paragraph bold align="left">
@@ -74,11 +74,7 @@ export const KitchenCard: React.FC<KitchenProps> = ({
                     {TimeComponent}
                 </Paragraph>
             </Grid>
-            <KitchenCardItems
-                items={items}
-                modifiers={modifiers}
-                isFullName={isFullName}
-            />
+            <KitchenCardItems items={items} isFullName={isFullName} />
             {StatusModifierComponent}
         </Card>
     );

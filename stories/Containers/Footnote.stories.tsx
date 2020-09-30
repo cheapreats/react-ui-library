@@ -8,15 +8,13 @@ export default {
     component: Footnote,
     args: {
         show: true,
-	    bold: true,
-        children: 'Toggle the show knob to hide me!'
-    }, 
+        bold: true,
+        children: 'Toggle the show knob to hide me!',
+    },
 } as Meta;
 
 export const Basic: Story<FootnoteProps> = (args) => (
-        <Footnote {...args}>
-            <SmallText {...args}>
-            {getCaptionForLocale(args.children)}
-            </SmallText>
-        </Footnote>
+    <Footnote {...args}>
+        <SmallText {...args}>{getCaptionForLocale(args.children)}</SmallText>
+    </Footnote>
 );
