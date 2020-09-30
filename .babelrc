@@ -15,6 +15,7 @@
                 }
             },
             "babel-plugin-styled-components"
-        ]
+        ],
+        "recharts"
     ]
 }
