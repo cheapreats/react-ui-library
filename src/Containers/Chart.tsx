@@ -26,25 +26,28 @@ export const Chart: React.FC<ChartProps> = ({
 }): React.ReactElement => (
     <ChartBox color={color} revenue={revenue} data={data} {...props}>
         <Header>
-            <HeaderLeft>
-                <HeaderLeftTitle color={color}>
-                    <strong>REVENUE</strong>
-                </HeaderLeftTitle>
-                <span>
-                    <strong>$</strong>
-                    <Big>
-                        <strong>
-                            {revenue.toLocaleString(undefined, {
-                                minimumFractionDigits: 2,
-                                maximumFractionDigits: 2,
-                            })}
-                        </strong>
-                    </Big>
-                </span>
-                <HeaderLeftSubtitle>
-                    <strong>+9.5% since last week</strong>
-                </HeaderLeftSubtitle>
-            </HeaderLeft>
+            <HeaderLeftWrapper>
+                <UpIcon />
+                <HeaderLeft>
+                    <HeaderLeftTitle color={color}>
+                        <strong>REVENUE</strong>
+                    </HeaderLeftTitle>
+                    <span>
+                        <strong>$</strong>
+                        <Big>
+                            <strong>
+                                {revenue.toLocaleString(undefined, {
+                                    minimumFractionDigits: 2,
+                                    maximumFractionDigits: 2,
+                                })}
+                            </strong>
+                        </Big>
+                    </span>
+                    <HeaderLeftSubtitle>
+                        <strong>+9.5% since last week</strong>
+                    </HeaderLeftSubtitle>
+                </HeaderLeft>
+            </HeaderLeftWrapper>
             <Icons>
                 <IconControl>
                     <Icon>
@@ -112,6 +115,10 @@ const Header = styled.div`
     margin-bottom: 5%;
 `;
 
+const HeaderLeftWrapper = styled.div`
+    ${flex('center')}
+`;
+
 const HeaderLeft = styled.div`
     flex: 1;
     ${flex('column')}
@@ -147,7 +154,7 @@ const Icons = styled.div`
     display: inline-flex;
     flex: 1;
     position: relative;
-    left: 15%;
+    left: 17%;
 `;
 
 interface CustomTooltipProps extends CustomTooltipBoxProps {
@@ -266,6 +273,25 @@ const ExportIcon = styled.div`
         border-top: solid 1px currentColor;
         border-right: solid 1px currentColor;
         -webkit-transform: rotate(-45deg);
+        transform: rotate(-45deg);
+    }
+`;
+
+const UpIcon = styled.div`
+    margin: 10px;
+    ${({ theme }): string => `
+    color:${theme.colors.status.complete};
+    `}
+    &::before {
+        content: '';
+        display: inline-block;
+        position: relative;
+        left: -5px;
+        top: 1px;
+        width: 10px;
+        height: 10px;
+        border-top: solid 1px currentColor;
+        border-right: solid 1px currentColor;
         transform: rotate(-45deg);
     }
 `;
