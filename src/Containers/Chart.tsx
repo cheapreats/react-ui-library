@@ -1,12 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { flex } from '../Utils/Mixins';
-import {
-    Main,
-    Responsive,
-    MainInterface,
-    ResponsiveInterface,
-} from '../Utils/BaseStyles';
 import {
     LineChart,
     Line,
@@ -15,6 +8,13 @@ import {
     Tooltip,
     CartesianGrid,
 } from 'recharts';
+import { flex } from '../Utils/Mixins';
+import {
+    Main,
+    Responsive,
+    MainInterface,
+    ResponsiveInterface,
+} from '../Utils/BaseStyles';
 
 export interface ChartProps extends ChartBoxProps {}
 
@@ -61,7 +61,7 @@ export const Chart: React.FC<ChartProps> = ({
             </Icons>
         </Header>
         <LineChart width={460} height={160} data={data}>
-            <XAxis dataKey={'label'} tickLine={false} />
+            <XAxis dataKey="label" tickLine={false} />
             <YAxis axisLine={false} tickLine={false} />
             <Tooltip
                 cursor={false}
@@ -165,13 +165,14 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
         return (
             <CustomTooltipBox active={active} payload={payload} {...props}>
                 <strong>
-                    $<Big>{`${getFormattedHoverValue()}`}</Big>
+                    $
+                    <Big>{`${getFormattedHoverValue()}`}</Big>
                 </strong>
             </CustomTooltipBox>
         );
     }
 
-    return <div></div>;
+    return <div />;
 };
 
 const Big = styled.span`
