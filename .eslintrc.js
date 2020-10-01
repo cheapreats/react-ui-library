@@ -23,11 +23,11 @@ module.exports = {
     settings: {
         'import/resolver': {
             alias: {
-                map: Object.entries(aliases).map(item => {
+                map: Object.entries(aliases).map((item) => {
                     item[1] = `./${item[1]}`;
                     return item;
                 }),
-                extensions: ['.ts', '.tsx', '.json'],
+                extensions: ['.ts', '.tsx', '.json', '.js'],
             },
         },
     },
@@ -43,7 +43,7 @@ module.exports = {
         '@typescript-eslint/no-empty-interface': 'off',
         '@typescript-eslint/no-var-requires': 'off',
         '@typescript-eslint/no-shadow': 'error',
-        '@typescript-eslint/ban-types': [ 'off' ],
+        '@typescript-eslint/ban-types': ['off'],
         'react/jsx-filename-extension': ['error', { extensions: ['.tsx'] }],
         'react/jsx-indent-props': ['error', 4],
         'react/jsx-indent': ['error', 4],
