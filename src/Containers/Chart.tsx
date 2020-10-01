@@ -137,7 +137,7 @@ color:${color};
 const HeaderLeftSubtitle = styled.div`
     ${({ theme }): string => `
 font-size:${theme.font.size.small};
-color:${theme.colors.status.complete};
+color:${theme.colors.statusColors.green};
 `}
 `;
 
@@ -172,8 +172,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
         return (
             <CustomTooltipBox active={active} payload={payload} {...props}>
                 <strong>
-                    $
-                    <Big>{`${getFormattedHoverValue()}`}</Big>
+                    $<Big>{`${getFormattedHoverValue()}`}</Big>
                 </strong>
             </CustomTooltipBox>
         );
@@ -280,7 +279,7 @@ const ExportIcon = styled.div`
 const UpIcon = styled.div`
     margin: 10px;
     ${({ theme }): string => `
-    color:${theme.colors.status.complete};
+    color:${theme.colors.statusColors.green};
     `}
     &::before {
         content: '';
