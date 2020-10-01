@@ -137,7 +137,7 @@ color:${color};
 const HeaderLeftSubtitle = styled.div`
     ${({ theme }): string => `
 font-size:${theme.font.size.small};
-color:${theme.colors.status.complete};
+color:${theme.colors.statusColors.green};
 `}
 `;
 
@@ -280,7 +280,7 @@ const ExportIcon = styled.div`
 const UpIcon = styled.div`
     margin: 10px;
     ${({ theme }): string => `
-    color:${theme.colors.status.complete};
+    color:${theme.colors.statusColors.green};
     `}
     &::before {
         content: '';
