@@ -7,6 +7,14 @@ import {
     ResponsiveInterface,
 } from '../Utils/BaseStyles';
 
+interface Icon extends React.HTMLAttributes<HTMLDivElement> {}
+
+interface DataProps {
+    color: string;
+    Icon: React.FC<Icon>;
+    text: string;
+}
+
 export interface TimelineProps
     extends MainInterface,
         ResponsiveInterface,
@@ -21,7 +29,7 @@ export interface TimelineProps
     textColor: string;
     separatorColor: string;
     separatorLength: string | number;
-    data: Array<any>;
+    data: Array<DataProps>;
 }
 
 export const Timeline: React.FC<TimelineProps> = ({
@@ -41,7 +49,7 @@ export const Timeline: React.FC<TimelineProps> = ({
     const subContentLeftAmountLocale = `$${subContentLeftAmount.toLocaleString()}`;
     const subContentRightAmountLocale = `$${subContentRightAmount.toLocaleString()}`;
 
-    const getTimelineItem = (Item: any, index: number) => (
+    const getTimelineItem = (Item: DataProps, index: number) => (
         <TimelineItem key={`${index}_timeline`}>
             <TimelineItemLeft color={separatorColor} isFirst={index === 0}>
                 <Item.Icon style={{ width: '15px', color: Item.color }} />
