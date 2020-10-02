@@ -7,11 +7,9 @@ import {
     ResponsiveInterface,
 } from '../Utils/BaseStyles';
 
-interface IconProps extends React.HTMLAttributes<HTMLDivElement> {}
-
 interface DataItem {
     color: string;
-    Icon: React.FC<IconProps>;
+    Icon: React.FC<React.HTMLAttributes<HTMLDivElement>>;
     text: string;
 }
 
