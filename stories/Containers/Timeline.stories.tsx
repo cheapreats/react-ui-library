@@ -1,8 +1,12 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Timeline, TimelineProps } from '../../src';
-import { createStoryTitle } from '../Constants';
+import { CreditCardFill } from '@styled-icons/bootstrap/CreditCardFill';
+import { Star } from '@styled-icons/evaicons-solid/Star';
+import { DollarSign } from '@styled-icons/fa-solid/DollarSign';
+import { ArrowUpShort } from '@styled-icons/bootstrap/ArrowUpShort';
 import { MainTheme } from '../../src/Themes';
+import { createStoryTitle } from '../Constants';
+import { Timeline, TimelineProps } from '../../src';
 
 export default {
     title: createStoryTitle('Timeline'),
@@ -11,39 +15,39 @@ export default {
 
 const defaultArgs = {
     title: 'HARVEST',
-    colorTitle: MainTheme.colors.statusColors.orange,
+    titleColor: MainTheme.colors.statusColors.orange,
     subContentLeftTitle: 'MRR',
     subContentLeftAmount: 408,
     subContentRightTitle: 'Total Charges',
     subContentRightAmount: 5199,
-    colorFigures: 'lightblue',
-    colorText: MainTheme.colors.text,
-    colorOther: '#f0f8ff',
-    lengthSeparator: 365,
+    figuresColor: 'lightblue',
+    textColor: MainTheme.colors.text,
+    separatorColor: '#f0f8ff',
+    separatorLength: 365,
     data: [
         {
             color: '#7fffd4',
-            font: 'icon-dollar-currency-symbol',
+            Icon: DollarSign,
             text: 'Charged $4,900',
         },
         {
             color: '#ff00ff',
-            font: 'icon-up-arrow',
+            Icon: ArrowUpShort,
             text: 'Upgraded to Enterprise annual plan',
         },
         {
             color: '#3366ff',
-            font: 'icon-credit-card',
+            Icon: CreditCardFill,
             text: 'Added American Express ending in 2422',
         },
         {
             color: '#7fffd4',
-            font: 'icon-dollar-currency-symbol',
+            Icon: DollarSign,
             text: 'Charged $299',
         },
         {
             color: '#ffddaa',
-            font: 'icon-star',
+            Icon: Star,
             text: 'Converted their trial',
         },
     ],

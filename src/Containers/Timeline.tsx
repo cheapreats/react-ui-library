@@ -6,84 +6,77 @@ import {
     MainInterface,
     ResponsiveInterface,
 } from '../Utils/BaseStyles';
-import '../../iconFonts/css/fontello.css';
 
 export interface TimelineProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     title: string;
-    colorTitle: string;
+    titleColor: string;
     subContentLeftTitle: string;
     subContentLeftAmount: string | number;
     subContentRightTitle: string;
     subContentRightAmount: string | number;
-    colorFigures: string;
-    colorText: string;
-    colorOther: string;
-    lengthSeparator: string | number;
+    figuresColor: string;
+    textColor: string;
+    separatorColor: string;
+    separatorLength: string | number;
     data: Array<any>;
 }
 
 export const Timeline: React.FC<TimelineProps> = ({
     title,
-    colorTitle,
+    titleColor,
     subContentLeftTitle,
     subContentLeftAmount,
     subContentRightTitle,
     subContentRightAmount,
-    colorFigures,
-    colorText,
-    colorOther,
-    lengthSeparator,
+    figuresColor,
+    textColor,
+    separatorColor,
+    separatorLength,
     data,
     ...props
 }): React.ReactElement => {
     const subContentLeftAmountLocale = `$${subContentLeftAmount.toLocaleString()}`;
     const subContentRightAmountLocale = `$${subContentRightAmount.toLocaleString()}`;
 
-    const getTimelineItem = (item: any, index: number) => (
+    const getTimelineItem = (Item: any, index: number) => (
         <TimelineItem key={`${index}_timeline`}>
-            <TimelineItemLeft color={colorOther} isFirst={index === 0}>
-                <I color={item.color} className={item.font} />
+            <TimelineItemLeft color={separatorColor} isFirst={index === 0}>
+                <Item.Icon style={{ width: '15px', color: Item.color }} />
             </TimelineItemLeft>
-            <TimelineItemRight color={colorText}>{item.text}</TimelineItemRight>
+            <TimelineItemRight color={textColor}>{Item.text}</TimelineItemRight>
         </TimelineItem>
     );
     return (
         <TimelineBox {...props}>
-            <Title color={colorTitle}>
+            <Title color={titleColor}>
                 <strong>{title}</strong>
             </Title>
             <SubContentContainer>
                 <SubContent>
-                    <SmallTitle color={colorText}>
+                    <SmallTitle color={textColor}>
                         {subContentLeftTitle}
                     </SmallTitle>
-                    <BigContent color={colorFigures}>
+                    <BigContent color={figuresColor}>
                         <strong>{subContentLeftAmountLocale}</strong>
                     </BigContent>
                 </SubContent>
                 <SubContent>
-                    <SmallTitle color={colorText}>
+                    <SmallTitle color={textColor}>
                         {subContentRightTitle}
                     </SmallTitle>
-                    <BigContent color={colorFigures}>
+                    <BigContent color={figuresColor}>
                         <strong>{subContentRightAmountLocale}</strong>
                     </BigContent>
                 </SubContent>
             </SubContentContainer>
-            <Separator width={lengthSeparator} color={colorOther} />
+            <Separator width={separatorLength} color={separatorColor} />
             {data.map((item, index) => getTimelineItem(item, index))}
         </TimelineBox>
     );
 };
-
-const I = styled.i`
-    ${({ color }): string => `
-color:${color};
-`}
-`;
 
 const TimelineItemRight = styled.div`
     ${({ theme, color }): string => `
@@ -117,7 +110,7 @@ color:${color};
         border: 2px solid currentColor;
         position: relative;
         top: -30px;
-        left: 11px;
+        left: 7px;
     }
     `}
 `;
