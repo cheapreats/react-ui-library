@@ -1,15 +1,18 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
+import { StyledIcon } from 'styled-icons/types';
 import { flex } from '../Utils/Mixins';
 import {
     Responsive,
     MainInterface,
     ResponsiveInterface,
 } from '../Utils/BaseStyles';
+import { SmallText } from '../Text';
+import { MainTheme } from '../Themes';
 
 interface DataItem {
     color: string;
-    Icon: React.FC<React.HTMLAttributes<HTMLDivElement>>;
+    Icon: StyledIcon;
     text: string;
 }
 
@@ -47,35 +50,47 @@ export const Timeline: React.FC<TimelineProps> = ({
     const subContentLeftAmountLocale = `$${subContentLeftAmount.toLocaleString()}`;
     const subContentRightAmountLocale = `$${subContentRightAmount.toLocaleString()}`;
 
-    const getTimelineItem = (Item: DataItem, index: number) => (
-        <TimelineItem key={`${index}_timeline`}>
-            <TimelineItemLeft color={separatorColor} isFirst={index === 0}>
-                <Item.Icon style={{ width: '15px', color: Item.color }} />
-            </TimelineItemLeft>
-            <TimelineItemRight color={textColor}>{Item.text}</TimelineItemRight>
-        </TimelineItem>
+    const getTimelineItem = useCallback(
+        (Item: DataItem, index: number) => (
+            <TimelineItem key={`${index}_timeline`}>
+                <TimelineItemLeft color={separatorColor} isFirst={index === 0}>
+                    <Item.Icon style={{ width: '15px', color: Item.color }} />
+                </TimelineItemLeft>
+                <TimelineItemRight color={textColor}>
+                    {Item.text}
+                </TimelineItemRight>
+            </TimelineItem>
+        ),
+        [separatorColor, textColor],
     );
+
     return (
         <TimelineBox {...props}>
-            <Title color={titleColor}>
+            <SmallText size={MainTheme.font.size.h1} color={titleColor}>
                 <strong>{title}</strong>
-            </Title>
+            </SmallText>
             <SubContentContainer>
                 <SubContent>
-                    <SmallTitle color={textColor}>
+                    <SmallText color={textColor}>
                         {subContentLeftTitle}
-                    </SmallTitle>
-                    <BigContent color={figuresColor}>
+                    </SmallText>
+                    <SmallText
+                        size={MainTheme.font.size.h4}
+                        color={figuresColor}
+                    >
                         <strong>{subContentLeftAmountLocale}</strong>
-                    </BigContent>
+                    </SmallText>
                 </SubContent>
                 <SubContent>
-                    <SmallTitle color={textColor}>
+                    <SmallText color={textColor}>
                         {subContentRightTitle}
-                    </SmallTitle>
-                    <BigContent color={figuresColor}>
+                    </SmallText>
+                    <SmallText
+                        size={MainTheme.font.size.h4}
+                        color={figuresColor}
+                    >
                         <strong>{subContentRightAmountLocale}</strong>
-                    </BigContent>
+                    </SmallText>
                 </SubContent>
             </SubContentContainer>
             <Separator width={separatorLength} color={separatorColor} />
@@ -137,21 +152,6 @@ border:2px solid ${color};
 `}
 `;
 
-const BigContent = styled.div`
-    ${({ theme, color }): string => `
-font-size:${theme.font.size.h4};
-color:${color};
-`}
-`;
-
-const SmallTitle = styled.div`
-    ${({ theme, color }): string => `
-font-size:${theme.font.size.small};
-color:${color};
-`}
-    margin-bottom:5px;
-`;
-
 const SubContent = styled.div`
     ${flex('column')}
     flex-basis:100%;
@@ -160,14 +160,6 @@ const SubContent = styled.div`
 const SubContentContainer = styled.div`
     ${flex()}
     margin-bottom:20px;
-`;
-
-const Title = styled.div`
-    ${({ theme, color }): string => `
-font-size:${theme.font.size.h1};
-color:${color};
-`}
-    margin-bottom:10px;
 `;
 
 const TimelineBox = styled.div`
