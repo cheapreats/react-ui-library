@@ -24,7 +24,7 @@ const defaultArgs = {
     textColor: MainTheme.colors.text,
     separatorColor: '#f0f8ff',
     separatorLength: 365,
-    data: [
+    timelineData: [
         {
             color: '#7fffd4',
             Icon: DollarSign,

@@ -10,7 +10,7 @@ import {
 import { SmallText } from '../Text';
 import { MainTheme } from '../Themes';
 
-interface DataItem {
+interface TimelineDataItem {
     color: string;
     Icon: StyledIcon;
     text: string;
@@ -30,7 +30,7 @@ export interface TimelineProps
     textColor: string;
     separatorColor: string;
     separatorLength: string | number;
-    data: Array<DataItem>;
+    timelineData: Array<TimelineDataItem>;
 }
 
 export const Timeline: React.FC<TimelineProps> = ({
@@ -44,14 +44,14 @@ export const Timeline: React.FC<TimelineProps> = ({
     textColor,
     separatorColor,
     separatorLength,
-    data,
+    timelineData,
     ...props
 }): React.ReactElement => {
     const subContentLeftAmountLocale = `$${subContentLeftAmount.toLocaleString()}`;
     const subContentRightAmountLocale = `$${subContentRightAmount.toLocaleString()}`;
 
     const getTimelineItem = useCallback(
-        (Item: DataItem, index: number) => (
+        (Item: TimelineDataItem, index: number) => (
             <TimelineItem key={`${index}_timeline`}>
                 <TimelineItemLeft color={separatorColor} isFirst={index === 0}>
                     <Item.Icon style={{ width: '15px', color: Item.color }} />
@@ -94,7 +94,7 @@ export const Timeline: React.FC<TimelineProps> = ({
                 </SubContent>
             </SubContentContainer>
             <Separator width={separatorLength} color={separatorColor} />
-            {data.map((item, index) => getTimelineItem(item, index))}
+            {timelineData.map((item, index) => getTimelineItem(item, index))}
         </TimelineBox>
     );
 };
