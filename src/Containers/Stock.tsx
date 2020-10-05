@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { LineChart, Line } from 'recharts';
 import { ArrowUp } from '@styled-icons/entypo/ArrowUp';
@@ -25,15 +25,6 @@ export interface StockProps extends StockBoxProps {
     bgColor: string;
 }
 
-const getChartColor = (colorKey: string) =>
-    MainTheme.colors[colorKey] || colorKey;
-
-const getFigure = (figure: number) =>
-    figure.toLocaleString(undefined, { maximumFractionDigits: 2 });
-
-const getRateIcon = (rate: number) =>
-    rate < 0 ? <StyledArrowDown /> : <StyledArrowUp />;
-
 export const Stock: React.FC<StockProps> = ({
     chartColor,
     chartData,
@@ -42,6 +33,21 @@ export const Stock: React.FC<StockProps> = ({
     rate,
     ...props
 }): React.ReactElement => {
+    const getChartColor = useCallback(
+        () => MainTheme.colors[chartColor] || chartColor,
+        [chartColor],
+    );
+
+    const getFigure = useCallback(
+        () => figure.toLocaleString(undefined, { maximumFractionDigits: 2 }),
+        [figure],
+    );
+
+    const getRate = useCallback(
+        () => rate.toLocaleString(undefined, { maximumFractionDigits: 2 }),
+        [rate],
+    );
+
     return (
         <StockBox {...props}>
             <Content>
@@ -49,12 +55,12 @@ export const Stock: React.FC<StockProps> = ({
                     <strong>{title}</strong>
                 </Text>
                 <Text size="h1" color="background">
-                    <strong>{getFigure(figure)}</strong>
+                    <strong>{getFigure()}</strong>
                 </Text>
                 <Text size="h6" color={chartColor}>
                     <strong>
-                        {`${getFigure(rate)} `}
-                        {getRateIcon(rate)}
+                        {`${getRate()} `}
+                        <StyledIcon as={rate < 0 ? ArrowDown : ArrowUp} />
                     </strong>
                 </Text>
             </Content>
@@ -63,7 +69,7 @@ export const Stock: React.FC<StockProps> = ({
                     <Line
                         type="linear"
                         dataKey="value"
-                        stroke={getChartColor(chartColor)}
+                        stroke={getChartColor()}
                         strokeWidth={2}
                         dot={false}
                     />
@@ -112,10 +118,7 @@ const Content = styled.div`
     margin: 10px 20px 10px 10px;
 `;
 
-const StyledArrowUp = styled(ArrowUp)`
-    width: 15px;
-`;
-const StyledArrowDown = styled(ArrowDown)`
+const StyledIcon = styled.svg`
     width: 15px;
 `;
 
