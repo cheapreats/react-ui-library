@@ -54,11 +54,9 @@ export const Timeline: React.FC<TimelineProps> = ({
         (Item: TimelineDataItem, index: number) => (
             <TimelineItem key={`${index}_timeline`}>
                 <TimelineItemLeft color={separatorColor} isFirst={index === 0}>
-                    <Item.Icon style={{ width: '15px', color: Item.color }} />
+                    <TimelineIcon as={Item.Icon} color={Item.color} />
                 </TimelineItemLeft>
-                <TimelineItemRight color={textColor}>
-                    {Item.text}
-                </TimelineItemRight>
+                <SmallText color={textColor}>{Item.text}</SmallText>
             </TimelineItem>
         ),
         [separatorColor, textColor],
@@ -99,12 +97,15 @@ export const Timeline: React.FC<TimelineProps> = ({
     );
 };
 
-const TimelineItemRight = styled.div`
-    ${({ theme, color }): string => `
-font-size:${theme.font.size.small};
-color:${color};
+interface TimelineIconProps {
+    color: string;
+}
+
+const TimelineIcon = styled.svg<TimelineIconProps>`
+    ${({ color }): string => `
+${color && `color:${color};`}
 `}
-    margin-left:15px;
+    width:15px;
 `;
 
 interface TimelineItemLeftProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -115,6 +116,7 @@ const TimelineItemLeft = styled.div<TimelineItemLeftProps>`
     width: 40px;
     height: 40px;
     border-radius: 50%;
+    margin-right: 15px;
     ${({ color }): string => `
 color:${color};
 `}
