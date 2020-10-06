@@ -11,6 +11,7 @@ import {
     ResponsiveInterface,
 } from '../Utils/BaseStyles';
 import { MainTheme } from '../Themes';
+import { SmallText } from '../Text';
 
 interface ChartDataItem {
     value: string | number;
@@ -51,18 +52,34 @@ export const Stock: React.FC<StockProps> = ({
     return (
         <StockBox {...props}>
             <Content>
-                <Text size="h6" color="text">
-                    <strong>{title}</strong>
-                </Text>
-                <Text size="h1" color="background">
-                    <strong>{getFigure()}</strong>
-                </Text>
-                <Text size="h6" color={chartColor}>
-                    <strong>
-                        {`${getRate()} `}
-                        <StyledIcon as={rate < 0 ? ArrowDown : ArrowUp} />
-                    </strong>
-                </Text>
+                <SmallText
+                    type="div"
+                    size="h6"
+                    color="text"
+                    bold
+                    lineHeight="false"
+                >
+                    {title}
+                </SmallText>
+                <SmallText
+                    type="div"
+                    size="h1"
+                    color="background"
+                    bold
+                    lineHeight="false"
+                >
+                    {getFigure()}
+                </SmallText>
+                <SmallText
+                    type="div"
+                    size="h6"
+                    color={chartColor}
+                    bold
+                    lineHeight="false"
+                >
+                    {`${getRate()} `}
+                    <StyledIcon as={rate < 0 ? ArrowDown : ArrowUp} />
+                </SmallText>
             </Content>
             <Content>
                 <LineChart width={150} height={50} data={chartData}>
@@ -101,17 +118,6 @@ const StockBox = styled.div<StockBoxProps>`
     ${Responsive}
     ${flex('flex-start', 'center')}
     width:fit-content;
-`;
-
-interface TextProps extends React.HTMLAttributes<HTMLDivElement> {
-    size: string;
-}
-
-const Text = styled.div<TextProps>`
-    ${({ theme, ...props }): string => `
-font-size:${theme.font.size[props.size] || props.size};
-color:${theme.colors[props.color as string] || props.color};
-`}
 `;
 
 const Content = styled.div`
