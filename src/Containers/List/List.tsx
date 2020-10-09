@@ -3,23 +3,23 @@ import styled from 'styled-components';
 import { Mixins } from '../../Utils';
 import { Responsive, Main } from '../../Utils/BaseStyles';
 import { Loading } from '../Loading';
-import { ListToggle } from './ListToggle';
 
 export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
     loading: boolean;
     header?: React.ReactElement;
     footer?: React.ReactElement;
+    toggleComponent?: React.ReactElement;
     id: string;
     columnWidth?: string;
     margin?: string;
     right?: string;
     left?: string;
-    onToggleTranslateXAxis?: string;
+    onCloseTranslateXAxis?: string;
     cssPosition?: string;
     isToggleable?: boolean;
-    isLeftToggle?: boolean;
-    isToggled: boolean;
-    setIsToggled: React.Dispatch<React.SetStateAction<boolean>>;
+    isOpen?: boolean;
+    setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
+    zIndex?: number;
 }
 
 export const List: React.FC<ListProps> = ({
@@ -28,24 +28,25 @@ export const List: React.FC<ListProps> = ({
     header,
     footer,
     columnWidth = '280px',
-    isToggleable,
-    isToggled,
-    setIsToggled,
-    isLeftToggle,
+    isOpen = true,
+    setIsOpen,
+    toggleComponent,
     id,
     ...props
 }): React.ReactElement => {
     useEffect((): void | (() => void | undefined) => {
         const handler = ({ type }: { type: string }): void => {
-            switch (type) {
-                case 'swipeRight':
-                    setIsToggled(true);
-                    break;
-                case 'swipeLeft':
-                    setIsToggled(false);
-                    break;
-                default:
-                    break;
+            if (setIsOpen) {
+                switch (type) {
+                    case 'swipeRight':
+                        setIsOpen(true);
+                        break;
+                    case 'swipeLeft':
+                        setIsOpen(false);
+                        break;
+                    default:
+                        break;
+                }
             }
         };
         window.addEventListener('swipeRight', handler);
@@ -57,31 +58,26 @@ export const List: React.FC<ListProps> = ({
     }, []);
 
     return (
-        <Wrapper isToggled={isToggled} {...props}>
+        <Wrapper isOpen={isOpen} {...props}>
             <Container columnWidth={columnWidth} id={id}>
                 {header}
                 <Items>{loading ? <Loading /> : children}</Items>
                 {footer}
             </Container>
-            {isToggleable && (
-                <ListToggle
-                    isToggled={isToggled}
-                    setIsToggled={setIsToggled}
-                    isLeftToggle={isLeftToggle}
-                />
-            )}
+            {toggleComponent}
         </Wrapper>
     );
 };
 
 interface WrapperProps {
-    isToggled: boolean;
+    isOpen: boolean;
     columnWidth?: string;
     margin?: string;
     right?: string;
     left?: string;
     cssPosition?: string;
-    onToggleTranslateXAxis?: string;
+    onCloseTranslateXAxis?: string;
+    zIndex?: number;
 }
 
 interface ColumnProps {
@@ -91,19 +87,20 @@ interface ColumnProps {
 const Wrapper = styled.div<WrapperProps>`
     ${Mixins.flex()}
     ${Mixins.transition(['transform'])} 
-    z-index: 99;
     height: 100%;
     ${({
-        isToggled,
-        onToggleTranslateXAxis,
+        isOpen,
+        onCloseTranslateXAxis,
         columnWidth,
         margin,
         right,
         left,
         cssPosition,
+        zIndex,
     }): string => `
-        transform: translateX(${isToggled ? onToggleTranslateXAxis : '0'});
+        transform: translateX(${isOpen ? '0' : onCloseTranslateXAxis});
         width: ${columnWidth};
+        z-index: ${zIndex};
         ${Mixins.position(cssPosition, margin, 0, right, 0, left)}        
     `}
 `;

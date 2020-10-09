@@ -8,17 +8,17 @@ const LIST_TOGGLE_RIGHT = AngleRight;
 const LIST_TOGGLE_LEFT = AngleLeft;
 
 interface ListToggleProps extends ButtonProps {
-    isToggled: boolean;
-    setIsToggled: React.Dispatch<React.SetStateAction<boolean>>;
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const ListToggle: React.FC<ListToggleProps> = ({
-    isToggled,
-    setIsToggled,
+    isOpen,
+    setIsOpen,
     isLeftToggle,
 }): React.ReactElement => {
     const toggleList = (): void => {
-        setIsToggled(!isToggled);
+        setIsOpen(!isOpen);
     };
     return (
         <Button
@@ -27,7 +27,7 @@ export const ListToggle: React.FC<ListToggleProps> = ({
             isLeftToggle={isLeftToggle}
         >
             <Icon
-                show={isToggled}
+                show={isOpen}
                 as={isLeftToggle ? LIST_TOGGLE_LEFT : LIST_TOGGLE_RIGHT}
             />
         </Button>
@@ -44,7 +44,7 @@ interface ButtonProps {
 
 const Button = styled.button<ButtonProps>`
     ${Mixins.transition(['background-color'])}
-    ${Mixins.clickable('#ffffff', 0.04)}
+    ${Mixins.clickable('#ffffff', 0.05)}
     ${({ theme, isLeftToggle }): string => `
         box-shadow: ${theme.depth[1]};
         border-radius: ${
@@ -59,6 +59,7 @@ const Button = styled.button<ButtonProps>`
             isLeftToggle ? 'auto' : '-32px',
         )}
     `}
+    z-index:-1;
     background-color: white;
     box-sizing: border-box;
     padding: 12px;
@@ -70,6 +71,6 @@ const Button = styled.button<ButtonProps>`
 
 const Icon = styled.svg<IconProps>`
     ${Mixins.transition(['transform'])}
-    transform: rotate(${({ show }): string => (show ? '180deg' : '0')});
+    transform: rotate(${({ show }): string => (show ? '0' : '180deg')});
     height: 22px;
 `;

@@ -11,6 +11,7 @@ interface ListHeaderProps extends TextLayoutProps {
     icon?: StyledIcon;
     iconClick?: React.MouseEventHandler;
     iconProps?: string;
+    headerRowComponent?: React.ReactElement;
     type?: string;
 }
 
@@ -21,6 +22,7 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
     icon,
     iconClick,
     iconProps,
+    headerRowComponent,
     ...props
 }): React.ReactElement => (
     <Header>
@@ -31,6 +33,7 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
             {icon && (
                 <Icon as={icon} onClick={iconClick} iconProps={iconProps} />
             )}
+            {headerRowComponent}
         </Row>
         {children}
     </Header>
