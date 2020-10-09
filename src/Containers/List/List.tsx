@@ -11,6 +11,7 @@ export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
     footer?: React.ReactElement;
     id: string;
     columnWidth?: string;
+    backgroundColor?: string;
     margin?: string;
     right?: string;
     left?: string;
@@ -28,6 +29,7 @@ export const List: React.FC<ListProps> = ({
     header,
     footer,
     columnWidth = '280px',
+    backgroundColor = 'white',
     isToggleable,
     isToggled,
     setIsToggled,
@@ -38,14 +40,14 @@ export const List: React.FC<ListProps> = ({
     useEffect((): void | (() => void | undefined) => {
         const handler = ({ type }: { type: string }): void => {
             switch (type) {
-                case 'swipeRight':
-                    setIsToggled(true);
-                    break;
-                case 'swipeLeft':
-                    setIsToggled(false);
-                    break;
-                default:
-                    break;
+            case 'swipeRight':
+                setIsToggled(true);
+                break;
+            case 'swipeLeft':
+                setIsToggled(false);
+                break;
+            default:
+                break;
             }
         };
         window.addEventListener('swipeRight', handler);
@@ -58,7 +60,11 @@ export const List: React.FC<ListProps> = ({
 
     return (
         <Wrapper isToggled={isToggled} {...props}>
-            <Container columnWidth={columnWidth} id={id}>
+            <Container 
+                columnWidth={columnWidth} 
+                backgroundColor={backgroundColor} 
+                id={id}
+            >
                 {header}
                 <Items>{loading ? <Loading /> : children}</Items>
                 {footer}
@@ -86,6 +92,7 @@ interface WrapperProps {
 
 interface ColumnProps {
     columnWidth: string;
+    backgroundColor: string;
 }
 
 const Wrapper = styled.div<WrapperProps>`
@@ -110,7 +117,9 @@ const Wrapper = styled.div<WrapperProps>`
 
 const Container = styled.div<ColumnProps>`
     ${Mixins.flex('column')}
-    background-color: white;
+    ${({ backgroundColor }): string => `
+        background-color: ${backgroundColor};
+    `}
     flex-shrink: 0;
     flex-grow: 1;
     z-index: 1;
