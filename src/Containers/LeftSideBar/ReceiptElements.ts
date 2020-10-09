@@ -24,6 +24,18 @@ export interface LeftSideBarInterface {
     settingsElements: CategoryInterface
 };
 
+const element = {
+    NAME_OF_BUSINESS: {
+        key: '1',
+        field: 'Name of business',
+        checked: true
+    },
+    ADDRESS: {
+        key: '2',
+        field: 'Address',
+        checked: false
+    }
+}
 export const ReceiptElements: LeftSideBarInterface = {
     textElements: {
         key: 'Text',
@@ -222,7 +234,7 @@ export const ReceiptElements: LeftSideBarInterface = {
                 isRecommended: false
             },
             TIME: {
-                key: '29',
+                key: '27',
                 field: 'Time',
                 isRequired: true,
                 isRecommended: false

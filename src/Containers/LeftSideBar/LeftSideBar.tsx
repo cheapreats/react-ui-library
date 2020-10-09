@@ -7,6 +7,12 @@ import { ListNumbered } from '@styled-icons/icomoon/ListNumbered';
 import { Dollar } from '@styled-icons/boxicons-regular/Dollar';
 import { Qrcode } from '@styled-icons/icomoon/Qrcode';
 import { Settings } from '@styled-icons/ionicons-sharp/Settings';
+import { 
+    DragDropContext, 
+    Droppable,
+    DroppableProvided,
+    DroppableStateSnapshot
+} from 'react-beautiful-dnd';
 import { ReceiptElements, draggableComponentsObj } from './ReceiptElements';
 import { CollapsibleHeader } from './CollapsibleHeader';
 import { List } from '../List';
@@ -15,6 +21,7 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 const isToggleable = true;
 const isLeftToggle = true;
+const dropDisabled = true;
 const backgroundColor = '#f5f5f5';
 const iconsList = [
     TextFields,
@@ -38,6 +45,10 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
     const [searchValue, setSearchValue] = useState('');
     const [searchOption, setSearchOption] = useState<HTMLInputElement>();
       
+    const onDragEnd = () => {
+        console.log('hello');
+    };
+
     return (
         <Wrapper {...props}>
             <List 
@@ -76,13 +87,31 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                     </>
                 )}
             >
-                {Object.values(ReceiptElements).map((ReceiptElement, index) => (
-                    <CollapsibleHeader 
-                        key={ReceiptElement.key}
-                        icon={iconsList[index]}
-                        category={ReceiptElement.editorCategory}
-                    />
-                ))}
+                <DragDropContext
+                    onDragEnd={onDragEnd}
+                >
+                    <Droppable
+                        droppableId='LEFT-BAR'
+                        isDropDisabled={dropDisabled}
+                    >
+                        {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+                            <Wrapper
+                                ref={provided.innerRef}
+                                {...provided.droppableProps}
+                                style={getStyle(snapshot.isDraggingOver)}
+                            >
+                                {Object.values(ReceiptElements).map((ReceiptElement, index) => (
+                                    <CollapsibleHeader 
+                                        key={ReceiptElement.key}
+                                        icon={iconsList[index]}
+                                        category={ReceiptElement.editorCategory}
+                                    />
+                                ))}
+                                { provided.placeholder }
+                            </Wrapper>
+                        )}
+                    </Droppable>
+                </DragDropContext>
             </List>
         </Wrapper>  
     )
@@ -90,6 +119,9 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
 
 const Wrapper = styled.div`
 `;
+const getStyle = (isDraggingOver: boolean):{} => ({
+    // will add styling
+});
 const StyledSearchBar = styled(SearchBar)`
     ${({ theme }): string => `
         padding: ${theme.dimensions.padding.container};

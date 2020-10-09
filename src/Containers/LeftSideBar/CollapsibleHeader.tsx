@@ -2,6 +2,11 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { AngleDown } from '@styled-icons/fa-solid/AngleDown';
 import { StyledIcon } from '@styled-icons/styled-icon';
+import { 
+    Draggable,
+    DraggableProvided,
+    DraggableStateSnapshot
+} from 'react-beautiful-dnd';
 import { ReceiptElements, draggableComponent } from './ReceiptElements';
 import { DraggableElement } from './DraggableElement';
 import { Heading } from '../../Text/Heading';
@@ -63,10 +68,26 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
                     onClick={(): void => setIsCollapsed(!isCollapsed)}
                 />
             </Row>
-            {isCollapsed && Object.values(getCategoryElements(category)).map((draggable) => (
-                <DraggableElement>
-                    { draggable.field }
-                </DraggableElement>
+            {isCollapsed && Object.values(getCategoryElements(category)).map((element, index) => (
+                <Draggable
+                    key={element.key}
+                    draggableId={element.key}
+                    index={index}
+                >
+                    {(providedDraggable: DraggableProvided, snapshotDraggable: DraggableStateSnapshot) => (
+                        <div
+                            ref={providedDraggable.innerRef}
+                            {...providedDraggable.draggableProps}
+                            {...providedDraggable.dragHandleProps}
+                            style={getElementStyle(
+                                providedDraggable.draggableProps.style,
+                                snapshotDraggable.isDragging
+                            )}
+                        >
+                            { element.field }
+                        </div>
+                    )}
+                </Draggable>
             ))}
         </Wrapper>
     )
@@ -90,3 +111,10 @@ const Icon = styled.svg<IconProps>`
     height: 22px;
     margin: 5px 12px;
 `;
+const getElementStyle = (draggableStyle: any, isDragging: boolean):{} => ({
+    userSelect: 'none',
+    padding: '20px',
+    margin: '10px',
+    background: isDragging ? 'lightgray' : 'white',
+    ...draggableStyle
+});
