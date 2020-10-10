@@ -33,3 +33,5 @@ export * from './ScrollableListContent';
 export * from './QRScan';
 export * from './Coupon';
 export * from './Chart';
+export * from './RightSideBar';
+
