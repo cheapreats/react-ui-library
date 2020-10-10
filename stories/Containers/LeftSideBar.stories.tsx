@@ -1,5 +1,5 @@
 import React from 'react';
-import { LeftSideBar, LeftSideBarProps, LeftSideBarInterface } from '../../src';
+import { LeftSideBar, LeftSideBarProps } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Story, Meta } from '@storybook/react';
 

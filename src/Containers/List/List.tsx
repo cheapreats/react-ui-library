@@ -48,7 +48,7 @@ export const List: React.FC<ListProps> = ({
                     break;
                 default:
                     break;
-                }
+            }
         };
         window.addEventListener('swipeRight', handler);
         window.addEventListener('swipeLeft', handler);
