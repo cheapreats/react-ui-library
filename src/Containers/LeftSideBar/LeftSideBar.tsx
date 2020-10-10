@@ -22,7 +22,7 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 const isToggleable = true;
 const isLeftToggle = true;
 const dropDisabled = true;
-const backgroundColor = '#f5f5f5';
+const GREY_BACKGROUND_COLOR = '#f5f5f5';
 const iconsList = [
     TextFields,
     ImageAlt,
@@ -63,7 +63,7 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                 isLeftToggle={isLeftToggle}
                 isToggled={isToggled}
                 setIsToggled={setIsToggled}
-                backgroundColor={backgroundColor}
+                backgroundColor={GREY_BACKGROUND_COLOR}
                 header={(
                     <>
                         <StyledSearchBar

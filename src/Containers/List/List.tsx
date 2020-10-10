@@ -40,15 +40,15 @@ export const List: React.FC<ListProps> = ({
     useEffect((): void | (() => void | undefined) => {
         const handler = ({ type }: { type: string }): void => {
             switch (type) {
-            case 'swipeRight':
-                setIsToggled(true);
-                break;
-            case 'swipeLeft':
-                setIsToggled(false);
-                break;
-            default:
-                break;
-            }
+                case 'swipeRight':
+                    setIsToggled(true);
+                    break;
+                case 'swipeLeft':
+                    setIsToggled(false);
+                    break;
+                default:
+                    break;
+                }
         };
         window.addEventListener('swipeRight', handler);
         window.addEventListener('swipeLeft', handler);

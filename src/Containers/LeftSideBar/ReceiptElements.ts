@@ -1,4 +1,4 @@
-export interface draggableComponent {
+export interface IDraggableComponent {
     [key: string]: {
         key: string,
         field: string,
@@ -7,24 +7,24 @@ export interface draggableComponent {
     }
 };
 
-export interface CategoryInterface {
+export interface ICategoryInterface {
     key: string,
     editorCategory: string,
-    draggableComponents: draggableComponent
+    draggableComponents: IDraggableComponent
 };
 
 
-export interface LeftSideBarInterface {
-    textElements: CategoryInterface,
-    imageElements: CategoryInterface,
-    layoutElements: CategoryInterface,
-    numberElements: CategoryInterface,
-    priceElements: CategoryInterface,
-    codesElements: CategoryInterface,
-    settingsElements: CategoryInterface
+export interface ILeftSideBarInterface {
+    textElements: ICategoryInterface,
+    imageElements: ICategoryInterface,
+    layoutElements: ICategoryInterface,
+    numberElements: ICategoryInterface,
+    priceElements: ICategoryInterface,
+    codesElements: ICategoryInterface,
+    settingsElements: ICategoryInterface
 };
 
-export const ReceiptElements: LeftSideBarInterface = {
+export const ReceiptElements: ILeftSideBarInterface = {
     textElements: {
         key: 'Text',
         editorCategory: 'Text',
@@ -231,7 +231,7 @@ export const ReceiptElements: LeftSideBarInterface = {
     }
 };
 
-export const draggableComponentsObj: draggableComponent = Object.values(ReceiptElements).map((ReceiptElement)  => {
+export const draggableComponentsObj: IDraggableComponent = Object.values(ReceiptElements).map((ReceiptElement)  => {
     return ReceiptElement.draggableComponents;
 }).reduce((prev, current) => {
     return {...prev, ...current};

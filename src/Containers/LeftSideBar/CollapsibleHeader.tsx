@@ -7,7 +7,7 @@ import {
     DraggableProvided,
     DraggableStateSnapshot
 } from 'react-beautiful-dnd';
-import { ReceiptElements, draggableComponent } from './ReceiptElements';
+import { ReceiptElements, IDraggableComponent } from './ReceiptElements';
 import { DraggableElement } from './DraggableElement';
 import { Heading } from '../../Text/Heading';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -15,7 +15,7 @@ import { Mixins } from '../../Utils';
 
 export interface CollapsibleHeaderProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     padding?: string,
-    headerFlex?: string,
+    headerSpacingStyle?: string,
     icon?: StyledIcon,
     category: string
 };
@@ -34,7 +34,7 @@ interface IconProps {
 
 export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
     padding = '10px 20px',
-    headerFlex = 'space-between',
+    headerSpacingStyle = 'space-between',
     icon,
     category,
     ...props
@@ -44,16 +44,16 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
     /**
      * Filters draggable components based on editor category name given 
      * @param {string} categoryName - Name of editor Category
-     * @returns {draggableComponent}
+     * @returns {IDraggableComponent}
      */
-    const getCategoryElements = (categoryName: string): draggableComponent => {
+    const getCategoryElements = (categoryName: string): IDraggableComponent => {
         const matchedCategory = Object.values(ReceiptElements).find(el => el.editorCategory === categoryName);
         return matchedCategory.draggableComponents;
     };
       
     return (
         <Wrapper padding={padding} {...props}>
-            <Row display={headerFlex}>
+            <Row display={headerSpacingStyle}>
                 <Container>
                     <Icon
                         as={icon}
