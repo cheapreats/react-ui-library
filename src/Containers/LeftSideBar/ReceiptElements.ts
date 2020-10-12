@@ -10,9 +10,9 @@ export interface IDraggableComponent {
 export interface ICategoryInterface {
     key: string,
     editorCategory: string,
+    isCollapsed: boolean,
     draggableComponents: IDraggableComponent
 };
-
 
 export interface ILeftSideBarInterface {
     textElements: ICategoryInterface,
@@ -28,6 +28,7 @@ export const ReceiptElements: ILeftSideBarInterface = {
     textElements: {
         key: 'Text',
         editorCategory: 'Text',
+        isCollapsed: false,
         draggableComponents: {
             NAME_OF_BUSINESS: {   
                 key: '1',
@@ -76,6 +77,7 @@ export const ReceiptElements: ILeftSideBarInterface = {
     imageElements: {
         key: 'Image',
         editorCategory: 'Image',
+        isCollapsed: false,
         draggableComponents: {
             BUSINESS_LOGO: {
                 key: '8',
@@ -87,13 +89,14 @@ export const ReceiptElements: ILeftSideBarInterface = {
                 key: '9',
                 field: 'Additional branding',
                 isRequired: false,
-                isRecommended: false
+                isRecommended: true
             }
         }
     },
     layoutElements: {
         key: 'Layout',
         editorCategory: 'Layout',
+        isCollapsed: false,
         draggableComponents: {
             MENU_TABLE: {
                 key: '10',
@@ -118,6 +121,7 @@ export const ReceiptElements: ILeftSideBarInterface = {
     numberElements: {
         key: 'Number',
         editorCategory: 'Number',
+        isCollapsed: false,
         draggableComponents: {
             STATION_NUMBER: {
                 key: '13',
@@ -127,7 +131,7 @@ export const ReceiptElements: ILeftSideBarInterface = {
             },
             QUANTITY_PRODUCT: {
                 key: '14',
-                field: 'Quantity of each product or service',
+                field: 'Quantity of product or service',
                 isRequired: true,
                 isRecommended: false
             },
@@ -148,10 +152,11 @@ export const ReceiptElements: ILeftSideBarInterface = {
     priceElements: {
         key: 'Price',
         editorCategory: 'Price',
+        isCollapsed: false,
         draggableComponents: {
             SALE_PRICE: {
                 key: '17',
-                field: 'The sale price of product or service',
+                field: 'Sale price',
                 isRequired: true,
                 isRecommended: false
             },
@@ -194,8 +199,9 @@ export const ReceiptElements: ILeftSideBarInterface = {
         }
     },
     codesElements: {
-        key: 'Code',
+        key: 'Codes',
         editorCategory: 'Codes',
+        isCollapsed: false,
         draggableComponents: {
             UPC_CODE: {
                 key: '24',
@@ -214,6 +220,7 @@ export const ReceiptElements: ILeftSideBarInterface = {
     settingsElements: {
         key: 'Settings',
         editorCategory: 'Settings',
+        isCollapsed: false,
         draggableComponents: {
             DATE: {
                 key: '26',
@@ -236,3 +243,68 @@ export const draggableComponentsObj: IDraggableComponent = Object.values(Receipt
 }).reduce((prev, current) => {
     return {...prev, ...current};
 });
+
+export interface IElementWithCategory {
+    editorCategory: string,
+    field: string[]
+};
+
+export const ElementWithCategory: IElementWithCategory [] = [
+    {
+        editorCategory: 'Text',
+        field: [
+            'Name of business',
+            'Address of business',
+            'Business contact information',
+            'Name of sales associate',
+            'Name of product or service',
+            'Order type',
+            'Payment method'
+        ]
+    },
+    {
+        editorCategory: 'Image',
+        field: [
+            'Business logo',
+            'Additional branding'
+        ]
+    },
+    {
+        editorCategory: 'Layout',
+        field: [
+            'Menu table',
+            'White space',
+            'Divider'
+        ]
+    },
+    {
+        editorCategory: 'Number',
+        field: [
+            'Station number',
+            'Quantity of product or service',
+            'Number of guests',
+            'Transaction order number',
+            'Sale price',
+            'Total amount of tax',
+            'Rate of sales tax',
+            'Total price of sale',
+            'Tips',
+            'Total price of sale with tax',
+            'Total price with tip'
+        ]
+    },
+    {
+        editorCategory: 'Codes',
+        field: [
+            'UPC code',
+            'QR code'
+        ]
+    },
+    {
+        editorCategory: 'Settings',
+        field: [
+            'Date',
+            'Time'
+        ]
+    }
+];

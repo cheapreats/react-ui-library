@@ -59,7 +59,7 @@ const InputElement = styled.input<InputFragmentProps>`
             success,
             theme.colors.input.success,
             theme.colors.input.default,
-    )};
+        )};
     `}
 `;
 

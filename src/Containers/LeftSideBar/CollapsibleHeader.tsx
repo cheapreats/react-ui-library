@@ -7,7 +7,7 @@ import {
     DraggableProvided,
     DraggableStateSnapshot
 } from 'react-beautiful-dnd';
-import { ReceiptElements, IDraggableComponent } from './ReceiptElements';
+import { getCategoryElements } from './ElementFunctions';
 import { DraggableElement } from './DraggableElement';
 import { Heading } from '../../Text/Heading';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -17,7 +17,8 @@ export interface CollapsibleHeaderProps extends MainInterface, ResponsiveInterfa
     padding?: string,
     headerSpacingStyle?: string,
     icon?: StyledIcon,
-    category: string
+    category: string,
+    isCollapsedProp: boolean,
 };
 
 interface WrapperProps {
@@ -37,27 +38,16 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
     headerSpacingStyle = 'space-between',
     icon,
     category,
+    isCollapsedProp,
     ...props
 }) => {
-    const [isCollapsed, setIsCollapsed] = useState(false);
+    const [isCollapsed, setIsCollapsed] = useState(isCollapsedProp);
 
-    /**
-     * Filters draggable components based on editor category name given 
-     * @param {string} categoryName - Name of editor Category
-     * @returns {IDraggableComponent}
-     */
-    const getCategoryElements = (categoryName: string): IDraggableComponent => {
-        const matchedCategory = Object.values(ReceiptElements).find(el => el.editorCategory === categoryName);
-        return matchedCategory.draggableComponents;
-    };
-      
     return (
         <Wrapper padding={padding} {...props}>
             <Row display={headerSpacingStyle}>
                 <Container>
-                    <Icon
-                        as={icon}
-                    />
+                    <Icon as={icon} />
                     <Heading bold type='h2' size='1.1rem' padding='0 0 0 5px'> 
                         { category }
                     </Heading>
@@ -65,7 +55,9 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
                 <Icon
                     as={AngleDown}
                     isCollapsed={isCollapsed}
-                    onClick={(): void => setIsCollapsed(!isCollapsed)}
+                    onClick={(): void => {
+                        setIsCollapsed(!isCollapsed);
+                    }}
                 />
             </Row>
             {isCollapsed && Object.values(getCategoryElements(category)).map((element, index) => (
@@ -75,17 +67,20 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
                     index={index}
                 >
                     {(providedDraggable: DraggableProvided, snapshotDraggable: DraggableStateSnapshot) => (
-                        <div
-                            ref={providedDraggable.innerRef}
-                            {...providedDraggable.draggableProps}
-                            {...providedDraggable.dragHandleProps}
-                            style={getElementStyle(
-                                providedDraggable.draggableProps.style,
-                                snapshotDraggable.isDragging
-                            )}
-                        >
-                            { element.field }
-                        </div>
+                        <>
+                            <DraggableElement
+                                key={element.key}
+                                refObj={providedDraggable.innerRef}
+                                {...providedDraggable.draggableProps}
+                                {...providedDraggable.dragHandleProps}
+                                style={providedDraggable.draggableProps.style}
+                                isDragged={snapshotDraggable.isDragging}
+                                isRecommended={element.isRecommended}
+                                isRequired={element.isRequired}
+                            >
+                                { element.field }
+                            </DraggableElement>
+                        </>
                     )}
                 </Draggable>
             ))}
@@ -111,10 +106,3 @@ const Icon = styled.svg<IconProps>`
     height: 22px;
     margin: 5px 12px;
 `;
-const getElementStyle = (draggableStyle: any, isDragging: boolean):{} => ({
-    userSelect: 'none',
-    padding: '20px',
-    margin: '10px',
-    background: isDragging ? 'lightgray' : 'white',
-    ...draggableStyle
-});

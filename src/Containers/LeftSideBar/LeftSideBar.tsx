@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { TextFields } from '@styled-icons/material/TextFields';
 import { ImageAlt } from '@styled-icons/boxicons-solid/ImageAlt';
@@ -13,7 +13,7 @@ import {
     DroppableProvided,
     DroppableStateSnapshot
 } from 'react-beautiful-dnd';
-import { ReceiptElements, draggableComponentsObj } from './ReceiptElements';
+import { ReceiptElements, draggableComponentsObj, ElementWithCategory } from './ReceiptElements';
 import { CollapsibleHeader } from './CollapsibleHeader';
 import { List } from '../List';
 import { SearchBar } from '../../Inputs/SearchBar';
@@ -37,20 +37,35 @@ export interface LeftSideBarProps extends MainInterface, ResponsiveInterface, Re
 
 };
 
+interface WrapperProps {
+    isDragging: boolean
+};
+
 export const LeftSideBar: React.FC<LeftSideBarProps> = ({
     ...props
 }): React.ReactElement => {
-    const [loading, setLoading] = useState(false);
+    const [loading] = useState(false);
     const [isToggled, setIsToggled] = useState(false);
     const [searchValue, setSearchValue] = useState('');
-    const [searchOption, setSearchOption] = useState<HTMLInputElement>();
+
+    useEffect((): void => {
+        ElementWithCategory.forEach(el => {
+            if(el.field.includes(searchValue)) {
+                const searchCategory = el.editorCategory;
+                const matchedCategory = Object.values(ReceiptElements).find(l => l.editorCategory === searchCategory);
+                matchedCategory.isCollapsed = true;
+            }
+        })
+        console.log(ReceiptElements)
+        console.log(searchValue)
+    }, [searchValue]);
       
     const onDragEnd = () => {
         console.log('hello');
     };
 
     return (
-        <Wrapper {...props}>
+        <div {...props}>
             <List 
                 id='left-sidebar'
                 loading={loading}
@@ -70,19 +85,18 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                             placeholder='Search'
                             backgroundColor='white'
                             borderRadius='40px'
-                            onInput={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                                setSearchOption(e.target);
-                            }}
                             onChange={(e: { value: string, name: string }): void => {
                                 setSearchValue(e.name);
                             }}
                             value={searchValue}
                         >
-                            {Object.values(draggableComponentsObj).map((draggable) => (
-                                <option value={draggable.key}>
-                                    {draggable.field}
-                                </option>
-                            ))}
+                            {Object.values(draggableComponentsObj).map((draggable) => {
+                                return (
+                                    <option value={draggable.key}>
+                                        {draggable.field}
+                                    </option>
+                                );
+                            })}
                         </StyledSearchBar>
                     </>
                 )}
@@ -98,13 +112,14 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                             <Wrapper
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
-                                style={getStyle(snapshot.isDraggingOver)}
+                                isDragging={snapshot.isDraggingOver}
                             >
                                 {Object.values(ReceiptElements).map((ReceiptElement, index) => (
                                     <CollapsibleHeader 
                                         key={ReceiptElement.key}
                                         icon={iconsList[index]}
                                         category={ReceiptElement.editorCategory}
+                                        isCollapsedProp={ReceiptElement.isCollapsed}
                                     />
                                 ))}
                                 { provided.placeholder }
@@ -113,15 +128,12 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                     </Droppable>
                 </DragDropContext>
             </List>
-        </Wrapper>  
+        </div>  
     )
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<WrapperProps>`
 `;
-const getStyle = (isDraggingOver: boolean):{} => ({
-    // will add styling
-});
 const StyledSearchBar = styled(SearchBar)`
     ${({ theme }): string => `
         padding: ${theme.dimensions.padding.container};
