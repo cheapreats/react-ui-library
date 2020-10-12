@@ -19,10 +19,10 @@ const defaultArgs = {
         { value: 10.8 },
     ],
     chartColor: 'primary',
-    title:'USER GROWTH',
-    figure:4310,
-    rate:-10,
-    bgColor:'border'
+    title: 'USER GROWTH',
+    figure: 4310,
+    rate: -10,
+    bgColor: 'border',
 };
 
 const Template: Story<StockProps> = (args) => <Stock {...args} />;

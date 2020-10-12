@@ -103,7 +103,12 @@ const Container = styled.nav`
         max-width: ${theme.dimensions.navigation.width}px;
         width: ${theme.dimensions.navigation.width}px;
     `}
-    ${media('tablet', 'width: auto;')}
+    ${media(
+        'tablet',
+        `
+        max-width: 70px;
+    `,
+    )}
     box-sizing: border-box;
     flex-shrink: 0;
     padding: 16px 8px 8px;
