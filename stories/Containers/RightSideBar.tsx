@@ -7,8 +7,6 @@ export default {
     title: createStoryTitle('Right Side Bar'),
     component: RightSideBar,
     args: {
-        title: 'requirement',
-        checkboxArr: {'Name of Business': false}
     }
 } as Meta;
 
