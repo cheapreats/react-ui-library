@@ -39,7 +39,7 @@ export const DraggableElement: React.FC<DraggableElementProps> = ({
     return (
         <Wrapper
             ref={refObj}
-            isDragged={isDragged || false}
+            isDragged={isDragged ?? false}
             isRecommended={isRecommended}
             isRequired={isRequired}
             {...props}

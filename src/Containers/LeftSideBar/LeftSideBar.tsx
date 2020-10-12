@@ -47,17 +47,26 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
     const [loading] = useState(false);
     const [isToggled, setIsToggled] = useState(false);
     const [searchValue, setSearchValue] = useState('');
+    let [isCollapsedArr, setIsCollapsedArr] = useState([
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+    ])
 
     useEffect((): void => {
-        ElementWithCategory.forEach(el => {
+        ElementWithCategory.forEach((el, index) => {
             if(el.field.includes(searchValue)) {
-                const searchCategory = el.editorCategory;
-                const matchedCategory = Object.values(ReceiptElements).find(l => l.editorCategory === searchCategory);
-                matchedCategory.isCollapsed = true;
+                isCollapsedArr = isCollapsedArr.map((isCollapsed, idx) => {
+                    if(idx === index) isCollapsed = true;
+                    return isCollapsed;
+                });
+                setIsCollapsedArr(isCollapsedArr);
             }
         })
-        console.log(ReceiptElements)
-        console.log(searchValue)
     }, [searchValue]);
       
     const onDragEnd = () => {
@@ -119,7 +128,8 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                                         key={ReceiptElement.key}
                                         icon={iconsList[index]}
                                         category={ReceiptElement.editorCategory}
-                                        isCollapsedProp={ReceiptElement.isCollapsed}
+                                        position={index}
+                                        isCollapsedProp={[isCollapsedArr, setIsCollapsedArr]}
                                     />
                                 ))}
                                 { provided.placeholder }

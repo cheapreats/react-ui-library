@@ -10,7 +10,6 @@ export interface IDraggableComponent {
 export interface ICategoryInterface {
     key: string,
     editorCategory: string,
-    isCollapsed: boolean,
     draggableComponents: IDraggableComponent
 };
 
@@ -28,7 +27,6 @@ export const ReceiptElements: ILeftSideBarInterface = {
     textElements: {
         key: 'Text',
         editorCategory: 'Text',
-        isCollapsed: false,
         draggableComponents: {
             NAME_OF_BUSINESS: {   
                 key: '1',
@@ -77,7 +75,6 @@ export const ReceiptElements: ILeftSideBarInterface = {
     imageElements: {
         key: 'Image',
         editorCategory: 'Image',
-        isCollapsed: false,
         draggableComponents: {
             BUSINESS_LOGO: {
                 key: '8',
@@ -96,7 +93,6 @@ export const ReceiptElements: ILeftSideBarInterface = {
     layoutElements: {
         key: 'Layout',
         editorCategory: 'Layout',
-        isCollapsed: false,
         draggableComponents: {
             MENU_TABLE: {
                 key: '10',
@@ -121,7 +117,6 @@ export const ReceiptElements: ILeftSideBarInterface = {
     numberElements: {
         key: 'Number',
         editorCategory: 'Number',
-        isCollapsed: false,
         draggableComponents: {
             STATION_NUMBER: {
                 key: '13',
@@ -152,7 +147,6 @@ export const ReceiptElements: ILeftSideBarInterface = {
     priceElements: {
         key: 'Price',
         editorCategory: 'Price',
-        isCollapsed: false,
         draggableComponents: {
             SALE_PRICE: {
                 key: '17',
@@ -201,7 +195,6 @@ export const ReceiptElements: ILeftSideBarInterface = {
     codesElements: {
         key: 'Codes',
         editorCategory: 'Codes',
-        isCollapsed: false,
         draggableComponents: {
             UPC_CODE: {
                 key: '24',
@@ -220,7 +213,6 @@ export const ReceiptElements: ILeftSideBarInterface = {
     settingsElements: {
         key: 'Settings',
         editorCategory: 'Settings',
-        isCollapsed: false,
         draggableComponents: {
             DATE: {
                 key: '26',
@@ -284,6 +276,11 @@ export const ElementWithCategory: IElementWithCategory [] = [
             'Quantity of product or service',
             'Number of guests',
             'Transaction order number',
+        ]
+    },
+    {
+        editorCategory: 'Price',
+        field: [
             'Sale price',
             'Total amount of tax',
             'Rate of sales tax',
