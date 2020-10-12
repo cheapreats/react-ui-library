@@ -10,12 +10,16 @@ const LIST_TOGGLE_LEFT = AngleLeft;
 interface ListToggleProps extends ButtonProps {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    display?: string;
+    displayTablet?: string;
 }
 
 export const ListToggle: React.FC<ListToggleProps> = ({
     isOpen,
     setIsOpen,
     isLeftToggle,
+    display,
+    displayTablet,
 }): React.ReactElement => {
     const toggleList = (): void => {
         setIsOpen(!isOpen);
@@ -25,6 +29,8 @@ export const ListToggle: React.FC<ListToggleProps> = ({
             onClick={toggleList}
             id="togg-button"
             isLeftToggle={isLeftToggle}
+            display={display}
+            displayTablet={displayTablet}
         >
             <Icon
                 show={isOpen}
@@ -40,13 +46,16 @@ interface IconProps {
 
 interface ButtonProps {
     isLeftToggle?: boolean;
+    display?: string;
+    displayTablet?: string;
 }
 
 const Button = styled.button<ButtonProps>`
     ${Mixins.transition(['background-color'])}
     ${Mixins.clickable('#ffffff', 0.05)}
-    ${({ theme, isLeftToggle }): string => `
+    ${({ theme, isLeftToggle, display, displayTablet }): string => `
         box-shadow: ${theme.depth[1]};
+        display: ${display};
         border-radius: ${
             isLeftToggle ? '0 9999px 9999px 0' : '9999px 0 0 9999px'
         };
@@ -58,6 +67,12 @@ const Button = styled.button<ButtonProps>`
             'auto',
             isLeftToggle ? 'auto' : '-32px',
         )}
+    ${Mixins.media(
+        'tablet',
+        `
+        display:${displayTablet};
+    `,
+    )}
     `}
     z-index:-1;
     background-color: white;
