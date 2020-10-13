@@ -46,7 +46,7 @@ const Item = styled.li<ItemProps>`
         border-bottom: 2px solid ${theme.colors.text}20;
         ${
             isSelected
-                ? `background-color: ${Mixins.darken('#ffffff', 0.1)}`
+                ? `background-color: ${Mixins.darken('#ffffff', 0.05)}`
                 : Mixins.clickable('#ffffff', 0.05)
         };
     `}
