@@ -74,6 +74,7 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                 left='0'
                 right='auto'
                 onCloseTranslateXAxis='-100%'
+                isOpen={isOpen}
                 setIsOpen={setIsOpen}
                 toggleComponent={(
                     <ListToggle
