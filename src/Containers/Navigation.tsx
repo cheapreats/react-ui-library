@@ -116,7 +116,6 @@ const Container = styled.nav<ContainerProps>`
         max-width: 70px;
     `,
     )}
-    z-index: 2;
     box-sizing: border-box;
     flex-shrink: 0;
     padding: 16px 0 0;

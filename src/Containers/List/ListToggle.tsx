@@ -10,16 +10,14 @@ const LIST_TOGGLE_LEFT = AngleLeft;
 interface ListToggleProps extends ButtonProps {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    display?: string;
-    displayTablet?: string;
+    hideToggleTablet?: boolean;
 }
 
 export const ListToggle: React.FC<ListToggleProps> = ({
     isOpen,
     setIsOpen,
     isLeftToggle,
-    display,
-    displayTablet,
+    hideToggleTablet = true,
 }): React.ReactElement => {
     const toggleList = (): void => {
         setIsOpen(!isOpen);
@@ -29,8 +27,7 @@ export const ListToggle: React.FC<ListToggleProps> = ({
             onClick={toggleList}
             id="togg-button"
             isLeftToggle={isLeftToggle}
-            display={display}
-            displayTablet={displayTablet}
+            hideToggleTablet={hideToggleTablet}
         >
             <Icon
                 show={isOpen}
@@ -46,19 +43,18 @@ interface IconProps {
 
 interface ButtonProps {
     isLeftToggle?: boolean;
-    display?: string;
-    displayTablet?: string;
+    hideToggleTablet?: boolean;
 }
 
 const Button = styled.button<ButtonProps>`
     ${Mixins.transition(['background-color'])}
     ${Mixins.clickable('#ffffff', 0.05)}
-    ${({ theme, isLeftToggle, display, displayTablet }): string => `
+    ${({ theme, isLeftToggle, hideToggleTablet }): string => `
         box-shadow: ${theme.depth[1]};
-        display: ${display};
         border-radius: ${
             isLeftToggle ? '0 9999px 9999px 0' : '9999px 0 0 9999px'
         };
+    ${hideToggleTablet && 'display: none;'}
         ${Mixins.position(
             'absolute',
             0,
@@ -66,14 +62,14 @@ const Button = styled.button<ButtonProps>`
             isLeftToggle ? '-32px' : 'auto',
             'auto',
             isLeftToggle ? 'auto' : '-32px',
-        )}
-    ${Mixins.media(
-        'tablet',
-        `
-        display:${displayTablet};
-    `,
-    )}
+        )}    
     `}
+    ${Mixins.media(
+        `tablet`,
+        `
+            display: inline;
+        `,
+    )}
     z-index:-1;
     background-color: white;
     box-sizing: border-box;
