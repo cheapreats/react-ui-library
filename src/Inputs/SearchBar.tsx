@@ -22,6 +22,7 @@ export interface SearchBarProps extends LabelLayoutProps {
     placeholder?: string;
     backgroundColor?: string;
     borderRadius?: string;
+    hasIcon?: boolean;
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({
@@ -36,6 +37,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     placeholder,
     backgroundColor = '#f5f5f5',
     borderRadius = '8px',
+    hasIcon = true,
     ...props
 }): React.ReactElement => {
     const [expanded, setExpanded] = useState(false);
@@ -77,7 +79,7 @@ export const SearchBar: React.FC<SearchBarProps> = ({
                         backgroundColor={backgroundColor}
                         borderRadius={borderRadius}
                     />
-                    <Icon />
+                    {hasIcon && <Icon />}
                 </SelectDisplay>
                 {mount && (
                     <SelectList

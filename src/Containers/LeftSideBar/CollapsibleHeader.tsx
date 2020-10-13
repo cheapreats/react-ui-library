@@ -7,6 +7,7 @@ import {
     DraggableProvided,
     DraggableStateSnapshot
 } from 'react-beautiful-dnd';
+import { ILeftSideBarInterface } from './ReceiptElements';
 import { getCategoryElements } from './ElementFunctions';
 import { DraggableElement } from './DraggableElement';
 import { Heading } from '../../Text/Heading';
@@ -18,8 +19,10 @@ export interface CollapsibleHeaderProps extends MainInterface, ResponsiveInterfa
     headerSpacingStyle?: string,
     icon?: StyledIcon,
     category: string,
-    isCollapsedProp: [boolean[], React.Dispatch<React.SetStateAction<boolean []>>],
-    position: number
+    position: number,
+    isCollapsedArr: boolean[],
+    setIsCollapsedArr: React.Dispatch<React.SetStateAction<boolean []>>,
+    ReceiptElements: ILeftSideBarInterface
 };
 
 interface WrapperProps {
@@ -34,19 +37,19 @@ interface IconProps {
     isCollapsed?: boolean;
 };
 
-const ISCOLLAPSED_ARR = 0;
-const SET_ISCOLLAPSED = 1;
-
 export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
     padding = '10px 20px',
     headerSpacingStyle = 'space-between',
     icon,
     category,
-    isCollapsedProp,
+    isCollapsedArr,
+    setIsCollapsedArr,
     position,
+    ReceiptElements,
     ...props
 }) => {
-
+    const categoryWithElements = getCategoryElements(category, ReceiptElements);
+    
     return (
         <Wrapper padding={padding} {...props}>
             <Row display={headerSpacingStyle}>
@@ -58,16 +61,16 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
                 </Container>
                 <Icon
                     as={AngleDown}
-                    isCollapsed={isCollapsedProp[ISCOLLAPSED_ARR][position]}
+                    isCollapsed={isCollapsedArr[position]}
                     onClick={(): void => {
-                        isCollapsedProp[SET_ISCOLLAPSED](isCollapsedProp[ISCOLLAPSED_ARR].map((isCollapsed, idx) => {
+                        setIsCollapsedArr(isCollapsedArr.map((isCollapsed, idx) => {
                             if(idx === position) return !isCollapsed;
                             return isCollapsed;
-                        }))
+                        }));
                     }}
                 />
             </Row>
-            {!!isCollapsedProp[ISCOLLAPSED_ARR][position] && Object.values(getCategoryElements(category)).map((element, index) => (
+            {!!isCollapsedArr[position] && Object.values(categoryWithElements).map((element, index) => (
                 <Draggable
                     key={element.key}
                     draggableId={element.key}
@@ -77,11 +80,11 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
                         <>
                             <DraggableElement
                                 key={element.key}
-                                refObj={providedDraggable.innerRef}
+                                ref={providedDraggable.innerRef}
                                 {...providedDraggable.draggableProps}
                                 {...providedDraggable.dragHandleProps}
                                 style={providedDraggable.draggableProps.style}
-                                isDragged={snapshotDraggable.isDragging}
+                                isDragging={snapshotDraggable.isDragging}
                                 isRecommended={element.isRecommended}
                                 isRequired={element.isRequired}
                             >

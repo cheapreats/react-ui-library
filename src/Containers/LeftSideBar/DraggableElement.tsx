@@ -5,14 +5,14 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { styledCondition } from '../../Utils/Mixins';
 
 export interface DraggableElementProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    refObj?: ((instance: HTMLDivElement | null) => void) | React.RefObject<HTMLDivElement> | null | undefined,
-    isDragged?: boolean,
+    ref?: ((instance: HTMLDivElement | null) => void) | React.RefObject<HTMLDivElement>,
+    isDragging?: boolean,
     isRecommended: boolean,
     isRequired: boolean
 };
 
 interface WrapperProps {
-    isDragged: boolean,
+    isDragging: boolean,
     isRecommended: boolean,
     isRequired: boolean
 };
@@ -23,15 +23,15 @@ interface IconProps {
 };
 
 const BACKGROUND_GRAY = '#b7b7b7';
-const COLOR_ISREQUIRED = '#de001f';
-const COLOR_ISRECOMMENDED = '#204a95';
+const COLOR_IS_REQUIRED = '#de001f';
+const COLOR_IS_RECOMMENDED = '#204a95';
 const COLOR_DEFAULT = 'black';
 const COLOR_WHITE = 'white';
 const FONT_COLOR = '#4b4b4b';
 
 export const DraggableElement: React.FC<DraggableElementProps> = ({
-    refObj,
-    isDragged,
+    ref,
+    isDragging,
     children,
     isRecommended,
     isRequired,
@@ -39,8 +39,8 @@ export const DraggableElement: React.FC<DraggableElementProps> = ({
 }) => {
     return (
         <Wrapper
-            ref={refObj}
-            isDragged={isDragged ?? false}
+            ref={ref}
+            isDragging={isDragging ?? false}
             isRecommended={isRecommended}
             isRequired={isRequired}
             {...props}
@@ -59,23 +59,23 @@ const Wrapper = styled.div<WrapperProps>`
     ${({ theme }): string => `
         padding: ${theme.dimensions.padding.container};
     `};
-    color: FONT_COLOR;
+    color: ${FONT_COLOR};
     margin: 7px;
     padding: 5 10px;
     font-size: 0.7rem;
     border-radius: 10px;
     border: solid 0.5px BACKGROUND_GRAY;
     box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.15);
-    ${({ isDragged, isRequired, isRecommended }): string => `
-        border-left: 5px solid ${isDragged && styledCondition(
+    ${({ isDragging, isRequired, isRecommended }): string => `
+        border-left: 5px solid ${isDragging && styledCondition(
         isRequired,
-        COLOR_ISREQUIRED,
+        COLOR_IS_REQUIRED,
         isRecommended,
-        COLOR_ISRECOMMENDED,
+        COLOR_IS_RECOMMENDED,
         COLOR_DEFAULT
     )};
         background-color: ${styledCondition(
-        isDragged,
+        isDragging,
         BACKGROUND_GRAY,
         COLOR_WHITE
     )};
@@ -91,9 +91,9 @@ const Icon = styled.svg<IconProps>`
     ${({ isRequired, isRecommended }): string => `
         color: ${styledCondition(
         isRequired,
-        COLOR_ISREQUIRED,
+        COLOR_IS_REQUIRED,
         isRecommended,
-        COLOR_ISRECOMMENDED,
+        COLOR_IS_RECOMMENDED,
         COLOR_DEFAULT
     )};
     `}

@@ -13,7 +13,8 @@ import {
     DroppableProvided,
     DroppableStateSnapshot
 } from 'react-beautiful-dnd';
-import { ReceiptElements, draggableComponentsObj, ElementWithCategory } from './ReceiptElements';
+import { IDraggableComponent, IElementWithCategory, ILeftSideBarInterface } from './ReceiptElements';
+import { onDragEnd } from './ElementFunctions';
 import { CollapsibleHeader } from './CollapsibleHeader';
 import { List, ListToggle } from '../List';
 import { SearchBar } from '../../Inputs/SearchBar';
@@ -22,6 +23,7 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 const loading = false;
 const isLeftToggle = true;
 const dropDisabled = true;
+const hasIcon = false;
 const GREY_BACKGROUND_COLOR = '#f2f2f2';
 const iconsList = [
     TextFields,
@@ -31,10 +33,12 @@ const iconsList = [
     Dollar,
     Qrcode,
     Settings
-]
+];
 
 export interface LeftSideBarProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-
+    ReceiptElements: ILeftSideBarInterface,
+    ElementWithCategory: IElementWithCategory [],
+    onDrag: () => void
 };
 
 interface WrapperProps {
@@ -43,6 +47,9 @@ interface WrapperProps {
 
 
 export const LeftSideBar: React.FC<LeftSideBarProps> = ({
+    ReceiptElements,
+    ElementWithCategory,
+    onDrag = onDragEnd,
     ...props
 }): React.ReactElement => {
     const [isOpen, setIsOpen] = useState(true);
@@ -60,9 +67,11 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
         })
     }, [searchValue]);
       
-    const onDragEnd = () => {
-        console.log('I have been dragged.');
-    };
+    const draggableComponentsObj: IDraggableComponent = Object.values(ReceiptElements).map((ReceiptElement)  => {
+        return ReceiptElement.draggableComponents;
+    }).reduce((prev, current) => {
+        return {...prev, ...current};
+    });
 
     return (
         <div {...props}>
@@ -93,6 +102,7 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                             onChange={(e: { value: string, name: string }): void => {
                                 setSearchValue(e.name);
                             }}
+                            hasIcon={hasIcon}
                             value={searchValue}
                         >
                             {Object.values(draggableComponentsObj).map((draggable) => {
@@ -107,7 +117,7 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                 )}
             >
                 <DragDropContext
-                    onDragEnd={onDragEnd}
+                    onDragEnd={onDrag}
                 >
                     <Droppable
                         droppableId='LEFT-BAR'
@@ -125,7 +135,9 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                                         icon={iconsList[index]}
                                         category={ReceiptElement.editorCategory}
                                         position={index}
-                                        isCollapsedProp={[isCollapsedArr, setIsCollapsedArr]}
+                                        isCollapsedArr={isCollapsedArr}
+                                        setIsCollapsedArr={setIsCollapsedArr}
+                                        ReceiptElements={ReceiptElements}
                                     />
                                 ))}
                                 { provided.placeholder }
