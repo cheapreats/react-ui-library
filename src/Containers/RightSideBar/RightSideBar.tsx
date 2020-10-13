@@ -3,18 +3,29 @@ import styled from 'styled-components';
 import { Checkbox } from '../../Inputs/Checkbox';
 
 export interface reqCheckbox {
-    label: string;
-    value: boolean
+    [key: string]: {
+        label: string;
+        value: boolean
+    }
 }
 
 export interface RequirementProps {
     title: string;
-    checkboxArr: reqCheckbox[]
+    checkboxArr: reqCheckbox
+}
+
+export const Checkboxes: RequirementProps = {
+    title: 'Requirement',
+    checkboxArr: {
+        NAME_OF_BUSINESS: {
+            label: 'Name of Business',
+            value: false
+        },
+    }
 }
 
 export const RightSideBar: React.FC<RequirementProps> = ({
     title,
-    checkboxArr
 }): React.ReactElement => {
 
     function checkHandler(){
@@ -23,15 +34,15 @@ export const RightSideBar: React.FC<RequirementProps> = ({
 
     return (
         <Wrapper>
-            <h1>{ title }</h1>
-            {Object.values(checkboxArr).map((checkbox) => (
+            <h1>{ Checkboxes.title }</h1>
+            {Object.values(Checkboxes.checkboxArr).map((key) => (
                 <Checkbox
-                    label={checkbox.label}
-                    value={checkbox.value}
+                    label={key.label}
+                    value={key.value}
                     onChange={checkHandler}
                     name='checkbox'
                 />
-            ))};
+            ))}
         </Wrapper>
     );
 };
