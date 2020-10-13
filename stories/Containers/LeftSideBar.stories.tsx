@@ -25,6 +25,7 @@ export default {
         ],  
         backgroundColor: '#f2f2f2',
         hasIcon: false,     
+        dropDisabled: false,
         ReceiptElements: {
             textElements: {
                 key: 'Text',

@@ -15,7 +15,6 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 const loading = false;
 const isLeftToggle = true;
-const dropDisabled = true;
 
 export interface LeftSideBarProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     ReceiptElements: ILeftSideBarInterface,
@@ -23,7 +22,8 @@ export interface LeftSideBarProps extends MainInterface, ResponsiveInterface, Re
     onDrag: () => void,
     iconsList: StyledIcon[],
     backgroundColor?: string,
-    hasIcon?: boolean
+    hasIcon?: boolean,
+    dropDisabled?: boolean
 };
 
 interface WrapperProps {
@@ -37,6 +37,7 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
     iconsList,
     backgroundColor = '#f2f2f2',
     hasIcon = false,
+    dropDisabled = false,
     ...props
 }): React.ReactElement => {
     const [isOpen, setIsOpen] = useState(true);
