@@ -17,7 +17,7 @@ export const ListToggle: React.FC<ListToggleProps> = ({
     isOpen,
     setIsOpen,
     isLeftToggle,
-    hideToggleTablet = true,
+    hideToggleTablet,
 }): React.ReactElement => {
     const toggleList = (): void => {
         setIsOpen(!isOpen);
