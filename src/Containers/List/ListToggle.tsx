@@ -10,14 +10,14 @@ const LIST_TOGGLE_LEFT = AngleLeft;
 interface ListToggleProps extends ButtonProps {
     isOpen: boolean;
     setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
-    hideToggleDesktop?: boolean;
+    isToggleHiddenDesktop?: boolean;
 }
 
 export const ListToggle: React.FC<ListToggleProps> = ({
     isOpen,
     setIsOpen,
     isLeftToggle,
-    hideToggleDesktop,
+    isToggleHiddenDesktop,
 }): React.ReactElement => {
     const toggleList = (): void => {
         setIsOpen(!isOpen);
@@ -27,7 +27,7 @@ export const ListToggle: React.FC<ListToggleProps> = ({
             onClick={toggleList}
             id="togg-button"
             isLeftToggle={isLeftToggle}
-            hideToggleDesktop={hideToggleDesktop}
+            isToggleHiddenDesktop={isToggleHiddenDesktop}
         >
             <Icon
                 show={isOpen}
@@ -43,18 +43,18 @@ interface IconProps {
 
 interface ButtonProps {
     isLeftToggle?: boolean;
-    hideToggleDesktop?: boolean;
+    isToggleHiddenDesktop?: boolean;
 }
 
 const Button = styled.button<ButtonProps>`
     ${Mixins.transition(['background-color'])}
     ${Mixins.clickable('#ffffff', 0.05)}
-    ${({ theme, isLeftToggle, hideToggleDesktop }): string => `
+    ${({ theme, isLeftToggle, isToggleHiddenDesktop }): string => `
         box-shadow: ${theme.depth[1]};
         border-radius: ${
             isLeftToggle ? '0 9999px 9999px 0' : '9999px 0 0 9999px'
         };
-    ${hideToggleDesktop && 'display: none;'}
+    ${isToggleHiddenDesktop && 'display: none;'}
         ${Mixins.position(
             'absolute',
             0,

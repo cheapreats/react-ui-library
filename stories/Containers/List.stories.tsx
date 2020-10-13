@@ -69,7 +69,7 @@ export const Basic: Story<ListProps> = (args) => {
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                     isLeftToggle={true}
-                    displayTabletOnly
+                    isToggleHiddenDesktop
                 />
             }
         >
