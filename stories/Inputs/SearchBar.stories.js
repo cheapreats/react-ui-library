@@ -1,7 +1,6 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
-import { Search } from '@styled-icons/fa-solid/Search';
 import { SearchBar } from '../../src';
 import { mockElement } from '../Tools';
 import {createStoryTitle} from "../Constants";
