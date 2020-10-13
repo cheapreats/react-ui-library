@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { DraggableProvided } from 'react-beautiful-dnd';
 import { DotsVertical } from '@styled-icons/heroicons-outline/DotsVertical';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { styledCondition } from '../../Utils/Mixins';
 
 export interface DraggableElementProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    ref?: ((instance: HTMLDivElement | null) => void) | React.RefObject<HTMLDivElement>,
+    providedDraggable: DraggableProvided,
     isDragging?: boolean,
     isRecommended: boolean,
     isRequired: boolean
@@ -30,7 +31,7 @@ const COLOR_WHITE = 'white';
 const FONT_COLOR = '#4b4b4b';
 
 export const DraggableElement: React.FC<DraggableElementProps> = ({
-    ref,
+    providedDraggable,
     isDragging,
     children,
     isRecommended,
@@ -39,7 +40,10 @@ export const DraggableElement: React.FC<DraggableElementProps> = ({
 }) => {
     return (
         <Wrapper
-            ref={ref}
+            ref={providedDraggable.innerRef}
+            {...providedDraggable.draggableProps}
+            {...providedDraggable.dragHandleProps}
+            style={providedDraggable.draggableProps.style}
             isDragging={isDragging ?? false}
             isRecommended={isRecommended}
             isRequired={isRequired}

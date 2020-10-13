@@ -49,7 +49,7 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
     ...props
 }) => {
     const categoryWithElements = getCategoryElements(category, ReceiptElements);
-    
+
     return (
         <Wrapper padding={padding} {...props}>
             <Row display={headerSpacingStyle}>
@@ -80,10 +80,7 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
                         <>
                             <DraggableElement
                                 key={element.key}
-                                ref={providedDraggable.innerRef}
-                                {...providedDraggable.draggableProps}
-                                {...providedDraggable.dragHandleProps}
-                                style={providedDraggable.draggableProps.style}
+                                providedDraggable={providedDraggable}
                                 isDragging={snapshotDraggable.isDragging}
                                 isRecommended={element.isRecommended}
                                 isRequired={element.isRequired}
