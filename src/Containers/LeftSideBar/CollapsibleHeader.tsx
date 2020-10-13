@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { AngleDown } from '@styled-icons/fa-solid/AngleDown';
 import { StyledIcon } from '@styled-icons/styled-icon';
@@ -34,6 +34,9 @@ interface IconProps {
     isCollapsed?: boolean;
 };
 
+const ISCOLLAPSED_ARR = 0;
+const SET_ISCOLLAPSED = 1;
+
 export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
     padding = '10px 20px',
     headerSpacingStyle = 'space-between',
@@ -43,30 +46,28 @@ export const CollapsibleHeader: React.FC<CollapsibleHeaderProps> = ({
     position,
     ...props
 }) => {
-    let [isCollapsedArr, setIsCollapsedArr] = isCollapsedProp;
 
     return (
         <Wrapper padding={padding} {...props}>
             <Row display={headerSpacingStyle}>
                 <Container>
                     <Icon as={icon} />
-                    <Heading bold type='h2' size='1.1rem' padding='0 0 0 5px'> 
+                    <Heading bold type='h2' size='1.2rem' padding='0 0 0 5px'> 
                         { category }
                     </Heading>
                 </Container>
                 <Icon
                     as={AngleDown}
-                    isCollapsed={isCollapsedArr[position]}
+                    isCollapsed={isCollapsedProp[ISCOLLAPSED_ARR][position]}
                     onClick={(): void => {
-                        isCollapsedArr = isCollapsedArr.map((isCollapsed, idx) => {
-                            if(idx === position) isCollapsed = !isCollapsed;
+                        isCollapsedProp[SET_ISCOLLAPSED](isCollapsedProp[ISCOLLAPSED_ARR].map((isCollapsed, idx) => {
+                            if(idx === position) return !isCollapsed;
                             return isCollapsed;
-                        });
-                        setIsCollapsedArr(isCollapsedArr);
+                        }))
                     }}
                 />
             </Row>
-            {!!isCollapsedArr[position] && Object.values(getCategoryElements(category)).map((element, index) => (
+            {!!isCollapsedProp[ISCOLLAPSED_ARR][position] && Object.values(getCategoryElements(category)).map((element, index) => (
                 <Draggable
                     key={element.key}
                     draggableId={element.key}
@@ -109,6 +110,6 @@ const Container = styled.div`
 const Icon = styled.svg<IconProps>`
     ${Mixins.transition(['transform'])}
     transform: rotate(${({ isCollapsed }): string => (isCollapsed ? '180deg' : '0')});
-    height: 22px;
+    height: 25px;
     margin: 5px 12px;
 `;

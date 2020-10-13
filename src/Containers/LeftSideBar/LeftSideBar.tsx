@@ -22,7 +22,7 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 const isToggleable = true;
 const isLeftToggle = true;
 const dropDisabled = true;
-const GREY_BACKGROUND_COLOR = '#f5f5f5';
+const GREY_BACKGROUND_COLOR = '#f2f2f2';
 const iconsList = [
     TextFields,
     ImageAlt,
@@ -47,30 +47,21 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
     const [loading] = useState(false);
     const [isToggled, setIsToggled] = useState(false);
     const [searchValue, setSearchValue] = useState('');
-    let [isCollapsedArr, setIsCollapsedArr] = useState([
-        false,
-        false,
-        false,
-        false,
-        false,
-        false,
-        false
-    ])
+    const [isCollapsedArr, setIsCollapsedArr] = useState(Array(Object.values(ReceiptElements).length).fill(false))
 
     useEffect((): void => {
         ElementWithCategory.forEach((el, index) => {
             if(el.field.includes(searchValue)) {
-                isCollapsedArr = isCollapsedArr.map((isCollapsed, idx) => {
-                    if(idx === index) isCollapsed = true;
-                    return isCollapsed;
-                });
-                setIsCollapsedArr(isCollapsedArr);
+                setIsCollapsedArr(isCollapsedArr.map((isCollapsed, idx) => {
+                    if(idx === index) return true;
+                    return false;
+                }));
             }
         })
     }, [searchValue]);
       
     const onDragEnd = () => {
-        console.log('hello');
+        console.log('I have been dragged.');
     };
 
     return (

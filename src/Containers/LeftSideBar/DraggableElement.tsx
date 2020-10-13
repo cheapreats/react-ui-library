@@ -22,11 +22,12 @@ interface IconProps {
     isRequired: boolean
 };
 
-const BACKGROUND_GRAY = '#d8d3cd';
-const COLOR_ISREQUIRED = '#ec0101';
-const COLOR_ISRECOMMENDED = '#07689f';
+const BACKGROUND_GRAY = '#b7b7b7';
+const COLOR_ISREQUIRED = '#de001f';
+const COLOR_ISRECOMMENDED = '#204a95';
 const COLOR_DEFAULT = 'black';
 const COLOR_WHITE = 'white';
+const FONT_COLOR = '#4b4b4b';
 
 export const DraggableElement: React.FC<DraggableElementProps> = ({
     refObj,
@@ -58,6 +59,13 @@ const Wrapper = styled.div<WrapperProps>`
     ${({ theme }): string => `
         padding: ${theme.dimensions.padding.container};
     `};
+    color: FONT_COLOR;
+    margin: 7px;
+    padding: 5 10px;
+    font-size: 0.7rem;
+    border-radius: 10px;
+    border: solid 0.5px BACKGROUND_GRAY;
+    box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.15);
     ${({ isDragged, isRequired, isRecommended }): string => `
         border-left: 5px solid ${isDragged && styledCondition(
         isRequired,
@@ -72,10 +80,6 @@ const Wrapper = styled.div<WrapperProps>`
         COLOR_WHITE
     )};
     `}
-    margin: 7px;
-    padding: 5 10px;
-    font-size: 0.7rem;
-    border-radius: 10px;
 
     :hover {
         background-color: ${BACKGROUND_GRAY};
