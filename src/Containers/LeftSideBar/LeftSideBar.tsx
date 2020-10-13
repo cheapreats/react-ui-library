@@ -15,11 +15,11 @@ import {
 } from 'react-beautiful-dnd';
 import { ReceiptElements, draggableComponentsObj, ElementWithCategory } from './ReceiptElements';
 import { CollapsibleHeader } from './CollapsibleHeader';
-import { List } from '../List';
+import { List, ListToggle } from '../List';
 import { SearchBar } from '../../Inputs/SearchBar';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
-const isToggleable = true;
+const loading = false;
 const isLeftToggle = true;
 const dropDisabled = true;
 const GREY_BACKGROUND_COLOR = '#f2f2f2';
@@ -41,11 +41,11 @@ interface WrapperProps {
     isDragging: boolean
 };
 
+
 export const LeftSideBar: React.FC<LeftSideBarProps> = ({
     ...props
 }): React.ReactElement => {
-    const [loading] = useState(false);
-    const [isToggled, setIsToggled] = useState(false);
+    const [isOpen, setIsOpen] = useState(true);
     const [searchValue, setSearchValue] = useState('');
     const [isCollapsedArr, setIsCollapsedArr] = useState(Array(Object.values(ReceiptElements).length).fill(false))
 
@@ -73,11 +73,15 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                 margin='0'
                 left='0'
                 right='auto'
-                onToggleTranslateXAxis='-100%'
-                isToggleable={isToggleable}
-                isLeftToggle={isLeftToggle}
-                isToggled={isToggled}
-                setIsToggled={setIsToggled}
+                onCloseTranslateXAxis='-100%'
+                setIsOpen={setIsOpen}
+                toggleComponent={(
+                    <ListToggle
+                        isOpen={isOpen}
+                        setIsOpen={setIsOpen}
+                        isLeftToggle={isLeftToggle}
+                    />
+                )}
                 backgroundColor={GREY_BACKGROUND_COLOR}
                 header={(
                     <>

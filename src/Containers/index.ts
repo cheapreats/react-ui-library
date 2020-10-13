@@ -34,3 +34,4 @@ export * from './QRScan';
 export * from './Coupon';
 export * from './Chart';
 export * from './LeftSideBar';
+export * from './Stock'
