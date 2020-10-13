@@ -1,12 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { TextFields } from '@styled-icons/material/TextFields';
-import { ImageAlt } from '@styled-icons/boxicons-solid/ImageAlt';
-import { Layout3 } from '@styled-icons/remix-fill/Layout3';
-import { ListNumbered } from '@styled-icons/icomoon/ListNumbered';
-import { Dollar } from '@styled-icons/boxicons-regular/Dollar';
-import { Qrcode } from '@styled-icons/icomoon/Qrcode';
-import { Settings } from '@styled-icons/ionicons-sharp/Settings';
+import { StyledIcon } from 'styled-icons/types';
 import { 
     DragDropContext, 
     Droppable,
@@ -14,7 +8,6 @@ import {
     DroppableStateSnapshot
 } from 'react-beautiful-dnd';
 import { IDraggableComponent, IElementWithCategory, ILeftSideBarInterface } from './ReceiptElements';
-import { onDragEnd } from './ElementFunctions';
 import { CollapsibleHeader } from './CollapsibleHeader';
 import { List, ListToggle } from '../List';
 import { SearchBar } from '../../Inputs/SearchBar';
@@ -23,33 +16,27 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 const loading = false;
 const isLeftToggle = true;
 const dropDisabled = true;
-const hasIcon = false;
-const GREY_BACKGROUND_COLOR = '#f2f2f2';
-const iconsList = [
-    TextFields,
-    ImageAlt,
-    Layout3,
-    ListNumbered,
-    Dollar,
-    Qrcode,
-    Settings
-];
 
 export interface LeftSideBarProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     ReceiptElements: ILeftSideBarInterface,
     ElementWithCategory: IElementWithCategory [],
-    onDrag: () => void
+    onDrag: () => void,
+    iconsList: StyledIcon[],
+    backgroundColor?: string,
+    hasIcon?: boolean
 };
 
 interface WrapperProps {
     isDragging: boolean
 };
 
-
 export const LeftSideBar: React.FC<LeftSideBarProps> = ({
     ReceiptElements,
     ElementWithCategory,
-    onDrag = onDragEnd,
+    onDrag,
+    iconsList,
+    backgroundColor = '#f2f2f2',
+    hasIcon = false,
     ...props
 }): React.ReactElement => {
     const [isOpen, setIsOpen] = useState(true);
@@ -92,7 +79,7 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                         isLeftToggle={isLeftToggle}
                     />
                 )}
-                backgroundColor={GREY_BACKGROUND_COLOR}
+                backgroundColor={backgroundColor}
                 header={(
                     <>
                         <StyledSearchBar

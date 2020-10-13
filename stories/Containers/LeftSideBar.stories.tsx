@@ -1,12 +1,30 @@
 import React from 'react';
-import { LeftSideBar, LeftSideBarProps, onDragEnd } from '../../src';
+import { LeftSideBar, LeftSideBarProps } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Story, Meta } from '@storybook/react';
+import { TextFields } from '@styled-icons/material/TextFields';
+import { ImageAlt } from '@styled-icons/boxicons-solid/ImageAlt';
+import { Layout3 } from '@styled-icons/remix-fill/Layout3';
+import { ListNumbered } from '@styled-icons/icomoon/ListNumbered';
+import { Dollar } from '@styled-icons/boxicons-regular/Dollar';
+import { Qrcode } from '@styled-icons/icomoon/Qrcode';
+import { Settings } from '@styled-icons/ionicons-sharp/Settings';
 
 export default {
     title: createStoryTitle('LeftSideBar'),
     component: LeftSideBar,
     args: {
+        iconsList: [
+            TextFields,
+            ImageAlt,
+            Layout3,
+            ListNumbered,
+            Dollar,
+            Qrcode,
+            Settings
+        ],  
+        backgroundColor: '#f2f2f2',
+        hasIcon: false,     
         ReceiptElements: {
             textElements: {
                 key: 'Text',
@@ -283,6 +301,6 @@ export default {
 export const Basic: Story<LeftSideBarProps> = (args) => (
     <LeftSideBar 
         {...args}
-        onDragEnd={onDragEnd}  
+        onDragEnd={() => console.log('I have been dragged!')}  
     />
 );
