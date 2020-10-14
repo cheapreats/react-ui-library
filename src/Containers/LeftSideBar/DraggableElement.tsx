@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { DraggableProvided } from 'react-beautiful-dnd';
-import { DotsVertical } from '@styled-icons/heroicons-outline/DotsVertical';
+import { DragIndicator } from '@styled-icons/material/DragIndicator';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { styledCondition } from '../../Utils/Mixins';
 
@@ -50,7 +50,7 @@ export const DraggableElement: React.FC<DraggableElementProps> = ({
             {...props}
         >
             <Icon 
-                as={DotsVertical}
+                as={DragIndicator}
                 isRecommended={isRecommended}
                 isRequired={isRequired} 
             />
@@ -68,7 +68,7 @@ const Wrapper = styled.div<WrapperProps>`
     padding: 5 10px;
     font-size: 0.7rem;
     border-radius: 10px;
-    border: solid 0.5px BACKGROUND_GRAY;
+    border: solid 0.5px ${BACKGROUND_GRAY};
     box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.15);
     ${({ isDragging, isRequired, isRecommended }): string => `
         border-left: 5px solid ${isDragging && styledCondition(

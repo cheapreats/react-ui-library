@@ -11,8 +11,9 @@ import { Qrcode } from '@styled-icons/icomoon/Qrcode';
 import { Settings } from '@styled-icons/ionicons-sharp/Settings';
 
 export default {
-    title: createStoryTitle('LeftSideBar'),
+    title: createStoryTitle('Left Sidebar'),
     component: LeftSideBar,
+    argTypes: { onDrag: { action: 'I have been dragged!' } },
     args: {
         iconsList: [
             TextFields,
@@ -300,8 +301,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<LeftSideBarProps> = (args) => (
-    <LeftSideBar 
-        {...args}
-        onDragEnd={() => console.log('I have been dragged!')}  
-    />
+    <LeftSideBar {...args} />
 );
