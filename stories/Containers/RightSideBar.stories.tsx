@@ -1,5 +1,5 @@
 import React from 'react';
-import { RightSideBar, RequirementProps } from '../../src';
+import { RightSideBar, RightSideBarProps } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Story, Meta } from '@storybook/react';
 
@@ -10,6 +10,6 @@ export default {
     }
 } as Meta;
 
-export const Basic: Story<RequirementProps> = (args) => (
+export const Basic: Story<RightSideBarProps> = (args) => (
     <RightSideBar {...args}/>
 ); 
