@@ -1,15 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export const ListFooter: React.FC<React.HTMLAttributes<HTMLDivElement>> = ({
+interface ListFooterProps extends React.HTMLAttributes<HTMLDivElement> {
+    padding?: string;
+}
+
+export const ListFooter: React.FC<ListFooterProps> = ({
+    padding = '10px 20px',
     children,
     ...props
-}): React.ReactElement => <Footer {...props}>{children}</Footer>;
+}): React.ReactElement => (
+    <Footer {...props} padding={padding}>
+        {children}
+    </Footer>
+);
 
-const Footer = styled.div`
-    padding: 10px 20px;
+const Footer = styled.div<ListFooterProps>`
     margin-top: auto;
-    ${({ theme }): string => `
+    ${({ theme, padding }): string => `
     border-top: 2px solid ${theme.colors.text}20;
+    padding: ${padding};
 `}
 `;

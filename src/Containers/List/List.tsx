@@ -17,7 +17,6 @@ export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
     left?: string;
     onCloseTranslateXAxis?: string;
     cssPosition?: string;
-    isToggleable?: boolean;
     isOpen?: boolean;
     setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
     zIndex?: number;

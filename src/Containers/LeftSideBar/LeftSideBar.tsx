@@ -14,7 +14,6 @@ import { SearchBar } from '../../Inputs/SearchBar';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 const loading = false;
-const isLeftToggle = true;
 
 export interface LeftSideBarProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     ReceiptElements: ILeftSideBarInterface,
@@ -77,7 +76,7 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                     <ListToggle
                         isOpen={isOpen}
                         setIsOpen={setIsOpen}
-                        isLeftToggle={isLeftToggle}
+                        isLeftToggle
                     />
                 )}
                 backgroundColor={backgroundColor}
