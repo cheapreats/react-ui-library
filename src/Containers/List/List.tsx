@@ -11,6 +11,7 @@ export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
     toggleComponent?: React.ReactElement;
     id: string;
     columnWidth?: string;
+    backgroundColor?: string;
     margin?: string;
     right?: string;
     left?: string;
@@ -27,6 +28,7 @@ export const List: React.FC<ListProps> = ({
     header,
     footer,
     columnWidth = '280px',
+    backgroundColor = 'white',
     isOpen = true,
     setIsOpen,
     toggleComponent,
@@ -58,7 +60,11 @@ export const List: React.FC<ListProps> = ({
 
     return (
         <Wrapper isOpen={isOpen} {...props}>
-            <Container columnWidth={columnWidth} id={id}>
+            <Container 
+                columnWidth={columnWidth} 
+                id={id}
+                backgroundColor={backgroundColor} 
+            >
                 {header}
                 <Items>{loading ? <Loading /> : children}</Items>
                 {footer}
@@ -81,6 +87,7 @@ interface WrapperProps {
 
 interface ColumnProps {
     columnWidth: string;
+    backgroundColor: string;
 }
 
 const Wrapper = styled.div<WrapperProps>`
@@ -106,7 +113,9 @@ const Wrapper = styled.div<WrapperProps>`
 
 const Container = styled.div<ColumnProps>`
     ${Mixins.flex('column')}
-    background-color: white;
+    ${({ backgroundColor }): string => `
+        background-color: ${backgroundColor};
+    `}
     flex-shrink: 0;
     flex-grow: 1;
     z-index: 1;
