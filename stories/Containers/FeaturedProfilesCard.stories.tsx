@@ -1,5 +1,5 @@
 import React from 'react';
-import { FeaturedProfilesCard, FeaturedProfilesCardProps } from '../../src';
+import { FeaturedProfilesCard, IFeaturedProfilesCardProps } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Meta, Story } from '@storybook/react';
 
@@ -75,6 +75,6 @@ export default {
     },
 } as Meta;
 
-export const Demo: Story<FeaturedProfilesCardProps> = (args) => (
+export const Demo: Story<IFeaturedProfilesCardProps> = (args) => (
     <FeaturedProfilesCard {...args}></FeaturedProfilesCard>
 );

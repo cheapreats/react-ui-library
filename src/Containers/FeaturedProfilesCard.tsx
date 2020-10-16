@@ -3,80 +3,89 @@ import styled from 'styled-components';
 import { AddUser } from '@styled-icons/entypo/AddUser';
 import { flex } from '../Utils/Mixins';
 
-export interface profile {
+export interface Iprofile {
     image: string;
     initials: string;
     id: number;
 }
 
-export interface FeaturedProfilesCardProps {
-    profileData: profile[];
+export interface IFeaturedProfilesCardProps {
+    profileData: Iprofile[];
     alt: string;
     width?: number;
     height?: number;
 }
 
-export const FeaturedProfilesCard: React.FC<FeaturedProfilesCardProps> = ({
+export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
     alt,
     profileData,
     width = 100,
     height = 100,
 }): React.ReactElement => {
-    const getProfileCircles = (
-        index: any,
-        profile: any,
-    ): React.ReactElement => {
-        if (index < 3) {
-            return (
-                <CircleImage background="none" key={profile.image}>
-                    <img
-                        src={profile.image}
-                        alt={alt}
-                        height={height}
-                        width={width}
-                    />
-                </CircleImage>
-            );
-        }
-        if (index > 2 && index < 5) {
-            return (
-                <CircleImage background="orange">
-                    <CircleContent>{profile.initials}</CircleContent>
-                </CircleImage>
-            );
-        }
-        if (index > 4 && index < 6) {
-            return (
-                <CircleImage background="grey">
-                    <CircleContent>{profileData.length - 5}</CircleContent>
-                </CircleImage>
-            );
-        }
-        return (
-            <CircleImage background="grey">
-                <Icon as={AddUser} />
-            </CircleImage>
-        );
+    const getProfileCircles = (): any => {
+        const PROFILE_PICTURE_LIMIT = 3;
+        const PROFILE_INITIALS_START_INDEX = 2;
+        const PROFILE_INITIALS_END_INDEX = 5;
+        const REMAINING_PROFILES_INDEX = 5;
+        const REMAINING_PROFILES_VALUE = profileData.length - 5;
+        const MAX_PROFILES = 7;
+        const START_FROM_PROFILE_INDEX = 0;
+
+        return profileData
+            .map(
+                (profile, index): React.ReactElement => {
+                    if (index < PROFILE_PICTURE_LIMIT) {
+                        return (
+                            <CircleImage background="none" key={profile.image}>
+                                <img
+                                    src={profile.image}
+                                    alt={alt}
+                                    height={height}
+                                    width={width}
+                                />
+                            </CircleImage>
+                        );
+                    }
+                    if (
+                        index > PROFILE_INITIALS_START_INDEX &&
+                        index < PROFILE_INITIALS_END_INDEX
+                    ) {
+                        return (
+                            <CircleImage background="orange">
+                                <CircleContent>
+                                    {profile.initials}
+                                </CircleContent>
+                            </CircleImage>
+                        );
+                    }
+                    if (index === REMAINING_PROFILES_INDEX) {
+                        return (
+                            <CircleImage background="grey">
+                                <CircleContent>
+                                    {REMAINING_PROFILES_VALUE}
+                                </CircleContent>
+                            </CircleImage>
+                        );
+                    }
+                    return (
+                        <CircleImage background="grey">
+                            <Icon as={AddUser} />
+                        </CircleImage>
+                    );
+                },
+            )
+            .splice(START_FROM_PROFILE_INDEX, MAX_PROFILES);
     };
 
-    return (
-        <Container>
-            {profileData
-                .map(
-                    (profile, index): React.ReactElement =>
-                        getProfileCircles(index, profile),
-                )
-                .splice(0, 7)}
-        </Container>
-    );
+    return <Container>{getProfileCircles()}</Container>;
 };
 
-interface CircleImageProps {
+interface ICircleImageProps {
     background: string;
 }
 
-const CircleImage = styled.li<CircleImageProps>`
-    display: flex;
+const CircleImage = styled.li<ICircleImageProps>`
+    ${flex()}
     justify-content: center;
     align-items: center;
     border: solid white 3px;
