@@ -53,7 +53,7 @@ module.exports = {
         'import/prefer-default-export': 'off',
         'import/extensions': 'off',
         'import/no-extraneous-dependencies': 'off',
-        'camelcase': 'off',
+        camelcase: 'off',
         'no-shadow': 'off',
         'no-use-before-define': [0],
         'no-underscore-dangle': 'off',

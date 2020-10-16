@@ -1,7 +1,7 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
-import { SettingsSwitch} from '../../src';
-import {createStoryTitle} from "../Constants";
+import { SettingsSwitch } from '../../src';
+import { createStoryTitle } from '../Constants';
 
 const switcher = (value) => console.log(value);
 
@@ -31,7 +31,7 @@ storiesOf(createStoryTitle('Settings Switch'), module)
             label="Label"
             description="Description"
             text="Settings Switch"
-            flexDirection={"flex-end"}
+            flexDirection={'flex-end'}
             innerMargin="auto 20px auto 0"
         />
     ))
@@ -69,4 +69,4 @@ storiesOf(createStoryTitle('Settings Switch'), module)
             activeColor="blue"
             text="Settings Switch"
         />
-    ))
+    ));

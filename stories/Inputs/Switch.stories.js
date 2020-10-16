@@ -1,8 +1,8 @@
 import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
-import { Switch} from '../../src';
-import {createStoryTitle} from "../Constants";
+import { Switch } from '../../src';
+import { createStoryTitle } from '../Constants';
 
 storiesOf(createStoryTitle('Switch'), module)
     .addDecorator(withKnobs)
@@ -10,15 +10,11 @@ storiesOf(createStoryTitle('Switch'), module)
         <Switch
             label="Label"
             description="Description"
-            isChecked={boolean("Checked", false)}
+            isChecked={boolean('Checked', false)}
         />
     ))
     .add('with disabled', () => (
-        <Switch
-            label="Label"
-            description="Description"
-            disabled
-        />
+        <Switch label="Label" description="Description" disabled />
     ))
     .add('with tags', () => (
         <Switch
@@ -55,4 +51,4 @@ storiesOf(createStoryTitle('Switch'), module)
             switchColor="orange"
             activeColor="blue"
         />
-    ))
+    ));

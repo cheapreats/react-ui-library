@@ -2,7 +2,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import { Input } from '../../src';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 
 storiesOf(createStoryTitle('Input'), module)
     .addDecorator(withKnobs)
@@ -12,7 +12,6 @@ storiesOf(createStoryTitle('Input'), module)
             label={text('Label', 'Label')}
             description={text('Description', 'Description')}
             placeholder={text('Placeholder', 'Placeholder')}
-            
         />
     ))
     .add('with success', () => (
@@ -40,7 +39,7 @@ storiesOf(createStoryTitle('Input'), module)
             label="Label"
             description="This is a disabled input"
             placeholder="Placeholder"
-            error={text('error', "error")}
+            error={text('error', 'error')}
             disabled={boolean('Disabled', true)}
             success={boolean('Success', false)}
         />

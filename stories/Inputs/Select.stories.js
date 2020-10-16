@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 import { mockElement } from '../Tools';
 import { Select } from '../../src';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 
 storiesOf(createStoryTitle('Select'), module)
     .addDecorator(withKnobs)

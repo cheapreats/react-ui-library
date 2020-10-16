@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { SearchBar } from '../../src';
 import { mockElement } from '../Tools';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 
 storiesOf(createStoryTitle('Search Bar'), module)
     .addDecorator(withKnobs)
@@ -13,10 +13,10 @@ storiesOf(createStoryTitle('Search Bar'), module)
             ([state, setState]) => (
                 <SearchBar
                     placeholder="Search for..."
-                    onInput={target => {
+                    onInput={(target) => {
                         setState(target);
                     }}
-                    onChange={target => {
+                    onChange={(target) => {
                         setState(target.value);
                     }}
                     value={state}

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import { ExcelOptions } from '../../src';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 
 storiesOf(createStoryTitle('Excel Options'), module)
     .addDecorator(withKnobs)
@@ -26,7 +26,7 @@ storiesOf(createStoryTitle('Excel Options'), module)
                         'description',
                         'status',
                     ]}
-                    onResult={data => console.log(data)}
+                    onResult={(data) => console.log(data)}
                 />
             </div>
         );

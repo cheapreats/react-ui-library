@@ -1,13 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
-import { 
-    DragDropContext, 
+import {
+    DragDropContext,
     Droppable,
     DroppableProvided,
-    DroppableStateSnapshot
+    DroppableStateSnapshot,
 } from 'react-beautiful-dnd';
-import { IDraggableComponent, IElementWithCategory, ILeftSideBarInterface } from './ReceiptElements';
+import {
+    IDraggableComponent,
+    IElementWithCategory,
+    ILeftSideBarInterface,
+} from './ReceiptElements';
 import { CollapsibleHeader } from './CollapsibleHeader';
 import { List, ListToggle } from '../List';
 import { SearchBar } from '../../Inputs/SearchBar';
@@ -15,19 +19,22 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 const loading = false;
 
-export interface LeftSideBarProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    ReceiptElements: ILeftSideBarInterface,
-    ElementWithCategory: IElementWithCategory [],
-    onDrag: () => void,
-    iconsList: StyledIcon[],
-    backgroundColor?: string,
-    hasIcon?: boolean,
-    dropDisabled?: boolean
-};
+export interface LeftSideBarProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    ReceiptElements: ILeftSideBarInterface;
+    ElementWithCategory: IElementWithCategory[];
+    onDrag: () => void;
+    iconsList: StyledIcon[];
+    backgroundColor?: string;
+    hasIcon?: boolean;
+    dropDisabled?: boolean;
+}
 
 interface WrapperProps {
-    isDragging: boolean
-};
+    isDragging: boolean;
+}
 
 export const LeftSideBar: React.FC<LeftSideBarProps> = ({
     ReceiptElements,
@@ -41,104 +48,123 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
 }): React.ReactElement => {
     const [isOpen, setIsOpen] = useState(true);
     const [searchValue, setSearchValue] = useState('');
-    const [isCollapsedArr, setIsCollapsedArr] = useState(Array(Object.values(ReceiptElements).length).fill(false))
+    const [isCollapsedArr, setIsCollapsedArr] = useState(
+        Array(Object.values(ReceiptElements).length).fill(false),
+    );
 
     useEffect((): void => {
         ElementWithCategory.forEach((el, index) => {
-            if(el.field.includes(searchValue)) {
-                setIsCollapsedArr(isCollapsedArr.map((isCollapsed, idx) => {
-                    if(idx === index) return true;
-                    return false;
-                }));
+            if (el.field.includes(searchValue)) {
+                setIsCollapsedArr(
+                    isCollapsedArr.map((isCollapsed, idx) => {
+                        if (idx === index) return true;
+                        return false;
+                    }),
+                );
             }
-        })
+        });
     }, [searchValue]);
-      
-    const draggableComponentsObj: IDraggableComponent = Object.values(ReceiptElements).map((ReceiptElement)  => {
-        return ReceiptElement.draggableComponents;
-    }).reduce((prev, current) => {
-        return {...prev, ...current};
-    });
+
+    const draggableComponentsObj: IDraggableComponent = Object.values(
+        ReceiptElements,
+    )
+        .map((ReceiptElement) => {
+            return ReceiptElement.draggableComponents;
+        })
+        .reduce((prev, current) => {
+            return { ...prev, ...current };
+        });
 
     return (
         <div {...props}>
-            <List 
-                id='left-sidebar'
+            <List
+                id="left-sidebar"
                 loading={loading}
-                cssPosition='absolute'
-                margin='0'
-                left='0'
-                right='auto'
-                onCloseTranslateXAxis='-100%'
+                cssPosition="absolute"
+                margin="0"
+                left="0"
+                right="auto"
+                onCloseTranslateXAxis="-100%"
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                toggleComponent={(
+                toggleComponent={
                     <ListToggle
                         isOpen={isOpen}
                         setIsOpen={setIsOpen}
                         isLeftToggle
                     />
-                )}
+                }
                 backgroundColor={backgroundColor}
-                header={(
+                header={
                     <>
                         <StyledSearchBar
-                            placeholder='Search'
-                            backgroundColor='white'
-                            borderRadius='40px'
-                            onChange={(e: { value: string, name: string }): void => {
+                            placeholder="Search"
+                            backgroundColor="white"
+                            borderRadius="40px"
+                            onChange={(e: {
+                                value: string;
+                                name: string;
+                            }): void => {
                                 setSearchValue(e.name);
                             }}
                             hasIcon={hasIcon}
                             value={searchValue}
                         >
-                            {Object.values(draggableComponentsObj).map((draggable) => {
-                                return (
-                                    <option value={draggable.key}>
-                                        {draggable.field}
-                                    </option>
-                                );
-                            })}
+                            {Object.values(draggableComponentsObj).map(
+                                (draggable) => {
+                                    return (
+                                        <option value={draggable.key}>
+                                            {draggable.field}
+                                        </option>
+                                    );
+                                },
+                            )}
                         </StyledSearchBar>
                     </>
-                )}
+                }
             >
-                <DragDropContext
-                    onDragEnd={onDrag}
-                >
+                <DragDropContext onDragEnd={onDrag}>
                     <Droppable
-                        droppableId='LEFT-BAR'
+                        droppableId="LEFT-BAR"
                         isDropDisabled={dropDisabled}
                     >
-                        {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
+                        {(
+                            provided: DroppableProvided,
+                            snapshot: DroppableStateSnapshot,
+                        ) => (
                             <Wrapper
                                 ref={provided.innerRef}
                                 {...provided.droppableProps}
                                 isDragging={snapshot.isDraggingOver}
                             >
-                                {Object.values(ReceiptElements).map((ReceiptElement, index) => (
-                                    <CollapsibleHeader 
-                                        key={ReceiptElement.key}
-                                        icon={iconsList[index]}
-                                        category={ReceiptElement.editorCategory}
-                                        position={index}
-                                        isCollapsedArr={isCollapsedArr}
-                                        setIsCollapsedArr={setIsCollapsedArr}
-                                        ReceiptElements={ReceiptElements}
-                                    />
-                                ))}
-                                { provided.placeholder }
+                                {Object.values(ReceiptElements).map(
+                                    (ReceiptElement, index) => (
+                                        <CollapsibleHeader
+                                            key={ReceiptElement.key}
+                                            icon={iconsList[index]}
+                                            category={
+                                                ReceiptElement.editorCategory
+                                            }
+                                            position={index}
+                                            isCollapsedArr={isCollapsedArr}
+                                            setIsCollapsedArr={
+                                                setIsCollapsedArr
+                                            }
+                                            ReceiptElements={ReceiptElements}
+                                        />
+                                    ),
+                                )}
+                                {provided.placeholder}
                             </Wrapper>
                         )}
                     </Droppable>
                 </DragDropContext>
             </List>
-        </div>  
-    )
+        </div>
+    );
 };
 
-const Wrapper = styled.div<WrapperProps>`
-`;
+const Wrapper = styled.div<WrapperProps>``;
 const StyledSearchBar = styled(SearchBar)`
     ${({ theme }): string => `
         padding: ${theme.dimensions.padding.container};

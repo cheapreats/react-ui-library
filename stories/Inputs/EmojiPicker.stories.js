@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import { EmojiPicker, Paragraph } from '../../src';
 import { mockElement } from '../Tools';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 
 storiesOf(createStoryTitle('Emoji Picker'), module)
     .addDecorator(withKnobs)
@@ -14,7 +14,7 @@ storiesOf(createStoryTitle('Emoji Picker'), module)
                 <>
                     <EmojiPicker
                         text={emoji || undefined}
-                        onChange={_ => setEmoji(_)}
+                        onChange={(_) => setEmoji(_)}
                     />
                 </>
             );

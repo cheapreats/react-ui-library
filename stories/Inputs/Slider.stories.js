@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { withKnobs, boolean } from '@storybook/addon-knobs';
 import { Slider } from '../../src';
 import { mockElement } from '../Tools';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 
 storiesOf(createStoryTitle('Slider'), module)
     .addDecorator(withKnobs)
@@ -14,7 +14,7 @@ storiesOf(createStoryTitle('Slider'), module)
                 <Slider
                     min={1}
                     max={100}
-                    onChange={target => {
+                    onChange={(target) => {
                         setState(target);
                     }}
                     values={{ rightValue: 30 }}
@@ -31,7 +31,7 @@ storiesOf(createStoryTitle('Slider'), module)
                     min={1}
                     max={100}
                     hasRail={boolean('hasRail', true)}
-                    onChange={target => {
+                    onChange={(target) => {
                         setState(target);
                     }}
                 />
@@ -51,7 +51,7 @@ storiesOf(createStoryTitle('Slider'), module)
                     max={50}
                     padding="50px"
                     hasPopup={boolean('hasPopup', true)}
-                    onChange={target => {
+                    onChange={(target) => {
                         setState(target);
                     }}
                 />
@@ -70,7 +70,7 @@ storiesOf(createStoryTitle('Slider'), module)
                     min={100}
                     max={300}
                     step={50}
-                    onChange={target => {
+                    onChange={(target) => {
                         setState(target);
                     }}
                     padding="50px"

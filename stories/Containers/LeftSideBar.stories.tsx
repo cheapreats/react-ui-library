@@ -22,59 +22,59 @@ export default {
             ListNumbered,
             Dollar,
             Qrcode,
-            Settings
-        ],  
+            Settings,
+        ],
         backgroundColor: '#f2f2f2',
-        hasIcon: false,     
+        hasIcon: false,
         dropDisabled: false,
         ReceiptElements: {
             textElements: {
                 key: 'Text',
                 editorCategory: 'Text',
                 draggableComponents: {
-                    NAME_OF_BUSINESS: {   
+                    NAME_OF_BUSINESS: {
                         key: '1',
                         field: 'Name of business',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     ADDRESS_OF_BUSINESS: {
                         key: '2',
                         field: 'Address of business',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     CONTACT_INFORMATION: {
                         key: '3',
                         field: 'Business contact information',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     NAME_OF_SALES_ASSOCIATE: {
                         key: '4',
                         field: 'Name of sales associate',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     NAME_OF_PRODUCT: {
                         key: '5',
                         field: 'Name of product or service',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     ORDER_TYPE: {
                         key: '6',
                         field: 'Order type',
                         isRequired: false,
-                        isRecommended: true
+                        isRecommended: true,
                     },
                     PAYMENT_METHOD: {
                         key: '7',
                         field: 'Payment method',
                         isRequired: false,
-                        isRecommended: true
-                    }
-                }
+                        isRecommended: true,
+                    },
+                },
             },
             imageElements: {
                 key: 'Image',
@@ -84,15 +84,15 @@ export default {
                         key: '8',
                         field: 'Business logo',
                         isRequired: false,
-                        isRecommended: true
+                        isRecommended: true,
                     },
                     ADDITIONAL_BRANDING: {
                         key: '9',
                         field: 'Additional branding',
                         isRequired: false,
-                        isRecommended: true
-                    }
-                }
+                        isRecommended: true,
+                    },
+                },
             },
             layoutElements: {
                 key: 'Layout',
@@ -102,21 +102,21 @@ export default {
                         key: '10',
                         field: 'Menu table',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     WHITE_SPACE: {
                         key: '11',
                         field: 'White space',
                         isRequired: false,
-                        isRecommended: true
+                        isRecommended: true,
                     },
                     DIVIDER: {
                         key: '12',
                         field: 'Divider',
                         isRequired: false,
-                        isRecommended: true
-                    }
-                }
+                        isRecommended: true,
+                    },
+                },
             },
             numberElements: {
                 key: 'Number',
@@ -126,27 +126,27 @@ export default {
                         key: '13',
                         field: 'Station number',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     QUANTITY_PRODUCT: {
                         key: '14',
                         field: 'Quantity of product or service',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     NUMBER_OF_GUESTS: {
                         key: '15',
                         field: 'Number of guests',
                         isRequired: false,
-                        isRecommended: true
+                        isRecommended: true,
                     },
                     TRANSACTION_ORDER_NUMBER: {
                         key: '16',
                         field: 'Transaction order number',
                         isRequired: false,
-                        isRecommended: true
+                        isRecommended: true,
                     },
-                }
+                },
             },
             priceElements: {
                 key: 'Price',
@@ -156,45 +156,45 @@ export default {
                         key: '17',
                         field: 'Sale price',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     TOTAL_TAX: {
                         key: '18',
                         field: 'Total amount of tax',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     RATE_OF_SALES_TAX: {
                         key: '19',
                         field: 'Rate of sales tax',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     TOTAL_SALE_PRICE: {
                         key: '20',
                         field: 'Total price of sale',
                         isRequired: false,
-                        isRecommended: true
+                        isRecommended: true,
                     },
                     TIP: {
                         key: '21',
                         field: 'Tips',
                         isRequired: false,
-                        isRecommended: true
+                        isRecommended: true,
                     },
                     TOLAL_PRICE_WITH_TAX: {
                         key: '22',
                         field: 'Total price of sale with tax',
                         isRequired: false,
-                        isRecommended: true
+                        isRecommended: true,
                     },
                     TOTAL_PRICE_WITH_TIPS: {
                         key: '23',
                         field: 'Total price with tip',
                         isRequired: false,
-                        isRecommended: true
-                    }
-                }
+                        isRecommended: true,
+                    },
+                },
             },
             codesElements: {
                 key: 'Codes',
@@ -204,15 +204,15 @@ export default {
                         key: '24',
                         field: 'UPC code',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     QR_CODE: {
                         key: '25',
                         field: 'QR code',
                         isRequired: false,
-                        isRecommended: true
-                    }
-                }
+                        isRecommended: true,
+                    },
+                },
             },
             settingsElements: {
                 key: 'Settings',
@@ -222,16 +222,16 @@ export default {
                         key: '26',
                         field: 'Date',
                         isRequired: true,
-                        isRecommended: false
+                        isRecommended: false,
                     },
                     TIME: {
                         key: '27',
                         field: 'Time',
                         isRequired: true,
-                        isRecommended: false
-                    }
-                }
-            }
+                        isRecommended: false,
+                    },
+                },
+            },
         },
         ElementWithCategory: [
             {
@@ -243,23 +243,16 @@ export default {
                     'Name of sales associate',
                     'Name of product or service',
                     'Order type',
-                    'Payment method'
-                ]
+                    'Payment method',
+                ],
             },
             {
                 editorCategory: 'Image',
-                field: [
-                    'Business logo',
-                    'Additional branding'
-                ]
+                field: ['Business logo', 'Additional branding'],
             },
             {
                 editorCategory: 'Layout',
-                field: [
-                    'Menu table',
-                    'White space',
-                    'Divider'
-                ]
+                field: ['Menu table', 'White space', 'Divider'],
             },
             {
                 editorCategory: 'Number',
@@ -268,7 +261,7 @@ export default {
                     'Quantity of product or service',
                     'Number of guests',
                     'Transaction order number',
-                ]
+                ],
             },
             {
                 editorCategory: 'Price',
@@ -279,25 +272,19 @@ export default {
                     'Total price of sale',
                     'Tips',
                     'Total price of sale with tax',
-                    'Total price with tip'
-                ]
+                    'Total price with tip',
+                ],
             },
             {
                 editorCategory: 'Codes',
-                field: [
-                    'UPC code',
-                    'QR code'
-                ]
+                field: ['UPC code', 'QR code'],
             },
             {
                 editorCategory: 'Settings',
-                field: [
-                    'Date',
-                    'Time'
-                ]
-            }
-        ]
-    }
+                field: ['Date', 'Time'],
+            },
+        ],
+    },
 } as Meta;
 
 export const Basic: Story<LeftSideBarProps> = (args) => (

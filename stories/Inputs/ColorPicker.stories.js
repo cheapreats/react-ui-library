@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 import { ColorPicker, Paragraph } from '../../src';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 
 storiesOf(createStoryTitle('Color Picker'), module)
     .addDecorator(withKnobs)
@@ -12,7 +12,7 @@ storiesOf(createStoryTitle('Color Picker'), module)
             <>
                 <ColorPicker
                     value={color}
-                    onChange={e => setColor(e.target.value)}
+                    onChange={(e) => setColor(e.target.value)}
                 />
                 <br></br>
                 <Paragraph bold>The color you selected is: {color}</Paragraph>
