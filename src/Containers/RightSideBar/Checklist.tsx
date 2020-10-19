@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Checkbox } from '../../Inputs/Checkbox';
-import { List } from '../List';
 
 
 export interface DefCheckbox {
@@ -15,9 +14,100 @@ export interface CheckListProps {
     CRATitle: string,
     ReqTitle: string,
     RecTitle: string,
-    ReqInfoArr: DefCheckbox[]
-    RecInfoArr: DefCheckbox[]
+    ReqInfoArr: DefCheckbox
+    RecInfoArr: DefCheckbox
 }
+
+export const RecInfoArr = {
+    ORDER_TRANSACTION: {
+        label: 'Order Transaction #',
+        value: false
+    },
+    BUSINESS_LOGO: {
+        label: 'Business Logo',
+        value: false
+    },
+    DINE_IN_OUT: {
+        label: 'Dine in/Dine out',
+        value: false
+    },
+    PAYMENT_METHOD: {
+        label: 'Payment Method',
+        value: false
+    },
+    QR_CODE: {
+        label: 'QR Code',
+        value: false
+    },
+    PROMOTIONS: {
+        label: 'Promotions',
+        value: false
+    },
+    COUPONS: {
+        label: 'Coupons',
+        value: false
+    },
+};
+export const ReqInfoArr = {
+    NAME_OF_BUSINESS: {
+        label: 'Name of Business',
+        value: false
+    },
+    BUSINESS_ADDRESS: {
+        label: 'Business Address',
+        value: false
+    },
+    CONTACT_INFORMATION: {
+        label: 'Contact Information',
+        value: false
+    },
+    DATE_WHEN_SALES_TOOK_PLACE: {
+        label: 'Date when sales took place',
+        value: false
+    },
+    TIME_WHEN_SALES_TOOK_PLACE: {
+        label: 'Time when sales took place',
+        value: false
+    },
+    RANG_UP_THE_SALE: {
+        label: 'Sales associate who rang up the sale',
+        value: false
+    },
+    PRICE_FOR_PRODUCT_OR_SERVICE: {
+        label: 'Price for each product or service',
+        value: false
+    },
+    SALES_TAX_RATE: {
+        label: 'Sales tax rate(%)',
+        value: false
+    },
+    AMOUNT_TAX: {
+        label: 'Amount tax',
+        value: false
+    },
+    TOTAL_SALE_PRICE: {
+        label: 'Total price of sale',
+        value: false
+    },
+    TOTAL_SALE_PRICE_TAX: {
+        label: 'Total price when tax included',
+        value: false
+    },
+    QUANTITY_OF_PRODUCT_OR_SERVICE: {
+        label: 'Quantity of each product or service',
+        value: false
+    },
+    NAME_OF_UPC: {
+        label: 'Name of UPC of each product or service',
+        value: false
+    },
+    STATION_NUM_OF_REGISTER: {
+        label: 'Station # of register where sale was transacted',
+        value: false
+    },
+};
+
+
 // STYLED COMPONENTS
 const Wrapper = styled.div`
 `;
@@ -37,11 +127,13 @@ const CraTitle = styled(DefaultTxt)`
     height: 20px;
 `;
 const REQTitle = styled(DefaultTxt)`
-    width: 166px;
+    color: red;
+    width: 100%;
     height: 20px;
 `;
 const RECTitle = styled(DefaultTxt)`
-    width: 166px;
+    color: blue;
+    width: 100%;
     height: 20px;
 `;
 const Element = styled.div`
@@ -69,44 +161,30 @@ export const CheckList: React.FC<CheckListProps> = ({
 
     return (
         <Wrapper>
-            <List
-                id='right-sidebar'
-                columnWidth = '387px'
-                loading={loading}
-                cssPosition='absolute'
-                margin='0'
-                left='auto'
-                right='0'
-                isToggleable={isToggleable}
-                isLeftToggle={isLeftToggle}
-                isToggled={isToggled}
-                setIsToggled={setIsToggled}
-                header={(<h1>{ title }</h1>)}
-            >
-                <CraTitle>{ CRATitle }</CraTitle>
-                <REQTitle>{ ReqTitle }</REQTitle>
-                {Object.keys( ReqInfoArr ).map((key) => (
-                    <Element>
-                        <Checkbox
-                            label={ReqInfoArr[key].label}
-                            value={ReqInfoArr[key].value}
-                            onChange={checkHandler}
-                            name='checkbox'
-                        />
-                    </Element>
-                ))}
-                <RECTitle>{ RecTitle }</RECTitle>
-                {Object.keys( RecInfoArr ).map((key) => (
-                    <Element>
-                        <Checkbox
-                            label={RecInfoArr[key].label}
-                            value={RecInfoArr[key].value}
-                            onChange={checkHandler}
-                            name='checkbox'
-                        />
-                    </Element>
-                ))}
-            </List>
+            <CraTitle>{ title }</CraTitle>
+            <CraTitle>{ CRATitle }</CraTitle>
+            <REQTitle>{ ReqTitle }</REQTitle>
+            {Object.keys( ReqInfoArr ).map((key) => (
+                <Element>
+                    <Checkbox
+                        label={ReqInfoArr[key].label}
+                        value={ReqInfoArr[key].value}
+                        onChange={checkHandler}
+                        name='checkbox'
+                    />
+                </Element>
+            ))}
+            <RECTitle>{ RecTitle }</RECTitle>
+            {Object.keys( RecInfoArr ).map((key) => (
+                <Element>
+                    <Checkbox
+                        label={RecInfoArr[key].label}
+                        value={RecInfoArr[key].value}
+                        onChange={checkHandler}
+                        name='checkbox'
+                    />
+                </Element>
+            ))}
         </Wrapper>
     );
 };
