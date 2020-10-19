@@ -6,19 +6,13 @@ import { Image, ImageProps } from '../../src';
 export default {
     title: createStoryTitle('Image'),
     component: Image,
+    argTypes: { onImageReturn: { action: 'Image uploaded' } },
+    args: {
+        accept: '',
+        aspect: 0,
+    },
 } as Meta;
 
-export const Basic: Story<ImageProps> = () => {
-    const [src, setSrc] = useState('');
-    
-    function addImage(data) {
-        setSrc(data);
-    }
-
-    return (
-        <div>
-            <Image onImageReturn={data => addImage(data)} />
-            <img style={{ marginTop: '30px' }} src={src} alt='' />
-        </div>
-    )
-};
+export const Basic: Story<ImageProps> = (args) => (
+    <Image {...args}></Image>
+)
