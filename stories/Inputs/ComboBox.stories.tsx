@@ -8,7 +8,7 @@ export default {
     component: ComboBox,
     argTypes: { onChange: { action: 'Changed' } },
     args: {
-        value: 'value',
+        value: 1,
         limit: 5,
         placeholder: 'placeholder',
     },
