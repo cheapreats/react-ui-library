@@ -33,5 +33,6 @@ export * from './ScrollableListContent';
 export * from './QRScan';
 export * from './Coupon';
 export * from './Chart';
+export * from './Timeline';
 export * from './LeftSideBar';
-export * from './Stock'
+export * from './Stock';
