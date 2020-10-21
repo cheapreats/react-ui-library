@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { AddUser } from '@styled-icons/entypo/AddUser';
 import { flex } from '../Utils/Mixins';
 
+const PROFILE_PICTURE_LIMIT = 3;
+const PROFILE_INITIALS_START_INDEX = 2;
+const PROFILE_INITIALS_END_INDEX = 5;
+const REMAINING_PROFILES_INDEX = 5;
+const MAX_PROFILES = 7;
+const START_FROM_PROFILE_INDEX = 0;
+
 export interface IProfile {
     image: string;
     initials: string;
@@ -23,15 +30,7 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
     height = 100,
 }): React.ReactElement => {
     const getProfileCircles = (): any => {
-        const PROFILE_PICTURE_LIMIT = 3;
-        const PROFILE_INITIALS_START_INDEX = 2;
-        const PROFILE_INITIALS_END_INDEX = 5;
-        const REMAINING_PROFILES_INDEX = 5;
-        const REMAINING_PROFILES_VALUE = profileData.length - 5;
-        const MAX_PROFILES = 7;
-        const START_FROM_PROFILE_INDEX = 0;
-
-        const UserProfilePicture = (profile: any): React.ReactElement => {
+        const userProfilePicture = (profile: any): React.ReactElement => {
             return (
                 <CircleImage background="none" key={profile.image}>
                     <img
@@ -44,7 +43,7 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
             );
         };
 
-        const UserInitials = (profile: any): React.ReactElement => {
+        const userInitials = (profile: any): React.ReactElement => {
             return (
                 <CircleImage background="orange">
                     <CircleContent>{profile.initials}</CircleContent>
@@ -53,9 +52,11 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
         };
 
         const remainingUserProfiles = (): React.ReactElement => {
+            const remaining_profiles_value = profileData.length - 5;
+
             return (
                 <CircleImage background="grey">
-                    <CircleContent>{REMAINING_PROFILES_VALUE}</CircleContent>
+                    <CircleContent>{remaining_profiles_value}</CircleContent>
                 </CircleImage>
             );
         };
@@ -72,13 +73,13 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
             .map(
                 (profile, index): React.ReactElement => {
                     if (index < PROFILE_PICTURE_LIMIT) {
-                        return UserProfilePicture(profile);
+                        return userProfilePicture(profile);
                     }
                     if (
                         index > PROFILE_INITIALS_START_INDEX &&
                         index < PROFILE_INITIALS_END_INDEX
                     ) {
-                        return UserInitials(profile);
+                        return userInitials(profile);
                     }
                     if (index === REMAINING_PROFILES_INDEX) {
                         return remainingUserProfiles();
