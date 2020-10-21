@@ -1,19 +1,17 @@
-export interface Choice{
+export interface ModifierChoiceInput {
     name: string;
     choice_type: string;
 }
-
-export interface ItemModifier {
+export interface OrderModifier {
     name?: string;
-    choices: Choice[];
+    choices: ModifierChoiceInput[];
 }
-
-export interface Item {
+export interface OrderItem {
     name: string;
-    modifiers: ItemModifier[];
+    modifiers: OrderModifier[];
 }
-export enum ModifierChoiceTypeEnum {
-    ADD = 'ADD',
-    NO = 'NO',
-    DEFAULT = 'DEFAULT'
+export declare enum ModifierChoiceTypeEnum {
+    ADD = "ADD",
+    NO = "NO",
+    DEFAULT = "DEFAULT"
 }

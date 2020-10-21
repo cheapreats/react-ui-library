@@ -3,13 +3,17 @@ import styled from 'styled-components';
 import { Heading as H, Paragraph } from '../../Text';
 import { flex, media, scroll } from '../../Utils/Mixins';
 import { ResponsiveInterface, MainInterface } from '../../Utils/BaseStyles';
-import { Item, Choice, ModifierChoiceTypeEnum } from './constants';
+import {
+    OrderItem,
+    ModifierChoiceInput,
+    ModifierChoiceTypeEnum,
+} from './constants';
 
 export interface KitchenCardItemsProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    items: Item[];
+    items: OrderItem[];
     isFullName: boolean;
 }
 
@@ -18,10 +22,10 @@ export const KitchenCardItems: React.FC<KitchenCardItemsProps> = ({
     isFullName,
 }): React.ReactElement => {
     const itemModifierRender = useCallback(
-        (item: Item) => {
+        (item: OrderItem) => {
             return item.modifiers.map((modifier) =>
                 modifier.choices.map(
-                    (choice: Choice): React.ReactElement => (
+                    (choice: ModifierChoiceInput): React.ReactElement => (
                         <Paragraph margin="5px 0 0 20px">
                             {`${
                                 choice.choice_type ===
