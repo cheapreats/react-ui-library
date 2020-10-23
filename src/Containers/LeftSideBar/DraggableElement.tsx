@@ -5,23 +5,26 @@ import { DragIndicator } from '@styled-icons/material/DragIndicator';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { styledCondition } from '../../Utils/Mixins';
 
-export interface DraggableElementProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    providedDraggable: DraggableProvided,
-    isDragging?: boolean,
-    isRecommended: boolean,
-    isRequired: boolean
-};
+export interface DraggableElementProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    providedDraggable: DraggableProvided;
+    isDragging?: boolean;
+    isRecommended: boolean;
+    isRequired: boolean;
+}
 
 interface WrapperProps {
-    isDragging: boolean,
-    isRecommended: boolean,
-    isRequired: boolean
-};
+    isDragging: boolean;
+    isRecommended: boolean;
+    isRequired: boolean;
+}
 
 interface IconProps {
-    isRecommended: boolean,
-    isRequired: boolean
-};
+    isRecommended: boolean;
+    isRequired: boolean;
+}
 
 const BACKGROUND_GRAY = '#b7b7b7';
 const COLOR_IS_REQUIRED = '#de001f';
@@ -49,12 +52,12 @@ export const DraggableElement: React.FC<DraggableElementProps> = ({
             isRequired={isRequired}
             {...props}
         >
-            <Icon 
+            <Icon
                 as={DragIndicator}
                 isRecommended={isRecommended}
-                isRequired={isRequired} 
+                isRequired={isRequired}
             />
-            { children }
+            {children}
         </Wrapper>
     );
 };
@@ -71,18 +74,21 @@ const Wrapper = styled.div<WrapperProps>`
     border: solid 0.5px ${BACKGROUND_GRAY};
     box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.15);
     ${({ isDragging, isRequired, isRecommended }): string => `
-        border-left: 5px solid ${isDragging && styledCondition(
-        isRequired,
-        COLOR_IS_REQUIRED,
-        isRecommended,
-        COLOR_IS_RECOMMENDED,
-        COLOR_DEFAULT
-    )};
+        border-left: 5px solid ${
+            isDragging &&
+            styledCondition(
+                isRequired,
+                COLOR_IS_REQUIRED,
+                isRecommended,
+                COLOR_IS_RECOMMENDED,
+                COLOR_DEFAULT,
+            )
+        };
         background-color: ${styledCondition(
-        isDragging,
-        BACKGROUND_GRAY,
-        COLOR_WHITE
-    )};
+            isDragging,
+            BACKGROUND_GRAY,
+            COLOR_WHITE,
+        )};
     `}
 
     :hover {
@@ -94,11 +100,11 @@ const Icon = styled.svg<IconProps>`
     flex-shrink: 0;
     ${({ isRequired, isRecommended }): string => `
         color: ${styledCondition(
-        isRequired,
-        COLOR_IS_REQUIRED,
-        isRecommended,
-        COLOR_IS_RECOMMENDED,
-        COLOR_DEFAULT
-    )};
+            isRequired,
+            COLOR_IS_REQUIRED,
+            isRecommended,
+            COLOR_IS_RECOMMENDED,
+            COLOR_DEFAULT,
+        )};
     `}
 `;

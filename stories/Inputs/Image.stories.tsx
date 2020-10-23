@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 import { Image, ImageProps } from '../../src';
 
 export default {
@@ -13,6 +13,4 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<ImageProps> = (args) => (
-    <Image {...args}></Image>
-)
+export const Basic: Story<ImageProps> = (args) => <Image {...args}></Image>;

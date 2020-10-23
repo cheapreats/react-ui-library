@@ -1,6 +1,6 @@
 import React from 'react';
 import { ComboBox, ComboBoxSelectorProps } from '../../src';
-import { createStoryTitle } from "../Constants";
+import { createStoryTitle } from '../Constants';
 import { Meta, Story } from '@storybook/react';
 
 export default {
@@ -25,4 +25,4 @@ export default {
 
 export const Basic: Story<ComboBoxSelectorProps> = (args) => (
     <ComboBox {...args}></ComboBox>
-)
+);
