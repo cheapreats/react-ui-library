@@ -123,20 +123,24 @@ const DefaultTxt = styled.h1`
     color: #000000;
 `;
 const CraTitle = styled(DefaultTxt)`
+    margin: 20px;
     width: 192px;
     height: 20px;
 `;
 const REQTitle = styled(DefaultTxt)`
+    margin: 20px;
     color: red;
     width: 100%;
     height: 20px;
 `;
 const RECTitle = styled(DefaultTxt)`
+    margin: 20px;
     color: blue;
     width: 100%;
     height: 20px;
 `;
 const Element = styled.div`
+    margin: 20px;
     display: block;
 `;
 // END OF STYLED COMPONENTS
@@ -145,7 +149,6 @@ const isToggleable = false;
 const isLeftToggle = false;
 
 export const CheckList: React.FC<CheckListProps> = ({
-    title,
     CRATitle,
     ReqTitle,
     RecTitle,
@@ -161,7 +164,6 @@ export const CheckList: React.FC<CheckListProps> = ({
 
     return (
         <Wrapper>
-            <CraTitle>{ title }</CraTitle>
             <CraTitle>{ CRATitle }</CraTitle>
             <REQTitle>{ ReqTitle }</REQTitle>
             {Object.keys( ReqInfoArr ).map((key) => (

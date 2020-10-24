@@ -15,24 +15,26 @@ const Title = styled(Txt)`
 // MODIFIER PROPS
 export interface ModifierProps {
     title: string,
-    isChosen: boolean,
+    isStandardChosen: boolean,
+    isAlternativeChosen: boolean,
     isText: boolean,
+    isImage: boolean,
 };
 // END OF MODIFIER PROPS
 
 export const ModifierTools: React.FC<ModifierProps> = ({
     title,
-    isChosen,
+    isStandardChosen,
+    isAlternativeChosen,
     isText,
+    isImage,
 }): React.ReactElement => {
-    if (isChosen){
-        if(isChosen && isText) {
-            return (
-                <>
-                    <EditText/>
-                    <EditImage/>
-                </>
-            )
+    if (isStandardChosen){
+
+        if(isStandardChosen && isText) {
+            return <EditText/>
+        } else if (isStandardChosen && isImage) {
+            return <EditImage/>
         } else {
             return (
                 <>
@@ -45,35 +47,47 @@ export const ModifierTools: React.FC<ModifierProps> = ({
                         alternative='Alternative View'
                         isGray='2px solid gray'
                         txtColor='gray'
+                    />
+                </>
+            )
+        }
+
+    } else if (isAlternativeChosen) {
+        if(isAlternativeChosen && isText) {
+            return <EditText/>
+        } else if (isAlternativeChosen && isImage) {
+            return <EditImage/>
+        } else {
+            return (
+                <>
+                    <StandardView
+                        standard='Standard View'
+                        isGray='2px solid gray'
+                        txtColor='gray'
+                    />
+                    <AlternativeView
+                        alternative='Alternative View'
+                        isGray='2px solid black'
+                        txtColor='#000'
                     />
                 </>
             )
         }
     } else {
-        if(isChosen && isText) {
-            return (
-                <>
-                    <EditText/>
-                    <EditImage/>
-                </>
-            )
-        } else {
-            return (
-                <>
-                    <StandardView
-                        standard='Standard View'
-                        isGray='2px solid gray'
-                        txtColor='gray'
-                    />
-                    <AlternativeView
-                        alternative='Alternative View'
-                        isGray='2px solid black'
-                        txtColor='#000'
-                    />
-                </>
-            )
-        }
+        return (
+            <>
+                <StandardView
+                    standard='Standard View'
+                    isGray='2px solid gray'
+                    txtColor='gray'
+                />
+                <AlternativeView
+                    alternative='Alternative View'
+                    isGray='2px solid gray'
+                    txtColor='gray'
+                />
+            </>
+        )
     }
 };
 
-// TODO: Add if statement to change depending on true or false of isChosen. 

@@ -5,36 +5,52 @@ import styled from 'styled-components';
 const Wrapper = styled.div`
     text-align: center;
 `;
-const ModifierTools = styled.h1`
+const ModifierTools = styled.button`
+    font-family: Quicksand;
+    font-weight: bold;
+    background: #fff; 
+    border: none;
     padding: 17px;
     display: inline-block;
     font-size: 18px;
     color: red;
     border-bottom: 3px solid red;
+    outline: none;
 `;
 const Icon = styled.div`    
+    margin-right: 3px;
     display: inline-block;
-    -moz-border-radius: 10px/10px;
-    -webkit-border-radius: 10px 10px;
-    border-radius: 10px/10px;
+    -moz-border-radius: 8px/8px;
+    -webkit-border-radius: 8px 8px;
+    border-radius: 8px/8px;
     border: solid 3px #f00;
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
 `;
-const CheckList = styled.h1`
+const CheckList = styled.button`
+    font-family: Quicksand;
+    font-weight: bold;
+    background: #fff; 
+    border: none;
     padding: 17px;
     display: inline-block;
     font-size: 18px;
     color: red;
     border-bottom: 3px solid red;
+    outline: none;
 `;
 // END OF STYLED COMPONENTS
 
 // MODIFIER PROPS
-export interface HeaderProps {
-    modTitle: string,
+export interface CheckHeaderProps {
     checkTitle: string,
     isGray: boolean,
+    onClick: React.MouseEventHandler<HTMLButtonElement>
+};
+export interface ModifierHeaderProps {
+    modTitle: string,
+    isGray: boolean,
+    onClick: (e: React.MouseEvent) => void
 };
 const onPage = {
     color: 'gray',
@@ -45,25 +61,34 @@ const IconGray = {
 }
 // END OF MODIFIER PROPS
 
-export const Header: React.FC<HeaderProps> = ({
-    modTitle,
+export const CheckListHeader: React.FC<CheckHeaderProps> = ({
     checkTitle,
     isGray,
+    onClick
 }): React.ReactElement => {
     if (isGray) {
         return (
-            <Wrapper>
-                <CheckList><Icon></Icon>{ checkTitle }</CheckList>
-                <ModifierTools style={onPage} ><Icon style={IconGray}></Icon>{ modTitle }</ModifierTools>
-            </Wrapper>
+            <CheckList onClick={onClick}><Icon></Icon>{ checkTitle }</CheckList>
         )
     } else {
         return (
-            <Wrapper>
-                <CheckList style={onPage}><Icon style={IconGray}></Icon>{ checkTitle }</CheckList>
-                <ModifierTools><Icon></Icon>{ modTitle }</ModifierTools>
-            </Wrapper>
+            <CheckList onClick={onClick} style={onPage}><Icon style={IconGray}></Icon>{ checkTitle }</CheckList>
         )
     }
 };
 
+export const ModifierToolsHeader: React.FC<ModifierHeaderProps> = ({
+    modTitle,
+    isGray,
+    onClick
+}): React.ReactElement => {
+    if (isGray) {
+        return (
+            <ModifierTools onClick={onClick} style={onPage} ><Icon style={IconGray}></Icon>{ modTitle }</ModifierTools>
+        )
+    } else {
+        return (
+            <ModifierTools onClick={onClick}><Icon></Icon>{ modTitle }</ModifierTools>
+        )
+    }
+};

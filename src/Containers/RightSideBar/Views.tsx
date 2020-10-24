@@ -23,12 +23,15 @@ const Tr = styled.tr`
     text-align: left;
 `;
 const Table = styled.table`
+    margin-left: auto;
+    margin-right: auto;
     border: 2px solid black;  
     border-collapse: collapse;
     border-radius: 30px;
     width: 330px;
 `;
 export const Wrapper = styled.div`
+    text-align: center;
 `;
 export const Txt = styled.p`
     display: inline-block;
@@ -58,7 +61,9 @@ export const StandardView: React.FC<StandardProps> = ({
             <Table style={{border: isGray}}>
                 <Tr style={{border: isGray}}>
                     <Td style={{border: isGray}}>
-                        <Txt style={{color: txtColor}}>Qty</Txt><Txt>Product(UPC)</Txt><Txt>Price</Txt>
+                        <Txt style={{color: txtColor}}>Qty</Txt>
+                        <Txt style={{color: txtColor}}>Product(UPC)</Txt>
+                        <Txt style={{color: txtColor}}>Price</Txt>
                     </Td>
                 </Tr>
                 <Tr style={{border: isGray}}>

@@ -1,19 +1,30 @@
 import React, { useState }  from 'react';
+import styled from 'styled-components';
 import { CheckList, RecInfoArr, ReqInfoArr } from './Checklist'
 import { ModifierTools } from './ModifierTools'
 import { List } from '../List';
-import { Header } from './Header'
+import { CheckListHeader, ModifierToolsHeader } from './Header'
 
 export interface RightSideBarProps {
-    onCheckList: true,
+    isStandardChosen: boolean,
+    isAlternativeChosen: boolean,
+    onText: boolean,
+    onImage: boolean,
 }
+
+const Wrapper = styled.div`
+    text-align: center;
+`;
 
 const isToggleable = false;
 const isLeftToggle = false;
 
 
 export const RightSideBar: React.FC<RightSideBarProps> = ({
-    onCheckList
+    isStandardChosen,
+    isAlternativeChosen,
+    onText,
+    onImage,
 }): React.ReactElement => {
     const [loading, setLoading] = useState(false);
     const [isToggled, setIsToggled] = useState(false);
@@ -33,13 +44,20 @@ export const RightSideBar: React.FC<RightSideBarProps> = ({
             isToggled={isToggled}
             setIsToggled={setIsToggled}
         >
-        {onCheckList ? 
+        <Wrapper>
+            <CheckListHeader
+                checkTitle='CheckList'
+                isGray={isCheckList}
+                onClick= {() => setCheckList(!isCheckList)}
+            />
+            <ModifierToolsHeader
+                modTitle='Modifier Tools'
+                isGray={isCheckList}
+                onClick= {() => setCheckList(!isCheckList)}
+            />
+        </Wrapper>
+        {isCheckList ? 
             <>
-                <Header
-                    modTitle='Modifier Tools'
-                    checkTitle='CheckList'
-                    isGray={true}
-                />
                 <CheckList
                     title='Checklist'
                     CRATitle='Canada Revenue Agency'
@@ -51,15 +69,12 @@ export const RightSideBar: React.FC<RightSideBarProps> = ({
             </>
             :
             <>
-                <Header
-                    modTitle='Modifier Tools'
-                    checkTitle='CheckList'
-                    isGray={false}
-                />
                 <ModifierTools
                     title='Edit Layout'
-                    isChosen={true}
-                    isText={false}
+                    isStandardChosen={isStandardChosen}
+                    isAlternativeChosen={isAlternativeChosen}
+                    isText={onText}
+                    isImage={onImage}
                 />
             </>
         }

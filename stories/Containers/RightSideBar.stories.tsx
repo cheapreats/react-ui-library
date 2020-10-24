@@ -7,6 +7,10 @@ export default {
     title: createStoryTitle('Right Side Bar'),
     component: RightSideBar,
     args: {
+        isStandardChosen: false,
+        isAlternativeChosen: false,
+        onText: false,
+        onImage: false,
     }
 } as Meta;
 
