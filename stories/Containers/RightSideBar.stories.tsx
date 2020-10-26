@@ -11,9 +11,9 @@ export default {
         isAlternativeChosen: false,
         onText: false,
         onImage: false,
-    }
+    },
 } as Meta;
 
 export const Basic: Story<RightSideBarProps> = (args) => (
-    <RightSideBar {...args}/>
-); 
+    <RightSideBar {...args} />
+);

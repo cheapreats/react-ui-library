@@ -1,116 +1,113 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Checkbox } from '../../Inputs/Checkbox';
-
 
 export interface DefCheckbox {
     [key: string]: {
         label: string;
         value: boolean;
-    }
+    };
 }
 export interface CheckListProps {
-    title: string,
-    CRATitle: string,
-    ReqTitle: string,
-    RecTitle: string,
-    ReqInfoArr: DefCheckbox
-    RecInfoArr: DefCheckbox
+    title: string;
+    CRATitle: string;
+    ReqTitle: string;
+    RecTitle: string;
+    ReqInfoArr: DefCheckbox;
+    RecInfoArr: DefCheckbox;
 }
 
 export const RecInfoArr = {
     ORDER_TRANSACTION: {
         label: 'Order Transaction #',
-        value: false
+        value: false,
     },
     BUSINESS_LOGO: {
         label: 'Business Logo',
-        value: false
+        value: false,
     },
     DINE_IN_OUT: {
         label: 'Dine in/Dine out',
-        value: false
+        value: false,
     },
     PAYMENT_METHOD: {
         label: 'Payment Method',
-        value: false
+        value: false,
     },
     QR_CODE: {
         label: 'QR Code',
-        value: false
+        value: false,
     },
     PROMOTIONS: {
         label: 'Promotions',
-        value: false
+        value: false,
     },
     COUPONS: {
         label: 'Coupons',
-        value: false
+        value: false,
     },
 };
 export const ReqInfoArr = {
     NAME_OF_BUSINESS: {
         label: 'Name of Business',
-        value: false
+        value: false,
     },
     BUSINESS_ADDRESS: {
         label: 'Business Address',
-        value: false
+        value: false,
     },
     CONTACT_INFORMATION: {
         label: 'Contact Information',
-        value: false
+        value: false,
     },
     DATE_WHEN_SALES_TOOK_PLACE: {
         label: 'Date when sales took place',
-        value: false
+        value: false,
     },
     TIME_WHEN_SALES_TOOK_PLACE: {
         label: 'Time when sales took place',
-        value: false
+        value: false,
     },
     RANG_UP_THE_SALE: {
         label: 'Sales associate who rang up the sale',
-        value: false
+        value: false,
     },
     PRICE_FOR_PRODUCT_OR_SERVICE: {
         label: 'Price for each product or service',
-        value: false
+        value: false,
     },
     SALES_TAX_RATE: {
         label: 'Sales tax rate(%)',
-        value: false
+        value: false,
     },
     AMOUNT_TAX: {
         label: 'Amount tax',
-        value: false
+        value: false,
     },
     TOTAL_SALE_PRICE: {
         label: 'Total price of sale',
-        value: false
+        value: false,
     },
     TOTAL_SALE_PRICE_TAX: {
         label: 'Total price when tax included',
-        value: false
+        value: false,
     },
     QUANTITY_OF_PRODUCT_OR_SERVICE: {
         label: 'Quantity of each product or service',
-        value: false
+        value: false,
     },
     NAME_OF_UPC: {
         label: 'Name of UPC of each product or service',
-        value: false
+        value: false,
     },
     STATION_NUM_OF_REGISTER: {
         label: 'Station # of register where sale was transacted',
-        value: false
+        value: false,
     },
 };
 
-
 // STYLED COMPONENTS
-const Wrapper = styled.div`
-`;
+const Wrapper = styled.div``;
 const DefaultTxt = styled.h1`
     font-family: Quicksand;
     font-size: 16px;
@@ -145,9 +142,6 @@ const Element = styled.div`
 `;
 // END OF STYLED COMPONENTS
 
-const isToggleable = false;
-const isLeftToggle = false;
-
 export const CheckList: React.FC<CheckListProps> = ({
     CRATitle,
     ReqTitle,
@@ -155,35 +149,33 @@ export const CheckList: React.FC<CheckListProps> = ({
     ReqInfoArr,
     RecInfoArr,
 }): React.ReactElement => {
-    const [loading, setLoading] = useState(false);
-    const [isToggled, setIsToggled] = useState(false);
 
-    function checkHandler(){
-        console.log('changed')
+    function checkHandler() {
+        console.log('changed');
     }
 
     return (
         <Wrapper>
-            <CraTitle>{ CRATitle }</CraTitle>
-            <REQTitle>{ ReqTitle }</REQTitle>
-            {Object.keys( ReqInfoArr ).map((key) => (
+            <CraTitle>{CRATitle}</CraTitle>
+            <REQTitle>{ReqTitle}</REQTitle>
+            {Object.keys(ReqInfoArr).map((key) => (
                 <Element>
                     <Checkbox
                         label={ReqInfoArr[key].label}
                         value={ReqInfoArr[key].value}
                         onChange={checkHandler}
-                        name='checkbox'
+                        name="checkbox"
                     />
                 </Element>
             ))}
-            <RECTitle>{ RecTitle }</RECTitle>
-            {Object.keys( RecInfoArr ).map((key) => (
+            <RECTitle>{RecTitle}</RECTitle>
+            {Object.keys(RecInfoArr).map((key) => (
                 <Element>
                     <Checkbox
                         label={RecInfoArr[key].label}
                         value={RecInfoArr[key].value}
                         onChange={checkHandler}
-                        name='checkbox'
+                        name="checkbox"
                     />
                 </Element>
             ))}

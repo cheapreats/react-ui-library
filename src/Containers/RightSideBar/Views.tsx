@@ -1,17 +1,17 @@
-import React  from 'react';
+import React from 'react';
 import styled from 'styled-components';
 
 // VIEW PROPS
 export interface StandardProps {
-    standard: string,
-    isGray: string,
-    txtColor: string,
-};
+    standard: string;
+    isGray: string;
+    txtColor: string;
+}
 export interface AlternativeProps {
-    alternative: string,
-    isGray: string,
-    txtColor: string,
-};
+    alternative: string;
+    isGray: string;
+    txtColor: string;
+}
 // END OF VIEW PROPS
 
 // STYLED COMPONENTS
@@ -25,7 +25,7 @@ const Tr = styled.tr`
 const Table = styled.table`
     margin-left: auto;
     margin-right: auto;
-    border: 2px solid black;  
+    border: 2px solid black;
     border-collapse: collapse;
     border-radius: 30px;
     width: 330px;
@@ -55,70 +55,74 @@ export const StandardView: React.FC<StandardProps> = ({
     txtColor,
     ...props
 }): React.ReactElement => {
-    return(
+    return (
         <Wrapper>
-            <Txt>{ standard }</Txt>
-            <Table style={{border: isGray}}>
-                <Tr style={{border: isGray}}>
-                    <Td style={{border: isGray}}>
-                        <Txt style={{color: txtColor}}>Qty</Txt>
-                        <Txt style={{color: txtColor}}>Product(UPC)</Txt>
-                        <Txt style={{color: txtColor}}>Price</Txt>
+            <Txt>{standard}</Txt>
+            <Table style={{ border: isGray }}>
+                <Tr style={{ border: isGray }}>
+                    <Td style={{ border: isGray }}>
+                        <Txt style={{ color: txtColor }}>Qty</Txt>
+                        <Txt style={{ color: txtColor }}>Product(UPC)</Txt>
+                        <Txt style={{ color: txtColor }}>Price</Txt>
                     </Td>
                 </Tr>
-                <Tr style={{border: isGray}}>
-                    <Td style={{border: isGray}}>
-                        <Txt style={{color: txtColor}}>Add Item</Txt>
+                <Tr style={{ border: isGray }}>
+                    <Td style={{ border: isGray }}>
+                        <Txt style={{ color: txtColor }}>Add Item</Txt>
                     </Td>
                 </Tr>
-                <Tr style={{border: isGray}}>
-                    <Td style={{border: isGray}}>
-                        <Txt style={{color: txtColor}}>Specific item intructions</Txt>
+                <Tr style={{ border: isGray }}>
+                    <Td style={{ border: isGray }}>
+                        <Txt style={{ color: txtColor }}>
+                            Specific item intructions
+                        </Txt>
                     </Td>
                 </Tr>
-                <Tr style={{border: isGray}}>
-                    <Td style={{border: isGray}}>
-                        <Txt style={{color: txtColor}}>...</Txt>
+                <Tr style={{ border: isGray }}>
+                    <Td style={{ border: isGray }}>
+                        <Txt style={{ color: txtColor }}>...</Txt>
                     </Td>
                 </Tr>
             </Table>
         </Wrapper>
-    ); 
+    );
 };
 
 export const AlternativeView: React.FC<AlternativeProps> = ({
-    alternative,   
-    isGray, 
+    alternative,
+    isGray,
     txtColor,
     ...props
 }): React.ReactElement => {
-    return(
+    return (
         <Wrapper>
-            <Txt>{ alternative }</Txt>
-            <Table style={{border: isGray}}>
-                <Tr style={{border: isGray}}>
-                    <Td style={{border: isGray}}>
-                        <Txt style={{color: txtColor}}>Product(UPC)</Txt>
-                        <Txt style={{color: txtColor}}>Qty</Txt>
-                        <Txt style={{color: txtColor}}>Price</Txt>
+            <Txt>{alternative}</Txt>
+            <Table style={{ border: isGray }}>
+                <Tr style={{ border: isGray }}>
+                    <Td style={{ border: isGray }}>
+                        <Txt style={{ color: txtColor }}>Product(UPC)</Txt>
+                        <Txt style={{ color: txtColor }}>Qty</Txt>
+                        <Txt style={{ color: txtColor }}>Price</Txt>
                     </Td>
                 </Tr>
-                <Tr style={{border: isGray}}>
-                    <Td style={{border: isGray}}>
-                        <Txt style={{color: txtColor}}>Add Item</Txt>
+                <Tr style={{ border: isGray }}>
+                    <Td style={{ border: isGray }}>
+                        <Txt style={{ color: txtColor }}>Add Item</Txt>
                     </Td>
                 </Tr>
-                <Tr style={{border: isGray}}>
-                    <Td style={{border: isGray}}>
-                        <Txt style={{color: txtColor}}>Specific item intructions</Txt>
+                <Tr style={{ border: isGray }}>
+                    <Td style={{ border: isGray }}>
+                        <Txt style={{ color: txtColor }}>
+                            Specific item intructions
+                        </Txt>
                     </Td>
                 </Tr>
-                <Tr style={{border: isGray}}>
-                    <Td style={{border: isGray}}>
-                        <Txt style={{color: txtColor}}>...</Txt>
+                <Tr style={{ border: isGray }}>
+                    <Td style={{ border: isGray }}>
+                        <Txt style={{ color: txtColor }}>...</Txt>
                     </Td>
                 </Tr>
-            </Table> 
+            </Table>
         </Wrapper>
     );
 };

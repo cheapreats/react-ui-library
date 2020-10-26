@@ -1,4 +1,4 @@
-import React, { useState }  from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Select } from '@Inputs/Select';
 import { Bold } from '@styled-icons/boxicons-regular/Bold';
@@ -11,8 +11,7 @@ import { AlignRight } from '@styled-icons/boxicons-regular/AlignRight';
 
 // API KEY: AIzaSyBW6afsWt6KM6yvzXgfJ9UmUGImHvedZbc
 // STYLED COMPONENTS
-const Wrapper = styled.div`
-`;
+const Wrapper = styled.div``;
 const StyledSelect = styled(Select)`
     width: 143px;
 `;
@@ -38,7 +37,6 @@ const StyleTxt = styled.h1`
     font-size: 15px;
     padding-left: 8px;
 `;
-
 
 const TxtWrapper = styled.div`
     text-align: center;
@@ -85,30 +83,75 @@ const StyledTextColor = styled(TextColor)`
 `;
 const StyledAlignMiddle = styled(AlignMiddle)`
     width: 24px;
-    height: 24px
+    height: 24px;
 `;
 const StyledAlignLeft = styled(AlignLeft)`
     width: 24px;
-    height: 24px
+    height: 24px;
 `;
 const StyledAlignRight = styled(AlignRight)`
     width: 24px;
-    height: 24px
+    height: 24px;
 `;
 
-export interface EditTextProps {
-};
+export interface EditTextProps {}
 
-const fontSizes = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10', 
-                    '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', 
-                    '21', '22', '23', '24', '25', '26', '26', '27', '28', '29', '30',
-                    '31', '32', '33', '34', '35', '36', '37', '38', '39', '40',
-                    '41', '42', '43', '44', '45', '46', '47', '48', '49', '50'];
+const fontSizes = [
+    '1',
+    '2',
+    '3',
+    '4',
+    '5',
+    '6',
+    '7',
+    '8',
+    '9',
+    '10',
+    '11',
+    '12',
+    '13',
+    '14',
+    '15',
+    '16',
+    '17',
+    '18',
+    '19',
+    '20',
+    '21',
+    '22',
+    '23',
+    '24',
+    '25',
+    '26',
+    '26',
+    '27',
+    '28',
+    '29',
+    '30',
+    '31',
+    '32',
+    '33',
+    '34',
+    '35',
+    '36',
+    '37',
+    '38',
+    '39',
+    '40',
+    '41',
+    '42',
+    '43',
+    '44',
+    '45',
+    '46',
+    '47',
+    '48',
+    '49',
+    '50',
+];
 const fontStyles = ['test', 'test', 'test', 'test'];
 
-
-export const EditText: React.FC<EditTextProps> = ({
-}): React.ReactElement => {
+export const EditText: React.FC<EditTextProps> = ({}): React.ReactElement => {
     const [select, setSelect] = useState(fontSizes[0]);
     return (
         <Wrapper>
@@ -118,43 +161,45 @@ export const EditText: React.FC<EditTextProps> = ({
                 <Container>
                     <Txt>Font</Txt>
                     <StyledSelect
-                        placeholder={ fontSizes[0] }
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                            setSelect(e.target.value); 
+                        placeholder={fontSizes[0]}
+                        onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>,
+                        ): void => {
+                            setSelect(e.target.value);
                         }}
-                        value={select} 
-                        >
-                        {Object.entries(fontSizes).map((font): React.ReactElement => {
-                            return (
-                                <option
-                                    key={font[0]}
-                                    value={font[1]} 
-                                >
-                                    { font[1]} 
-                                </option>
-                            )
-                        })}
+                        value={select}
+                    >
+                        {Object.entries(fontSizes).map(
+                            (font): React.ReactElement => {
+                                return (
+                                    <option key={font[0]} value={font[1]}>
+                                        {font[1]}
+                                    </option>
+                                );
+                            },
+                        )}
                     </StyledSelect>
                 </Container>
                 <Container>
                     <Txt>Size</Txt>
                     <FontStyledSelect
-                        placeholder={ fontStyles[0] }
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                            setSelect(e.target.value); 
+                        placeholder={fontStyles[0]}
+                        onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>,
+                        ): void => {
+                            setSelect(e.target.value);
                         }}
-                        value={select} 
-                        >
-                        {Object.entries(fontStyles).map((font): React.ReactElement => {
-                            return (
-                                <option
-                                    key={font[0]}
-                                    value={font[1]} 
-                                >
-                                    { font[1]} 
-                                </option>
-                            )
-                        })}
+                        value={select}
+                    >
+                        {Object.entries(fontStyles).map(
+                            (font): React.ReactElement => {
+                                return (
+                                    <option key={font[0]} value={font[1]}>
+                                        {font[1]}
+                                    </option>
+                                );
+                            },
+                        )}
                     </FontStyledSelect>
                 </Container>
             </TxtWrapper>
@@ -203,8 +248,6 @@ export const EditText: React.FC<EditTextProps> = ({
                     </SmallContainer>
                 </StyledContainerNested>
             </StyledContainer>
-            
         </Wrapper>
-    )   
+    );
 };
-
