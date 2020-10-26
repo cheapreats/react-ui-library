@@ -1,6 +1,6 @@
 import React from 'react';
 import { Textarea, TextareaProps } from '../../src';
-import { createStoryTitle } from "../Constants";
+import { createStoryTitle } from '../Constants';
 import { Meta, Story } from '@storybook/react';
 
 export default {
@@ -19,15 +19,18 @@ export const Basic: Story<TextareaProps> = (args) => (
 
 export const WithSuccess = Basic.bind({});
 WithSuccess.args = {
-    ...WithSuccess.args, success: true
+    ...WithSuccess.args,
+    success: true,
 };
 
 export const WithError = Basic.bind({});
 WithError.args = {
-    ...WithError.args, error: 'Oops! Error message!'
+    ...WithError.args,
+    error: 'Oops! Error message!',
 };
 
 export const Disabled = Basic.bind({});
 Disabled.args = {
-    ...Disabled.args, disabled: true
+    ...Disabled.args,
+    disabled: true,
 };

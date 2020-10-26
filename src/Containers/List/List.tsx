@@ -60,10 +60,10 @@ export const List: React.FC<ListProps> = ({
 
     return (
         <Wrapper isOpen={isOpen} {...props}>
-            <Container 
-                columnWidth={columnWidth} 
+            <Container
+                columnWidth={columnWidth}
                 id={id}
-                backgroundColor={backgroundColor} 
+                backgroundColor={backgroundColor}
             >
                 {header}
                 <Items>{loading ? <Loading /> : children}</Items>
