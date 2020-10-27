@@ -3,6 +3,8 @@ import { Select, SelectProps } from '../../src';
 import { createStoryTitle } from "../Constants";
 import { Meta, Story } from '@storybook/react';
 
+// TODO: ADD STATE to component
+
 export default {
     title: createStoryTitle('Select'),
     component: Select,
