@@ -15,6 +15,8 @@ export interface MaskedInputProps extends LabelLayoutProps, InputFragmentProps {
     realValue: string;
     onRealValueChange: (value: string) => void;
     mask: MaskedInputPreset | ((value: string) => string);
+    min: number;
+    max: number;
 }
 
 const DOLLAR_FORMAT_MASK = (s: string): string => {
@@ -56,12 +58,34 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     mask,
     realValue,
     onRealValueChange,
+    min = 0,
+    max = 100,
     ...props
 }): React.ReactElement => {
-    const [displayValue, setDisplayValue] = useState(
-        getMaskFunction_(mask)(realValue),
-    );
+    const [displayValue, setDisplayValue] = useState('');
     const [isFocused, setIsFocused] = useState(false);
+    const [isError, setIsError] = useState<boolean | string>(false);
+
+    const inputValidator = (targetValue: string) => {
+        const targetValueInteger = parseFloat(targetValue);
+        const greaterThanMin = targetValueInteger >= min;
+        const lessThanMax = targetValueInteger <= max;
+
+        setIsError(false);
+
+        if (greaterThanMin && lessThanMax) {
+            onRealValueChange(targetValue);
+        } else if (Number.isNaN(targetValueInteger)) {
+            onRealValueChange('');
+        } else {
+            setDisplayValue(targetValue);
+            if (!greaterThanMin) {
+                setIsError(`Value must be greater than ${min - 1}`);
+            } else {
+                setIsError(`Value must be less than ${max + 1}`);
+            }
+        }
+    };
 
     useEffect((): void => {
         if (isFocused) {
@@ -72,7 +96,7 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     }, [realValue, mask]);
 
     return (
-        <LabelLayout {...props}>
+        <LabelLayout {...props} error={isError}>
             <InputFragment
                 value={displayValue}
                 onFocus={(): void => {
@@ -85,7 +109,7 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
                 }}
                 onChange={(e): void => {
                     if (isFocused) {
-                        onRealValueChange(e.target.value);
+                        inputValidator(e.target.value);
                     }
                 }}
                 {...props}

@@ -1,4 +1,4 @@
-import deepCopy from '../src/Utils/deepCopy';
+import { deepCopy } from '../src/Utils/deepCopy';
 
 test('deepCopy Number', () => {
     const startingNumber = 2;
