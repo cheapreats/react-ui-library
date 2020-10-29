@@ -20,55 +20,56 @@ const profiles = [
         image:
             'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
         initials: 'CG',
+        id: 5455,
+    },
+    {
+        image:
+            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
+        initials: 'TY',
         id: 5765,
     },
     {
         image:
             'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
-        initials: 'CG',
-        id: 5765,
+        initials: 'ER',
+        id: 5098,
+    },
+    {
+        image:
+            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
+        initials: 'GC',
+        id: 6355,
+    },
+    {
+        image:
+            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
+        initials: 'YN',
+        id: 7643,
+    },
+    {
+        image:
+            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
+        initials: 'OY',
+        id: 3984,
+    },
+    {
+        image:
+            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
+        initials: 'MN',
+        id: 1734,
     },
     {
         image:
             'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
         initials: 'CG',
-        id: 5765,
-    },
-    {
-        image:
-            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
-        initials: 'CG',
-        id: 5765,
-    },
-    {
-        image:
-            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
-        initials: 'CG',
-        id: 5765,
-    },
-    {
-        image:
-            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
-        initials: 'CG',
-        id: 5765,
-    },
-    {
-        image:
-            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
-        initials: 'CG',
-        id: 5765,
-    },
-    {
-        image:
-            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
-        initials: 'CG',
-        id: 5765,
+        id: 9034,
     },
 ];
 
 export default {
     title: createStoryTitle('Featured Profiles Card'),
     component: FeaturedProfilesCard,
+    argTypes: { onClick: { action: 'Clicked!' } },
     args: {
         profileData: profiles,
         alt: 'Profile Image',

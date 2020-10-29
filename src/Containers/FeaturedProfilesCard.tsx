@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { AddUser } from '@styled-icons/entypo/AddUser';
 import { flex } from '../Utils/Mixins';
@@ -21,18 +21,27 @@ export interface IFeaturedProfilesCardProps {
     alt: string;
     width?: number;
     height?: number;
+    onClick?: Function;
 }
 
 export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
+    onClick = (): void => {
+        return undefined;
+    },
     alt,
     profileData,
     width = 100,
     height = 100,
 }): React.ReactElement => {
-    const getProfileCircles = (): any => {
-        const userProfilePicture = (profile: any): React.ReactElement => {
+    const getProfileCircles = useCallback(() => {
+        const profiles = profileData.slice(
+            START_FROM_PROFILE_INDEX,
+            MAX_PROFILES,
+        );
+
+        const userProfilePicture = (profile: IProfile): React.ReactElement => {
             return (
-                <CircleImage background="none" key={profile.image}>
+                <CircleImage background="none" key={profile.id}>
                     <img
                         src={profile.image}
                         alt={alt}
@@ -43,52 +52,57 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
             );
         };
 
-        const userInitials = (profile: any): React.ReactElement => {
+        const userInitials = (profile: IProfile): React.ReactElement => {
             return (
-                <CircleImage background="orange">
+                <CircleImage background="orange" key={profile.id}>
                     <CircleContent>{profile.initials}</CircleContent>
                 </CircleImage>
             );
         };
 
-        const remainingUserProfiles = (): React.ReactElement => {
-            const remaining_profiles_value = profileData.length - 5;
+        const remainingUserProfiles = (
+            profile: IProfile,
+        ): React.ReactElement => {
+            const remaining_profiles_value =
+                profileData.length - REMAINING_PROFILES_INDEX;
 
             return (
-                <CircleImage background="grey">
+                <CircleImage background="grey" key={profile.id}>
                     <CircleContent>{remaining_profiles_value}</CircleContent>
                 </CircleImage>
             );
         };
 
-        const addUserIcon = (): React.ReactElement => {
+        const addUserIcon = (profile: IProfile): React.ReactElement => {
             return (
-                <CircleImage background="grey">
+                <CircleImage
+                    key={profile.id}
+                    background="grey"
+                    onClick={(): void => onClick(profile)}
+                >
                     <Icon as={AddUser} />
                 </CircleImage>
             );
         };
 
-        return profileData
-            .map(
-                (profile, index): React.ReactElement => {
-                    if (index < PROFILE_PICTURE_LIMIT) {
-                        return userProfilePicture(profile);
-                    }
-                    if (
-                        index > PROFILE_INITIALS_START_INDEX &&
-                        index < PROFILE_INITIALS_END_INDEX
-                    ) {
-                        return userInitials(profile);
-                    }
-                    if (index === REMAINING_PROFILES_INDEX) {
-                        return remainingUserProfiles();
-                    }
-                    return addUserIcon();
-                },
-            )
-            .splice(START_FROM_PROFILE_INDEX, MAX_PROFILES);
-    };
+        return profiles.map(
+            (profile: IProfile, index: number): React.ReactElement => {
+                if (index < PROFILE_PICTURE_LIMIT) {
+                    return userProfilePicture(profile);
+                }
+                if (
+                    index > PROFILE_INITIALS_START_INDEX &&
+                    index < PROFILE_INITIALS_END_INDEX
+                ) {
+                    return userInitials(profile);
+                }
+                if (index === REMAINING_PROFILES_INDEX) {
+                    return remainingUserProfiles(profile);
+                }
+                return addUserIcon(profile);
+            },
+        );
+    }, [profileData]);
 
     return <Container>{getProfileCircles()}</Container>;
 };
