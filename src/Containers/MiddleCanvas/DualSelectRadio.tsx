@@ -5,11 +5,12 @@ import { RadioOptions } from './RadioOptions';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 
-export interface DualSelectProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
+export interface DualSelectRadioProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     caption?: string,
     leftPlaceholder?: string,
     rightPlaceholder?: string,
     headerSpacingStyle?: string,
+    dualSelectOptions: dualSelectOption
 };
 
 interface IconProps {
@@ -28,25 +29,34 @@ interface SelectContainerProps {
     isVisible?: boolean;
 };
 
-export const PrinterOptions = {
-    'Light': ['Flash Once', 'Flash Twice'],
-    'Sound': ['Beep Once', 'Beep Twice']
+export interface dualSelectOption {
+    [key: string]: {
+        title: string,
+        labels: string[]
+    }
 };
 
-const PRINTER_CATEGORY = 0;
-const PRINTER_OPTIONS = 1;
 const FIRST_SELECT_OPTION = 0;
 
-export const DualSelect: React.FC<DualSelectProps> = ({
+export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
     caption = 'Dual Select',
     leftPlaceholder = 'Light/Sound',
     headerSpacingStyle = 'space-between',
+    dualSelectOptions,
     ...props
 }): React.ReactElement => {
-    const firstSelectOption = Object.keys(PrinterOptions)[FIRST_SELECT_OPTION];
+    const firstSelectOption = Object.values(dualSelectOptions)[FIRST_SELECT_OPTION].title;
     const [leftSelectOption, setLeftSelectOption] = useState('Flash Once');
     const [rightSelectOption, setRightSelectOption] = useState('Beep Once');
     const [isCollapsed, setIsCollapsed] = useState(false);
+
+    const dualSelectTitles = Object.values(dualSelectOptions).map(dualSelectOption => {
+        return dualSelectOption.title;
+    });
+
+    const dualSelectLabels = Object.values(dualSelectOptions).map(dualSelectOption => {
+        return dualSelectOption.labels;
+    });
 
     return (
         <Wrapper {...props}>
@@ -72,10 +82,10 @@ export const DualSelect: React.FC<DualSelectProps> = ({
                     </Container>
                 </Row>
                 <SelectContainer isVisible={isCollapsed}>
-                    {!!isCollapsed && Object.entries(PrinterOptions).map((PrintOption): React.ReactElement => (
+                    {!!isCollapsed && Object.values(dualSelectOptions).map((PrintOption, index): React.ReactElement => (
                         <RadioOptions
-                            title={PrintOption[PRINTER_CATEGORY]}
-                            labels={PrintOption[PRINTER_OPTIONS]} 
+                            title={dualSelectTitles[index]}
+                            labels={dualSelectLabels[index]} 
                             firstSelectOption={firstSelectOption}
                             setLeftSelectOption={setLeftSelectOption}
                             setRightSelectOption={setRightSelectOption}
