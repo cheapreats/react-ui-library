@@ -35,16 +35,17 @@ export const PrinterOptions = {
 
 const PRINTER_CATEGORY = 0;
 const PRINTER_OPTIONS = 1;
+const FIRST_SELECT_OPTION = 0;
 
 export const DualSelect: React.FC<DualSelectProps> = ({
     caption = 'Dual Select',
     leftPlaceholder = 'Light/Sound',
-    rightPlaceholder = 'Beep Once/Flash Twice',
     headerSpacingStyle = 'space-between',
     ...props
 }): React.ReactElement => {
-    const [leftSelectOption, setLeftSelectOption] = useState('Beep Once');
-    const [rightSelectOption, setRightSelectOption] = useState('Flash Twice');
+    const firstSelectOption = Object.keys(PrinterOptions)[FIRST_SELECT_OPTION];
+    const [leftSelectOption, setLeftSelectOption] = useState('Flash Once');
+    const [rightSelectOption, setRightSelectOption] = useState('Beep Once');
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     return (
@@ -75,9 +76,8 @@ export const DualSelect: React.FC<DualSelectProps> = ({
                         <RadioOptions
                             title={PrintOption[PRINTER_CATEGORY]}
                             labels={PrintOption[PRINTER_OPTIONS]} 
-                            leftSelectOption={leftSelectOption} 
+                            firstSelectOption={firstSelectOption}
                             setLeftSelectOption={setLeftSelectOption}
-                            rightSelectOption={rightSelectOption}
                             setRightSelectOption={setRightSelectOption}
                         /> 
                     ))}
@@ -109,7 +109,7 @@ const Row = styled.div<RowProps>`
         props.display && Mixins.flex(props.display)};
 `;
 const Text = styled.div<TextProps>`
-    padding: 12px 0 0 12px;
+    padding: 14px 0 0 12px;
     ${({ isRightOption }): string => `
         color: ${isRightOption ? '#696969' : ''};
     `};

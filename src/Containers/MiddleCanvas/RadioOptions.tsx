@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components'
 import { Radio } from '../../Inputs/Radio';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -6,21 +6,31 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 export interface RadioOptionProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     title?: string,
     labels: string[],
-    leftSelectOption: string,
     setLeftSelectOption: React.Dispatch<React.SetStateAction<string>>,
-    rightSelectOption: string,
     setRightSelectOption: React.Dispatch<React.SetStateAction<string>>,
+    firstSelectOption: string
 };
 
-interface TextProps {
-    isRightOption?: boolean;
-}
+const DEFAULT_SELECTED = 0;
 
 export const RadioOptions: React.FC<RadioOptionProps> = ({
     title,
     labels,
+    setLeftSelectOption,
+    setRightSelectOption,
+    firstSelectOption,
     ...props
 }): React.ReactElement => {
+    const [checkedOption, setCheckedOption] = useState(labels[DEFAULT_SELECTED]);
+
+    useEffect((): void => {
+        if(title === firstSelectOption) {
+            setLeftSelectOption(checkedOption);
+        } else {
+            setRightSelectOption(checkedOption);
+        }
+    }, [checkedOption]);
+
     return (
         <Wrapper {...props}>
             <Text>
@@ -28,7 +38,12 @@ export const RadioOptions: React.FC<RadioOptionProps> = ({
             </Text> 
             <Options>
                 {labels.map((label: string): React.ReactElement => (
-                    <StyledRadio name="hello" label={label} />
+                    <StyledRadio 
+                        name={title} 
+                        label={label}
+                        value={checkedOption === label}
+                        onChange={() => setCheckedOption(label)}
+                    />
                 ))}
             </Options>
         </Wrapper>
@@ -43,16 +58,14 @@ const Wrapper = styled.div`
     letter-spacing: normal;
     padding: 5px 20px;
 `;
-const Text = styled.div<TextProps>`
+const Text = styled.div`
     padding: 10px;
     font-size: 16px;
-    ${({ isRightOption }): string => `
-        color: ${isRightOption ? '#696969' : ''};
-    `};
 `;
 const Options = styled.div`
     padding-left: 10px;
 `;
 const StyledRadio = styled(Radio)`
     margin: 5px;
+    color: #696969;
 `;
