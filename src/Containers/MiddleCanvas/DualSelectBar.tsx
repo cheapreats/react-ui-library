@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { Mixins } from '../../Utils';
+
 
 export interface DualSelectBarProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     leftSelectOption: string,
-    rightSelectOption: string
+    rightSelectOption: string,
+    selectedOption: string,
+    setSelectedOption: React.Dispatch<React.SetStateAction<string>>,
 };
 
 interface OptionProps {
@@ -15,9 +17,10 @@ interface OptionProps {
 export const DualSelectBar: React.FC<DualSelectBarProps> = ({
     leftSelectOption,
     rightSelectOption,
+    selectedOption,
+    setSelectedOption,
     ...props
 }): React.ReactElement => {
-    const [selectedOption, setSelectedOption] = useState(leftSelectOption);
     return (
         <Wrapper {...props}>
             <Option 
@@ -47,7 +50,8 @@ const Wrapper = styled.div`
     display: flex;
     justify-content: center;
     width: 364px;
-    padding: 10px;
+    margin: 5px;
+    padding-bottom: 10px;
 `;
 const Option = styled.div<OptionProps>`
     margin: 5px;

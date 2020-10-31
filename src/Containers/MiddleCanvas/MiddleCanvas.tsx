@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components'
 import { DualSelectRadio } from './DualSelectRadio';
 import { Template } from './Template';
@@ -6,7 +6,8 @@ import { DualSelectBar } from './DualSelectBar';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 export interface MiddleCanvasProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-
+    leftSelectOption: string,
+    rightSelectOption: string,
 };
 
 export const PrinterOptions = {
@@ -21,13 +22,19 @@ export const PrinterOptions = {
 };
 
 export const MiddleCanvas: React.FC<MiddleCanvasProps> = ({
+    leftSelectOption = 'Design',
+    rightSelectOption = 'Preview',
     ...props
 }): React.ReactElement => {
+    const [selectedOption, setSelectedOption] = useState(leftSelectOption);
+
     return (
         <Wrapper {...props}>
             <DualSelectBar
-                leftSelectOption='Design'
-                rightSelectOption='Preview'
+                leftSelectOption={leftSelectOption}
+                rightSelectOption={rightSelectOption}
+                selectedOption={selectedOption}
+                setSelectedOption={setSelectedOption}
             />
             <DualSelectRadio 
                 caption='Before Receipt Prints'
@@ -35,6 +42,7 @@ export const MiddleCanvas: React.FC<MiddleCanvasProps> = ({
             />
             <Template 
                 onDragEnd={() => console.log('I have been dragged!')}
+                selectedOption={selectedOption}
             />
             <DualSelectRadio
                 caption='After Receipt Prints'
@@ -44,6 +52,4 @@ export const MiddleCanvas: React.FC<MiddleCanvasProps> = ({
     );
 }
 
-const Wrapper = styled.div`
-    max-width: 500px;
-`;
+const Wrapper = styled.div``;

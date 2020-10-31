@@ -104,13 +104,13 @@ const Wrapper = styled.div`
     font-style: normal;
     line-height: 1.25;
     letter-spacing: normal;
+    margin-top: 3vh 0;
 `;
 const Header = styled.div`
     margin-bottom: 5px;
 `;
 const SelectArea = styled.div`
     width: 384px;
-    height: 40px;
     border-radius: 8px;
     background-color: #f2f2f2;
 `;
@@ -119,7 +119,7 @@ const Row = styled.div<RowProps>`
         props.display && Mixins.flex(props.display)};
 `;
 const Text = styled.div<TextProps>`
-    padding: 14px 0 0 12px;
+    padding: 12px 0 0 12px;
     ${({ isRightOption }): string => `
         color: ${isRightOption ? '#696969' : ''};
     `};
@@ -140,7 +140,6 @@ const SelectContainer = styled.div<SelectContainerProps>`
         background-color: ${isVisible ? '#ffffff' : ''};
     `}
     width: 208px;
-    height: 248px;
     border-radius: 8px;
     float: right;
 `;
