@@ -1,16 +1,18 @@
 import React from 'react';
 
-import { CircleTable } from './circleTable';
+import {CircleTable, ICircleTable} from '../../src/Containers/CircleTable';
+import {Meta, Story} from "@storybook/react";
+import {createStoryTitle} from "../Constants";
 
 export default {
-    title: 'Component/circleTable',
+    title: createStoryTitle('CircleTable'),
     component:  CircleTable,
     argTypes: {
         backgroundColor: { control: 'color' },
     },
-};
+} as Meta;
 
-const Template = (args) => <CircleTable {...args} />;
+const Template: Story<ICircleTable> = (args) => <CircleTable {...args} />;
 
 export const Primary = Template.bind({});
 

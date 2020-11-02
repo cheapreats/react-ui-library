@@ -8,7 +8,7 @@
 import React from 'react';
 //import { createStoryTitle } from '../Constants';
 
-import { RectangleTable } from './RectangleTable';
+import { RectangleTable } from '../../src/Containers/RectangleTable';
 
 export default {
     title: 'Components/RectangleTable',
@@ -17,6 +17,7 @@ export default {
     //title: createStoryTitle('RectangleTable'),
     component: RectangleTable,
 };
+
 
 const Template = (args) => <RectangleTable {...args} />;
 
