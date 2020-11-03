@@ -4,7 +4,7 @@ import { Paragraph } from '../Text';
 import { Switch, SwitchProps } from './Switch';
 import { flex } from '../Utils/Mixins';
 
-interface SettingsSwitchProps extends SwitchProps {
+export interface SettingsSwitchProps extends SwitchProps {
     text?: string;
     type?: string;
     onSwitch?: Function;
