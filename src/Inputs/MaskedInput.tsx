@@ -6,6 +6,9 @@ import {
     InputFragmentProps,
 } from '../Fragments';
 
+const MINUS_SIGN = '-';
+const EMPTY_STRING = '';
+
 export enum MaskedInputPreset {
     DOLLAR = 'DOLLAR',
     PERCENTAGE = 'PERCENTAGE',
@@ -15,8 +18,8 @@ export interface MaskedInputProps extends LabelLayoutProps, InputFragmentProps {
     realValue: string;
     onRealValueChange: (value: string) => void;
     mask: MaskedInputPreset | ((value: string) => string);
-    min: number;
-    max: number;
+    min?: number;
+    max?: number;
 }
 
 const DOLLAR_FORMAT_MASK = (s: string): string => {
@@ -72,18 +75,19 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
         const lessThanMax = targetValueInteger <= max;
 
         setIsError(false);
-
         if (greaterThanMin && lessThanMax) {
             onRealValueChange(targetValue);
-        } else if (Number.isNaN(targetValueInteger)) {
-            onRealValueChange('');
-        } else {
             setDisplayValue(targetValue);
-            if (!greaterThanMin) {
-                setIsError(`Value must be greater than ${min - 1}`);
-            } else {
-                setIsError(`Value must be less than ${max + 1}`);
-            }
+        } else if (targetValue === MINUS_SIGN && min < 0) {
+            onRealValueChange(targetValue);
+            setDisplayValue(targetValue);
+        } else if (Number.isNaN(targetValueInteger)) {
+            onRealValueChange(EMPTY_STRING);
+        } else {
+            const errorMessage = !greaterThanMin
+                ? `greater than ${min - 1}`
+                : `less than ${max + 1}`;
+            setIsError(`Value must be ${errorMessage}`);
         }
     };
 
