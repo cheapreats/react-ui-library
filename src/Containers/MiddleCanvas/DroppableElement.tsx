@@ -5,26 +5,34 @@ import {
     DroppableProvided, 
     DroppableStateSnapshot 
 } from 'react-beautiful-dnd';
+import { StyledIcon } from 'styled-icons/types';
 import { DroppableContainerContents } from './DroppableContainerContents';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 export interface DroppableElementProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    droppableLabels: string[][],
+    droppableLabels: string[][] | StyledIcon [][],
     styling: string, 
-    isColumn: boolean
+    isColumn: boolean,
+    isPreview?: boolean
 };
 
 interface DroppableContainerProps {
     isDragging?: boolean,
-    isColumn?: boolean
+    isColumn?: boolean,
+    isPreview?: boolean
 };
 
 const FIRST_LABEL = 0;
+const DESIGN_BACKGROUND_COLOR = '#ffffff';
+const PREVIEW_BACKGROUND_COLOR = '#f5f5f5';
+const DESIGN_COLOR = '#b7b7b7';
+const PREVIEW_COLOR = 'black';
 
 export const DroppableElement: React.FC<DroppableElementProps> = ({
     droppableLabels,
     styling,
     isColumn,
+    isPreview,
     ...props
 }): React.ReactElement => {
     return (
@@ -37,8 +45,8 @@ export const DroppableElement: React.FC<DroppableElementProps> = ({
                         <DroppableContainer
                             ref={provided.innerRef}
                             isDragging={snapshot.isDraggingOver}
-                            isColumn={isColumn}
-                            {...provided.droppableProps}      
+                            {...provided.droppableProps}   
+                            isPreview={isPreview}  
                         >
                             <DroppableContainerContents 
                                 styling={styling}
@@ -56,14 +64,15 @@ export const DroppableElement: React.FC<DroppableElementProps> = ({
 const Wrapper = styled.div``;
 const DroppableContainer = styled.div<DroppableContainerProps>`
     width: 349px;
-    height: 35px;
-    background-color: #f5f5f5;
-    color: #b7b7b7;
-    margin: 10px;
     border-radius: 4px;
-    padding: 10px 0 0 0;
     ${({ isColumn }): string => `
-        padding: ${isColumn ? '10px 0 2px 0' : ''};
+        padding: ${isColumn ? '10px 0 2px 0' : '10px 0 0 0'};
     `};
-    z-index: -9999;
+    margin: 10px;
+    ${({ isPreview }): string => `
+        background-color: ${isPreview ? DESIGN_BACKGROUND_COLOR : PREVIEW_BACKGROUND_COLOR};
+        color: ${isPreview ? DESIGN_COLOR : PREVIEW_COLOR}
+        padding: ${isPreview ? '0px 0 0 0' : '10px 0 0 0'};
+        height: ${isPreview ? '10px' : '35px'};
+    `}
 `;

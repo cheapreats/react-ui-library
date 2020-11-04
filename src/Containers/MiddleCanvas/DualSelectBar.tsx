@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
@@ -13,6 +13,9 @@ export interface DualSelectBarProps extends MainInterface, ResponsiveInterface, 
 interface OptionProps {
     isSelected?: boolean
 };
+
+const IS_SELECTED_COLOR = '#e70028';
+const UNSELECTED_COLOR = '#b7b7b7';
 
 export const DualSelectBar: React.FC<DualSelectBarProps> = ({
     leftSelectOption,
@@ -57,7 +60,7 @@ const Option = styled.div<OptionProps>`
     margin: 5px;
     padding: 5px;
     ${({ isSelected }): string => `
-        color: ${isSelected ? '#e70028' : '#b7b7b7'};
-        border-bottom: ${isSelected ? 'solid 1px #e70028' : ''};
+        color: ${isSelected ? IS_SELECTED_COLOR : UNSELECTED_COLOR};
+        border-bottom: ${isSelected ? `solid 1px ${IS_SELECTED_COLOR}` : ''};
     `}
 `;

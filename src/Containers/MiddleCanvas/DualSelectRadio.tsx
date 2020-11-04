@@ -37,6 +37,10 @@ export interface dualSelectOption {
 };
 
 const FIRST_SELECT_OPTION = 0;
+const SELECT_VISIBLE_BACKGROUND = '#ffffff';
+const SELECT_VISIBLE_BORDER = '#f2f2f2';
+const RIGHT_OPTION_COLOR = '#696969';
+const SELECT_AREA_COLOR = '#f2f2f2';
 
 export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
     caption = 'Dual Select',
@@ -112,7 +116,7 @@ const Header = styled.div`
 const SelectArea = styled.div`
     width: 384px;
     border-radius: 8px;
-    background-color: #f2f2f2;
+    background-color: ${SELECT_AREA_COLOR};
 `;
 const Row = styled.div<RowProps>`
     ${(props): string | undefined =>
@@ -121,7 +125,7 @@ const Row = styled.div<RowProps>`
 const Text = styled.div<TextProps>`
     padding: 12px 0 0 12px;
     ${({ isRightOption }): string => `
-        color: ${isRightOption ? '#696969' : ''};
+        color: ${isRightOption ? RIGHT_OPTION_COLOR : ''};
     `};
 `;
 const Container = styled.div`
@@ -136,10 +140,11 @@ const Icon = styled.svg<IconProps>`
 `;
 const SelectContainer = styled.div<SelectContainerProps>`
     ${({ isVisible }): string => `
-        border: ${isVisible ? 'solid 1px #f2f2f2' : ''};
-        background-color: ${isVisible ? '#ffffff' : ''};
+        border: ${isVisible ? `solid 1px ${SELECT_VISIBLE_BORDER}` : ''};
+        background-color: ${isVisible ? SELECT_VISIBLE_BACKGROUND : ''};
     `}
     width: 208px;
+    height: 250px;
     border-radius: 8px;
-    float: right;
+    position: absolute;
 `;

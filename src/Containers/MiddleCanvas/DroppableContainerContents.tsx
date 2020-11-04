@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
@@ -36,6 +36,7 @@ const Wrapper = styled.div<WrapperProps>`
         props.display && Mixins.flex(props.display)};
     ${({ isColumn }): string => `
         ${isColumn ? Mixins.flex('column') : ''};
+        padding: ${isColumn ? '5px' : ''};
     `};
     padding: 0 10px;
 `;

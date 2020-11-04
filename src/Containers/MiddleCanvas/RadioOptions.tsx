@@ -12,6 +12,7 @@ export interface RadioOptionProps extends MainInterface, ResponsiveInterface, Re
 };
 
 const DEFAULT_SELECTED = 0;
+const RADIO_OPTIONS_COLOR = '#696969';
 
 export const RadioOptions: React.FC<RadioOptionProps> = ({
     title,
@@ -67,5 +68,5 @@ const Options = styled.div`
 `;
 const StyledRadio = styled(Radio)`
     margin: 5px;
-    color: #696969;
+    color: ${RADIO_OPTIONS_COLOR};
 `;

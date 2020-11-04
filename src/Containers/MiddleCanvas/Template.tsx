@@ -1,88 +1,63 @@
 import React from 'react';
 import styled from 'styled-components'
 import { DragDropContext } from 'react-beautiful-dnd';
+import { ITemplatePrefill } from '/MiddleCanvasElements';
 import { DroppableElement } from './DroppableElement';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 export interface TemplateProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    selectedOption?: string,
-    onDragEnd: () => void
+    isPreview?: boolean,
+    onDragEnd: () => void,
+    templatePrefills: ITemplatePrefill
 };
 
-const TemplatePrefills = {
-    BUSINESS_INFORMATION: {
-        title: 'Business Information',
-        labels: [['Upload Logo Image'], ["Nasir's Gourmet Hot Dogs"], ['7818 Edgewater Lane', 'St. Martins, NB E5R 4K3t'], ['615-555-0190'], ['www.NasirsHotDogs.com']],
-        display: 'center',
-        column: true,
-    },
-    ORDER_DETAILS: {
-        title: 'Order Details',
-        labels: [['Time: 3:23pm', 'Date: 01/23/21'], ['Order transaction #', '3249244'], ['Station #', '34'], ['Status', 'Dine Out'], ['Sales Associate', 'Cassandra']],
-        display: 'space-between',
-        column: false,
-    },
-    MENU_ITEMS: {
-        title: 'Menu Items',
-        labels: [[]],
-        display: '',
-        column: false,
-    },
-    PRICE_AND_PAYMENT: {
-        title: 'Price & Payment',
-        labels: [['Total Price', '$13.99'], ['Rates of Sales Tax', '1.23%'], ['Amount of Tax', '$2.13'], ['Total Price with tax included', '$15.12'], ['Payment Method', '***********2143']],
-        display: 'space-between',
-        column: false
-    },
-    CODE: {
-        title: 'Code',
-        labels: [[]],
-        display: '',
-        column: false
-    },
-    SIGNATURE: {
-        title: 'Signature',
-        labels: [[]],
-        display: '',
-        column: false
-    }
+interface WrapperProps {
+    isPreview?: boolean;
 };
+
+const TEMPLATE_BORDER_COLOR ='#4a4a4a';
+const BACKGROUND_COLOR = '#ffffff';
 
 export const Template: React.FC<TemplateProps> = ({
     onDragEnd,
-    selectedOption,
+    isPreview,
+    templatePrefills,
     ...props
 }): React.ReactElement => {
-    const templatePrefillTitles = Object.values(TemplatePrefills).map(templatePrefill => {
+    const templatePrefillTitles = Object.values(templatePrefills).map((templatePrefill: ITemplatePrefill) => {
         return templatePrefill.title;
     });
 
-    const templatePrefillLabels = Object.values(TemplatePrefills).map(templatePrefill => {
+    const templatePrefillLabels = Object.values(templatePrefills).map((templatePrefill: ITemplatePrefill) => {
         return templatePrefill.labels;
     });
 
-    const templatePrefillDisplays = Object.values(TemplatePrefills).map(templatePrefill => {
+    const templatePrefillDisplays = Object.values(templatePrefills).map((templatePrefill: ITemplatePrefill) => {
         return templatePrefill.display;
     });
 
-    const templatePrefillColumn = Object.values(TemplatePrefills).map(templatePrefill => {
+    const templatePrefillColumn = Object.values(templatePrefills).map((templatePrefill: ITemplatePrefill) => {
         return templatePrefill.column;
     });
 
     return (
-        <Wrapper {...props}>
-            <DragDropContext
-                onDragEnd={onDragEnd}
-            >
-                {Object.values(TemplatePrefills).map((TemplatePrefill, index) => (
+        <Wrapper 
+            isPreview={isPreview}
+            {...props}
+        >
+            <DragDropContext onDragEnd={onDragEnd}>
+                {Object.values(templatePrefills).map((TemplatePrefill, index) => (
                     <>
-                        <Header>
-                            {templatePrefillTitles[index]}
-                        </Header>
+                        {!isPreview && (
+                            <Header>
+                                {templatePrefillTitles[index]}
+                            </Header>
+                        )}
                         <DroppableElement
                             droppableLabels={templatePrefillLabels[index]}
                             styling={templatePrefillDisplays[index]}
                             isColumn={templatePrefillColumn[index]}
+                            isPreview={isPreview}
                         />
                     </>
                 ))}
@@ -91,17 +66,20 @@ export const Template: React.FC<TemplateProps> = ({
     );
 }
 
-const Wrapper = styled.div`
+const Wrapper = styled.div<WrapperProps>`
     width: 364px;
     font-size: 12px;
     font-weight: bold;
     font-stretch: normal;
     font-style: normal;
     line-height: 1.25;
-    border: dotted 0.5px #4a4a4a;
-    background-color: #ffffff;
+    border: dotted 0.5px ${TEMPLATE_BORDER_COLOR};
+    background-color: ${BACKGROUND_COLOR};
     margin: 3vh 0;
     padding: auto;
+    ${({ isPreview }): string => `
+        padding: ${isPreview ? '10px 0 2px 0' : ''};
+    `};
 `;
 const Header = styled.div`
     margin: 5px 0 0 5px;
