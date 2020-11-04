@@ -89,6 +89,7 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
         } else if (Number.isNaN(targetValueInteger)) {
             onRealValueChange(EMPTY_STRING);
         } else {
+            setDisplayValue(targetValue);
             const errorMessage = !greaterThanMin
                 ? `greater than ${min - ERROR_MESSAGE_VALUE_CALCUALTION}`
                 : `less than ${max + ERROR_MESSAGE_VALUE_CALCUALTION}`;
