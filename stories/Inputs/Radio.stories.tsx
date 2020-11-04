@@ -14,50 +14,37 @@ export default {
 
 export const Basic: Story<RadioProps> = (args) => <Radio {...args}></Radio>;
 
-// storiesOf(createStoryTitle('Radio'), module)
-//     .addDecorator(withKnobs)
-//     .add('with default', () => <Radio name="demo" />)
-//     .add('with label', () => (
-//         <Radio name="demo" label="Labelled Radio Button" />
-//     ))
-//     .add('with column', () => (
-//         <Radio name="demo" label="Labelled Radio Button" column />
-//     ))
-//     .add('with disabled', () => (
-//         <Radio name="demo" label="Labelled Radio Button" disabled />
-//     ))
-//     .add('with radioStyle', () => {
-//         const radio = () => `
-//             border-color: blue;
-//         `;
+export const WithLabel = Basic.bind({});
+WithLabel.args = {
+    ...WithLabel.args,
+    label: 'Labelled Radio Button',
+};
 
-//         return (
-//             <Radio
-//                 name="demo"
-//                 label="Labelled Radio Button"
-//                 radioStyle={radio}
-//             />
-//         );
-//     })
-//     .add('with activeStyle', () => {
-//         const radio = () => `
-//             & div {
-//                 background-color: blue;
-//             }
-//         `;
-//         const active = () => `
-//             border-color: blue;
-//             & div {
-//                 background-color: blue;
-//             }
-//         `;
+export const WithColumn = Basic.bind({});
+WithColumn.args = {
+    ...WithColumn.args,
+    label: 'Labelled Radio Button',
+    column: true,
+};
 
-//         return (
-//             <Radio
-//                 name="demo"
-//                 label="Labelled Radio Button"
-//                 radioStyle={radio}
-//                 activeStyle={active}
-//             />
-//         );
-//     });
+export const WithDisabled = Basic.bind({});
+WithDisabled.args = {
+    ...WithDisabled.args,
+    label: 'Labelled Radio Button',
+    disabled: true,
+};
+
+export const WithRadioStyle = Basic.bind({});
+WithRadioStyle.args = {
+    ...WithRadioStyle.args,
+    label: 'Labelled Radio Button',
+    radioStyle: () => 'border-color: blue',
+};
+
+export const WithActiveStyle = Basic.bind({});
+WithActiveStyle.args = {
+    ...WithActiveStyle.args,
+    label: 'Labelled Radio Button',
+    radioStyle: () => 'border-color: blue',
+    activeStyle: () => 'background-color: blue',
+};
