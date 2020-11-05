@@ -2,13 +2,14 @@ import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { AddUser } from '@styled-icons/entypo/AddUser';
 import { flex } from '../Utils/Mixins';
+import { FeaturedProfile, IconCircle } from './FeaturedProfile';
 
 const PROFILE_PICTURE_LIMIT = 3;
-const PROFILE_INITIALS_START_INDEX = 2;
-const PROFILE_INITIALS_END_INDEX = 5;
-const REMAINING_PROFILES_INDEX = 5;
-const MAX_PROFILES = 7;
+const PROFILE_INITIALS_INDEX_ENDPOINT = 1;
+const PROFILE_PICTURE_BREAKPOINT = 4;
+const SUBTRACTED_PROFILE_PICTURE = 1;
 const START_FROM_PROFILE_INDEX = 0;
+const MAX_PROFILES = 6;
 
 export interface IProfile {
     image: string;
@@ -21,127 +22,86 @@ export interface IFeaturedProfilesCardProps {
     alt: string;
     width?: number;
     height?: number;
-    onClick?: Function;
 }
 
 export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
-    onClick = (): void => {
-        return undefined;
-    },
     alt,
     profileData,
     width = 100,
     height = 100,
 }): React.ReactElement => {
     const getProfileCircles = useCallback(() => {
+        const getProfilePictureLimit = () => {
+            if (profileData.length < PROFILE_PICTURE_BREAKPOINT) {
+                return PROFILE_PICTURE_LIMIT - SUBTRACTED_PROFILE_PICTURE;
+            }
+            return PROFILE_PICTURE_LIMIT;
+        };
+
+        const determineMaxProfileLength = () => {
+            if (profileData.length < MAX_PROFILES) {
+                return profileData.length;
+            }
+            return MAX_PROFILES;
+        };
+
         const profiles = profileData.slice(
             START_FROM_PROFILE_INDEX,
-            MAX_PROFILES,
+            determineMaxProfileLength(),
         );
 
-        const userProfilePicture = (profile: IProfile): React.ReactElement => {
-            return (
-                <CircleImage background="none" key={profile.id}>
-                    <img
-                        src={profile.image}
-                        alt={alt}
-                        height={height}
-                        width={width}
-                    />
-                </CircleImage>
-            );
-        };
+        const profileInitialsEndIndex =
+            profiles.length - PROFILE_INITIALS_INDEX_ENDPOINT;
 
-        const userInitials = (profile: IProfile): React.ReactElement => {
-            return (
-                <CircleImage background="orange" key={profile.id}>
-                    <CircleContent>{profile.initials}</CircleContent>
-                </CircleImage>
-            );
-        };
-
-        const remainingUserProfiles = (
+        const getProfiles = (
             profile: IProfile,
+            index: number,
         ): React.ReactElement => {
-            const remaining_profiles_value =
-                profileData.length - REMAINING_PROFILES_INDEX;
-
-            return (
-                <CircleImage background="grey" key={profile.id}>
-                    <CircleContent>{remaining_profiles_value}</CircleContent>
-                </CircleImage>
-            );
-        };
-
-        const addUserIcon = (profile: IProfile): React.ReactElement => {
-            return (
-                <CircleImage
-                    key={profile.id}
-                    background="grey"
-                    onClick={(): void => onClick(profile)}
-                >
-                    <Icon as={AddUser} />
-                </CircleImage>
-            );
+            switch (true) {
+                case index < getProfilePictureLimit():
+                    return (
+                        <FeaturedProfile profile={profile} background="none">
+                            <img
+                                src={profile.image}
+                                alt={alt}
+                                height={height}
+                                width={width}
+                            />
+                        </FeaturedProfile>
+                    );
+                case index < profileInitialsEndIndex:
+                    return (
+                        <FeaturedProfile profile={profile} background="orange">
+                            <CircleContent>{profile.initials}</CircleContent>
+                        </FeaturedProfile>
+                    );
+                default:
+                    return (
+                        <FeaturedProfile profile={profile} background="gray">
+                            <CircleContent>
+                                {profileData.length - profileInitialsEndIndex}
+                            </CircleContent>
+                        </FeaturedProfile>
+                    );
+            }
         };
 
         return profiles.map(
-            (profile: IProfile, index: number): React.ReactElement => {
-                if (index < PROFILE_PICTURE_LIMIT) {
-                    return userProfilePicture(profile);
-                }
-                if (
-                    index > PROFILE_INITIALS_START_INDEX &&
-                    index < PROFILE_INITIALS_END_INDEX
-                ) {
-                    return userInitials(profile);
-                }
-                if (index === REMAINING_PROFILES_INDEX) {
-                    return remainingUserProfiles(profile);
-                }
-                return addUserIcon(profile);
+            (profile, index): React.ReactElement => {
+                return getProfiles(profile, index);
             },
         );
     }, [profileData]);
 
-    return <Container>{getProfileCircles()}</Container>;
+    return (
+        <Container>
+            {getProfileCircles()}
+            <IconCircle>
+                <Icon as={AddUser} />
+            </IconCircle>
+        </Container>
+    );
 };
-
-interface ICircleImageProps {
-    background: string;
-}
-
-const CircleImage = styled.li<ICircleImageProps>`
-    ${flex()}
-    justify-content: center;
-    align-items: center;
-    border: solid white 3px;
-    border-radius: 50%;
-    object-fit: cover;
-    overflow: auto;
-    width: 100px;
-    height: 100px;
-    background: ${({ background }) => background || 'none'};
-
-    :nth-child(1) {
-        position: relative;
-    }
-    :nth-child(2) {
-        margin-left: -2%;
-    }
-    :nth-child(3) {
-        margin-left: -2%;
-        z-index: -1;
-    }
-    :nth-child(4) {
-        margin-left: -2%;
-        z-index: -2;
-    }
-    :nth-child(n + 5) {
-        margin-left: -2%;
-        z-index: -3;
-    }
-`;
 
 const CircleContent = styled.p`
     text-align: center;
@@ -153,6 +113,25 @@ const CircleContent = styled.p`
 const Container = styled.ul`
     ${flex('row')}
     padding: 5px;
+
+    li:nth-child(1) {
+        position: relative;
+    }
+    li:nth-child(2) {
+        margin-left: -1%;
+    }
+    li:nth-child(3) {
+        margin-left: -1%;
+        z-index: -1;
+    }
+    li:nth-child(4) {
+        margin-left: -1%;
+        z-index: -2;
+    }
+    li:nth-child(n + 5) {
+        margin-left: -1%;
+        z-index: -3;
+    }
 `;
 
 const Icon = styled.svg`
