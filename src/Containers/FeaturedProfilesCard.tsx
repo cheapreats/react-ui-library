@@ -9,6 +9,7 @@ const PROFILE_PICTURE_BREAKPOINT = 4;
 const SUBTRACTED_PROFILE_PICTURE = 1;
 const START_FROM_PROFILE_INDEX = 0;
 const MAX_PROFILES = 6;
+const ADD_USER_ICON_KEY = 1;
 
 export interface IProfile {
     image: string;
@@ -18,9 +19,6 @@ export interface IProfile {
 
 export interface IFeaturedProfilesCardProps {
     profileData: IProfile[];
-    alt: string;
-    width?: number;
-    height?: number;
 }
 
 export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
@@ -59,7 +57,6 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
                         <FeaturedProfile
                             key={profile.id}
                             image={profile.image}
-                            initials={profile.initials}
                             background="none"
                         />
                     );
@@ -92,7 +89,7 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
     return (
         <Container>
             {renderProfileCircles()}
-            <FeaturedProfile icon key={1} background="grey" />
+            <FeaturedProfile icon key={ADD_USER_ICON_KEY} background="grey" />
         </Container>
     );
 };

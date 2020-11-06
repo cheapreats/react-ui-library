@@ -1,34 +1,41 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AddUser } from '@styled-icons/entypo/AddUser';
-
 import { flex } from '../Utils/Mixins';
 
 export interface IFeaturedProfileProps {
     background: string;
+    key: number;
     image?: string;
     initials?: string;
     profilesRemaining?: number;
     icon?: boolean;
-    key: number;
+    width?: number;
+    height?: number;
+    alt?: string;
 }
 
 export const FeaturedProfile: React.FC<IFeaturedProfileProps> = ({
+    alt = 'Profile Image',
     key,
     icon,
     profilesRemaining,
     initials,
     image,
     background,
+    width = 100,
+    height = 100,
 }) => {
     return (
         <CircleImage background={background} key={key}>
-            <CircleContent>
-                {!!image && <img src={image} alt={initials} />}
-                {!!initials && <p>{initials}</p>}
-                {!!profilesRemaining && <p>{profilesRemaining}</p>}
-                {!!icon && <Icon as={AddUser} />}
-            </CircleContent>
+            {!!image && (
+                <img src={image} alt={alt} width={width} height={height} />
+            )}
+            {!!initials && <CircleContent>{initials}</CircleContent>}
+            {!!profilesRemaining && (
+                <CircleContent>{profilesRemaining}</CircleContent>
+            )}
+            {!!icon && <Icon as={AddUser} />}
         </CircleImage>
     );
 };
@@ -38,11 +45,11 @@ interface ICircleImageProps {
 }
 
 const CircleImage = styled.li<ICircleImageProps>`
-    ${flex()}
-    justify-content: center;
+    ${flex('center')}
     align-items: center;
     border: solid white 3px;
     border-radius: 50%;
+    object-fit: cover;
     overflow: auto;
     width: 100px;
     height: 100px;
@@ -54,8 +61,6 @@ const CircleContent = styled.div`
     color: white;
     font-weight: 700;
     font-size: 24px;
-    background-size: contain;
-    background-repeat: no-repeat;
 `;
 
 const Icon = styled.svg`
