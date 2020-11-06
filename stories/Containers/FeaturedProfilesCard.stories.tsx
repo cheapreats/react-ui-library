@@ -73,7 +73,6 @@ export default {
     args: {
         profileData: profiles,
         alt: 'Profile Image',
-        maxProfilesDisplay: 6,
     },
 } as Meta;
 

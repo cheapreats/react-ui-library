@@ -1,8 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { AddUser } from '@styled-icons/entypo/AddUser';
 import { flex } from '../Utils/Mixins';
-import { FeaturedProfile, IconCircle } from './FeaturedProfile';
+import { FeaturedProfile } from './FeaturedProfile';
 
 const PROFILE_PICTURE_LIMIT = 3;
 const PROFILE_INITIALS_INDEX_ENDPOINT = 1;
@@ -25,13 +24,10 @@ export interface IFeaturedProfilesCardProps {
 }
 
 export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
-    alt,
     profileData,
-    width = 100,
-    height = 100,
 }): React.ReactElement => {
-    const getProfileCircles = useCallback(() => {
-        const getProfilePictureLimit = () => {
+    const renderProfileCircles = useCallback(() => {
+        const determineProfilePictureLimit = () => {
             if (profileData.length < PROFILE_PICTURE_BREAKPOINT) {
                 return PROFILE_PICTURE_LIMIT - SUBTRACTED_PROFILE_PICTURE;
             }
@@ -58,30 +54,30 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
             index: number,
         ): React.ReactElement => {
             switch (true) {
-                case index < getProfilePictureLimit():
+                case index < determineProfilePictureLimit():
                     return (
-                        <FeaturedProfile profile={profile} background="none">
-                            <img
-                                src={profile.image}
-                                alt={alt}
-                                height={height}
-                                width={width}
-                            />
-                        </FeaturedProfile>
+                        <FeaturedProfile
+                            key={profile.id}
+                            image={profile.image}
+                            initials={profile.initials}
+                            background="none"
+                        />
                     );
                 case index < profileInitialsEndIndex:
                     return (
-                        <FeaturedProfile profile={profile} background="orange">
-                            <CircleContent>{profile.initials}</CircleContent>
-                        </FeaturedProfile>
+                        <FeaturedProfile
+                            key={profile.id}
+                            initials={profile.initials}
+                            background="orange"
+                        />
                     );
                 default:
                     return (
-                        <FeaturedProfile profile={profile} background="gray">
-                            <CircleContent>
-                                {profileData.length - profileInitialsEndIndex}
-                            </CircleContent>
-                        </FeaturedProfile>
+                        <FeaturedProfile
+                            key={profile.id}
+                            profilesRemaining={profileInitialsEndIndex}
+                            background="gray"
+                        />
                     );
             }
         };
@@ -95,20 +91,11 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
 
     return (
         <Container>
-            {getProfileCircles()}
-            <IconCircle>
-                <Icon as={AddUser} />
-            </IconCircle>
+            {renderProfileCircles()}
+            <FeaturedProfile icon key={1} background="grey" />
         </Container>
     );
 };
-
-const CircleContent = styled.p`
-    text-align: center;
-    color: white;
-    font-weight: 700;
-    font-size: 24px;
-`;
 
 const Container = styled.ul`
     ${flex('row')}
@@ -132,9 +119,4 @@ const Container = styled.ul`
         margin-left: -1%;
         z-index: -3;
     }
-`;
-
-const Icon = styled.svg`
-    width: 35px;
-    height: 35px;
 `;
