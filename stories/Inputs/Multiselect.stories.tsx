@@ -13,14 +13,16 @@ export default {
     component: MultiSelect,
     args: {
         name: 'Demo',
+        label: 'label',
+        description: 'Description',
     },
 } as Meta;
 
-export const Basic: Story<MultiSelectItemProps> = (args) => (
-    <MultiSelect label={'label'} description={'Description'}>
-        <MultiSelectItem {...args}>Banana</MultiSelectItem>
-        <MultiSelectItem {...args}>Banana</MultiSelectItem>
-        <MultiSelectItem {...args}>Banana</MultiSelectItem>
+export const Basic: Story<MultiSelectProps> = (args) => (
+    <MultiSelect {...args}>
+        <MultiSelectItem>Banana</MultiSelectItem>
+        <MultiSelectItem>Banana</MultiSelectItem>
+        <MultiSelectItem>Banana</MultiSelectItem>
     </MultiSelect>
 );
 
