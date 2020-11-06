@@ -1,5 +1,4 @@
 import React from 'react';
-
 import {CircleTable, ICircleTable} from '../../src/Containers/CircleTable';
 import {Meta, Story} from "@storybook/react";
 import {createStoryTitle} from "../Constants";
@@ -13,6 +12,10 @@ export default {
 } as Meta;
 
 const Template: Story<ICircleTable> = (args) => <CircleTable {...args} />;
+
+/**
+ *Creates a CircleTable component with these args passed in
+ */
 
 export const Primary = Template.bind({});
 

@@ -35,3 +35,4 @@ export * from './Coupon';
 export * from './Chart';
 export * from './CircleTable';
 export * from './RectangleTable';
+export * from './SquareTable';

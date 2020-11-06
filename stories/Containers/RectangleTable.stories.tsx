@@ -6,20 +6,21 @@
 */
 
 import React from 'react';
-//import { createStoryTitle } from '../Constants';
-
-import { RectangleTable } from '../../src/Containers/RectangleTable';
+import { RectangleTable, IRectangleTable } from '../../src/Containers/RectangleTable';
+import {Meta, Story} from "@storybook/react";
+import { createStoryTitle } from '../Constants';
 
 export default {
-    title: 'Components/RectangleTable',
-    
-    // Use createStoryTitle() with react-ui-library
-    //title: createStoryTitle('RectangleTable'),
+    title: createStoryTitle('RectangleTable'),
     component: RectangleTable,
-};
+} as Meta;
 
 
-const Template = (args) => <RectangleTable {...args} />;
+const Template: Story<IRectangleTable> = (args) => <RectangleTable {...args} />;
+
+/**
+ *Creates a RectangleTable component with 2 chairs
+ */
 
 export const TwoTopRectangle = Template.bind({});
 TwoTopRectangle.args = {
@@ -31,6 +32,10 @@ TwoTopRectangle.args = {
     occupancyStatus: 'Vacant',
 };
 
+/**
+ *Creates a RectangleTable component with 4 chairs
+ */
+
 export const FourTopRectangle = Template.bind({});
 FourTopRectangle.args = {
     tableID: 'T7',
@@ -39,6 +44,10 @@ FourTopRectangle.args = {
     reservationTime: new Date(2020,9,15,12,30,0,0),
     occupancyStatus: 'Occupied',
 };
+
+/**
+ *Creates a RectangleTable component with 6 chairs
+ */
 
 export const SixTopRectangle = Template.bind({});
 SixTopRectangle.args = {

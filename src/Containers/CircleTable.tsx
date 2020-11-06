@@ -1,7 +1,5 @@
 import React from 'react';
-
 import styled, {useTheme} from "styled-components";
-import {IRectangleTable} from "./RectangleTable";
 
 /**
  * Primary UI component for user interaction
@@ -45,8 +43,9 @@ export const CircleTable: React.FC<ICircleTable>
        }) => {
     const {colors} = useTheme();
 
-    const occupancyColor = getOccupancyColor(occupancyStatus);
-
+    /**
+     * Primary function that returns the color from the occupancyStatus
+     */
     function getOccupancyColor(status: occupancyStatusTypes) {
         if (occupancyStatus === occupancyStatusTypes.Vacant) {
             return colors.occupancyStatusColors.Vacant;
@@ -85,60 +84,64 @@ export const CircleTable: React.FC<ICircleTable>
         </div>
     );
 };
-const TableBody = styled.div`
-         height: 22em;
-         width: 22em;
-         background-color: #bbb;
-         border-radius: 50%;
-         border-style: solid;
-         border-color: black;
-         border-width: 3px !important;
-    `;
-const Row = styled.div`
-        display: flex;
-        flex-wrap: wrap;
-        margin-right: 15px;
-        margin-left: 15px;
-    `;
 
-const RowMargin0 = styled(Row)`
-        margin: 0 !important;  
-    `;
+    /**
+    * variables for the styled components
+     */
 
-const RowM0H25 = styled(RowMargin0)`
-        height: 25% !important;  
-    `;
+    const TableBody = styled.div`
+             height: 22em;
+             width: 22em;
+             background-color: #bbb;
+             border-radius: 50%;
+             border-style: solid;
+             border-color: black;
+             border-width: 3px;
+        `;
+    const Row = styled.div`
+            display: flex;
+            flex-wrap: wrap;
+            margin-right: 15px;
+            margin-left: 15px;
+        `;
 
-const Col = styled.div`
-        flex-basis: 0;
-        flex-grow: 1;
-        max-width: 100%;
-    `;
-const Col4P0 = styled.div`
-        flex: 0 0 33.333333%;
-        max-width: 33.333333%;
-        position: relative;
-        width: 100%;
-    `;
-const Col6P0 = styled.div`
-        flex: 0 0 50%;
-        max-width: 50%;
-        position: relative;
-        width: 100%;
-    `;
-const Col6MxAutoMt5 = styled(Col6P0)`
-        padding-right: 15px;
-        padding-left: 15px;
-        margin-left: auto !important;
-        margin-right: auto !important;
-        margin-top: 3rem !important;
-    `;
+    const RowMargin0 = styled(Row)`
+            margin: 0 ;  
+        `;
 
-const TextWhiteDiv = styled.div`
-        color: #fff !important;
-    `;
-const TextOccupancyColor = styled.div`
-       //color: ${({theme}) => theme.colors.primary} !important;
-       color: ${ ({occupancyColor}) => occupancyColor } !important;
-        
-    `;
+    const RowM0H25 = styled(RowMargin0)`
+            height: 25%;  
+        `;
+
+    const Col = styled.div`
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+        `;
+    const Col4P0 = styled.div`
+            flex: 0 0 33.333333%;
+            max-width: 33.333333%;
+            position: relative;
+            width: 100%;
+        `;
+    const Col6P0 = styled.div`
+            flex: 0 0 50%;
+            max-width: 50%;
+            position: relative;
+            width: 100%;
+        `;
+    const Col6MxAutoMt5 = styled(Col6P0)`
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-left: auto;
+            margin-right: auto;
+            margin-top: 3rem;
+        `;
+
+    const TextWhiteDiv = styled.div`
+            color: #fff;
+        `;
+    const TextOccupancyColor = styled.div`
+           //color: ${({theme}) => theme.colors.primary};
+           color: ${ ({occupancyColor}) => occupancyColor }; 
+        `;
