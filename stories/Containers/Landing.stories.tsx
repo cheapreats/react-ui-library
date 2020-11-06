@@ -31,7 +31,7 @@ export default {
     },
     args: {
         logo:
-            'https://api.media.atlassian.com/file/3e6b2c46-c5e2-48ca-a544-140708b30636/binary?token=eyJhbGciOiJIUzI1NiJ9.eyJpc3MiOiJlYTI1MzQ4Yi04ZWZiLTQzNTMtOTEyYi1iMWUxODJlMzQ2ZmQiLCJhY2Nlc3MiOnsidXJuOmZpbGVzdG9yZTpmaWxlOjNlNmIyYzQ2LWM1ZTItNDhjYS1hNTQ0LTE0MDcwOGIzMDYzNiI6WyJyZWFkIl19LCJleHAiOjE2MDQ2MDQ2NjMsIm5iZiI6MTYwNDUyMTY4M30.W4jtGaEbKXYUA0A8o13vmXbn8vbPg0QCMC4Kbz01_LU&client=ea25348b-8efb-4353-912b-b1e182e346fd&name=logo-red.png',
+            'https://scontent.fphx1-1.fna.fbcdn.net/v/t1.0-9/29432778_207936176627967_6515661452525090864_n.png?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=OkWX6CgivlkAX_0WjVR&_nc_ht=scontent.fphx1-1.fna&oh=ecd9d09cbba70ad21634fc51b0a3a608&oe=5FC97964',
     },
 } as Meta;
 
