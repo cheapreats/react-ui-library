@@ -3,7 +3,7 @@ import { StandardView, AlternativeView } from './Views';
 import { EditText } from './EditText';
 import { EditImage } from './EditImage';
 
-// MODIFIER PROPS
+
 export interface ModifierProps {
     title: string;
     isStandardChosen: boolean;
@@ -11,7 +11,7 @@ export interface ModifierProps {
     isText: boolean;
     isImage: boolean;
 }
-// END OF MODIFIER PROPS
+
 
 export const ModifierTools: React.FC<ModifierProps> = ({
     title,
@@ -19,10 +19,13 @@ export const ModifierTools: React.FC<ModifierProps> = ({
     isAlternativeChosen,
     isText,
     isImage,
+    ...props
 }): React.ReactElement => {
     if (isStandardChosen) {
         if (isStandardChosen && isText) {
-            return <EditText />;
+            return <EditText 
+                    title='Edit Text'
+                    />;
         } else if (isStandardChosen && isImage) {
             return <EditImage />;
         } else {
@@ -43,7 +46,9 @@ export const ModifierTools: React.FC<ModifierProps> = ({
         }
     } else if (isAlternativeChosen) {
         if (isAlternativeChosen && isText) {
-            return <EditText />;
+            return <EditText 
+                    title="Edit Text"
+                    />;
         } else if (isAlternativeChosen && isImage) {
             return <EditImage />;
         } else {

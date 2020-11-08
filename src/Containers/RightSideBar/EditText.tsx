@@ -9,16 +9,11 @@ import { AlignMiddle } from '@styled-icons/boxicons-regular/AlignMiddle';
 import { AlignLeft } from '@styled-icons/boxicons-regular/AlignLeft';
 import { AlignRight } from '@styled-icons/boxicons-regular/AlignRight';
 
-// API KEY: AIzaSyBW6afsWt6KM6yvzXgfJ9UmUGImHvedZbc
-// STYLED COMPONENTS
+
 const Wrapper = styled.div``;
 const StyledSelect = styled(Select)`
     width: 143px;
 `;
-const FontStyledSelect = styled(Select)`
-    width: 143px;
-`;
-
 const Title = styled.h1`
     font-size: 18px;
     padding-right: 20px;
@@ -94,7 +89,11 @@ const StyledAlignRight = styled(AlignRight)`
     height: 24px;
 `;
 
-export interface EditTextProps {}
+
+export interface EditTextProps {
+    title: string,
+}
+
 
 const fontSizes = [
     '1',
@@ -151,11 +150,14 @@ const fontSizes = [
 ];
 const fontStyles = ['test', 'test', 'test', 'test'];
 
-export const EditText: React.FC<EditTextProps> = ({}): React.ReactElement => {
+
+export const EditText: React.FC<EditTextProps> = ({
+    title,
+}): React.ReactElement => {
     const [select, setSelect] = useState(fontSizes[0]);
     return (
         <Wrapper>
-            <Title>Edit Text</Title>
+            <Title>{ title }</Title>
 
             <TxtWrapper>
                 <Container>
@@ -182,7 +184,7 @@ export const EditText: React.FC<EditTextProps> = ({}): React.ReactElement => {
                 </Container>
                 <Container>
                     <Txt>Size</Txt>
-                    <FontStyledSelect
+                    <StyledSelect
                         placeholder={fontStyles[0]}
                         onChange={(
                             e: React.ChangeEvent<HTMLInputElement>,
@@ -200,7 +202,7 @@ export const EditText: React.FC<EditTextProps> = ({}): React.ReactElement => {
                                 );
                             },
                         )}
-                    </FontStyledSelect>
+                    </StyledSelect>
                 </Container>
             </TxtWrapper>
 

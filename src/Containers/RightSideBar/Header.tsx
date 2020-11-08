@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// STYLED COMPONENTS
+
 const Wrapper = styled.div`
     text-align: center;
 `;
@@ -39,9 +39,8 @@ const CheckList = styled.button`
     border-bottom: 3px solid red;
     outline: none;
 `;
-// END OF STYLED COMPONENTS
 
-// MODIFIER PROPS
+
 export interface CheckHeaderProps {
     checkTitle: string;
     isGray: boolean;
@@ -52,6 +51,8 @@ export interface ModifierHeaderProps {
     isGray: boolean;
     onClick: (e: React.MouseEvent) => void;
 }
+
+
 const onPage = {
     color: 'gray',
     borderBottom: 'none',
@@ -59,7 +60,7 @@ const onPage = {
 const IconGray = {
     border: 'solid 3px gray',
 };
-// END OF MODIFIER PROPS
+
 
 export const CheckListHeader: React.FC<CheckHeaderProps> = ({
     checkTitle,

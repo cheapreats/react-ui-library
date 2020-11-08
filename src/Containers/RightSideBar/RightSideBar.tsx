@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { CheckList, RecInfoArr, ReqInfoArr } from './Checklist';
+import { CheckList, DefCheckbox } from './Checklist';
 import { ModifierTools } from './ModifierTools';
 import { List } from '../List';
 import { CheckListHeader, ModifierToolsHeader } from './Header';
@@ -8,6 +8,8 @@ import { CheckListHeader, ModifierToolsHeader } from './Header';
 export interface RightSideBarProps {
     isStandardChosen: boolean;
     isAlternativeChosen: boolean;
+    recInfoArr: DefCheckbox;
+    reqInfoArr: DefCheckbox;
     onText: boolean;
     onImage: boolean;
 }
@@ -22,6 +24,8 @@ const isLeftToggle = false;
 export const RightSideBar: React.FC<RightSideBarProps> = ({
     isStandardChosen,
     isAlternativeChosen,
+    recInfoArr,
+    reqInfoArr,
     onText,
     onImage,
 }): React.ReactElement => {
@@ -58,18 +62,17 @@ export const RightSideBar: React.FC<RightSideBarProps> = ({
             {isCheckList ? (
                 <>
                     <CheckList
-                        title="Checklist"
                         CRATitle="Canada Revenue Agency"
                         ReqTitle="Required Information"
                         RecTitle="Recommended Information"
-                        ReqInfoArr={ReqInfoArr}
-                        RecInfoArr={RecInfoArr}
+                        ReqInfoArr={reqInfoArr}
+                        RecInfoArr={recInfoArr}
                     />
                 </>
             ) : (
                 <>
                     <ModifierTools
-                        title="Edit Layout"
+                        title="Choose Layout"
                         isStandardChosen={isStandardChosen}
                         isAlternativeChosen={isAlternativeChosen}
                         isText={onText}
