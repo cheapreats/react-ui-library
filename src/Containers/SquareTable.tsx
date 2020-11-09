@@ -109,13 +109,13 @@ export const SquareTable: React.FC<ISquareTable>
                             <TableInfo>
                                 <p>
                                     {tableID}<br></br>
-                                    {partyName} <br></br>
+                                    {partyName}<br></br>
                                     <Status
-                                    occupancyColor ={ getOccupancyColor(occupancyStatus)}
+                                    occupancyColor={getOccupancyColor(occupancyStatus)}
                                     >{occupancyStatus}</Status><br></br>
                                 </p>
                             </TableInfo>
-                            <ColorDiv chairNumOnSide={chairNumOnSide} occupancyColor ={ getOccupancyColor(occupancyStatus)}/>
+                            <ColorDiv chairNumOnSide={chairNumOnSide} occupancyColor={ getOccupancyColor(occupancyStatus)} />
                         </Row>
                     </TableBody>
 
@@ -177,8 +177,7 @@ export const SquareTable: React.FC<ISquareTable>
           margin-bottom: 0.25rem;
           margin-left: auto;
           margin-right: auto;
-          background-color: #6c757d;
-          
+          background-color: #6c757d;         
         `;
 
     const LeftChair=styled.div`

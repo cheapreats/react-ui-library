@@ -6,22 +6,22 @@ export interface IRectangleTable {
      * The unique identifier for the table
      */
     tableID: string,
-        /**
-         * The number of chairs at the table
-         */
-        numOfChairs: number,
-        /**
-         * The name of the party assigned to the table
-         */
-        partyName: string,
-        /**
-         * The occupancy status for the table
-         */
-        occupancyStatus: occupancyStatusTypes,
-        /**
-         * The seating/reservation time for the party at the table
-         */
-        reservationTime: Date,
+    /**
+     * The number of chairs at the table
+     */
+    numOfChairs: number,
+    /**
+     * The name of the party assigned to the table
+     */
+    partyName: string,
+    /**
+     * The occupancy status for the table
+     */
+    occupancyStatus: occupancyStatusTypes,
+    /**
+     * The seating/reservation time for the party at the table
+     */
+    reservationTime: Date,
 }
 
 enum occupancyStatusTypes {
@@ -48,8 +48,8 @@ export const RectangleTable: React.FC<IRectangleTable>
 
     /**
      * checks numOfChairs is between 1-6
-     * Returns 2,4, or 6 depending on parameter.
-     * Returns 2 if numOfChairs is not between 1-6
+     * @param numOfChairs {number} uses the number of chairs
+     * @returns returns {number} of chairs of the component.
      */
     function getChairs(numOfChairs: number){
 
