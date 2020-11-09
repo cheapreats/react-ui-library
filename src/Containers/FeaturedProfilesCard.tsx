@@ -10,6 +10,7 @@ const SUBTRACTED_PROFILE_PICTURE = 1;
 const START_FROM_PROFILE_INDEX = 0;
 const MAX_PROFILES = 6;
 const ADD_USER_ICON_KEY = 1;
+const SUBTRACTED_REMAINING_PROFILE = 1;
 
 export interface IProfile {
     image: string;
@@ -47,6 +48,10 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
         const profileInitialsEndIndex =
             profiles.length - PROFILE_INITIALS_INDEX_ENDPOINT;
 
+        const remainingProfiles =
+            profileData.length -
+            (determineMaxProfileLength() - SUBTRACTED_REMAINING_PROFILE);
+
         const getProfiles = (
             profile: IProfile,
             index: number,
@@ -72,7 +77,7 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
                     return (
                         <FeaturedProfile
                             key={profile.id}
-                            remainingProfiles={profileInitialsEndIndex}
+                            remainingProfiles={remainingProfiles}
                             background="gray"
                         />
                     );

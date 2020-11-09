@@ -64,6 +64,24 @@ const profiles = [
         initials: 'CG',
         id: 9034,
     },
+    {
+        image:
+            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
+        initials: 'CG',
+        id: 9034,
+    },
+    {
+        image:
+            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
+        initials: 'CG',
+        id: 9034,
+    },
+    {
+        image:
+            'https://images.pexels.com/photos/3763188/pexels-photo-3763188.jpeg?cs=srgb&dl=pexels-andrea-piacquadio-3763188.jpg&fm=jpg',
+        initials: 'CG',
+        id: 9034,
+    },
 ];
 
 export default {
