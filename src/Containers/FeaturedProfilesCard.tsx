@@ -72,7 +72,7 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
                     return (
                         <FeaturedProfile
                             key={profile.id}
-                            profilesRemaining={profileInitialsEndIndex}
+                            remainingProfiles={profileInitialsEndIndex}
                             background="gray"
                         />
                     );

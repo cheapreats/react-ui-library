@@ -8,7 +8,7 @@ export interface IFeaturedProfileProps {
     key: number;
     image?: string;
     initials?: string;
-    profilesRemaining?: number;
+    remainingProfiles?: number;
     icon?: boolean;
     width?: number;
     height?: number;
@@ -19,7 +19,7 @@ export const FeaturedProfile: React.FC<IFeaturedProfileProps> = ({
     alt = 'Profile Image',
     key,
     icon,
-    profilesRemaining,
+    remainingProfiles,
     initials,
     image,
     background,
@@ -27,13 +27,18 @@ export const FeaturedProfile: React.FC<IFeaturedProfileProps> = ({
     height = 100,
 }) => {
     return (
-        <CircleImage background={background} key={key}>
+        <CircleImage
+            width={width}
+            height={height}
+            background={background}
+            key={key}
+        >
             {!!image && (
                 <img src={image} alt={alt} width={width} height={height} />
             )}
             {!!initials && <CircleContent>{initials}</CircleContent>}
-            {!!profilesRemaining && (
-                <CircleContent>{profilesRemaining}</CircleContent>
+            {!!remainingProfiles && (
+                <CircleContent>{remainingProfiles}</CircleContent>
             )}
             {!!icon && <Icon as={AddUser} />}
         </CircleImage>
@@ -42,6 +47,8 @@ export const FeaturedProfile: React.FC<IFeaturedProfileProps> = ({
 
 interface ICircleImageProps {
     background: string;
+    width: number;
+    height: number;
 }
 
 const CircleImage = styled.li<ICircleImageProps>`
@@ -51,8 +58,8 @@ const CircleImage = styled.li<ICircleImageProps>`
     border-radius: 50%;
     object-fit: cover;
     overflow: auto;
-    width: 100px;
-    height: 100px;
+    width: ${({ width }) => `${width}px`};
+    height: ${({ height }) => `${height}px`};
     background: ${({ background }) => background || 'none'};
 `;
 

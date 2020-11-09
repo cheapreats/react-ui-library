@@ -69,7 +69,6 @@ const profiles = [
 export default {
     title: createStoryTitle('Featured Profiles Card'),
     component: FeaturedProfilesCard,
-    argTypes: { onClick: { action: 'Clicked!' } },
     args: {
         profileData: profiles,
         alt: 'Profile Image',
