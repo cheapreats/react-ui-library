@@ -8,6 +8,7 @@ import {
     ListItem,
     ListToggle,
 } from '../../src';
+import { useArgs } from '@storybook/client-api';
 import { Meta, Story } from '@storybook/react';
 import { createStoryTitle } from '../Constants';
 
@@ -30,6 +31,13 @@ const items = [
 export default {
     title: createStoryTitle('List'),
     component: List,
+    argTypes: {
+        isOpen: {
+            control: {
+                type: 'boolean',
+            },
+        },
+    },
     args: {
         header: (
             <ListHeader
@@ -57,8 +65,8 @@ export default {
 } as Meta;
 
 export const Basic: Story<ListProps> = (args) => {
-    const [isOpen, setIsOpen] = useState(true);
-
+    const [{ isOpen }, updateArgs] = useArgs();
+    const setIsOpen = () => updateArgs({ isOpen: !isOpen });
     return (
         <List
             {...args}
@@ -69,6 +77,7 @@ export const Basic: Story<ListProps> = (args) => {
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                     isLeftToggle={true}
+                    isToggleHiddenDesktop
                 />
             }
         >

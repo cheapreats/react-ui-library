@@ -37,6 +37,8 @@ export interface NavigationProps extends MainInterface, ResponsiveInterface {
     theme: DefaultTheme;
     label?: string;
     footer?: React.ReactElement;
+    zIndex?: number;
+    padding?: string;
 }
 const _Navigation: React.FC<NavigationProps> = ({
     params = {},
@@ -45,10 +47,12 @@ const _Navigation: React.FC<NavigationProps> = ({
     children,
     theme,
     label,
+    zIndex = 2,
+    padding = '16px 0 0',
     footer,
     ...props
 }): React.ReactElement => (
-    <Container {...props}>
+    <Container zIndex={zIndex} padding={padding} {...props}>
         <Header>
             <Logo src={theme.logo} />
             <Heading
@@ -94,14 +98,21 @@ const _Navigation: React.FC<NavigationProps> = ({
 
 export const Navigation = withTheme(_Navigation as never);
 
-const Container = styled.nav`
+interface ContainerProps {
+    zIndex: number;
+    padding: string;
+}
+
+const Container = styled.nav<ContainerProps>`
     ${flex('column')}
     ${transition(['width'])}
-    ${({ theme }): string => `
+    ${({ theme, zIndex, padding }): string => `
         box-shadow: ${theme.depth[1]};
         background-color: ${theme.colors.primary};
         max-width: ${theme.dimensions.navigation.width}px;
         width: ${theme.dimensions.navigation.width}px;
+        z-index: ${zIndex};
+        padding: ${padding};
     `}
     ${media(
         'tablet',
@@ -111,7 +122,6 @@ const Container = styled.nav`
     )}
     box-sizing: border-box;
     flex-shrink: 0;
-    padding: 16px 8px 8px;
     color: white;
 `;
 
