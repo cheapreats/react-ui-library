@@ -37,5 +37,4 @@ export * from './Stock'
 export * from './FeaturedProfilesCard'
 export * from './Timeline';
 export * from './LeftSideBar';
-export * from './Stock';
 export * from './Landing';
