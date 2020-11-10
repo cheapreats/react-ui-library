@@ -9,7 +9,7 @@
     "sideEffects": false,
     "scripts": {
         "start": "start-storybook -p 6006",
-        "deploy": "build-storybook --output-dir .deploy",
+        "deploy": "build-storybook -s dist -o .deploy",
         "build": "rm -rf dist  && tsc && NODE_ENV=production babel dist -d dist",
         "test": "tsc && npm run eslint:fix",
         "prepublish": "npm run lint && npm run build",

@@ -2,7 +2,6 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Stock, StockProps } from '../../src';
 import { createStoryTitle } from '../Constants';
-import { MainTheme } from '../../src/Themes';
 
 export default {
     title: createStoryTitle('Stock'),
