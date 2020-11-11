@@ -33,48 +33,55 @@ enum occupancyStatusTypes {
 /**
  * Primary UI component for user interaction
  */
-
 export const RectangleTable: React.FC<IRectangleTable>
     = ({
-           tableID = 'T1',
-           numOfChairs = 4,
-           partyName = 'Null',
-           occupancyStatus = occupancyStatusTypes.Vacant,
-           reservationTime = Date.now(),
-           ...props
-       }) => {
+        tableID = 'T1',
+        numOfChairs = 4, 
+        partyName = 'Null',
+        occupancyStatus = occupancyStatusTypes.Vacant,
+        reservationTime = Date.now(),
+        ...props
+    }) => {
 
-    const {colors} = useTheme();
+        const {colors} = useTheme();
+
+        /**
+         * checks numOfChairs is between 1-6
+         * @param numOfChairs {number} uses the number of chairs
+         * @returns returns {number} of chairs of the component.
+         */
+        function getChairs(numOfChairs: number){
+
+            if(numOfChairs < 3) {
+                return 2;
+            }
+
+            if (numOfChairs%2 !== 0) {
+                return (numOfChairs + 1);
+            }
+
+            return numOfChairs;
+
+        };
 
     /**
-     * checks numOfChairs is between 1-6
-     * @param numOfChairs {number} uses the number of chairs
-     * @returns returns {number} of chairs of the component.
-     */
-    function getChairs(numOfChairs: number){
-
-        if(numOfChairs < 3) {
-            return 2;
-        }
-
-        if (numOfChairs%2 !== 0) {
-            return (numOfChairs + 1);
-        }
-
-        return numOfChairs;
-
-    };
-
-    /**
-     * Primary function that returns the color from the occupancyStatus
+     * This function will determine what color should be the Status and ColorDiv
+     * and return hexadecimal color value
+     * @param occupancyStatus {string} - Occupancy status
+     * @return {string} - Hexadecimal color value
      */
     function getOccupancyColor(status: occupancyStatusTypes) {
-        if (occupancyStatus === occupancyStatusTypes.Vacant) {
+
+        switch (occupancyStatus){
+        case occupancyStatusTypes.Vacant:
             return colors.occupancyStatusColors.Vacant;
-        } if (occupancyStatus === occupancyStatusTypes.Reserved) {
+
+        case occupancyStatusTypes.Reserved:
             return colors.occupancyStatusColors.Reserved;
+
+        case occupancyStatusTypes.Occupied:
+            return colors.occupancyStatusColors.Occupied;
         }
-        return colors.occupancyStatusColors.Occupied;
 
     }
 
@@ -129,111 +136,128 @@ export const RectangleTable: React.FC<IRectangleTable>
     );
 };
 
-    /**
-     * variables for the styled components
-     */
+/**
+ * variables for the styled components
+ */
+const StyledTable = styled.div`
+        
+        width: ${ ({numOfChairs}) => numOfChairs * 11}em;        
+`;
 
-    const StyledTable = styled.div`
-                width: ${ ({numOfChairs}) => numOfChairs * 11}em;        
-            `;
+const TopChair = styled.div`
+        
+        height: 3em;
+        border-top-left-radius: 3rem;
+        border-top-right-radius: 3rem;
+        flex: 0 0 50%;
+        max-width: 50%;
+        background-color: #6c757d;
+        margin: auto;
+`;
 
-    const TopChair = styled.div`
-                height: 3em;
-                border-top-left-radius: 3rem;
-                border-top-right-radius: 3rem;
-                flex: 0 0 50%;
-                max-width: 50%;
-                background-color: #6c757d;
-                margin: auto;
-            `;
+const TableBody = styled.div`
+        
+        height: 22em;
+        border-radius: 3rem;
+        background-color: #6c757d;
+        margin: .25rem;
+`;
 
-    const TableBody = styled.div`
-                height: 22em;
-                border-radius: 3rem;
-                background-color: #6c757d;
-                margin: .25rem;
-                
-            `;
+const BottomChair = styled.div`
+        
+        height: 3em;
+        border-bottom-left-radius: 3rem;
+        border-bottom-right-radius: 3rem;
+        flex: 0 0 50%;
+        max-width: 50%;
+        background-color: #6c757d;
+        margin: auto !important;
+`;
 
-    const BottomChair = styled.div`
-                height: 3em;
-                border-bottom-left-radius: 3rem;
-                border-bottom-right-radius: 3rem;
-                flex: 0 0 50%;
-                max-width: 50%;
-                background-color: #6c757d;
-                margin: auto !important;
-            `;
-
-    const ColorBand = styled.div`
-            border-top-right-radius: 3rem;
-            border-bottom-right-radius: 3rem;
-            height: 22em;
-            flex: 0 0 16.666667%;
-            max-width: 16.666667%;
-            position: relative;
-            width: 100%;
-            background-color: ${ ({occupancyColor}) => occupancyColor };
-        `;
-
-    const Row = styled.div`
-            display: flex;
-            flex-wrap: wrap;
-            margin-right: 15px;
-            margin-left: 15px;
-        `;
-
-    const RowMargin0 = styled(Row)`
-            margin: 0;  
-        `;
-
-    const RowM0H25 = styled(RowMargin0)`
-            height: 25%;  
-        `;
-
-    const RowM0H50 = styled(RowMargin0)`
-            height: 50%;  
-        `;
-
-    const Col = styled.div`
-            flex-basis: 0;
-            flex-grow: 1;
-            max-width: 100%;
-        `;
-
-    const Col6P0 = styled.div`
-            flex: 0 0 50%;
-            max-width: 50%;
-            position: relative;
-            width: 100%;
-        `;
-
-    const Col4P0 = styled.div`
-            flex: 0 0 33.333333%;
-            max-width: 33.333333%;
-            position: relative;
-            width: 100%;
-        `;
-
-    const Col6MxAutoMt3TxtLt = styled(Col6P0)`
+const ColorBand = styled.div`
             
-            color: #f8f9fa;
-            margin-left: 5rem;
-            margin-top: 1rem;
-        `;
+        border-top-right-radius: 3rem;
+        border-bottom-right-radius: 3rem;
+        height: 22em;
+        flex: 0 0 16.666667%;
+        max-width: 16.666667%;
+        position: relative;
+        width: 100%;
+        background-color: ${ ({occupancyColor}) => occupancyColor };
+`;
 
-    const Col6MxAutoMt5 = styled(Col6P0)`
-            padding-right: 15px;
-            padding-left: 15px;
-            margin-left: auto;
-            margin-right: auto;
-            margin-top: 3rem;
-        `;
+const Row = styled.div`
+        
+        display: flex;
+        flex-wrap: wrap;
+        margin-right: 15px;
+        margin-left: 15px;
+`;
 
-    const TextWhiteDiv = styled.div`
-            color: #fff;
-        `;
+const RowMargin0 = styled(Row)`
+            
+        margin: 0;  
+`;
 
-    const TextOccupancyColor = styled.div`
-            color: ${ ({occupancyColor}) => occupancyColor };
-        `;
+const RowM0H25 = styled(RowMargin0)`
+        
+        height: 25%;  
+`;
+
+const RowM0H50 = styled(RowMargin0)`
+        
+        height: 50%;  
+`;
+
+const Col = styled.div`
+            
+        flex-basis: 0;
+        flex-grow: 1;
+        max-width: 100%;
+`;
+
+const Col6P0 = styled.div`
+        
+        flex: 0 0 50%;
+        max-width: 50%;
+        position: relative;
+        width: 100%;
+`;
+
+const Col4P0 = styled.div`
+        
+        flex: 0 0 33.333333%;
+        max-width: 33.333333%;
+        position: relative;
+        width: 100%;
+`;
+
+const Col6MxAutoMt3TxtLt = styled(Col6P0)`
+        
+        padding-right: 15px;
+        padding-left: 15px;
+        color: #f8f9fa;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1rem;
+`;
+
+const Col6MxAutoMt5 = styled(Col6P0)`
+        
+        padding-right: 15px;
+        padding-left: 15px;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 3rem;
+`;
+
+const TextWhiteDiv = styled.div`
+            
+        color: #fff;
+`;
+
+
+const TextOccupancyColor = styled.div`
+            
+        color: ${ ({occupancyColor}) => occupancyColor };
+`;
