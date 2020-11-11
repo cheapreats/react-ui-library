@@ -17,7 +17,6 @@ export interface IChair {
 // Define a type for Position to restrict to four specific values
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
-
 /**
  * Primary UI component for user interaction
  */
@@ -28,6 +27,10 @@ export const Chair: React.FC<IChair>
         ...props
     }) => {
 
+        /**
+         * Returns a JSX element for the Chair with the correct styles
+         * @returns {JSX.Element} the correct JSX.Element based on position
+         */
         function chairSwitch(): JSX.Element
         {
             switch (position) {
@@ -41,17 +44,13 @@ export const Chair: React.FC<IChair>
                 return <RightChair />;
             default:
                 return <div />;
-
             }
         }
-
         return (
             <div>
                 {chairSwitch()}
             </div>
-
         );
-
     };
 
 const TopChair=styled.div`

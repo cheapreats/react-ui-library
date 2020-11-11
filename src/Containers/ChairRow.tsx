@@ -11,12 +11,10 @@ export interface IChairRow {
      * The number of chairs for the ChairRow
      */
     chairNumOnSide: number,
-
 }
 
 // Define a type for Position to restrict to four specific values
 type Position = 'top' | 'bottom' | 'left' | 'right';
-
 
 /**
  * Primary UI component for user interaction
@@ -49,9 +47,7 @@ export const ChairRow: React.FC<IChairRow>
                             )}
                         </TopBottomRow>
                     </div>
-
                 );
-
             case 'left':
             case 'right':
                 return (
@@ -66,20 +62,15 @@ export const ChairRow: React.FC<IChairRow>
                         )}
                     </div>
                 );
-
             default:
                 return <div />;
-
             }
         }
-
         return (
             <div>
                 {chairRowSwitch()}
             </div>
-
         );
-
     };
 
 const TopBottomRow=styled.div`
@@ -95,7 +86,6 @@ const ChairCol=styled.div`
     flex-basis: 0;
     flex-grow: 1;
     max-width: 100%;
-
 `;
 
 const SideChairRow=styled.div`

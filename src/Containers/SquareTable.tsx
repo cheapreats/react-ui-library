@@ -65,7 +65,6 @@ export const SquareTable: React.FC<ISquareTable>
             return Math.floor(numOfChairs/4)+1;
         }
 
-
         /**
          * This function will determine what color should be the Status and ColorDiv
          * and return hexadecimal color value

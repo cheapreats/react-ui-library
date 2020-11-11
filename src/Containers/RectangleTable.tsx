@@ -242,15 +242,6 @@ const Col6MxAutoMt3TxtLt = styled(Col6P0)`
         margin-top: 1rem;
 `;
 
-const Col6MxAutoMt5 = styled(Col6P0)`
-        
-        padding-right: 15px;
-        padding-left: 15px;
-        margin-left: auto;
-        margin-right: auto;
-        margin-top: 3rem;
-`;
-
 const TextWhiteDiv = styled.div`
             
         color: #fff;
