@@ -52,90 +52,89 @@ export const RectangleTable: React.FC<IRectangleTable>
          */
         function getChairs(numOfChairs: number){
 
-            if(numOfChairs < 1 || numOfChairs > 6 ){
+            if(numOfChairs < 3) {
                 return 2;
             }
 
-            if(numOfChairs < 3){
-                return 2;
-            } if (numOfChairs < 5){
-                return 4;
-            } 
-            return 6;
-        
-        }
-
-        /**
-         * This function will determine what color should be the Status and ColorDiv
-         * and return hexadecimal color value
-         * @param occupancyStatus {string} - Occupancy status
-         * @return {string} - Hexadecimal color value
-         */
-        function getOccupancyColor(status: occupancyStatusTypes) {
-
-            switch (occupancyStatus){
-            case occupancyStatusTypes.Vacant:
-                return colors.occupancyStatusColors.Vacant;
-
-            case occupancyStatusTypes.Reserved:
-                return colors.occupancyStatusColors.Reserved;
-
-            case occupancyStatusTypes.Occupied:
-                return colors.occupancyStatusColors.Occupied;
+            if (numOfChairs%2 !== 0) {
+                return (numOfChairs + 1);
             }
 
+            return numOfChairs;
+
+        };
+
+    /**
+     * This function will determine what color should be the Status and ColorDiv
+     * and return hexadecimal color value
+     * @param occupancyStatus {string} - Occupancy status
+     * @return {string} - Hexadecimal color value
+     */
+    function getOccupancyColor(status: occupancyStatusTypes) {
+
+        switch (occupancyStatus){
+        case occupancyStatusTypes.Vacant:
+            return colors.occupancyStatusColors.Vacant;
+
+        case occupancyStatusTypes.Reserved:
+            return colors.occupancyStatusColors.Reserved;
+
+        case occupancyStatusTypes.Occupied:
+            return colors.occupancyStatusColors.Occupied;
         }
 
-        return (
-            <StyledTable numOfChairs={getChairs(numOfChairs)}>
-                <div>
-                    <RowMargin0>
-                        {[...Array( (getChairs(numOfChairs) / 2) )].map((e, i) => (
-                            <Col key={i}>
-                                <Row>
-                                    <TopChair />
-                                </Row>
-                            </Col>
-                        ))}
-                    </RowMargin0>
-                </div>
+    }
 
-                <TableBody>
-                    <RowMargin0>
-                        <Col6P0>
-                            <RowM0H25>
-                                <Col6MxAutoMt3TxtLt>
-                                    {tableID}
-                                </Col6MxAutoMt3TxtLt>
-                            </RowM0H25>
-                            <RowM0H25 />
-                            <RowM0H50>
-                                <Col6MxAutoMt5>
-                                    <TextWhiteDiv>{partyName}</TextWhiteDiv>
-                                    <TextOccupancyColor occupancyColor={getOccupancyColor(occupancyStatus)} >
-                                        {occupancyStatus}
-                                    </TextOccupancyColor>
-                                </Col6MxAutoMt5>
-                            </RowM0H50>
-                        </Col6P0>
-                        <Col4P0 />
-                        <ColorBand occupancyColor={getOccupancyColor(occupancyStatus)} />
-                    </RowMargin0>
-                </TableBody>
-                <div>
-                    <RowMargin0>
-                        {[...Array( (getChairs(numOfChairs) / 2) )].map((e, i) => (
-                            <Col key={i}>
-                                <Row>
-                                    <BottomChair />
-                                </Row>
-                            </Col>
-                        ))}
-                    </RowMargin0>
-                </div>
-            </StyledTable>
-        );
-    };
+    return (
+        <StyledTable numOfChairs={ getChairs(numOfChairs) }>
+            <div>
+                <RowMargin0>
+                    {[...Array( (getChairs(numOfChairs) / 2) )].map((e, i) => (
+                        <Col key={i}>
+                            <Row>
+                                <TopChair />
+                            </Row>
+                        </Col>
+                    ))}
+                </RowMargin0>
+            </div>
+
+            <TableBody>
+                <RowMargin0>
+                    <Col6P0>
+                        <RowM0H25>
+                            <Col6MxAutoMt3TxtLt>
+                                {tableID}
+                                <TextWhiteDiv>{partyName}</TextWhiteDiv>
+                                <TextOccupancyColor
+                                    occupancyColor={ getOccupancyColor(occupancyStatus) }
+                                >
+                                    {occupancyStatus}
+                                </TextOccupancyColor>
+                            </Col6MxAutoMt3TxtLt>
+                        </RowM0H25>
+                        <RowM0H25 />
+                        <RowM0H50 />
+                    </Col6P0>
+                    <Col4P0 />
+                    <ColorBand   occupancyColor={ getOccupancyColor(occupancyStatus) } />
+                </RowMargin0>
+            </TableBody>
+
+            <div>
+                <RowMargin0>
+                    {[...Array( (getChairs(numOfChairs) / 2) )].map((e, i) => (
+                        <Col key={i}>
+                            <Row>
+                                <BottomChair />
+                            </Row>
+                        </Col>
+                    ))}
+                </RowMargin0>
+            </div>
+        </StyledTable>
+    );
+};
 
 /**
  * variables for the styled components
@@ -256,6 +255,7 @@ const TextWhiteDiv = styled.div`
             
         color: #fff;
 `;
+
 
 const TextOccupancyColor = styled.div`
             
