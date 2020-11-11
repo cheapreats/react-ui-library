@@ -64,66 +64,64 @@ export const SquareTable: React.FC<ISquareTable>
             }
             return Math.floor(numOfChairs/4)+1;
         }
-    }
 
-    /**
-     * This function will determine what color should be the Status and ColorDiv
-     * and return hexadecimal color value
-     * @param occupancyStatus {string} - Occupancy status
-     * @return {string} - Hexadecimal color value
-     */
-    function getOccupancyColor(status: occupancyStatusTypes) {
 
-        switch (occupancyStatus){
-        case occupancyStatusTypes.Vacant:
-            return colors.occupancyStatusColors.Vacant;
+        /**
+         * This function will determine what color should be the Status and ColorDiv
+         * and return hexadecimal color value
+         * @param occupancyStatus {string} - Occupancy status
+         * @return {string} - Hexadecimal color value
+         */
+        function getOccupancyColor(status: occupancyStatusTypes) {
 
-        case occupancyStatusTypes.Reserved:
-            return colors.occupancyStatusColors.Reserved;
+            switch (occupancyStatus) {
+            case occupancyStatusTypes.Vacant:
+                return colors.occupancyStatusColors.Vacant;
 
-        case occupancyStatusTypes.Occupied:
-            return colors.occupancyStatusColors.Occupied;
+            case occupancyStatusTypes.Reserved:
+                return colors.occupancyStatusColors.Reserved;
+
+            case occupancyStatusTypes.Occupied:
+                return colors.occupancyStatusColors.Occupied;
+            }
+
         }
 
-    }
-
-    return (
-        <div>
-            {/**chairs top*/}
+        return (
+            <div>
+                {/** chairs top */}
                 <ChairRow position='top' chairNumOnSide={chairNumOnSide} />
             
-            {/**table itself*/}
-            <div>
-                <Row>
+                {/** table itself */}
+                <div>
+                    <Row>
 
-                    {/**chairs left*/}
-                    <ChairRow position='left' chairNumOnSide={chairNumOnSide} />
+                        {/** chairs left */}
+                        <ChairRow position='left' chairNumOnSide={chairNumOnSide} />
 
-                    <TableBody chairNumOnSide={chairNumOnSide}>
-                        <Row>
-                            <TableInfo>
-                                <div>
-                                    {tableID+"\n"+partyName}
-                                    <Status
-                                    occupancyColor={getOccupancyColor(occupancyStatus)}
-                                    >{occupancyStatus}</Status>
-                                </div>
-                            </TableInfo>
-                            <ColorDiv chairNumOnSide={chairNumOnSide} occupancyColor={ getOccupancyColor(occupancyStatus)} />
-                        </Row>
-                    </TableBody>
+                        <TableBody chairNumOnSide={chairNumOnSide}>
+                            <Row>
+                                <TableInfo>
+                                    <div>
+                                        {tableID+"\n"+partyName}
+                                        <Status occupancyColor={getOccupancyColor(occupancyStatus)}>{occupancyStatus}</Status>
+                                    </div>
+                                </TableInfo>
+                                <ColorDiv chairNumOnSide={chairNumOnSide} occupancyColor={ getOccupancyColor(occupancyStatus)} />
+                            </Row>
+                        </TableBody>
 
-                    {/**chairs right*/}
-                    <ChairRow position='right' chairNumOnSide={chairNumOnSide} />
-                </Row>
+                        {/** chairs right */}
+                        <ChairRow position='right' chairNumOnSide={chairNumOnSide} />
+                    </Row>
+                </div>
+
+                {/** chairs bottom */}
+                <ChairRow position='bottom' chairNumOnSide={chairNumOnSide} />
+
             </div>
-
-            {/**chairs bottom*/}
-            <ChairRow position='bottom' chairNumOnSide={chairNumOnSide} />
-
-        </div>
-    );
-};
+        );
+    };
 
 /**
  * variables for the styled components
@@ -134,7 +132,7 @@ const TableBody=styled.div`
         width: ${({chairNumOnSide}) => chairNumOnSide * 20}rem;
         border-radius: 3rem;
         background-color: #6c757d;
-    `;
+`;
 
 const ColorDiv=styled.div`
 
@@ -145,7 +143,7 @@ const ColorDiv=styled.div`
         border-top-right-radius: 3rem;
         border-bottom-right-radius: 3rem;
         background-color: ${ ({occupancyColor}) => occupancyColor };
-        `;
+`;
 
 const Row=styled.div`
 
@@ -153,7 +151,7 @@ const Row=styled.div`
         flex-wrap: wrap;
         margin-right: -15px;
         margin-left: -15px;
-    `;
+`;
 
 const TableInfo=styled.div`
 
