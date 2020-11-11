@@ -53,18 +53,18 @@ export const RectangleTable: React.FC<IRectangleTable>
      */
     function getChairs(numOfChairs: number){
 
-        if(numOfChairs < 1 || numOfChairs > 6 ){
+        if(numOfChairs < 3) {
             return 2;
         }
 
-        if(numOfChairs < 3){
-            return 2;
-        } else if (numOfChairs < 5){
-            return 4;
-        } else {
-            return 6;
+        if (numOfChairs%2 !== 0) {
+            return (numOfChairs + 1);
         }
-    }
+
+        return numOfChairs;
+
+    };
+
     /**
      * Primary function that returns the color from the occupancyStatus
      */
@@ -98,19 +98,16 @@ export const RectangleTable: React.FC<IRectangleTable>
                         <RowM0H25>
                             <Col6MxAutoMt3TxtLt>
                                 {tableID}
-                            </Col6MxAutoMt3TxtLt>
-                        </RowM0H25>
-                        <RowM0H25 />
-                        <RowM0H50>
-                            <Col6MxAutoMt5>
                                 <TextWhiteDiv>{partyName}</TextWhiteDiv>
                                 <TextOccupancyColor
-                                occupancyColor={ getOccupancyColor(occupancyStatus) }
+                                    occupancyColor={ getOccupancyColor(occupancyStatus) }
                                 >
                                     {occupancyStatus}
                                 </TextOccupancyColor>
-                            </Col6MxAutoMt5>
-                        </RowM0H50>
+                            </Col6MxAutoMt3TxtLt>
+                        </RowM0H25>
+                        <RowM0H25 />
+                        <RowM0H50 />
                     </Col6P0>
                     <Col4P0 />
                     <ColorBand   occupancyColor={ getOccupancyColor(occupancyStatus) } />
@@ -219,11 +216,9 @@ export const RectangleTable: React.FC<IRectangleTable>
         `;
 
     const Col6MxAutoMt3TxtLt = styled(Col6P0)`
-            padding-right: 15px;
-            padding-left: 15px;
+            
             color: #f8f9fa;
-            margin-left: auto;
-            margin-right: auto;
+            margin-left: 5rem;
             margin-top: 1rem;
         `;
 

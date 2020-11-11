@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, {useTheme} from 'styled-components';
+import { ChairRow } from './ChairRow';
 
 export interface ISquareTable {
     /**
@@ -82,69 +83,37 @@ export const SquareTable: React.FC<ISquareTable>
     return (
         <div>
             {/**chairs top*/}
-
-                <TopBottomRow chairNumOnSide={chairNumOnSide}>
-                    {[...Array(chairNumOnSide)].map((e,i) =>
-                    <ChairCol>
-                        <TopChair  key={i}/>
-                    </ChairCol>
-                    )}
-                </TopBottomRow>
-
+                <ChairRow position='top' chairNumOnSide={chairNumOnSide} />
             
             {/**table itself*/}
             <div>
                 <Row>
 
                     {/**chairs left*/}
-                    <div>
-                        {[...Array(chairNumOnSide)].map((e,i) =>
-                            <SideChairRow>
-                                <LeftChair></LeftChair>
-                            </SideChairRow>
-                        )}          
-                    </div>
+                    <ChairRow position='left' chairNumOnSide={chairNumOnSide} />
 
                     <TableBody chairNumOnSide={chairNumOnSide}>
                         <Row>
                             <TableInfo>
-                                <p>
+                                <div>
                                     {tableID}<br></br>
                                     {partyName}<br></br>
                                     <Status
                                     occupancyColor={getOccupancyColor(occupancyStatus)}
                                     >{occupancyStatus}</Status><br></br>
-                                </p>
+                                </div>
                             </TableInfo>
                             <ColorDiv chairNumOnSide={chairNumOnSide} occupancyColor={ getOccupancyColor(occupancyStatus)} />
                         </Row>
                     </TableBody>
 
                     {/**chairs right*/}
-                    <div>
-                        {[...Array(chairNumOnSide)].map((e,i) =>
-                            <SideChairRow>
-                                <RightChair></RightChair>
-                            </SideChairRow>
-                        )}   
-                    </div>
+                    <ChairRow position='right' chairNumOnSide={chairNumOnSide} />
                 </Row>
             </div>
 
             {/**chairs bottom*/}
-            <div>
-                <TopBottomRow chairNumOnSide={chairNumOnSide} >
-
-                {[...Array(chairNumOnSide)].map((e,i) =>
-
-                    <ChairCol>
-                        <BottomChair key={i} />
-                    </ChairCol>
-
-                    )}
-                </TopBottomRow>
-
-            </div>
+            <ChairRow position='bottom' chairNumOnSide={chairNumOnSide} />
 
         </div>
     );
@@ -170,67 +139,6 @@ export const SquareTable: React.FC<ISquareTable>
             background-color: ${ ({occupancyColor}) => occupancyColor };
             `;
 
-    const TopChair=styled.div`
-          border-top-left-radius: 3rem;
-          border-top-right-radius: 3rem;
-          height: 2rem;
-          width: 10rem;
-          margin-bottom: 0.25rem;
-          margin-left: auto;
-          margin-right: auto;
-          background-color: #6c757d;         
-        `;
-
-    const LeftChair=styled.div`
-          border-top-left-radius: 3rem;
-          border-bottom-left-radius: 3rem;
-          width: 2rem;
-          height: 10rem;
-          margin-top:auto;
-          margin-bottom: auto;
-          margin-right: 1.25rem;
-          margin-left: 1rem;
-          background-color: #6c757d;
-        `;
-
-    const SideChairRow=styled.div`
-           display: flex;
-           flex-wrap: wrap;
-           margin-right: -15px;
-           margin-left: -15px;
-           height: 20rem;
-        `;
-
-    const ChairCol=styled.div`
-          flex-basis: 0;
-          flex-grow: 1;
-          max-width: 100%;
-    
-        `;
-
-
-    const RightChair=styled.div`
-            border-top-right-radius: 3rem;
-            border-bottom-right-radius: 3rem;
-            width: 2rem;
-            height: 10rem;
-            margin-top:auto;
-            margin-bottom: auto;
-            margin-left: 1.25rem;
-            background-color: #6c757d;
-        `;
-
-    const BottomChair=styled.div`
-          border-bottom-left-radius: 3rem;
-          border-bottom-right-radius: 3rem;
-          height: 2rem;
-          width: 10rem;
-          margin-top: 0.25rem;
-          margin-left: auto;
-          margin-right: auto;
-          background-color: #6c757d;
-         `;
-
     const Row=styled.div`
             display: flex;
             flex-wrap: wrap;
@@ -243,13 +151,6 @@ export const SquareTable: React.FC<ISquareTable>
         margin-top: 2rem;
         margin-left: 3rem;
         
-        `;
-
-    const TopBottomRow=styled.div`
-            display: flex;
-            flex-wrap: wrap;
-            width: ${({chairNumOnSide}) => chairNumOnSide * 20}rem;
-            margin-left: 1rem;
         `;
 
     const Status=styled.div`

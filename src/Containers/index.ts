@@ -36,3 +36,6 @@ export * from './Chart';
 export * from './CircleTable';
 export * from './RectangleTable';
 export * from './SquareTable';
+export * from './Chair';
+export * from './ChairRow';
+export * from './CircleTable2';
