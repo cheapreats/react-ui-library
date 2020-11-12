@@ -24,7 +24,7 @@ interface NavProps {
 }
 
 // no HTMLNavigationElement
-export interface NavigationProps extends MainInterface, ResponsiveInterface {
+export interface NavigationOldProps extends MainInterface, ResponsiveInterface {
     params?: { [name: string]: string };
     pages?: [
         string,
@@ -40,7 +40,7 @@ export interface NavigationProps extends MainInterface, ResponsiveInterface {
     zIndex?: number;
     padding?: string;
 }
-const _Navigation: React.FC<NavigationProps> = ({
+const _Navigation: React.FC<NavigationOldProps> = ({
     params = {},
     pages = [],
     tag = 'a',
@@ -96,7 +96,7 @@ const _Navigation: React.FC<NavigationProps> = ({
     </Container>
 );
 
-export const Navigation = withTheme(_Navigation as never);
+export const NavigationOld = withTheme(_Navigation);
 
 interface ContainerProps {
     zIndex: number;

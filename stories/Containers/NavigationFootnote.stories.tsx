@@ -1,10 +1,10 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { NavigationFootnote, NavigationFootnoteProps } from '../../src';
 import { createStoryTitle } from '../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
-    title: createStoryTitle('Navigation'),
+    title: createStoryTitle('NavigationFootnote'),
     component: NavigationFootnote,
     args: {
         text: 'Link To Somewhere',
