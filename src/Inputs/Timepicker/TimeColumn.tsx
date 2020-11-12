@@ -67,9 +67,8 @@ const List = styled.ul`
     ${({ theme }): string => `
         color: ${theme.colors.text}aa;
     `}
-    ${flex('column')}
-    ${scroll};
-    overflow-y: auto;
+    ${scroll}
+    overflow-y: scroll;
     list-style-type: none;
     font-weight: bold;
     max-width: 80px;
