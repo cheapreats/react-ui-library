@@ -15,8 +15,6 @@ const Header = () => <div>hello</div>;
 
 const defaultArgs = {
     label: 'Some Text', // this is for NavigationHeader
-    footer: <NavigationFooter url="#foo" text="Link to" />,
-    header: <Header />,
 };
 
 const Template: Story<NavigationProps> = (args) => (
@@ -35,6 +33,40 @@ export const WithPages = Template.bind({});
 
 WithPages.args = {
     ...defaultArgs,
+    pages: {
+        Item1: {
+            navProps: {
+                to: '/:id/orders',
+                icon: AppleAlt,
+            },
+        },
+        Item2: {
+            navProps: {
+                to: '/:id/orders',
+                icon: Archive,
+            },
+        },
+    },
+};
+
+export const WithFooter = Template.bind({});
+
+WithFooter.args = {
+    ...defaultArgs,
+    footer: <NavigationFooter url="#foo" text="Link to" />,
+};
+
+export const WithHeader = Template.bind({});
+WithHeader.args = {
+    ...defaultArgs,
+    header: <Header />,
+};
+
+export const WithPagesFooterHeader = Template.bind({});
+WithPagesFooterHeader.args = {
+    ...defaultArgs,
+    footer: <NavigationFooter url="#foo" text="Link to" />,
+    header: <Header />,
     pages: {
         Item1: {
             navProps: {
