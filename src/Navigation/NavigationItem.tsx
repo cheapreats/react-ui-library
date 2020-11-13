@@ -80,7 +80,9 @@ const NavLink = styled(L)`
 
 const Icon = styled.svg`
     flex-shrink: 0;
-    color: white;
+    ${({ theme }) => `
+    color:${theme.colors.background};
+    `}
     width: 30px;
     box-sizing: border-box;
     padding: 4px;

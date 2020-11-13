@@ -4,9 +4,7 @@ export * from './Global';
 export * from './List';
 export * from './Loading';
 export * from './Modal';
-export * from './Navigation';
 export * from './Tag';
-export * from './NavigationFootnote';
 export * from './ImageCarousel';
 export * from './Settings';
 export * from './SettingsCard';
@@ -33,8 +31,8 @@ export * from './ScrollableListContent';
 export * from './QRScan';
 export * from './Coupon';
 export * from './Chart';
-export * from './Stock'
-export * from './FeaturedProfilesCard'
+export * from './Stock';
+export * from './FeaturedProfilesCard';
 export * from './Timeline';
 export * from './LeftSideBar';
 export * from './Stock';
