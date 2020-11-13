@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Compass } from '@styled-icons/fa-solid/Compass';
+import { StyledIcon } from '@styled-icons/styled-icon';
 import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import { ImplicitPropsInterface } from '../Utils/Hooks';
 import { Mixins } from '../Utils';
@@ -13,21 +13,23 @@ export interface NavigationFooterProps
         React.HTMLAttributes<HTMLDivElement> {
     url: string;
     text: string;
+    icon: StyledIcon;
 }
 
 export const NavigationFooter: React.FC<NavigationFooterProps> = ({
     url,
     text,
+    icon,
     ...props
 }): React.ReactElement => (
-    <NavigationFooter_ {...props}>
+    <NavigationFooterContainer {...props}>
         <Button href={url} rel="noopener noreferrer" target="_blank">
-            <Icon />
+            <Icon as={icon} />
             <Paragraph margin="0 auto 0 12px" color="white" bold>
                 {text}
             </Paragraph>
         </Button>
-    </NavigationFooter_>
+    </NavigationFooterContainer>
 );
 
 const Button = styled.a`
@@ -45,7 +47,7 @@ const Button = styled.a`
     padding: 14px 20px;
 `;
 
-const Icon = styled(Compass)`
+const Icon = styled.svg`
     flex-shrink: 0;
     color: white;
     width: 30px;
@@ -69,6 +71,6 @@ const Paragraph = styled(P)`
     )}
 `;
 
-const NavigationFooter_ = styled.div`
+const NavigationFooterContainer = styled.div`
     margin: auto 0 0;
 `;

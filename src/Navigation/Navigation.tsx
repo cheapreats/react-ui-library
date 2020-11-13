@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Mixins } from '../Utils';
-import { NavigationHeader, NavigationItem } from '.';
+import { NavigationHeader, NavigationItem, NavigationHeaderProps } from '.';
 
 interface NavProps {
     to: string;
@@ -9,8 +9,7 @@ interface NavProps {
     icon: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
 }
 
-export interface NavigationProps {
-    label?: string;
+export interface NavigationProps extends NavigationHeaderProps {
     header?: React.ReactElement;
     footer?: React.ReactElement;
     pages?: {
@@ -23,13 +22,14 @@ export interface NavigationProps {
 
 export const Navigation: React.FC<NavigationProps> = ({
     label,
+    logo,
     pages = {},
     header,
     footer,
     ...props
 }) => (
     <Container {...props}>
-        <NavigationHeader label={label} />
+        <NavigationHeader label={label} logo={logo} />
         {header}
         <Items>
             {Object.entries(pages).map(([key, { navProps }]) => (

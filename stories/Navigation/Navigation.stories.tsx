@@ -3,8 +3,10 @@ import { Meta, Story } from '@storybook/react';
 import { AppleAlt } from '@styled-icons/fa-solid/AppleAlt';
 import { Archive } from '@styled-icons/fa-solid/Archive';
 import { BrowserRouter } from 'react-router-dom';
+import { Compass } from '@styled-icons/fa-solid/Compass';
 import { Navigation, NavigationProps, NavigationFooter } from '../../src';
 import { createStoryTitle } from '../Constants';
+import { logoWhite } from '../assets';
 
 export default {
     title: createStoryTitle('Navigation'),
@@ -53,7 +55,7 @@ export const WithFooter = Template.bind({});
 
 WithFooter.args = {
     ...defaultArgs,
-    footer: <NavigationFooter url="#foo" text="Link to" />,
+    footer: <NavigationFooter url="#foo" text="Link to" icon={Compass} />,
 };
 
 export const WithHeader = Template.bind({});
@@ -65,7 +67,8 @@ WithHeader.args = {
 export const WithPagesFooterHeader = Template.bind({});
 WithPagesFooterHeader.args = {
     ...defaultArgs,
-    footer: <NavigationFooter url="#foo" text="Link to" />,
+    logo: logoWhite,
+    footer: <NavigationFooter url="#foo" text="Link to" icon={Compass} />,
     header: <Header />,
     pages: {
         Item1: {

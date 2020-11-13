@@ -8,16 +8,17 @@ import { Mixins } from '../Utils';
 const hydratePath = (path: string, params: NavigationParams) =>
     path.replace(/(:[0-9A-Za-z]*)/g, (e) => params[e.slice(1)]);
 
-interface NavigationIconProps {
+interface NavigationItemProps {
     icon?: StyledIcon;
     to?: string;
     type?: any | string | number | symbol;
 }
+
 interface NavigationParams {
     id: string;
 }
 
-export const NavigationItem: React.FC<NavigationIconProps> = ({
+export const NavigationItem: React.FC<NavigationItemProps> = ({
     children,
     icon,
     to = '',
