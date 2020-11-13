@@ -5,8 +5,10 @@ import { StyledIcon } from '@styled-icons/styled-icon';
 import { Paragraph as P } from '../Text';
 import { Mixins } from '../Utils';
 
+const PARAM_PATTERN = /(:[0-9A-Za-z]*)/g;
+
 const hydratePath = (path: string, params: NavigationParams) =>
-    path.replace(/(:[0-9A-Za-z]*)/g, (e) => params[e.slice(1)]);
+    path.replace(PARAM_PATTERN, (e) => params[e.slice(1)]);
 
 interface _NavigationItemProps {
     icon?: StyledIcon;
