@@ -52,7 +52,6 @@ const Icon = styled.svg`
     ${({ theme }) => `
     color:${theme.colors.background};
     `}
-    color: white;
     width: 30px;
     box-sizing: border-box;
     padding: 4px;
