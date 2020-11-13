@@ -48,6 +48,7 @@ const Container = styled.nav`
     ${({ theme }) => `
         box-shadow: ${theme.depth[1]};
         background-color: ${theme.colors.primary};
+        color:${theme.colors.background};
     `}
     box-sizing: border-box;
     max-width: 255px;
@@ -55,7 +56,6 @@ const Container = styled.nav`
     width: 255px;
     padding: 16px 0 0;
     z-index: 2;
-    color: white;
 
     ${Mixins.media(
         'tablet',

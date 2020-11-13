@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink as L, useParams } from 'react-router-dom';
-import styled from 'styled-components';
+import styled, { withTheme, DefaultTheme } from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
 import { Paragraph as P } from '../Text';
 import { Mixins } from '../Utils';
@@ -8,21 +8,23 @@ import { Mixins } from '../Utils';
 const hydratePath = (path: string, params: NavigationParams) =>
     path.replace(/(:[0-9A-Za-z]*)/g, (e) => params[e.slice(1)]);
 
-interface NavigationItemProps {
+interface _NavigationItemProps {
     icon?: StyledIcon;
     to?: string;
     type?: any | string | number | symbol;
+    theme: DefaultTheme;
 }
 
 interface NavigationParams {
     id: string;
 }
 
-export const NavigationItem: React.FC<NavigationItemProps> = ({
+const _NavigationItem: React.FC<_NavigationItemProps> = ({
     children,
     icon,
     to = '',
     type,
+    theme,
     ...props
 }) => {
     const params = useParams<NavigationParams>();
@@ -34,7 +36,11 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
                 target={isExternal ? '_blank' : ''}
             >
                 <Icon as={icon} />
-                <Paragraph margin="0 auto 0 12px" color="white" bold>
+                <Paragraph
+                    margin="0 auto 0 12px"
+                    color={theme.colors.background}
+                    bold
+                >
                     {children}
                 </Paragraph>
             </NavLink>
@@ -42,8 +48,12 @@ export const NavigationItem: React.FC<NavigationItemProps> = ({
     );
 };
 
+export const NavigationItem = withTheme(_NavigationItem);
+
 const Item = styled.li`
-    color: white;
+    ${({ theme }) => `
+    color:${theme.colors.background};
+    `}
     margin-bottom: 8px;
 `;
 
@@ -57,11 +67,11 @@ const NavLink = styled(L)`
         &.active {
             background-color: ${Mixins.darken(theme.colors.primary, 0.1)}
         }
+        color:${theme.colors.background};
     `}
 
     box-sizing: border-box;
     text-decoration: none;
-    color: white;
     padding: 8px 12px;
     height: 54px;
 `;

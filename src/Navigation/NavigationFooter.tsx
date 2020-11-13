@@ -38,17 +38,20 @@ const Button = styled.a`
     ${({ theme }): string => `
         background-color: ${Mixins.darken(theme.colors.primary, 0.1)};
         ${Mixins.clickable(Mixins.darken(theme.colors.primary, 0.1), 0.1)}
+        color:${theme.colors.background};
     `}
     width: 100%;
     text-decoration: none;
     color: inherit;
     box-sizing: border-box;
-    color: white;
     padding: 14px 20px;
 `;
 
 const Icon = styled.svg`
     flex-shrink: 0;
+    ${({ theme }) => `
+    color:${theme.colors.background};
+    `}
     color: white;
     width: 30px;
     box-sizing: border-box;
