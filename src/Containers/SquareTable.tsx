@@ -91,7 +91,7 @@ export const SquareTable: React.FC<ISquareTable>
                     )}
                 </TopBottomRow>
 
-            
+
             {/**table itself*/}
             <div>
                 <Row>
