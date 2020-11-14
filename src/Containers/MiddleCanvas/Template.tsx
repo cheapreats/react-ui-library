@@ -32,8 +32,6 @@ export const Template: React.FC<TemplateProps> = ({
                         )}
                         <DroppableElement
                             droppableLabels={templatePrefill.labels}
-                            isColumn={templatePrefill.column}
-                            styling={templatePrefill.styling}
                             isPreview={isPreview}
                         />
                     </>

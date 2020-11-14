@@ -23,6 +23,7 @@ export const DualSelectBar: React.FC<DualSelectBarProps> = ({
             onClick: () => setSelectedOption(field)
         });
     };
+    
     return (
         <Wrapper {...props}>
             <Option 

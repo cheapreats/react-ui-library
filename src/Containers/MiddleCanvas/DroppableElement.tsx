@@ -10,18 +10,14 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 export interface DroppableElementProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     droppableLabels: string[][],
-    isColumn: boolean,
     isPreview?: boolean,
-    styling: string
 };
 
 const FIRST_LABEL = 0;
 
 export const DroppableElement: React.FC<DroppableElementProps> = ({
     droppableLabels,
-    isColumn,
     isPreview,
-    styling,
     ...props
 }): React.ReactElement => {
     const getDraggableObjects = droppableLabels.map(droppableLabel => (
@@ -36,8 +32,6 @@ export const DroppableElement: React.FC<DroppableElementProps> = ({
                     isPreview={isPreview}  
                 >
                     <DroppableContainerContents 
-                        styling={styling}
-                        isColumn={isColumn}
                         droppableLabel={droppableLabel}
                     />
                 </DroppableContainer>
@@ -62,9 +56,6 @@ interface DroppableContainerProps {
 const DroppableContainer = styled.div<DroppableContainerProps>`
     width: 349px;
     border-radius: 4px;
-    ${({ isColumn }): string => `
-        padding: ${isColumn ? '10px 0 2px 0' : '10px 0 0 0'};
-    `};
     margin: 10px;
     ${({ theme, isPreview }): string => `
         background-color: ${isPreview ? theme.colors.background : theme.colors.input.default};
