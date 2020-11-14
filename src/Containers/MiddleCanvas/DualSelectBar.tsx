@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-
+import { Mixins } from '../../Utils';
 
 export interface DualSelectBarProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     leftSelectOption: string,
@@ -10,13 +10,6 @@ export interface DualSelectBarProps extends MainInterface, ResponsiveInterface, 
     setSelectedOption: React.Dispatch<React.SetStateAction<string>>,
 };
 
-interface OptionProps {
-    isSelected?: boolean
-};
-
-const IS_SELECTED_COLOR = '#e70028';
-const UNSELECTED_COLOR = '#b7b7b7';
-
 export const DualSelectBar: React.FC<DualSelectBarProps> = ({
     leftSelectOption,
     rightSelectOption,
@@ -24,18 +17,24 @@ export const DualSelectBar: React.FC<DualSelectBarProps> = ({
     setSelectedOption,
     ...props
 }): React.ReactElement => {
+    const getOptionFields = (field: string) => {
+        return ({
+            isSelected: selectedOption === field,
+            onClick: () => setSelectedOption(field)
+        });
+    };
     return (
         <Wrapper {...props}>
             <Option 
-                isSelected={selectedOption === leftSelectOption}
-                onClick={() => setSelectedOption(leftSelectOption)}
+                isSelected={getOptionFields(leftSelectOption).isSelected}
+                onClick={getOptionFields(leftSelectOption).onClick}
             >
                 { leftSelectOption }
             </Option>
-            <Option> | </Option>
+            <Divider />
             <Option 
-                isSelected={selectedOption === rightSelectOption}
-                onClick={() => setSelectedOption(rightSelectOption)}
+                isSelected={getOptionFields(rightSelectOption).isSelected}
+                onClick={getOptionFields(rightSelectOption).onClick}
             >
                 { rightSelectOption }
             </Option>
@@ -50,17 +49,25 @@ const Wrapper = styled.div`
     font-style: normal;
     line-height: 1.25;
     letter-spacing: normal;
-    display: flex;
-    justify-content: center;
     width: 364px;
     margin: 5px;
     padding-bottom: 10px;
+    ${Mixins.flex('center')};
 `;
+
+interface OptionProps {
+    isSelected?: boolean
+};
 const Option = styled.div<OptionProps>`
     margin: 5px;
     padding: 5px;
-    ${({ isSelected }): string => `
-        color: ${isSelected ? IS_SELECTED_COLOR : UNSELECTED_COLOR};
-        border-bottom: ${isSelected ? `solid 1px ${IS_SELECTED_COLOR}` : ''};
+    ${({ theme, isSelected }): string => `
+        color: ${isSelected ? theme.colors.primary : theme.colors.border};
+        border-bottom: ${isSelected ? `solid 1px ${theme.colors.primary}` : ''};
     `}
+`;
+
+const Divider = styled.div`
+    border-left: 1px solid black;
+    height: 10px;
 `;

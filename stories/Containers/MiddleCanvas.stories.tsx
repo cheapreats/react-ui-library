@@ -25,7 +25,7 @@ export default {
         templatePrefills: {
             BUSINESS_INFORMATION: {
                 title: 'Business Information',
-                labels: [['Upload Logo Image'], ["Nasir's Gourmet Hot Dogs"], ['7818 Edgewater Lane', 'St. Martins, NB E5R 4K3t'], ['615-555-0190'], ['www.NasirsHotDogs.com']],
+                labels: [['Upload Logo Image'], ["Nasir's Gourmet Hot Dogs"], ['7818 Edgewater Lane, St. Martins, NB E5R 4K3t'], ['615-555-0190'], ['www.NasirsHotDogs.com']],
                 display: 'center',
                 column: true,
             },

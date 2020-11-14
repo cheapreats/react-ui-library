@@ -13,3 +13,8 @@ export interface IPrinterOptions {
         labels: string[]
     };
 };
+
+export enum SelectOptionsEnum {
+    leftSelectOption  = 'Flash Once',
+    rightSelectOption = 'Beep Once'
+};

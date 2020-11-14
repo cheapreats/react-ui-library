@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components'
 import { DualSelectRadio } from './DualSelectRadio';
 import { Template } from './Template';
 import { DualSelectBar } from './DualSelectBar';
-import { ITemplatePrefill, IPrinterOptions } from './MiddleCanvasElements';
+import { ITemplatePrefill, IPrinterOptions } from './MiddleCanvasTypes';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 export interface MiddleCanvasProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
@@ -38,7 +37,7 @@ export const MiddleCanvas: React.FC<MiddleCanvasProps> = ({
     }, [selectedOption]);
 
     return (
-        <Wrapper {...props}>
+        <div {...props}>
             <DualSelectBar
                 leftSelectOption={leftSelectOption}
                 rightSelectOption={rightSelectOption}
@@ -58,8 +57,6 @@ export const MiddleCanvas: React.FC<MiddleCanvasProps> = ({
                 caption={secondCaption}
                 dualSelectOptions={printerOptions}
             />
-        </Wrapper>
+        </div>
     );
 }
-
-const Wrapper = styled.div``;

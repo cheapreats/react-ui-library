@@ -1,18 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
+import { SelectOptionsEnum } from './MiddleCanvasTypes';
 import { Radio } from '../../Inputs/Radio';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 export interface RadioOptionProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     title?: string,
     labels: string[],
-    setLeftSelectOption: React.Dispatch<React.SetStateAction<string>>,
-    setRightSelectOption: React.Dispatch<React.SetStateAction<string>>,
+    setLeftSelectOption: React.Dispatch<React.SetStateAction<SelectOptionsEnum>>,
+    setRightSelectOption: React.Dispatch<React.SetStateAction<SelectOptionsEnum>>,
     firstSelectOption: string
 };
 
 const DEFAULT_SELECTED = 0;
-const RADIO_OPTIONS_COLOR = '#696969';
 
 export const RadioOptions: React.FC<RadioOptionProps> = ({
     title,
@@ -26,9 +26,9 @@ export const RadioOptions: React.FC<RadioOptionProps> = ({
 
     useEffect((): void => {
         if(title === firstSelectOption) {
-            setLeftSelectOption(checkedOption);
+            setLeftSelectOption(SelectOptionsEnum.leftSelectOption);
         } else {
-            setRightSelectOption(checkedOption);
+            setRightSelectOption(SelectOptionsEnum.rightSelectOption);
         }
     }, [checkedOption]);
 
@@ -68,5 +68,7 @@ const Options = styled.div`
 `;
 const StyledRadio = styled(Radio)`
     margin: 5px;
-    color: ${RADIO_OPTIONS_COLOR};
+    ${({ theme }): string => `
+        color: ${theme.colors.text};
+    `};
 `;

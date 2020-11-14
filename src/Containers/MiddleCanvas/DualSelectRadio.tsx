@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
 import { AngleDown } from '@styled-icons/fa-solid/AngleDown';
+import { IPrinterOptions, SelectOptionsEnum } from './MiddleCanvasTypes';
 import { RadioOptions } from './RadioOptions';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
@@ -10,37 +11,10 @@ export interface DualSelectRadioProps extends MainInterface, ResponsiveInterface
     leftPlaceholder?: string,
     rightPlaceholder?: string,
     headerSpacingStyle?: string,
-    dualSelectOptions: dualSelectOption
-};
-
-interface IconProps {
-    isCollapsed?: boolean;
-};
-
-interface RowProps {
-    display?: string;
-};
-
-interface TextProps {
-    isRightOption?: boolean;
-};
-
-interface SelectContainerProps {
-    isVisible?: boolean;
-};
-
-export interface dualSelectOption {
-    [key: string]: {
-        title: string,
-        labels: string[]
-    }
+    dualSelectOptions: IPrinterOptions
 };
 
 const FIRST_SELECT_OPTION = 0;
-const SELECT_VISIBLE_BACKGROUND = '#ffffff';
-const SELECT_VISIBLE_BORDER = '#f2f2f2';
-const RIGHT_OPTION_COLOR = '#696969';
-const SELECT_AREA_COLOR = '#f2f2f2';
 
 export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
     caption = 'Dual Select',
@@ -50,17 +24,9 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
     ...props
 }): React.ReactElement => {
     const firstSelectOption = Object.values(dualSelectOptions)[FIRST_SELECT_OPTION].title;
-    const [leftSelectOption, setLeftSelectOption] = useState('Flash Once');
-    const [rightSelectOption, setRightSelectOption] = useState('Beep Once');
+    const [leftSelectOption, setLeftSelectOption] = useState(SelectOptionsEnum.leftSelectOption);
+    const [rightSelectOption, setRightSelectOption] = useState(SelectOptionsEnum.rightSelectOption);
     const [isCollapsed, setIsCollapsed] = useState(false);
-
-    const dualSelectTitles = Object.values(dualSelectOptions).map(dualSelectOption => {
-        return dualSelectOption.title;
-    });
-
-    const dualSelectLabels = Object.values(dualSelectOptions).map(dualSelectOption => {
-        return dualSelectOption.labels;
-    });
 
     return (
         <Wrapper {...props}>
@@ -73,7 +39,7 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
                         {leftPlaceholder}
                     </Text>
                     <Container>
-                        <Text isRightOption>
+                        <Text isRightOption={true}>
                             {`${leftSelectOption}/${rightSelectOption}`}
                         </Text>
                         <Icon
@@ -86,10 +52,10 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
                     </Container>
                 </Row>
                 <SelectContainer isVisible={isCollapsed}>
-                    {!!isCollapsed && Object.values(dualSelectOptions).map((PrintOption, index): React.ReactElement => (
+                    {!!isCollapsed && Object.values(dualSelectOptions).map((printOption): React.ReactElement => (
                         <RadioOptions
-                            title={dualSelectTitles[index]}
-                            labels={dualSelectLabels[index]} 
+                            title={printOption.title}
+                            labels={printOption.labels} 
                             firstSelectOption={firstSelectOption}
                             setLeftSelectOption={setLeftSelectOption}
                             setRightSelectOption={setRightSelectOption}
@@ -110,27 +76,43 @@ const Wrapper = styled.div`
     letter-spacing: normal;
     margin-top: 3vh 0;
 `;
+
 const Header = styled.div`
     margin-bottom: 5px;
 `;
+
 const SelectArea = styled.div`
     width: 384px;
     border-radius: 8px;
-    background-color: ${SELECT_AREA_COLOR};
+    ${({ theme }): string => `
+        background-color: ${theme.colors.border};
+    `};
 `;
+
+interface RowProps {
+    display?: string;
+};
 const Row = styled.div<RowProps>`
-    ${(props): string | undefined =>
-        props.display && Mixins.flex(props.display)};
+    ${({ display }): string | undefined =>
+        display && Mixins.flex(display)};
 `;
+
+interface TextProps {
+    isRightOption?: boolean;
+};
 const Text = styled.div<TextProps>`
     padding: 12px 0 0 12px;
-    ${({ isRightOption }): string => `
-        color: ${isRightOption ? RIGHT_OPTION_COLOR : ''};
+    ${({ theme, isRightOption }): string => `
+        color: ${isRightOption ? theme.colors.text : ''};
     `};
 `;
 const Container = styled.div`
     ${Mixins.flex('row')};
 `;
+
+interface IconProps {
+    isCollapsed?: boolean;
+};
 const Icon = styled.svg<IconProps>`
     padding-top: 3px;
     ${Mixins.transition(['transform'])}
@@ -138,10 +120,14 @@ const Icon = styled.svg<IconProps>`
     height: 25px;
     margin: 5px 12px;
 `;
+
+interface SelectContainerProps {
+    isVisible?: boolean;
+};
 const SelectContainer = styled.div<SelectContainerProps>`
-    ${({ isVisible }): string => `
-        border: ${isVisible ? `solid 1px ${SELECT_VISIBLE_BORDER}` : ''};
-        background-color: ${isVisible ? SELECT_VISIBLE_BACKGROUND : ''};
+    ${({ theme, isVisible }): string => `
+        border: ${isVisible ? `solid 1px ${theme.colors.input.default}` : ''};
+        background-color: ${isVisible ? theme.colors.background : ''};
     `}
     width: 208px;
     height: 250px;
