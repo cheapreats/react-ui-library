@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { SelectOptionsEnum } from './MiddleCanvasTypes';
 import { Radio } from '../../Inputs/Radio';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 export interface RadioOptionProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     title?: string,
     labels: string[],
-    setLeftSelectOption: React.Dispatch<React.SetStateAction<SelectOptionsEnum>>,
-    setRightSelectOption: React.Dispatch<React.SetStateAction<SelectOptionsEnum>>,
+    setLeftSelectOption: React.Dispatch<React.SetStateAction<string>>,
+    setRightSelectOption: React.Dispatch<React.SetStateAction<string>>,
     firstSelectOption: string
 };
 
@@ -26,9 +25,9 @@ export const RadioOptions: React.FC<RadioOptionProps> = ({
 
     useEffect((): void => {
         if(title === firstSelectOption) {
-            setLeftSelectOption(SelectOptionsEnum.leftSelectOption);
+            setLeftSelectOption(checkedOption);
         } else {
-            setRightSelectOption(SelectOptionsEnum.rightSelectOption);
+            setRightSelectOption(checkedOption);
         }
     }, [checkedOption]);
 

@@ -11,30 +11,25 @@ export const DroppableContainerContents: React.FC<DroppableContainerContentsProp
     droppableLabel,
     ...props
 }): React.ReactElement => {
-    const getStyle = () => {
-        return ({
-            display: 'space-between'
-        });
-    };
+    const getDroppableLabel = () => droppableLabel.map(label => (
+        <div>
+            {label}
+        </div>
+    ));
 
     return (
-        <Wrapper display={getStyle().display} {...props}>
-            {droppableLabel.map(label => (
-                <div>
-                    {label}
-                </div>
-            ))}
+        <Wrapper display={droppableLabel.length > 1} {...props}>
+            {getDroppableLabel()}
         </Wrapper>
     );
 }
 
 interface WrapperProps {
-    display?: string,
+    display?: boolean,
 };
-
 const Wrapper = styled.div<WrapperProps>`
     ${({ display }): string | undefined => `
-        ${display && Mixins.flex(display)};
+        ${display ? Mixins.flex('space-between') : Mixins.flex('center')};
     `};
-    padding: 0 10px;
+    padding: 10px;
 `;

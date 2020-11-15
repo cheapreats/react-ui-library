@@ -1,9 +1,7 @@
 export interface ITemplatePrefill {
     [key: string]: {
         title: string,
-        labels: string[][],
-        display: string,
-        column: boolean
+        labels: string[][] | string[],
     };
 };
 
@@ -12,9 +10,4 @@ export interface IPrinterOptions {
         title: string,
         labels: string[]
     };
-};
-
-export enum SelectOptionsEnum {
-    leftSelectOption  = 'Flash Once',
-    rightSelectOption = 'Beep Once'
 };

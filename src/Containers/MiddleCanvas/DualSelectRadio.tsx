@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
 import { AngleDown } from '@styled-icons/fa-solid/AngleDown';
-import { IPrinterOptions, SelectOptionsEnum } from './MiddleCanvasTypes';
+import { IPrinterOptions } from './MiddleCanvasTypes';
 import { RadioOptions } from './RadioOptions';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
@@ -15,6 +15,8 @@ export interface DualSelectRadioProps extends MainInterface, ResponsiveInterface
 };
 
 const FIRST_SELECT_OPTION = 0;
+const SECOND_SELECT_OPTION = 1;
+const FIRST_LABEL = 0;
 
 export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
     caption = 'Dual Select',
@@ -24,8 +26,8 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
     ...props
 }): React.ReactElement => {
     const firstSelectOption = Object.values(dualSelectOptions)[FIRST_SELECT_OPTION].title;
-    const [leftSelectOption, setLeftSelectOption] = useState(SelectOptionsEnum.leftSelectOption);
-    const [rightSelectOption, setRightSelectOption] = useState(SelectOptionsEnum.rightSelectOption);
+    const [leftSelectOption, setLeftSelectOption] = useState(Object.values(dualSelectOptions)[FIRST_SELECT_OPTION].labels[FIRST_LABEL]);
+    const [rightSelectOption, setRightSelectOption] = useState(Object.values(dualSelectOptions)[SECOND_SELECT_OPTION].labels[FIRST_LABEL]);
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     return (

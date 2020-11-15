@@ -1,10 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    Droppable, 
-    DroppableProvided, 
-    DroppableStateSnapshot 
-} from 'react-beautiful-dnd';
 import { DroppableContainerContents } from './DroppableContainerContents';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
@@ -13,30 +8,15 @@ export interface DroppableElementProps extends MainInterface, ResponsiveInterfac
     isPreview?: boolean,
 };
 
-const FIRST_LABEL = 0;
-
 export const DroppableElement: React.FC<DroppableElementProps> = ({
     droppableLabels,
     isPreview,
     ...props
 }): React.ReactElement => {
-    const getDraggableObjects = droppableLabels.map(droppableLabel => (
-        <Droppable
-            droppableId={droppableLabel[FIRST_LABEL]}
-        >
-            {(provided: DroppableProvided, snapshot: DroppableStateSnapshot) => (
-                <DroppableContainer
-                    ref={provided.innerRef}
-                    isDragging={snapshot.isDraggingOver}
-                    {...provided.droppableProps}   
-                    isPreview={isPreview}  
-                >
-                    <DroppableContainerContents 
-                        droppableLabel={droppableLabel}
-                    />
-                </DroppableContainer>
-            )}
-        </Droppable>
+    const getDraggableObjects = droppableLabels.map((droppableLabel) => (
+        <DroppableContainer isPreview={isPreview}>
+            <DroppableContainerContents droppableLabel={droppableLabel} />
+        </DroppableContainer>
     ));
 
     return (

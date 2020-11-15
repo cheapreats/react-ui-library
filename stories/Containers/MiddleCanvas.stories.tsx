@@ -3,10 +3,11 @@ import { MiddleCanvas, MiddleCanvasProps } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Story, Meta } from '@storybook/react';
 
+// argTypes: { onDragEnd: { action: 'I have been dragged!' } },
+
 export default {
     title: createStoryTitle('Middle Canvas'),
     component: MiddleCanvas,
-    argTypes: { onDragEnd: { action: 'I have been dragged!' } },
     args: {
         firstCaption: 'Before Receipt Prints',
         secondCaption: 'After Receipt Prints',

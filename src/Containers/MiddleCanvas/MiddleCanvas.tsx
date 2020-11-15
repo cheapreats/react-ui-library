@@ -10,7 +10,6 @@ export interface MiddleCanvasProps extends MainInterface, ResponsiveInterface, R
     rightSelectOption: string,
     templatePrefills: ITemplatePrefill,
     printerOptions: IPrinterOptions,
-    onDragEnd: () => void,
     firstCaption?: string,
     secondCaption?: string,
 };
@@ -22,7 +21,6 @@ export const MiddleCanvas: React.FC<MiddleCanvasProps> = ({
     printerOptions,
     firstCaption,
     secondCaption,
-    onDragEnd,
     ...props
 }): React.ReactElement => {
     const [selectedOption, setSelectedOption] = useState(leftSelectOption);
@@ -50,7 +48,6 @@ export const MiddleCanvas: React.FC<MiddleCanvasProps> = ({
             />
             <Template 
                 templatePrefills={templatePrefills}
-                onDragEnd={onDragEnd}
                 isPreview={isPreview}
             />
             <DualSelectRadio
