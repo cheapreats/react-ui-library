@@ -9,6 +9,7 @@ export default {
     argTypes: { onChange: { action: `you picked: ` } },
     args: {
         disabled: false,
+        label: 'label',
         placeholder: 'Placeholder',
         description: 'Description',
     },
