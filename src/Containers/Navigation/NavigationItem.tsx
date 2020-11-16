@@ -13,7 +13,6 @@ const hydratePath = (path: string, params: NavigationParams) =>
 interface _NavigationItemProps {
     icon?: StyledIcon;
     to?: string;
-    notOpenExternalInNewPage?: boolean;
     type?: any | string | number | symbol;
     theme: DefaultTheme;
 }
@@ -26,7 +25,6 @@ const _NavigationItem: React.FC<_NavigationItemProps> = ({
     children,
     icon,
     to = '',
-    notOpenExternalInNewPage = false,
     type,
     theme,
     ...props
@@ -37,7 +35,7 @@ const _NavigationItem: React.FC<_NavigationItemProps> = ({
         <Item as={type} {...props}>
             <NavLink
                 to={hydratePath(to, params)}
-                target={isExternal && !notOpenExternalInNewPage ? '_blank' : ''}
+                target={isExternal ? '_blank' : ''}
             >
                 <Icon as={icon} />
                 <Paragraph
