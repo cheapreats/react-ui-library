@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
-import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
-import { ImplicitPropsInterface } from '../Utils/Hooks';
-import { Mixins } from '../Utils';
-import { Paragraph as P } from '../Text';
+import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
+import { ImplicitPropsInterface } from '../../Utils/Hooks';
+import { Mixins } from '../../Utils';
+import { Paragraph as P } from '../../Text';
 
 export interface NavigationFooterProps
     extends MainInterface,

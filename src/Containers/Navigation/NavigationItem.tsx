@@ -2,8 +2,8 @@ import React from 'react';
 import { NavLink as L, useParams } from 'react-router-dom';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
-import { Paragraph as P } from '../Text';
-import { Mixins } from '../Utils';
+import { Paragraph as P } from '../../Text';
+import { Mixins } from '../../Utils';
 
 const PARAM_PATTERN = /(:[0-9A-Za-z]*)/g;
 
@@ -13,6 +13,7 @@ const hydratePath = (path: string, params: NavigationParams) =>
 interface _NavigationItemProps {
     icon?: StyledIcon;
     to?: string;
+    notOpenExternalInNewPage?: boolean;
     type?: any | string | number | symbol;
     theme: DefaultTheme;
 }
@@ -25,6 +26,7 @@ const _NavigationItem: React.FC<_NavigationItemProps> = ({
     children,
     icon,
     to = '',
+    notOpenExternalInNewPage = false,
     type,
     theme,
     ...props
@@ -35,7 +37,7 @@ const _NavigationItem: React.FC<_NavigationItemProps> = ({
         <Item as={type} {...props}>
             <NavLink
                 to={hydratePath(to, params)}
-                target={isExternal ? '_blank' : ''}
+                target={isExternal && !notOpenExternalInNewPage ? '_blank' : ''}
             >
                 <Icon as={icon} />
                 <Paragraph

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
-import { Heading as H, HeadingProps } from '../Text';
-import { Mixins } from '../Utils';
+import { Heading as H, HeadingProps } from '../../Text';
+import { Mixins } from '../../Utils';
 
 interface _NavigationHeaderProps extends HeadingProps {
     label?: string;

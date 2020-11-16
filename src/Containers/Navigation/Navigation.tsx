@@ -1,29 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Mixins } from '../Utils';
-import { NavigationHeader, NavigationItem, NavigationHeaderProps } from '.';
-
-interface NavProps {
-    to: string;
-    label?: string;
-    icon: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
-}
+import { Mixins } from '../../Utils';
+import { NavigationHeader, NavigationHeaderProps } from './NavigationHeader';
 
 export interface NavigationProps extends NavigationHeaderProps {
     header?: React.ReactElement;
     footer?: React.ReactElement;
-    pages?: {
-        [name: string]: {
-            component: React.LazyExoticComponent<React.ComponentType>;
-            navProps: NavProps;
-        };
-    };
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
     label,
     logo,
-    pages = {},
+    children,
     header,
     footer,
     ...props
@@ -31,13 +19,7 @@ export const Navigation: React.FC<NavigationProps> = ({
     <Container {...props}>
         <NavigationHeader label={label} logo={logo} />
         {header}
-        <Items>
-            {Object.entries(pages).map(([key, { navProps }]) => (
-                <NavigationItem key={key} {...navProps}>
-                    {key}
-                </NavigationItem>
-            ))}
-        </Items>
+        <Items>{children}</Items>
         {footer}
     </Container>
 );
