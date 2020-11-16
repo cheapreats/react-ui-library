@@ -1,24 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Mixins } from '../../Utils';
-import { NavigationHeader, NavigationHeaderProps } from './NavigationHeader';
 
-export interface NavigationProps extends NavigationHeaderProps {
+export interface NavigationProps {
     header?: React.ReactElement;
+    subHeader?: React.ReactElement;
     footer?: React.ReactElement;
 }
 
 export const Navigation: React.FC<NavigationProps> = ({
-    label,
-    logo,
     children,
     header,
+    subHeader,
     footer,
     ...props
 }) => (
     <Container {...props}>
-        <NavigationHeader label={label} logo={logo} />
         {header}
+        {subHeader}
         <Items>{children}</Items>
         {footer}
     </Container>

@@ -9,6 +9,7 @@ import {
     NavigationProps,
     NavigationFooter,
     NavigationItem,
+    NavigationHeader,
 } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { logoWhite } from '../assets';
@@ -18,11 +19,7 @@ export default {
     component: Navigation,
 } as Meta;
 
-const Header = () => <div>hello</div>;
-
-const defaultArgs = {
-    label: 'Some Text', // this is for NavigationHeader
-};
+const defaultArgs = {};
 
 interface NavProps {
     to: string;
@@ -72,6 +69,15 @@ Basic.args = {
     ...defaultArgs,
 };
 
+export const WithHeader = Template.bind({});
+
+const headerLabel = 'Some Text';
+
+WithHeader.args = {
+    ...defaultArgs,
+    header: <NavigationHeader label={headerLabel} />,
+};
+
 export const WithFooter = Template.bind({});
 
 WithFooter.args = {
@@ -79,16 +85,20 @@ WithFooter.args = {
     footer: <NavigationFooter url="#foo" text="Link to" icon={Compass} />,
 };
 
-export const WithHeader = Template.bind({});
-WithHeader.args = {
+const Header = () => <div>hello</div>;
+
+export const WithSubHeader = Template.bind({});
+
+WithSubHeader.args = {
     ...defaultArgs,
-    header: <Header />,
+    subHeader: <Header />,
 };
 
-export const WithFooterHeader = Template.bind({});
-WithFooterHeader.args = {
+export const WithFooterHeaderSubheader = Template.bind({});
+
+WithFooterHeaderSubheader.args = {
     ...defaultArgs,
-    logo: logoWhite,
+    header: <NavigationHeader label={headerLabel} logo={logoWhite} />,
     footer: <NavigationFooter url="#foo" text="Link to" icon={Compass} />,
-    header: <Header />,
+    subHeader: <Header />,
 };
