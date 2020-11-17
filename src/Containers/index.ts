@@ -37,3 +37,4 @@ export * from './Timeline';
 export * from './LeftSideBar';
 export * from './Landing';
 export * from './Navigation';
+export * from './WarningCard';
