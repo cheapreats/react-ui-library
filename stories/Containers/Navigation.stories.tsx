@@ -4,6 +4,7 @@ import { AppleAlt } from '@styled-icons/fa-solid/AppleAlt';
 import { Archive } from '@styled-icons/fa-solid/Archive';
 import { BrowserRouter } from 'react-router-dom';
 import { Compass } from '@styled-icons/fa-solid/Compass';
+import { Home } from '@styled-icons/fa-solid/Home';
 import {
     Navigation,
     NavigationProps,
@@ -25,6 +26,7 @@ interface NavProps {
     to: string;
     label?: string;
     icon: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+    exact?: boolean;
 }
 
 interface IPages {
@@ -45,8 +47,16 @@ const pages: IPages = {
     Item2: {
         component: null,
         navProps: {
-            to: '/:id/orders',
+            to: '/:id/whatever',
             icon: Archive,
+        },
+    },
+    Home: {
+        component: null,
+        navProps: {
+            to: '/:id',
+            icon: Home,
+            exact: true,
         },
     },
 };
