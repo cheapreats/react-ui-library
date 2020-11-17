@@ -31,9 +31,10 @@ export const Chair: React.FC<IChair>
 
         /**
          * Returns a JSX element for the Chair with the correct styles
-         * @returns {JSX.Element} the correct JSX.Element based on position
+         * @returns {JSX.Element} the correct JSX.Element based on position,
+         * or null if no position is provided
          */
-        function chairSwitch()
+        const chairSwitch: () => (JSX.Element | null) = () =>
         {
             switch (position) {
             case 'top':
