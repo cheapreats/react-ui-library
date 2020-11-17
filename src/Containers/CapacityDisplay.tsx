@@ -26,7 +26,7 @@ export const CapacityDisplay: React.FC<ICapacityDisplay>
         const capacityPercent = Math.ceil((totalSeatsOccupied/totalNumberOfSeats) * 100);
 
         return (
-            <BorderBox>
+            <BorderBox {...props}>
                 <Row>
                     <Col3>
                         <PieBox capacityPercent={capacityPercent} />
@@ -34,7 +34,7 @@ export const CapacityDisplay: React.FC<ICapacityDisplay>
                     <Col8>
                         <TitleDiv>Current Capacity</TitleDiv>
                         <PercentDiv>
-                            {capacityPercent}% Full
+                            {`${capacityPercent  }% Full`}
                         </PercentDiv>
                     </Col8>
 
@@ -43,15 +43,23 @@ export const CapacityDisplay: React.FC<ICapacityDisplay>
         );
     };
 
+/**
+ * Styled component variables
+ */
 const BorderBox=styled.div`
 
     border: 2px solid black;
     border-radius: 5px;
     background-color: #6c757d;
     height: 175px;
+    width: 600px;
 `;
 
-const PieBox=styled.div`
+interface IPieBox {
+    capacityPercent: number;
+}
+
+const PieBox=styled.div<IPieBox>`
 
     flex-basis: 0;
     max-width: 100%;
@@ -92,6 +100,7 @@ const Row = styled.div`
 `;
 
 const Col3 = styled.div`
+
     flex: 0 0 25%;
     max-width: 25%;
     position: relative;
@@ -101,6 +110,7 @@ const Col3 = styled.div`
 `;
 
 const Col8 = styled.div`
+
     flex: 0 0 66.666667%;
     max-width: 66.666667%;
     position: relative;
