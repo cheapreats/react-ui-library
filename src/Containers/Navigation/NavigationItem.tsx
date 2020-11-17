@@ -13,6 +13,7 @@ const hydratePath = (path: string, params: NavigationParams) =>
 interface _NavigationItemProps {
     icon?: StyledIcon;
     to?: string;
+    exact?: boolean;
     type?: any | string | number | symbol;
     theme: DefaultTheme;
 }
@@ -25,6 +26,7 @@ const _NavigationItem: React.FC<_NavigationItemProps> = ({
     children,
     icon,
     to = '',
+    exact = false,
     type,
     theme,
     ...props
@@ -36,6 +38,7 @@ const _NavigationItem: React.FC<_NavigationItemProps> = ({
             <NavLink
                 to={hydratePath(to, params)}
                 target={isExternal ? '_blank' : ''}
+                exact={exact}
             >
                 <Icon as={icon} />
                 <Paragraph
