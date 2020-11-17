@@ -17,7 +17,10 @@ const Template: Story<ISquareTable> = (args) => <SquareTable {...args} />;
 export const FourTopTable = Template.bind({});
 FourTopTable.args = {
     tableID: 'T1',
-    numOfChairs:4,
+    chairsTop:1,
+    chairsBottom:1,
+    chairsLeft: 1,
+    chairsRight:1,
     partyName:'Dmytro',
     reservationTime:new Date(2020,10,15,16,30,0,0),
     occupancyStatus:'Vacant',
@@ -30,7 +33,10 @@ FourTopTable.args = {
 export const EightTopTable = Template.bind({});
 EightTopTable.args = {
     tableID: 'T2',
-    numOfChairs:8,
+    chairsTop:1,
+    chairsBottom:2,
+    chairsLeft: 3,
+    chairsRight:1,
     partyName:'Scott',
     reservationTime:new Date(2020,10,15,16,30,0,0),
     occupancyStatus:'Reserved',
@@ -43,7 +49,10 @@ EightTopTable.args = {
 export const TwelveTopTable = Template.bind({});
 TwelveTopTable.args = {
     tableID: 'T4',
-    numOfChairs:12,
+    chairsTop:1,
+    chairsBottom:2,
+    chairsLeft: 3,
+    chairsRight:1,
     partyName:'Corey',
     reservationTime:new Date(2020,10,15,16,30,0,0),
     occupancyStatus:'Occupied',
