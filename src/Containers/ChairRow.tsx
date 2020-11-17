@@ -8,9 +8,25 @@ export interface IChairRow {
      */
     position: Position,
     /**
-     * The number of chairs for the ChairRow
+     * The number of chairs for top
      */
-    chairNumOnSide: number,
+    chairsTop:number,
+    /**
+     * The number of chairs for bottom
+     */
+    chairsBottom:number,
+    /**
+     * The number of chairs for left
+     */
+    chairsLeft:number,
+    /**
+     * The number of chairs for right
+     */
+    chairsRight:number,
+    /**
+     * Will indicate if there are side chairs in the table
+     */
+    sideChairs:boolean,
 }
 
 // Define a type for Position to restrict to four specific values
@@ -22,7 +38,11 @@ type Position = 'top' | 'bottom' | 'left' | 'right';
 export const ChairRow: React.FC<IChairRow>
     = ({
         position = 'top',
-        chairNumOnSide = 0,
+        chairsRight=0,
+        chairsTop=0,
+        chairsLeft=0,
+        chairsBottom=0,
+        sideChairs=false,
         ...props
     }) => {
 
@@ -35,11 +55,23 @@ export const ChairRow: React.FC<IChairRow>
         {
             switch (position) {
             case 'top':
+                return (
+                    <div>
+                        <TopBottomRow chairNumOnSide={chairsTop} sideChairs={sideChairs} >
+                            {[...Array(chairsTop)].map((e,i) => (
+                                    <ChairCol key={i}>
+                                        <Chair position={position} />
+                                    </ChairCol>
+                                )
+                            )}
+                        </TopBottomRow>
+                    </div>
+                );
             case 'bottom':
                 return (
                     <div>
-                        <TopBottomRow chairNumOnSide={chairNumOnSide}>
-                            {[...Array(chairNumOnSide)].map((e,i) => (
+                        <TopBottomRow chairNumOnSide={chairsBottom} sideChairs={sideChairs}>
+                            {[...Array(chairsBottom)].map((e,i) => (
                                 <ChairCol key={i}>
                                     <Chair position={position} />
                                 </ChairCol>
@@ -49,10 +81,22 @@ export const ChairRow: React.FC<IChairRow>
                     </div>
                 );
             case 'left':
+                return (
+                    <div>
+                        {[...Array(chairsLeft)].map((e,i) => (
+                                <SideChairRow key={i}>
+                                    <SideChairCentering>
+                                        <Chair position={position} />
+                                    </SideChairCentering>
+                                </SideChairRow>
+                            )
+                        )}
+                    </div>
+                );
             case 'right':
                 return (
                     <div>
-                        {[...Array(chairNumOnSide)].map((e,i) => (
+                        {[...Array(chairsRight)].map((e,i) => (
                             <SideChairRow key={i}>
                                 <SideChairCentering>
                                     <Chair position={position} />
@@ -73,12 +117,15 @@ export const ChairRow: React.FC<IChairRow>
         );
     };
 
+/**
+ * variables for the styled components
+ */
 const TopBottomRow=styled.div`
 
     display: flex;
     flex-wrap: wrap;
     width: ${({chairNumOnSide}) => chairNumOnSide * 20}rem;
-    margin-left: 1.5rem;
+    margin-left: ${ ({sideChairs}) => sideChairs ? 1.5 : -1 }rem;
 `;
 
 const ChairCol=styled.div`

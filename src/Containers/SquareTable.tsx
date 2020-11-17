@@ -8,10 +8,6 @@ export interface ISquareTable {
      */
     tableID: string,
     /**
-     * The number of chairs at the table
-     */
-    numOfChairs: number,
-    /**
      * The name of the party assigned to the table
      */
     partyName: string,
@@ -23,6 +19,22 @@ export interface ISquareTable {
      * The seating/reservation time for the party at the table
      */
     reservationTime: Date,
+    /**
+     * The number of chairs at the top
+     */
+    chairsTop: number,
+    /**
+     * The number of chairs at the left
+     */
+    chairsLeft: number,
+    /**
+     * The number of chairs at the right
+     */
+    chairsRight: number,
+    /**
+     * The number of chairs at the bottom
+     */
+    chairsBottom: number,
 }
 
 enum occupancyStatusTypes {
@@ -38,31 +50,42 @@ enum occupancyStatusTypes {
 export const SquareTable: React.FC<ISquareTable>
     = ({
         tableID = 'T1',
-        numOfChairs = 4,
         partyName = 'Null',
         occupancyStatus = occupancyStatusTypes.Vacant,
         reservationTime = Date.now(),
+        chairsTop=1,
+        chairsBottom=1,
+        chairsLeft=1,
+        chairsRight=1,
         ...props
     }) => {
 
-        const chairNumOnSide= getChairNumOnSide(numOfChairs);
+        const tableSize= getTableSize(chairsTop,chairsBottom,chairsLeft,chairsRight);
         const {colors} = useTheme();
 
         /**
          * This function will determine how many chair to put per each side
          * of the table (left, right, top, bottom)
-         * @param numOfChairs {number} - Total number of chairs per table
-         * @return {number} - Number of chair per table side
+         * @param chairsTop,chairsBottom,chairsLeft,chairsRight {number} - Number of chairs per side
+         * @return {number} - The largest number of chairs
          */
-        function getChairNumOnSide(numOfChairs: number){
+        function getTableSize(top:number, bottom:number, left:number, right:number){
 
-            if(numOfChairs < 1){
-                return 1;
+            return Math.max(top,bottom,left,right);
+        }
+
+        /**
+         * This function will determine if there are left chairs
+         * * to correct top or bottom row's margins
+         * @param chairsLeft {number} - Number of chairs on left side
+         * @return {boolean} - If there are true, if none false
+         */
+        function isSideChairs(chairs:number){
+
+            if(chairs>0){
+                return true;
             }
-            if(numOfChairs%4===0){
-                return numOfChairs/4;
-            }
-            return Math.floor(numOfChairs/4)+1;
+            return false;
         }
 
         /**
@@ -89,16 +112,16 @@ export const SquareTable: React.FC<ISquareTable>
         return (
             <div>
                 {/** chairs top */}
-                <ChairRow position='top' chairNumOnSide={chairNumOnSide} />
+                <ChairRow position='top' chairsTop={chairsTop} sideChairs={isSideChairs(chairsLeft)} />
             
                 {/** table itself */}
                 <div>
                     <Row>
 
                         {/** chairs left */}
-                        <ChairRow position='left' chairNumOnSide={chairNumOnSide} />
+                        <ChairRow position='left' chairsLeft={chairsLeft} />
 
-                        <TableBody chairNumOnSide={chairNumOnSide}>
+                        <TableBody chairNumOnSide={tableSize}>
                             <Row>
                                 <TableInfo>
                                     <div>
@@ -106,17 +129,17 @@ export const SquareTable: React.FC<ISquareTable>
                                         <Status occupancyColor={getOccupancyColor(occupancyStatus)}>{occupancyStatus}</Status>
                                     </div>
                                 </TableInfo>
-                                <ColorDiv chairNumOnSide={chairNumOnSide} occupancyColor={ getOccupancyColor(occupancyStatus)} />
+                                <ColorDiv chairNumOnSide={tableSize} occupancyColor={ getOccupancyColor(occupancyStatus)} />
                             </Row>
                         </TableBody>
 
                         {/** chairs right */}
-                        <ChairRow position='right' chairNumOnSide={chairNumOnSide} />
+                        <ChairRow position='right' chairsRight={chairsRight} />
                     </Row>
                 </div>
 
                 {/** chairs bottom */}
-                <ChairRow position='bottom' chairNumOnSide={chairNumOnSide} />
+                <ChairRow position='bottom' chairsBottom={chairsBottom} sideChairs={isSideChairs(chairsLeft)} />
 
             </div>
         );

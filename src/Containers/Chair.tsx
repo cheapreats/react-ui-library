@@ -10,7 +10,11 @@ export interface IChair {
      * Boolean value for whether someone is seated in the chair
      * True if someone is seated in the chair, otherwise false
      */
-    isSeated?: boolean,
+    isSeated: boolean
+    /**
+     * Name of Person Sitting on Chair
+     */
+    occupiedBy: string
 
 }
 
@@ -24,6 +28,7 @@ export const Chair: React.FC<IChair>
     = ({
         position = 'top',
         isSeated = false,
+        occupiedBy="",
         ...props
     }) => {
 
@@ -35,13 +40,13 @@ export const Chair: React.FC<IChair>
         {
             switch (position) {
             case 'top':
-                return <TopChair />;
+                return <TopChair isSeated={isSeated} ><TextTopBottom>{occupiedBy}</TextTopBottom></TopChair>;
             case 'bottom':
-                return <BottomChair />;
+                return <BottomChair isSeated={isSeated} ><TextTopBottom>{occupiedBy}</TextTopBottom></BottomChair>;
             case 'left':
-                return <div><LeftChair /></div>;
+                return <LeftChair isSeated={isSeated} ><TextLeftRight>{occupiedBy}</TextLeftRight></LeftChair>;
             case 'right':
-                return <RightChair />;
+                return <RightChair isSeated={isSeated} ><TextLeftRight>{occupiedBy}</TextLeftRight></RightChair>;
             default:
                 return <div />;
             }
@@ -53,6 +58,9 @@ export const Chair: React.FC<IChair>
         );
     };
 
+/**
+ * variables for the styled components
+ */
 const TopChair=styled.div`
 
     border-top-left-radius: 3rem;
@@ -62,7 +70,7 @@ const TopChair=styled.div`
     margin-bottom: 0.25rem;
     margin-left: auto;
     margin-right: auto;
-    background-color: #6c757d;         
+    background-color: ${ ({isSeated}) => isSeated ? "red" : "#6c757d" };         
 `;
 
 const LeftChair=styled.div`
@@ -75,7 +83,7 @@ const LeftChair=styled.div`
     margin-bottom: auto;
     margin-right: 1.25rem;
     margin-left: 1rem;
-    background-color: #6c757d;
+    background-color: ${ ({isSeated}) => isSeated ? "red" : "#6c757d" };
 `;
 
 const RightChair=styled.div`
@@ -87,7 +95,7 @@ const RightChair=styled.div`
     margin-top:auto;
     margin-bottom: auto;
     margin-left: 1.25rem;
-    background-color: #6c757d;
+    background-color: ${ ({isSeated}) => isSeated ? "red" : "#6c757d" };
 `;
 
 const BottomChair=styled.div`
@@ -99,7 +107,24 @@ const BottomChair=styled.div`
     margin-top: 0.25rem;
     margin-left: auto;
     margin-right: auto;
-    background-color: #6c757d;
+    background-color: ${ ({isSeated}) => isSeated ? "red" : "#6c757d" };
 `;
+
+const TextTopBottom=styled.div`
+
+    padding-top: .35rem;
+    color:black;
+    text-align: center;
+`;
+const TextLeftRight=styled.p`
+
+    height: 100%;
+    width: 45%;
+    text-align: center;
+    color:black;
+    writing-mode: vertical-rl;
+`;
+
+
 
 
