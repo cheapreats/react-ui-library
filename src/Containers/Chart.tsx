@@ -187,11 +187,15 @@ font-size:${theme.font.size.h1};
 `}
 `;
 
+interface Payload {
+    value: number;
+}
+
 interface CustomTooltipBoxProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    payload: Array<any>;
+    payload: Array<Payload>;
     active: boolean;
 }
 
