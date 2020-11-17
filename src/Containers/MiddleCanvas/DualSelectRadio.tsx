@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
 import { AngleDown } from '@styled-icons/fa-solid/AngleDown';
-import { IPrinterOptions } from './MiddleCanvasTypes';
+import { ITemplatePrefill } from './MiddleCanvasTypes';
 import { RadioOptions } from './RadioOptions';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
@@ -11,7 +11,7 @@ export interface DualSelectRadioProps extends MainInterface, ResponsiveInterface
     leftPlaceholder?: string,
     rightPlaceholder?: string,
     headerSpacingStyle?: string,
-    dualSelectOptions: IPrinterOptions
+    dualSelectOptions: ITemplatePrefill
 };
 
 const FIRST_SELECT_OPTION = 0;

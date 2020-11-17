@@ -13,15 +13,13 @@ export const DroppableElement: React.FC<DroppableElementProps> = ({
     isPreview,
     ...props
 }): React.ReactElement => {
-    const getDraggableObjects = droppableLabels.map((droppableLabel) => (
-        <DroppableContainer isPreview={isPreview}>
-            <DroppableContainerContents droppableLabel={droppableLabel} />
-        </DroppableContainer>
-    ));
-
     return (
         <Wrapper {...props}>
-            {getDraggableObjects}
+            {droppableLabels.map((droppableLabel) => (
+                <DroppableContainer isPreview={isPreview}>
+                    <DroppableContainerContents droppableLabel={droppableLabel} />
+                </DroppableContainer>
+            ))}
         </Wrapper>
     );
 }

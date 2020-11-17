@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components'
+import styled from 'styled-components';
 import { 
     DragDropContext, 
     Droppable,
@@ -10,6 +10,7 @@ import {
     DropResult,
 } from 'react-beautiful-dnd';
 import { ITemplatePrefill } from '/MiddleCanvasTypes';
+import { TableComponent } from './TableComponent';
 import { DroppableElement } from './DroppableElement';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
@@ -25,6 +26,12 @@ export const Template: React.FC<TemplateProps> = ({
 }): React.ReactElement => {
     const [items, setItems] = useState(Object.values(templatePrefills));
 
+    /**
+     * Reorders the draggable elements in a list
+     * @param {ITemplatePrefill} list - list of objects to reorder
+     * @param {number} startIndex - index of where the element originates from
+     * @param {number} endIndex - index of where the element will be placed
+     */
     const reorder = (list: ITemplatePrefill, startIndex: number, endIndex: number): ITemplatePrefill => {
         const result = Object.values(list);
         const [removed] = result.splice(startIndex, 1);
@@ -33,6 +40,10 @@ export const Template: React.FC<TemplateProps> = ({
         return result;
     };
     
+    /**
+     * Handles the draggable elements when dragged - required function
+     * @param {DropResult} result - react-beautiful-dnd object that gives access to source and destination ids
+     */
     const onDrag = (result: DropResult): void => {
         const { source, destination } = result;
     
@@ -42,6 +53,30 @@ export const Template: React.FC<TemplateProps> = ({
 
         const reorderedList = reorder(items, source.index, destination.index);
         setItems(reorderedList);
+    };
+
+    /**
+     * Returns a header component based on component type
+     * @param {componentType} componentType - type of component (like a table)
+     * @param {string[][]} labels - labels needed to be mapped in each individual component
+     */
+    const conditionalHeaderComponent = (componentType: string, labels: string[][]): React.ReactElement | undefined => {
+        switch(componentType) {
+        case 'table':
+            return (
+                <TableComponent 
+                    droppableLabels={labels}
+                    isPreview={isPreview}
+                />
+            )
+        default: 
+            return (
+                <DroppableElement
+                    droppableLabels={labels}
+                    isPreview={isPreview}
+                />
+            );
+        }
     };
 
     const getDraggableComponent = () => Object.values(items).map((templatePrefill: ITemplatePrefill, index) => (
@@ -64,10 +99,7 @@ export const Template: React.FC<TemplateProps> = ({
                             {templatePrefill.title}
                         </Header>
                     )}
-                    <DroppableElement
-                        droppableLabels={templatePrefill.labels}
-                        isPreview={isPreview}
-                    />
+                    {conditionalHeaderComponent(templatePrefill.componentType, templatePrefill.labels)}
                 </DraggableWrapper>
             )}
         </Draggable>

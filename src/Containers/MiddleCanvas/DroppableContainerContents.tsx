@@ -11,15 +11,13 @@ export const DroppableContainerContents: React.FC<DroppableContainerContentsProp
     droppableLabel,
     ...props
 }): React.ReactElement => {
-    const getDroppableLabel = () => droppableLabel.map(label => (
-        <div>
-            {label}
-        </div>
-    ));
-
     return (
         <Wrapper display={droppableLabel.length > 1} {...props}>
-            {getDroppableLabel()}
+            {droppableLabel.map(label => (
+                <div>
+                    {label}
+                </div>
+            ))}
         </Wrapper>
     );
 }

@@ -46,10 +46,7 @@ export const DualSelectBar: React.FC<DualSelectBarProps> = ({
 const Wrapper = styled.div`
     font-size: 12px;
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 1.25;
-    letter-spacing: normal;
     width: 364px;
     margin: 5px;
     padding-bottom: 10px;

@@ -3,8 +3,6 @@ import { MiddleCanvas, MiddleCanvasProps } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Story, Meta } from '@storybook/react';
 
-// argTypes: { onDragEnd: { action: 'I have been dragged!' } },
-
 export default {
     title: createStoryTitle('Middle Canvas'),
     component: MiddleCanvas,
@@ -34,7 +32,8 @@ export default {
             },
             MENU_ITEMS: {
                 title: 'Menu Items',
-                labels: [[]],
+                labels: [["Qty", "Product(UPC)", "Price"], ["Add item"], ["Specific item instructions"], ["..."]],
+                componentType: 'table'
             },
             PRICE_AND_PAYMENT: {
                 title: 'Price & Payment',
@@ -42,11 +41,11 @@ export default {
             },
             CODE: {
                 title: 'Code',
-                labels: [[]],
+                labels: [['Insert qr code here']],
             },
             SIGNATURE: {
                 title: 'Signature',
-                labels: [[]],
+                labels: [['Insert signature here']],
             }
         }   
     }
