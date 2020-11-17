@@ -4,15 +4,19 @@ import { createStoryTitle } from '../Constants';
 import { Meta, Story } from '@storybook/react';
 
 export default {
-    title: createStoryTitle('WarningCard'),
+    title: createStoryTitle('Warning Card'),
     component: WarningCard,
     argTypes: {
-        onClick: { action: 'Clicked!' },
+        action: { action: 'Clicked!' },
     },
     args: {
-        headerText: 'Danger',
+        headerText: 'Warning',
         buttonText: 'Delete',
-        loading: false,
+        buttonMargin: '10px auto 10px 0',
+        flexDirection: 'column',
+        animated: true,
+        flat: true,
+        iconSize: '30px',
     },
 } as Meta;
 
