@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { ExclamationTriangle } from '@styled-icons/fa-solid/ExclamationTriangle';
@@ -9,7 +9,7 @@ import { transition, flex } from '../Utils/Mixins';
 import { Button } from '../Inputs/Button';
 
 export interface IWarningCardProps extends CardProps {
-    action: Function;
+    action: () => void;
     headerText?: string;
     buttonText?: string;
     buttonMargin?: string;
@@ -32,13 +32,19 @@ export const WarningCard: React.FC<IWarningCardProps> = ({
     ...props
 }): React.ReactElement => {
     const [loading, setLoading] = useState(false);
-    const onClick = async () => {
+    const onClick = useCallback(async () => {
+        let isMounted = true;
         if (!loading && action) {
             setLoading(true);
             await action();
-            setLoading(false);
+            if (isMounted) {
+                setLoading(false);
+            }
         }
-    };
+        return () => {
+            isMounted = false;
+        };
+    }, [loading, action]);
     return (
         <Card {...props} flexDirection={flexDirection}>
             <HeadingDiv>
