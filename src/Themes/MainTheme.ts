@@ -21,6 +21,7 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
             Reserved: string;
             Occupied: string;
         };
+        chairTableBackground: string;
     };
 }
 
@@ -45,6 +46,7 @@ export const MainTheme: MainThemeInterface = {
             Vacant: '#28a745',
             Reserved: '#ffc107',
             Occupied: '#17a2b8',
-        }
+        },
+        chairTableBackground: '#6c757d',
     },
 };

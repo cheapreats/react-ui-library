@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {useTheme} from 'styled-components';
 
 export interface IChair {
     /**
@@ -27,23 +27,25 @@ export const Chair: React.FC<IChair>
         ...props
     }) => {
 
+        const {colors} = useTheme();
+
         /**
          * Returns a JSX element for the Chair with the correct styles
          * @returns {JSX.Element} the correct JSX.Element based on position
          */
-        function chairSwitch(): JSX.Element
+        function chairSwitch()
         {
             switch (position) {
             case 'top':
-                return <TopChair />;
+                return <TopChair chairTableBackground={colors.chairTableBackground} />;
             case 'bottom':
-                return <BottomChair />;
+                return <BottomChair chairTableBackground={colors.chairTableBackground} />;
             case 'left':
-                return <div><LeftChair /></div>;
+                return <LeftChair chairTableBackground={colors.chairTableBackground} />;
             case 'right':
-                return <RightChair />;
+                return <RightChair chairTableBackground={colors.chairTableBackground} />;
             default:
-                return <div />;
+                return null;
             }
         }
         return (
@@ -53,7 +55,16 @@ export const Chair: React.FC<IChair>
         );
     };
 
-const TopChair=styled.div`
+interface IBaseChair {
+    chairTableBackground: string,
+}
+
+const BaseChair=styled.div<IBaseChair>`
+    
+    background-color: ${({chairTableBackground}) => chairTableBackground }; 
+`;
+
+const TopChair=styled(BaseChair)`
 
     border-top-left-radius: 3rem;
     border-top-right-radius: 3rem;
@@ -61,11 +72,10 @@ const TopChair=styled.div`
     width: 10rem;
     margin-bottom: 0.25rem;
     margin-left: auto;
-    margin-right: auto;
-    background-color: #6c757d;         
+    margin-right: auto;        
 `;
 
-const LeftChair=styled.div`
+const LeftChair=styled(BaseChair)`
 
     border-top-left-radius: 3rem;
     border-bottom-left-radius: 3rem;
@@ -75,10 +85,9 @@ const LeftChair=styled.div`
     margin-bottom: auto;
     margin-right: 1.25rem;
     margin-left: 1rem;
-    background-color: #6c757d;
 `;
 
-const RightChair=styled.div`
+const RightChair=styled(BaseChair)`
 
     border-top-right-radius: 3rem;
     border-bottom-right-radius: 3rem;
@@ -87,10 +96,9 @@ const RightChair=styled.div`
     margin-top:auto;
     margin-bottom: auto;
     margin-left: 1.25rem;
-    background-color: #6c757d;
 `;
 
-const BottomChair=styled.div`
+const BottomChair=styled(BaseChair)`
 
     border-bottom-left-radius: 3rem;
     border-bottom-right-radius: 3rem;
@@ -99,7 +107,6 @@ const BottomChair=styled.div`
     margin-top: 0.25rem;
     margin-left: auto;
     margin-right: auto;
-    background-color: #6c757d;
 `;
 
 
