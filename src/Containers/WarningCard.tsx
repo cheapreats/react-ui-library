@@ -9,7 +9,7 @@ import { transition, flex } from '../Utils/Mixins';
 import { Button } from '../Inputs/Button';
 
 export interface IWarningCardProps extends CardProps {
-    action: () => {};
+    action: Function;
     headerText?: string;
     buttonText?: string;
     buttonMargin?: string;
