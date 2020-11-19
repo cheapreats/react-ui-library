@@ -1,5 +1,5 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, {useTheme} from 'styled-components';
 
 export interface ICapacityDisplay {
     /**
@@ -23,13 +23,25 @@ export const CapacityDisplay: React.FC<ICapacityDisplay>
         ...props
     }) => {
 
+        const {colors} = useTheme();
+
         const capacityPercent = Math.ceil((totalSeatsOccupied/totalNumberOfSeats) * 100);
 
         return (
-            <BorderBox {...props}>
+            <BorderBox
+                textColor={colors.text}
+                borderColor={colors.border} 
+                backgroundColor={colors.background} 
+                {...props}
+            >
                 <Row>
                     <Col3>
-                        <PieBox capacityPercent={capacityPercent} />
+                        <PieBox
+                            capacityPercent={capacityPercent}
+                            borderColor={colors.border}
+                            backgroundColor={colors.background}
+                            pieFillColor={colors.primary}
+                        />
                     </Col3>
                     <Col8>
                         <TitleDiv>Current Capacity</TitleDiv>
@@ -46,17 +58,29 @@ export const CapacityDisplay: React.FC<ICapacityDisplay>
 /**
  * Styled component variables
  */
-const BorderBox=styled.div`
+interface IBorderBox {
 
-    border: 2px solid black;
-    border-radius: 5px;
-    background-color: #6c757d;
-    height: 175px;
-    width: 600px;
+    textColor: string,
+    borderColor: string,
+    backgroundColor: string,
+}
+
+const BorderBox=styled.div<IBorderBox>`
+
+    border: 0.1em solid ${({borderColor}) => borderColor};
+    border-radius: 0.5em;
+    background-color: ${({backgroundColor}) => backgroundColor};
+    height: 11em;
+    width: 40em;
+    color: ${({textColor}) => textColor}
 `;
 
 interface IPieBox {
-    capacityPercent: number;
+
+    capacityPercent: number,
+    borderColor: string,
+    backgroundColor: string,
+    pieFillColor: string,
 }
 
 const PieBox=styled.div<IPieBox>`
@@ -65,30 +89,26 @@ const PieBox=styled.div<IPieBox>`
     max-width: 100%;
     display: block; 
     position: absolute; 
-    width: 150px;  
-    height: 150px; 
+    width: 11em;  
+    height: 10em; 
     border-radius: 50%; 
+    box-shadow: 0 0 0 0.1em ${({borderColor}) => borderColor};
     background-image: conic-gradient( 
-        red ${({capacityPercent}) => capacityPercent * 3.6 }deg,  
-        white 0 270deg  
+        ${({pieFillColor}) => pieFillColor } ${({capacityPercent}) => capacityPercent * 3.6 }deg,  
+        ${({backgroundColor}) => backgroundColor } 0 270deg  
         ); 
-     
 `;
 
 const TitleDiv=styled.div`
 
-    color: blue;
-    padding-left: 1rem;
-    font-size: 1rem;
-    
+    padding-left: 1em;
+    font-size: 1em;
 `;
 
 const PercentDiv=styled.div`
 
-    color: white;
-    padding-left: 1rem;
-    font-size: 2rem;
-    
+    padding-left: 0.5em;
+    font-size: 2em;   
 `;
 
 const Row = styled.div`
@@ -99,23 +119,23 @@ const Row = styled.div`
     margin-left: 15px;
 `;
 
-const Col3 = styled.div`
+const Col = styled.div`
 
-    flex: 0 0 25%;
-    max-width: 25%;
     position: relative;
     width: 100%;
-    padding-left: 15px;
     padding-top: 0.5rem;        
 `;
 
-const Col8 = styled.div`
+const Col3 = styled(Col)`
+
+    flex: 0 0 25%;
+    max-width: 25%;  
+`;
+
+const Col8 = styled(Col)`
 
     flex: 0 0 66.666667%;
     max-width: 66.666667%;
-    position: relative;
-    width: 100%;
-    padding-right: 15px;
-    padding-left: 15px;  
-    padding-top: 0.5rem;      
+    padding-left: 15px;
+    padding-right: 15px;    
 `;
