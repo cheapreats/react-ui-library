@@ -6,8 +6,11 @@
 */
 
 import React from 'react';
-import { CapacityDisplay, ICapacityDisplay } from '../../src/Containers/CapacityDisplay';
-import {Meta, Story} from "@storybook/react";
+import {
+    CapacityDisplay,
+    ICapacityDisplay,
+} from '../../src/Containers/CapacityDisplay';
+import { Meta, Story } from '@storybook/react';
 import { createStoryTitle } from '../Constants';
 
 export default {
@@ -15,8 +18,9 @@ export default {
     component: CapacityDisplay,
 } as Meta;
 
-
-const Template: Story<ICapacityDisplay> = (args) => <CapacityDisplay {...args} />;
+const Template: Story<ICapacityDisplay> = (args) => (
+    <CapacityDisplay {...args} />
+);
 
 /**
  *Creates a RectangleTable component with 2 chairs
@@ -24,26 +28,18 @@ const Template: Story<ICapacityDisplay> = (args) => <CapacityDisplay {...args} /
 
 export const FiftyPercentCapacity = Template.bind({});
 FiftyPercentCapacity.args = {
-
     totalSeatsOccupied: 8,
     totalNumberOfSeats: 16,
-
 };
 
 export const EmptyCapacity = Template.bind({});
 EmptyCapacity.args = {
-
     totalSeatsOccupied: 0,
     totalNumberOfSeats: 16,
-
 };
 
 export const FullCapacity = Template.bind({});
 FullCapacity.args = {
-
     totalSeatsOccupied: 16,
     totalNumberOfSeats: 16,
-
 };
-
-
