@@ -21,7 +21,7 @@ export interface LabelLayoutProps
         ImplicitPropsInterface {
     name?: string;
     label?: string;
-    description?: string;
+    description?: React.ReactNode;
     error?: boolean | string;
     success?: boolean;
     className?: string;

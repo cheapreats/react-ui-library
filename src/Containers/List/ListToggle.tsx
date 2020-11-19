@@ -8,26 +8,29 @@ const LIST_TOGGLE_RIGHT = AngleRight;
 const LIST_TOGGLE_LEFT = AngleLeft;
 
 interface ListToggleProps extends ButtonProps {
-    isToggled: boolean;
-    setIsToggled: React.Dispatch<React.SetStateAction<boolean>>;
+    isOpen: boolean;
+    setIsOpen: React.Dispatch<React.SetStateAction<boolean>>;
+    isToggleHiddenDesktop?: boolean;
 }
 
 export const ListToggle: React.FC<ListToggleProps> = ({
-    isToggled,
-    setIsToggled,
+    isOpen,
+    setIsOpen,
     isLeftToggle,
+    isToggleHiddenDesktop,
 }): React.ReactElement => {
     const toggleList = (): void => {
-        setIsToggled(!isToggled);
+        setIsOpen(!isOpen);
     };
     return (
         <Button
             onClick={toggleList}
             id="togg-button"
             isLeftToggle={isLeftToggle}
+            isToggleHiddenDesktop={isToggleHiddenDesktop}
         >
             <Icon
-                show={isToggled}
+                show={isOpen}
                 as={isLeftToggle ? LIST_TOGGLE_LEFT : LIST_TOGGLE_RIGHT}
             />
         </Button>
@@ -40,16 +43,18 @@ interface IconProps {
 
 interface ButtonProps {
     isLeftToggle?: boolean;
+    isToggleHiddenDesktop?: boolean;
 }
 
 const Button = styled.button<ButtonProps>`
     ${Mixins.transition(['background-color'])}
-    ${Mixins.clickable('#ffffff', 0.04)}
-    ${({ theme, isLeftToggle }): string => `
+    ${Mixins.clickable('#ffffff', 0.05)}
+    ${({ theme, isLeftToggle, isToggleHiddenDesktop }): string => `
         box-shadow: ${theme.depth[1]};
         border-radius: ${
             isLeftToggle ? '0 9999px 9999px 0' : '9999px 0 0 9999px'
         };
+    ${isToggleHiddenDesktop && 'display: none;'}
         ${Mixins.position(
             'absolute',
             0,
@@ -57,8 +62,15 @@ const Button = styled.button<ButtonProps>`
             isLeftToggle ? '-32px' : 'auto',
             'auto',
             isLeftToggle ? 'auto' : '-32px',
-        )}
+        )}    
     `}
+    ${Mixins.media(
+        `tablet`,
+        `
+            display: inline;
+        `,
+    )}
+    z-index:-1;
     background-color: white;
     box-sizing: border-box;
     padding: 12px;
@@ -70,6 +82,6 @@ const Button = styled.button<ButtonProps>`
 
 const Icon = styled.svg<IconProps>`
     ${Mixins.transition(['transform'])}
-    transform: rotate(${({ show }): string => (show ? '180deg' : '0')});
+    transform: rotate(${({ show }): string => (show ? '0' : '180deg')});
     height: 22px;
 `;
