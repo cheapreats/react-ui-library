@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { CustomSearch } from '../../src';
 import { mockElement } from '../Tools';
 import { withKnobs } from '@storybook/addon-knobs';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 
 storiesOf(createStoryTitle('Custom Search'), module)
     .addDecorator(withKnobs)
@@ -17,13 +17,13 @@ storiesOf(createStoryTitle('Custom Search'), module)
                     pricePlaceholder="Price Per Meal"
                     locationPlaceholder="Find My Location"
                     foodPlaceholder="Cuisines"
-                    onPriceChange={value => {
+                    onPriceChange={(value) => {
                         state.price = value;
                     }}
-                    onLocationChange={value => {
+                    onLocationChange={(value) => {
                         state.location = value;
                     }}
-                    onFoodChange={value => {
+                    onFoodChange={(value) => {
                         state.food = value;
                     }}
                     priceValue={state.price}

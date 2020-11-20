@@ -43,6 +43,15 @@ export const RectangleTable: React.FC<IRectangleTable> = ({
     const { colors } = useTheme();
 
     /**
+     * Generates a unique key based on a string and a current timestamp
+     * @param pre - a string to append to timestamp
+     * @returns {string} a unique key
+     */
+    function generateKey(pre: string): string {
+        return `${pre}_${new Date().getTime()}`;
+    }
+
+    /**
      * checks numOfChairs is between 1-6
      *
      * @returns returns {number} of chairs of the component.
@@ -67,17 +76,17 @@ export const RectangleTable: React.FC<IRectangleTable> = ({
      */
     function getOccupancyColor(): string {
         switch (occupancyStatus) {
-        case occupancyStatusTypes.Vacant:
-            return colors.occupancyStatusColors.Vacant;
+            case occupancyStatusTypes.Vacant:
+                return colors.occupancyStatusColors.Vacant;
 
-        case occupancyStatusTypes.Reserved:
-            return colors.occupancyStatusColors.Reserved;
+            case occupancyStatusTypes.Reserved:
+                return colors.occupancyStatusColors.Reserved;
 
-        case occupancyStatusTypes.Occupied:
-            return colors.occupancyStatusColors.Occupied;
+            case occupancyStatusTypes.Occupied:
+                return colors.occupancyStatusColors.Occupied;
 
-        default:
-            return "";
+            default:
+                return '';
         }
     }
 
@@ -86,7 +95,7 @@ export const RectangleTable: React.FC<IRectangleTable> = ({
             <div>
                 <RowMargin0>
                     {[...Array(getChairs() / 2)].map((e, i) => (
-                        <Col key={i}>
+                        <Col key={generateKey(`${i}`)}>
                             <Row>
                                 <TopChair />
                             </Row>
@@ -113,16 +122,14 @@ export const RectangleTable: React.FC<IRectangleTable> = ({
                         <RowM0H50 />
                     </Col6P0>
                     <Col4P0 />
-                    <ColorBand
-                        occupancyColor={getOccupancyColor()}
-                    />
+                    <ColorBand occupancyColor={getOccupancyColor()} />
                 </RowMargin0>
             </TableBody>
 
             <div>
                 <RowMargin0>
                     {[...Array(getChairs() / 2)].map((e, i) => (
-                        <Col key={i}>
+                        <Col key={generateKey(`${i}`)}>
                             <Row>
                                 <BottomChair />
                             </Row>
@@ -139,7 +146,7 @@ export const RectangleTable: React.FC<IRectangleTable> = ({
  */
 
 interface IStyledTable {
-    numOfChairs: number,
+    numOfChairs: number;
 }
 const StyledTable = styled.div<IStyledTable>`
     width: ${({ numOfChairs }) => numOfChairs * 11}em;
@@ -173,7 +180,7 @@ const BottomChair = styled.div`
 `;
 
 interface IColorBand {
-    occupancyColor: string,
+    occupancyColor: string;
 }
 
 const ColorBand = styled.div<IColorBand>`
@@ -240,7 +247,7 @@ const TextWhiteDiv = styled.div`
 `;
 
 interface ITextOccupancyColor {
-    occupancyColor: string,
+    occupancyColor: string;
 }
 
 const TextOccupancyColor = styled.div<ITextOccupancyColor>`

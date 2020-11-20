@@ -41,7 +41,6 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
     occupancyStatus = occupancyStatusTypes.Vacant,
     ...props
 }) => {
-
     const { colors } = useTheme();
 
     /**
@@ -69,17 +68,17 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
      */
     function getOccupancyColor(): string {
         switch (occupancyStatus) {
-        case occupancyStatusTypes.Vacant:
-            return colors.occupancyStatusColors.Vacant;
+            case occupancyStatusTypes.Vacant:
+                return colors.occupancyStatusColors.Vacant;
 
-        case occupancyStatusTypes.Reserved:
-            return colors.occupancyStatusColors.Reserved;
+            case occupancyStatusTypes.Reserved:
+                return colors.occupancyStatusColors.Reserved;
 
-        case occupancyStatusTypes.Occupied:
-            return colors.occupancyStatusColors.Occupied;
+            case occupancyStatusTypes.Occupied:
+                return colors.occupancyStatusColors.Occupied;
 
-        default:
-            return "";
+            default:
+                return '';
         }
     }
 
@@ -92,7 +91,10 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
             <div>
                 <Row>
                     {/** chairs left */}
-                    <ChairRow position="left" chairNumOnSide={getChairNumOnSide()} />
+                    <ChairRow
+                        position="left"
+                        chairNumOnSide={getChairNumOnSide()}
+                    />
 
                     <TableBody
                         chairNumOnSide={getChairNumOnSide()}
@@ -135,10 +137,9 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
  */
 
 interface ITableBody {
-    chairNumOnSide: number,
-    occupancyColor: string,
+    chairNumOnSide: number;
+    occupancyColor: string;
 }
-
 
 const TableBody = styled.div<ITableBody>`
     height: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
@@ -165,7 +166,7 @@ const TableInfo = styled.div`
 `;
 
 interface IStatus {
-    occupancyColor: string,
+    occupancyColor: string;
 }
 
 const Status = styled.div<IStatus>`

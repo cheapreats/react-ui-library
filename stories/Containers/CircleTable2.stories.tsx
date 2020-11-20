@@ -1,6 +1,6 @@
 import React from 'react';
 import { CircleTable2, ICircleTable2 } from '../../src/Containers/CircleTable2';
-import {Meta, Story} from "@storybook/react";
+import { Meta, Story } from '@storybook/react';
 import { createStoryTitle } from '../Constants';
 
 export default {
@@ -17,10 +17,10 @@ const Template: Story<ICircleTable2> = (args) => <CircleTable2 {...args} />;
 export const FourTopTable = Template.bind({});
 FourTopTable.args = {
     tableID: 'T1',
-    numOfChairs:4,
-    partyName:'Dmytro',
-    reservationTime:new Date(2020,10,15,16,30,0,0),
-    occupancyStatus:'Vacant',
+    numOfChairs: 4,
+    partyName: 'Dmytro',
+    reservationTime: new Date(2020, 10, 15, 16, 30, 0, 0),
+    occupancyStatus: 'Vacant',
 };
 
 /**
@@ -30,10 +30,10 @@ FourTopTable.args = {
 export const EightTopTable = Template.bind({});
 EightTopTable.args = {
     tableID: 'T2',
-    numOfChairs:8,
-    partyName:'Scott',
-    reservationTime:new Date(2020,10,15,16,30,0,0),
-    occupancyStatus:'Reserved',
+    numOfChairs: 8,
+    partyName: 'Scott',
+    reservationTime: new Date(2020, 10, 15, 16, 30, 0, 0),
+    occupancyStatus: 'Reserved',
 };
 
 /**
@@ -43,12 +43,8 @@ EightTopTable.args = {
 export const TwelveTopTable = Template.bind({});
 TwelveTopTable.args = {
     tableID: 'T4',
-    numOfChairs:12,
-    partyName:'Corey',
-    reservationTime:new Date(2020,10,15,16,30,0,0),
-    occupancyStatus:'Occupied',
+    numOfChairs: 12,
+    partyName: 'Corey',
+    reservationTime: new Date(2020, 10, 15, 16, 30, 0, 0),
+    occupancyStatus: 'Occupied',
 };
-
-
-
-

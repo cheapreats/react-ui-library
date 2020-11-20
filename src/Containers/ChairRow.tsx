@@ -25,49 +25,57 @@ export const ChairRow: React.FC<IChairRow> = ({
     ...props
 }) => {
     /**
+     * Generates a unique key based on a string and a current timestamp
+     * @param pre - a string to append to timestamp
+     * @returns {string} a unique key
+     */
+    function generateKey(pre: string): string {
+        return `${pre}_${new Date().getTime()}`;
+    }
+
+    /**
      * Returns a JSX element for the ChairRow with the correct styles
      * based on whether position is top/bottom or left/right
      * @returns {JSX.Element} the correct JSX.Element based on position
      */
     function chairRowSwitch(): JSX.Element {
         switch (position) {
-            
-        case 'top':
-        case 'bottom':
-            return (
-                <div>
-                    <TopBottomRow chairNumOnSide={chairNumOnSide}>
+            case 'top':
+            case 'bottom':
+                return (
+                    <div>
+                        <TopBottomRow chairNumOnSide={chairNumOnSide}>
+                            {[...Array(chairNumOnSide)].map((e, i) => (
+                                <ChairCol key={generateKey(position + i)}>
+                                    <Chair position={position} />
+                                </ChairCol>
+                            ))}
+                        </TopBottomRow>
+                    </div>
+                );
+            case 'left':
+            case 'right':
+                return (
+                    <div>
                         {[...Array(chairNumOnSide)].map((e, i) => (
-                            <ChairCol key={i}>
-                                <Chair position={position} />
-                            </ChairCol>
+                            <SideChairRow key={generateKey(position + i)}>
+                                <SideChairCentering>
+                                    <Chair position={position} />
+                                </SideChairCentering>
+                            </SideChairRow>
                         ))}
-                    </TopBottomRow>
-                </div>
-            );
-        case 'left':
-        case 'right':
-            return (
-                <div>
-                    {[...Array(chairNumOnSide)].map((e, i) => (
-                        <SideChairRow key={i}>
-                            <SideChairCentering>
-                                <Chair position={position} />
-                            </SideChairCentering>
-                        </SideChairRow>
-                    ))}
-                </div>
-            );
-        default:
-            return <div />;
+                    </div>
+                );
+            default:
+                return <div />;
         }
     }
-    
+
     return <div {...props}>{chairRowSwitch()}</div>;
 };
 
 interface ITopBottomRow {
-    chairNumOnSide: number,
+    chairNumOnSide: number;
 }
 
 const TopBottomRow = styled.div<ITopBottomRow>`
