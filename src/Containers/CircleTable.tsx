@@ -9,7 +9,7 @@ export interface ICircleTable {
     /**
      * The number of chairs at the table
      */
-    numOfChairs: number;
+    numOfChairs?: number;
     /**
      * The name of the party assigned to the table
      */
@@ -21,7 +21,7 @@ export interface ICircleTable {
     /**
      * The seating/reservation time for the party at the table
      */
-    reservationTime: Date;
+    reservationTime?: Date;
 }
 
 enum occupancyStatusTypes {
@@ -35,10 +35,8 @@ enum occupancyStatusTypes {
  */
 export const CircleTable: React.FC<ICircleTable> = ({
     tableID = 'T1',
-    numOfChairs = 4,
     partyName = 'Null',
     occupancyStatus = occupancyStatusTypes.Vacant,
-    reservationTime = Date.now(),
     ...props
 }) => {
     const { colors } = useTheme();
@@ -66,8 +64,8 @@ export const CircleTable: React.FC<ICircleTable> = ({
     }
 
     return (
-        <div>
-            <TableBody>
+        <>
+            <TableBody {...props}>
                 <RowMargin0>
                     <Col6P0>
                         <RowM0H25 />
@@ -87,7 +85,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                     <Col4P0 />
                 </RowMargin0>
             </TableBody>
-        </div>
+        </>
     );
 };
 

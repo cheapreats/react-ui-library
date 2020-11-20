@@ -22,7 +22,7 @@ export interface ISquareTable {
     /**
      * The seating/reservation time for the party at the table
      */
-    reservationTime: Date,
+    reservationTime?: Date,
 }
 
 enum occupancyStatusTypes {
@@ -41,20 +41,19 @@ export const SquareTable: React.FC<ISquareTable>
         numOfChairs = 4,
         partyName = 'Null',
         occupancyStatus = occupancyStatusTypes.Vacant,
-        reservationTime = Date.now(),
         ...props
     }) => {
 
-        const chairNumOnSide= getChairNumOnSide(numOfChairs);
+        const chairNumOnSide= getChairNumOnSide();
         const {colors} = useTheme();
 
         /**
          * This function will determine how many chair to put per each side
          * of the table (left, right, top, bottom)
-         * @param numOfChairs {number} - Total number of chairs per table
+         *
          * @return {number} - Number of chair per table side
          */
-        function getChairNumOnSide(numOfChairs: number){
+        function getChairNumOnSide(){
 
             if(numOfChairs < 1){
                 return 1;
@@ -68,10 +67,10 @@ export const SquareTable: React.FC<ISquareTable>
         /**
          * This function will determine what color should be the Status and ColorDiv
          * and return hexadecimal color value
-         * @param occupancyStatus {string} - Occupancy status
+         *
          * @return {string} - Hexadecimal color value
          */
-        function getOccupancyColor(status: occupancyStatusTypes) {
+        function getOccupancyColor(): string {
 
             switch (occupancyStatus) {
             case occupancyStatusTypes.Vacant:
@@ -82,12 +81,15 @@ export const SquareTable: React.FC<ISquareTable>
 
             case occupancyStatusTypes.Occupied:
                 return colors.occupancyStatusColors.Occupied;
+                
+            default: 
+                return "";
             }
 
         }
 
         return (
-            <div>
+            <div {...props}>
                 {/** chairs top */}
                 <ChairRow position='top' chairNumOnSide={chairNumOnSide} />
             
@@ -102,11 +104,11 @@ export const SquareTable: React.FC<ISquareTable>
                             <Row>
                                 <TableInfo>
                                     <div>
-                                        {tableID+"\n"+partyName}
-                                        <Status occupancyColor={getOccupancyColor(occupancyStatus)}>{occupancyStatus}</Status>
+                                        {`${tableID}\n${partyName}`}
+                                        <Status occupancyColor={getOccupancyColor()}>{occupancyStatus}</Status>
                                     </div>
                                 </TableInfo>
-                                <ColorDiv chairNumOnSide={chairNumOnSide} occupancyColor={ getOccupancyColor(occupancyStatus)} />
+                                <ColorDiv chairNumOnSide={chairNumOnSide} occupancyColor={getOccupancyColor()} />
                             </Row>
                         </TableBody>
 
@@ -125,15 +127,25 @@ export const SquareTable: React.FC<ISquareTable>
 /**
  * variables for the styled components
  */
-const TableBody=styled.div`
 
-        height: ${(chairNumOnSide) => chairNumOnSide * 20}rem;
+interface ITableBody {
+    chairNumOnSide: number,
+}
+
+const TableBody=styled.div<ITableBody>`
+
+        height: ${({chairNumOnSide}) => chairNumOnSide * 20}rem;
         width: ${({chairNumOnSide}) => chairNumOnSide * 20}rem;
         border-radius: 3rem;
         background-color: #6c757d;
 `;
 
-const ColorDiv=styled.div`
+interface IColorDiv {
+    chairNumOnSide: number,
+    occupancyColor: string,
+}
+
+const ColorDiv=styled.div<IColorDiv>`
 
         height: ${({chairNumOnSide}) => chairNumOnSide * 20}rem;
         width: 3rem;
@@ -160,7 +172,11 @@ const TableInfo=styled.div`
         white-space: pre-line;
 `;
 
-const Status = styled.div`
+interface IStatus {
+    occupancyColor: string,
+}
+
+const Status = styled.div<IStatus>`
         
         color: ${ ({occupancyColor}) => occupancyColor };
 `;

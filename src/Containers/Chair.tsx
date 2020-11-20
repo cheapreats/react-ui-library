@@ -23,7 +23,6 @@ type Position = 'top' | 'bottom' | 'left' | 'right';
 export const Chair: React.FC<IChair>
     = ({
         position = 'top',
-        isSeated = false,
         ...props
     }) => {
 
@@ -50,7 +49,7 @@ export const Chair: React.FC<IChair>
             }
         }
         return (
-            <div>
+            <div {...props}>
                 {chairSwitch()}
             </div>
         );

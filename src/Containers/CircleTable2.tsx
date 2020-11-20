@@ -18,11 +18,11 @@ export interface ICircleTable2 {
     /**
      * The occupancy status for the table
      */
-    occupancyStatus: string;
+    occupancyStatus: occupancyStatusTypes;
     /**
      * The seating/reservation time for the party at the table
      */
-    reservationTime: Date;
+    reservationTime?: Date;
 }
 
 enum occupancyStatusTypes {
@@ -39,10 +39,9 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
     numOfChairs = 4,
     partyName = 'Null',
     occupancyStatus = occupancyStatusTypes.Vacant,
-    reservationTime = Date.now(),
     ...props
 }) => {
-    const chairNumOnSide = getChairNumOnSide();
+
     const { colors } = useTheme();
 
     /**
@@ -64,31 +63,40 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
 
     /**
      * This function will determine what color should be the Status and ColorDiv
+     * and return hexadecimal color value
+     *
+     * @return {string} - Hexadecimal color value
      */
-    function getOccupancyColor(status: occupancyStatusTypes) {
-        if (occupancyStatus === occupancyStatusTypes.Vacant) {
+    function getOccupancyColor(): string {
+        switch (occupancyStatus) {
+        case occupancyStatusTypes.Vacant:
             return colors.occupancyStatusColors.Vacant;
-        }
-        if (occupancyStatus === occupancyStatusTypes.Reserved) {
+
+        case occupancyStatusTypes.Reserved:
             return colors.occupancyStatusColors.Reserved;
+
+        case occupancyStatusTypes.Occupied:
+            return colors.occupancyStatusColors.Occupied;
+
+        default:
+            return "";
         }
-        return colors.occupancyStatusColors.Occupied;
     }
 
     return (
-        <div>
+        <div {...props}>
             {/** chairs top */}
-            <ChairRow position="top" chairNumOnSide={chairNumOnSide} />
+            <ChairRow position="top" chairNumOnSide={getChairNumOnSide()} />
 
             {/** table itself */}
             <div>
                 <Row>
                     {/** chairs left */}
-                    <ChairRow position="left" chairNumOnSide={chairNumOnSide} />
+                    <ChairRow position="left" chairNumOnSide={getChairNumOnSide()} />
 
                     <TableBody
-                        chairNumOnSide={chairNumOnSide}
-                        occupancyColor={getOccupancyColor(occupancyStatus)}
+                        chairNumOnSide={getChairNumOnSide()}
+                        occupancyColor={getOccupancyColor()}
                     >
                         <Row>
                             <TableInfo>
@@ -98,9 +106,7 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
                                     {partyName}
                                     <br />
                                     <Status
-                                        occupancyColor={getOccupancyColor(
-                                            occupancyStatus,
-                                        )}
+                                        occupancyColor={getOccupancyColor()}
                                     >
                                         {occupancyStatus}
                                     </Status>
@@ -113,13 +119,13 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
                     {/** chairs right */}
                     <ChairRow
                         position="right"
-                        chairNumOnSide={chairNumOnSide}
+                        chairNumOnSide={getChairNumOnSide()}
                     />
                 </Row>
             </div>
 
             {/** chairs bottom */}
-            <ChairRow position="bottom" chairNumOnSide={chairNumOnSide} />
+            <ChairRow position="bottom" chairNumOnSide={getChairNumOnSide()} />
         </div>
     );
 };
@@ -127,24 +133,21 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
 /**
  * Variables for the styled components
  */
-const TableBody = styled.div`
-    height: ${(chairNumOnSide) => chairNumOnSide * 20}rem;
+
+interface ITableBody {
+    chairNumOnSide: number,
+    occupancyColor: string,
+}
+
+
+const TableBody = styled.div<ITableBody>`
+    height: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
     width: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
     border-radius: 50%;
     background-color: #6c757d;
     border-style: solid;
     border-color: ${({ occupancyColor }) => occupancyColor};
     border-width: 3px;
-`;
-
-const ColorDiv = styled.div`
-    height: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
-    width: 3rem;
-    margin-left: auto;
-    margin-right: 0.95rem;
-    border-top-right-radius: 3rem;
-    border-bottom-right-radius: 3rem;
-    background-color: ${({ occupancyColor }) => occupancyColor};
 `;
 
 const Row = styled.div`
@@ -161,6 +164,10 @@ const TableInfo = styled.div`
     width: 75%;
 `;
 
-const Status = styled.div`
+interface IStatus {
+    occupancyColor: string,
+}
+
+const Status = styled.div<IStatus>`
     color: ${({ occupancyColor }) => occupancyColor};
 `;

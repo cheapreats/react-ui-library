@@ -63,7 +63,7 @@ export const ChairRow: React.FC<IChairRow> = ({
         }
     }
     
-    return <div>{chairRowSwitch()}</div>;
+    return <div {...props}>{chairRowSwitch()}</div>;
 };
 
 interface ITopBottomRow {

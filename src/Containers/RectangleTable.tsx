@@ -21,7 +21,7 @@ export interface IRectangleTable {
     /**
      * The seating/reservation time for the party at the table
      */
-    reservationTime: Date;
+    reservationTime?: Date;
 }
 
 enum occupancyStatusTypes {
@@ -38,17 +38,16 @@ export const RectangleTable: React.FC<IRectangleTable> = ({
     numOfChairs = 4,
     partyName = 'Null',
     occupancyStatus = occupancyStatusTypes.Vacant,
-    reservationTime = Date.now(),
     ...props
 }) => {
     const { colors } = useTheme();
 
     /**
      * checks numOfChairs is between 1-6
-     * @param numOfChairs {number} uses the number of chairs
+     *
      * @returns returns {number} of chairs of the component.
      */
-    function getChairs(numOfChairs: number) {
+    function getChairs(): number {
         if (numOfChairs < 3) {
             return 2;
         }
@@ -63,27 +62,30 @@ export const RectangleTable: React.FC<IRectangleTable> = ({
     /**
      * This function will determine what color should be the Status and ColorDiv
      * and return hexadecimal color value
-     * @param occupancyStatus {string} - Occupancy status
+     *
      * @return {string} - Hexadecimal color value
      */
-    function getOccupancyColor(status: occupancyStatusTypes) {
+    function getOccupancyColor(): string {
         switch (occupancyStatus) {
-            case occupancyStatusTypes.Vacant:
-                return colors.occupancyStatusColors.Vacant;
+        case occupancyStatusTypes.Vacant:
+            return colors.occupancyStatusColors.Vacant;
 
-            case occupancyStatusTypes.Reserved:
-                return colors.occupancyStatusColors.Reserved;
+        case occupancyStatusTypes.Reserved:
+            return colors.occupancyStatusColors.Reserved;
 
-            case occupancyStatusTypes.Occupied:
-                return colors.occupancyStatusColors.Occupied;
+        case occupancyStatusTypes.Occupied:
+            return colors.occupancyStatusColors.Occupied;
+
+        default:
+            return "";
         }
     }
 
     return (
-        <StyledTable numOfChairs={getChairs(numOfChairs)}>
+        <StyledTable numOfChairs={getChairs()} {...props}>
             <div>
                 <RowMargin0>
-                    {[...Array(getChairs(numOfChairs) / 2)].map((e, i) => (
+                    {[...Array(getChairs() / 2)].map((e, i) => (
                         <Col key={i}>
                             <Row>
                                 <TopChair />
@@ -101,9 +103,7 @@ export const RectangleTable: React.FC<IRectangleTable> = ({
                                 {tableID}
                                 <TextWhiteDiv>{partyName}</TextWhiteDiv>
                                 <TextOccupancyColor
-                                    occupancyColor={getOccupancyColor(
-                                        occupancyStatus,
-                                    )}
+                                    occupancyColor={getOccupancyColor()}
                                 >
                                     {occupancyStatus}
                                 </TextOccupancyColor>
@@ -114,14 +114,14 @@ export const RectangleTable: React.FC<IRectangleTable> = ({
                     </Col6P0>
                     <Col4P0 />
                     <ColorBand
-                        occupancyColor={getOccupancyColor(occupancyStatus)}
+                        occupancyColor={getOccupancyColor()}
                     />
                 </RowMargin0>
             </TableBody>
 
             <div>
                 <RowMargin0>
-                    {[...Array(getChairs(numOfChairs) / 2)].map((e, i) => (
+                    {[...Array(getChairs() / 2)].map((e, i) => (
                         <Col key={i}>
                             <Row>
                                 <BottomChair />
@@ -137,7 +137,11 @@ export const RectangleTable: React.FC<IRectangleTable> = ({
 /**
  * variables for the styled components
  */
-const StyledTable = styled.div`
+
+interface IStyledTable {
+    numOfChairs: number,
+}
+const StyledTable = styled.div<IStyledTable>`
     width: ${({ numOfChairs }) => numOfChairs * 11}em;
 `;
 
@@ -168,7 +172,11 @@ const BottomChair = styled.div`
     margin: auto !important;
 `;
 
-const ColorBand = styled.div`
+interface IColorBand {
+    occupancyColor: string,
+}
+
+const ColorBand = styled.div<IColorBand>`
     border-top-right-radius: 3rem;
     border-bottom-right-radius: 3rem;
     height: 22em;
@@ -231,6 +239,10 @@ const TextWhiteDiv = styled.div`
     color: #fff;
 `;
 
-const TextOccupancyColor = styled.div`
+interface ITextOccupancyColor {
+    occupancyColor: string,
+}
+
+const TextOccupancyColor = styled.div<ITextOccupancyColor>`
     color: ${({ occupancyColor }) => occupancyColor};
 `;
