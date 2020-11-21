@@ -9,7 +9,7 @@ import {
     DraggableStateSnapshot,
     DropResult,
 } from 'react-beautiful-dnd';
-import { ITemplatePrefill } from '/MiddleCanvasTypes';
+import { ITemplatePrefill } from './MiddleCanvasTypes';
 import { TableComponent } from './TableComponent';
 import { DroppableElement } from './DroppableElement';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -19,12 +19,16 @@ export interface TemplateProps extends MainInterface, ResponsiveInterface {
     templatePrefills: ITemplatePrefill
 };
 
+const NO_OF_ITEMS_DELETED = 1;
+const REMOVE_NO_ITEMS = 0;
+
 export const Template: React.FC<TemplateProps> = ({
     isPreview,
     templatePrefills,
     ...props
 }): React.ReactElement => {
-    const [items, setItems] = useState(Object.values(templatePrefills));
+    const typedTemplate: ITemplatePrefill[] = Object.values(templatePrefills);
+    const [items, setItems] = useState(typedTemplate);
 
     /**
      * Reorders the draggable elements in a list
@@ -32,12 +36,11 @@ export const Template: React.FC<TemplateProps> = ({
      * @param {number} startIndex - index of where the element originates from
      * @param {number} endIndex - index of where the element will be placed
      */
-    const reorder = (list: ITemplatePrefill, startIndex: number, endIndex: number): ITemplatePrefill => {
-        const result = Object.values(list);
-        const [removed] = result.splice(startIndex, 1);
-        result.splice(endIndex, 0, removed);
-    
-        return result;
+    const reorder = (list: ITemplatePrefill[], startIndex: number, endIndex: number): ITemplatePrefill[] => {
+        const [removed] = list.splice(startIndex, NO_OF_ITEMS_DELETED);
+        list.splice(endIndex, REMOVE_NO_ITEMS, removed);
+
+        return list;
     };
     
     /**
@@ -60,7 +63,7 @@ export const Template: React.FC<TemplateProps> = ({
      * @param {componentType} componentType - type of component (like a table)
      * @param {string[][]} labels - labels needed to be mapped in each individual component
      */
-    const conditionalHeaderComponent = (componentType: string, labels: string[][]): React.ReactElement | undefined => {
+    const conditionalHeaderComponent = (componentType: string | undefined, labels: string[][]): React.ReactElement | undefined => {
         switch(componentType) {
         case 'table':
             return (
@@ -79,7 +82,7 @@ export const Template: React.FC<TemplateProps> = ({
         }
     };
 
-    const getDraggableComponent = () => Object.values(items).map((templatePrefill: ITemplatePrefill, index) => (
+    const getDraggableComponent = () => Object.values(items).map((templatePrefill, index) => (
         <Draggable
             key={templatePrefill.title}
             draggableId={templatePrefill.title}
@@ -129,14 +132,13 @@ interface WrapperProps {
 };
 const Wrapper = styled.div<WrapperProps>`
     width: 364px;
-    font-size: 12px;
+
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 1.25;
     margin: 3vh 0;
     padding: auto;
     ${({ theme, isPreview }): string => `
+        font-size: ${theme.font.size.small};
         border: dotted 0.5px ${theme.colors.text};
         background-color: ${theme.colors.background};
         padding: ${isPreview ? '10px 0 2px 0' : ''};

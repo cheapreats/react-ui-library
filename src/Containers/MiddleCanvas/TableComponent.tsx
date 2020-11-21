@@ -16,7 +16,7 @@ export const TableComponent: React.FC<TableComponentProps> = ({
     return (
         <Wrapper {...props}>
             <Table isPreview={isPreview}>
-                {Object.values(droppableLabels).map(row => (
+                {droppableLabels.map(row => (
                     <TableRow 
                         labels={row} 
                     />

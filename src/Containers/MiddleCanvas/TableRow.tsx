@@ -14,7 +14,7 @@ export const TableRow: React.FC<TableRowProps> = ({
         <Wrapper {...props}>
             <Tr>
                 <td>
-                    {Object.values(labels).map(label => (
+                    {labels.map(label => (
                         <Text> 
                             {label} 
                         </Text>

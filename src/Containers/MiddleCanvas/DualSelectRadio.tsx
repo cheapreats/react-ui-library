@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components'
 import { AngleDown } from '@styled-icons/fa-solid/AngleDown';
-import { ITemplatePrefill } from './MiddleCanvasTypes';
+import { IPrinterOptions } from './MiddleCanvasTypes';
 import { RadioOptions } from './RadioOptions';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
@@ -11,7 +11,7 @@ export interface DualSelectRadioProps extends MainInterface, ResponsiveInterface
     leftPlaceholder?: string,
     rightPlaceholder?: string,
     headerSpacingStyle?: string,
-    dualSelectOptions: ITemplatePrefill
+    dualSelectOptions: IPrinterOptions
 };
 
 const FIRST_SELECT_OPTION = 0;
@@ -70,12 +70,12 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
 }
 
 const Wrapper = styled.div`
-    font-size: 12px;
+    ${({ theme }): string | undefined => `
+        font-size: ${theme.font.size.small};
+    `};
+    ${Mixins.transition(['transform', 'background-color', 'opacity'])}
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 1.25;
-    letter-spacing: normal;
     margin-top: 3vh 0;
 `;
 
@@ -131,8 +131,8 @@ const SelectContainer = styled.div<SelectContainerProps>`
         border: ${isVisible ? `solid 1px ${theme.colors.input.default}` : ''};
         background-color: ${isVisible ? theme.colors.background : ''};
     `}
-    width: 208px;
-    height: 250px;
+    width: 384px;
+    height: 190px;
     border-radius: 8px;
     position: absolute;
 `;

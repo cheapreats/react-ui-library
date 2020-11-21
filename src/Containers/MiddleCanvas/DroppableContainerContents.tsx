@@ -7,12 +7,14 @@ export interface DroppableContainerContentsProps extends MainInterface, Responsi
     droppableLabel: string[],
 };
 
+const NO_OF_LABELS = 1;
+
 export const DroppableContainerContents: React.FC<DroppableContainerContentsProps> = ({
     droppableLabel,
     ...props
 }): React.ReactElement => {
     return (
-        <Wrapper display={droppableLabel.length > 1} {...props}>
+        <Wrapper display={droppableLabel.length === NO_OF_LABELS} {...props}>
             {droppableLabel.map(label => (
                 <div>
                     {label}
@@ -27,7 +29,7 @@ interface WrapperProps {
 };
 const Wrapper = styled.div<WrapperProps>`
     ${({ display }): string | undefined => `
-        ${display ? Mixins.flex('space-between') : Mixins.flex('center')};
+        ${display ? Mixins.flex('center') : Mixins.flex('space-between') };
     `};
     padding: 10px;
 `;

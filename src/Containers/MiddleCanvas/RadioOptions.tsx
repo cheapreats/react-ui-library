@@ -52,15 +52,15 @@ export const RadioOptions: React.FC<RadioOptionProps> = ({
 
 const Wrapper = styled.div`
     font-weight: bold;
-    font-stretch: normal;
-    font-style: normal;
     line-height: 1.25;
     letter-spacing: normal;
     padding: 5px 20px;
 `;
 const Text = styled.div`
     padding: 10px;
-    font-size: 16px;
+    ${({ theme }): string | undefined => `
+        font-size: ${theme.font.size.default};
+    `};
 `;
 const Options = styled.div`
     padding-left: 10px;

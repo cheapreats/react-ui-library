@@ -2,14 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { DualSelectRadio } from './DualSelectRadio';
 import { Template } from './Template';
 import { DualSelectBar } from './DualSelectBar';
-import { ITemplatePrefill } from './MiddleCanvasTypes';
+import { ITemplatePrefill, IPrinterOptions } from './MiddleCanvasTypes';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 export interface MiddleCanvasProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     leftSelectOption: string,
     rightSelectOption: string,
     templatePrefills: ITemplatePrefill,
-    printerOptions: ITemplatePrefill,
+    printerOptions: IPrinterOptions,
     firstCaption?: string,
     secondCaption?: string,
 };

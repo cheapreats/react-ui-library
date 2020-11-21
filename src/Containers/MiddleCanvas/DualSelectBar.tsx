@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
@@ -17,12 +17,12 @@ export const DualSelectBar: React.FC<DualSelectBarProps> = ({
     setSelectedOption,
     ...props
 }): React.ReactElement => {
-    const getOptionFields = (field: string) => {
+    const getOptionFields = useCallback((field: string) => {
         return ({
             isSelected: selectedOption === field,
             onClick: () => setSelectedOption(field)
         });
-    };
+    }, [selectedOption]);
     
     return (
         <Wrapper {...props}>
@@ -44,7 +44,9 @@ export const DualSelectBar: React.FC<DualSelectBarProps> = ({
 }
 
 const Wrapper = styled.div`
-    font-size: 12px;
+    ${({ theme }): string | undefined => `
+        font-size: ${theme.font.size.small};
+    `};
     font-weight: bold;
     line-height: 1.25;
     width: 364px;
@@ -59,13 +61,15 @@ interface OptionProps {
 const Option = styled.div<OptionProps>`
     margin: 5px;
     padding: 5px;
-    ${({ theme, isSelected }): string => `
+    ${({ theme, isSelected }): string | undefined => `
         color: ${isSelected ? theme.colors.primary : theme.colors.border};
         border-bottom: ${isSelected ? `solid 1px ${theme.colors.primary}` : ''};
     `}
 `;
 
 const Divider = styled.div`
-    border-left: 1px solid black;
+    ${({ theme }): string | undefined => `
+        border: 1px solid ${theme.colors.text};
+    `};
     height: 10px;
 `;
