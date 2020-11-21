@@ -25,9 +25,10 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
     dualSelectOptions,
     ...props
 }): React.ReactElement => {
-    const firstSelectOption = Object.values(dualSelectOptions)[FIRST_SELECT_OPTION].title;
-    const [leftSelectOption, setLeftSelectOption] = useState(Object.values(dualSelectOptions)[FIRST_SELECT_OPTION].labels[FIRST_LABEL]);
-    const [rightSelectOption, setRightSelectOption] = useState(Object.values(dualSelectOptions)[SECOND_SELECT_OPTION].labels[FIRST_LABEL]);
+    const selectOptionsObj = Object.values(dualSelectOptions).map((selectOption)  => {
+        return selectOption.labels[FIRST_LABEL];
+    });
+    const [selectOption, setSelectOption] = useState(selectOptionsObj);
     const [isCollapsed, setIsCollapsed] = useState(false);
 
     return (
@@ -42,7 +43,7 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
                     </Text>
                     <Container>
                         <Text isRightOption={true}>
-                            {`${leftSelectOption}/${rightSelectOption}`}
+                            {`${selectOption[FIRST_SELECT_OPTION]}/${selectOption[SECOND_SELECT_OPTION]}`}
                         </Text>
                         <Icon
                             as={AngleDown}
@@ -54,13 +55,13 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
                     </Container>
                 </Row>
                 <SelectContainer isVisible={isCollapsed}>
-                    {!!isCollapsed && Object.values(dualSelectOptions).map((printOption): React.ReactElement => (
+                    {!!isCollapsed && Object.values(dualSelectOptions).map((printOption, index): React.ReactElement => (
                         <RadioOptions
                             title={printOption.title}
                             labels={printOption.labels} 
-                            firstSelectOption={firstSelectOption}
-                            setLeftSelectOption={setLeftSelectOption}
-                            setRightSelectOption={setRightSelectOption}
+                            index={index}
+                            selectOption={selectOption}
+                            setSelectOption={setSelectOption}
                         /> 
                     ))}
                 </SelectContainer>
@@ -73,7 +74,7 @@ const Wrapper = styled.div`
     ${({ theme }): string | undefined => `
         font-size: ${theme.font.size.small};
     `};
-    ${Mixins.transition(['transform', 'background-color', 'opacity'])}
+    ${Mixins.transition(['transform', 'background-color'])}
     font-weight: bold;
     line-height: 1.25;
     margin-top: 3vh 0;

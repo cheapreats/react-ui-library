@@ -55,28 +55,27 @@ export const DroppableElement: React.FC<DroppableElementProps> = ({
         setItems(reorderedList);
     };
 
-    const getDraggableComponent = () => {
-        droppableLabels.map((droppableLabel, index) => (
-            <Draggable
-                key={droppableLabel[FIRST_LABEL]}
-                draggableId={droppableLabel[FIRST_LABEL]}
-                index={index}
-                isDragDisabled={isPreview}
-            >
-                {(providedDraggable: DraggableProvided, snapshotDraggable: DraggableStateSnapshot) => (
-                    <Wrapper
-                        ref={providedDraggable.innerRef}
-                        {...providedDraggable.draggableProps}
-                        {...providedDraggable.dragHandleProps}
-                        style={providedDraggable.draggableProps.style}
-                    >
-                        <DroppableContainer isPreview={isPreview} isDragging={snapshotDraggable.isDragging}> 
-                            <DroppableContainerContents droppableLabel={droppableLabel} />
-                        </DroppableContainer>
-                    </Wrapper>
-                )}
-            </Draggable>
-        ))};
+    const getDraggableComponent = () => droppableLabels.map((droppableLabel, index) => (
+        <Draggable
+            key={droppableLabel[FIRST_LABEL]}
+            draggableId={droppableLabel[FIRST_LABEL]}
+            index={index}
+            isDragDisabled={isPreview}
+        >
+            {(providedDraggable: DraggableProvided, snapshotDraggable: DraggableStateSnapshot) => (
+                <Wrapper
+                    ref={providedDraggable.innerRef}
+                    {...providedDraggable.draggableProps}
+                    {...providedDraggable.dragHandleProps}
+                    style={providedDraggable.draggableProps.style}
+                >
+                    <DroppableContainer isPreview={isPreview} isDragging={snapshotDraggable.isDragging}> 
+                        <DroppableContainerContents droppableLabel={droppableLabel} />
+                    </DroppableContainer>
+                </Wrapper>
+            )}
+        </Draggable>
+    ));
 
     return (
         <Wrapper {...props}>
@@ -87,7 +86,7 @@ export const DroppableElement: React.FC<DroppableElementProps> = ({
                             ref={provided.innerRef}
                             {...provided.droppableProps}
                         >
-                            {getDraggableComponent}
+                            {getDraggableComponent()}
                             {provided.placeholder}
                         </div>
                     )}

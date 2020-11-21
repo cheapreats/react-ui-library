@@ -27,12 +27,11 @@ export const Template: React.FC<TemplateProps> = ({
     templatePrefills,
     ...props
 }): React.ReactElement => {
-    const typedTemplate: ITemplatePrefill[] = Object.values(templatePrefills);
-    const [items, setItems] = useState(typedTemplate);
+    const [items, setItems] = useState<ITemplatePrefill[]>(Object.values(templatePrefills));
 
     /**
      * Reorders the draggable elements in a list
-     * @param {ITemplatePrefill} list - list of objects to reorder
+     * @param {ITemplatePrefill[]} list - list of objects to reorder
      * @param {number} startIndex - index of where the element originates from
      * @param {number} endIndex - index of where the element will be placed
      */

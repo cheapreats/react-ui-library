@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Radio } from '../../Inputs/Radio';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -6,9 +6,9 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 export interface RadioOptionProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     title?: string,
     labels: string[],
-    setLeftSelectOption: React.Dispatch<React.SetStateAction<string>>,
-    setRightSelectOption: React.Dispatch<React.SetStateAction<string>>,
-    firstSelectOption: string
+    index: number,
+    selectOption: string[],
+    setSelectOption: React.Dispatch<React.SetStateAction<string[]>>,
 };
 
 const DEFAULT_SELECTED = 0;
@@ -16,20 +16,12 @@ const DEFAULT_SELECTED = 0;
 export const RadioOptions: React.FC<RadioOptionProps> = ({
     title,
     labels,
-    setLeftSelectOption,
-    setRightSelectOption,
-    firstSelectOption,
+    index,
+    selectOption,
+    setSelectOption,
     ...props
 }): React.ReactElement => {
     const [checkedOption, setCheckedOption] = useState(labels[DEFAULT_SELECTED]);
-
-    useEffect((): void => {
-        if(title === firstSelectOption) {
-            setLeftSelectOption(checkedOption);
-        } else {
-            setRightSelectOption(checkedOption);
-        }
-    }, [checkedOption]);
 
     return (
         <Wrapper {...props}>
@@ -42,7 +34,12 @@ export const RadioOptions: React.FC<RadioOptionProps> = ({
                         name={title} 
                         label={label}
                         value={checkedOption === label}
-                        onChange={() => setCheckedOption(label)}
+                        onChange={() => {
+                            setCheckedOption(label);
+                            const newSelectOrder = [...selectOption];
+                            newSelectOrder[index] = label;
+                            setSelectOption(newSelectOrder);
+                        }}
                     />
                 ))}
             </Options>
