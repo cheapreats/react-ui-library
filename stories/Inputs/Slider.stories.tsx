@@ -51,31 +51,3 @@ WithTwoInputs.args = {
     ],
     padding: '20px',
 };
-
-//     .add(
-//         'with two input',
-//         mockElement(
-//             ([state, setState]) => (
-//                 <Slider
-//                     hasTwoKnobs={boolean('twoinputs', true)}
-//                     hasRail={boolean('hasRail', true)}
-//                     hasPopup={boolean('hasPopup', true)}
-//                     min={100}
-//                     max={300}
-//                     step={50}
-//                     onChange={target => {
-//                         setState(target);
-//                     }}
-//                     padding="50px"
-//                     marks={[
-//                         { key: 100, mark: '100' },
-//                         { key: 150, mark: '150' },
-//                         { key: 250, mark: '250' },
-//                         { key: 300, mark: '300' },
-//                         { key: 200, mark: '200' },
-//                     ]}
-//                 />
-//             ),
-//             '',
-//         ),
-//     );
