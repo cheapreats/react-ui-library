@@ -39,7 +39,6 @@ export const Template: React.FC<TemplateProps> = ({
     const reorder = (list: ITemplatePrefill[], startIndex: number, endIndex: number): ITemplatePrefill[] => {
         const [removed] = list.splice(startIndex, NO_OF_ITEMS_DELETED);
         list.splice(endIndex, REMOVE_NO_ITEMS, removed);
-
         return list;
     };
     
@@ -132,7 +131,6 @@ interface WrapperProps {
 };
 const Wrapper = styled.div<WrapperProps>`
     width: 364px;
-
     font-weight: bold;
     line-height: 1.25;
     margin: 3vh 0;
