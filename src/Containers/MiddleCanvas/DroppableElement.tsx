@@ -9,6 +9,7 @@ import {
     DraggableStateSnapshot,
     DropResult,
 } from 'react-beautiful-dnd';
+import { reorderElements } from './MiddleCanvasTypes';
 import { DroppableContainerContents } from './DroppableContainerContents';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
@@ -17,8 +18,6 @@ export interface DroppableElementProps extends MainInterface, ResponsiveInterfac
     isPreview?: boolean,
 };
 
-const NO_OF_ITEMS_DELETED = 1;
-const REMOVE_NO_ITEMS = 0;
 const FIRST_LABEL = 0;
 
 export const DroppableElement: React.FC<DroppableElementProps> = ({
@@ -27,18 +26,6 @@ export const DroppableElement: React.FC<DroppableElementProps> = ({
     ...props
 }): React.ReactElement => {
     const [items, setItems] = useState(droppableLabels);
-
-    /**
-     * Reorders the draggable elements in a list
-     * @param {string[][]} list - list of objects to reorder
-     * @param {number} startIndex - index of where the element originates from
-     * @param {number} endIndex - index of where the element will be placed
-     */
-    const reorder = (list: string[][], startIndex: number, endIndex: number): string[][] => {   
-        const [removed] = list.splice(startIndex, NO_OF_ITEMS_DELETED);
-        list.splice(endIndex, REMOVE_NO_ITEMS, removed);
-        return list;
-    };
     
     /**
      * Handles the draggable elements when dragged - required function
@@ -46,12 +33,10 @@ export const DroppableElement: React.FC<DroppableElementProps> = ({
      */
     const onDrag = (result: DropResult): void => {
         const { source, destination } = result;
-    
-        if(!destination) {
-            return;
-        }
+
+        if(!destination) return;
         
-        const reorderedList = reorder(items, source.index, destination.index);
+        const reorderedList = reorderElements(items, source.index, destination.index);
         setItems(reorderedList);
     };
 

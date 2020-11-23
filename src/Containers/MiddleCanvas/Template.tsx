@@ -9,7 +9,7 @@ import {
     DraggableStateSnapshot,
     DropResult,
 } from 'react-beautiful-dnd';
-import { ITemplatePrefill } from './MiddleCanvasTypes';
+import { ITemplatePrefill, getHeaderComponentType, reorderList } from './MiddleCanvasTypes';
 import { TableComponent } from './TableComponent';
 import { DroppableElement } from './DroppableElement';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -19,27 +19,12 @@ export interface TemplateProps extends MainInterface, ResponsiveInterface {
     templatePrefills: ITemplatePrefill
 };
 
-const NO_OF_ITEMS_DELETED = 1;
-const REMOVE_NO_ITEMS = 0;
-
 export const Template: React.FC<TemplateProps> = ({
     isPreview,
     templatePrefills,
     ...props
 }): React.ReactElement => {
     const [items, setItems] = useState<ITemplatePrefill[]>(Object.values(templatePrefills));
-
-    /**
-     * Reorders the draggable elements in a list
-     * @param {ITemplatePrefill[]} list - list of objects to reorder
-     * @param {number} startIndex - index of where the element originates from
-     * @param {number} endIndex - index of where the element will be placed
-     */
-    const reorder = (list: ITemplatePrefill[], startIndex: number, endIndex: number): ITemplatePrefill[] => {
-        const [removed] = list.splice(startIndex, NO_OF_ITEMS_DELETED);
-        list.splice(endIndex, REMOVE_NO_ITEMS, removed);
-        return list;
-    };
     
     /**
      * Handles the draggable elements when dragged - required function
@@ -48,20 +33,18 @@ export const Template: React.FC<TemplateProps> = ({
     const onDrag = (result: DropResult): void => {
         const { source, destination } = result;
     
-        if(!destination) {
-            return;
-        }
-
-        const reorderedList = reorder(items, source.index, destination.index);
+        if(!destination) return;
+    
+        const reorderedList = reorderList(items, source.index, destination.index);
         setItems(reorderedList);
     };
 
     /**
      * Returns a header component based on component type
-     * @param {componentType} componentType - type of component (like a table)
+     * @param {string | undefined} componentType - type of component (like a table)
      * @param {string[][]} labels - labels needed to be mapped in each individual component
      */
-    const conditionalHeaderComponent = (componentType: string | undefined, labels: string[][]): React.ReactElement | undefined => {
+    const conditionalHeaderComponent: getHeaderComponentType = (componentType, labels) => {
         switch(componentType) {
         case 'table':
             return (
