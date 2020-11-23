@@ -11,10 +11,13 @@ export const deepCopy = <T>(original: T): T => {
         return original.map((item: any) => deepCopy<any>(item)) as any;
     }
     if (typeof original === 'object') {
-        return Object.entries(original).reduce((acc, [key, value]: [string, any]) => {
-            acc[key] = deepCopy(value);
-            return acc;
-        }, {}) as T;
+        return Object.entries(original).reduce(
+            (acc, [key, value]: [string, any]) => {
+                acc[key] = deepCopy(value);
+                return acc;
+            },
+            {},
+        ) as T;
     }
     return original;
 };
