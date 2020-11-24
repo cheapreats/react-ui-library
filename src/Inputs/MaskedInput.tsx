@@ -7,7 +7,6 @@ import {
 } from '../Fragments';
 
 const MINUS_SIGN = '-';
-const EMPTY_STRING = '';
 const MIN_LESS_THAN_ZERO = 0;
 const ERROR_MESSAGE_VALUE_CALCUALTION = 1;
 const VALIDATE_INPUT_FORMAT = /^-?[0-9]*$/gm;
@@ -19,51 +18,16 @@ export enum MaskedInputPreset {
 
 export interface MaskedInputProps extends LabelLayoutProps, InputFragmentProps {
     realValue: string;
-    onRealValueChange: (value: string) => void;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     mask: MaskedInputPreset | ((value: string) => string);
     min?: number;
     max?: number;
 }
 
-const DOLLAR_FORMAT_MASK = (s: string): string => {
-    const number = +s;
-    if (Number.isNaN(number)) {
-        return 'Invalid value.';
-    }
-    if (number < 0) {
-        return `-$${-number.toFixed(2)}`;
-    }
-    return `$${number.toFixed(2)}`;
-};
-
-const PERCENT_FORMAT_MASK = (s: string): string => {
-    const number = +s;
-    if (Number.isNaN(number)) {
-        return 'Invalid value.';
-    }
-    if (number < 0) {
-        return `-${-number.toFixed(0)}%`;
-    }
-    return `${number.toFixed(0)}%`;
-};
-
-const getMaskFunction_ = (
-    mask: MaskedInputPreset | ((value: string) => string),
-): ((value: string) => string) => {
-    switch (mask) {
-        case MaskedInputPreset.DOLLAR:
-            return DOLLAR_FORMAT_MASK;
-        case MaskedInputPreset.PERCENTAGE:
-            return PERCENT_FORMAT_MASK;
-        default:
-            return mask as (value: string) => string;
-    }
-};
-
 export const MaskedInput: React.FC<MaskedInputProps> = ({
     mask,
     realValue,
-    onRealValueChange,
+    onChange,
     min = 0,
     max = 100,
     ...props
@@ -72,7 +36,45 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     const [isFocused, setIsFocused] = useState(false);
     const [isError, setIsError] = useState<boolean | string>(false);
 
-    const inputValidator = (targetValue: string) => {
+    const DOLLAR_FORMAT_MASK = (s: string): string => {
+        const number = parseInt(s, 10);
+        if (Number.isNaN(number)) {
+            setIsError('Value cannot be empty');
+            return '';
+        }
+        if (number < 0) {
+            return `-$${-number.toFixed(2)}`;
+        }
+        return `$${number.toFixed(2)}`;
+    };
+
+    const PERCENT_FORMAT_MASK = (s: string): string => {
+        const number = parseInt(s, 10);
+        if (Number.isNaN(number)) {
+            setIsError('Value cannot be empty');
+            return '';
+        }
+        if (number < 0) {
+            return `-${-number.toFixed(0)}%`;
+        }
+        return `${number.toFixed(0)}%`;
+    };
+
+    const getMaskFunction_ = (
+        maskInputPreset: MaskedInputPreset | ((value: string) => string),
+    ): ((value: string) => string) => {
+        switch (maskInputPreset) {
+            case MaskedInputPreset.DOLLAR:
+                return DOLLAR_FORMAT_MASK;
+            case MaskedInputPreset.PERCENTAGE:
+                return PERCENT_FORMAT_MASK;
+            default:
+                return mask as (value: string) => string;
+        }
+    };
+
+    const inputValidator = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const targetValue = event.target.value;
         const targetValueInteger = parseFloat(targetValue);
         const greaterThanMin = targetValueInteger >= min;
         const lessThanMax = targetValueInteger <= max;
@@ -81,15 +83,16 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
         if (!targetValue.match(VALIDATE_INPUT_FORMAT)) {
             setIsError('Invalid Character');
         } else if (greaterThanMin && lessThanMax) {
-            onRealValueChange(targetValue);
+            onChange(event);
             setDisplayValue(targetValue);
         } else if (targetValue === MINUS_SIGN && min < MIN_LESS_THAN_ZERO) {
-            onRealValueChange(targetValue);
+            onChange(event);
             setDisplayValue(targetValue);
         } else if (Number.isNaN(targetValueInteger)) {
-            onRealValueChange(EMPTY_STRING);
+            onChange(event);
         } else {
             setDisplayValue(targetValue);
+            onChange(event);
             const errorMessage = !greaterThanMin
                 ? `greater than ${min - ERROR_MESSAGE_VALUE_CALCUALTION}`
                 : `less than ${max + ERROR_MESSAGE_VALUE_CALCUALTION}`;
@@ -119,7 +122,7 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
                 }}
                 onChange={(e): void => {
                     if (isFocused) {
-                        inputValidator(e.target.value);
+                        inputValidator(e);
                     }
                 }}
                 {...props}
