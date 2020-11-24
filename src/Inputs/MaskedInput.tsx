@@ -18,7 +18,7 @@ export enum MaskedInputPreset {
 
 export interface MaskedInputProps extends LabelLayoutProps, InputFragmentProps {
     realValue: string;
-    onRealValueChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     mask: MaskedInputPreset | ((value: string) => string);
     min?: number;
     max?: number;
@@ -27,7 +27,7 @@ export interface MaskedInputProps extends LabelLayoutProps, InputFragmentProps {
 export const MaskedInput: React.FC<MaskedInputProps> = ({
     mask,
     realValue,
-    onRealValueChange,
+    onChange,
     min = 0,
     max = 100,
     ...props
@@ -83,16 +83,16 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
         if (!targetValue.match(VALIDATE_INPUT_FORMAT)) {
             setIsError('Invalid Character');
         } else if (greaterThanMin && lessThanMax) {
-            onRealValueChange(event);
+            onChange(event);
             setDisplayValue(targetValue);
         } else if (targetValue === MINUS_SIGN && min < MIN_LESS_THAN_ZERO) {
-            onRealValueChange(event);
+            onChange(event);
             setDisplayValue(targetValue);
         } else if (Number.isNaN(targetValueInteger)) {
-            onRealValueChange(event);
+            onChange(event);
         } else {
             setDisplayValue(targetValue);
-            onRealValueChange(event);
+            onChange(event);
             const errorMessage = !greaterThanMin
                 ? `greater than ${min - ERROR_MESSAGE_VALUE_CALCUALTION}`
                 : `less than ${max + ERROR_MESSAGE_VALUE_CALCUALTION}`;
