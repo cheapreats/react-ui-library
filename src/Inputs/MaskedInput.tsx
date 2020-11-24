@@ -8,8 +8,8 @@ import {
 
 const MINUS_SIGN = '-';
 const MIN_LESS_THAN_ZERO = 0;
-const ERROR_MESSAGE_VALUE_CALCUALTION = 1;
-const VALIDATE_INPUT_FORMAT = /^-?[0-9]*$/gm;
+const ERROR_MESSAGE_VALUE_CALCULATION = 1;
+const VALIDATE_INPUT_FORMAT = /^[+-]?(?:\d*\.)?\d+$/gm;
 
 export enum MaskedInputPreset {
     DOLLAR = 'DOLLAR',
@@ -37,7 +37,7 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     const [isError, setIsError] = useState<boolean | string>(false);
 
     const DOLLAR_FORMAT_MASK = (s: string): string => {
-        const number = parseInt(s, 10);
+        const number = parseFloat(s);
         if (Number.isNaN(number)) {
             setIsError('Value cannot be empty');
             return '';
@@ -49,7 +49,7 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     };
 
     const PERCENT_FORMAT_MASK = (s: string): string => {
-        const number = parseInt(s, 10);
+        const number = parseFloat(s);
         if (Number.isNaN(number)) {
             setIsError('Value cannot be empty');
             return '';
@@ -80,22 +80,19 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
         const lessThanMax = targetValueInteger <= max;
 
         setIsError(false);
+        onChange(event);
+
         if (!targetValue.match(VALIDATE_INPUT_FORMAT)) {
-            setIsError('Invalid Character');
+            setIsError('Invalid characters or input');
         } else if (greaterThanMin && lessThanMax) {
-            onChange(event);
             setDisplayValue(targetValue);
         } else if (targetValue === MINUS_SIGN && min < MIN_LESS_THAN_ZERO) {
-            onChange(event);
             setDisplayValue(targetValue);
-        } else if (Number.isNaN(targetValueInteger)) {
-            onChange(event);
         } else {
             setDisplayValue(targetValue);
-            onChange(event);
             const errorMessage = !greaterThanMin
-                ? `greater than ${min - ERROR_MESSAGE_VALUE_CALCUALTION}`
-                : `less than ${max + ERROR_MESSAGE_VALUE_CALCUALTION}`;
+                ? `greater than ${min - ERROR_MESSAGE_VALUE_CALCULATION}`
+                : `less than ${max + ERROR_MESSAGE_VALUE_CALCULATION}`;
             setIsError(`Value must be ${errorMessage}`);
         }
     };
