@@ -3,6 +3,7 @@ import { SquareTable, ISquareTable } from '../../src/Containers/SquareTable';
 import {Meta, Story} from "@storybook/react";
 import { createStoryTitle } from '../Constants';
 
+
 export default {
     title: createStoryTitle('SquareTable'),
     component: SquareTable,
@@ -11,52 +12,32 @@ export default {
 const Template: Story<ISquareTable> = (args) => <SquareTable {...args} />;
 
 /**
- *Creates a SquareTable component with 4 chairs
+ * Creates a list with 7 chairs for SquareTable component
  */
+const chairProps:  Array<{position:string, isSeated: boolean, occupiedBy:string, key:number}>= [
+    {position:"top", isSeated:true, occupiedBy:"Scott",key:1},
+    {position:"top", isSeated:false, occupiedBy:"",key:2},
+    {position:"left", isSeated:false, occupiedBy:"",key:3},
+    {position:"left", isSeated:true, occupiedBy:"Corey",key:4},
+    {position:"right", isSeated:true, occupiedBy:"Jack",key:5},
+    {position:"bottom", isSeated:false, occupiedBy:"",key:7},
+    {position:"bottom", isSeated:true, occupiedBy:"Sam",key:6}
+];
 
-export const FourTopTable = Template.bind({});
-FourTopTable.args = {
+/**
+ *Creates a SquareTable component with 7 chairs
+ */
+export const SevenTopTable = Template.bind({});
+SevenTopTable.args = {
     tableID: 'T1',
-    chairsTop:1,
-    chairsBottom:1,
-    chairsLeft: 1,
-    chairsRight:1,
     partyName:'Dmytro',
     reservationTime:new Date(2020,10,15,16,30,0,0),
     occupancyStatus:'Vacant',
+    chairs:chairProps
+
 };
 
-/**
- *Creates a SquareTable component with 8 chairs
- */
 
-export const EightTopTable = Template.bind({});
-EightTopTable.args = {
-    tableID: 'T2',
-    chairsTop:1,
-    chairsBottom:2,
-    chairsLeft: 3,
-    chairsRight:1,
-    partyName:'Scott',
-    reservationTime:new Date(2020,10,15,16,30,0,0),
-    occupancyStatus:'Reserved',
-};
-
-/**
- *Creates a SquareTable component with 12 chairs
- */
-
-export const TwelveTopTable = Template.bind({});
-TwelveTopTable.args = {
-    tableID: 'T4',
-    chairsTop:1,
-    chairsBottom:2,
-    chairsLeft: 3,
-    chairsRight:1,
-    partyName:'Corey',
-    reservationTime:new Date(2020,10,15,16,30,0,0),
-    occupancyStatus:'Occupied',
-};
 
 
 
