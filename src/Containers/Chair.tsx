@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+// Define a type for Position to restrict to four specific values
+type Position = 'top' | 'bottom' | 'left' | 'right';
+
 export interface IChair {
     /**
      * The position of the chair relative to the table (top/bottom/left/right)
@@ -18,8 +21,6 @@ export interface IChair {
 
 }
 
-// Define a type for Position to restrict to four specific values
-type Position = 'top' | 'bottom' | 'left' | 'right';
 
 /**
  * Primary UI component for user interaction
@@ -52,7 +53,7 @@ export const Chair: React.FC<IChair>
             }
         }
         return (
-            <div>
+            <div {...props}>
                 {chairSwitch()}
             </div>
         );
@@ -79,10 +80,7 @@ const LeftChair=styled.div`
     border-bottom-left-radius: 3rem;
     width: 2rem;
     height: 10rem;
-    margin-top:auto;
-    margin-bottom: auto;
-    margin-right: 1.25rem;
-    margin-left: 1rem;
+    margin: 1.25rem;
     background-color: ${ ({isSeated}) => isSeated ? "red" : "#6c757d" };
 `;
 

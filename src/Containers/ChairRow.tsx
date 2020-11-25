@@ -8,21 +8,9 @@ export interface IChairRow {
      */
     position: Position,
     /**
-     * The number of chairs for top
+     * Array of chairs
      */
-    chairsTop:number,
-    /**
-     * The number of chairs for bottom
-     */
-    chairsBottom:number,
-    /**
-     * The number of chairs for left
-     */
-    chairsLeft:number,
-    /**
-     * The number of chairs for right
-     */
-    chairsRight:number,
+    chairs:Array<{position:string, isSeated: boolean, occupiedBy:string}>,
     /**
      * Will indicate if there are side chairs in the table
      */
@@ -37,85 +25,89 @@ type Position = 'top' | 'bottom' | 'left' | 'right';
  */
 export const ChairRow: React.FC<IChairRow>
     = ({
-        position = 'top',
-        chairsRight=0,
-        chairsTop=0,
-        chairsLeft=0,
-        chairsBottom=0,
-        sideChairs=false,
-        ...props
-    }) => {
+           position = 'top',
+           chairs=Array,
+           sideChairs=false,
+           ...props
+       }) => {
 
-        /**
-         * Returns a JSX element for the ChairRow with the correct styles
-         * based on whether position is top/bottom or left/right
-         * @returns {JSX.Element} the correct JSX.Element based on position
-         */
-        function chairRowSwitch(): JSX.Element
-        {
-            switch (position) {
+
+    /**
+     * This function will return chairs for top and bottom rows
+     * @param array {array} - array of chairs
+     * @return {JSX.Element} - chairs on top and bottom row
+     */
+    function getChairsTopBottom(array:Array<any>){
+        const chairs= array.map( (i)=>
+            <ChairCol key={i.key}>
+                <Chair position={position} occupiedBy={i.occupiedBy} isSeated={i.isSeated} />
+            </ChairCol>
+        );
+        return chairs;
+    }
+
+    /**
+     * This function will return chairs for left and right rows
+     * @param array {array} - array of chairs
+     * @return {JSX.Element} - chairs on right and left row
+     */
+    function getChairsLeftRight(array:Array<any>){
+        const chairs= array.map( (i)=>
+            <SideChairRow key={i.key}>
+                <SideChairCentering>
+                    <Chair position={position} occupiedBy={i.occupiedBy} isSeated={i.isSeated} />
+                </SideChairCentering>
+            </SideChairRow>
+        );
+        return chairs;
+    }
+
+    /**
+     * Returns a JSX element for the ChairRow with the correct styles
+     * based on whether position is top/bottom or left/right
+     * @returns {JSX.Element} the correct JSX.Element based on position
+     */
+    function chairRowSwitch(): JSX.Element
+    {
+        switch (position) {
             case 'top':
                 return (
                     <div>
-                        <TopBottomRow chairNumOnSide={chairsTop} sideChairs={sideChairs} >
-                            {[...Array(chairsTop)].map((e,i) => (
-                                    <ChairCol key={i}>
-                                        <Chair position={position} />
-                                    </ChairCol>
-                                )
-                            )}
+                        <TopBottomRow chairNumOnSide={chairs.length} sideChairs={sideChairs} >
+                            {getChairsTopBottom(chairs)}
                         </TopBottomRow>
                     </div>
                 );
             case 'bottom':
                 return (
                     <div>
-                        <TopBottomRow chairNumOnSide={chairsBottom} sideChairs={sideChairs}>
-                            {[...Array(chairsBottom)].map((e,i) => (
-                                <ChairCol key={i}>
-                                    <Chair position={position} />
-                                </ChairCol>
-                            )
-                            )}
+                        <TopBottomRow chairNumOnSide={chairs.length} sideChairs={sideChairs} >
+                            {getChairsTopBottom(chairs)}
                         </TopBottomRow>
                     </div>
                 );
             case 'left':
                 return (
                     <div>
-                        {[...Array(chairsLeft)].map((e,i) => (
-                                <SideChairRow key={i}>
-                                    <SideChairCentering>
-                                        <Chair position={position} />
-                                    </SideChairCentering>
-                                </SideChairRow>
-                            )
-                        )}
+                        {getChairsLeftRight(chairs)}
                     </div>
                 );
             case 'right':
                 return (
                     <div>
-                        {[...Array(chairsRight)].map((e,i) => (
-                            <SideChairRow key={i}>
-                                <SideChairCentering>
-                                    <Chair position={position} />
-                                </SideChairCentering>
-                            </SideChairRow>
-                        )
-                        )}
+                        {getChairsLeftRight(chairs)}
                     </div>
                 );
             default:
                 return <div />;
-            }
         }
-        return (
-            <div>
-                {chairRowSwitch()}
-            </div>
-        );
-    };
+    }
+    return (
+        <div>
+            {chairRowSwitch()}
+        </div>
+    );
+};
 
 /**
  * variables for the styled components
