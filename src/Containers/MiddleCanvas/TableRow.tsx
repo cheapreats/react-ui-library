@@ -27,15 +27,10 @@ export const TableRow: React.FC<TableRowProps> = ({
 
 const Wrapper = styled.div``;
 
-interface TableProps {
-    isPreview?: boolean
-}
-const Tr = styled.tr<TableProps>`
-    width: 330px;
+const Tr = styled.tr`
     text-align: left;
 `;
-const Text = styled.div<TableProps>`
+const Text = styled.div`
     display: inline-block;
     padding: 5px 27px;
-    line-height: 1.45;
 `;

@@ -34,8 +34,8 @@ interface TableProps {
     isPreview?: boolean
 }
 const Table = styled.table<TableProps>`
-    width: 330px;
-    height: 120px;
+    width: 90%;
+    height: 20%;
     margin: auto;
     border-radius: 6px;
     border-collapse: collapse;

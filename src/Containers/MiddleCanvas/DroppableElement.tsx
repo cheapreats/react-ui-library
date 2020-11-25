@@ -9,9 +9,10 @@ import {
     DraggableStateSnapshot,
     DropResult,
 } from 'react-beautiful-dnd';
-import { reorderElements } from './MiddleCanvasTypes';
+import { reorder } from './MiddleCanvasTypes';
 import { DroppableContainerContents } from './DroppableContainerContents';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
+import { media } from '../../Utils/Mixins';
 
 export interface DroppableElementProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     droppableLabels: string[][],
@@ -36,11 +37,11 @@ export const DroppableElement: React.FC<DroppableElementProps> = ({
 
         if(!destination) return;
         
-        const reorderedList = reorderElements(items, source.index, destination.index);
+        const reorderedList = reorder(items, source.index, destination.index);
         setItems(reorderedList);
     };
 
-    const getDraggableComponent = () => droppableLabels.map((droppableLabel, index) => (
+    const renderDraggableComponent = () => droppableLabels.map((droppableLabel, index) => (
         <Draggable
             key={droppableLabel[FIRST_LABEL]}
             draggableId={droppableLabel[FIRST_LABEL]}
@@ -71,7 +72,7 @@ export const DroppableElement: React.FC<DroppableElementProps> = ({
                             ref={provided.innerRef}
                             {...provided.droppableProps}
                         >
-                            {getDraggableComponent()}
+                            {renderDraggableComponent()}
                             {provided.placeholder}
                         </div>
                     )}
@@ -89,14 +90,18 @@ interface DroppableContainerProps {
     isPreview?: boolean
 };
 const DroppableContainer = styled.div<DroppableContainerProps>`
-    width: 349px;
     border-radius: 4px;
-    margin: 10px;
+    margin: 15px;
+    ${media(
+        'phone',
+        `
+        height: 60px;
+    `)};
     ${({ theme, isDragging, isPreview }): string => `
         background-color: ${isPreview ? theme.colors.background : theme.colors.input.default};
         border: ${isDragging? `solid 1px ${theme.colors.text}` : theme.colors.background};
         color: ${isPreview ? theme.colors.border : theme.colors.text}
         padding: ${isPreview ? '0 0 0 0' : '10px 0 0 0'};
-        height: ${isPreview ? '10px' : '35px'};
+        height: ${isPreview ? '10px' : '40px'};
     `}
 `;

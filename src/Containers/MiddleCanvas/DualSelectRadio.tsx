@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import styled from 'styled-components'
 import { AngleDown } from '@styled-icons/fa-solid/AngleDown';
 import { IPrinterOptions } from './MiddleCanvasTypes';
 import { RadioOptions } from './RadioOptions';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { Mixins } from '../../Utils';
+import { scroll, media, transition, flex } from '../../Utils/Mixins';
 
 export interface DualSelectRadioProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     caption?: string,
@@ -25,9 +25,9 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
     dualSelectOptions,
     ...props
 }): React.ReactElement => {
-    const selectOptionsObj = Object.values(dualSelectOptions).map((selectOption)  => {
+    const selectOptionsObj = useCallback(() => Object.values(dualSelectOptions).map((selectOption): string => {
         return selectOption.labels[FIRST_LABEL];
-    });
+    }), [dualSelectOptions]);
     const [selectOption, setSelectOption] = useState(selectOptionsObj);
     const [isCollapsed, setIsCollapsed] = useState(false);
 
@@ -71,10 +71,15 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
 }
 
 const Wrapper = styled.div`
-    ${({ theme }): string | undefined => `
+    ${({ theme }): string => `
         font-size: ${theme.font.size.small};
     `};
-    ${Mixins.transition(['transform', 'background-color'])}
+    ${transition(['transform', 'background-color'])};
+    ${media(
+        'tablet',
+        `
+        width: 95%,
+    `)};
     font-weight: bold;
     line-height: 1.25;
     margin-top: 3vh 0;
@@ -85,7 +90,14 @@ const Header = styled.div`
 `;
 
 const SelectArea = styled.div`
-    width: 384px;
+    ${scroll};
+    width: 30%;
+    ${media(
+        'tablet',
+        `
+        width: 95%;
+        padding-bottom: 5px;
+    `)};
     border-radius: 8px;
     ${({ theme }): string => `
         background-color: ${theme.colors.border};
@@ -97,7 +109,7 @@ interface RowProps {
 };
 const Row = styled.div<RowProps>`
     ${({ display }): string | undefined =>
-        display && Mixins.flex(display)};
+        display && flex(display)};
 `;
 
 interface TextProps {
@@ -110,7 +122,7 @@ const Text = styled.div<TextProps>`
     `};
 `;
 const Container = styled.div`
-    ${Mixins.flex('row')};
+    ${flex('row')};
 `;
 
 interface IconProps {
@@ -118,7 +130,7 @@ interface IconProps {
 };
 const Icon = styled.svg<IconProps>`
     padding-top: 3px;
-    ${Mixins.transition(['transform'])}
+    ${transition(['transform'])}
     transform: rotate(${({ isCollapsed }): string => (isCollapsed ? '180deg' : '0')});
     height: 25px;
     margin: 5px 12px;
@@ -132,8 +144,15 @@ const SelectContainer = styled.div<SelectContainerProps>`
         border: ${isVisible ? `solid 1px ${theme.colors.input.default}` : ''};
         background-color: ${isVisible ? theme.colors.background : ''};
     `}
-    width: 384px;
-    height: 190px;
+    ${scroll};
+    width: 30%;
+    height: 180px;
+    ${media(
+        'tablet',
+        `
+        width: 90%;
+        height: 250px;
+    `)};
     border-radius: 8px;
     position: absolute;
 `;

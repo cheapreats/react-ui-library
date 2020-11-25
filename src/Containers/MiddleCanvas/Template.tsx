@@ -9,10 +9,11 @@ import {
     DraggableStateSnapshot,
     DropResult,
 } from 'react-beautiful-dnd';
-import { ITemplatePrefill, getHeaderComponentType, reorderList } from './MiddleCanvasTypes';
+import { ITemplatePrefill, reorder } from './MiddleCanvasTypes';
 import { TableComponent } from './TableComponent';
 import { DroppableElement } from './DroppableElement';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
+import { scroll, media } from '../../Utils/Mixins';
 
 export interface TemplateProps extends MainInterface, ResponsiveInterface {
     isPreview?: boolean,
@@ -35,7 +36,7 @@ export const Template: React.FC<TemplateProps> = ({
     
         if(!destination) return;
     
-        const reorderedList = reorderList(items, source.index, destination.index);
+        const reorderedList = reorder(items, source.index, destination.index);
         setItems(reorderedList);
     };
 
@@ -44,7 +45,7 @@ export const Template: React.FC<TemplateProps> = ({
      * @param {string | undefined} componentType - type of component (like a table)
      * @param {string[][]} labels - labels needed to be mapped in each individual component
      */
-    const conditionalHeaderComponent: getHeaderComponentType = (componentType, labels) => {
+    const conditionalHeaderComponent = (componentType: string | undefined, labels: string[][]): React.ReactElement => {
         switch(componentType) {
         case 'table':
             return (
@@ -63,7 +64,7 @@ export const Template: React.FC<TemplateProps> = ({
         }
     };
 
-    const getDraggableComponent = () => Object.values(items).map((templatePrefill, index) => (
+    const renderDraggableComponent = () => Object.values(items).map((templatePrefill, index) => (
         <Draggable
             key={templatePrefill.title}
             draggableId={templatePrefill.title}
@@ -98,7 +99,7 @@ export const Template: React.FC<TemplateProps> = ({
                             ref={provided.innerRef}
                             {...provided.droppableProps}
                         >
-                            {getDraggableComponent()}
+                            {renderDraggableComponent()}
                             {provided.placeholder}
                         </div>
                     )}
@@ -112,7 +113,13 @@ interface WrapperProps {
     isPreview?: boolean;
 };
 const Wrapper = styled.div<WrapperProps>`
-    width: 364px;
+    ${scroll};
+    width: 30%;
+    ${media(
+        'tablet',
+        `
+        width: 100%
+    `)};
     font-weight: bold;
     line-height: 1.25;
     margin: 3vh 0;

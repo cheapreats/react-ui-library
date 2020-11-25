@@ -11,10 +11,6 @@ export interface IPrinterOptions {
     };
 }; 
 
-export type reorderListType = (list: ITemplatePrefill[], startIndex: number, endIndex: number) => ITemplatePrefill[]; 
-export type reorderElementsType = (list: string[][], startIndex: number, endIndex: number) => string[][];
-export type getHeaderComponentType = (componentType: string | undefined, labels: string[][]) => React.ReactElement;
-
 const NO_OF_ITEMS_DELETED = 1;
 const REMOVE_NO_ITEMS = 0;
 
@@ -24,11 +20,10 @@ const REMOVE_NO_ITEMS = 0;
  * @param {number} startIndex - index of where the element originates from
  * @param {number} endIndex - index of where the element will be placed
  */
-export const reorder = (list, startIndex, endIndex) => {
+export function reorder (list: ITemplatePrefill[], startIndex: number, endIndex: number): ITemplatePrefill[]; 
+export function reorder(list: string[][], startIndex: number, endIndex: number): string[][];
+export function reorder(list: any, startIndex: number, endIndex: number): any {
     const [removed] = list.splice(startIndex, NO_OF_ITEMS_DELETED);
     list.splice(endIndex, REMOVE_NO_ITEMS, removed);
     return list;
 };
-
-export const reorderList: reorderListType = reorder;
-export const reorderElements: reorderElementsType = reorder;

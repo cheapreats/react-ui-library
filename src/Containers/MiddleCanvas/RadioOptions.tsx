@@ -23,6 +23,12 @@ export const RadioOptions: React.FC<RadioOptionProps> = ({
 }): React.ReactElement => {
     const [checkedOption, setCheckedOption] = useState(labels[DEFAULT_SELECTED]);
 
+    const setNewSelectOrder = (label: string) => {
+        const newSelectOrder = [...selectOption];
+        newSelectOrder[index] = label;
+        setSelectOption(newSelectOrder);
+    };
+
     return (
         <Wrapper {...props}>
             <Text>
@@ -36,9 +42,7 @@ export const RadioOptions: React.FC<RadioOptionProps> = ({
                         value={checkedOption === label}
                         onChange={() => {
                             setCheckedOption(label);
-                            const newSelectOrder = [...selectOption];
-                            newSelectOrder[index] = label;
-                            setSelectOption(newSelectOrder);
+                            setNewSelectOrder(label);
                         }}
                     />
                 ))}
@@ -49,13 +53,11 @@ export const RadioOptions: React.FC<RadioOptionProps> = ({
 
 const Wrapper = styled.div`
     font-weight: bold;
-    line-height: 1.25;
-    letter-spacing: normal;
     padding: 5px 20px;
 `;
 const Text = styled.div`
     padding: 10px;
-    ${({ theme }): string | undefined => `
+    ${({ theme }): string => `
         font-size: ${theme.font.size.default};
     `};
 `;

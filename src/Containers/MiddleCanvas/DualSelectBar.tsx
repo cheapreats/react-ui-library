@@ -1,7 +1,7 @@
-import React, { useCallback } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { Mixins } from '../../Utils';
+import { scroll, media, flex } from '../../Utils/Mixins';
 
 export interface DualSelectBarProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     leftSelectOption: string,
@@ -17,25 +17,19 @@ export const DualSelectBar: React.FC<DualSelectBarProps> = ({
     setSelectedOption,
     ...props
 }): React.ReactElement => {
-    const getOptionFields = useCallback((field: string) => {
-        return ({
-            isSelected: selectedOption === field,
-            onClick: () => setSelectedOption(field)
-        });
-    }, [selectedOption]);
     
     return (
         <Wrapper {...props}>
             <Option 
-                isSelected={getOptionFields(leftSelectOption).isSelected}
-                onClick={getOptionFields(leftSelectOption).onClick}
+                isSelected={selectedOption === leftSelectOption}
+                onClick={() => setSelectedOption(leftSelectOption)}
             >
                 { leftSelectOption }
             </Option>
             <Divider />
             <Option 
-                isSelected={getOptionFields(rightSelectOption).isSelected}
-                onClick={getOptionFields(rightSelectOption).onClick}
+                isSelected={selectedOption === rightSelectOption}
+                onClick={() => setSelectedOption(rightSelectOption)}
             >
                 { rightSelectOption }
             </Option>
@@ -47,12 +41,18 @@ const Wrapper = styled.div`
     ${({ theme }): string | undefined => `
         font-size: ${theme.font.size.small};
     `};
+    ${flex('center')};
+    ${scroll};
+    width: 30%;
+    ${media(
+        'tablet',
+        `
+        width: 100%
+    `)};
     font-weight: bold;
     line-height: 1.25;
-    width: 364px;
     margin: 5px;
     padding-bottom: 10px;
-    ${Mixins.flex('center')};
 `;
 
 interface OptionProps {
@@ -62,7 +62,7 @@ const Option = styled.div<OptionProps>`
     margin: 5px;
     padding: 5px;
     ${({ theme, isSelected }): string | undefined => `
-        color: ${isSelected ? theme.colors.primary : theme.colors.border};
+        color: ${isSelected ? theme.colors.primary : theme.colors.text};
         border-bottom: ${isSelected ? `solid 1px ${theme.colors.primary}` : ''};
     `}
 `;
