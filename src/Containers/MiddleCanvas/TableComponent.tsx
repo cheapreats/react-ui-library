@@ -39,7 +39,7 @@ const Table = styled.table<TableProps>`
     margin: auto;
     border-radius: 6px;
     border-collapse: collapse;
-    ${({ theme, isPreview }): string | undefined => `
+    ${({ theme, isPreview }): string => `
         border: ${isPreview ? '' : `solid 1px ${theme.colors.text}`};
         background-color: ${isPreview ? theme.colors.background : theme.colors.input.default};
     `};

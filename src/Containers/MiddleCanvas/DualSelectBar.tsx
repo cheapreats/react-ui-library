@@ -38,7 +38,7 @@ export const DualSelectBar: React.FC<DualSelectBarProps> = ({
 }
 
 const Wrapper = styled.div`
-    ${({ theme }): string | undefined => `
+    ${({ theme }): string => `
         font-size: ${theme.font.size.small};
     `};
     ${flex('center')};
@@ -61,14 +61,14 @@ interface OptionProps {
 const Option = styled.div<OptionProps>`
     margin: 5px;
     padding: 5px;
-    ${({ theme, isSelected }): string | undefined => `
+    ${({ theme, isSelected }): string => `
         color: ${isSelected ? theme.colors.primary : theme.colors.text};
         border-bottom: ${isSelected ? `solid 1px ${theme.colors.primary}` : ''};
     `}
 `;
 
 const Divider = styled.div`
-    ${({ theme }): string | undefined => `
+    ${({ theme }): string => `
         border: 1px solid ${theme.colors.text};
     `};
     height: 10px;

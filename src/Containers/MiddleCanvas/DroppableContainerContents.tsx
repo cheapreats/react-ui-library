@@ -28,7 +28,7 @@ interface WrapperProps {
     display?: boolean,
 };
 const Wrapper = styled.div<WrapperProps>`
-    ${({ display }): string | undefined => `
+    ${({ display }): string => `
         ${display ? Mixins.flex('center') : Mixins.flex('space-between') };
     `};
     padding: 10px;
