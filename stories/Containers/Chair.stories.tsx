@@ -1,6 +1,6 @@
 import React from 'react';
 import { Chair, IChair } from '../../src/Containers/Chair';
-import {Meta, Story} from "@storybook/react";
+import { Meta, Story } from '@storybook/react';
 import { createStoryTitle } from '../Constants';
 
 export default {
@@ -15,7 +15,7 @@ const Template: Story<IChair> = (args) => <Chair {...args} />;
  */
 export const ChairFreeTop = Template.bind({});
 ChairFreeTop.args = {
-    position:"top"
+    position: 'top',
 };
 
 /**
@@ -23,9 +23,9 @@ ChairFreeTop.args = {
  */
 export const ChairOccupiedTop = Template.bind({});
 ChairOccupiedTop.args = {
-    position:"top",
-    isSeated:true,
-    occupiedBy:"Dmytro"
+    position: 'top',
+    isSeated: true,
+    occupiedBy: 'Dmytro',
 };
 
 /**
@@ -33,9 +33,9 @@ ChairOccupiedTop.args = {
  */
 export const ChairOccupiedBottom = Template.bind({});
 ChairOccupiedBottom.args = {
-    position:"bottom",
-    isSeated:true,
-    occupiedBy:"Scott"
+    position: 'bottom',
+    isSeated: true,
+    occupiedBy: 'Scott',
 };
 
 /**
@@ -43,7 +43,7 @@ ChairOccupiedBottom.args = {
  */
 export const ChairFreeLeft = Template.bind({});
 ChairFreeLeft.args = {
-    position:"left",
+    position: 'left',
 };
 
 /**
@@ -51,9 +51,9 @@ ChairFreeLeft.args = {
  */
 export const ChairOccupiedLeft = Template.bind({});
 ChairOccupiedLeft.args = {
-    position:"left",
-    isSeated:true,
-    occupiedBy:"Dmytro"
+    position: 'left',
+    isSeated: true,
+    occupiedBy: 'Dmytro',
 };
 
 /**
@@ -61,16 +61,7 @@ ChairOccupiedLeft.args = {
  */
 export const ChairOccupiedRight = Template.bind({});
 ChairOccupiedRight.args = {
-    position:"right",
-    isSeated:true,
-    occupiedBy:"Corey"
+    position: 'right',
+    isSeated: true,
+    occupiedBy: 'Corey',
 };
-
-
-
-
-
-
-
-
-

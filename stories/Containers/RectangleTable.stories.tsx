@@ -6,15 +6,17 @@
 */
 
 import React from 'react';
-import { RectangleTable, IRectangleTable } from '../../src/Containers/RectangleTable';
-import {Meta, Story} from "@storybook/react";
+import {
+    RectangleTable,
+    IRectangleTable,
+} from '../../src/Containers/RectangleTable';
+import { Meta, Story } from '@storybook/react';
 import { createStoryTitle } from '../Constants';
 
 export default {
     title: createStoryTitle('RectangleTable'),
     component: RectangleTable,
 } as Meta;
-
 
 const Template: Story<IRectangleTable> = (args) => <RectangleTable {...args} />;
 
@@ -24,11 +26,10 @@ const Template: Story<IRectangleTable> = (args) => <RectangleTable {...args} />;
 
 export const TwoTopRectangle = Template.bind({});
 TwoTopRectangle.args = {
-
     tableID: 'T3',
     numOfChairs: 2,
     partyName: 'Sarah C.',
-    reservationTime: new Date(2020,9,15,5,30,0,0),
+    reservationTime: new Date(2020, 9, 15, 5, 30, 0, 0),
     occupancyStatus: 'Vacant',
 };
 
@@ -41,7 +42,7 @@ FourTopRectangle.args = {
     tableID: 'T7',
     numOfChairs: 4,
     partyName: 'Robert J.',
-    reservationTime: new Date(2020,9,15,12,30,0,0),
+    reservationTime: new Date(2020, 9, 15, 12, 30, 0, 0),
     occupancyStatus: 'Occupied',
 };
 
@@ -54,8 +55,6 @@ SixTopRectangle.args = {
     tableID: 'T10',
     numOfChairs: 6,
     partyName: 'Michael V.',
-    reservationTime: new Date(2020,9,15,9,30,0,0),
+    reservationTime: new Date(2020, 9, 15, 9, 30, 0, 0),
     occupancyStatus: 'Reserved',
 };
-
-

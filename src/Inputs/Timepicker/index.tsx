@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled, { withTheme, DefaultTheme } from 'styled-components';
 import { useTransition } from '../../Utils/Hooks';
 import { flex } from '../../Utils/Mixins';
@@ -28,34 +28,12 @@ export const Timepicker: React.FC<TimepickerProps> = withTheme(
         ...props
     }): React.ReactElement => {
         value = new Date(value);
-        const ref = useRef<HTMLDivElement>(null);
-        const [show, setShow] = useState<boolean>();
+        const [show, setShow] = useState<boolean>(false);
         const [, mount, animate] = useTransition(show, {
             end: theme.speed.normal || 250,
         });
-
-        useEffect((): void | (() => undefined | void) => {
-            if (!mount) return undefined;
-            const handler = ({ target }: MouseEvent): void => {
-                if (
-                    ref.current &&
-                    !ref.current.contains(target as HTMLElement)
-                ) {
-                    setShow(false);
-                }
-            };
-
-            window.setTimeout((): void => {
-                window.addEventListener('click', handler);
-            }, 100);
-            return (): void => {
-                window.removeEventListener('click', handler);
-                if (disabled) setShow(false);
-            };
-        }, [mount, disabled]);
-
         return (
-            <LabelLayout name={name} ref={ref} {...props}>
+            <LabelLayout name={name} {...props}>
                 <Wrapper>
                     <TimeDisplay
                         name={name}
@@ -71,6 +49,9 @@ export const Timepicker: React.FC<TimepickerProps> = withTheme(
                             show={animate}
                             value={value}
                             onChange={onChange}
+                            mount={mount}
+                            setShow={setShow}
+                            disabled={disabled}
                         />
                     )}
                 </Wrapper>

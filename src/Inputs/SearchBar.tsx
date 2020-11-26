@@ -10,7 +10,7 @@ import {
 } from '../Fragments';
 import { useTransition } from '../Utils/Hooks';
 
-import { SelectList } from '../Containers';
+import { SelectList } from '../Containers/SelectList';
 
 const MAX_VIEWING_LIMIT = 4;
 
@@ -20,6 +20,9 @@ export interface SearchBarProps extends LabelLayoutProps {
     onInput?: Function;
     limit?: number;
     placeholder?: string;
+    backgroundColor?: string;
+    borderRadius?: string;
+    hasIcon?: boolean;
 }
 
 export const SearchBar: React.FC<SearchBarProps> = ({
@@ -32,6 +35,9 @@ export const SearchBar: React.FC<SearchBarProps> = ({
         return undefined;
     },
     placeholder,
+    backgroundColor = '#f5f5f5',
+    borderRadius = '8px',
+    hasIcon = true,
     ...props
 }): React.ReactElement => {
     const [expanded, setExpanded] = useState(false);
@@ -61,14 +67,19 @@ export const SearchBar: React.FC<SearchBarProps> = ({
     return (
         <LabelLayout {...props}>
             <Container>
-                <SelectDisplay>
+                <SelectDisplay
+                    backgroundColor={backgroundColor}
+                    borderRadius={borderRadius}
+                >
                     <InputFragment
                         {...props}
                         value={inputValue}
                         placeholder={placeholder}
                         onChange={(e): void => handleChange(e)}
+                        backgroundColor={backgroundColor}
+                        borderRadius={borderRadius}
                     />
-                    <Icon />
+                    {hasIcon && <Icon />}
                 </SelectDisplay>
                 {mount && (
                     <SelectList
@@ -94,6 +105,8 @@ interface SearchBarSelectProps extends LabelLayoutProps {
     value?: string | number;
     onChange?: Function;
     limit?: number;
+    backgroundColor?: string;
+    borderRadius?: string;
 }
 const SelectDisplay = styled.p<SearchBarSelectProps>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
@@ -103,15 +116,20 @@ const SelectDisplay = styled.p<SearchBarSelectProps>`
     cursor: pointer;
     outline: none;
     border: none;
-    margin: 0;
-    background-color: #f5f5f5;
-    border-radius: 8px;
+    margin: 0px;
+    ${({ backgroundColor, borderRadius }): string => `
+        background-color: ${backgroundColor};
+        border-radius: ${borderRadius};
+    `}
 `;
 
 const Icon = styled(Search)`
     width: 20px;
     flex-shrink: 0;
     margin-left: auto;
+    ${({ theme }): string => `
+        padding-right: ${theme.dimensions.padding.container};
+    `};
 `;
 
 const InputFragment = styled(I)`
@@ -120,6 +138,10 @@ const InputFragment = styled(I)`
     &:focus {
         box-shadow: none;
     }
+    ${({ backgroundColor, borderRadius }): string => `
+        background-color: ${backgroundColor};
+        border-radius: ${borderRadius};
+    `}
 `;
 
 const Container = styled.div`

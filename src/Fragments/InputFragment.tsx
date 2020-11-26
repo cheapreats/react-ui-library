@@ -13,6 +13,8 @@ export interface InputFragmentProps
     value?: string | number | string[];
     error?: boolean | string;
     success?: boolean;
+    backgroundColor?: string;
+    borderRadius?: string;
     children?: React.ReactNode;
     onFocus?: React.FocusEventHandler<HTMLInputElement>;
     onBlur?: React.FocusEventHandler<HTMLInputElement>;

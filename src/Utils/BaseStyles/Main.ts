@@ -17,10 +17,10 @@ export const Main = ({
 
     // Inline Styles
     ${
-    typeof inlineStyle === 'function'
-        ? inlineStyle({ ...props, margin, padding })
-        : inlineStyle
-};
+        typeof inlineStyle === 'function'
+            ? inlineStyle({ ...props, margin, padding })
+            : inlineStyle
+    };
 `;
 
 export const MainProps: string[] = ['margin', 'padding', 'inlineStyle'];
