@@ -21,6 +21,11 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
             Reserved: string;
             Occupied: string;
         };
+        PieChartColors: {
+            Red: string,
+            Green: string,
+            Yellow: string,
+        }
     };
 }
 
@@ -45,6 +50,11 @@ export const MainTheme: MainThemeInterface = {
             Vacant: '#28a745',
             Reserved: '#ffc107',
             Occupied: '#17a2b8',
+        },
+        PieChartColors: {
+            Red: '#FF0000',
+            Green: '#008000',
+            Yellow: '#ffff00',
         }
     },
 };

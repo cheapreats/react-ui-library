@@ -15,33 +15,14 @@ export interface IWaitTimeDisplay {
  */
 export const WaitTimeDisplay: React.FC<IWaitTimeDisplay>
     = ({
-           AverageWaitTime = 28,
+           AverageWaitTime = 29,
             ...props
        }) => {
 
-    const {colors} = useTheme();
-
-    /**
-     * This function will determine what color the Pie Chart will be
-     * @param AverageWaitTime {Number} - Number given from getTimeDifference() function
-     * @return {string} - Hexadecimal of color
-     */
-    function getColor(AverageWaitTime: Number){
-
-        if(AverageWaitTime >= 30){
-            return colors.PieChartColors.Red;
-        } else if(AverageWaitTime >= 15 && AverageWaitTime <= 30){
-            return 	colors.PieChartColors.Yellow;
-        } else {
-            return colors.PieChartColors.Green;
-        }
-    }
-
-
     return (
-        <Row>
+        <Row {...props}>
             <div>
-                <PieChart AverageWaitTime={getColor(AverageWaitTime)} DegreeAngle={AverageWaitTime} />
+                <PieChart AverageWaitTime={AverageWaitTime} />
             </div>
 
             <TextFormatting>
@@ -53,6 +34,25 @@ export const WaitTimeDisplay: React.FC<IWaitTimeDisplay>
         </Row>
     );
 };
+
+
+/**
+ * This function will determine what color the Pie Chart will be
+ * @param AverageWaitTime {Number} - Number given from getTimeDifference() function
+ * @return {string} - Hexadecimal of color
+ */
+function getColor(AverageWaitTime: Number){
+
+    const {colors} = useTheme();
+
+    if(AverageWaitTime >= 30){
+        return colors.PieChartColors.Red;
+    } else if(AverageWaitTime >= 15 && AverageWaitTime <= 30){
+        return 	colors.PieChartColors.Yellow;
+    } else {
+        return colors.PieChartColors.Green;
+    }
+}
 
 /**
  * variables for the styled components
@@ -80,8 +80,8 @@ const Row = styled.div`
         margin-right: 15px;
         margin-left: 15px;
 `;
-    
-const PieChart = styled.div`
+
+const PieChart = styled.div<Pick<IWaitTimeDisplay,"AverageWaitTime">>`
 
         flex-basis: 0;
         max-width: 100%;
@@ -92,7 +92,7 @@ const PieChart = styled.div`
         border-radius: 50%; 
         
         background-image: conic-gradient( 
-            ${ ({AverageWaitTime}) => AverageWaitTime } ${({DegreeAngle}) => DegreeAngle * 6 }deg,  
+            ${ ({AverageWaitTime}) => getColor(AverageWaitTime) } ${({AverageWaitTime}) => AverageWaitTime * 6 }deg,  
             grey 0 235deg  
-            ); 
+        ); 
 `;
