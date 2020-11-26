@@ -24,8 +24,9 @@ export const transition = (
     `transition: ${items
         .reduce<string>((acc, item: string | TransitionOptionType): string => {
             const d = typeof item === 'string' ? duration : item.duration;
-            const i = `${typeof item === 'string' ? item : item.prop} ${d +
-                (typeof d === 'number' ? 'ms' : '')}`;
+            const i = `${typeof item === 'string' ? item : item.prop} ${
+                d + (typeof d === 'number' ? 'ms' : '')
+            }`;
             return `${acc}, ${i} cubic-bezier(0.4, 0.0, 0.2, 1)`;
         }, '')
         .slice(2)};`;

@@ -1,4 +1,4 @@
-const tasks = arr => arr.join(' && ');
+const tasks = (arr) => arr.join(' && ');
 
 module.exports = {
     hooks: {

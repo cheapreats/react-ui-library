@@ -144,6 +144,7 @@ const _Select: React.FC<ComboBoxSelectorProps> = ({
     const handleChange = (event: SyntheticEvent<HTMLInputElement>): void => {
         setinputValue(event.currentTarget.value);
         setExpanded(true);
+        event.stopPropagation();
     };
 
     return (
