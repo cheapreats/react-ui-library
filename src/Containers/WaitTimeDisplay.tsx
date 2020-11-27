@@ -42,12 +42,13 @@ export const WaitTimeDisplay: React.FC<IWaitTimeDisplay>
  * @return {string} - Hexadecimal of color
  */
 function getColor(AverageWaitTime: Number){
-
+    const BUSY = 30;
+    const STARTING_TO_GET_BUSY = 15;
     const {colors} = useTheme();
 
-    if(AverageWaitTime >= 30){
+    if(AverageWaitTime >= BUSY){
         return colors.PieChartColors.Red;
-    } else if(AverageWaitTime >= 15 && AverageWaitTime <= 30){
+    } else if(AverageWaitTime >= STARTING_TO_GET_BUSY && AverageWaitTime <= BUSY){
         return 	colors.PieChartColors.Yellow;
     } else {
         return colors.PieChartColors.Green;
