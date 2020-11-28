@@ -11,26 +11,23 @@ export const TableRow: React.FC<TableRowProps> = ({
     ...props
 }): React.ReactElement => {
     return (
-        <Wrapper {...props}>
-            <Tr>
-                <td>
-                    {labels.map(label => (
-                        <Text> 
-                            {label} 
-                        </Text>
-                    ))}
-                </td>
-            </Tr>
-        </Wrapper>
+        <Tr {...props}>
+            <td>
+                {labels.map(label => (
+                    <Td key={label}> 
+                        {label} 
+                    </Td>
+                ))}
+            </td>
+        </Tr>
     );
 }
 
-const Wrapper = styled.div``;
 
 const Tr = styled.tr`
     text-align: left;
 `;
-const Text = styled.div`
+const Td = styled.div`
     display: inline-block;
     padding: 5px 27px;
 `;

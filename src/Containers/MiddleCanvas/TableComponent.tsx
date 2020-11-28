@@ -8,6 +8,8 @@ export interface TableComponentProps extends MainInterface, ResponsiveInterface,
     isPreview?: boolean
 };
 
+const FIRST_LABEL = 0;
+
 export const TableComponent: React.FC<TableComponentProps> = ({
     droppableLabels,
     isPreview,
@@ -18,6 +20,7 @@ export const TableComponent: React.FC<TableComponentProps> = ({
             <Table isPreview={isPreview}>
                 {droppableLabels.map(row => (
                     <TableRow 
+                        key={row[FIRST_LABEL]}
                         labels={row} 
                     />
                 ))}

@@ -54,18 +54,19 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
                         />
                     </Container>
                 </Row>
-                <SelectContainer isVisible={isCollapsed}>
-                    {!!isCollapsed && Object.values(dualSelectOptions).map((printOption, index): React.ReactElement => (
-                        <RadioOptions
-                            title={printOption.title}
-                            labels={printOption.labels} 
-                            index={index}
-                            selectOption={selectOption}
-                            setSelectOption={setSelectOption}
-                        /> 
-                    ))}
-                </SelectContainer>
             </SelectArea>
+            <SelectContainer isVisible={isCollapsed}>
+                {!!isCollapsed && Object.values(dualSelectOptions).map((printOption, index): React.ReactElement => (
+                    <RadioOptions
+                        key={printOption.title}
+                        title={printOption.title}
+                        labels={printOption.labels} 
+                        index={index}
+                        selectOption={selectOption}
+                        setSelectOption={setSelectOption}
+                    /> 
+                ))}
+            </SelectContainer>
         </Wrapper>
     );
 }
@@ -74,7 +75,7 @@ const Wrapper = styled.div`
     ${({ theme }): string => `
         font-size: ${theme.font.size.small};
     `};
-    ${transition(['transform', 'background-color'])};
+    ${transition(['height'], '3s')};
     ${media(
         'tablet',
         `
@@ -96,12 +97,17 @@ const SelectArea = styled.div`
         'tablet',
         `
         width: 95%;
-        padding-bottom: 5px;
     `)};
-    border-radius: 8px;
+    ${media(
+        'phone',
+        `
+        width: 100%;
+    `)};
     ${({ theme }): string => `
         background-color: ${theme.colors.border};
     `};
+    border-radius: 8px;
+    padding-bottom: 10px;
 `;
 
 interface RowProps {
@@ -140,19 +146,17 @@ interface SelectContainerProps {
     isVisible?: boolean;
 };
 const SelectContainer = styled.div<SelectContainerProps>`
+    ${scroll};
     ${({ theme, isVisible }): string => `
         border: ${isVisible ? `solid 1px ${theme.colors.input.default}` : ''};
         background-color: ${isVisible ? theme.colors.background : ''};
-    `}
-    ${scroll};
-    width: 30%;
-    height: 180px;
-    ${media(
+        ${isVisible ? media(
         'tablet',
         `
-        width: 90%;
-        height: 250px;
-    `)};
+            width: 95%;
+            height: 220px;
+        `) : '180px'}; 
+    `}
     border-radius: 8px;
     position: absolute;
 `;

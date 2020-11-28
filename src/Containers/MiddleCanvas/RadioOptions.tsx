@@ -37,6 +37,7 @@ export const RadioOptions: React.FC<RadioOptionProps> = ({
             <Options>
                 {labels.map((label: string): React.ReactElement => (
                     <StyledRadio 
+                        key={title}
                         name={title} 
                         label={label}
                         value={checkedOption === label}

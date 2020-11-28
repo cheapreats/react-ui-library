@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { ThreeBars } from '@styled-icons/octicons/ThreeBars';
 import { 
     DragDropContext, 
     Droppable,
@@ -13,7 +14,7 @@ import { ITemplatePrefill, reorder } from './MiddleCanvasTypes';
 import { TableComponent } from './TableComponent';
 import { DroppableElement } from './DroppableElement';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { scroll, media } from '../../Utils/Mixins';
+import { scroll, media, flex } from '../../Utils/Mixins';
 
 export interface TemplateProps extends MainInterface, ResponsiveInterface {
     isPreview?: boolean,
@@ -74,18 +75,21 @@ export const Template: React.FC<TemplateProps> = ({
             {(providedDraggable: DraggableProvided, snapshotDraggable: DraggableStateSnapshot) => (
                 <DraggableWrapper
                     ref={providedDraggable.innerRef}
-                    {...providedDraggable.draggableProps}
-                    {...providedDraggable.dragHandleProps}
                     style={providedDraggable.draggableProps.style}
                     isDragging={snapshotDraggable.isDragging}
+                    {...providedDraggable.draggableProps}
                 >
                     {!isPreview && (
                         <Header>
                             {templatePrefill.title}
+                            <div {...providedDraggable.dragHandleProps}>
+                                <Icon as={ThreeBars} />
+                            </div>
                         </Header>
                     )}
                     {conditionalHeaderComponent(templatePrefill.componentType, templatePrefill.labels)}
                 </DraggableWrapper>
+
             )}
         </Draggable>
     ));
@@ -120,16 +124,16 @@ const Wrapper = styled.div<WrapperProps>`
         `
         width: 100%
     `)};
-    font-weight: bold;
-    line-height: 1.25;
-    margin: 3vh 0;
-    padding: auto;
     ${({ theme, isPreview }): string => `
         font-size: ${theme.font.size.small};
         border: dotted 0.5px ${theme.colors.text};
         background-color: ${theme.colors.background};
         padding: ${isPreview ? '10px 0 2px 0' : ''};
     `};
+    font-weight: bold;
+    line-height: 1.25;
+    margin: 3vh 0;
+    padding: auto;
 `;
 
 interface DraggableWrapperProps {
@@ -145,4 +149,16 @@ const DraggableWrapper = styled.div<DraggableWrapperProps>`
 
 const Header = styled.div`
     margin: 5px 0 0 5px;
+    padding: 10px;
+    display: flex;
+    ${flex('space-between')};
+    ${({ theme }): string => `
+        font-size: ${theme.font.size.default};
+    `};
+`;
+
+const Icon = styled.svg`
+    padding-top: 3px;
+    height: 25px;
+    margin: 0 12px;
 `;

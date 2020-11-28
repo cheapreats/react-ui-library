@@ -16,7 +16,7 @@ export const DroppableContainerContents: React.FC<DroppableContainerContentsProp
     return (
         <Wrapper display={droppableLabel.length === NO_OF_LABELS} {...props}>
             {droppableLabel.map(label => (
-                <div>
+                <div key={label}>
                     {label}
                 </div>
             ))}
