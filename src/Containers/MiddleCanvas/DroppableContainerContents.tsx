@@ -1,20 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { Mixins } from '../../Utils';
+import { flex } from '../../Utils/Mixins';
 
 export interface DroppableContainerContentsProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     droppableLabel: string[],
 };
-
-const NO_OF_LABELS = 1;
 
 export const DroppableContainerContents: React.FC<DroppableContainerContentsProps> = ({
     droppableLabel,
     ...props
 }): React.ReactElement => {
     return (
-        <Wrapper display={droppableLabel.length === NO_OF_LABELS} {...props}>
+        <Wrapper {...props}>
             {droppableLabel.map(label => (
                 <div key={label}>
                     {label}
@@ -28,8 +26,9 @@ interface WrapperProps {
     display?: boolean,
 };
 const Wrapper = styled.div<WrapperProps>`
-    ${({ display }) => `
-        ${display ? Mixins.flex('center') : Mixins.flex('space-between') };
-    `};
+    ${flex("space-between")};
+    div:only-child {
+        margin: 0 auto;
+    }
     padding: 10px;
 `;

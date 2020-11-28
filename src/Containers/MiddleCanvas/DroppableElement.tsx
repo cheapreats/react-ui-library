@@ -92,16 +92,21 @@ interface DroppableContainerProps {
 const DroppableContainer = styled.div<DroppableContainerProps>`
     border-radius: 4px;
     margin: 15px;
+    padding: 10px 0 0 0;
+    height: 40px;
     ${media(
         'phone',
         `
         height: 60px;
     `)};
-    ${({ theme, isDragging, isPreview }): string => `
-        background-color: ${isPreview ? theme.colors.background : theme.colors.input.default};
+    ${({ theme, isDragging }): string => `
         border: ${isDragging? `solid 1px ${theme.colors.text}` : theme.colors.background};
-        color: ${isPreview ? theme.colors.border : theme.colors.text}
-        padding: ${isPreview ? '0 0 0 0' : '10px 0 0 0'};
-        height: ${isPreview ? '10px' : '40px'};
-    `}
+        background-color: ${theme.colors.input.default};
+        color: ${theme.colors.text}
+    `};
+    ${({ theme, isPreview }) => isPreview &&`
+        background-color: ${theme.colors.background};
+        padding-top: 0;
+        height: 10px;
+    `};
 `;
