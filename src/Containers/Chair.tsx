@@ -4,6 +4,8 @@ import styled, { useTheme } from 'styled-components';
 // Define a type for Position to restrict to four specific values
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
+
+
 export interface IChair {
     /**
      * The position of the chair relative to the table (top/bottom/left/right)
@@ -18,6 +20,10 @@ export interface IChair {
      * Name of Person Sitting on Chair
      */
     occupiedBy: string;
+    /**
+     * Determines if the chair will be visible or not
+     */
+    isVisible: boolean;
 }
 
 /**
@@ -27,8 +33,10 @@ export const Chair: React.FC<IChair> = ({
     position = 'top',
     isSeated = false,
     occupiedBy = '',
+    isVisible = true,
     ...props
 }) => {
+
     /**
      * Returns a JSX element for the Chair with the correct styles
      * @returns {JSX.Element} the correct JSX.Element based on position,
@@ -38,25 +46,25 @@ export const Chair: React.FC<IChair> = ({
         switch (position) {
             case 'top':
                 return (
-                    <TopChair isSeated={isSeated}>
+                    <TopChair isSeated={isSeated} isVisible={isVisible}>
                         <TextTopBottom>{occupiedBy}</TextTopBottom>
                     </TopChair>
                 );
             case 'bottom':
                 return (
-                    <BottomChair isSeated={isSeated}>
+                    <BottomChair isSeated={isSeated} isVisible={isVisible}>
                         <TextTopBottom>{occupiedBy}</TextTopBottom>
                     </BottomChair>
                 );
             case 'left':
                 return (
-                    <LeftChair isSeated={isSeated}>
+                    <LeftChair isSeated={isSeated} isVisible={isVisible}>
                         <TextLeftRight>{occupiedBy}</TextLeftRight>
                     </LeftChair>
                 );
             case 'right':
                 return (
-                    <RightChair isSeated={isSeated}>
+                    <RightChair isSeated={isSeated} isVisible={isVisible}>
                         <TextLeftRight>{occupiedBy}</TextLeftRight>
                     </RightChair>
                 );
@@ -65,7 +73,7 @@ export const Chair: React.FC<IChair> = ({
                 return null;
         }
 
-        return <div {...props}>{chairSwitch()}</div>;
+        return <div>{chairSwitch()}</div>;
     };
     return <div {...props}>{chairSwitch()}</div>;
 };
@@ -75,10 +83,16 @@ export const Chair: React.FC<IChair> = ({
  */
 interface IBaseChair {
     chairTableBackground: string;
+    isSeated: boolean;
+    isVisible: boolean;
 }
 
 const BaseChair = styled.div<IBaseChair>`
-    background-color: ${({ chairTableBackground }) => chairTableBackground};
+    visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
+    background-color: ${({ isSeated }) =>
+        isSeated
+            ? 'red'
+            : 'black'};
 `;
 
 const TopChair = styled(BaseChair)`
@@ -89,7 +103,6 @@ const TopChair = styled(BaseChair)`
     margin-bottom: 0.25rem;
     margin-left: auto;
     margin-right: auto;
-    background-color: ${({ isSeated }) => (isSeated ? 'red' : '#6c757d')};
 `;
 
 const LeftChair = styled(BaseChair)`
@@ -98,7 +111,6 @@ const LeftChair = styled(BaseChair)`
     width: 2rem;
     height: 10rem;
     margin: 1.25rem;
-    background-color: ${({ isSeated }) => (isSeated ? 'red' : '#6c757d')};
 `;
 
 const RightChair = styled(BaseChair)`
@@ -106,10 +118,7 @@ const RightChair = styled(BaseChair)`
     border-bottom-right-radius: 3rem;
     width: 2rem;
     height: 10rem;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 1.25rem;
-    background-color: ${({ isSeated }) => (isSeated ? 'red' : '#6c757d')};
+    margin: 1.25rem;
 `;
 
 const BottomChair = styled(BaseChair)`
@@ -120,18 +129,26 @@ const BottomChair = styled(BaseChair)`
     margin-top: 0.25rem;
     margin-left: auto;
     margin-right: auto;
-    background-color: ${({ isSeated }) => (isSeated ? 'red' : '#6c757d')};
 `;
 
 const TextTopBottom = styled.div`
+    width: 9rem;
+    margin-left: 0.75rem;
     padding-top: 0.35rem;
     color: black;
     text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;
-const TextLeftRight = styled.p`
-    height: 100%;
-    width: 45%;
+const TextLeftRight = styled.div`
+    height: 90%;
+    padding-top: 0.5rem;
+    margin-left: 0.5rem;
     text-align: center;
     color: black;
     writing-mode: vertical-rl;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 `;

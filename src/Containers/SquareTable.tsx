@@ -1,3 +1,7 @@
+/**
+ * Documentation – the order of chairs are in the chairs array will populate the table from top left to the bottom right
+ * “the purpose of the order in the array is to populate the chairs from top left to bottom right”
+ */
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
 import { ChairRow } from './ChairRow';
@@ -55,7 +59,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     const bottomArray = chairs.filter((i) => i.position === 'bottom');
 
     /**
-     * Get proper sizing and theme color for the table
+     * Get proper theme color for the table
      */
     const { colors } = useTheme();
 
@@ -66,7 +70,8 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * @return {number} - The largest number of chairs
      */
     const getTableSize: getTableSizeType = (top, bottom, left, right) => {
-        return Math.max(top, bottom, left, right);
+        let size = Math.max(top, bottom, left, right);
+        return size;
     };
 
     const tableSize = getTableSize(

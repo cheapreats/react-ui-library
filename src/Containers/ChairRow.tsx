@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Chair } from './Chair';
+import { Chair, IChair } from './Chair';
 
 export interface IChairRow {
     /**
@@ -10,7 +10,7 @@ export interface IChairRow {
     /**
      * Array of chairs
      */
-    chairs: Array<{ position: string; isSeated: boolean; occupiedBy: string }>;
+    chairs: Array<IChair>;
     /**
      * Will indicate if there are side chairs in the table
      */
@@ -42,6 +42,7 @@ export const ChairRow: React.FC<IChairRow> = ({
                     position={position}
                     occupiedBy={i.occupiedBy}
                     isSeated={i.isSeated}
+                    isVisible={i.isVisible}
                 />
             </ChairCol>
         ));
@@ -61,6 +62,7 @@ export const ChairRow: React.FC<IChairRow> = ({
                         position={position}
                         occupiedBy={i.occupiedBy}
                         isSeated={i.isSeated}
+                        isVisible={i.isVisible}
                     />
                 </SideChairCentering>
             </SideChairRow>
@@ -116,7 +118,7 @@ export const ChairRow: React.FC<IChairRow> = ({
         }
     }
 
-    return <div>{chairRowSwitch()}</div>;
+    return <div {...props}>{chairRowSwitch()}</div>;
 };
 
 /**
