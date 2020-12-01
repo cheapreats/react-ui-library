@@ -42,6 +42,8 @@ export * from './Stock';
 export * from './FeaturedProfilesCard';
 export * from './Timeline';
 export * from './LeftSideBar';
+export * from './Stock';
+export * from './MiddleCanvas';
 export * from './Landing';
 export * from './Navigation';
 export * from './WarningCard';
