@@ -26,7 +26,7 @@ type Position = 'top' | 'bottom' | 'left' | 'right';
 
 export const ChairRow: React.FC<IChairRow> = ({
     position = 'top',
-    chairs = Array,
+    chairs = [],
     sideChairs = false,
     ...props
 }) => {
@@ -35,7 +35,7 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @param array {array} - array of chairs
      * @return {JSX.Element} - chairs on top and bottom row
      */
-    function getChairsTopBottom(array: Array<any>) {
+    function getChairsTopBottom(array: Array<IChair>) {
         const chairs = array.map((i) => (
             <ChairCol key={generateKey(position + i)}>
                 <Chair
@@ -54,7 +54,7 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @param array {array} - array of chairs
      * @return {JSX.Element} - chairs on right and left row
      */
-    function getChairsLeftRight(array: Array<any>) {
+    function getChairsLeftRight(array: Array<IChair>) {
         const chairs = array.map((i) => (
             <SideChairRow key={generateKey(position + i)}>
                 <SideChairCentering>

@@ -79,20 +79,29 @@ export const Chair: React.FC<IChair> = ({
 };
 
 /**
+ * This function will determine what color the chair will be
+ * @param isSeated {boolean} - indicated is chair is taken/occupied
+ * @return {string} - Hexadecimal of color
+ */
+function getChairColor(isSeated:boolean){
+    const {colors} = useTheme();
+    if(isSeated){
+        return colors.chairOccupiedBackground;
+    }
+    return colors.chairTableBackground;
+}
+
+/**
  * variables for the styled components
  */
 interface IBaseChair {
-    chairTableBackground: string;
     isSeated: boolean;
     isVisible: boolean;
 }
 
 const BaseChair = styled.div<IBaseChair>`
     visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
-    background-color: ${({ isSeated }) =>
-        isSeated
-            ? 'red'
-            : 'black'};
+    background-color: ${({ isSeated }) => getChairColor(isSeated)};
 `;
 
 const TopChair = styled(BaseChair)`

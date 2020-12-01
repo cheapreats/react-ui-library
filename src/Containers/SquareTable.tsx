@@ -47,7 +47,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     tableID = 'T1',
     partyName = 'Null',
     occupancyStatus = occupancyStatusTypes.Vacant,
-    chairs = Array,
+    chairs = [],
     ...props
 }) => {
     /**
