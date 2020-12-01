@@ -11,7 +11,7 @@ export interface OrderItem {
     modifiers: OrderModifier[];
 }
 export declare enum ModifierChoiceTypeEnum {
-    ADD = "ADD",
-    NO = "NO",
-    DEFAULT = "DEFAULT"
+    ADD = 'ADD',
+    NO = 'NO',
+    DEFAULT = 'DEFAULT',
 }

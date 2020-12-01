@@ -1,6 +1,6 @@
 {
     "name": "@cheapreats/react-ui",
-    "version": "2.3.51",
+    "version": "2.3.57",
     "description": "React UI library for CheaprEats",
     "main": "dist/index.js",
     "files": [
@@ -9,7 +9,7 @@
     "sideEffects": false,
     "scripts": {
         "start": "start-storybook -p 6006",
-        "deploy": "build-storybook --output-dir .deploy",
+        "deploy": "npm run build && build-storybook -s dist -o .deploy",
         "build": "rm -rf dist  && tsc && NODE_ENV=production babel dist -d dist",
         "test": "tsc && npm run eslint:fix",
         "prepublish": "npm run lint && npm run build",
@@ -51,6 +51,7 @@
         "@storybook/addon-viewport": "^6.0.26",
         "@storybook/addons": "^6.0.26",
         "@storybook/react": "^6.0.26",
+        "@types/jest": "^26.0.15",
         "awesome-typescript-loader": "^5.2.1",
         "babel-loader": "^8.1.0",
         "babel-plugin-module-resolver": "^4.0.0",
@@ -62,12 +63,14 @@
         "eslint-plugin-jsx-a11y": "^6.3.1",
         "eslint-plugin-react": "^7.20.6",
         "husky": "^4.3.0",
+        "jest": "^26.6.1",
         "prettier": "^2.1.2",
         "react": "^16.13.1",
         "react-docgen-typescript-loader": "^3.7.2",
         "react-dom": "^16.13.1",
         "styled-components": "^5.2.0",
         "styled-icons": "^10.21.0",
+        "ts-jest": "^26.4.2",
         "typescript": "^4.0.2"
     },
     "aliases": {
@@ -91,6 +94,7 @@
         "@types/react-beautiful-dnd": "^13.0.0",
         "@types/react-dom": "^16.9.8",
         "@types/react-image-crop": "^8.1.2",
+        "@types/react-router-dom": "^5.1.6",
         "@types/recharts": "^1.8.15",
         "@types/storybook__react": "^5.2.1",
         "@types/styled-components": "^5.1.3",
@@ -100,7 +104,9 @@
         "emoji-mart": "^3.0.0",
         "react-beautiful-dnd": "^13.0.0",
         "react-image-crop": "^8.6.5",
-        "recharts": "^1.8.5"
+        "react-router-dom": "^5.2.0",
+        "recharts": "^1.8.5",
+        "win-node-env": "^0.4.0"
     },
     "optionalDependencies": {
         "win-node-env": "^0.4.0"
