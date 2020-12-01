@@ -22,10 +22,7 @@ export const DroppableContainerContents: React.FC<DroppableContainerContentsProp
     );
 }
 
-interface WrapperProps {
-    display?: boolean,
-};
-const Wrapper = styled.div<WrapperProps>`
+const Wrapper = styled.div`
     ${flex("space-between")};
     div:only-child {
         margin: 0 auto;
