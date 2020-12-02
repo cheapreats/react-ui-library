@@ -14,7 +14,7 @@ export interface IChairRow {
     /**
      * Will indicate if there are side chairs in the table
      */
-    sideChairs: boolean;
+    sideChairs?: boolean;
 }
 
 // Define a type for Position to restrict to four specific values
@@ -76,7 +76,8 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @returns {string} a unique key
      */
     function generateKey(pre: string): string {
-        return `${pre}_${new Date().getTime()}`;
+
+        return `${pre}_${Math.random()}`;
     }
 
     /**
