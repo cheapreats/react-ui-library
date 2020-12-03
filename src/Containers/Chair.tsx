@@ -155,6 +155,7 @@ const RoundChair = styled(BaseChair)`
     border-radius: 50%;
     width: 6.5rem;
     height: 6.5rem;
+    border: 2px solid black;
 `;
 
 const PositionChair = styled(BaseChair)<Pick<IChair, 'position'>>`
