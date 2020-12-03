@@ -26,7 +26,7 @@ type Position = 'top' | 'bottom' | 'left' | 'right';
 
 export const ChairRow: React.FC<IChairRow> = ({
     position = 'top',
-    chairs = Array,
+    chairs = [],
     sideChairs = false,
     ...props
 }) => {
@@ -35,8 +35,8 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @param array {array} - array of chairs
      * @return {JSX.Element} - chairs on top and bottom row
      */
-    function getChairsTopBottom(array: Array<any>) {
-        const chairs = array.map((i) => (
+    function getChairsTopBottom(array: Array<IChair>) {
+        const topBottomChairs = array.map((i) => (
             <ChairCol key={generateKey(position + i)}>
                 <Chair
                     position={position}
@@ -46,7 +46,7 @@ export const ChairRow: React.FC<IChairRow> = ({
                 />
             </ChairCol>
         ));
-        return chairs;
+        return topBottomChairs;
     }
 
     /**
@@ -55,7 +55,7 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @return {JSX.Element} - chairs on right and left row
      */
     function getChairsLeftRight(array: Array<any>) {
-        const chairs = array.map((i) => (
+        const leftRightChairs = array.map((i) => (
             <SideChairRow key={generateKey(position + i)}>
                 <SideChairCentering>
                     <Chair
@@ -67,7 +67,7 @@ export const ChairRow: React.FC<IChairRow> = ({
                 </SideChairCentering>
             </SideChairRow>
         ));
-        return chairs;
+        return leftRightChairs;
     }
 
     /**
@@ -87,34 +87,34 @@ export const ChairRow: React.FC<IChairRow> = ({
 
     function chairRowSwitch(): JSX.Element {
         switch (position) {
-            case 'top':
-                return (
-                    <div>
-                        <TopBottomRow
-                            chairNumOnSide={chairs.length}
-                            sideChairs={sideChairs}
-                        >
-                            {getChairsTopBottom(chairs)}
-                        </TopBottomRow>
-                    </div>
-                );
-            case 'bottom':
-                return (
-                    <div>
-                        <TopBottomRow
-                            chairNumOnSide={chairs.length}
-                            sideChairs={sideChairs}
-                        >
-                            {getChairsTopBottom(chairs)}
-                        </TopBottomRow>
-                    </div>
-                );
-            case 'left':
-                return <div>{getChairsLeftRight(chairs)}</div>;
-            case 'right':
-                return <div>{getChairsLeftRight(chairs)}</div>;
-            default:
-                return <div />;
+        case 'top':
+            return (
+                <div>
+                    <TopBottomRow
+                        chairNumOnSide={chairs.length}
+                        sideChairs={sideChairs}
+                    >
+                        {getChairsTopBottom(chairs)}
+                    </TopBottomRow>
+                </div>
+            );
+        case 'bottom':
+            return (
+                <div>
+                    <TopBottomRow
+                        chairNumOnSide={chairs.length}
+                        sideChairs={sideChairs}
+                    >
+                        {getChairsTopBottom(chairs)}
+                    </TopBottomRow>
+                </div>
+            );
+        case 'left':
+            return <div>{getChairsLeftRight(chairs)}</div>;
+        case 'right':
+            return <div>{getChairsLeftRight(chairs)}</div>;
+        default:
+            return <div />;
         }
     }
 

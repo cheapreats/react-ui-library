@@ -4,8 +4,8 @@
  */
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
-import { ChairRow } from './ChairRow';
 import { IChair } from '@Containers/Chair';
+import { ChairRow } from './ChairRow';
 
 type getTableSizeType = (
     top: number,
@@ -70,8 +70,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * @return {number} - The largest number of chairs
      */
     const getTableSize: getTableSizeType = (top, bottom, left, right) => {
-        let size = Math.max(top, bottom, left, right);
-        return size;
+        return Math.max(top, bottom, left, right);
     };
 
     const tableSize = getTableSize(
@@ -88,7 +87,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * @return {boolean} - If there are true, if none false
      */
     function isSideChairs(chairs: Array<IChair>) {
-        let left = chairs.map((i) => i.position === 'left').length;
+        const left = chairs.map((i) => i.position === 'left').length;
         if (left > 0) {
             return true;
         }
@@ -103,17 +102,17 @@ export const SquareTable: React.FC<ISquareTable> = ({
      */
     function getOccupancyColor(): string {
         switch (occupancyStatus) {
-            case occupancyStatusTypes.Vacant:
-                return colors.occupancyStatusColors.Vacant;
+        case occupancyStatusTypes.Vacant:
+            return colors.occupancyStatusColors.Vacant;
 
-            case occupancyStatusTypes.Reserved:
-                return colors.occupancyStatusColors.Reserved;
+        case occupancyStatusTypes.Reserved:
+            return colors.occupancyStatusColors.Reserved;
 
-            case occupancyStatusTypes.Occupied:
-                return colors.occupancyStatusColors.Occupied;
+        case occupancyStatusTypes.Occupied:
+            return colors.occupancyStatusColors.Occupied;
 
-            default:
-                return '';
+        default:
+            return '';
         }
     }
 
@@ -121,7 +120,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
         <div {...props}>
             {/** chairs top */}
             <ChairRow
-                position={'top'}
+                position="top"
                 chairs={topArray}
                 sideChairs={isSideChairs(chairs)}
             />
@@ -131,7 +130,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 <Row>
                     {/** chairs left */}
                     <ChairRow
-                        position={'left'}
+                        position="left"
                         chairs={leftArray}
                         sideChairs={isSideChairs(chairs)}
                     />
@@ -140,7 +139,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         <Row>
                             <TableInfo>
                                 <div>
-                                    {tableID + '\n' + partyName}
+                                    {`${tableID  }\n${  partyName}`}
                                     <Status
                                         occupancyColor={getOccupancyColor()}
                                     >
@@ -157,7 +156,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
 
                     {/** chairs right */}
                     <ChairRow
-                        position={'right'}
+                        position="right"
                         chairs={rightArray}
                         sideChairs={isSideChairs(chairs)}
                     />
@@ -166,7 +165,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
 
             {/** chairs bottom */}
             <ChairRow
-                position={'bottom'}
+                position="bottom"
                 chairs={bottomArray}
                 sideChairs={isSideChairs(chairs)}
             />
