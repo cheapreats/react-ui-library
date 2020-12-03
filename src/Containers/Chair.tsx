@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { useTheme } from 'styled-components';
+import styled, { css } from 'styled-components';
 
 // Define a type for Position to restrict to four specific values
 type Position = 'top' | 'bottom' | 'left' | 'right';
@@ -24,6 +24,11 @@ export interface IChair {
      * Determines if the chair will be visible or not
      */
     isVisible: boolean;
+    /**
+     * Boolean value for whether the chair is round.
+     * True if the chair is round, otherwise false.
+     */
+    isRound?: boolean;
 }
 
 /**
@@ -34,68 +39,38 @@ export const Chair: React.FC<IChair> = ({
     isSeated = false,
     occupiedBy = '',
     isVisible = true,
+    isRound= false,
     ...props
 }) => {
 
-    /**
-     * Returns a JSX element for the Chair with the correct styles
-     * @returns {JSX.Element} the correct JSX.Element based on position,
-     * or null if no position is provided
-     */
-    const chairSwitch: () => JSX.Element | null = () => {
-        switch (position) {
-            case 'top':
-                return (
-                    <TopChair isSeated={isSeated} isVisible={isVisible}>
-                        <TextTopBottom>{occupiedBy}</TextTopBottom>
-                    </TopChair>
-                );
-            case 'bottom':
-                return (
-                    <BottomChair isSeated={isSeated} isVisible={isVisible}>
-                        <TextTopBottom>{occupiedBy}</TextTopBottom>
-                    </BottomChair>
-                );
-            case 'left':
-                return (
-                    <LeftChair isSeated={isSeated} isVisible={isVisible}>
-                        <TextLeftRight>{occupiedBy}</TextLeftRight>
-                    </LeftChair>
-                );
-            case 'right':
-                return (
-                    <RightChair isSeated={isSeated} isVisible={isVisible}>
-                        <TextLeftRight>{occupiedBy}</TextLeftRight>
-                    </RightChair>
-                );
+    
+    if (isRound) {
+        return (
+            <div {...props}>
+                <RoundChair isSeated={isSeated} isVisible={isVisible}>
+                    <RoundText>{occupiedBy}</RoundText>
+                </RoundChair>
+            </div>
+        );
+        
+    }
+    
+    return (
+        <div {...props}>
+            <PositionChair isSeated={isSeated} isVisible={isVisible} position={position}>
+                <StyledText position={position}>{occupiedBy}</StyledText>
+            </PositionChair>
+        </div>
+    );
 
-            default:
-                return null;
-        }
-
-        return <div>{chairSwitch()}</div>;
-    };
-    return <div {...props}>{chairSwitch()}</div>;
 };
 
 /**
  * variables for the styled components
  */
-interface IBaseChair {
-    chairTableBackground: string;
-    isSeated: boolean;
-    isVisible: boolean;
-}
 
-const BaseChair = styled.div<IBaseChair>`
-    visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
-    background-color: ${({ isSeated }) =>
-        isSeated
-            ? 'red'
-            : 'black'};
-`;
+const topChairStyle = css`
 
-const TopChair = styled(BaseChair)`
     border-top-left-radius: 3rem;
     border-top-right-radius: 3rem;
     height: 2rem;
@@ -105,7 +80,8 @@ const TopChair = styled(BaseChair)`
     margin-right: auto;
 `;
 
-const LeftChair = styled(BaseChair)`
+const leftChairStyle = css`
+
     border-top-left-radius: 3rem;
     border-bottom-left-radius: 3rem;
     width: 2rem;
@@ -113,7 +89,8 @@ const LeftChair = styled(BaseChair)`
     margin: 1.25rem;
 `;
 
-const RightChair = styled(BaseChair)`
+const rightChairStyle = css`
+
     border-top-right-radius: 3rem;
     border-bottom-right-radius: 3rem;
     width: 2rem;
@@ -121,7 +98,8 @@ const RightChair = styled(BaseChair)`
     margin: 1.25rem;
 `;
 
-const BottomChair = styled(BaseChair)`
+const bottomChairStyle = css`
+
     border-bottom-left-radius: 3rem;
     border-bottom-right-radius: 3rem;
     height: 2rem;
@@ -131,24 +109,77 @@ const BottomChair = styled(BaseChair)`
     margin-right: auto;
 `;
 
-const TextTopBottom = styled.div`
+const textBaseStyle = css`
+
+    color: black;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+`;
+
+const textTopBottomStyle = css`
+
+    ${textBaseStyle};
     width: 9rem;
     margin-left: 0.75rem;
     padding-top: 0.35rem;
-    color: black;
-    text-align: center;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 `;
-const TextLeftRight = styled.div`
+
+const textLeftRightStyle = css`
+
+    ${textBaseStyle};
     height: 90%;
     padding-top: 0.5rem;
     margin-left: 0.5rem;
-    text-align: center;
-    color: black;
     writing-mode: vertical-rl;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
 `;
+
+const textRoundStyle = css`
+    ${textBaseStyle};
+    padding: 2.5em 0;
+`;
+
+const BaseChair = styled.div<Pick<IChair, 'isVisible' | 'isSeated'>>`
+
+    visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
+    background-color: ${({ isSeated }) =>
+        isSeated
+            ? 'red'
+            : 'black'}; 
+`;
+
+const RoundChair = styled(BaseChair)`
+
+    border-radius: 50%;
+    width: 6.5rem;
+    height: 6.5rem;
+`;
+
+const PositionChair = styled(BaseChair)<Pick<IChair, 'position'>>`
+
+    ${({position}) => ({
+        "top": topChairStyle,
+        "bottom": bottomChairStyle,
+        "left": leftChairStyle,
+        "right": rightChairStyle
+    }[position])};
+`;
+
+const StyledText = styled.div<Pick<IChair, 'position'>>`
+
+    ${({position}) => ({
+        "top": textTopBottomStyle,
+        "bottom": textTopBottomStyle,
+        "left": textLeftRightStyle,
+        "right": textLeftRightStyle
+    }[position])};
+`;
+
+const RoundText = styled.div`
+    ${textRoundStyle};
+`;
+
+
+
+
