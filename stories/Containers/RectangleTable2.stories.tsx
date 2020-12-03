@@ -1,5 +1,8 @@
 import React from 'react';
-import {IRectangleTable2, RectangleTable2} from '../../src/Containers/RectangleTable2';
+import {
+    IRectangleTable2,
+    RectangleTable2,
+} from '../../src/Containers/RectangleTable2';
 import { Meta, Story } from '@storybook/react';
 import { createStoryTitle } from '../Constants';
 
@@ -8,7 +11,9 @@ export default {
     component: RectangleTable2,
 } as Meta;
 
-const Template: Story<IRectangleTable2> = (args) => <RectangleTable2 {...args} />;
+const Template: Story<IRectangleTable2> = (args) => (
+    <RectangleTable2 {...args} />
+);
 
 /**
  *Creates a RectangleTable component with 7 chairs
@@ -19,9 +24,24 @@ FourTopTable.args = {
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
     chairs: [
-        { position: 'top', isSeated: true, occupiedBy: 'Scott', isVisible: true },
+        {
+            position: 'top',
+            isSeated: true,
+            occupiedBy: 'Scott',
+            isVisible: true,
+        },
         { position: 'top', isSeated: false, occupiedBy: '', isVisible: true },
-        { position: 'bottom', isSeated: false, occupiedBy: '', isVisible: true },
-        { position: 'bottom', isSeated: true, occupiedBy: 'Sam', isVisible: true }
-    ]
+        {
+            position: 'bottom',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+        },
+        {
+            position: 'bottom',
+            isSeated: true,
+            occupiedBy: 'Sam',
+            isVisible: true,
+        },
+    ],
 };

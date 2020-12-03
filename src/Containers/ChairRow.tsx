@@ -36,17 +36,16 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @return {JSX.Element} - chairs on top and bottom row
      */
     function getChairsTopBottom(array: Array<IChair>) {
-        const chairs = array.map((i) => (
+        return array.map((i) => (
             <ChairCol key={generateKey(position + i)}>
                 <Chair
-                    position={position}
+                    position={i.position}
                     occupiedBy={i.occupiedBy}
                     isSeated={i.isSeated}
                     isVisible={i.isVisible}
                 />
             </ChairCol>
         ));
-        return chairs;
     }
 
     /**
@@ -55,11 +54,11 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @return {JSX.Element} - chairs on right and left row
      */
     function getChairsLeftRight(array: Array<IChair>) {
-        const chairs = array.map((i) => (
+        return array.map((i) => (
             <SideChairRow key={generateKey(position + i)}>
                 <SideChairCentering>
                     <Chair
-                        position={position}
+                        position={i.position}
                         occupiedBy={i.occupiedBy}
                         isSeated={i.isSeated}
                         isVisible={i.isVisible}
@@ -67,7 +66,6 @@ export const ChairRow: React.FC<IChairRow> = ({
                 </SideChairCentering>
             </SideChairRow>
         ));
-        return chairs;
     }
 
     /**
@@ -76,7 +74,6 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @returns {string} a unique key
      */
     function generateKey(pre: string): string {
-
         return `${pre}_${Math.random()}`;
     }
 

@@ -4,13 +4,10 @@
  */
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
-import { ChairRow } from './ChairRow';
 import { IChair } from '@Containers/Chair';
+import { ChairRow } from './ChairRow';
 
-type getTableSizeType = (
-    top: number,
-    bottom: number
-) => number;
+type getTableSizeType = (top: number, bottom: number) => number;
 
 export interface IRectangleTable2 {
     /**
@@ -47,7 +44,7 @@ export const RectangleTable2: React.FC<IRectangleTable2> = ({
     occupancyStatus = occupancyStatusTypes.Vacant,
     chairs = [],
     ...props
-    }) => {
+}) => {
     /**
      * Split chairs array into four arrays for each table side
      */
@@ -66,15 +63,11 @@ export const RectangleTable2: React.FC<IRectangleTable2> = ({
      * @return {number} - The largest number of chairs
      */
     const getTableSize: getTableSizeType = (top, bottom) => {
-        let size = Math.max(top, bottom);
+        const size = Math.max(top, bottom);
         return size;
     };
 
-    const tableSize = getTableSize(
-        topArray.length,
-        bottomArray.length
-    );
-
+    const tableSize = getTableSize(topArray.length, bottomArray.length);
 
     /**
      * This function will determine what color should be the Status and ColorDiv
@@ -101,10 +94,7 @@ export const RectangleTable2: React.FC<IRectangleTable2> = ({
     return (
         <div {...props}>
             {/** chairs top */}
-            <ChairRow
-                position={'top'}
-                chairs={topArray}
-            />
+            <ChairRow position="top" chairs={topArray} />
 
             {/** table itself */}
             <div>
@@ -113,7 +103,7 @@ export const RectangleTable2: React.FC<IRectangleTable2> = ({
                         <Row>
                             <TableInfo>
                                 <div>
-                                    {tableID + '\n' + partyName}
+                                    {`${tableID}\n${partyName}`}
                                     <Status
                                         occupancyColor={getOccupancyColor()}
                                     >
@@ -131,10 +121,7 @@ export const RectangleTable2: React.FC<IRectangleTable2> = ({
             </div>
 
             {/** chairs bottom */}
-            <ChairRow
-                position={'bottom'}
-                chairs={bottomArray}
-            />
+            <ChairRow position="bottom" chairs={bottomArray} />
         </div>
     );
 };
@@ -148,7 +135,7 @@ interface ITableBody {
 }
 
 const TableBody = styled.div<ITableBody>`
-    height:20rem;
+    height: 20rem;
     width: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
     border-radius: 3rem;
     background-color: #6c757d;

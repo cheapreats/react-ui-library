@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
-import { ChairRow } from './ChairRow';
+import { Chair, IChair } from '@Containers/Chair';
 
 export interface ICircleTable2 {
     /**
@@ -8,9 +8,9 @@ export interface ICircleTable2 {
      */
     tableID: string;
     /**
-     * The number of chairs at the table
+     * Array of chairs
      */
-    numOfChairs: number;
+    chairs: Array<IChair>;
     /**
      * The name of the party assigned to the table
      */
@@ -19,10 +19,6 @@ export interface ICircleTable2 {
      * The occupancy status for the table
      */
     occupancyStatus: occupancyStatusTypes;
-    /**
-     * The seating/reservation time for the party at the table
-     */
-    reservationTime?: Date;
 }
 
 enum occupancyStatusTypes {
@@ -36,29 +32,12 @@ enum occupancyStatusTypes {
  */
 export const CircleTable2: React.FC<ICircleTable2> = ({
     tableID = 'T1',
-    numOfChairs = 4,
+    chairs = [],
     partyName = 'Null',
     occupancyStatus = occupancyStatusTypes.Vacant,
     ...props
 }) => {
     const { colors } = useTheme();
-
-    /**
-     * This function will calculate the number of chairs for each table side
-     * return 1 if numOfChairs is below 0
-     * returns the number of the chairs / 4 so it can be called on each side
-     */
-    function getChairNumOnSide() {
-        if (numOfChairs < 1) {
-            return 1;
-        }
-
-        if (numOfChairs % 4 === 0) {
-            return numOfChairs / 4;
-        }
-
-        return Math.floor(numOfChairs / 4) + 1;
-    }
 
     /**
      * This function will determine what color should be the Status and ColorDiv
@@ -82,52 +61,63 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
         }
     }
 
+    /**
+     * This function will return JSX elements for the Chairs and ChairWrappers
+     * @param array {array} - array of chairs
+     * @return {JSX.Element} - Chairs and ChairWrappers for the table
+     */
+    function getChairs(array: Array<IChair>) {
+        return array.map((item, index) => (
+            <ChairWrapper
+                numOfChairs={chairs.length}
+                counter={index + 1}
+                key={generateKey(item.position + index)}
+            >
+                <Chair
+                    position={item.position}
+                    occupiedBy={item.occupiedBy}
+                    isSeated={item.isSeated}
+                    isVisible={item.isVisible}
+                    isRound={item.isRound}
+                />
+            </ChairWrapper>
+        ));
+    }
+
+    /**
+     * Generates a unique key based on a string and a random number
+     * @param pre - a string to append to random number
+     * @returns {string} a unique key
+     */
+    function generateKey(pre: string): string {
+        return `${pre}_${Math.random()}`;
+    }
+
+    // Calculate the tangent based on the number of chairs in the array
+    const tan = Math.tan(Math.PI / chairs.length);
+
     return (
         <div {...props}>
-            {/** chairs top */}
-            <ChairRow position="top" chairNumOnSide={getChairNumOnSide()} />
+            <TableBody
+                chairTableBackground={colors.chairTableBackground}
+                tangentValue={tan}
+                occupancyColor={getOccupancyColor()}
+            >
+                {getChairs(chairs)}
 
-            {/** table itself */}
-            <div>
-                <Row>
-                    {/** chairs left */}
-                    <ChairRow
-                        position="left"
-                        chairNumOnSide={getChairNumOnSide()}
-                    />
-
-                    <TableBody
-                        chairNumOnSide={getChairNumOnSide()}
-                        occupancyColor={getOccupancyColor()}
-                    >
-                        <Row>
-                            <TableInfo>
-                                <div>
-                                    {tableID}
-                                    <br />
-                                    {partyName}
-                                    <br />
-                                    <Status
-                                        occupancyColor={getOccupancyColor()}
-                                    >
-                                        {occupancyStatus}
-                                    </Status>
-                                    <br />
-                                </div>
-                            </TableInfo>
-                        </Row>
-                    </TableBody>
-
-                    {/** chairs right */}
-                    <ChairRow
-                        position="right"
-                        chairNumOnSide={getChairNumOnSide()}
-                    />
-                </Row>
-            </div>
-
-            {/** chairs bottom */}
-            <ChairRow position="bottom" chairNumOnSide={getChairNumOnSide()} />
+                <TableInfo>
+                    <div>
+                        {tableID}
+                        <br />
+                        {partyName}
+                        <br />
+                        <Status occupancyColor={getOccupancyColor()}>
+                            {occupancyStatus}
+                        </Status>
+                        <br />
+                    </div>
+                </TableInfo>
+            </TableBody>
         </div>
     );
 };
@@ -137,32 +127,61 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
  */
 
 interface ITableBody {
-    chairNumOnSide: number;
+    tangentValue: number;
     occupancyColor: string;
+    chairTableBackground: string;
 }
 
 const TableBody = styled.div<ITableBody>`
-    height: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
-    width: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
+    --d: 6.5em; /* chair size */
+    --rel: 1; /* how much extra space we want between images, 1 = one chair size */
+    --tan: ${({ tangentValue }) => tangentValue};
+    --r: calc(
+        0.5 * (1 + var(--rel)) * var(--d) / var(--tan)
+    ); /* circle radius */
+    --s: calc(2 * var(--r)); /* container size */
+    position: relative;
+    width: var(--s);
+    height: var(--s);
+    background: ${({ chairTableBackground }) => chairTableBackground};
     border-radius: 50%;
-    background-color: #6c757d;
     border-style: solid;
     border-color: ${({ occupancyColor }) => occupancyColor};
-    border-width: 3px;
+    border-width: 0.5em;
+    margin: 3em;
 `;
 
-const Row = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+interface IChairWrapper {
+    counter: number;
+    numOfChairs: number;
+}
+
+const ChairWrapper = styled.div<IChairWrapper>`
+    --d: 6.5em; /* chair size */
+    --rel: 1; /* how much extra space we want between images, 1 = one image size */
+    --r: calc(
+        0.5 * (1 + var(--rel)) * var(--d) / var(--tan)
+    ); /* circle radius */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: calc(-0.5 * var(--d));
+    width: var(--d);
+    height: var(--d);
+    --az: calc(
+        ${({ counter }) => counter}*1turn / ${({ numOfChairs }) => numOfChairs}
+    );
+    transform: rotate(var(--az)) translate(var(--r))
+        rotate(calc(-1 * var(--az)));
 `;
 
 const TableInfo = styled.div`
+    text-align: center;
     color: #f8f9fa;
-    margin-top: 4rem;
+    padding: calc(var(--s) / 2.4) 0;
     margin-left: auto;
-    width: 75%;
+    margin-right: auto;
+    width: 50%;
 `;
 
 interface IStatus {

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Chair, IChair } from '../../src/Containers/Chair';
+import { Chair, IChair } from '../../src/Containers';
 import { Meta, Story } from '@storybook/react';
 import { createStoryTitle } from '../Constants';
 
@@ -64,4 +64,14 @@ ChairOccupiedRight.args = {
     position: 'right',
     isSeated: true,
     occupiedBy: 'Corey',
+};
+
+/**
+ *Creates round chair
+ */
+export const ChairOccupiedRound = Template.bind({});
+ChairOccupiedRound.args = {
+    isSeated: true,
+    occupiedBy: 'Jack',
+    isRound: true,
 };
