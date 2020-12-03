@@ -1,10 +1,8 @@
 import React from 'react';
-import styled, { css } from 'styled-components';
+import styled, { css, useTheme } from 'styled-components';
 
 // Define a type for Position to restrict to four specific values
 type Position = 'top' | 'bottom' | 'left' | 'right';
-
-
 
 export interface IChair {
     /**
@@ -39,11 +37,9 @@ export const Chair: React.FC<IChair> = ({
     isSeated = false,
     occupiedBy = '',
     isVisible = true,
-    isRound= false,
+    isRound = false,
     ...props
 }) => {
-
-    
     if (isRound) {
         return (
             <div {...props}>
@@ -52,25 +48,41 @@ export const Chair: React.FC<IChair> = ({
                 </RoundChair>
             </div>
         );
-        
     }
-    
+
     return (
         <div {...props}>
-            <PositionChair isSeated={isSeated} isVisible={isVisible} position={position}>
+            <PositionChair
+                isSeated={isSeated}
+                isVisible={isVisible}
+                position={position}
+            >
                 <StyledText position={position}>{occupiedBy}</StyledText>
             </PositionChair>
         </div>
     );
-
 };
+
+/**
+ * This function will determine what color the chair will be
+ * @param isSeated {boolean} - indicated is chair is taken/occupied
+ * @return {string} - Hexadecimal of color
+ */
+function getChairColor(isSeated: boolean) {
+    const { colors } = useTheme();
+
+    if (isSeated) {
+        return colors.chairOccupiedBackground;
+    }
+
+    return colors.chairTableBackground;
+}
 
 /**
  * variables for the styled components
  */
 
 const topChairStyle = css`
-
     border-top-left-radius: 3rem;
     border-top-right-radius: 3rem;
     height: 2rem;
@@ -81,7 +93,6 @@ const topChairStyle = css`
 `;
 
 const leftChairStyle = css`
-
     border-top-left-radius: 3rem;
     border-bottom-left-radius: 3rem;
     width: 2rem;
@@ -90,7 +101,6 @@ const leftChairStyle = css`
 `;
 
 const rightChairStyle = css`
-
     border-top-right-radius: 3rem;
     border-bottom-right-radius: 3rem;
     width: 2rem;
@@ -99,7 +109,6 @@ const rightChairStyle = css`
 `;
 
 const bottomChairStyle = css`
-
     border-bottom-left-radius: 3rem;
     border-bottom-right-radius: 3rem;
     height: 2rem;
@@ -110,7 +119,6 @@ const bottomChairStyle = css`
 `;
 
 const textBaseStyle = css`
-
     color: black;
     text-align: center;
     overflow: hidden;
@@ -119,7 +127,6 @@ const textBaseStyle = css`
 `;
 
 const textTopBottomStyle = css`
-
     ${textBaseStyle};
     width: 9rem;
     margin-left: 0.75rem;
@@ -127,7 +134,6 @@ const textTopBottomStyle = css`
 `;
 
 const textLeftRightStyle = css`
-
     ${textBaseStyle};
     height: 90%;
     padding-top: 0.5rem;
@@ -141,45 +147,36 @@ const textRoundStyle = css`
 `;
 
 const BaseChair = styled.div<Pick<IChair, 'isVisible' | 'isSeated'>>`
-
     visibility: ${({ isVisible }) => (isVisible ? 'visible' : 'hidden')};
-    background-color: ${({ isSeated }) =>
-        isSeated
-            ? 'red'
-            : 'black'}; 
+    background-color: ${({ isSeated }) => getChairColor(isSeated)};
 `;
 
 const RoundChair = styled(BaseChair)`
-
     border-radius: 50%;
     width: 6.5rem;
     height: 6.5rem;
 `;
 
 const PositionChair = styled(BaseChair)<Pick<IChair, 'position'>>`
-
-    ${({position}) => ({
-        "top": topChairStyle,
-        "bottom": bottomChairStyle,
-        "left": leftChairStyle,
-        "right": rightChairStyle
-    }[position])};
+    ${({ position }) =>
+        ({
+            top: topChairStyle,
+            bottom: bottomChairStyle,
+            left: leftChairStyle,
+            right: rightChairStyle,
+        }[position])};
 `;
 
 const StyledText = styled.div<Pick<IChair, 'position'>>`
-
-    ${({position}) => ({
-        "top": textTopBottomStyle,
-        "bottom": textTopBottomStyle,
-        "left": textLeftRightStyle,
-        "right": textLeftRightStyle
-    }[position])};
+    ${({ position }) =>
+        ({
+            top: textTopBottomStyle,
+            bottom: textTopBottomStyle,
+            left: textLeftRightStyle,
+            right: textLeftRightStyle,
+        }[position])};
 `;
 
 const RoundText = styled.div`
     ${textRoundStyle};
 `;
-
-
-
-

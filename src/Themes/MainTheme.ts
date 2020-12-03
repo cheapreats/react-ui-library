@@ -22,7 +22,7 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
             Occupied: string;
         };
         chairTableBackground: string;
-
+        chairOccupiedBackground: string;
     };
 }
 
@@ -49,6 +49,6 @@ export const MainTheme: MainThemeInterface = {
             Occupied: '#17a2b8',
         },
         chairTableBackground: '#6c757d',
-
+        chairOccupiedBackground: 'red',
     },
 };

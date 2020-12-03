@@ -26,16 +26,68 @@ FourTopTable.args = {
     partyName: 'Dmytro',
     occupancyStatus: occupancyStatusTypes.Vacant,
     chairs: [
-        { position: 'top', isSeated: true, occupiedBy: 'Scott', isVisible: true, isRound: true },
-        { position: 'top', isSeated: false, occupiedBy: '', isVisible: true, isRound: true },
-        { position: 'top', isSeated: true, occupiedBy: 'Dean', isVisible: true, isRound: true },
-        { position: 'top', isSeated: false, occupiedBy: '', isVisible: true, isRound: true },
-        { position: 'top', isSeated: true, occupiedBy: 'Corey', isVisible: true, isRound: true },
-        { position: 'top', isSeated: false, occupiedBy: '', isVisible: true, isRound: true },
-        { position: 'top', isSeated: true, occupiedBy: 'Jack', isVisible: true, isRound: true },
-        { position: 'top', isSeated: false, occupiedBy: '', isVisible: true, isRound: true },
-        { position: 'top', isSeated: true, occupiedBy: 'Sam', isVisible: true, isRound: true }
-    ]
+        {
+            position: 'top',
+            isSeated: true,
+            occupiedBy: 'Scott',
+            isVisible: true,
+            isRound: true,
+        },
+        {
+            position: 'top',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            isRound: true,
+        },
+        {
+            position: 'top',
+            isSeated: true,
+            occupiedBy: 'Dean',
+            isVisible: true,
+            isRound: true,
+        },
+        {
+            position: 'top',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            isRound: true,
+        },
+        {
+            position: 'top',
+            isSeated: true,
+            occupiedBy: 'Corey',
+            isVisible: true,
+            isRound: true,
+        },
+        {
+            position: 'top',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            isRound: true,
+        },
+        {
+            position: 'top',
+            isSeated: true,
+            occupiedBy: 'Jack',
+            isVisible: true,
+            isRound: true,
+        },
+        {
+            position: 'top',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            isRound: true,
+        },
+        {
+            position: 'top',
+            isSeated: true,
+            occupiedBy: 'Sam',
+            isVisible: true,
+            isRound: true,
+        },
+    ],
 };
-
-

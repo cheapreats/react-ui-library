@@ -19,7 +19,6 @@ export interface ICircleTable2 {
      * The occupancy status for the table
      */
     occupancyStatus: occupancyStatusTypes;
-
 }
 
 enum occupancyStatusTypes {
@@ -38,9 +37,7 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
     occupancyStatus = occupancyStatusTypes.Vacant,
     ...props
 }) => {
-
     const { colors } = useTheme();
-
 
     /**
      * This function will determine what color should be the Status and ColorDiv
@@ -50,17 +47,17 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
      */
     function getOccupancyColor(): string {
         switch (occupancyStatus) {
-        case occupancyStatusTypes.Vacant:
-            return colors.occupancyStatusColors.Vacant;
+            case occupancyStatusTypes.Vacant:
+                return colors.occupancyStatusColors.Vacant;
 
-        case occupancyStatusTypes.Reserved:
-            return colors.occupancyStatusColors.Reserved;
+            case occupancyStatusTypes.Reserved:
+                return colors.occupancyStatusColors.Reserved;
 
-        case occupancyStatusTypes.Occupied:
-            return colors.occupancyStatusColors.Occupied;
+            case occupancyStatusTypes.Occupied:
+                return colors.occupancyStatusColors.Occupied;
 
-        default:
-            return '';
+            default:
+                return '';
         }
     }
 
@@ -93,13 +90,11 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
      * @returns {string} a unique key
      */
     function generateKey(pre: string): string {
-
         return `${pre}_${Math.random()}`;
     }
 
-
     // Calculate the tangent based on the number of chairs in the array
-    const tan = Math.tan(Math.PI/chairs.length);
+    const tan = Math.tan(Math.PI / chairs.length);
 
     return (
         <div {...props}>
@@ -122,7 +117,6 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
                         <br />
                     </div>
                 </TableInfo>
-
             </TableBody>
         </div>
     );
@@ -133,21 +127,22 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
  */
 
 interface ITableBody {
-
     tangentValue: number;
     occupancyColor: string;
     chairTableBackground: string;
 }
 
 const TableBody = styled.div<ITableBody>`
-
     --d: 6.5em; /* chair size */
     --rel: 1; /* how much extra space we want between images, 1 = one chair size */
     --tan: ${({ tangentValue }) => tangentValue};
-    --r: calc(.5*(1 + var(--rel))*var(--d)/var(--tan)); /* circle radius */
-    --s: calc(2*var(--r)); /* container size */
+    --r: calc(
+        0.5 * (1 + var(--rel)) * var(--d) / var(--tan)
+    ); /* circle radius */
+    --s: calc(2 * var(--r)); /* container size */
     position: relative;
-    width: var(--s); height: var(--s);
+    width: var(--s);
+    height: var(--s);
     background: ${({ chairTableBackground }) => chairTableBackground};
     border-radius: 50%;
     border-style: solid;
@@ -157,43 +152,42 @@ const TableBody = styled.div<ITableBody>`
 `;
 
 interface IChairWrapper {
-
     counter: number;
     numOfChairs: number;
 }
 
 const ChairWrapper = styled.div<IChairWrapper>`
-
     --d: 6.5em; /* chair size */
     --rel: 1; /* how much extra space we want between images, 1 = one image size */
-    --r: calc(.5*(1 + var(--rel))*var(--d)/var(--tan)); /* circle radius */
+    --r: calc(
+        0.5 * (1 + var(--rel)) * var(--d) / var(--tan)
+    ); /* circle radius */
     position: absolute;
-    top: 50%; left: 50%;
-    margin: calc(-.5*var(--d));
-    width: var(--d); height: var(--d);
-    --az: calc(${({ counter }) => counter}*1turn/${({ numOfChairs }) => numOfChairs});
-    transform: 
-        rotate(var(--az)) 
-        translate(var(--r))
-        rotate(calc(-1*var(--az)))
+    top: 50%;
+    left: 50%;
+    margin: calc(-0.5 * var(--d));
+    width: var(--d);
+    height: var(--d);
+    --az: calc(
+        ${({ counter }) => counter}*1turn / ${({ numOfChairs }) => numOfChairs}
+    );
+    transform: rotate(var(--az)) translate(var(--r))
+        rotate(calc(-1 * var(--az)));
 `;
 
 const TableInfo = styled.div`
-
     text-align: center;
     color: #f8f9fa;
-    padding: calc(var(--s)/2.4) 0;
+    padding: calc(var(--s) / 2.4) 0;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
 `;
 
 interface IStatus {
-
     occupancyColor: string;
 }
 
 const Status = styled.div<IStatus>`
-
     color: ${({ occupancyColor }) => occupancyColor};
 `;

@@ -14,7 +14,7 @@ export interface IChairRow {
     /**
      * Will indicate if there are side chairs in the table
      */
-    sideChairs: boolean;
+    sideChairs?: boolean;
 }
 
 // Define a type for Position to restrict to four specific values
@@ -36,17 +36,16 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @return {JSX.Element} - chairs on top and bottom row
      */
     function getChairsTopBottom(array: Array<IChair>) {
-        const topBottomChairs = array.map((i) => (
+        return array.map((i) => (
             <ChairCol key={generateKey(position + i)}>
                 <Chair
-                    position={position}
+                    position={i.position}
                     occupiedBy={i.occupiedBy}
                     isSeated={i.isSeated}
                     isVisible={i.isVisible}
                 />
             </ChairCol>
         ));
-        return topBottomChairs;
     }
 
     /**
@@ -54,12 +53,12 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @param array {array} - array of chairs
      * @return {JSX.Element} - chairs on right and left row
      */
-    function getChairsLeftRight(array: Array<any>) {
-        const leftRightChairs = array.map((i) => (
+    function getChairsLeftRight(array: Array<IChair>) {
+        return array.map((i) => (
             <SideChairRow key={generateKey(position + i)}>
                 <SideChairCentering>
                     <Chair
-                        position={position}
+                        position={i.position}
                         occupiedBy={i.occupiedBy}
                         isSeated={i.isSeated}
                         isVisible={i.isVisible}
@@ -67,7 +66,6 @@ export const ChairRow: React.FC<IChairRow> = ({
                 </SideChairCentering>
             </SideChairRow>
         ));
-        return leftRightChairs;
     }
 
     /**
@@ -76,7 +74,7 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @returns {string} a unique key
      */
     function generateKey(pre: string): string {
-        return `${pre}_${new Date().getTime()}`;
+        return `${pre}_${Math.random()}`;
     }
 
     /**
@@ -87,34 +85,34 @@ export const ChairRow: React.FC<IChairRow> = ({
 
     function chairRowSwitch(): JSX.Element {
         switch (position) {
-        case 'top':
-            return (
-                <div>
-                    <TopBottomRow
-                        chairNumOnSide={chairs.length}
-                        sideChairs={sideChairs}
-                    >
-                        {getChairsTopBottom(chairs)}
-                    </TopBottomRow>
-                </div>
-            );
-        case 'bottom':
-            return (
-                <div>
-                    <TopBottomRow
-                        chairNumOnSide={chairs.length}
-                        sideChairs={sideChairs}
-                    >
-                        {getChairsTopBottom(chairs)}
-                    </TopBottomRow>
-                </div>
-            );
-        case 'left':
-            return <div>{getChairsLeftRight(chairs)}</div>;
-        case 'right':
-            return <div>{getChairsLeftRight(chairs)}</div>;
-        default:
-            return <div />;
+            case 'top':
+                return (
+                    <div>
+                        <TopBottomRow
+                            chairNumOnSide={chairs.length}
+                            sideChairs={sideChairs}
+                        >
+                            {getChairsTopBottom(chairs)}
+                        </TopBottomRow>
+                    </div>
+                );
+            case 'bottom':
+                return (
+                    <div>
+                        <TopBottomRow
+                            chairNumOnSide={chairs.length}
+                            sideChairs={sideChairs}
+                        >
+                            {getChairsTopBottom(chairs)}
+                        </TopBottomRow>
+                    </div>
+                );
+            case 'left':
+                return <div>{getChairsLeftRight(chairs)}</div>;
+            case 'right':
+                return <div>{getChairsLeftRight(chairs)}</div>;
+            default:
+                return <div />;
         }
     }
 

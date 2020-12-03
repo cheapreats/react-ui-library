@@ -76,17 +76,17 @@ export const RectangleTable: React.FC<IRectangleTable> = ({
      */
     function getOccupancyColor(): string {
         switch (occupancyStatus) {
-        case occupancyStatusTypes.Vacant:
-            return colors.occupancyStatusColors.Vacant;
+            case occupancyStatusTypes.Vacant:
+                return colors.occupancyStatusColors.Vacant;
 
-        case occupancyStatusTypes.Reserved:
-            return colors.occupancyStatusColors.Reserved;
+            case occupancyStatusTypes.Reserved:
+                return colors.occupancyStatusColors.Reserved;
 
-        case occupancyStatusTypes.Occupied:
-            return colors.occupancyStatusColors.Occupied;
+            case occupancyStatusTypes.Occupied:
+                return colors.occupancyStatusColors.Occupied;
 
-        default:
-            return '';
+            default:
+                return '';
         }
     }
 

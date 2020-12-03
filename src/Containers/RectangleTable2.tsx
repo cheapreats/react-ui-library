@@ -7,14 +7,9 @@ import styled, { useTheme } from 'styled-components';
 import { IChair } from '@Containers/Chair';
 import { ChairRow } from './ChairRow';
 
-type getTableSizeType = (
-    top: number,
-    bottom: number,
-    left: number,
-    right: number,
-) => number;
+type getTableSizeType = (top: number, bottom: number) => number;
 
-export interface ISquareTable {
+export interface IRectangleTable2 {
     /**
      * The unique identifier for the table
      */
@@ -43,7 +38,7 @@ enum occupancyStatusTypes {
  * Primary UI component for user interaction
  * Square Table
  */
-export const SquareTable: React.FC<ISquareTable> = ({
+export const RectangleTable2: React.FC<IRectangleTable2> = ({
     tableID = 'T1',
     partyName = 'Null',
     occupancyStatus = occupancyStatusTypes.Vacant,
@@ -54,8 +49,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * Split chairs array into four arrays for each table side
      */
     const topArray = chairs.filter((i) => i.position === 'top');
-    const rightArray = chairs.filter((i) => i.position === 'right');
-    const leftArray = chairs.filter((i) => i.position === 'left');
     const bottomArray = chairs.filter((i) => i.position === 'bottom');
 
     /**
@@ -66,32 +59,15 @@ export const SquareTable: React.FC<ISquareTable> = ({
     /**
      * This function will determine how many chair to put per each side
      * of the table (left, right, top, bottom)
-     * @param top {number} - Number of chairs on top side
-     * @param bottom {number} - Number of chairs on bottom side
-     * @param left {number} - Number of chairs on left side
-     * @param right {number} - Number of chairs on right side
+     * @param chairsTop,chairsBottom,chairsLeft,chairsRight {number} - Number of chairs per side
      * @return {number} - The largest number of chairs
      */
-    const getTableSize: getTableSizeType = (top, bottom, left, right) => {
-        return Math.max(top, bottom, left, right);
+    const getTableSize: getTableSizeType = (top, bottom) => {
+        const size = Math.max(top, bottom);
+        return size;
     };
 
-    const tableSize = getTableSize(
-        topArray.length,
-        bottomArray.length,
-        leftArray.length,
-        rightArray.length,
-    );
-
-    /**
-     * This function will determine if there are left chairs
-     * to correct top or bottom row's margins
-     * @return {boolean} - Returns true if there are left chairs, otherwise false
-     */
-    function isSideChairs() {
-        const left = chairs.map((i) => i.position === 'left').length;
-        return left > 0;
-    }
+    const tableSize = getTableSize(topArray.length, bottomArray.length);
 
     /**
      * This function will determine what color should be the Status and ColorDiv
@@ -118,22 +94,11 @@ export const SquareTable: React.FC<ISquareTable> = ({
     return (
         <div {...props}>
             {/** chairs top */}
-            <ChairRow
-                position="top"
-                chairs={topArray}
-                sideChairs={isSideChairs()}
-            />
+            <ChairRow position="top" chairs={topArray} />
 
             {/** table itself */}
             <div>
                 <Row>
-                    {/** chairs left */}
-                    <ChairRow
-                        position="left"
-                        chairs={leftArray}
-                        sideChairs={isSideChairs()}
-                    />
-
                     <TableBody chairNumOnSide={tableSize}>
                         <Row>
                             <TableInfo>
@@ -152,22 +117,11 @@ export const SquareTable: React.FC<ISquareTable> = ({
                             />
                         </Row>
                     </TableBody>
-
-                    {/** chairs right */}
-                    <ChairRow
-                        position="right"
-                        chairs={rightArray}
-                        sideChairs={isSideChairs()}
-                    />
                 </Row>
             </div>
 
             {/** chairs bottom */}
-            <ChairRow
-                position="bottom"
-                chairs={bottomArray}
-                sideChairs={isSideChairs()}
-            />
+            <ChairRow position="bottom" chairs={bottomArray} />
         </div>
     );
 };
@@ -181,7 +135,7 @@ interface ITableBody {
 }
 
 const TableBody = styled.div<ITableBody>`
-    height: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
+    height: 20rem;
     width: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
     border-radius: 3rem;
     background-color: #6c757d;
@@ -193,7 +147,7 @@ interface IColorDiv {
 }
 
 const ColorDiv = styled.div<IColorDiv>`
-    height: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
+    height: 20rem;
     width: 3rem;
     margin-left: auto;
     margin-right: 0.95rem;
