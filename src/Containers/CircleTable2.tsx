@@ -147,7 +147,7 @@ const TableBody = styled.div<ITableBody>`
     border-radius: 50%;
     border-style: solid;
     border-color: ${({ occupancyColor }) => occupancyColor};
-    border-width: 0.5em;
+    border-width: 1.5em;
     margin: 3em;
 `;
 
@@ -177,11 +177,12 @@ const ChairWrapper = styled.div<IChairWrapper>`
 
 const TableInfo = styled.div`
     text-align: center;
-    color: #f8f9fa;
+    color: ${({ theme }) => theme.colors.background};
     padding: calc(var(--s) / 2.4) 0;
     margin-left: auto;
     margin-right: auto;
     width: 50%;
+    font-weight: bold;
 `;
 
 interface IStatus {

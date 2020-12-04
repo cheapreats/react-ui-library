@@ -210,7 +210,8 @@ const Row = styled.div`
 `;
 
 const TableInfo = styled.div`
-    color: #f8f9fa;
+    color: ${({ theme }) => theme.colors.background};
+    font-weight: bold;
     margin-top: 2rem;
     margin-left: 3rem;
     white-space: pre-line;
