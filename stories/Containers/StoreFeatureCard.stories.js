@@ -3,7 +3,7 @@ import { storiesOf } from '@storybook/react';
 import { StoreFeatureCard } from '../../src';
 import { Dog } from '@styled-icons/fa-solid/Dog';
 import { Cat } from '@styled-icons/fa-solid/Cat';
-import {createStoryTitle} from "../Constants";
+import { createStoryTitle } from '../Constants';
 
 storiesOf(createStoryTitle('Store Feature Card'), module)
     .add('with default', () => (

@@ -1,25 +1,23 @@
 /**
  * Performs a deep copy of variable
- * @param {*} obj - Literally anything
+ * @param {*} original - Literally anything
  * @returns {*} Deep copy version of param
  */
-export const deepCopy = (
-    obj: object | boolean | string | number,
-): object | boolean | string | number => {
-    if (Array.isArray(obj)) {
-        return obj.map((item: object | boolean | string | number):
-            | object
-            | boolean
-            | string
-            | number => deepCopy(item));
+export const deepCopy = <T>(original: T): T => {
+    if (original instanceof Date) {
+        return new Date(original) as any;
     }
-
-    if (typeof obj === 'object' && obj !== null) {
-        return Object.entries(obj).reduce((acc, [key, value]): object => {
-            acc[key] = deepCopy(value);
-            return acc;
-        }, {});
+    if (Array.isArray(original)) {
+        return original.map((item: any) => deepCopy<any>(item)) as any;
     }
-
-    return obj;
+    if (typeof original === 'object') {
+        return Object.entries(original).reduce(
+            (acc, [key, value]: [string, any]) => {
+                acc[key] = deepCopy(value);
+                return acc;
+            },
+            {},
+        ) as T;
+    }
+    return original;
 };

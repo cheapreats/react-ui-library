@@ -1,6 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Cog } from '@styled-icons/fa-solid/Cog';
-import { List, ListProps, ListHeader, ListFooter, ListItem } from '../../src';
+import {
+    List,
+    ListProps,
+    ListHeader,
+    ListFooter,
+    ListItem,
+    ListToggle,
+} from '../../src';
+import { useArgs } from '@storybook/client-api';
 import { Meta, Story } from '@storybook/react';
 import { createStoryTitle } from '../Constants';
 
@@ -23,6 +31,13 @@ const items = [
 export default {
     title: createStoryTitle('List'),
     component: List,
+    argTypes: {
+        isOpen: {
+            control: {
+                type: 'boolean',
+            },
+        },
+    },
     args: {
         header: (
             <ListHeader
@@ -38,25 +53,40 @@ export default {
                 <p>This is a list Footer</p>
             </ListFooter>
         ),
+        columnWidth: '240px',
         loading: false,
         cssPosition: 'absolute',
         margin: '0',
         left: '0',
         right: 'auto',
-        onToggleTranslateXAxis: '-100%',
-        isToggleable: true,
-        isLeftToggle: true,
+        onCloseTranslateXAxis: '-100%',
         id: '1',
     },
 } as Meta;
 
 export const Basic: Story<ListProps> = (args) => {
-    const [isToggled, setIsToggled] = useState(false);
-
+    const [{ isOpen }, updateArgs] = useArgs();
+    const setIsOpen = () => updateArgs({ isOpen: !isOpen });
     return (
-        <List {...args} isToggled={isToggled} setIsToggled={setIsToggled}>
+        <List
+            {...args}
+            isOpen={isOpen}
+            setIsOpen={setIsOpen}
+            toggleComponent={
+                <ListToggle
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    isLeftToggle={true}
+                    isToggleHiddenDesktop
+                />
+            }
+        >
             {items.map((item) => (
-                <ListItem onClick={() => alert(`You clicked ${item.date}`)}>
+                <ListItem
+                    onClick={() => alert(`You clicked ${item.date}`)}
+                    setIsOpen={setIsOpen}
+                    isSelected={item.key === '2'}
+                >
                     <p>{item.date}</p>
                 </ListItem>
             ))}
