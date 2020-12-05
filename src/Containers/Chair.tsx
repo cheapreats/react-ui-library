@@ -119,7 +119,8 @@ const bottomChairStyle = css`
 `;
 
 const textBaseStyle = css`
-    color: black;
+    color: ${({ theme }) => theme.colors.background};
+    font-weight: bold;
     text-align: center;
     overflow: hidden;
     white-space: nowrap;

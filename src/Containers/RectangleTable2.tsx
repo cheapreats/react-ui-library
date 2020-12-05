@@ -58,13 +58,13 @@ export const RectangleTable2: React.FC<IRectangleTable2> = ({
 
     /**
      * This function will determine how many chair to put per each side
-     * of the table (left, right, top, bottom)
-     * @param chairsTop,chairsBottom,chairsLeft,chairsRight {number} - Number of chairs per side
+     * of the table (top, bottom)
+     * @param top {number} - Number of chairs on top side
+     * @param bottom {number} - Number of chairs on bottom side
      * @return {number} - The largest number of chairs
      */
     const getTableSize: getTableSizeType = (top, bottom) => {
-        const size = Math.max(top, bottom);
-        return size;
+        return Math.max(top, bottom);
     };
 
     const tableSize = getTableSize(topArray.length, bottomArray.length);
@@ -164,7 +164,8 @@ const Row = styled.div`
 `;
 
 const TableInfo = styled.div`
-    color: #f8f9fa;
+    color: ${({ theme }) => theme.colors.background};
+    font-weight: bold;
     margin-top: 2rem;
     margin-left: 3rem;
     white-space: pre-line;
