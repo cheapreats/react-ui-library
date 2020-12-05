@@ -42,7 +42,7 @@ export const NavigationBar: React.FC<INavigationBarProps> = ({
 
 const Wrapper = styled.div`
     ${flex('row')};
-    ${({ theme }) => `
+    ${({ theme }): string => `
         border-bottom: 2px solid ${theme.colors.input.default};
     `};
     ${media(

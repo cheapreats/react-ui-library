@@ -36,9 +36,9 @@ interface IWrapperProps{
 };
 const Wrapper = styled.div<IWrapperProps>`
     ${flex('row')};
-    ${({ theme, isSelected }) => `
+    ${({ theme, isSelected }): string => `
         border-bottom: ${isSelected ? `solid 4px ${theme.colors.primary}` : ''};
-    `}
+    `};
 `;
 
 interface IIconProps {};
