@@ -1,8 +1,9 @@
 import React from 'react';
-import { StyledIcon } from '@styled-icons/styled-icon';
-import { Button } from '../../Inputs/Button';
+import styled from 'styled-components';
+import { Button, ButtonProps } from '../../Inputs/Button';
 import { Heading } from '../../Text/Heading';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
+import { flex } from '../../Utils/Mixins';
 
 export interface VendorsHeaderProps
     extends MainInterface,
@@ -10,44 +11,35 @@ export interface VendorsHeaderProps
         React.HTMLAttributes<HTMLDivElement> {
     headerName: string;
     buttonName: string;
-    icon: StyledIcon;
-    buttonIcon?: StyledIcon;
-    rowStyle?: React.CSSProperties;
-    buttonStyle?: React.CSSProperties;
-    onAddButtonClick?: () => void;
-    onImportButtonClick?: () => void;
+    leftButtonProps: ButtonProps;
+    rightButtonProps: ButtonProps;
 }
 
 export const VendorsHeader: React.FC<VendorsHeaderProps> = ({
     headerName,
     buttonName,
-    icon,
-    buttonIcon,
-    rowStyle,
-    buttonStyle,
-    onImportButtonClick,
-    onAddButtonClick,
+    leftButtonProps,
+    rightButtonProps,
     ...props
 }): React.ReactElement => {
     return (
-        <div {...props}>
+        <Wrapper {...props}>
             <Heading type="h1" bold>
                 {headerName}
             </Heading>
-            <div style={{ ...rowStyle }}>
-                <Button
-                    icon={icon}
-                    onClick={onImportButtonClick}
-                    style={{ ...buttonStyle }}
-                />
-                <Button 
-                    icon={buttonIcon} 
-                    onClick={onAddButtonClick} 
-                    primary
-                >
+            <Row>
+                <Button {...leftButtonProps} />
+                <Button {...rightButtonProps}>
                     {buttonName}
                 </Button>
-            </div>
-        </div>
+            </Row>
+        </Wrapper>
     );
 };
+
+const Wrapper = styled.div`
+    ${flex('row', 'space-between')};
+`;
+const Row = styled.div`
+    ${flex('row')};
+`;
