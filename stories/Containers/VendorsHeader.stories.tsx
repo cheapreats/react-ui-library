@@ -10,7 +10,7 @@ export default {
     component: VendorsHeader,
 } as Meta;
 
-export const getVendorHeaderProps = () => ({
+const getVendorHeaderProps = () => ({
     headerText: 'Clients',
     rightButtonText: 'Add Client',
     leftButtonProps: {
