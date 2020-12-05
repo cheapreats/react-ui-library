@@ -10,9 +10,9 @@ export default {
     component: VendorsHeader,
 } as Meta;
 
-export const defaultArgs = {
-    headerName: 'Clients',
-    buttonName: 'Add Client',
+export const getVendorHeaderProps = () => ({
+    headerText: 'Clients',
+    rightButtonText: 'Add Client',
     leftButtonProps: {
         icon: Import,
         margin: '0 20px'
@@ -21,17 +21,11 @@ export const defaultArgs = {
         icon: Add,
         primary: true
     }
-};
+});
 
-const Template: Story<VendorsHeaderProps> = (args) => (
+export const Basic: Story<VendorsHeaderProps> = () => (
     <VendorsHeader
         style={{ padding: '20px' }}
-        {...args}
+        {...getVendorHeaderProps()}
     />
 );
-
-export const Basic = Template.bind({});
-
-Basic.args = {
-    ...defaultArgs
-};

@@ -9,15 +9,15 @@ export interface VendorsHeaderProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    headerName: string;
-    buttonName: string;
+    headerText: string;
+    rightButtonText: string;
     leftButtonProps: ButtonProps;
     rightButtonProps: ButtonProps;
 }
 
 export const VendorsHeader: React.FC<VendorsHeaderProps> = ({
-    headerName,
-    buttonName,
+    headerText,
+    rightButtonText,
     leftButtonProps,
     rightButtonProps,
     ...props
@@ -25,12 +25,12 @@ export const VendorsHeader: React.FC<VendorsHeaderProps> = ({
     return (
         <Wrapper {...props}>
             <Heading type="h1" bold>
-                {headerName}
+                {headerText}
             </Heading>
             <Row>
                 <Button {...leftButtonProps} />
                 <Button {...rightButtonProps}>
-                    {buttonName}
+                    {rightButtonText}
                 </Button>
             </Row>
         </Wrapper>
