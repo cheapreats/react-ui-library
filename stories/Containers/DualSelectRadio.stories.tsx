@@ -13,14 +13,14 @@ export default {
         dualSelectOptions: {
             LIGHT: {
                 title: 'Light',
-                labels: ['Flash Once', 'Flash Twice']
+                labels: ['Flash Once', 'Flash Twice'],
             },
             SOUND: {
                 title: 'Sound',
-                labels: ['Beep Once', 'Beep Twice']
-            }
+                labels: ['Beep Once', 'Beep Twice'],
+            },
         },
-    }
+    },
 } as Meta;
 
 export const Basic: Story<DualSelectRadioProps> = (args) => (

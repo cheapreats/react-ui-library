@@ -3,10 +3,13 @@ import styled from 'styled-components';
 import { TableRow } from './TableRow';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
-export interface TableComponentProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    droppableLabels: string [][],
-    isPreview?: boolean
-};
+export interface TableComponentProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    droppableLabels: string[][];
+    isPreview?: boolean;
+}
 
 const FIRST_LABEL = 0;
 
@@ -18,23 +21,20 @@ export const TableComponent: React.FC<TableComponentProps> = ({
     return (
         <Wrapper {...props}>
             <Table isPreview={isPreview}>
-                {droppableLabels.map(row => (
-                    <TableRow 
-                        key={row[FIRST_LABEL]}
-                        labels={row} 
-                    />
+                {droppableLabels.map((row) => (
+                    <TableRow key={row[FIRST_LABEL]} labels={row} />
                 ))}
             </Table>
         </Wrapper>
     );
-}
+};
 
 const Wrapper = styled.div`
     margin: 10px;
 `;
 
 interface TableProps {
-    isPreview?: boolean
+    isPreview?: boolean;
 }
 const Table = styled.table<TableProps>`
     width: 90%;
@@ -44,6 +44,8 @@ const Table = styled.table<TableProps>`
     border-collapse: collapse;
     ${({ theme, isPreview }): string => `
         border: ${isPreview ? '' : `solid 1px ${theme.colors.text}`};
-        background-color: ${isPreview ? theme.colors.background : theme.colors.input.default};
+        background-color: ${
+            isPreview ? theme.colors.background : theme.colors.input.default
+        };
     `};
 `;

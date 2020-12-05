@@ -2,9 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
-export interface TableRowProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    labels: string []
-};
+export interface TableRowProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    labels: string[];
+}
 
 export const TableRow: React.FC<TableRowProps> = ({
     labels,
@@ -13,16 +16,13 @@ export const TableRow: React.FC<TableRowProps> = ({
     return (
         <Tr {...props}>
             <td>
-                {labels.map(label => (
-                    <Td key={label}> 
-                        {label} 
-                    </Td>
+                {labels.map((label) => (
+                    <Td key={label}>{label}</Td>
                 ))}
             </td>
         </Tr>
     );
-}
-
+};
 
 const Tr = styled.tr`
     text-align: left;

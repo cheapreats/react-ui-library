@@ -3,13 +3,16 @@ import styled from 'styled-components';
 import { Radio } from '../../Inputs/Radio';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
-export interface RadioOptionProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    title?: string,
-    labels: string[],
-    index: number,
-    selectOption: string[],
-    setSelectOption: React.Dispatch<React.SetStateAction<string[]>>,
-};
+export interface RadioOptionProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    title?: string;
+    labels: string[];
+    index: number;
+    selectOption: string[];
+    setSelectOption: React.Dispatch<React.SetStateAction<string[]>>;
+}
 
 const DEFAULT_SELECTED = 0;
 
@@ -21,7 +24,9 @@ export const RadioOptions: React.FC<RadioOptionProps> = ({
     setSelectOption,
     ...props
 }): React.ReactElement => {
-    const [checkedOption, setCheckedOption] = useState(labels[DEFAULT_SELECTED]);
+    const [checkedOption, setCheckedOption] = useState(
+        labels[DEFAULT_SELECTED],
+    );
 
     const setNewSelectOrder = (label: string) => {
         const newSelectOrder = [...selectOption];
@@ -31,26 +36,26 @@ export const RadioOptions: React.FC<RadioOptionProps> = ({
 
     return (
         <Wrapper {...props}>
-            <Text>
-                { title }
-            </Text> 
+            <Text>{title}</Text>
             <Options>
-                {labels.map((label: string): React.ReactElement => (
-                    <StyledRadio 
-                        key={title}
-                        name={title} 
-                        label={label}
-                        value={checkedOption === label}
-                        onChange={() => {
-                            setCheckedOption(label);
-                            setNewSelectOrder(label);
-                        }}
-                    />
-                ))}
+                {labels.map(
+                    (label: string): React.ReactElement => (
+                        <StyledRadio
+                            key={title}
+                            name={title}
+                            label={label}
+                            value={checkedOption === label}
+                            onChange={() => {
+                                setCheckedOption(label);
+                                setNewSelectOrder(label);
+                            }}
+                        />
+                    ),
+                )}
             </Options>
         </Wrapper>
     );
-}
+};
 
 const Wrapper = styled.div`
     font-weight: bold;

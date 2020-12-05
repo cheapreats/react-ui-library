@@ -5,14 +5,17 @@ import { DualSelectBar } from './DualSelectBar';
 import { ITemplatePrefill, IPrinterOptions } from './MiddleCanvasTypes';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
-export interface MiddleCanvasProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    leftSelectOption: string,
-    rightSelectOption: string,
-    templatePrefills: ITemplatePrefill,
-    printerOptions: IPrinterOptions,
-    firstCaption?: string,
-    secondCaption?: string,
-};
+export interface MiddleCanvasProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    leftSelectOption: string;
+    rightSelectOption: string;
+    templatePrefills: ITemplatePrefill;
+    printerOptions: IPrinterOptions;
+    firstCaption?: string;
+    secondCaption?: string;
+}
 
 export const MiddleCanvas: React.FC<MiddleCanvasProps> = ({
     leftSelectOption,
@@ -27,7 +30,7 @@ export const MiddleCanvas: React.FC<MiddleCanvasProps> = ({
     const [isPreview, setIsPreview] = useState(false);
 
     useEffect((): void => {
-        if(selectedOption === rightSelectOption) {
+        if (selectedOption === rightSelectOption) {
             setIsPreview(true);
         } else {
             setIsPreview(false);
@@ -42,11 +45,11 @@ export const MiddleCanvas: React.FC<MiddleCanvasProps> = ({
                 selectedOption={selectedOption}
                 setSelectedOption={setSelectedOption}
             />
-            <DualSelectRadio 
+            <DualSelectRadio
                 caption={firstCaption}
                 dualSelectOptions={printerOptions}
             />
-            <Template 
+            <Template
                 templatePrefills={templatePrefills}
                 isPreview={isPreview}
             />
@@ -56,4 +59,4 @@ export const MiddleCanvas: React.FC<MiddleCanvasProps> = ({
             />
         </div>
     );
-}
+};

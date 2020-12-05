@@ -46,3 +46,4 @@ export * from './MiddleCanvas';
 export * from './Landing';
 export * from './Navigation';
 export * from './WarningCard';
+export * from './VendorsList';
