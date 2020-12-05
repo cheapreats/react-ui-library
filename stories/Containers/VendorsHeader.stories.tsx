@@ -1,7 +1,7 @@
 import React from 'react';
 import { Import } from '@styled-icons/boxicons-regular/Import';
 import { Add } from '@styled-icons/ionicons-sharp/Add';
-import { VendorsHeader, VendorsHeaderProps } from '../../src';
+import { VendorsHeader, IVendorsHeaderProps } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Story, Meta } from '@storybook/react';
 
@@ -23,9 +23,12 @@ export const getVendorHeaderProps = () => ({
     }
 });
 
-export const Basic: Story<VendorsHeaderProps> = () => (
+const Template: Story<IVendorsHeaderProps> = (args) => (
     <VendorsHeader
         style={{ padding: '20px' }}
-        {...getVendorHeaderProps()}
+        {...args}
     />
 );
+
+export const Basic = Template.bind({});
+Basic.args = getVendorHeaderProps();

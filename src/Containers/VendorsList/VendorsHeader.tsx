@@ -5,7 +5,7 @@ import { Heading } from '../../Text/Heading';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex } from '../../Utils/Mixins';
 
-export interface VendorsHeaderProps
+export interface IVendorsHeaderProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
@@ -15,7 +15,7 @@ export interface VendorsHeaderProps
     rightButtonProps: ButtonProps;
 }
 
-export const VendorsHeader: React.FC<VendorsHeaderProps> = ({
+export const VendorsHeader: React.FC<IVendorsHeaderProps> = ({
     headerText,
     rightButtonText,
     leftButtonProps,
