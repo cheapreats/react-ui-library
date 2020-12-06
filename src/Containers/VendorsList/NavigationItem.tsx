@@ -8,9 +8,8 @@ import { flex } from '../../Utils/Mixins';
 export interface INavigationItemProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     icon?: StyledIcon,
     label: string,
-    selectedItem: string,
+    selectedItem?: string,
     headingProps?: HeadingProps,
-    iconProps?: IIconProps,
 };
 
 export const NavigationItem: React.FC<INavigationItemProps> = ({
@@ -18,12 +17,11 @@ export const NavigationItem: React.FC<INavigationItemProps> = ({
     label,
     selectedItem,
     headingProps,
-    iconProps,
     ...props
 }): React.ReactElement => {
     return (
-        <Wrapper isSelected={selectedItem === label} {...props}>
-            <Icon as={icon} {...iconProps} />
+        <Wrapper selectedItem={selectedItem} label={label} {...props}>
+            <Icon as={icon} />
             <Heading type='h6' {...headingProps}>
                 {label}
             </Heading>
@@ -31,17 +29,13 @@ export const NavigationItem: React.FC<INavigationItemProps> = ({
     );
 };
 
-interface IWrapperProps{
-    isSelected: boolean
-};
-const Wrapper = styled.div<IWrapperProps>`
+const Wrapper = styled.div<Pick<INavigationItemProps, 'selectedItem' | 'label'>>`
     ${flex('row')};
-    ${({ theme, isSelected }): string => `
-        border-bottom: ${isSelected ? `solid 4px ${theme.colors.primary}` : ''};
+    ${({ theme, selectedItem, label }): string | false => selectedItem === label &&`
+        border-bottom: solid 3px ${theme.colors.primary};
     `};
 `;
 
-interface IIconProps {};
 const Icon = styled.svg`
     width: 30px;
     height: 30px;

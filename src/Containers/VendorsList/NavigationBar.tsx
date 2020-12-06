@@ -1,18 +1,11 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { StyledIcon } from '@styled-icons/styled-icon';
 import { NavigationItem, INavigationItemProps } from './NavigationItem';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media, scroll } from '../../Utils/Mixins';
 
-
-export interface INavigationBarItems {
-    icon?: StyledIcon;
-    label: string
-};
-
 export interface INavigationBarProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    navigationBarItems: INavigationBarItems[];
+    navigationBarItems: INavigationItemProps[];
     navigationItemProps?: INavigationItemProps;
 };
 
@@ -23,7 +16,7 @@ export const NavigationBar: React.FC<INavigationBarProps> = ({
     navigationItemProps,
     ...props
 }): React.ReactElement => {
-    const [selectedItem, setSelectedItem] = useState(navigationBarItems[FIRST_LABEL].label);
+    const [selectedItem, setSelectedItem] = useState<string>(navigationBarItems[FIRST_LABEL]?.label);
     return (
         <Wrapper {...props}>
             {navigationBarItems.map(item => (
@@ -33,7 +26,7 @@ export const NavigationBar: React.FC<INavigationBarProps> = ({
                     icon={item.icon}
                     label={item.label}
                     selectedItem={selectedItem}
-                    onClick={() => setSelectedItem(item.label)}
+                    onClick={(): void => setSelectedItem(item.label)}
                 />
             ))}
         </Wrapper>

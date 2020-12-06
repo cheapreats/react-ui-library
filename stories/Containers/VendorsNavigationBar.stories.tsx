@@ -29,7 +29,7 @@ const getVendorNavigationBarProps = () => ({
     navigationItemProps: {
         style: {
             margin: '0 20px',
-            paddingBottom: '5px'
+            paddingBottom: '5px', 
         },
         iconProps: {
             style: {
