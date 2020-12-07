@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Button, ButtonProps } from '../../Inputs/Button';
 import { Heading } from '../../Text/Heading';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { flex } from '../../Utils/Mixins';
+import { flex, media } from '../../Utils/Mixins';
 
 export interface IVendorsHeaderProps
     extends MainInterface,
@@ -39,6 +39,11 @@ export const VendorsHeader: React.FC<IVendorsHeaderProps> = ({
 
 const Wrapper = styled.div`
     ${flex('row', 'space-between')};
+    ${media(
+        'phone',
+        `
+        ${flex('column', 'center')};
+    `)};
 `;
 const Row = styled.div`
     ${flex('row')};

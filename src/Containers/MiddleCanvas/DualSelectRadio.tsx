@@ -147,15 +147,15 @@ interface SelectContainerProps {
 };
 const SelectContainer = styled.div<SelectContainerProps>`
     ${scroll};
-    ${({ theme, isVisible }): string => `
-        border: ${isVisible ? `solid 1px ${theme.colors.input.default}` : ''};
-        background-color: ${isVisible ? theme.colors.background : ''};
-        ${isVisible ? media(
+    width: 29%;
+    ${media(
         'tablet',
         `
-            width: 95%;
-            height: 220px;
-        `) : '180px'}; 
+            width: 95%
+        `)}; 
+    ${({ theme, isVisible }): string | false | undefined => isVisible &&`
+        border: 1px solid ${theme.colors.input.default};
+        background-color: ${theme.colors.background};
     `}
     border-radius: 8px;
     position: absolute;
