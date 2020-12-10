@@ -4,13 +4,19 @@ import styled, { css, useTheme } from 'styled-components';
 // Define a type for Position to restrict to four specific values
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
+// Define a type for the getRoundChair function
+type getRoundChairType = () => JSX.Element;
+
+// Define a type for the getPositionChair function
+type getPositionChairType = () => JSX.Element;
+
 export interface IChair {
     /**
      * The position of the chair relative to the table (top/bottom/left/right)
      */
     position: Position;
     /**
-     * Boolean value for whether someone is seated in the chair
+     * Indicates whether someone is seated in the chair
      * True if someone is seated in the chair, otherwise false
      */
     isSeated: boolean;
@@ -23,7 +29,7 @@ export interface IChair {
      */
     isVisible: boolean;
     /**
-     * Boolean value for whether the chair is round.
+     * Indicates whether the chair is round.
      * True if the chair is round, otherwise false.
      */
     isRound?: boolean;
@@ -40,7 +46,12 @@ export const Chair: React.FC<IChair> = ({
     isRound = false,
     ...props
 }) => {
-    if (isRound) {
+    /**
+     * Returns a JSX.Element for the Chair with RoundChair styles
+     * @returns {JSX.Element}
+     *
+     */
+    const getRoundChair: getRoundChairType = () => {
         return (
             <div {...props}>
                 <RoundChair isSeated={isSeated} isVisible={isVisible}>
@@ -48,19 +59,28 @@ export const Chair: React.FC<IChair> = ({
                 </RoundChair>
             </div>
         );
-    }
+    };
 
-    return (
-        <div {...props}>
-            <PositionChair
-                isSeated={isSeated}
-                isVisible={isVisible}
-                position={position}
-            >
-                <StyledText position={position}>{occupiedBy}</StyledText>
-            </PositionChair>
-        </div>
-    );
+    /**
+     * Returns a JSX.Element for the Chair with the correct styles based on position
+     * @returns {JSX.Element}
+     *
+     */
+    const getPositionChair: getPositionChairType = () => {
+        return (
+            <div {...props}>
+                <PositionChair
+                    isSeated={isSeated}
+                    isVisible={isVisible}
+                    position={position}
+                >
+                    <StyledText position={position}>{occupiedBy}</StyledText>
+                </PositionChair>
+            </div>
+        );
+    };
+
+    return isRound ? getRoundChair() : getPositionChair();
 };
 
 /**
