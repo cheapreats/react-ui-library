@@ -1,8 +1,12 @@
 import React from 'react';
+import { flex } from '@Utils/Mixins';
+import { SmallText } from "@Text";
 import styled, {useTheme} from "styled-components";
 
-export interface IWaitTimeDisplay {
+const BUSY = 30;
+const STARTING_TO_GET_BUSY = 15;
 
+export interface IWaitTimeDisplay {
     /**
      * The seating/reservation length of average wait time
      */
@@ -18,23 +22,16 @@ export const WaitTimeDisplay: React.FC<IWaitTimeDisplay>
            AverageWaitTime = 29,
             ...props
        }) => {
-
     return (
         <Row {...props}>
-            <div>
                 <PieChart AverageWaitTime={AverageWaitTime} />
-            </div>
-
-            <TextFormatting>
-                <div>
-                    <TextAvgWait>Avg. Wait</TextAvgWait>
-                    <TextTime> {AverageWaitTime} Min</TextTime>
-                </div>
-            </TextFormatting>
+            <TextPaddingLeftTop>
+                    <SmallText size={'3rem'} bold>Avg. Wait</SmallText><br />
+                    <SmallText size={'3rem'} bold >{AverageWaitTime} Min</SmallText>
+            </TextPaddingLeftTop>
         </Row>
     );
 };
-
 
 /**
  * This function will determine what color the Pie Chart will be
@@ -42,10 +39,7 @@ export const WaitTimeDisplay: React.FC<IWaitTimeDisplay>
  * @return {string} - Hexadecimal of color
  */
 function getColor(AverageWaitTime: Number){
-    const BUSY = 30;
-    const STARTING_TO_GET_BUSY = 15;
     const {colors} = useTheme();
-
     if(AverageWaitTime >= BUSY){
         return colors.PieChartColors.Red;
     } else if(AverageWaitTime >= STARTING_TO_GET_BUSY && AverageWaitTime <= BUSY){
@@ -58,26 +52,17 @@ function getColor(AverageWaitTime: Number){
 /**
  * variables for the styled components
  */
-const TextAvgWait = styled.div`
 
-    font-size: 3rem;
-`;
+const TextPaddingLeftTop = styled.div`
 
-const TextTime = styled.div`
-
-    font-size: 3rem;
-`;
-
-const TextFormatting = styled.div`
-
-    padding-left: 14rem;
-    padding-top: 2rem;
+    padding-left: 12rem;
+    padding-top: 1rem;
 `;
 
 const Row = styled.div`
 
         display: flex;
-        flex-wrap: wrap;
+        ${flex()};
         margin-right: 15px;
         margin-left: 15px;
 `;
@@ -88,8 +73,8 @@ const PieChart = styled.div<Pick<IWaitTimeDisplay,"AverageWaitTime">>`
         max-width: 100%;
         display: block; 
         position: absolute; 
-        width: 11rem; 
-        height: 11rem; 
+        width: 10rem; 
+        height: 10rem; 
         border-radius: 50%; 
         
         background-image: conic-gradient( 
