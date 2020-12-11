@@ -11,11 +11,13 @@ export default {
 const getVendorsTableProps = () => ({
     data: [
         {
+            key: 1,
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
         },
         {
+            key: 2,
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com'
         }

@@ -1,30 +1,32 @@
 import React from 'react';
-import styled from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { FeaturedProfile, IFeaturedProfileProps } from '../FeaturedProfile';
 import { HeaderRow, HeaderRowProps } from '../HeaderRow';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
 
 export interface IProfileProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
-    headerRowProps?: HeaderRowProps;
-    imageUrl?: string;
     key: number;
     name: string;
     email: string;
+    imageUrl?: string;
+    headerRowProps?: HeaderRowProps;
     profileProps?: IFeaturedProfileProps;
 }
 
 const MATCH_FIRST_LETTER = /\b\w/g;
 
 export const Profile: React.FC<IProfileProps> = ({
-    imageUrl, 
+    key,
     name, 
     email,
-    key,
+    imageUrl, 
     headerRowProps,
     profileProps,
     ...props
 }): React.ReactElement => {
+    const { colors } = useTheme();
+
     /**
      * Returns initials of a person's full name
      * @param inputName{string} - person's name
@@ -48,7 +50,7 @@ export const Profile: React.FC<IProfileProps> = ({
             return (
                 <FeaturedProfile 
                     {...profileProps}
-                    background='orange'
+                    background={colors.primary}
                     initials={profileInitials}
                     key={key} 
                 />
