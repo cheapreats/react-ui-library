@@ -19,7 +19,7 @@ export interface ISegmentedButtonProps extends Omit<React.HTMLAttributes<HTMLDiv
 
 /**
 *@type  {ISegment[]} 
-*@param {segments} - array of object with a name and value active either true or false.
+*@param {segments} - objects with a name, active boolean, and icon properties;
 * */
 
 export const SegmentedButton : React.FC<ISegmentedButtonProps> = ({
@@ -63,7 +63,6 @@ export const SegmentedButton : React.FC<ISegmentedButtonProps> = ({
 interface ISegmentProps extends React.HTMLAttributes<HTMLDivElement> {
     active?: boolean;
 }
-
 interface ISegmentContainerProps extends React.HTMLAttributes<HTMLDivElement> {
     width?: string;
     height?: string;
@@ -96,7 +95,6 @@ const Segment = styled.div<ISegmentProps>`
         return style;
     }}
 `
-
 const Icon = styled.svg`
     width: 14px;
     height: 14px;
