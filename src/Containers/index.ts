@@ -37,6 +37,7 @@ export * from './SquareTable';
 export * from './Chair';
 export * from './ChairRow';
 export * from './CircleTable2';
+export * from './WaitTimeDisplay';
 export * from './CapacityDisplay';
 export * from './Stock';
 export * from './FeaturedProfilesCard';
