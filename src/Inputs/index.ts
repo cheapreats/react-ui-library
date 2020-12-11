@@ -18,3 +18,4 @@ export * from './ComboBox';
 export * from './SearchBar';
 export * from './CustomSearch';
 export * from './SettingsSwitch';
+export * from './SegmentedButton';
