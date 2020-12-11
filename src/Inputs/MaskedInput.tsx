@@ -10,10 +10,12 @@ const MINUS_SIGN = '-';
 const MIN_LESS_THAN_ZERO = 0;
 const ERROR_MESSAGE_VALUE_CALCULATION = 1;
 const VALIDATE_INPUT_FORMAT = /^[+-]?(?:\d*\.)?\d+$/gm;
+const PHONE_NUMBER_MATCH = /(?:(?=\d{1,4}$)\d{1,4}$|\d{1,3})/gm
 
 export enum MaskedInputPreset {
     DOLLAR = 'DOLLAR',
     PERCENTAGE = 'PERCENTAGE',
+    PHONE = 'PHONE'
 }
 
 export interface MaskedInputProps extends LabelLayoutProps, InputFragmentProps {
@@ -30,11 +32,18 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     onChange,
     min = 0,
     max = 100,
+    error,
     ...props
 }): React.ReactElement => {
     const [displayValue, setDisplayValue] = useState('');
     const [isFocused, setIsFocused] = useState(false);
     const [isError, setIsError] = useState<boolean | string>(false);
+    
+    useEffect(() => {
+        if(error) {
+            setIsError(error);
+        }
+    }, [error]);
 
     const DOLLAR_FORMAT_MASK = (s: string): string => {
         const number = parseFloat(s);
@@ -60,16 +69,28 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
         return `${number.toFixed(2)}%`;
     };
 
+    const PHONE_FORMAT_MASK = (s: string): string => {
+        const firstDigit = s.slice(0,1);
+        const phoneNumberToMatch = s.slice(1);
+        const phoneNumberFormat = phoneNumberToMatch.match(PHONE_NUMBER_MATCH);
+        if (phoneNumberFormat && firstDigit) {
+            return `${firstDigit}-${phoneNumberFormat?.join('-')}`;
+        }
+        return '';
+    }
+
     const getMaskFunction_ = (
         maskInputPreset: MaskedInputPreset | ((value: string) => string),
     ): ((value: string) => string) => {
         switch (maskInputPreset) {
-            case MaskedInputPreset.DOLLAR:
-                return DOLLAR_FORMAT_MASK;
-            case MaskedInputPreset.PERCENTAGE:
-                return PERCENT_FORMAT_MASK;
-            default:
-                return mask as (value: string) => string;
+        case MaskedInputPreset.DOLLAR:
+            return DOLLAR_FORMAT_MASK;
+        case MaskedInputPreset.PERCENTAGE:
+            return PERCENT_FORMAT_MASK;
+        case MaskedInputPreset.PHONE:
+            return PHONE_FORMAT_MASK;
+        default:
+            return mask as (value: string) => string;
         }
     };
 
@@ -90,10 +111,11 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
             setDisplayValue(targetValue);
         } else {
             setDisplayValue(targetValue);
-            const errorMessage = !greaterThanMin
-                ? `greater than ${min - ERROR_MESSAGE_VALUE_CALCULATION}`
-                : `less than ${max + ERROR_MESSAGE_VALUE_CALCULATION}`;
-            setIsError(`Value must be ${errorMessage}`);
+            if (min && !greaterThanMin) {
+                setIsError(`Value must be greater than ${min - ERROR_MESSAGE_VALUE_CALCULATION}`);
+            } else if (max) {
+                setIsError(`Value must be less than ${max + ERROR_MESSAGE_VALUE_CALCULATION}`);
+            }
         }
     };
 
