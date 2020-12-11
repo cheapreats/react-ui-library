@@ -6,27 +6,76 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
 
 export interface IProfileProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
-    headerRowProps?: HeaderRowProps
+    headerRowProps?: HeaderRowProps;
+    imageUrl?: string;
+    key: number;
+    name: string;
+    email: string;
+    profileProps?: IFeaturedProfileProps;
 }
 
+const MATCH_FIRST_LETTER = /\b\w/g;
+
 export const Profile: React.FC<IProfileProps> = ({
+    imageUrl, 
+    name, 
+    email,
+    key,
     headerRowProps,
+    profileProps,
     ...props
 }): React.ReactElement => {
+    /**
+     * Returns initials of a person's full name
+     * @param inputName{string} - person's name
+     */
+    const getInitials = (inputName: string) => {
+        const initials = inputName.match(MATCH_FIRST_LETTER) || [];
+        const profileInitials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
+        return profileInitials;
+    };
+
+    /**
+     * Returns profile component based on whether an imageurl is provided 
+     * @param inputName {string} - person's name
+     * @param image {string} - image's url
+     */
+    const getProfiles = (inputName: string, image?: string) => {
+        const profileInitials = getInitials(inputName);
+
+        switch(true) {
+        case image === undefined:
+            return (
+                <FeaturedProfile 
+                    {...profileProps}
+                    background='orange'
+                    initials={profileInitials}
+                    key={key} 
+                />
+            )
+        default:
+            return (
+                <FeaturedProfile 
+                    {...profileProps}
+                    image={image}
+                    background='none'
+                    key={key} 
+                />
+            );
+        }
+    };
+
     return (
         <Wrapper {...props}>
-            <FeaturedProfile 
-                initials="EJ"
-                background="orange" 
-                key={1} 
-            />
+            {getProfiles(name, imageUrl)}
             <HeaderRow 
                 {...headerRowProps}
-                label="Emy Jackson" 
-                type="h6" 
-                display="column"
+                key={key}
+                label={name} 
+                type='h6' 
+                display='column'
             >
-                emy_jac@upmind.com
+                {email}
             </HeaderRow>
         </Wrapper>
     );

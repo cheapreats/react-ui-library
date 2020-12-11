@@ -1,20 +1,37 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTable } from 'react-table';
 import { Profile, IProfileProps } from './Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
 
-export interface IVendorsTableProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
+export interface IVendorsData {
+    id: number;
+    name: string;
+    email: string;
+    imageUrl?: string;
+};
 
-}
+export interface IVendorsTableProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
+    data: IVendorsData[];
+    profileProps: IProfileProps;
+};
 
 export const VendorsTable: React.FC<IVendorsTableProps> = ({
+    data,
+    profileProps,
     ...props
 }): React.ReactElement => {
     return (
         <Wrapper {...props}>
-            hello
+            {data.map(profile => (
+                <Profile
+                    {...profileProps}
+                    key={profile.id}
+                    name={profile.name}
+                    email={profile.email}
+                    imageUrl={profile?.imageUrl}
+                />
+            ))}
         </Wrapper>
     );
 };

@@ -1,19 +1,29 @@
 import React from 'react';
-import { Profile, IProfileProps } from '../../src';
+import { VendorsTable, IVendorsTableProps } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Story, Meta } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Vendors Table'),
-    component: Profile,
+    component: VendorsTable,
 } as Meta;
 
 const getVendorsTableProps = () => ({
-    
+    data: [
+        {
+            name: 'Emy Jackson',
+            email: 'emy_jac@upmind.com',
+            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+        },
+        {
+            name: 'Amy Jackson',
+            email: 'amy_jac@upmind.com'
+        }
+    ]
 });
 
-const Template: Story<IProfileProps> = (args) => (
-    <Profile {...args} />
+const Template: Story<IVendorsTableProps> = (args) => (
+    <VendorsTable {...args} />
 );
 
 export const Basic = Template.bind({});
