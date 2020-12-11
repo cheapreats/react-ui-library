@@ -10,12 +10,12 @@ export default {
     component: SegmentedButton,
     args: {
         width: '400px',
-        height: '100px'
+        height: '75px'
     },
 } as Meta;
 
 export const Basic: Story<ISegmentedButtonProps> = (args) => {
-    const [segments, setSegments] = useState([ {name: 'button3', active: false},  {name: 'button4', active: true}])
+    const [segments, setSegments] = useState([{name: 'button1', active: false, icon: Save}, {name: 'button2', active: true},  {name: 'button3', active: false},  {name: 'button4', active: true}])
     const onClick = (event, index) => {
         const newSegments = [...segments];
         newSegments[index].active = !segments[index].active;
