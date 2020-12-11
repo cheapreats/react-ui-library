@@ -1,5 +1,5 @@
 import React, { useCallback } from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { flex, clickable, transition } from '../Utils/Mixins';
 
@@ -36,7 +36,7 @@ export const SegmentedButton : React.FC<ISegmentedButtonProps> = ({
             return (
                 <Segment 
                     active={segment.active}
-                    onClick={(event)=> onClick(event, index)}
+                    onClick={(event) => onClick(event, index)}
                     key={segment.name}
                     id={segment.name}
                 >
@@ -85,15 +85,22 @@ const SegmentContainer = styled.div<ISegmentContainerProps>`
         height: ${height};
     `}
 `
+const activeStyle = css`
+    ${({theme})=> `
+        background-color: ${theme.colors.primary}; color: ${theme.colors.background};
+    `}
+`
+const inactiveStyle = css`
+    ${({theme})=> `
+        background-color: ${theme.colors.background}; color: ${theme.colors.text};
+    `}
+`
 const Segment = styled.div<ISegmentProps>`
     cursor: pointer;
     ${transition(['background-color', 'opacity'])}
     ${flex('center')}
     ${clickable('#ffffff', 0.05)};
-    ${({theme, active})=> {
-        const style = active ? `background-color: ${theme.colors.primary}; color: ${theme.colors.background};` : ` background-color: ${theme.colors.background}; color: ${theme.colors.text};`
-        return style;
-    }}
+    ${({active}) => active ? activeStyle : inactiveStyle}
 `
 const Icon = styled.svg`
     width: 14px;
