@@ -6,12 +6,13 @@ import styled from 'styled-components';
 import { HeaderRow } from './HeaderRow'
 
 export interface IReportIssueProps {
-    ReportDescription: string;
+    ReportDescription?: string;
     handleSubmit: (arg0: FormEvent, arg1: HTMLOptionElement, arg2: string) => void;
-    options: Array<HTMLOptionElement>
+    options: Array<HTMLOptionElement>;
+    loading?: boolean;
 }
 
-const ReportIssue = ({ ReportDescription, handleSubmit, options }: IReportIssueProps): ReactElement => {
+const ReportIssue = ({ ReportDescription, handleSubmit, options,loading }: IReportIssueProps): ReactElement => {
     const [inputValue, setInputValue] = useState(options[0]);
     const [textareaValue, setTextareaValue] = useState("");
     return (
