@@ -33,31 +33,53 @@ export const VendorsTable: React.FC<IVendorsTableProps> = ({
 
     return (
         <table {...getTableProps()} {...props}>
-            <thead>
+            <STableHead>
                 {headerGroups.map((headerGroup, index) => (
-                    <tr {...headerGroup.getHeaderGroupProps()} key={headerGroup.headers[index].Header?.toString()}>
+                    <SHeadTableRow {...headerGroup.getHeaderGroupProps()} key={headerGroup.headers[index].Header?.toString()}>
                         {headerGroup.headers.map(column => (
-                            <th {...column.getHeaderProps()} key={column.Header?.toString()}>
+                            <STableHeader {...column.getHeaderProps()} key={column.Header?.toString()}>
                                 {column.render('Header')}
-                            </th>
+                            </STableHeader>
                         ))}
-                    </tr>
+                    </SHeadTableRow>
                 ))}
-            </thead>
+            </STableHead>
             <tbody {...getTableBodyProps()}>
                 {rows.map((row) => {
                     prepareRow(row);
                     return (
-                        <tr {...row.getRowProps()} key={row.original.id}>
+                        <STableRow {...row.getRowProps()} key={row.original.id}>
                             {row.cells.map(cell => (
                                 <td {...cell.getCellProps()}>
                                     {cell.render('Cell')}
                                 </td>
                             ))}
-                        </tr>
+                        </STableRow>
                     )
                 })}
             </tbody>
         </table>
     );
 };
+
+const STableHead = styled.thead`
+    display: block;
+`;
+const STableHeader = styled.th`
+    text-align: left;
+`;
+const SHeadTableRow = styled.tr`
+    display: grid;
+    grid-template-columns: 3fr 3fr 1fr;
+    ${({ theme }): string => `
+        border-bottom: 1.5px solid ${theme.colors.border};
+    `};
+`;
+const STableRow = styled(SHeadTableRow)`
+    ${({ theme }): string => `
+        :hover {
+            transform: scale(1.01);
+            box-shadow: ${theme.depth[2]}
+        }
+    `};
+`;

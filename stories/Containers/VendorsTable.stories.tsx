@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { VendorsTable, IVendorsTableProps, Profile, IProfileProps, SmallText, Mixins } from '../../src';
+import { VendorsTable, IVendorsTableProps, Profile, SmallText, Mixins } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Story, Meta } from '@storybook/react';
 
@@ -11,19 +11,18 @@ export default {
 
 const TagRowContainer = styled.div`
     position: relative;
-    margin-top: auto;
-    ${Mixins.flex('space-evenly')}
+    margin: auto;
     flex-wrap: wrap;
+    ${Mixins.flex('start')};
     top: 10%;
 `;
 const Tag = styled.div`
     border-radius: 19px;
-    border-style: solid;
-    border-width: 2px;
     text-align: center;
     font-weight: bold;
     font-size: 0.7em;
     min-width: 24px;
+    padding: 3px 10px;
     ${({ theme }): string => `
         border: 2px solid ${theme.colors.primary};
         color: ${theme.colors.primary}
@@ -79,6 +78,36 @@ const getVendorsTableProps = () => ({
         },
         {
             id: 2,
+            name: 'Amy Jackson',
+            email: 'amy_jac@upmind.com',
+            tags: ['VIP Client'],
+            createdAt: '24/05/2019'
+        },
+        {
+            id: 3,
+            name: 'Emy Jackson',
+            email: 'emy_jac@upmind.com',
+            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+            tags: ['VIP Client', 'Early Adopter'],
+            createdAt: '24/05/2019'
+        },
+        {
+            id: 4,
+            name: 'Amy Jackson',
+            email: 'amy_jac@upmind.com',
+            tags: ['VIP Client'],
+            createdAt: '24/05/2019'
+        },
+        {
+            id: 5,
+            name: 'Emy Jackson',
+            email: 'emy_jac@upmind.com',
+            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+            tags: ['VIP Client', 'Early Adopter'],
+            createdAt: '24/05/2019'
+        },
+        {
+            id: 6,
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],

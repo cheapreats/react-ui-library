@@ -25,7 +25,7 @@ export const Profile: React.FC<IProfileProps> = ({
     profileProps,
     ...props
 }): React.ReactElement => {
-    const { colors } = useTheme();
+    const theme = useTheme();
 
     /**
      * Returns initials of a person's full name
@@ -50,9 +50,11 @@ export const Profile: React.FC<IProfileProps> = ({
             return (
                 <FeaturedProfile 
                     {...profileProps}
-                    background={colors.primary}
+                    background={theme.colors.primary}
                     initials={profileInitials}
                     key={key} 
+                    width={50}
+                    height={50}
                 />
             )
         default:
@@ -62,6 +64,8 @@ export const Profile: React.FC<IProfileProps> = ({
                     image={image}
                     background='none'
                     key={key} 
+                    width={50}
+                    height={50}
                 />
             );
         }
@@ -70,15 +74,16 @@ export const Profile: React.FC<IProfileProps> = ({
     return (
         <Wrapper {...props}>
             {getProfiles(name, imageUrl)}
-            <HeaderRow 
+            <SHeaderRow 
                 {...headerRowProps}
                 key={key}
                 label={name} 
                 type='h6' 
                 display='column'
+                size={theme.font.size.default}
             >
                 {email}
-            </HeaderRow>
+            </SHeaderRow>
         </Wrapper>
     );
 };
@@ -91,3 +96,9 @@ const Wrapper = styled.div`
         ${flex('column', 'center')};
     `)};
 `;
+
+const SHeaderRow = styled(HeaderRow)`
+    ${({ theme }): string => `
+        font-size: ${theme.font.size.small};
+    `}
+`

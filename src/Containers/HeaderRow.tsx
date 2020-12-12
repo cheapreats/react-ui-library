@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Heading } from '../Text';
+import { Heading, HeadingProps } from '../Text';
 import { flex } from '../Utils/Mixins';
 
 interface HeaderProps {
@@ -18,6 +18,7 @@ export interface HeaderRowProps {
     type?: string;
     padding?: string;
     width?: number;
+    size?: string;
 }
 
 export const HeaderRow: React.FC<HeaderRowProps> = ({
@@ -26,11 +27,13 @@ export const HeaderRow: React.FC<HeaderRowProps> = ({
     type,
     padding,
     width,
+    size,
     children,
+    ...props
 }): React.ReactElement => (
-    <Header padding={padding} width={width}>
+    <Header padding={padding} width={width} {...props}>
         <Row display={display}>
-            <Heading bold type={type}>
+            <Heading bold type={type} size={size}>
                 {label}
             </Heading>
             {children}
