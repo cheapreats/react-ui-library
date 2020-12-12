@@ -43,7 +43,7 @@ const ReportIssue = ({ ReportDescription, handleSubmit, options,loading = false 
 };
 
 const Container = styled.div`
-background: white;
+background: ${({theme}) => theme.colors.background};
 width: 100%;
 height: 100%;
 `;
