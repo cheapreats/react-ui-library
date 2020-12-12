@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { useTable, Column } from 'react-table';
 import { IProfileProps } from './Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { flex, media } from '../../Utils/Mixins';
+
 
 export interface IVendorsData extends IProfileProps {
     tags: string[];

@@ -1,6 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
-import { VendorsTable, IVendorsTableProps, Profile, SmallText, Mixins } from '../../src';
+import { 
+    VendorsTable, 
+    IVendorsTableProps, 
+    Profile, 
+    TagContainer,
+    SmallText, 
+} from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Story, Meta } from '@storybook/react';
 
@@ -9,25 +15,7 @@ export default {
     component: VendorsTable,
 } as Meta;
 
-const TagRowContainer = styled.div`
-    position: relative;
-    margin: auto;
-    flex-wrap: wrap;
-    ${Mixins.flex('start')};
-    top: 10%;
-`;
-const Tag = styled.div`
-    border-radius: 19px;
-    text-align: center;
-    font-weight: bold;
-    font-size: 0.7em;
-    min-width: 24px;
-    padding: 3px 10px;
-    ${({ theme }): string => `
-        border: 2px solid ${theme.colors.primary};
-        color: ${theme.colors.primary}
-    `};
-`;
+const hasHoverMode = false;
 
 const getVendorsTableProps = () => ({
     // columns and data must be memoized
@@ -48,22 +36,21 @@ const getVendorsTableProps = () => ({
             Header: 'Tags',
             accessor: 'col_tags',
             Cell: cell => (
-                <TagRowContainer>
-                    {cell.row.original.tags.map(
-                        (tag): React.ReactElement => (
-                            <Tag>{tag}</Tag>
-                        )
-                    )}
-                </TagRowContainer>
+                <TagContainer 
+                    tags={cell.row.original.tags} 
+                    hasHoverMode={hasHoverMode} 
+                />
             )
         },
         {
             Header: 'Created At',
             accessor: 'col_created',
             Cell: cell => (
-                <SmallText>
-                    {cell.row.original.createdAt}
-                </SmallText>
+                <div style={{ marginTop: '10px' }}>
+                    <SmallText>
+                        {cell.row.original.createdAt}
+                    </SmallText>
+                </div>
             )
         }
     ],
@@ -113,7 +100,7 @@ const getVendorsTableProps = () => ({
             tags: ['VIP Client'],
             createdAt: '24/05/2019'
         }
-    ]
+    ],
 });
 
 const Template: Story<IVendorsTableProps> = (args) => (

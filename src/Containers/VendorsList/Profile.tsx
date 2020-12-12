@@ -15,6 +15,8 @@ export interface IProfileProps extends MainInterface, ResponsiveInterface,React.
 }
 
 const MATCH_FIRST_LETTER = /\b\w/g;
+const WIDTH = 50;
+const HEIGHT = 50;
 
 export const Profile: React.FC<IProfileProps> = ({
     key,
@@ -64,8 +66,8 @@ export const Profile: React.FC<IProfileProps> = ({
                     image={image}
                     background='none'
                     key={key} 
-                    width={50}
-                    height={50}
+                    width={WIDTH}
+                    height={HEIGHT}
                 />
             );
         }

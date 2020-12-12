@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Heading, HeadingProps } from '../Text';
+import { Heading } from '../Text';
 import { flex } from '../Utils/Mixins';
 
 interface HeaderProps {

@@ -6,18 +6,20 @@ import { Main } from '../Utils/BaseStyles';
 
 export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+    hasHoverMode?: boolean;
     children: React.ReactNode;
 }
 
 export const Tag: React.FC<TagProps> = ({
     icon = Times,
     children,
+    hasHoverMode = true,
     ...props
 }): React.ReactElement => {
     return (
         <TagDiv {...props}>
             {children}
-            <Icon as={icon} />
+            {!!hasHoverMode && <Icon as={icon} />}
         </TagDiv>
     );
 };
