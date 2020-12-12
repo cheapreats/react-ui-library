@@ -12,7 +12,7 @@ export interface IReportIssueProps {
     loading?: boolean;
 }
 
-const ReportIssue = ({ ReportDescription, handleSubmit, options,loading }: IReportIssueProps): ReactElement => {
+const ReportIssue = ({ ReportDescription, handleSubmit, options,loading = false }: IReportIssueProps): ReactElement => {
     const [inputValue, setInputValue] = useState(options[0]);
     const [textareaValue, setTextareaValue] = useState("");
     return (
@@ -35,7 +35,7 @@ const ReportIssue = ({ ReportDescription, handleSubmit, options,loading }: IRepo
                     <Textarea rows="3" label="Description(required)" value={textareaValue} onChange={({target}: {target: any}) => setTextareaValue(target.value)} />
                 </TextareaContainer>
                 <SubmitButtonContainer>
-                    <Button type="submit" disabled={!(textareaValue.length > 0)}>Report Issue</Button>
+                    <Button type="submit" loading={loading} disabled={!(textareaValue.length > 0)}>Report Issue</Button>
                 </SubmitButtonContainer>
             </form>
         </Container>
