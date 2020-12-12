@@ -55,8 +55,8 @@ export const Profile: React.FC<IProfileProps> = ({
                     background={theme.colors.primary}
                     initials={profileInitials}
                     key={key} 
-                    width={50}
-                    height={50}
+                    width={WIDTH}
+                    height={HEIGHT}
                 />
             )
         default:
