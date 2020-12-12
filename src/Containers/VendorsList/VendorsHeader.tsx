@@ -11,8 +11,8 @@ export interface IVendorsHeaderProps
         React.HTMLAttributes<HTMLDivElement> {
     headerText: string;
     rightButtonText: string;
-    leftButtonProps: ButtonProps;
-    rightButtonProps: ButtonProps;
+    leftButtonProps?: ButtonProps;
+    rightButtonProps?: ButtonProps;
 }
 
 export const VendorsHeader: React.FC<IVendorsHeaderProps> = ({
