@@ -11,10 +11,6 @@ export interface IChairRow {
      * Array of chairs
      */
     chairs: Array<IChair>;
-    /**
-     * Will indicate if there are side chairs in the table
-     */
-    sideChairs?: boolean;
 }
 
 // Define a type for Position to restrict to four specific values
@@ -27,7 +23,6 @@ type Position = 'top' | 'bottom' | 'left' | 'right';
 export const ChairRow: React.FC<IChairRow> = ({
     position = 'top',
     chairs = [],
-    sideChairs = false,
     ...props
 }) => {
     /**
@@ -89,8 +84,8 @@ export const ChairRow: React.FC<IChairRow> = ({
                 return (
                     <div>
                         <TopBottomRow
+                            chairs={chairs}
                             chairNumOnSide={chairs.length}
-                            sideChairs={sideChairs}
                         >
                             {getChairsTopBottom(chairs)}
                         </TopBottomRow>
@@ -100,8 +95,8 @@ export const ChairRow: React.FC<IChairRow> = ({
                 return (
                     <div>
                         <TopBottomRow
+                            chairs={chairs}
                             chairNumOnSide={chairs.length}
-                            sideChairs={sideChairs}
                         >
                             {getChairsTopBottom(chairs)}
                         </TopBottomRow>
@@ -120,19 +115,29 @@ export const ChairRow: React.FC<IChairRow> = ({
 };
 
 /**
+ * This function will determine if there are left chairs
+ * to correct top or bottom row's margins
+ * @return {boolean} - Returns true if there are left chairs, otherwise false
+ */
+function isSideChairs(chairs: Array<IChair>): boolean {
+    const left = chairs.map((i) => i.position === 'left').length;
+    return left > 0;
+}
+
+/**
  * variables for the styled components
  */
 
 interface ITopBottomRow {
     chairNumOnSide: number;
-    sideChairs: boolean;
+    chairs: Array<IChair>;
 }
 
 const TopBottomRow = styled.div<ITopBottomRow>`
     display: flex;
     flex-wrap: wrap;
     width: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
-    margin-left: ${({ sideChairs }) => (sideChairs ? 1.5 : -1)}rem;
+    margin-left: ${({ chairs }) => (isSideChairs(chairs) ? 1.5 : -1)}rem;
 `;
 
 const ChairCol = styled.div`

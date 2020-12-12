@@ -99,6 +99,7 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
     return (
         <div {...props}>
             <TableBody
+                numOfChairs={chairs.length}
                 chairTableBackground={colors.chairTableBackground}
                 tangentValue={tan}
                 occupancyColor={getOccupancyColor()}
@@ -127,6 +128,7 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
  */
 
 interface ITableBody {
+    numOfChairs: number;
     tangentValue: number;
     occupancyColor: string;
     chairTableBackground: string;
@@ -135,9 +137,11 @@ interface ITableBody {
 const TableBody = styled.div<ITableBody>`
     --d: 6.5em; /* chair size */
     --rel: 1; /* how much extra space we want between images, 1 = one chair size */
-    --tan: ${({ tangentValue }) => tangentValue};
+    --tan: ${({ numOfChairs, tangentValue }) =>
+        numOfChairs < 3 ? 1.73 : tangentValue};
     --r: calc(
-        0.5 * (1 + var(--rel)) * var(--d) / var(--tan)
+        ${({ numOfChairs }) => (numOfChairs < 4 ? 1.0 : 0.5)} * (1 + var(--rel)) *
+            var(--d) / var(--tan)
     ); /* circle radius */
     --s: calc(2 * var(--r)); /* container size */
     position: relative;
@@ -160,7 +164,8 @@ const ChairWrapper = styled.div<IChairWrapper>`
     --d: 6.5em; /* chair size */
     --rel: 1; /* how much extra space we want between images, 1 = one image size */
     --r: calc(
-        0.5 * (1 + var(--rel)) * var(--d) / var(--tan)
+        ${({ numOfChairs }) => (numOfChairs < 4 ? 1.0 : 0.5)} * (1 + var(--rel)) *
+            var(--d) / var(--tan)
     ); /* circle radius */
     position: absolute;
     top: 50%;

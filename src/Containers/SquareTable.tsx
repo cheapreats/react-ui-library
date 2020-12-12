@@ -84,16 +84,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
     );
 
     /**
-     * This function will determine if there are left chairs
-     * to correct top or bottom row's margins
-     * @return {boolean} - Returns true if there are left chairs, otherwise false
-     */
-    function isSideChairs() {
-        const left = chairs.map((i) => i.position === 'left').length;
-        return left > 0;
-    }
-
-    /**
      * This function will determine what color should be the Status and ColorDiv
      * and return hexadecimal color value
      *
@@ -118,21 +108,13 @@ export const SquareTable: React.FC<ISquareTable> = ({
     return (
         <div {...props}>
             {/** chairs top */}
-            <ChairRow
-                position="top"
-                chairs={topArray}
-                sideChairs={isSideChairs()}
-            />
+            <ChairRow position="top" chairs={topArray} />
 
             {/** table itself */}
             <div>
                 <Row>
                     {/** chairs left */}
-                    <ChairRow
-                        position="left"
-                        chairs={leftArray}
-                        sideChairs={isSideChairs()}
-                    />
+                    <ChairRow position="left" chairs={leftArray} />
 
                     <TableBody chairNumOnSide={tableSize}>
                         <Row>
@@ -154,20 +136,12 @@ export const SquareTable: React.FC<ISquareTable> = ({
                     </TableBody>
 
                     {/** chairs right */}
-                    <ChairRow
-                        position="right"
-                        chairs={rightArray}
-                        sideChairs={isSideChairs()}
-                    />
+                    <ChairRow position="right" chairs={rightArray} />
                 </Row>
             </div>
 
             {/** chairs bottom */}
-            <ChairRow
-                position="bottom"
-                chairs={bottomArray}
-                sideChairs={isSideChairs()}
-            />
+            <ChairRow position="bottom" chairs={bottomArray} />
         </div>
     );
 };
