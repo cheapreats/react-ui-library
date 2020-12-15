@@ -1,23 +1,27 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useTable, Column } from 'react-table';
-import { IProfileProps } from './Profile';
-import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-
+import { useTable, Column, TableHeaderProps, TableRowProps } from 'react-table';
+import { IProfileProps } from './VendorsList/Profile';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
+import { media, scroll } from '../Utils/Mixins';
 
 export interface IVendorsData extends IProfileProps {
-    tags: string[];
-    createdAt: string;
+    tags?: string[];
+    createdAt?: string;
 };
 
-export interface IVendorsTableProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
+export interface IReactTableProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
     data: IVendorsData[];
     columns: Column<IVendorsData>[];
+    tableHeaderProps?: TableHeaderProps;
+    tableRowProps?: TableRowProps;
 };
 
-export const VendorsTable: React.FC<IVendorsTableProps> = ({
+export const ReactTable: React.FC<IReactTableProps> = ({
     data,
     columns,
+    tableHeaderProps,
+    tableRowProps,
     ...props
 }): React.ReactElement => {
     const {
@@ -37,7 +41,7 @@ export const VendorsTable: React.FC<IVendorsTableProps> = ({
                 {headerGroups.map((headerGroup, index) => (
                     <SHeadTableRow {...headerGroup.getHeaderGroupProps()} key={headerGroup.headers[index].Header?.toString()}>
                         {headerGroup.headers.map(column => (
-                            <STableHeader {...column.getHeaderProps()} key={column.Header?.toString()}>
+                            <STableHeader {...column.getHeaderProps()} key={column.Header?.toString()} {...tableHeaderProps}>
                                 {column.render('Header')}
                             </STableHeader>
                         ))}
@@ -48,14 +52,14 @@ export const VendorsTable: React.FC<IVendorsTableProps> = ({
                 {rows.map((row) => {
                     prepareRow(row);
                     return (
-                        <STableRow {...row.getRowProps()} key={row.original.id}>
+                        <STableRow {...row.getRowProps()} key={row.original.id} {...tableRowProps}>
                             {row.cells.map(cell => (
-                                <td {...cell.getCellProps()}>
+                                <STableData {...cell.getCellProps()}>
                                     {cell.render('Cell')}
-                                </td>
+                                </STableData>
                             ))}
                         </STableRow>
-                    )
+                    );
                 })}
             </tbody>
         </table>
@@ -65,8 +69,26 @@ export const VendorsTable: React.FC<IVendorsTableProps> = ({
 const STableHead = styled.thead`
     display: block;
 `;
+const STableData = styled.td`
+    ${({ theme }): string => `
+        ${media(
+        'phone',
+        `
+        font-size: ${theme.font.size.small};
+        `,
+    )}
+    `};
+`;
 const STableHeader = styled.th`
     text-align: left;
+    ${({ theme }): string => `
+        ${media(
+        'phone',
+        `
+        font-size: ${theme.font.size.small};
+        `,
+    )}
+    `};
 `;
 const SHeadTableRow = styled.tr`
     display: grid;
@@ -74,6 +96,13 @@ const SHeadTableRow = styled.tr`
     ${({ theme }): string => `
         border-bottom: 1.5px solid ${theme.colors.border};
     `};
+    ${media(
+        'tablet',
+        `
+       grid-template-columns: 2fr 1fr 1fr; 
+    `,
+    )}
+    ${scroll}
 `;
 const STableRow = styled(SHeadTableRow)`
     ${({ theme }): string => `

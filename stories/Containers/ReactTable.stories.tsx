@@ -1,53 +1,63 @@
 import React from 'react';
-import styled from 'styled-components';
 import { 
-    VendorsTable, 
-    IVendorsTableProps, 
+    ReactTable, 
+    IReactTableProps, 
     Profile, 
     TagContainer,
-    SmallText, 
+    SmallText,
 } from '../../src';
 import { createStoryTitle } from '../Constants';
 import { Story, Meta } from '@storybook/react';
 
 export default {
-    title: createStoryTitle('Vendors Table'),
-    component: VendorsTable,
+    title: createStoryTitle('React Table'),
+    component: ReactTable,
 } as Meta;
 
-const hasHoverMode = false;
+const isHoverable = false;
 
-const getVendorsTableProps = () => ({
+const getReactTableProps = () => ({
+    tableHeaderProps: {
+        style: {
+            marginBottom: '10px',
+        }
+    },
     // columns and data must be memoized
     columns: [
         {
             Header: 'Client',
             accessor: 'col_client',
-            Cell: cell => (
+            profileStyleProps: {
+                style: { marginTop: '5px' }
+            },
+            Cell: (cell) => (
                 <Profile 
                     key={cell.row.original.id} 
                     name={cell.row.original.name} 
                     email={cell.row.original.email} 
-                    imageUrl={cell.row.original?.imageUrl} 
+                    imageUrl={cell.row.original?.imageUrl}
+                    profileProps={{ style: { marginTop: '5px' } }}
                 />
             )
         },
         {
             Header: 'Tags',
             accessor: 'col_tags',
-            Cell: cell => (
+            Cell: (cell, { tagStyleProps }) => (
                 <TagContainer 
                     tags={cell.row.original.tags} 
-                    hasHoverMode={hasHoverMode} 
+                    isHoverable={isHoverable} 
+                    style={{ marginTop: '10px' }}
+                    tagProps={{ style: { margin: '5px 10px 0 0' }} }
                 />
             )
         },
         {
-            Header: 'Created At',
+            Header: 'Created',
             accessor: 'col_created',
             Cell: cell => (
                 <div style={{ marginTop: '10px' }}>
-                    <SmallText>
+                    <SmallText style={{ padding: '0 10px' }}>
                         {cell.row.original.createdAt}
                     </SmallText>
                 </div>
@@ -103,9 +113,9 @@ const getVendorsTableProps = () => ({
     ],
 });
 
-const Template: Story<IVendorsTableProps> = (args) => (
-    <VendorsTable {...args} />
+const Template: Story<IReactTableProps> = (args) => (
+    <ReactTable {...args} />
 );
 
 export const Basic = Template.bind({});
-Basic.args = getVendorsTableProps();
+Basic.args = getReactTableProps();

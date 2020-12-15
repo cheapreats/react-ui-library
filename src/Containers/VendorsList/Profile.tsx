@@ -5,18 +5,18 @@ import { HeaderRow, HeaderRowProps } from '../HeaderRow';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
 
-export interface IProfileProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
+export interface IProfileProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     key: number;
     name: string;
     email: string;
     imageUrl?: string;
     headerRowProps?: HeaderRowProps;
-    profileProps?: IFeaturedProfileProps;
+    profileProps?: Omit<IFeaturedProfileProps, 'key, background'>;
 }
 
 const MATCH_FIRST_LETTER = /\b\w/g;
-const WIDTH = 50;
-const HEIGHT = 50;
+const PROFILE_WIDTH = 50;
+const PROFILE_HEIGHT = 50;
 
 export const Profile: React.FC<IProfileProps> = ({
     key,
@@ -51,23 +51,23 @@ export const Profile: React.FC<IProfileProps> = ({
         case image === undefined:
             return (
                 <FeaturedProfile 
-                    {...profileProps}
                     background={theme.colors.primary}
                     initials={profileInitials}
                     key={key} 
-                    width={WIDTH}
-                    height={HEIGHT}
+                    width={PROFILE_WIDTH}
+                    height={PROFILE_HEIGHT}
+                    {...profileProps}
                 />
             )
         default:
             return (
                 <FeaturedProfile 
-                    {...profileProps}
                     image={image}
                     background='none'
                     key={key} 
-                    width={WIDTH}
-                    height={HEIGHT}
+                    width={PROFILE_WIDTH}
+                    height={PROFILE_HEIGHT}
+                    {...profileProps}
                 />
             );
         }
@@ -77,12 +77,12 @@ export const Profile: React.FC<IProfileProps> = ({
         <Wrapper {...props}>
             {getProfiles(name, imageUrl)}
             <SHeaderRow 
-                {...headerRowProps}
                 key={key}
                 label={name} 
                 type='h6' 
                 display='column'
                 size={theme.font.size.default}
+                {...headerRowProps}
             >
                 {email}
             </SHeaderRow>

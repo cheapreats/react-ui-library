@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AddUser } from '@styled-icons/entypo/AddUser';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 import { flex } from '../Utils/Mixins';
 
-export interface IFeaturedProfileProps {
+export interface IFeaturedProfileProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLLIElement> {
     background: string;
     key: number;
     image?: string;
