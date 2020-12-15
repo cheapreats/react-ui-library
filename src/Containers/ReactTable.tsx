@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useTable, Column, TableHeaderProps, TableRowProps } from 'react-table';
 import { IProfileProps } from './VendorsList/Profile';
@@ -17,13 +17,12 @@ export interface IReactTableProps<T extends IVendorsData> extends MainInterface,
     tableRowProps?: TableRowProps;
 };
 
-export const ReactTable: React.FC<IReactTableProps<any>> = ({
-    data,
+export const ReactTable = <T extends IVendorsData>({data,
     columns,
     tableHeaderProps,
     tableRowProps,
     ...props
-}): React.ReactElement => {
+}: IReactTableProps<T>): React.ReactElement => {
     const {
         getTableProps,
         getTableBodyProps,
@@ -35,32 +34,40 @@ export const ReactTable: React.FC<IReactTableProps<any>> = ({
         data
     });
 
+    const getHeaderGroup = useCallback(
+        () => headerGroups.map((headerGroup, index) => (
+            <SHeadTableRow {...headerGroup.getHeaderGroupProps()} key={headerGroup.headers[index].Header?.toString()}>
+                {headerGroup.headers.map(column => (
+                    <STableHeader {...column.getHeaderProps()} key={column.Header?.toString()} {...tableHeaderProps}>
+                        {column.render('Header')}
+                    </STableHeader>
+                ))}
+            </SHeadTableRow>
+        )), [headerGroups]
+    );
+
+    const getRowComponent = useCallback(
+        () => rows.map((row) => {
+            prepareRow(row);
+            return (
+                <STableRow {...row.getRowProps()} key={row.original.id} {...tableRowProps}>
+                    {row.cells.map(cell => (
+                        <STableData {...cell.getCellProps()}>
+                            {cell.render('Cell')}
+                        </STableData>
+                    ))}
+                </STableRow>
+            );
+        }), [rows]
+    );
+
     return (
         <table {...getTableProps()} {...props}>
             <STableHead>
-                {headerGroups.map((headerGroup, index) => (
-                    <SHeadTableRow {...headerGroup.getHeaderGroupProps()} key={headerGroup.headers[index].Header?.toString()}>
-                        {headerGroup.headers.map(column => (
-                            <STableHeader {...column.getHeaderProps()} key={column.Header?.toString()} {...tableHeaderProps}>
-                                {column.render('Header')}
-                            </STableHeader>
-                        ))}
-                    </SHeadTableRow>
-                ))}
+                {getHeaderGroup()}
             </STableHead>
             <tbody {...getTableBodyProps()}>
-                {rows.map((row) => {
-                    prepareRow(row);
-                    return (
-                        <STableRow {...row.getRowProps()} key={row.original.id} {...tableRowProps}>
-                            {row.cells.map(cell => (
-                                <STableData {...cell.getCellProps()}>
-                                    {cell.render('Cell')}
-                                </STableData>
-                            ))}
-                        </STableRow>
-                    );
-                })}
+                {getRowComponent()}
             </tbody>
         </table>
     );

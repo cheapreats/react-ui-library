@@ -22,7 +22,6 @@ const getReactTableProps = () => ({
             marginBottom: '10px',
         }
     },
-    // columns and data must be memoized
     columns: [
         {
             Header: 'Client',

@@ -7,11 +7,11 @@ import { flex, media } from '../../Utils/Mixins';
 
 export interface IProfileProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     key: number;
-    name?: string;
-    email?: string;
+    name: string;
+    email: string;
     imageUrl?: string;
     headerRowProps?: HeaderRowProps;
-    profileProps?: Omit<IFeaturedProfileProps, 'key, background'>;
+    profileProps?: Omit<IFeaturedProfileProps, 'key'|'background'>;
 }
 
 const MATCH_FIRST_LETTER = /\b\w/g;
@@ -42,40 +42,31 @@ export const Profile: React.FC<IProfileProps> = ({
     /**
      * Returns profile component based on whether an imageurl is provided 
      * @param inputName {string} - person's name
+     * @param id {number} - id for key
      * @param image {string} - image's url
      */
-    const getProfiles = (inputName: string, image?: string) => {
+    const getProfiles = (inputName: string, id: number, image?: string) => {
         const profileInitials = getInitials(inputName);
-
-        switch(true) {
-        case image === undefined:
-            return (
-                <FeaturedProfile 
-                    background={theme.colors.primary}
-                    initials={profileInitials}
-                    key={key} 
-                    width={PROFILE_WIDTH}
-                    height={PROFILE_HEIGHT}
-                    {...profileProps}
-                />
-            )
-        default:
-            return (
-                <FeaturedProfile 
-                    image={image}
-                    background='none'
-                    key={key} 
-                    width={PROFILE_WIDTH}
-                    height={PROFILE_HEIGHT}
-                    {...profileProps}
-                />
-            );
-        }
+        const getDefaultProfileProps = ({
+            key: id,
+            width: PROFILE_WIDTH,
+            height: PROFILE_HEIGHT,
+            background: image === undefined ? theme.colors.primary : 'none',
+            initials: image === undefined ? profileInitials : ''
+        });
+        
+        return (
+            <FeaturedProfile 
+                image={image}
+                {...getDefaultProfileProps}
+                {...profileProps}
+            />
+        );
     };
 
     return (
         <Wrapper {...props}>
-            {getProfiles(name, imageUrl)}
+            {getProfiles(name, key, imageUrl)}
             <SHeaderRow 
                 key={key}
                 label={name} 
