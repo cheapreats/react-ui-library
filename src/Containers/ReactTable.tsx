@@ -10,14 +10,14 @@ export interface IVendorsData extends IProfileProps {
     createdAt?: string;
 };
 
-export interface IReactTableProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
-    data: IVendorsData[];
-    columns: Column<IVendorsData>[];
+export interface IReactTableProps<T extends IVendorsData> extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
+    data: T[];
+    columns: Column<T>[];
     tableHeaderProps?: TableHeaderProps;
     tableRowProps?: TableRowProps;
 };
 
-export const ReactTable: React.FC<IReactTableProps> = ({
+export const ReactTable: React.FC<IReactTableProps<any>> = ({
     data,
     columns,
     tableHeaderProps,

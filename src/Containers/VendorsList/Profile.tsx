@@ -7,8 +7,8 @@ import { flex, media } from '../../Utils/Mixins';
 
 export interface IProfileProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     key: number;
-    name: string;
-    email: string;
+    name?: string;
+    email?: string;
     imageUrl?: string;
     headerRowProps?: HeaderRowProps;
     profileProps?: Omit<IFeaturedProfileProps, 'key, background'>;
