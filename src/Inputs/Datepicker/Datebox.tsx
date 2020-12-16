@@ -10,7 +10,7 @@ import {
     position,
 } from '../../Utils/Mixins';
 import { WEEKDAYS, MONTHS } from '../../Utils/Constants';
-import { Button } from '../Button';
+import { Button } from '../Button/Button';
 
 const SIZE = 40;
 

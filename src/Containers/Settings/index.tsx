@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 import { Heading } from '../../Text';
-import { Loading } from '../Loading';
+import { Loading } from '../Loading/Loading';
 import { AccountCard, AccountProps } from './AccountCard';
 import { InfoCard, InfoProps } from './InfoCard';
 
