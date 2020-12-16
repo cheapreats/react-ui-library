@@ -2,11 +2,11 @@ const { aliases } = require('../package.json');
 const path = require('path');
 
 module.exports = {
-    stories: ['../stories/**/*.stories.@(js|mdx|tsx|ts|jsx)'],
+    stories: ['../src/**/*.stories.@(js|mdx|tsx|ts|jsx)'],
     addons: ['@storybook/addon-docs', '@storybook/addon-viewport', '@storybook/addon-knobs/', '@storybook/addon-links/', '@storybook/addon-actions/', '@storybook/addon-toolbars', '@storybook/addon-a11y', '@storybook/addon-controls', '@storybook/addon-backgrounds'],
     webpackFinal: async (config, { configType }) => {
-        Object.entries(aliases).forEach(([ key, val ]) => {
-            config.resolve.alias[key] = path.resolve(__dirname, `../${ val }`);
+        Object.entries(aliases).forEach(([key, val]) => {
+            config.resolve.alias[key] = path.resolve(__dirname, `../${val}`);
         });
         config.module.rules.push({
             test: /\.(ts|tsx)$/,

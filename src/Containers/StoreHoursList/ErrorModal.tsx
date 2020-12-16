@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { CircleWithCross } from '@styled-icons/entypo/CircleWithCross';
-import { Modal } from '../Modal';
+import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
