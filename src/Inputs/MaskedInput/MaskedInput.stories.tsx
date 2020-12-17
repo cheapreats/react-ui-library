@@ -33,6 +33,7 @@ export default {
         description: 'Enter a value',
         min: 1,
         max: 100,
+        error: ''
     },
 } as Meta;
 
