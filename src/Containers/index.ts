@@ -44,4 +44,8 @@ export * from './Timeline/Timeline';
 export * from './LeftSideBar';
 export * from './Landing/Landing';
 export * from './Navigation';
+export * from './ReportIssue/ReportIssue';
+export * from './WaitTimeDisplay/WaitTimeDisplay';
+export * from './VendorsList/';
+export * from './MiddleCanvas';
 export * from './WarningCard/WarningCard';

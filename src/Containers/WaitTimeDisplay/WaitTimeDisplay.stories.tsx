@@ -1,7 +1,7 @@
 import React from 'react';
-import { WaitTimeDisplay, IWaitTimeDisplay } from '../../src/Containers/WaitTimeDisplay';
+import { WaitTimeDisplay, IWaitTimeDisplay } from '../../index';
 import {Meta, Story} from "@storybook/react";
-import { createStoryTitle } from '../Constants';
+import { createStoryTitle } from '../../Constants';
 
 export default {
     title: createStoryTitle('WaitTimeDisplay'),

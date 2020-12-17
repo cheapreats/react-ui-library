@@ -1,6 +1,6 @@
 import React from 'react';
-import ReportIssue, { IReportIssueProps }  from '../../src/Containers/ReportIssue';
-import { createStoryTitle } from '../Constants';
+import {ReportIssue,IReportIssueProps }  from '../../index';
+import { createStoryTitle } from '../../Constants';
 import { Meta, Story } from '@storybook/react';
 
 // TODO: ADD STATE to component

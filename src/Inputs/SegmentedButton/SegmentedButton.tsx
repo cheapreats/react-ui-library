@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled, {css} from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
-import { flex, clickable, transition } from '../Utils/Mixins';
+import { flex, clickable, transition } from '../../Utils/Mixins';
 
 export interface ISegment {
     active?: boolean;
