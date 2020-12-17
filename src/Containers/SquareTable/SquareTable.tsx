@@ -68,7 +68,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * @return {string} - Hexadecimal color value
      */
     function getOccupancyColor(): string {
-
         switch (occupancyStatus) {
             case occupancyStatusTypes.Vacant:
                 return colors.occupancyStatusColors.Vacant;
@@ -87,7 +86,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
     return (
         <div>
             {/** chairs top */}
-
             <ChairRow
                 position="top"
                 chairNumOnSide={chairNumOnSide}
@@ -104,7 +102,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         <Row>
                             <TableInfo>
                                 <div>
-
                                     {`${tableID}\n${partyName}`}
                                     <Status
                                         occupancyColor={getOccupancyColor()}
@@ -117,7 +114,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
                                 chairNumOnSide={chairNumOnSide}
                                 occupancyColor={getOccupancyColor()}
                             />
-
                         </Row>
                     </TableBody>
 
@@ -126,7 +122,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="right"
                         chairNumOnSide={chairNumOnSide}
                     />
-
                 </Row>
             </div>
 
@@ -136,7 +131,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 chairNumOnSide={chairNumOnSide}
                 {...props}
             />
-
         </div>
     );
 };
