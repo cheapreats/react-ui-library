@@ -1,6 +1,6 @@
 import React from 'react';
-import { VendorsTable, IVendorsTableProps } from '../../src';
-import { createStoryTitle } from '../Constants';
+import { VendorsTable, IVendorsTableProps } from '../..';
+import { createStoryTitle } from '../../Constants';
 import { Story, Meta } from '@storybook/react';
 
 export default {

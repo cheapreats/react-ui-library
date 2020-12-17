@@ -1,7 +1,7 @@
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
-import { FeaturedProfile, IFeaturedProfileProps } from '../FeaturedProfile';
-import { HeaderRow, HeaderRowProps } from '../HeaderRow';
+import { FeaturedProfile, IFeaturedProfileProps } from '../FeaturedProfile/FeaturedProfile';
+import { HeaderRow, HeaderRowProps } from '../HeaderRow/HeaderRow';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
 

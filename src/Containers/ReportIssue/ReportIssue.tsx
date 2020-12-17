@@ -3,7 +3,7 @@ import Select from '@Inputs/Select'
 import Textarea from '@Inputs/Textarea';
 import React, { FormEvent, ReactElement, useState } from 'react'
 import styled from 'styled-components';
-import { HeaderRow } from './HeaderRow'
+import { HeaderRow } from '../HeaderRow/HeaderRow';
 
 export interface IReportIssueProps {
     ReportDescription?: string;
@@ -12,7 +12,7 @@ export interface IReportIssueProps {
     loading?: boolean;
 }
 
-const ReportIssue = ({ ReportDescription, handleSubmit, options,loading = false }: IReportIssueProps): ReactElement => {
+export const ReportIssue = ({ ReportDescription, handleSubmit, options,loading = false }: IReportIssueProps): ReactElement => {
     const [inputValue, setInputValue] = useState(options[0]);
     const [textareaValue, setTextareaValue] = useState("");
     return (
@@ -60,5 +60,3 @@ margin-top: 10px;
 const TextareaContainer = styled.div`
 margin-top: 15px;
 `
-
-export default ReportIssue;

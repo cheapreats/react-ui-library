@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Radio } from '../../Inputs/Radio';
+import { Radio } from '../../Inputs/Radio/Radio';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 export interface RadioOptionProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {

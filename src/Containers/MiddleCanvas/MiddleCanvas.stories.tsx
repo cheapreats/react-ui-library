@@ -1,6 +1,6 @@
 import React from 'react';
-import { MiddleCanvas, MiddleCanvasProps } from '../../src';
-import { createStoryTitle } from '../Constants';
+import { MiddleCanvas, MiddleCanvasProps } from "../../index";
+import { createStoryTitle } from '../../Constants';
 import { Story, Meta } from '@storybook/react';
 
 export default {

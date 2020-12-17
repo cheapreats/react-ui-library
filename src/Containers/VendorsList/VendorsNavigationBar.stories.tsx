@@ -2,8 +2,8 @@ import React from 'react';
 import { TableView } from '@styled-icons/material/TableView';
 import { List } from '@styled-icons/bootstrap/List';
 import { ViewGrid } from '@styled-icons/heroicons-solid/ViewGrid';
-import { NavigationBar, INavigationBarProps } from '../../src';
-import { createStoryTitle } from '../Constants';
+import { NavigationBar, INavigationBarProps } from "../../index";
+import { createStoryTitle } from '../../Constants';
 import { Story, Meta } from '@storybook/react';
 
 export default {
