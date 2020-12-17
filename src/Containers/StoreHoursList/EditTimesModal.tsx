@@ -4,10 +4,10 @@ import { Add } from '@styled-icons/ionicons-outline/Add';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { ICategoryWithHoursTypes } from './types';
 import { findActive } from './CategoryScheduleFunctions';
-import { Modal } from '../Modal';
+import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
-import { Button } from '../../Inputs/Button';
-import { Select } from '../../Inputs/Select';
+import { Button } from '../../Inputs/Button/Button';
+import { Select } from '../../Inputs/Select/Select';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 
