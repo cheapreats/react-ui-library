@@ -14,7 +14,7 @@ import {
 } from './ReceiptElements';
 import { CollapsibleHeader } from './CollapsibleHeader';
 import { List, ListToggle } from '../List';
-import { SearchBar } from '../../Inputs/SearchBar';
+import { SearchBar } from '../../Inputs/SearchBar/SearchBar';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 const loading = false;
