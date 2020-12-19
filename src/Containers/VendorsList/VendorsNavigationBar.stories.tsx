@@ -2,9 +2,9 @@ import React from 'react';
 import { TableView } from '@styled-icons/material/TableView';
 import { List } from '@styled-icons/bootstrap/List';
 import { ViewGrid } from '@styled-icons/heroicons-solid/ViewGrid';
-import { NavigationBar, INavigationBarProps } from "../../index";
-import { createStoryTitle } from '../../Constants';
 import { Story, Meta } from '@storybook/react';
+import { NavigationBar, INavigationBarProps } from './NavigationBar';
+import { createStoryTitle } from '../../Constants';
 
 export default {
     title: createStoryTitle('Vendors Navigation Bar'),

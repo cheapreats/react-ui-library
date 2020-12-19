@@ -1,9 +1,9 @@
 import React from 'react';
 import { Import } from '@styled-icons/boxicons-regular/Import';
 import { Add } from '@styled-icons/ionicons-sharp/Add';
+import { Story, Meta } from '@storybook/react';
 import { VendorsHeader, IVendorsHeaderProps } from "../../index";
 import { createStoryTitle } from '../../Constants';
-import { Story, Meta } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Vendors Header'),

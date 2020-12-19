@@ -44,6 +44,8 @@ export * from './Timeline/Timeline';
 export * from './LeftSideBar';
 export * from './Landing/Landing';
 export * from './Navigation';
+export * from './VendorsList';
+export * from './ReactTable/ReactTable';
 export * from './ReportIssue/ReportIssue';
 export * from './WaitTimeDisplay/WaitTimeDisplay';
 export * from './VendorsList/';

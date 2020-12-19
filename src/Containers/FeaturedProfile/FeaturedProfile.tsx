@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AddUser } from '@styled-icons/entypo/AddUser';
+import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { flex } from '@Utils/Mixins';
-
-export interface IFeaturedProfileProps {
+export interface IFeaturedProfileProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLLIElement> {
     background: string;
     key: number;
     image?: string;
@@ -25,13 +25,15 @@ export const FeaturedProfile: React.FC<IFeaturedProfileProps> = ({
     background,
     width = 100,
     height = 100,
+    ...props
 }) => {
     return (
-        <CircleImage
+        <CircleImage 
             width={width}
             height={height}
             background={background}
             key={key}
+            {...props}
         >
             {!!image && (
                 <img src={image} alt={alt} width={width} height={height} />
