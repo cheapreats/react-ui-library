@@ -101,6 +101,8 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
                             width={widthRightPanels}
                             height={heightPanels}
                             center
+                            relative={index}
+                            length={deltas.length}
                         />
                     )}
                     relative={index}
@@ -133,6 +135,8 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
                         width={widthRightPanels}
                         height={heightPanels}
                         center
+                        length={deltas.length}
+                        relative={deltas.length}
                     />
                 )}
                 relative={deltas.length}
@@ -151,6 +155,9 @@ interface IStepProps {
     width: number;
     height: number;
     center?: boolean;
+    relative: number;
+    length: number;
+    end?: boolean;
 }
 
 const Step: React.FC<IStepProps> = ({
@@ -158,6 +165,9 @@ const Step: React.FC<IStepProps> = ({
     width,
     height,
     center,
+    relative,
+    length,
+    end,
 }): React.ReactElement => {
     return (
         <StepBox
@@ -165,6 +175,9 @@ const Step: React.FC<IStepProps> = ({
             height={height}
             margin="0 0 0 10px"
             center={center}
+            index={relative}
+            length={length}
+            end={end}
         >
             {label}
         </StepBox>
@@ -180,10 +193,44 @@ interface IStepBoxProps {
     end?: boolean;
     center?: boolean;
     color?: string;
+    index: number;
+    length: number;
 }
 
 const StepBox = styled.div<IStepBoxProps>`
     box-shadow: 0 0 0 1px;
+    ${({ length, index }): string => `
+
+    @keyframes ${`fadeIn${index}`} {
+        0% {
+            opacity: 0;
+        }
+      
+        ${
+    index === length
+        ? `
+        96%{opacity:0;}
+        `
+        : `
+        ${(index / length) * 100}% {
+            opacity: 0;
+        }
+        ${((index + 1) / length) * 100}% {
+            opacity: 1;
+        }
+        `
+}
+ 
+        100% {
+            opacity: 1;
+        }
+    }
+
+    animation-name: ${`fadeIn${index}`};
+    animation-duration: ${length * 2}s;
+    animation-iteration-count: infinite;
+    `}
+
     ${({
         width,
         height,
@@ -251,6 +298,8 @@ const Block: React.FC<IBlockProps> = ({
                 end={end}
                 center
                 color={color}
+                length={length !== undefined ? length : 0}
+                index={relative}
             >
                 {!!getLabel && getLabel(hours, minutes)}
             </StepBox>
