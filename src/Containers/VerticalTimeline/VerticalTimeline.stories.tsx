@@ -14,6 +14,7 @@ export default {
         heightPanels: 60,
         redColor: 'red',
         greenColor: 'green',
+        locale: 'en-US',
         timelineData: [
             {
                 label: 'start preparation',

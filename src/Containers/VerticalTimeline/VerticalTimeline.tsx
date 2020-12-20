@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
@@ -15,19 +15,6 @@ interface IDelta {
     color: string;
 }
 
-/**
- * This functions transforms an input of two numbers into a message of hours and minutes
- * @param hours {number} - The number of hours
- * @param minutes {number} - The number of minutes
- * @returns {string} The message formatted of hours and minutes
- */
-const getLabel = (hours: number, minutes: number) => {
-    if (hours === 0) {
-        return `${minutes} mins`;
-    }
-    return `${hours} hours ${minutes} mins`;
-};
-
 export interface VerticalTimelineProps
     extends MainInterface,
         ResponsiveInterface,
@@ -39,6 +26,7 @@ export interface VerticalTimelineProps
     heightPanels: number;
     redColor: string;
     greenColor: string;
+    locale: string;
 }
 
 export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
@@ -49,9 +37,32 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
     heightPanels,
     redColor,
     greenColor,
+    locale,
 }): React.ReactElement => {
     const [deltas, setDeltas] = useState<Array<IDelta>>([]);
     const isMounted = Hooks.useMounted();
+
+    /**
+     * This functions transforms an input of two numbers into a message of hours and minutes
+     * @param hours {number} - The number of hours
+     * @param minutes {number} - The number of minutes
+     * @returns {string} The message formatted of hours and minutes
+     */
+    const getLabel = useCallback(
+        (hours: number, minutes: number) => {
+            // @ts-ignore
+            const relativeTimeFormat = new Intl.RelativeTimeFormat(locale);
+
+            if (hours === 0) {
+                return relativeTimeFormat.format(minutes, 'minutes');
+            }
+            return `${relativeTimeFormat.format(
+                hours,
+                'hours',
+            )} ${relativeTimeFormat.format(minutes, 'minutes')}`;
+        },
+        [locale],
+    );
 
     // set deltas
     useEffect(() => {
@@ -78,9 +89,9 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
         }
     }, [timelineData]);
 
-    return (
-        <div>
-            {deltas.map((delta, index, deltas) => (
+    const renderBlocks = useCallback(
+        (deltas: IDelta[]): JSX.Element[] => {
+            return deltas.map((delta, index, deltas) => (
                 <Block
                     delta={delta.value}
                     color={delta.color}
@@ -97,8 +108,24 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
                     widthLeftPanels={widthLeftPanels}
                     heightPanels={heightPanels}
                     length={deltas.length}
+                    getLabel={getLabel}
                 />
-            ))}
+            ));
+        },
+        [
+            deltas,
+            getLabel,
+            timelineData,
+            widthRightPanels,
+            heightPanels,
+            verticalSpacing,
+            widthLeftPanels,
+        ],
+    );
+
+    return (
+        <div>
+            {renderBlocks(deltas)}
             <Block
                 step={(
                     <Step
@@ -190,6 +217,7 @@ interface IBlockProps {
     end?: boolean;
     color?: string;
     length?: number;
+    getLabel?: (hours: number, minutes: number) => string;
 }
 
 const Block: React.FC<IBlockProps> = ({
@@ -202,6 +230,7 @@ const Block: React.FC<IBlockProps> = ({
     end,
     color,
     length,
+    getLabel,
 }): React.ReactElement => {
     let delta_ = 0;
     if (delta) {
@@ -222,7 +251,7 @@ const Block: React.FC<IBlockProps> = ({
                 center
                 color={color}
             >
-                {getLabel(hours, minutes)}
+                {!!getLabel && getLabel(hours, minutes)}
             </StepBox>
             <Divider
                 verticalSpacing={verticalSpacing}
