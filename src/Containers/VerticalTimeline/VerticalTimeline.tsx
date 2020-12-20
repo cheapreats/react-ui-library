@@ -80,7 +80,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
 
     return (
         <div>
-            {deltas.map((delta, index) => (
+            {deltas.map((delta, index, deltas) => (
                 <Block
                     delta={delta.value}
                     color={delta.color}
@@ -96,6 +96,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
                     verticalSpacing={verticalSpacing}
                     widthLeftPanels={widthLeftPanels}
                     heightPanels={heightPanels}
+                    length={deltas.length}
                 />
             ))}
             <Block
@@ -188,6 +189,7 @@ interface IBlockProps {
     heightPanels: number;
     end?: boolean;
     color?: string;
+    length?: number;
 }
 
 const Block: React.FC<IBlockProps> = ({
@@ -199,6 +201,7 @@ const Block: React.FC<IBlockProps> = ({
     heightPanels,
     end,
     color,
+    length,
 }): React.ReactElement => {
     let delta_ = 0;
     if (delta) {
@@ -226,6 +229,8 @@ const Block: React.FC<IBlockProps> = ({
                 end={end}
                 heightPanels={heightPanels}
                 color={color}
+                relative={relative}
+                length={length}
             />
             {step}
         </Container>
@@ -251,30 +256,45 @@ interface IDividerProps {
     verticalSpacing: number;
     heightPanels?: number;
     color?: string;
+    relative?: number;
+    length?: number;
 }
 
 const Divider = styled.div<IDividerProps>`
     border-radius: 50%;
     height: 7px;
     width: 7px;
-    ${({ end, verticalSpacing, heightPanels, color }): string => `
+    ${({
+        end,
+        verticalSpacing,
+        heightPanels,
+        color,
+        relative,
+        length,
+    }): string => `
     ${color ? `color:${color};background-color:currentColor;` : 'color:black;'}
     border: 1px solid currentColor;
     ${
-    !end && !!heightPanels
+    !end && !!heightPanels && relative !== undefined && length !== undefined
         ? `
-        @keyframes flow {
-            from {height: 0;}
-            to {height: ${heightPanels + verticalSpacing - 9}px;}
+        @keyframes ${`flow${relative}`} {
+            0%{height:0px;}
+            ${(relative * 100) / length}%{height: 0px;}
+            ${((relative + 1) * 100) / length}%{height:${
+    heightPanels + verticalSpacing - 2
+}px;}
+100%{height:${heightPanels + verticalSpacing - 2}px;}
           }
     &::before {
         content: '';
-        display: inline-block;
+        display: block;
         width: 0px;
-        height: ${heightPanels + verticalSpacing - 9}px;
+        height:0px;
+        animation-name:${`flow${relative}`};
+        animation-duration:${2 * length}s;
+        animation-iteration-count:infinite;
         border: 1px solid currentColor;
         position: relative;
-        top: 7px;
         left: 2px;
     }
     `
