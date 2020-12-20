@@ -135,11 +135,12 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
                         center
                     />
                 )}
-                relative={timelineData.length - 1}
+                relative={deltas.length}
                 verticalSpacing={verticalSpacing}
                 widthLeftPanels={widthLeftPanels}
                 heightPanels={heightPanels}
                 end
+                length={deltas.length}
             />
         </div>
     );
@@ -301,6 +302,42 @@ const Divider = styled.div<IDividerProps>`
         relative,
         length,
     }): string => `
+    ${
+    relative !== undefined && length !== undefined
+        ? `
+    @keyframes ${`dot${relative}`} {
+        0%{opacity:0;}
+        ${
+    relative !== length
+        ? `
+        ${(relative * 100) / length}%{opacity: 0;}
+        ${((relative + 1) * 100) / length}%{opacity:1;}
+        `
+        : `
+        96%{opacity:0;}
+        `
+}
+        100%{opacity:1;}
+      }
+
+    animation-name:${`dot${relative}`};
+    animation-duration:${2 * length}s;
+    animation-iteration-count:infinite;
+    `
+        : end && relative !== undefined
+            ? `
+        @keyframes dotEnd {
+            0%{opacity:0;}
+            99%{opacity:0;}
+            100%{opacity:1;}
+          }
+    
+        animation-name:dotEnd;
+        animation-duration:${2 * relative}s;
+        animation-iteration-count:infinite;
+        `
+            : ''
+}
     ${color ? `color:${color};background-color:currentColor;` : 'color:black;'}
     border: 1px solid currentColor;
     ${
