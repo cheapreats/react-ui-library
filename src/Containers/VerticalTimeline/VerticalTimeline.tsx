@@ -2,12 +2,31 @@ import React, { useState, useEffect } from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
-import { Hooks } from '../../Utils';
+import { Hooks, msToTime } from '../../Utils';
 
 interface ITimelineData {
     label: string;
     time: number;
+    maxTime: number;
 }
+
+interface IDelta {
+    value: number;
+    color: string;
+}
+
+/**
+ * This functions transforms an input of two numbers into a message of hours and minutes
+ * @param hours {number} - The number of hours
+ * @param minutes {number} - The number of minutes
+ * @returns {string} The message formatted of hours and minutes
+ */
+const getLabel = (hours: number, minutes: number) => {
+    if (hours === 0) {
+        return `${minutes} mins`;
+    }
+    return `${hours} hours ${minutes} mins`;
+};
 
 export interface VerticalTimelineProps
     extends MainInterface,
@@ -18,6 +37,8 @@ export interface VerticalTimelineProps
     widthLeftPanels: number;
     widthRightPanels: number;
     heightPanels: number;
+    redColor: string;
+    greenColor: string;
 }
 
 export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
@@ -26,22 +47,31 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
     widthLeftPanels,
     widthRightPanels,
     heightPanels,
+    redColor,
+    greenColor,
 }): React.ReactElement => {
-    const [deltas, setDeltas] = useState<Array<number>>([]);
+    const [deltas, setDeltas] = useState<Array<IDelta>>([]);
     const isMounted = Hooks.useMounted();
 
     // set deltas
     useEffect(() => {
-        let aux: number | null = null;
+        let previous: ITimelineData | null = null;
 
         const deltas = timelineData.reduce((acc, value) => {
-            if (aux) {
-                const delta = value.time - aux;
+            if (previous) {
+                const delta: { value: number; color: string } = {
+                    value: 0,
+                    color: greenColor,
+                };
+                delta.value = value.time - previous.time;
+                if (previous.maxTime < delta.value) {
+                    delta.color = redColor;
+                }
                 acc.push(delta);
             }
-            aux = value.time;
+            previous = value;
             return acc;
-        }, [] as Array<number>);
+        }, [] as Array<IDelta>);
 
         if (isMounted.current) {
             setDeltas(deltas);
@@ -52,7 +82,8 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
         <div>
             {deltas.map((delta, index) => (
                 <Block
-                    delta={delta}
+                    delta={delta.value}
+                    color={delta.color}
                     step={(
                         <Step
                             label={timelineData[index].label}
@@ -119,6 +150,7 @@ interface IStepBoxProps {
     verticalSpacing?: number;
     end?: boolean;
     center?: boolean;
+    color?: string;
 }
 
 const StepBox = styled.div<IStepBoxProps>`
@@ -131,7 +163,9 @@ const StepBox = styled.div<IStepBoxProps>`
         verticalSpacing,
         end,
         center,
+        color,
     }): string => `
+    ${color ? `color:${color};` : 'color:black;'}
     width:${width}px;
     height:${height}px;
     ${
@@ -153,6 +187,7 @@ interface IBlockProps {
     widthLeftPanels: number;
     heightPanels: number;
     end?: boolean;
+    color?: string;
 }
 
 const Block: React.FC<IBlockProps> = ({
@@ -163,7 +198,15 @@ const Block: React.FC<IBlockProps> = ({
     widthLeftPanels,
     heightPanels,
     end,
+    color,
 }): React.ReactElement => {
+    let delta_ = 0;
+    if (delta) {
+        delta_ = delta;
+    }
+
+    const { hours, minutes } = msToTime(delta_);
+
     return (
         <Container relative={relative} verticalSpacing={verticalSpacing}>
             <StepBox
@@ -174,13 +217,15 @@ const Block: React.FC<IBlockProps> = ({
                 verticalSpacing={verticalSpacing}
                 end={end}
                 center
+                color={color}
             >
-                {delta}
+                {getLabel(hours, minutes)}
             </StepBox>
             <Divider
                 verticalSpacing={verticalSpacing}
                 end={end}
                 heightPanels={heightPanels}
+                color={color}
             />
             {step}
         </Container>
@@ -205,18 +250,23 @@ interface IDividerProps {
     end?: boolean;
     verticalSpacing: number;
     heightPanels?: number;
+    color?: string;
 }
 
 const Divider = styled.div<IDividerProps>`
-    color: black;
-    border: 1px solid currentColor;
     border-radius: 50%;
     height: 7px;
     width: 7px;
-    ${({ end, verticalSpacing, heightPanels }): string => `
+    ${({ end, verticalSpacing, heightPanels, color }): string => `
+    ${color ? `color:${color};background-color:currentColor;` : 'color:black;'}
+    border: 1px solid currentColor;
     ${
     !end && !!heightPanels
         ? `
+        @keyframes flow {
+            from {height: 0;}
+            to {height: ${heightPanels + verticalSpacing - 9}px;}
+          }
     &::before {
         content: '';
         display: inline-block;
