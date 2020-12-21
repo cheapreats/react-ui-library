@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { SearchBar, SearchBarProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
-import { useArgs } from '@storybook/addons';
 
 export default {
     title: createStoryTitle('Search Bar'),

@@ -13,7 +13,7 @@ interface TagProps {
     text: string;
 }
 
-interface CustomSearchProps extends MainInterface, ResponsiveInterface {
+export interface CustomSearchProps extends MainInterface, ResponsiveInterface {
     image: string;
     tags?: TagProps[];
     alt?: string;

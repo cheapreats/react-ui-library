@@ -1,7 +1,7 @@
 import React from 'react';
-import { CustomSearch } from '../../index';
-import { createStoryTitle } from '../../Constants';
 import { Meta, Story } from '@storybook/react';
+import { CustomSearch, CustomSearchProps } from '../../index';
+import { createStoryTitle } from '../../Constants';
 
 export default {
     title: createStoryTitle('Custom Search'),
@@ -67,6 +67,6 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<CustomSearch> = (args) => (
-    <CustomSearch {...args}></CustomSearch>
+export const Basic: Story<CustomSearchProps> = (args) => (
+    <CustomSearch {...args} />
 );

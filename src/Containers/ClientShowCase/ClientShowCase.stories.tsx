@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Meta, Story } from '@storybook/react';
 import { Button } from '../../Inputs/Button/Button';
 import { ClientShowCase, ShowCaseProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
-const onComponentClick = (e) => {
+const onComponentClick = () => {
     console.log('You clicked the div!');
 };
 
-const onButtonClick = (e) => {
+const onButtonClick = () => {
     console.log('You clicked the button!');
 };
 
@@ -55,5 +55,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<ShowCaseProps> = (args) => (
-    <ClientShowCase {...args}></ClientShowCase>
+    <ClientShowCase {...args} />
 );

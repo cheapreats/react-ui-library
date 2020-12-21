@@ -1,12 +1,7 @@
 import React from 'react';
-import {
-    MultiSelect,
-    MultiSelectItem,
-    MultiSelectProps,
-    MultiSelectItemProps,
-} from '../../index';
-import { createStoryTitle } from '../../Constants';
 import { Meta, Story } from '@storybook/react';
+import { MultiSelect, MultiSelectItem, MultiSelectProps } from '../../index';
+import { createStoryTitle } from '../../Constants';
 
 export default {
     title: createStoryTitle('Multi Select'),
