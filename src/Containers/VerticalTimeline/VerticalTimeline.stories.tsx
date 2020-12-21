@@ -1,8 +1,8 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import { VerticalTimeline, VerticalTimelineProps } from '@Containers';
+import { hoursMinutesToMilliseconds } from '@Utils';
 import { createStoryTitle } from '../../Constants';
-import { VerticalTimeline, VerticalTimelineProps } from '../../index';
-import { hoursMinutesToMilliseconds } from '../../Utils';
 
 export default {
     title: createStoryTitle('VerticalTimeline'),

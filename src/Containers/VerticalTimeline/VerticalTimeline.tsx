@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
-import { Hooks, msToTime } from '../../Utils';
+import { Hooks, msToTime } from '@Utils';
 
 interface ITimelineData {
     label: string;
