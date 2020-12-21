@@ -1,6 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { useTable, Column, TableHeaderProps, TableRowProps } from 'react-table';
+import { useTable, usePagination, Column, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
+import { Pagination, IPaginationProps } from './Pagination';
 import { IProfileProps } from '../VendorsList/Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { media, scroll } from '../../Utils/Mixins';
@@ -13,26 +14,50 @@ export interface IVendorsData extends IProfileProps {
 export interface IReactTableProps<T extends IVendorsData> extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
     data: T[];
     columns: Column<T>[];
+    tableProps?: TableProps;
     tableHeaderProps?: TableHeaderProps;
     tableRowProps?: TableRowProps;
+    paginationProps?: IPaginationProps;
+    pageSelectOptions: number[];
 };
 
-export const ReactTable = <T extends IVendorsData>({data,
+const INITIAL_OPTION = 0;
+
+export const ReactTable = <T extends IVendorsData>({
+    data,
     columns,
+    tableProps,
     tableHeaderProps,
     tableRowProps,
+    paginationProps,
+    pageSelectOptions,
     ...props
 }: IReactTableProps<T>): React.ReactElement => {
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
-        rows,
-        prepareRow
-    } = useTable({
-        columns, 
-        data
-    });
+        prepareRow,
+        page,
+        canPreviousPage,
+        canNextPage,
+        pageOptions,
+        pageCount,
+        gotoPage,
+        nextPage,
+        previousPage,
+        setPageSize,
+        state: { pageIndex, pageSize }
+    } = useTable(
+        {
+            columns, 
+            data,
+            initialState: { pageIndex: 0, pageSize: pageSelectOptions[INITIAL_OPTION] }
+        },
+        usePagination
+    );
+
+    const pageOptionsLength = data.length;
 
     const getHeaderGroup = useCallback(
         () => headerGroups.map((headerGroup, index) => (
@@ -47,32 +72,45 @@ export const ReactTable = <T extends IVendorsData>({data,
     );
 
     const getRowComponent = useCallback(
-        () => rows.map((row) => {
+        () => page.map((row) => {
             prepareRow(row);
             return (
                 <STableRow {...row.getRowProps()} key={row.original.id} {...tableRowProps}>
-                    {row.cells.map(cell => (
+                    {row.cells.map((cell) => (
                         <STableData {...cell.getCellProps()}>
                             {cell.render('Cell')}
                         </STableData>
                     ))}
                 </STableRow>
             );
-        }), [rows]
+        }), [page]
     );
 
     return (
-        <table {...getTableProps()} {...props}>
-            <STableHead>
-                {getHeaderGroup()}
-            </STableHead>
-            <tbody {...getTableBodyProps()}>
-                {getRowComponent()}
-            </tbody>
-        </table>
+        <div {...props}>
+            <table {...getTableProps()} {...tableProps}>
+                <STableHead>
+                    {getHeaderGroup()}
+                </STableHead>
+                <tbody {...getTableBodyProps()}>
+                    {getRowComponent()}
+                </tbody>
+            </table>
+            <Pagination 
+                goToPreviousPage={previousPage}
+                goToNextPage={nextPage}
+                goToPage={gotoPage}
+                pageLength={pageCount}
+                pageOptionsLength={pageOptionsLength}
+                pageSelectOptions={pageSelectOptions}
+                pageSize={pageSize}
+                setPageSize={setPageSize}
+                {...paginationProps}
+            />
+        </div>
     );
 };
-
+ 
 const STableHead = styled.thead`
     display: block;
 `;
