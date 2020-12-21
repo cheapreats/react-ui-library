@@ -228,7 +228,7 @@ const StepBox = styled.div<IStepBoxProps>`
 
     animation-name: ${`fadeIn${index}`};
     animation-duration: ${length * 2}s;
-    animation-iteration-count: infinite;
+    animation-iteration-count: 1;
     `}
 
     ${({
@@ -298,7 +298,7 @@ const Block: React.FC<IBlockProps> = ({
                 end={end}
                 center
                 color={color}
-                length={length !== undefined ? length : 0}
+                length={length || 0}
                 index={relative}
             >
                 {!!getLabel && getLabel(hours, minutes)}
@@ -371,7 +371,7 @@ const Divider = styled.div<IDividerProps>`
 
     animation-name:${`dot${relative}`};
     animation-duration:${2 * length}s;
-    animation-iteration-count:infinite;
+    animation-iteration-count:1;
     `
         : end && relative !== undefined
             ? `
@@ -383,7 +383,7 @@ const Divider = styled.div<IDividerProps>`
     
         animation-name:dotEnd;
         animation-duration:${2 * relative}s;
-        animation-iteration-count:infinite;
+        animation-iteration-count:1;
         `
             : ''
 }
@@ -407,7 +407,8 @@ const Divider = styled.div<IDividerProps>`
         height:0px;
         animation-name:${`flow${relative}`};
         animation-duration:${2 * length}s;
-        animation-iteration-count:infinite;
+        animation-iteration-count:1;
+        animation-fill-mode:forwards;
         border: 1px solid currentColor;
         position: relative;
         left: 2px;
