@@ -2,6 +2,15 @@ import React from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Chair, IChair } from '@Containers/Chair';
 
+// Define a type for the getOccupancyColor function
+type getOccupancyColorType = () => string;
+
+// Define a type for the getChairs function
+type getChairsType = (array: Array<IChair>) => JSX.Element[];
+
+// Define a type for the generateKey function
+type generateKeyType = (pre: string) => string;
+
 export interface ICircleTable2 {
     /**
      * The unique identifier for the table
@@ -39,8 +48,6 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
 }) => {
     const { colors } = useTheme();
 
-    type getOccupancyColorType = () => string;
-
     /**
      * Determines the correct color for Status and ColorDiv based on occupancyStatus
      * and returns the hexadecimal color value as a string
@@ -62,8 +69,6 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
                 return '';
         }
     };
-
-    type getChairsType = (array: Array<IChair>) => JSX.Element[];
 
     /**
      * Returns a JSX element array containing the Chairs and ChairWrappers
@@ -88,8 +93,6 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
             </ChairWrapper>
         ));
     };
-
-    type generateKeyType = (pre: string) => string;
 
     /**
      * Generates a unique key based on a string and a random number
@@ -133,6 +136,7 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
 // Define a type for Position to restrict to four specific values
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
+// Define a type for the getPositionValue function
 type getPositionValueType = (position: Position) => number;
 
 /**

@@ -83,12 +83,15 @@ export const Chair: React.FC<IChair> = ({
     return isRound ? getRoundChair() : getPositionChair();
 };
 
+// Define a type for the getChairColor function
+type getChairColorType = (isSeated: boolean) => string;
+
 /**
- * This function will determine what color the chair will be
- * @param isSeated {boolean} - indicated is chair is taken/occupied
- * @return {string} - Hexadecimal of color
+ * Determines what color the chair will be
+ * @param isSeated {boolean} - true if chair is taken/occupied, otherwise false
+ * @return {string} - Hexadecimal color
  */
-function getChairColor(isSeated: boolean) {
+const getChairColor: getChairColorType = (isSeated) => {
     const { colors } = useTheme();
 
     if (isSeated) {
@@ -96,7 +99,7 @@ function getChairColor(isSeated: boolean) {
     }
 
     return colors.chairTableBackground;
-}
+};
 
 /**
  * variables for the styled components

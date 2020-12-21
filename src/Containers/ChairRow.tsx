@@ -2,6 +2,21 @@ import React from 'react';
 import styled from 'styled-components';
 import { Chair, IChair } from './Chair';
 
+// Define a type for Position to restrict to four specific values
+type Position = 'top' | 'bottom' | 'left' | 'right';
+
+// Define a type for the getChairsTopBottom function
+type getChairsTopBottomType = (array: Array<IChair>) => JSX.Element[];
+
+// Define a type for the getChairsLeftRight function
+type getChairsLeftRightType = (array: Array<IChair>) => JSX.Element[];
+
+// Define a type for the generateKey function
+type generateKeyType = (pre: string) => string;
+
+// Define a type for the chairRowSwitch function
+type chairRowSwitchType = () => JSX.Element;
+
 export interface IChairRow {
     /**
      * The position of the chair relative to the table (top/bottom/left/right)
@@ -13,9 +28,6 @@ export interface IChairRow {
     chairs: Array<IChair>;
 }
 
-// Define a type for Position to restrict to four specific values
-type Position = 'top' | 'bottom' | 'left' | 'right';
-
 /**
  * Primary UI component for user interaction
  */
@@ -26,11 +38,11 @@ export const ChairRow: React.FC<IChairRow> = ({
     ...props
 }) => {
     /**
-     * This function will return chairs for top and bottom rows
-     * @param array {array} - array of chairs
-     * @return {JSX.Element} - chairs on top and bottom row
+     * Returns the chairs for the top and bottom rows
+     * @param array {Array<IChair>} - array of chairs
+     * @return {JSX.Element[]} - chairs on top and bottom row
      */
-    function getChairsTopBottom(array: Array<IChair>) {
+    const getChairsTopBottom: getChairsTopBottomType = (array) => {
         return array.map((i) => (
             <ChairCol key={generateKey(position + i)}>
                 <Chair
@@ -41,14 +53,14 @@ export const ChairRow: React.FC<IChairRow> = ({
                 />
             </ChairCol>
         ));
-    }
+    };
 
     /**
-     * This function will return chairs for left and right rows
-     * @param array {array} - array of chairs
-     * @return {JSX.Element} - chairs on right and left row
+     * Return the chairs for the left and right rows
+     * @param array {Array<IChair>} - array of chairs
+     * @return {JSX.Element[]} - chairs on right and left row
      */
-    function getChairsLeftRight(array: Array<IChair>) {
+    const getChairsLeftRight: getChairsLeftRightType = (array) => {
         return array.map((i) => (
             <SideChairRow key={generateKey(position + i)}>
                 <SideChairCentering>
@@ -61,24 +73,23 @@ export const ChairRow: React.FC<IChairRow> = ({
                 </SideChairCentering>
             </SideChairRow>
         ));
-    }
+    };
 
     /**
      * Generates a unique key based on a string and a current timestamp
      * @param pre - a string to append to timestamp
      * @returns {string} a unique key
      */
-    function generateKey(pre: string): string {
+    const generateKey: generateKeyType = (pre) => {
         return `${pre}_${Math.random()}`;
-    }
+    };
 
     /**
      * Returns a JSX element for the ChairRow with the correct styles
      * based on whether position is top/bottom or left/right
      * @returns {JSX.Element} the correct JSX.Element based on position
      */
-
-    function chairRowSwitch(): JSX.Element {
+    const chairRowSwitch: chairRowSwitchType = () => {
         switch (position) {
             case 'top':
                 return (
@@ -109,20 +120,23 @@ export const ChairRow: React.FC<IChairRow> = ({
             default:
                 return <div />;
         }
-    }
+    };
 
     return <div {...props}>{chairRowSwitch()}</div>;
 };
 
+// Define a type for the isSideChairs function
+type isSideChairsType = (chairs: Array<IChair>) => boolean;
+
 /**
- * This function will determine if there are left chairs
+ * Determines if there are any chairs on the left side of the table
  * to correct top or bottom row's margins
  * @return {boolean} - Returns true if there are left chairs, otherwise false
  */
-function isSideChairs(chairs: Array<IChair>): boolean {
+const isSideChairs: isSideChairsType = (chairs) => {
     const left = chairs.map((i) => i.position === 'left').length;
     return left > 0;
-}
+};
 
 /**
  * variables for the styled components
