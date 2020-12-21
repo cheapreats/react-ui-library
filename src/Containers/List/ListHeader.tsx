@@ -11,7 +11,9 @@ interface ListHeaderProps extends TextLayoutProps {
     icon?: StyledIcon;
     iconClick?: React.MouseEventHandler;
     iconProps?: string;
+    headerRowComponent?: React.ReactElement;
     type?: string;
+    padding?: string;
 }
 
 export const ListHeader: React.FC<ListHeaderProps> = ({
@@ -21,9 +23,11 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
     icon,
     iconClick,
     iconProps,
+    headerRowComponent,
+    padding = '10px 20px;',
     ...props
 }): React.ReactElement => (
-    <Header>
+    <Header padding={padding}>
         <Row display={headerFlex}>
             <Heading bold type="h2" margin="0 0 5px" {...props}>
                 {label}
@@ -31,11 +35,15 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
             {icon && (
                 <Icon as={icon} onClick={iconClick} iconProps={iconProps} />
             )}
+            {headerRowComponent}
         </Row>
         {children}
     </Header>
 );
 
+interface HeaderProps {
+    padding?: string;
+}
 interface RowProps {
     display?: string;
 }
@@ -43,10 +51,10 @@ interface IconProps {
     iconProps?: string;
 }
 
-const Header = styled.div`
-    padding: 10px 20px;
-    ${({ theme }): string => `
+const Header = styled.div<HeaderProps>`
+    ${({ theme, padding }): string => `
     border-bottom: 2px solid ${theme.colors.text}20;
+    padding: ${padding};
 `}
 `;
 

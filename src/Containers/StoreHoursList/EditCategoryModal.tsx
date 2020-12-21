@@ -5,10 +5,10 @@ import { ICategoryWithHoursTypes } from './types';
 import { ErrorModal } from './ErrorModal';
 import { createCategoryWithHours } from './CategoryScheduleFunctions';
 import { Heading, SmallText } from '../../Text';
-import { Modal } from '../Modal';
-import { Input } from '../../Inputs/Input';
-import { Button } from '../../Inputs/Button';
-import { Tag } from '../Tag';
+import { Modal } from '../Modal/Modal';
+import { Input } from '../../Inputs/Input/Input';
+import { Button } from '../../Inputs/Button/Button';
+import { Tag } from '../Tag/Tag';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 

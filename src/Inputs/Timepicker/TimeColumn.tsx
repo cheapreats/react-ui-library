@@ -68,9 +68,9 @@ const List = styled.ul`
         color: ${theme.colors.text}aa;
     `}
     ${scroll}
+    overflow-y: scroll;
     list-style-type: none;
     font-weight: bold;
-    overflow-y: scroll;
     max-width: 80px;
     flex-grow: 1;
     width: 100%;

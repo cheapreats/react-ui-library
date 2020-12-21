@@ -1,12 +1,12 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { Card as C, CardProps as Cprops } from '../Card';
-import { HeaderRow } from '../HeaderRow';
-import { Status, StatusColors } from '../Status';
+import { Card as C, CardProps as Cprops } from '../Card/Card';
+import { HeaderRow } from '../HeaderRow/HeaderRow';
+import { Status, StatusColors } from '../Status/Status';
 import { Paragraph as P } from '../../Text';
 import { flex, media } from '../../Utils/Mixins';
 import { KitchenCardItems } from './KitchenCardItems';
-import { Item } from './constants';
+import { OrderItem } from './constants';
 
 const CUSTOMER_FIRST_NAME = /^([\w-]+)/g;
 const UNDERSCORE_FORMAT = '_';
@@ -17,12 +17,11 @@ export interface KitchenCardProps {
         name: string;
     };
     _id: string;
-    items: Item[];
+    items: OrderItem[];
     orderType: string;
     statusColor: StatusColors;
     status: string;
     index: number;
-    modifiers: [];
     isFullName?: boolean;
     cardHeight?: number;
     cardWidth: number;

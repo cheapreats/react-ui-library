@@ -7,10 +7,10 @@ import { QuestionCircle } from '@styled-icons/fa-solid/QuestionCircle';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 import { Heading, Paragraph } from '../../Text';
-import { SettingsCard } from '../SettingsCard';
-import { Button } from '../../Inputs/Button';
-import { Modal } from '../Modal';
-import { Copyright } from '../Copyright';
+import { SettingsCard } from '../SettingsCard/SettingsCard';
+import { Button } from '../../Inputs/Button/Button';
+import { Modal } from '../Modal/Modal';
+import { Copyright } from '../Copyright/Copyright';
 
 export interface InfoProps
     extends React.HTMLAttributes<HTMLDivElement>,

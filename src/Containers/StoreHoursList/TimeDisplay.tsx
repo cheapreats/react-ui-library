@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { convertTime } from './TimeFunctions';
 import { ICategoryWithHoursTypes } from './types';
 import { Heading } from '../../Text';
-import { Tag } from '../Tag';
+import { Tag } from '../Tag/Tag';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 interface TimeDisplayProps

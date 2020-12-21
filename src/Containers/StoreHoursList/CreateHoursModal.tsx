@@ -5,11 +5,11 @@ import { convertDateToHours } from './TimeFunctions';
 import { findActive } from './CategoryScheduleFunctions';
 import { ErrorModal } from './ErrorModal';
 import { FromToDualTimeSelector } from './FromToDualTimeSelector';
-import { Modal } from '../Modal';
+import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
-import { Button } from '../../Inputs/Button';
-import { Checkbox } from '../../Inputs/Checkbox';
-import { Select } from '../../Inputs/Select';
+import { Button } from '../../Inputs/Button/Button';
+import { Checkbox } from '../../Inputs/CheckBox/Checkbox';
+import { Select } from '../../Inputs/Select/Select';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 

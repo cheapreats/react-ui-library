@@ -2,9 +2,9 @@ import React from 'react';
 import { SignOutAlt } from '@styled-icons/fa-solid/SignOutAlt';
 import { UserCircle } from '@styled-icons/fa-solid/UserCircle';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { SettingsCard } from '../SettingsCard';
-import { DisplayItem } from '../DisplayItem';
-import { Button } from '../../Inputs/Button';
+import { SettingsCard } from '../SettingsCard/SettingsCard';
+import { DisplayItem } from '../DisplayItem/DisplayItem';
+import { Button } from '../../Inputs/Button/Button';
 
 export interface AccountProps
     extends React.HTMLAttributes<HTMLDivElement>,
