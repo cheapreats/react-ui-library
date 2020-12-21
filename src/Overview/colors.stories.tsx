@@ -4,7 +4,12 @@ import { storiesOf } from '@storybook/react';
 import { MainTheme } from '@Themes/MainTheme';
 import { Heading, ColorCard } from '../index';
 
-const ListGrid = styled.ul`
+interface IListGridProps {
+    columnWidth: number;
+    gap: number;
+}
+
+const ListGrid = styled.ul<IListGridProps>`
     list-style-type: none;
     display: grid;
     align-items: end;
@@ -26,7 +31,7 @@ const flattenColors = (value, label) => (
                     <ColorCard
                         color={value}
                         label={`${label}.${innerKey}`}
-                    ></ColorCard>
+                    />
                 </li>
             ),
         )}
@@ -46,7 +51,7 @@ storiesOf('Design System/Colors', module).add('Overview', () => (
                     flattenColors(value, key)
                 ) : (
                     <li key={key}>
-                        <ColorCard color={value} label={key}></ColorCard>
+                        <ColorCard color={value} label={key} />
                     </li>
                 ),
             )}

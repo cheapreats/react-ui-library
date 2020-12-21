@@ -1,9 +1,9 @@
 import React from 'react';
-import { StoreFeatureCard, StoreFeatureCardProps } from '../../index';
-import { createStoryTitle, getCaptionForLocale } from '../../Constants';
 import { Meta, Story } from '@storybook/react';
 import { Dog } from '@styled-icons/fa-solid/Dog';
 import { Cat } from '@styled-icons/fa-solid/Cat';
+import { createStoryTitle } from '../../Constants';
+import { StoreFeatureCard, StoreFeatureCardProps } from '../../index';
 
 export default {
     title: createStoryTitle('Store Feature Card'),

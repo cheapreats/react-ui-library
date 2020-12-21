@@ -1,6 +1,10 @@
 import React from 'react';
-import { CircleTable2, ICircleTable2 } from './CircleTable2';
 import { Meta, Story } from '@storybook/react';
+import {
+    CircleTable2,
+    ICircleTable2,
+    occupancyStatusTypes,
+} from './CircleTable2';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -20,7 +24,7 @@ FourTopTable.args = {
     numOfChairs: 4,
     partyName: 'Dmytro',
     reservationTime: new Date(2020, 10, 15, 16, 30, 0, 0),
-    occupancyStatus: 'Vacant',
+    occupancyStatus: occupancyStatusTypes.Vacant,
 };
 
 /**
@@ -33,7 +37,7 @@ EightTopTable.args = {
     numOfChairs: 8,
     partyName: 'Scott',
     reservationTime: new Date(2020, 10, 15, 16, 30, 0, 0),
-    occupancyStatus: 'Reserved',
+    occupancyStatus: occupancyStatusTypes.Reserved,
 };
 
 /**
@@ -46,5 +50,5 @@ TwelveTopTable.args = {
     numOfChairs: 12,
     partyName: 'Corey',
     reservationTime: new Date(2020, 10, 15, 16, 30, 0, 0),
-    occupancyStatus: 'Occupied',
+    occupancyStatus: occupancyStatusTypes.Occupied,
 };

@@ -21,12 +21,12 @@ export const NavigationBar: React.FC<INavigationBarProps> = ({
         <Wrapper {...props}>
             {navigationBarItems.map(item => (
                 <NavigationItem 
-                    {...navigationItemProps}
                     key={item.label}
                     icon={item.icon}
                     label={item.label}
                     selectedItem={selectedItem}
                     onClick={(): void => setSelectedItem(item.label)}
+                    {...navigationItemProps}
                 />
             ))}
         </Wrapper>

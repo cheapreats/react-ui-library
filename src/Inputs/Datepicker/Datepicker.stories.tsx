@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { Datepicker, DatepickerProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Datepicker'),
@@ -16,5 +16,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<DatepickerProps> = (args) => {
-    return <Datepicker {...args}></Datepicker>;
+    return <Datepicker {...args} />;
 };

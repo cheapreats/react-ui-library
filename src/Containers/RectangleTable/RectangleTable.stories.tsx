@@ -6,11 +6,12 @@
 */
 
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import {
     RectangleTable,
     IRectangleTable,
+    occupancyStatusTypes,
 } from './RectangleTable';
-import { Meta, Story } from '@storybook/react';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -30,7 +31,7 @@ TwoTopRectangle.args = {
     numOfChairs: 2,
     partyName: 'Sarah C.',
     reservationTime: new Date(2020, 9, 15, 5, 30, 0, 0),
-    occupancyStatus: 'Vacant',
+    occupancyStatus: occupancyStatusTypes.Vacant,
 };
 
 /**
@@ -43,7 +44,7 @@ FourTopRectangle.args = {
     numOfChairs: 4,
     partyName: 'Robert J.',
     reservationTime: new Date(2020, 9, 15, 12, 30, 0, 0),
-    occupancyStatus: 'Occupied',
+    occupancyStatus: occupancyStatusTypes.Occupied,
 };
 
 /**
@@ -56,5 +57,5 @@ SixTopRectangle.args = {
     numOfChairs: 6,
     partyName: 'Michael V.',
     reservationTime: new Date(2020, 9, 15, 9, 30, 0, 0),
-    occupancyStatus: 'Reserved',
+    occupancyStatus: occupancyStatusTypes.Reserved,
 };

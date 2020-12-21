@@ -18,7 +18,12 @@ const Letters = styled.div`
     word-break: break-all;
 `;
 
-const ListGrid = styled.ul`
+interface IListGridProps {
+    columnWidth: number;
+    gap?: number;
+}
+
+const ListGrid = styled.ul<IListGridProps>`
     list-style-type: none;
     display: grid;
     align-items: end;
@@ -43,11 +48,14 @@ storiesOf('Design System/Typography', module).add(
                 <Paragraph>
                     CheaprEats uses only Quicksand across all applications and
                     systems. Before using our UI components, we highly recommend
-                    loading this font-family yourself via{' '}
+                    loading this font-family yourself via
+                    {' '}
                     <a href="https://fonts.google.com/specimen/Quicksand">
                         Google Fonts
-                    </a>{' '}
-                    or with{' '}
+                    </a>
+                    {' '}
+                    or with
+                    {' '}
                     <a href="https://github.com/typekit/webfontloader">
                         WebFontLoader
                     </a>
@@ -55,9 +63,7 @@ storiesOf('Design System/Typography', module).add(
                 </Paragraph>
                 <Letters>
                     <Paragraph bold>
-                        {
-                            'ABCČĆDĐEFGHIJKLMNOPQRSŠTUVWXYZŽabcčćdđefghijklmnopqrsštuvwxyzž'
-                        }
+                        ABCČĆDĐEFGHIJKLMNOPQRSŠTUVWXYZŽabcčćdđefghijklmnopqrsštuvwxyzž
                     </Paragraph>
                     <Paragraph bold>
                         {
@@ -82,7 +88,10 @@ storiesOf('Design System/Typography', module).add(
                         .map(([type, size], index) => (
                             <li key={type}>
                                 <Heading type={type}>{type}</Heading>
-                                <Paragraph>Heading {index + 1}</Paragraph>
+                                <Paragraph>
+                                    Heading
+                                    {index + 1}
+                                </Paragraph>
                                 <SmallText>{size}</SmallText>
                             </li>
                         ))}

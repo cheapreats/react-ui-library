@@ -1,8 +1,8 @@
 import React from 'react';
-import { PictureCard, PictureCardProps, Paragraph, SmallText } from '../../index';
 import { Dog } from '@styled-icons/fa-solid/Dog';
 import { Cat } from '@styled-icons/fa-solid/Cat';
 import { Meta, Story } from '@storybook/react';
+import { PictureCard, PictureCardProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
 export default {

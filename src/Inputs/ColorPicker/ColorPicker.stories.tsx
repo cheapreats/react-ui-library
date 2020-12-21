@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { ColorPicker, ColorPickerProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Color picker'),
@@ -13,5 +13,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<ColorPickerProps> = (args) => (
-    <ColorPicker {...args}></ColorPicker>
+    <ColorPicker {...args} />
 );
