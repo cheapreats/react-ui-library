@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { KitchenCard, KitchenCardProps, StatusColors } from '../../index';
+import { KitchenCard, KitchenCardProps } from '../../index';
 import { Button } from '../../Inputs/Button/Button';
 import { createStoryTitle } from '../../Constants';
 
@@ -235,7 +235,7 @@ export default {
         orderType: sampleOrder.order_type,
         customer: sampleOrder.customer,
         status: StatusTypes[sampleOrder.status],
-        StatusModifierComponent: StatusModifierComponent,
+        StatusModifierComponent,
         _id: sampleOrder._id,
     },
 } as Meta;
@@ -245,6 +245,6 @@ export const Basic: Story<KitchenCardProps> = (args) => {
         <KitchenCard
             {...args}
             statusColor={StatusColorFilter[args.status]}
-        ></KitchenCard>
+        />
     );
 };

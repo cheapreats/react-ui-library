@@ -1,15 +1,13 @@
 import React from 'react';
-import {ReportIssue,IReportIssueProps }  from '../../index';
-import { createStoryTitle } from '../../Constants';
 import { Meta, Story } from '@storybook/react';
+import { ReportIssue, IReportIssueProps } from '../../index';
+import { createStoryTitle } from '../../Constants';
 
 // TODO: ADD STATE to component
-const handleSubmit = (event, option, description ) => {
+const handleSubmit = (event, option) => {
     alert(option);
     event.preventDefault();
-    
 };
-
 
 export default {
     title: createStoryTitle('Report Issue'),
@@ -24,10 +22,10 @@ export default {
             <option value="4">value 4</option>,
             <option value="5">value 5</option>,
         ],
-        handleSubmit: handleSubmit,
+        handleSubmit,
     },
 } as Meta;
 
-export const Basic: Story<IReportIssueProps> = (args) => <ReportIssue {...args}></ReportIssue>;
-
-
+export const Basic: Story<IReportIssueProps> = (args) => (
+    <ReportIssue {...args} />
+);
