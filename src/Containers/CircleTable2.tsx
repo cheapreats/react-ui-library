@@ -39,13 +39,15 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
 }) => {
     const { colors } = useTheme();
 
+    type getOccupancyColorType = () => string;
+
     /**
-     * This function will determine what color should be the Status and ColorDiv
-     * and return hexadecimal color value
+     * Determines the correct color for Status and ColorDiv based on occupancyStatus
+     * and returns the hexadecimal color value as a string
      *
      * @return {string} - Hexadecimal color value
      */
-    function getOccupancyColor(): string {
+    const getOccupancyColor: getOccupancyColorType = () => {
         switch (occupancyStatus) {
             case occupancyStatusTypes.Vacant:
                 return colors.occupancyStatusColors.Vacant;
@@ -59,19 +61,22 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
             default:
                 return '';
         }
-    }
+    };
+
+    type getChairsType = (array: Array<IChair>) => JSX.Element[];
 
     /**
-     * This function will return JSX elements for the Chairs and ChairWrappers
-     * @param array {array} - array of chairs
-     * @return {JSX.Element} - Chairs and ChairWrappers for the table
+     * Returns a JSX element array containing the Chairs and ChairWrappers
+     * @param array {Array<IChair>} - array of chairs
+     * @return {JSX.Element[]} - Chairs and ChairWrappers for the table
      */
-    function getChairs(array: Array<IChair>) {
+    const getChairs: getChairsType = (array) => {
         return array.map((item, index) => (
             <ChairWrapper
                 numOfChairs={chairs.length}
                 counter={index + 1}
                 key={generateKey(item.position + index)}
+                position={item.position}
             >
                 <Chair
                     position={item.position}
@@ -82,16 +87,18 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
                 />
             </ChairWrapper>
         ));
-    }
+    };
+
+    type generateKeyType = (pre: string) => string;
 
     /**
      * Generates a unique key based on a string and a random number
      * @param pre - a string to append to random number
      * @returns {string} a unique key
      */
-    function generateKey(pre: string): string {
+    const generateKey: generateKeyType = (pre) => {
         return `${pre}_${Math.random()}`;
-    }
+    };
 
     // Calculate the tangent based on the number of chairs in the array
     const tan = Math.tan(Math.PI / chairs.length);
@@ -121,6 +128,32 @@ export const CircleTable2: React.FC<ICircleTable2> = ({
             </TableBody>
         </div>
     );
+};
+
+// Define a type for Position to restrict to four specific values
+type Position = 'top' | 'bottom' | 'left' | 'right';
+
+type getPositionValueType = (position: Position) => number;
+
+/**
+ * Returns a number value for each position (right, left, top, bottom)
+ * that will allow chairs to be positioned on the correct side of the
+ * table when there are less than three chairs at a CircleTable2 component
+ *
+ * @param position - the position on the table ("top", "bottom", "left", "right")
+ * @return {number} - the value associated with a given position
+ */
+const getPositionValue: getPositionValueType = (position) => {
+    switch (position) {
+        case 'top':
+            return 0.75;
+        case 'bottom':
+            return 0.25;
+        case 'left':
+            return 0.5;
+        default:
+            return 1;
+    }
 };
 
 /**
@@ -158,6 +191,7 @@ const TableBody = styled.div<ITableBody>`
 interface IChairWrapper {
     counter: number;
     numOfChairs: number;
+    position: Position;
 }
 
 const ChairWrapper = styled.div<IChairWrapper>`
@@ -174,7 +208,11 @@ const ChairWrapper = styled.div<IChairWrapper>`
     width: var(--d);
     height: var(--d);
     --az: calc(
-        ${({ counter }) => counter}*1turn / ${({ numOfChairs }) => numOfChairs}
+        ${({ counter, position, numOfChairs }) =>
+                numOfChairs < 3
+                    ? getPositionValue(position)
+                    : counter * 1}turn /
+            ${({ numOfChairs }) => (numOfChairs < 3 ? 1 : numOfChairs)}
     );
     transform: rotate(var(--az)) translate(var(--r))
         rotate(calc(-1 * var(--az)));
