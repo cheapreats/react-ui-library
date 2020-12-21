@@ -23,14 +23,24 @@ const getReactTableProps = () => ({
         style: {
             marginTop: '10px'
         },
-        buttonProps: {
+        pageSelectorProps: {
+            buttonProps: {
+                style: {
+                    margin: '0 2px'
+                }
+            },
             style: {
-                margin: '0 2px'
+                margin: '5px 0'
             }
         },
-        smallTextProps: {
+        rowSelectorProps: {
+            smallTextProps: {
+                style: {
+                    margin: '5px 5px 0 5px'
+                }
+            },
             style: {
-                margin: '5px 5px 0 5px'
+                margin: '5px 0'
             }
         },
         headingProps: {
