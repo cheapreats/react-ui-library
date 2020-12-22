@@ -134,7 +134,7 @@ type isSideChairsType = (chairs: Array<IChair>) => boolean;
  * @return {boolean} - Returns true if there are left chairs, otherwise false
  */
 const isSideChairs: isSideChairsType = (chairs) => {
-    const left = chairs.map((i) => i.position === 'left').length;
+    const left = chairs.filter((i) => i.position === 'left').length;
     return left > 0;
 };
 
