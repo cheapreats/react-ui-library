@@ -9,7 +9,7 @@ export default {
     args: {
         accept: '',
         aspect: 0,
-        onImageReturn: (image) => console.log(image),
+        onImageReturn: (image: any) => console.log(image),
     },
 } as Meta;
 

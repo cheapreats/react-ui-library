@@ -4,6 +4,7 @@ import { StyledIcon } from '@styled-icons/styled-icon';
 import { Heading, HeadingProps } from '../../Text/Heading';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex } from '../../Utils/Mixins';
+import { IconProps } from "@Containers/Accordion/AccordionItem";
 
 export interface INavigationItemProps
     extends MainInterface,
@@ -12,6 +13,7 @@ export interface INavigationItemProps
     icon?: StyledIcon;
     label: string;
     selectedItem?: string;
+    iconProps?: IconProps | { style: any };
     headingProps?: HeadingProps;
 }
 
@@ -19,12 +21,13 @@ export const NavigationItem: React.FC<INavigationItemProps> = ({
     icon,
     label,
     selectedItem,
+    iconProps,
     headingProps,
     ...props
 }): React.ReactElement => {
     return (
         <Wrapper selectedItem={selectedItem} label={label} {...props}>
-            <Icon as={icon} />
+            <Icon as={icon} {...iconProps} />
             <Heading type="h6" {...headingProps}>
                 {label}
             </Heading>

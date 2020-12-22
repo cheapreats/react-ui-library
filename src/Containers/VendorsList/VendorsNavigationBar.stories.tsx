@@ -11,7 +11,7 @@ export default {
     component: NavigationBar,
 } as Meta;
 
-const getVendorNavigationBarProps = () => ({
+const getVendorNavigationBarProps = (): INavigationBarProps => ({
     navigationBarItems: [
         {
             icon: TableView,
@@ -27,6 +27,7 @@ const getVendorNavigationBarProps = () => ({
         },
     ],
     navigationItemProps: {
+        label: 'Icon',
         style: {
             margin: '0 20px',
             paddingBottom: '5px',

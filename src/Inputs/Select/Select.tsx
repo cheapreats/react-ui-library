@@ -25,7 +25,7 @@ const SPEED = 'normal';
 const createList = (
     children: React.ReactNode[],
     onSelect: React.MouseEventHandler,
-    value?: string | number,
+    value?: string | number | HTMLOptionElement,
 ): React.ReactNode[] =>
     children.map((child): React.ReactElement | null => {
         if (child && isValidElement(child)) {
@@ -45,8 +45,8 @@ const createList = (
 
 export interface SelectProps extends LabelLayoutProps {
     disabled?: boolean;
-    placeholder?: string;
-    value?: string | number;
+    placeholder?: string | HTMLOptionElement;
+    value?: string | number | HTMLOptionElement;
     theme: DefaultTheme;
     onChange?: Function;
     limit?: number;

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import { ReactTable, IReactTableProps } from './ReactTable';
+import { ReactTable, IReactTableProps, IVendorsData } from "./ReactTable";
 import { Profile, TagContainer } from '../VendorsList';
 import { SmallText } from '../../Text/SmallText';
 import { createStoryTitle } from '../../Constants';
@@ -12,7 +12,7 @@ export default {
 
 const isHoverable = false;
 
-const getReactTableProps = () => ({
+const getReactTableProps = (): any => ({
     tableHeaderProps: {
         style: {
             marginBottom: '10px',
@@ -25,7 +25,7 @@ const getReactTableProps = () => ({
             profileStyleProps: {
                 style: { marginTop: '5px' },
             },
-            Cell: (cell) => (
+            Cell: (cell: any) => (
                 <Profile
                     key={cell.row.original.id}
                     name={cell.row.original.name}
@@ -38,7 +38,7 @@ const getReactTableProps = () => ({
         {
             Header: 'Tags',
             accessor: 'col_tags',
-            Cell: (cell) => (
+            Cell: (cell: any) => (
                 <TagContainer
                     tags={cell.row.original.tags}
                     isHoverable={isHoverable}
@@ -50,7 +50,7 @@ const getReactTableProps = () => ({
         {
             Header: 'Created',
             accessor: 'col_created',
-            Cell: (cell) => (
+            Cell: (cell: any) => (
                 <div style={{ marginTop: '10px' }}>
                     <SmallText style={{ padding: '0 10px' }}>
                         {cell.row.original.createdAt}
@@ -61,7 +61,8 @@ const getReactTableProps = () => ({
     ],
     data: [
         {
-            id: 1,
+            key: 1,
+            id: '1',
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
             imageUrl:
@@ -70,14 +71,16 @@ const getReactTableProps = () => ({
             createdAt: '24/05/2019',
         },
         {
-            id: 2,
+            key: 2,
+            id: '2',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
             createdAt: '24/05/2019',
         },
         {
-            id: 3,
+            key: 3,
+            id: '3',
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
             imageUrl:
@@ -86,14 +89,16 @@ const getReactTableProps = () => ({
             createdAt: '24/05/2019',
         },
         {
-            id: 4,
+            key: 4,
+            id: '4',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
             createdAt: '24/05/2019',
         },
         {
-            id: 5,
+            key: 5,
+            id: '5',
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
             imageUrl:
@@ -102,7 +107,8 @@ const getReactTableProps = () => ({
             createdAt: '24/05/2019',
         },
         {
-            id: 6,
+            key: 6,
+            id: '6',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
@@ -111,7 +117,7 @@ const getReactTableProps = () => ({
     ],
 });
 
-const Template: Story<IReactTableProps> = (args) => <ReactTable {...args} />;
+const Template: Story<IReactTableProps<IVendorsData>> = (args) => <ReactTable {...args} />;
 
 export const Basic = Template.bind({});
 Basic.args = getReactTableProps();

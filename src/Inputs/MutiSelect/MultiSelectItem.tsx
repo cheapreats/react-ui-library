@@ -5,12 +5,12 @@ import { MultiSelectContext } from './MultiSelectContext';
 import { Button, ButtonProps } from '../Button/Button';
 
 export interface MultiSelectItemProps extends ButtonProps {
-    containerColumns: string | number;
+    containerColumns?: string | number;
 }
 
 export const MultiSelectItem: React.FC<MultiSelectItemProps> = ({
     children,
-    containerColumns,
+    containerColumns = 1,
     ...props
 }): React.ReactElement => {
     const columns = useContext(MultiSelectContext);

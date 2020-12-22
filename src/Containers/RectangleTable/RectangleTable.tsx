@@ -1,5 +1,6 @@
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
+import { occupancyStatusTypes } from "@Containers/CircleTable2/CircleTable2";
 
 export interface IRectangleTable {
     /**
@@ -22,12 +23,6 @@ export interface IRectangleTable {
      * The seating/reservation time for the party at the table
      */
     reservationTime?: Date;
-}
-
-export enum occupancyStatusTypes {
-    Vacant = 'Vacant',
-    Reserved = 'Reserved',
-    Occupied = 'Occupied',
 }
 
 /**

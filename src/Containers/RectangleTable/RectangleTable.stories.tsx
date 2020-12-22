@@ -10,9 +10,9 @@ import { Meta, Story } from '@storybook/react';
 import {
     RectangleTable,
     IRectangleTable,
-    occupancyStatusTypes,
 } from './RectangleTable';
 import { createStoryTitle } from '../../Constants';
+import { occupancyStatusTypes } from "@Containers";
 
 export default {
     title: createStoryTitle('RectangleTable'),

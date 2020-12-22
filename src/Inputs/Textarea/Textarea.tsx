@@ -8,6 +8,7 @@ export interface TextareaProps extends LabelLayoutProps {
     placeholder?: string;
     value?: string;
     rows: string | number;
+    onChange: any;
 }
 
 export const Textarea: React.FC<TextareaProps> = ({

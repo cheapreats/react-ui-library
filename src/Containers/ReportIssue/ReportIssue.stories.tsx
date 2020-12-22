@@ -4,7 +4,7 @@ import { ReportIssue, IReportIssueProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
 // TODO: ADD STATE to component
-const handleSubmit = (event, option) => {
+const handleSubmit = (event: any, option: any) => {
     alert(option);
     event.preventDefault();
 };

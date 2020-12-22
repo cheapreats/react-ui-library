@@ -20,10 +20,10 @@ export const Basic: Story<ISegmentedButtonProps> = (args) => {
         { name: 'button3', active: false },
         { name: 'button4', active: true },
     ]);
-    const onClick = (event, index) => {
+    const onClick = (event: any, index: number) => {
         const newSegments = [...segments];
         newSegments[index].active = !segments[index].active;
         setSegments(newSegments);
     };
-    return <SegmentedButton onClick={onClick} segments={segments} {...args} />;
+    return <SegmentedButton {...args} onClick={onClick} segments={segments} />;
 };

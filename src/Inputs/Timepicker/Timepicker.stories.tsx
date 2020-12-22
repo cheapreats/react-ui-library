@@ -24,7 +24,7 @@ export default {
 
 export const Basic: Story<TimepickerProps> = (args) => {
     const [{ timePickerValue }, updateArgs] = useArgs();
-    const setTimePickerValue = ({ target }) =>
+    const setTimePickerValue = ({ target }: any) =>
         updateArgs({ timePickerValue: target.value });
     return (
         <Timepicker

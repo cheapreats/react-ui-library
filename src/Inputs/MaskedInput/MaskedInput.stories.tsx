@@ -34,8 +34,8 @@ export default {
 } as Meta;
 
 export const Basic: Story<MaskedInputProps> = (args) => {
-    const [{ realValue }, updateArgs] = useArgs();
+    const [, updateArgs] = useArgs();
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
         updateArgs({ realValue: event.target.value });
-    return <MaskedInput onChange={onChange} {...args} />;
+    return <MaskedInput {...args} onChange={onChange} />;
 };

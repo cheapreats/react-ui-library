@@ -21,7 +21,7 @@ const ListGrid = styled.ul<IListGridProps>`
     `}
 `;
 
-const flattenColors = (value, label) => (
+const flattenColors = (value: string, label: string) => (
     <Fragment key={label}>
         {Object.entries(value).map(([innerKey, value]) =>
             typeof value === 'object' ? (
@@ -45,7 +45,7 @@ storiesOf('Design System/Colors', module).add('Overview', () => (
         <ListGrid columnWidth={300} gap={15}>
             {Object.entries(MainTheme.colors).map(([key, value]) =>
                 typeof value === 'object' ? (
-                    flattenColors(value, key)
+                    flattenColors(value as any, key)
                 ) : (
                     <li key={key}>
                         <ColorCard color={value} label={key} />
