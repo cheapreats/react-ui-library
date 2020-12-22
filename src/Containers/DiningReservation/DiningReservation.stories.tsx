@@ -11,10 +11,5 @@ export default {
 export const Basic: Story<DiningReservationProps> = (args) => {
     const modalState = useState(false);
 
-    return (
-        <DiningReservation
-            {...args}
-            modalState={modalState}
-        />
-    );
+    return <DiningReservation {...args} modalState={modalState} />;
 };

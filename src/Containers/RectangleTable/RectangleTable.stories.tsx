@@ -7,11 +7,8 @@
 
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { occupancyStatusTypes } from "@Containers";
-import {
-    RectangleTable,
-    IRectangleTable,
-} from './RectangleTable';
+import { occupancyStatusTypes } from '@Containers';
+import { RectangleTable, IRectangleTable } from './RectangleTable';
 import { createStoryTitle } from '../../Constants';
 
 export default {

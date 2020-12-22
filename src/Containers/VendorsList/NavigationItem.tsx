@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
-import { IconProps } from "@Containers/Accordion/AccordionItem";
+import { IconProps } from '@Containers/Accordion/AccordionItem';
 import { Heading, HeadingProps } from '../../Text/Heading';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex } from '../../Utils/Mixins';

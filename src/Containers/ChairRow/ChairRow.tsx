@@ -40,34 +40,34 @@ export const ChairRow: React.FC<IChairRow> = ({
      */
     function chairRowSwitch(): JSX.Element {
         switch (position) {
-        case 'top':
-        case 'bottom':
-            return (
-                <div>
-                    <TopBottomRow chairNumOnSide={chairNumOnSide}>
+            case 'top':
+            case 'bottom':
+                return (
+                    <div>
+                        <TopBottomRow chairNumOnSide={chairNumOnSide}>
+                            {[...Array(chairNumOnSide)].map((e, i) => (
+                                <ChairCol key={generateKey(position + i)}>
+                                    <Chair position={position} />
+                                </ChairCol>
+                            ))}
+                        </TopBottomRow>
+                    </div>
+                );
+            case 'left':
+            case 'right':
+                return (
+                    <div>
                         {[...Array(chairNumOnSide)].map((e, i) => (
-                            <ChairCol key={generateKey(position + i)}>
-                                <Chair position={position} />
-                            </ChairCol>
+                            <SideChairRow key={generateKey(position + i)}>
+                                <SideChairCentering>
+                                    <Chair position={position} />
+                                </SideChairCentering>
+                            </SideChairRow>
                         ))}
-                    </TopBottomRow>
-                </div>
-            );
-        case 'left':
-        case 'right':
-            return (
-                <div>
-                    {[...Array(chairNumOnSide)].map((e, i) => (
-                        <SideChairRow key={generateKey(position + i)}>
-                            <SideChairCentering>
-                                <Chair position={position} />
-                            </SideChairCentering>
-                        </SideChairRow>
-                    ))}
-                </div>
-            );
-        default:
-            return <div />;
+                    </div>
+                );
+            default:
+                return <div />;
         }
     }
 

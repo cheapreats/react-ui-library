@@ -57,30 +57,30 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
             index: number,
         ): React.ReactElement => {
             switch (true) {
-            case index < determineProfilePictureLimit():
-                return (
-                    <FeaturedProfile
-                        key={profile.id}
-                        image={profile.image}
-                        background="none"
-                    />
-                );
-            case index < profileInitialsEndIndex:
-                return (
-                    <FeaturedProfile
-                        key={profile.id}
-                        initials={profile.initials}
-                        background="orange"
-                    />
-                );
-            default:
-                return (
-                    <FeaturedProfile
-                        key={profile.id}
-                        remainingProfiles={remainingProfiles}
-                        background="gray"
-                    />
-                );
+                case index < determineProfilePictureLimit():
+                    return (
+                        <FeaturedProfile
+                            key={profile.id}
+                            image={profile.image}
+                            background="none"
+                        />
+                    );
+                case index < profileInitialsEndIndex:
+                    return (
+                        <FeaturedProfile
+                            key={profile.id}
+                            initials={profile.initials}
+                            background="orange"
+                        />
+                    );
+                default:
+                    return (
+                        <FeaturedProfile
+                            key={profile.id}
+                            remainingProfiles={remainingProfiles}
+                            background="gray"
+                        />
+                    );
             }
         };
 

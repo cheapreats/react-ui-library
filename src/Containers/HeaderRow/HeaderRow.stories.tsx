@@ -16,6 +16,4 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<HeaderRowProps> = (args) => (
-    <HeaderRow {...args} />
-);
+export const Basic: Story<HeaderRowProps> = (args) => <HeaderRow {...args} />;

@@ -93,14 +93,14 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
         maskInputPreset: MaskedInputPreset | ((value: string) => string),
     ): ((value: string) => string) => {
         switch (maskInputPreset) {
-        case MaskedInputPreset.DOLLAR:
-            return DOLLAR_FORMAT_MASK;
-        case MaskedInputPreset.PERCENTAGE:
-            return PERCENT_FORMAT_MASK;
-        case MaskedInputPreset.PHONE:
-            return PHONE_FORMAT_MASK;
-        default:
-            return mask as (value: string) => string;
+            case MaskedInputPreset.DOLLAR:
+                return DOLLAR_FORMAT_MASK;
+            case MaskedInputPreset.PERCENTAGE:
+                return PERCENT_FORMAT_MASK;
+            case MaskedInputPreset.PHONE:
+                return PHONE_FORMAT_MASK;
+            default:
+                return mask as (value: string) => string;
         }
     };
 

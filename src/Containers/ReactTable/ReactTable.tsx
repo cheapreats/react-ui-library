@@ -94,22 +94,22 @@ const STableHead = styled.thead`
 const STableData = styled.td`
     ${({ theme }): string => `
         ${media(
-        'phone',
-        `
+            'phone',
+            `
         font-size: ${theme.font.size.small};
         `,
-    )}
+        )}
     `};
 `;
 const STableHeader = styled.th`
     text-align: left;
     ${({ theme }): string => `
         ${media(
-        'phone',
-        `
+            'phone',
+            `
         font-size: ${theme.font.size.small};
         `,
-    )}
+        )}
     `};
 `;
 const SHeadTableRow = styled.tr`

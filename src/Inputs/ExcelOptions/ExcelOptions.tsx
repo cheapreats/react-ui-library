@@ -120,14 +120,8 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                     <ShownHeadersDiv>
                         <Heading type="h3">Headers</Heading>
                         <Paragraph>
-                            You can 
-                            {' '}
-                            <b>Add/Remove</b>
-                            {' '}
-                            desired headers and
-                            <b> Rearrange The Order</b>
-                            {' '}
-                            by dragging them
+                            You can <b>Add/Remove</b> desired headers and
+                            <b> Rearrange The Order</b> by dragging them
                         </Paragraph>
                         <Droppable droppableId="labels" direction="horizontal">
                             {(provided): React.ReactElement => (
@@ -160,7 +154,8 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                                             onClick={(): void =>
                                                                 removeHeader(
                                                                     index,
-                                                                )}
+                                                                )
+                                                            }
                                                         >
                                                             {keyToHeader(
                                                                 header,

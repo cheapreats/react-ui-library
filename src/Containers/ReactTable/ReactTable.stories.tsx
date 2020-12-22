@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import { ReactTable, IReactTableProps, IVendorsData } from "./ReactTable";
+import { ReactTable, IReactTableProps, IVendorsData } from './ReactTable';
 import { Profile, TagContainer } from '../VendorsList';
 import { SmallText } from '../../Text/SmallText';
 import { createStoryTitle } from '../../Constants';
@@ -117,7 +117,9 @@ const getReactTableProps = (): any => ({
     ],
 });
 
-const Template: Story<IReactTableProps<IVendorsData>> = (args) => <ReactTable {...args} />;
+const Template: Story<IReactTableProps<IVendorsData>> = (args) => (
+    <ReactTable {...args} />
+);
 
 export const Basic = Template.bind({});
 Basic.args = getReactTableProps();

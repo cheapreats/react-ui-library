@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs, text as textKnob, boolean } from '@storybook/addon-knobs';
 import { Heading, Paragraph, SmallText } from '../index';
