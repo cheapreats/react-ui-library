@@ -50,7 +50,6 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
      */
     const getLabel = useCallback(
         (hours: number, minutes: number) => {
-            // @ts-ignore
             const relativeTimeFormat = new Intl.RelativeTimeFormat(locale);
 
             if (hours === 0) {
@@ -68,7 +67,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
     useEffect(() => {
         let previous: ITimelineData | null = null;
 
-        const deltas = timelineData.reduce((acc, value) => {
+        const deltas_ = timelineData.reduce((acc, value) => {
             if (previous) {
                 const delta: { value: number; color: string } = {
                     value: 0,
@@ -85,31 +84,31 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
         }, [] as Array<IDelta>);
 
         if (isMounted.current) {
-            setDeltas(deltas);
+            setDeltas(deltas_);
         }
     }, [timelineData]);
 
     const renderBlocks = useCallback(
-        (deltas: IDelta[]): JSX.Element[] => {
-            return deltas.map((delta, index, deltas) => (
+        (deltas_: IDelta[]): JSX.Element[] => {
+            return deltas_.map((delta, index, array) => (
                 <Block
                     delta={delta.value}
                     color={delta.color}
-                    step={
+                    step={(
                         <Step
                             label={timelineData[index].label}
                             width={widthRightPanels}
                             height={heightPanels}
                             center
                             relative={index}
-                            length={deltas.length}
+                            length={array.length}
                         />
-                    }
+                    )}
                     relative={index}
                     verticalSpacing={verticalSpacing}
                     widthLeftPanels={widthLeftPanels}
                     heightPanels={heightPanels}
-                    length={deltas.length}
+                    length={array.length}
                     getLabel={getLabel}
                 />
             ));
@@ -129,7 +128,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
         <div>
             {renderBlocks(deltas)}
             <Block
-                step={
+                step={(
                     <Step
                         label={timelineData[timelineData.length - 1].label}
                         width={widthRightPanels}
@@ -138,7 +137,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
                         length={deltas.length}
                         relative={deltas.length}
                     />
-                }
+                )}
                 relative={deltas.length}
                 verticalSpacing={verticalSpacing}
                 widthLeftPanels={widthLeftPanels}
@@ -207,11 +206,11 @@ const StepBox = styled.div<IStepBoxProps>`
         }
       
         ${
-            index === length
-                ? `
+    index === length
+        ? `
         96%{opacity:0;}
         `
-                : `
+        : `
         ${(index / length) * 100}% {
             opacity: 0;
         }
@@ -219,7 +218,7 @@ const StepBox = styled.div<IStepBoxProps>`
             opacity: 1;
         }
         `
-        }
+}
  
         100% {
             opacity: 1;
@@ -240,15 +239,18 @@ const StepBox = styled.div<IStepBoxProps>`
         end,
         center,
         color,
+        length,
+        index,
     }): string => `
     ${color ? `color:${color};` : 'color:black;'}
     width:${width}px;
     height:${height}px;
+    ${length === index ? `opacity:0;` : ''}
     ${
-        relative && verticalSpacing
-            ? `position:relative;top:${(verticalSpacing + 44) / 2 + 6}px;`
-            : ''
-    }
+    relative && verticalSpacing
+        ? `position:relative;top:${(verticalSpacing + 44) / 2 + 6}px;`
+        : ''
+}
     ${margin ? `margin:${margin};` : ''}
     ${end ? 'visibility:hidden;' : ''}
     ${center ? `${flex('center', 'center')}` : ''}
@@ -352,20 +354,20 @@ const Divider = styled.div<IDividerProps>`
         length,
     }): string => `
     ${
-        relative !== undefined && length !== undefined
-            ? `
+    relative !== undefined && length !== undefined
+        ? `
     @keyframes ${`dot${relative}`} {
         0%{opacity:0;}
         ${
-            relative !== length
-                ? `
+    relative !== length
+        ? `
         ${(relative * 100) / length}%{opacity: 0;}
         ${((relative + 1) * 100) / length}%{opacity:1;}
         `
-                : `
+        : `
         96%{opacity:0;}
         `
-        }
+}
         100%{opacity:1;}
       }
 
@@ -373,31 +375,19 @@ const Divider = styled.div<IDividerProps>`
     animation-duration:${2 * length}s;
     animation-iteration-count:1;
     `
-            : end && relative !== undefined
-            ? `
-        @keyframes dotEnd {
-            0%{opacity:0;}
-            99%{opacity:0;}
-            100%{opacity:1;}
-          }
-    
-        animation-name:dotEnd;
-        animation-duration:${2 * relative}s;
-        animation-iteration-count:1;
-        `
-            : ''
-    }
+        : ''
+}
     ${color ? `color:${color};background-color:currentColor;` : 'color:black;'}
     border: 1px solid currentColor;
     ${
-        !end && !!heightPanels && relative !== undefined && length !== undefined
-            ? `
+    !end && !!heightPanels && relative !== undefined && length !== undefined
+        ? `
         @keyframes ${`flow${relative}`} {
             0%{height:0px;}
             ${(relative * 100) / length}%{height: 0px;}
             ${((relative + 1) * 100) / length}%{height:${
-                  heightPanels + verticalSpacing - 2
-              }px;}
+    heightPanels + verticalSpacing - 2
+}px;}
 100%{height:${heightPanels + verticalSpacing - 2}px;}
           }
     &::before {
@@ -414,7 +404,7 @@ const Divider = styled.div<IDividerProps>`
         left: 2px;
     }
     `
-            : ''
-    }
+        : ''
+}
     `}
 `;

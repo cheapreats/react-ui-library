@@ -39,14 +39,14 @@ export const List: React.FC<ListProps> = ({
         const handler = ({ type }: { type: string }): void => {
             if (setIsOpen) {
                 switch (type) {
-                    case 'swipeRight':
-                        setIsOpen(true);
-                        break;
-                    case 'swipeLeft':
-                        setIsOpen(false);
-                        break;
-                    default:
-                        break;
+                case 'swipeRight':
+                    setIsOpen(true);
+                    break;
+                case 'swipeLeft':
+                    setIsOpen(false);
+                    break;
+                default:
+                    break;
                 }
             }
         };
