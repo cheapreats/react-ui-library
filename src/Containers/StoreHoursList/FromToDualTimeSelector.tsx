@@ -60,8 +60,7 @@ export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
                                 setStoreHours({
                                     ...storeHours,
                                     [time[INITIAL_TIME_INDEX]]: e.target.value,
-                                })
-                            }
+                                })}
                             error={
                                 (time[INITIAL_TIME_INDEX] === FROM &&
                                     errors.fromTooBig) ||

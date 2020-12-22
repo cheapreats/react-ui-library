@@ -21,9 +21,9 @@ const ListGrid = styled.ul<IListGridProps>`
     `}
 `;
 
-const flattenColors = (value: string, label: string) => (
+const flattenColors = (Value: string, label: string) => (
     <Fragment key={label}>
-        {Object.entries(value).map(([innerKey, value]) =>
+        {Object.entries(Value).map(([innerKey, value]) =>
             typeof value === 'object' ? (
                 flattenColors(value, `${label}.${innerKey}`)
             ) : (

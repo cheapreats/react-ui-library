@@ -29,32 +29,32 @@ export const Chair: React.FC<IChair> = ({ position = 'top', ...props }) => {
      */
     const chairSwitch: () => JSX.Element | null = () => {
         switch (position) {
-            case 'top':
-                return (
-                    <TopChair
-                        chairTableBackground={colors.chairTableBackground}
-                    />
-                );
-            case 'bottom':
-                return (
-                    <BottomChair
-                        chairTableBackground={colors.chairTableBackground}
-                    />
-                );
-            case 'left':
-                return (
-                    <LeftChair
-                        chairTableBackground={colors.chairTableBackground}
-                    />
-                );
-            case 'right':
-                return (
-                    <RightChair
-                        chairTableBackground={colors.chairTableBackground}
-                    />
-                );
-            default:
-                return null;
+        case 'top':
+            return (
+                <TopChair
+                    chairTableBackground={colors.chairTableBackground}
+                />
+            );
+        case 'bottom':
+            return (
+                <BottomChair
+                    chairTableBackground={colors.chairTableBackground}
+                />
+            );
+        case 'left':
+            return (
+                <LeftChair
+                    chairTableBackground={colors.chairTableBackground}
+                />
+            );
+        case 'right':
+            return (
+                <RightChair
+                    chairTableBackground={colors.chairTableBackground}
+                />
+            );
+        default:
+            return null;
         }
     };
     return <div {...props}>{chairSwitch()}</div>;

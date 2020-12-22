@@ -38,7 +38,7 @@ interface IPages {
 
 const pages: IPages = {
     Item1: {
-        // @ts-ignore
+        
         component: null,
         navProps: {
             to: '/:id/orders',
@@ -46,7 +46,7 @@ const pages: IPages = {
         },
     },
     Item2: {
-        // @ts-ignore
+        
         component: null,
         navProps: {
             to: '/:id/whatever',
@@ -54,7 +54,7 @@ const pages: IPages = {
         },
     },
     Home: {
-        // @ts-ignore
+        
         component: null,
         navProps: {
             to: '/:id',
