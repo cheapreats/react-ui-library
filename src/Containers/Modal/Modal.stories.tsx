@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { Meta, Story } from '@storybook/react';
 import { Modal, Button, ModalProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Modal'),
@@ -15,7 +15,7 @@ export const Basic: Story<ModalProps> = (args) => {
     return (
         <>
             <Button onClick={() => Modal1[1](true)}>Open modal one</Button>
-            <Modal state={Modal1}></Modal>
+            <Modal state={Modal1} />
             <Modal state={Modal1} padding="20px">
                 Modal One
                 <Button onClick={() => Modal2[1](true)}>Open modal two</Button>

@@ -25,12 +25,14 @@ export const WaitTimeDisplay: React.FC<IWaitTimeDisplay> = ({
         <Row {...props}>
             <PieChart AverageWaitTime={AverageWaitTime} />
             <TextPaddingLeftTop>
-                <SmallText size={'3rem'} bold>
+                <SmallText size="3rem" bold>
                     Avg. Wait
                 </SmallText>
                 <br />
-                <SmallText size={'3rem'} bold>
-                    {AverageWaitTime} Min
+                <SmallText size="3rem" bold>
+                    {AverageWaitTime}
+                    {' '}
+                    Min
                 </SmallText>
             </TextPaddingLeftTop>
         </Row>
@@ -62,14 +64,14 @@ function getColor(AverageWaitTime: Number) {
     const { colors } = useTheme();
     if (AverageWaitTime >= BUSY) {
         return colors.PieChartColors.Red;
-    } else if (
+    } if (
         AverageWaitTime >= STARTING_TO_GET_BUSY &&
         AverageWaitTime <= BUSY
     ) {
         return colors.PieChartColors.Yellow;
-    } else {
-        return colors.PieChartColors.Green;
-    }
+    } 
+    return colors.PieChartColors.Green;
+    
 }
 
 const PieChart = styled.div<Pick<IWaitTimeDisplay, 'AverageWaitTime'>>`
@@ -84,7 +86,7 @@ const PieChart = styled.div<Pick<IWaitTimeDisplay, 'AverageWaitTime'>>`
     background-image: conic-gradient(
         ${({ AverageWaitTime }) => getColor(AverageWaitTime)}
             ${({ AverageWaitTime }) =>
-                AverageWaitTime * MULTIPLY_DEGREE_ANGLE}deg,
+        AverageWaitTime * MULTIPLY_DEGREE_ANGLE}deg,
         grey 0 235deg
     );
 `;

@@ -10,10 +10,10 @@ import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
 import { Heading, Paragraph } from '@Text';
 import { Tag } from '@Containers';
+import { Mixins } from '@Utils';
 import { Select } from '../Select/Select';
 import { Datepicker } from '../Datepicker';
 import { Button } from '../Button/Button';
-import { Mixins } from '@Utils';
 
 export interface ExcelOptionsProps
     extends MainInterface,
@@ -120,8 +120,14 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                     <ShownHeadersDiv>
                         <Heading type="h3">Headers</Heading>
                         <Paragraph>
-                            You can <b>Add/Remove</b> desired headers and
-                            <b> Rearrange The Order</b> by dragging them
+                            You can 
+                            {' '}
+                            <b>Add/Remove</b>
+                            {' '}
+                            desired headers and
+                            <b> Rearrange The Order</b>
+                            {' '}
+                            by dragging them
                         </Paragraph>
                         <Droppable droppableId="labels" direction="horizontal">
                             {(provided): React.ReactElement => (
@@ -154,8 +160,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                                             onClick={(): void =>
                                                                 removeHeader(
                                                                     index,
-                                                                )
-                                                            }
+                                                                )}
                                                         >
                                                             {keyToHeader(
                                                                 header,

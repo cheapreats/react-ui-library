@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { SettingsSwitch, SettingsSwitchProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Settings Switch'),
@@ -16,7 +16,7 @@ export default {
 } as Meta;
 
 export const Basic: Story<SettingsSwitchProps> = (args) => (
-    <SettingsSwitch {...args}></SettingsSwitch>
+    <SettingsSwitch {...args} />
 );
 
 export const DisabledFlexColumn = Basic.bind({});

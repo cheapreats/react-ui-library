@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { Slider, SliderProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Slider'),
@@ -19,7 +19,7 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<SliderProps> = (args) => <Slider {...args}></Slider>;
+export const Basic: Story<SliderProps> = (args) => <Slider {...args} />;
 
 export const WithRail = Basic.bind({});
 WithRail.args = {

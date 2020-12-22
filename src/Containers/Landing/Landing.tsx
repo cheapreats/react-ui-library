@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Heading, SmallText as S } from '@Text';
+import { flex, media, scroll } from '@Utils/Mixins';
 import { Loading } from '../Loading/Loading';
 import { Card, CardProps } from '../Card/Card';
 import { Copyright } from '../Copyright/Copyright';
-import { Heading, SmallText as S } from '@Text';
-import { flex, media, scroll } from '@Utils/Mixins';
 
 export interface ILandingProps extends CardProps {
     children: React.ReactNode;

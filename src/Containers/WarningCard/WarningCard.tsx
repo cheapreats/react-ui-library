@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { ExclamationTriangle } from '@styled-icons/fa-solid/ExclamationTriangle';
 import { Trash } from '@styled-icons/fa-solid/Trash';
-import { Card as C, CardProps } from '../Card/Card';
 import { Heading } from '@Text';
 import { transition, flex } from '@Utils/Mixins';
+import { Card as C, CardProps } from '../Card/Card';
 import { Button } from '../../Inputs/Button/Button';
 
 export interface IWarningCardProps extends CardProps {

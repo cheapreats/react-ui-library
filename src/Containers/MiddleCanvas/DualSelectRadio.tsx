@@ -45,7 +45,7 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
                 <Row display={headerSpacingStyle}>
                     <Text>{leftPlaceholder}</Text>
                     <Container>
-                        <Text isRightOption={true}>
+                        <Text isRightOption>
                             {`${selectOption[FIRST_SELECT_OPTION]}/${selectOption[SECOND_SELECT_OPTION]}`}
                         </Text>
                         <Icon

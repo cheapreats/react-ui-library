@@ -12,15 +12,15 @@ export const getCaptionForLocale = (children?: any): string => {
         return children;
     }
     switch (locale) {
-        case 'es':
-            return 'Hola!';
-        case 'fr':
-            return 'Bonjour!';
-        case 'kr':
-            return '안녕하세요!';
-        case 'zh':
-            return '你好!';
-        default:
-            return 'Hello!';
+    case 'es':
+        return 'Hola!';
+    case 'fr':
+        return 'Bonjour!';
+    case 'kr':
+        return '안녕하세요!';
+    case 'zh':
+        return '你好!';
+    default:
+        return 'Hello!';
     }
 };

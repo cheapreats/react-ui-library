@@ -90,7 +90,7 @@ storiesOf(createStoryTitle('Ranking Table'), module)
     .add('with time interval', () => (
         <RankingTable
             title="Top 3 Products"
-            IsTimeIntervalFilterVisible={true}
+            IsTimeIntervalFilterVisible
             data={data}
             rowsVisible={10}
         />

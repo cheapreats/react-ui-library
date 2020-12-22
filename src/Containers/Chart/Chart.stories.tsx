@@ -1,8 +1,8 @@
 import React from 'react';
-import { Chart, ChartProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
 import { Meta, Story } from '@storybook/react';
 import { MainTheme } from '@Themes';
+import { Chart, ChartProps } from '../../index';
+import { createStoryTitle } from '../../Constants';
 
 export default {
     title: createStoryTitle('Chart'),
@@ -21,7 +21,7 @@ const defaultArgs = {
     ],
 };
 
-const Template: Story<ChartProps> = (args) => <Chart {...args}></Chart>;
+const Template: Story<ChartProps> = (args) => <Chart {...args} />;
 
 export const Basic = Template.bind({});
 

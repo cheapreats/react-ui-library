@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { Radio, RadioProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Radio'),
@@ -12,7 +12,7 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<RadioProps> = (args) => <Radio {...args}></Radio>;
+export const Basic: Story<RadioProps> = (args) => <Radio {...args} />;
 
 export const WithLabel = Basic.bind({});
 WithLabel.args = {

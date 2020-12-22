@@ -1,11 +1,11 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import {
     ScrollableListContent,
     SmallText,
     ScrollableListContentProps,
 } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Scrollable List Content'),

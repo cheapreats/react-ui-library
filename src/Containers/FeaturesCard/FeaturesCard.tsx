@@ -1,8 +1,8 @@
 import React, { ReactNode } from 'react';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { Card as C, CardProps } from '../Card/Card';
 import { transition, position } from '@Utils/Mixins';
+import { Card as C, CardProps } from '../Card/Card';
 
 export interface FeaturesCardProps extends MainInterface, ResponsiveInterface {
     iconComponent: ReactNode;

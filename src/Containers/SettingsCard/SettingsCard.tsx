@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { Mixins } from '@Utils';
-import { Card as C } from '../Card/Card';
 import { Heading } from '@Text';
+import { Card as C } from '../Card/Card';
 
 export interface SettingsCardProps
     extends MainInterface,

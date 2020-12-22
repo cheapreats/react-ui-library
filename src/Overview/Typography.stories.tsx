@@ -48,11 +48,14 @@ storiesOf('Design System/Typography', module).add(
                 <Paragraph>
                     CheaprEats uses only Quicksand across all applications and
                     systems. Before using our UI components, we highly recommend
-                    loading this font-family yourself via{' '}
+                    loading this font-family yourself via
+                    {' '}
                     <a href="https://fonts.google.com/specimen/Quicksand">
                         Google Fonts
-                    </a>{' '}
-                    or with{' '}
+                    </a>
+                    {' '}
+                    or with
+                    {' '}
                     <a href="https://github.com/typekit/webfontloader">
                         WebFontLoader
                     </a>

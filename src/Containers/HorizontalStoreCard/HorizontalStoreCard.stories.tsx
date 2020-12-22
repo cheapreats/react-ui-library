@@ -1,8 +1,8 @@
 import React from 'react';
-import { HorizontalStoreCard, HorizontalStoreCardProps } from '../../index';
 import { Dog } from '@styled-icons/fa-solid/Dog';
-import { createStoryTitle } from '../../Constants';
 import { Meta, Story } from '@storybook/react';
+import { HorizontalStoreCard, HorizontalStoreCardProps } from '../../index';
+import { createStoryTitle } from '../../Constants';
 
 export default {
     title: createStoryTitle('Horizontal Store Card'),

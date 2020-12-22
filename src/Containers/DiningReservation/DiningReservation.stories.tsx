@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import { Meta, Story } from '@storybook/react';
 import { DiningReservation, DiningReservationProps } from './DiningReservation';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Dining Reservation'),
@@ -15,6 +15,6 @@ export const Basic: Story<DiningReservationProps> = (args) => {
         <DiningReservation
             {...args}
             modalState={modalState}
-        ></DiningReservation>
+        />
     );
 };

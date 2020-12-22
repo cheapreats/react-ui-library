@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { EmojiPicker, EmojiPickerProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Emoji picker'),
@@ -14,5 +14,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<EmojiPickerProps> = (args) => (
-    <EmojiPicker {...args}></EmojiPicker>
+    <EmojiPicker {...args} />
 );

@@ -1,8 +1,8 @@
 import React from 'react';
-import { SettingsCard, SettingsCardProps } from '../../index';
 import { Plus } from '@styled-icons/boxicons-regular/Plus';
-import { createStoryTitle } from '../../Constants';
 import { Meta, Story } from '@storybook/react';
+import { SettingsCard, SettingsCardProps } from '../../index';
+import { createStoryTitle } from '../../Constants';
 
 export default {
     title: createStoryTitle('Settings Card'),

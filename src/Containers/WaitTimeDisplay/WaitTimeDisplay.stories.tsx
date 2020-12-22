@@ -1,6 +1,6 @@
 import React from 'react';
-import { WaitTimeDisplay, IWaitTimeDisplay } from '../../index';
 import { Meta, Story } from '@storybook/react';
+import { WaitTimeDisplay, IWaitTimeDisplay } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
 export default {

@@ -58,8 +58,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
                     type="checkbox"
                     name={name}
                     onChange={(event: SyntheticEvent<HTMLInputElement>): void =>
-                        onChange(event)
-                    }
+                        onChange(event)}
                     {...props}
                     value={
                         value === undefined || value === null
@@ -139,9 +138,9 @@ const CheckBox = styled.div<CheckboxProps>`
             }
 
             ${Main({
-                padding: `${dimensions.checkbox.spacing}px`,
-                ...props,
-            })}
+        padding: `${dimensions.checkbox.spacing}px`,
+        ...props,
+    })}
         `;
     }}
     ${({ checkboxStyle, ...props }): string =>

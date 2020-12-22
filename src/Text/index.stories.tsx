@@ -18,13 +18,13 @@ storiesOf(createStoryTitle('Text'), module)
             text: 'Headings Everywhere!',
         });
         return (
-            <Fragment>
+            <>
                 {types.map((type) => (
                     <Heading key={type} type={type} {...props}>
                         {text}
                     </Heading>
                 ))}
-            </Fragment>
+            </>
         );
     })
     .add('with Paragraph', () => {

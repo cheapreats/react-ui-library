@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { ImageCarousel, ImageCarouselProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 const images = [
     'https://image.shutterstock.com/image-photo/image-250nw-1081879181.jpg',
@@ -20,5 +20,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<ImageCarouselProps> = (args) => (
-    <ImageCarousel {...args}></ImageCarousel>
+    <ImageCarousel {...args} />
 );

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { AddUser } from '@styled-icons/entypo/AddUser';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { flex } from '@Utils/Mixins';
+
 export interface IFeaturedProfileProps
     extends MainInterface,
         ResponsiveInterface,

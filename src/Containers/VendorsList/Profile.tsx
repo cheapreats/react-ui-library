@@ -59,8 +59,8 @@ export const Profile: React.FC<IProfileProps> = ({
             key: id,
             width: PROFILE_WIDTH,
             height: PROFILE_HEIGHT,
-            background: !!image ? 'none' : theme.colors.primary,
-            initials: !!image ? '' : profileInitials,
+            background: image ? 'none' : theme.colors.primary,
+            initials: image ? '' : profileInitials,
         };
 
         return (

@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { Card as C } from '../Card/Card';
-import { PictureCard } from '../PictureCard/PictureCard';
 import { Paragraph } from '@Text/Paragraph';
 import { SmallText } from '@Text/SmallText';
+import { Card as C } from '../Card/Card';
+import { PictureCard } from '../PictureCard/PictureCard';
 
 interface TagProps {
     icon: StyledIcon;

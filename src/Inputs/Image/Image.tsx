@@ -8,8 +8,8 @@ import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
 import { position, flex } from '@Utils/Mixins';
 import { Heading } from '@Text/Heading';
-import { Button } from '../Button/Button';
 import { Modal } from '@Containers';
+import { Button } from '../Button/Button';
 
 export interface ImageProps
     extends MainInterface,

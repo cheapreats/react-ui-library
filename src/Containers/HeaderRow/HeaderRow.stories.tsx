@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { HeaderRow, HeaderRowProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Header Row'),
@@ -17,5 +17,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<HeaderRowProps> = (args) => (
-    <HeaderRow {...args}></HeaderRow>
+    <HeaderRow {...args} />
 );

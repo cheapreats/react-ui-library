@@ -1,5 +1,7 @@
 import React from 'react';
 import { Cog } from '@styled-icons/fa-solid/Cog';
+import { useArgs } from '@storybook/client-api';
+import { Meta, Story } from '@storybook/react';
 import {
     List,
     ListProps,
@@ -8,8 +10,6 @@ import {
     ListItem,
     ListToggle,
 } from '../../index';
-import { useArgs } from '@storybook/client-api';
-import { Meta, Story } from '@storybook/react';
 import { createStoryTitle } from '../../Constants';
 
 const COG_WHEEL_ICON = Cog;
@@ -72,14 +72,14 @@ export const Basic: Story<ListProps> = (args) => {
             {...args}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            toggleComponent={
+            toggleComponent={(
                 <ListToggle
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
-                    isLeftToggle={true}
+                    isLeftToggle
                     isToggleHiddenDesktop
                 />
-            }
+            )}
         >
             {items.map((item) => (
                 <ListItem

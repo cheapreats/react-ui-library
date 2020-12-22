@@ -3,10 +3,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { CaretUp as AngleUp } from '@styled-icons/fa-solid/CaretUp';
-import { Select } from '../../Inputs/Select/Select';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { Heading } from '@Text/Heading';
 import { Mixins } from '@Utils';
+import { Select } from '../../Inputs/Select/Select';
 
 interface CustomerProps {
     name: string;
@@ -196,8 +196,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                                                         onClick={(): void =>
                                                             setIsAscending(
                                                                 !isAscending,
-                                                            )
-                                                        }
+                                                            )}
                                                     >
                                                         {heading.toUpperCase()}
                                                     </span>

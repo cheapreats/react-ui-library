@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Paragraph } from '@Text';
-import { Switch, SwitchProps } from '../Switch/Switch';
 import { flex } from '@Utils/Mixins';
+import { Switch, SwitchProps } from '../Switch/Switch';
 
 export interface SettingsSwitchProps extends SwitchProps {
     text?: string;
