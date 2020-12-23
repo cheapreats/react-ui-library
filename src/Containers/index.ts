@@ -52,3 +52,4 @@ export * from './WaitTimeDisplay/WaitTimeDisplay';
 export * from './VendorsList';
 export * from './MiddleCanvas';
 export * from './WarningCard/WarningCard';
+export * from './FileUpload/FileUpload';
