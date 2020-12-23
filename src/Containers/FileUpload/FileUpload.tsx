@@ -18,8 +18,28 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     minHeight,
 }):React.ReactElement=>{
 
+    const processFiles=(event:React.DragEvent<HTMLDivElement>)=>{
+        event.preventDefault();
+        if(event.dataTransfer.items){
+            for (let i = 0; i < event.dataTransfer.items.length; i+=1) {
+                // If dropped items aren't files, reject them
+                if (event.dataTransfer.items[i].kind === 'file') {
+                    const file = event.dataTransfer.items[i].getAsFile();
+                    if(file){
+                    // console.log(`... file[${i}].name = ${file.name}`);
+                    }
+                }
+            }
+        }
+    }
+
+    const preventDefault=(event:Event | React.DragEvent<HTMLDivElement>)=>{
+        event.preventDefault();
+        event.stopPropagation();
+    }
+
     return (
-        <Container>
+        <Container onDrop={processFiles} onDragOver={preventDefault}>
             <SubContainer minHeight={minHeight}>
                 <Icon as={Image} />
                 {Title}
