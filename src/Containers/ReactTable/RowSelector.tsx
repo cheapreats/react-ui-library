@@ -13,8 +13,8 @@ export interface IRowSelectorProps extends MainInterface, ResponsiveInterface,Re
     smallTextProps?: SmallTextProps;
 };
 
-const leftRowText = 'Rows per page';
-const rightRowText = 'out of ';
+const LEFT_ROW_TEXT = 'Rows per page';
+const RIGHT_ROW_TEXT = 'out of ';
 
 export const RowSelector: React.FC<IRowSelectorProps> = ({
     pageSize,
@@ -27,7 +27,7 @@ export const RowSelector: React.FC<IRowSelectorProps> = ({
     return (
         <Wrapper {...props}>
             <SmallText {...smallTextProps}>
-                {leftRowText}
+                {LEFT_ROW_TEXT}
             </SmallText>
             <Select
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
@@ -43,7 +43,7 @@ export const RowSelector: React.FC<IRowSelectorProps> = ({
                 ))}
             </Select>
             <SmallText {...smallTextProps}>
-                {rightRowText} 
+                {RIGHT_ROW_TEXT} 
                 {pageOptionsLength}
             </SmallText>
         </Wrapper>

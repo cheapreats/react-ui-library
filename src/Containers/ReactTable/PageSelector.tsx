@@ -17,9 +17,9 @@ export interface IPageSelectorProps extends MainInterface, ResponsiveInterface,R
     smallTextProps?: SmallTextProps;
 };
 
-const indexShift = 1;
-const leftText = 'Page '
-const middleText = ' out of '
+const INDEX_SHIFT = 1;
+const LEFT_TEXT = 'Page '
+const MIDDLE_TEXT = ' out of '
 
 export const PageSelector: React.FC<IPageSelectorProps> = ({
     goToPreviousPage,
@@ -46,7 +46,7 @@ export const PageSelector: React.FC<IPageSelectorProps> = ({
                         onClick={() => goToPage(index)}
                         {...buttonProps}
                     > 
-                        {index + indexShift}
+                        {index + INDEX_SHIFT}
                     </Button>
                 ))}
                 <Button 
@@ -58,9 +58,9 @@ export const PageSelector: React.FC<IPageSelectorProps> = ({
             </Section>
             <Section>
                 <SmallText {...smallTextProps}>
-                    {leftText}
-                    {pageIndex + indexShift} 
-                    {middleText} 
+                    {LEFT_TEXT}
+                    {pageIndex + INDEX_SHIFT} 
+                    {MIDDLE_TEXT} 
                     {pageLength}
                 </SmallText>
             </Section>

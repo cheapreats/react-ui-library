@@ -4,7 +4,7 @@ import { useTable, usePagination, Column, TableProps, TableHeaderProps, TableRow
 import { Pagination, IPaginationProps } from './Pagination';
 import { IProfileProps } from '../VendorsList/Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { media, scroll } from '../../Utils/Mixins';
+import { media, scroll, flex } from '../../Utils/Mixins';
 
 export interface IVendorsData extends IProfileProps {
     tags?: string[];
@@ -89,7 +89,7 @@ export const ReactTable = <T extends IVendorsData>({
     );
 
     return (
-        <div {...props}>
+        <Wrapper {...props}>
             <table {...getTableProps()} {...tableProps}>
                 <STableHead>
                     {getHeaderGroup()}
@@ -112,10 +112,20 @@ export const ReactTable = <T extends IVendorsData>({
                     {...paginationProps}
                 />
             )}
-        </div>
+        </Wrapper>
     );
 };
  
+const Wrapper = styled.div`
+    width: 60%;
+    ${media(
+        'tabletLarge',
+        `
+        width: 95%;
+        ${flex('column', 'center')};
+        `,
+    )}
+`;
 const STableHead = styled.thead`
     display: block;
 `;

@@ -48,17 +48,9 @@ export const Pagination: React.FC<IPaginationProps> = ({
 const Wrapper = styled.div`
     ${flex('space-between')};
     ${media(
-    'phone',
+    'tabletLarge',
     `
-        ${flex('column')};
+        ${flex('column', 'center')};
     `,
     )};
-    display: grid;
-    grid-template-columns: 4fr 3fr 1fr;
-    ${media(
-        'tablet',
-        `
-       grid-template-columns: 2fr 1fr 1fr; 
-    `,
-    )}
 `;
