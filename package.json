@@ -1,60 +1,114 @@
 {
-  "name": "@cheapreats/react-ui",
-  "version": "1.4.73",
-  "description": "React UI library for CheaprEats",
-  "main": "dist/CheaprEatsStoryBook.js",
-  "files": [
-    "dist"
-  ],
-  "scripts": {
-    "start": "start-storybook -p 9001 -c .storybook",
-    "build": "rm -rf ./dist && webpack",
-    "storybook": "start-storybook -p 9001 -c .storybook",
-    "storybook:build": "build-storybook -c .storybook -o .out",
-    "prepublish": "rm -rf ./dist && npm run build"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/CheaprEats/react-ui.git"
-  },
-  "author": "CheaprEats Inc.",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/CheaprEats/react-ui/issues"
-  },
-  "homepage": "https://github.com/CheaprEats/react-ui#readme",
-  "devDependencies": {
-    "@babel/core": "^7.4.3",
-    "@babel/plugin-proposal-class-properties": "^7.4.0",
-    "@babel/preset-env": "^7.4.3",
-    "@storybook/addon-info": "^5.0.6",
-    "@storybook/addon-notes": "^5.0.6",
-    "@storybook/addon-options": "^5.0.6",
-    "@storybook/react": "^5.0.6",
-    "babel-core": "^6.26.3",
-    "babel-loader": "^8.0.5",
-    "css-loader": "^2.1.1",
-    "file-loader": "^3.0.1",
-    "mini-css-extract-plugin": "^0.5.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
-    "style-loader": "^0.23.1",
-    "styled-components": "^4.2.0",
-    "styled-icons": "^6.12.0",
-    "terser-webpack-plugin": "^1.2.3",
-    "webpack": "^4.29.5",
-    "webpack-cli": "^3.3.0"
-  },
-  "peerDependencies": {
-    "react": ">=15.0.1",
-    "react-dom": ">=15.0.1",
-    "styled-components": "^4.1.3"
-  },
-  "dependencies": {
-    "moment": "^2.24.0",
-    "rc-slider": "^8.6.9",
-    "react-datepicker": "^2.3.0",
-    "react-image-crop": "^6.0.18"
-  }
+    "name": "@cheapreats/react-ui",
+    "version": "2.3.61",
+    "description": "React UI library for CheaprEats",
+    "main": "dist/index.js",
+    "files": [
+        "dist"
+    ],
+    "sideEffects": false,
+    "scripts": {
+        "start": "start-storybook -p 6006",
+        "deploy": "npm run build && build-storybook -s dist -o .deploy",
+        "build": "rm -rf dist  && tsc && NODE_ENV=production babel dist -d dist",
+        "test": "tsc && npm run eslint:fix",
+        "prepublish": "npm run lint && npm run build",
+        "eslint": "eslint ./src --ext tsx,ts,jsx,js",
+        "eslint:fix": "npm run eslint -- --fix",
+        "prettier": "prettier **/*.ts **/*.tsx **/*.js",
+        "prettier:fix": "npm run prettier -- --write",
+        "lint": "npm run prettier:fix"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/CheaprEats/react-ui.git"
+    },
+    "author": "CheaprEats Inc.",
+    "license": "MIT",
+    "bugs": {
+        "url": "https://github.com/CheaprEats/react-ui/issues"
+    },
+    "homepage": "https://github.com/CheaprEats/react-ui#readme",
+    "peerDependencies": {
+        "react": "*",
+        "react-dom": "*",
+        "styled-components": "*",
+        "styled-icons": "*"
+    },
+    "devDependencies": {
+        "@babel/cli": "^7.12.10",
+        "@babel/core": "^7.12.10",
+        "@babel/preset-env": "^7.12.11",
+        "@babel/preset-react": "^7.12.10",
+        "@storybook/addon-a11y": "^6.1.11",
+        "@storybook/addon-actions": "^6.1.11",
+        "@storybook/addon-backgrounds": "^6.1.11",
+        "@storybook/addon-controls": "^6.1.11",
+        "@storybook/addon-docs": "^6.1.11",
+        "@storybook/addon-links": "^6.1.11",
+        "@storybook/addon-toolbars": "^6.1.11",
+        "@storybook/addon-viewport": "^6.1.11",
+        "@storybook/addons": "^6.1.11",
+        "@storybook/react": "^6.1.11",
+        "@types/jest": "^26.0.19",
+        "@types/react-table": "^7.0.26",
+        "awesome-typescript-loader": "^5.2.1",
+        "babel-loader": "^8.2.2",
+        "babel-plugin-module-resolver": "^4.1.0",
+        "eslint": "^7.16.0",
+        "eslint-config-airbnb": "^18.2.1",
+        "eslint-config-prettier": "^7.1.0",
+        "eslint-import-resolver-alias": "^1.1.2",
+        "eslint-plugin-import": "^2.22.1",
+        "eslint-plugin-jsx-a11y": "^6.4.1",
+        "eslint-plugin-react": "^7.21.5",
+        "husky": "^4.3.6",
+        "jest": "^26.6.3",
+        "prettier": "^2.2.1",
+        "react": "^17.0.1",
+        "react-docgen-typescript-loader": "^3.7.2",
+        "react-dom": "^17.0.1",
+        "styled-components": "^5.2.1",
+        "styled-icons": "^10.22.0",
+        "ts-jest": "^26.4.4",
+        "typescript": "^4.1.3"
+    },
+    "aliases": {
+        "@Containers": "src/Containers",
+        "@Layouts": "src/Fragments",
+        "@Inputs": "src/Inputs",
+        "@Text": "src/Text",
+        "@Themes": "src/Themes",
+        "@Utils": "src/Utils"
+    },
+    "eslintIgnore": [
+        "stories",
+        "scripts",
+        "node_modules",
+        "dist",
+        ".storybook",
+        ".deploy"
+    ],
+    "dependencies": {
+        "@types/emoji-mart": "^3.0.4",
+        "@types/react-beautiful-dnd": "^13.0.0",
+        "@types/react-dom": "^17.0.0",
+        "@types/react-image-crop": "^8.1.2",
+        "@types/react-router-dom": "^5.1.6",
+        "@types/recharts": "^1.8.18",
+        "@types/styled-components": "^5.1.7",
+        "@typescript-eslint/eslint-plugin": "^4.11.0",
+        "@typescript-eslint/parser": "^4.11.0",
+        "babel-plugin-recharts": "^1.2.1",
+        "emoji-mart": "^3.0.0",
+        "react-beautiful-dnd": "^13.0.0",
+        "react-image-crop": "^8.6.6",
+        "react-router-dom": "^5.2.0",
+        "react-table": "^7.6.2",
+        "recharts": "^1.8.5",
+        "win-node-env": "^0.4.0"
+    },
+    "optionalDependencies": {
+        "win-node-env": "^0.4.0"
+    }
 }

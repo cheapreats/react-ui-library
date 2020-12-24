@@ -1,4 +1,21 @@
 {
-    "presets": ["@babel/preset-react", "@babel/preset-env"],
-    "plugins": ["@babel/plugin-proposal-class-properties"]
+    "plugins": [
+        [
+            "module-resolver",
+            {
+                "root": "./dist",
+                "extensions": [".ts", ".tsx"],
+                "alias": {
+                    "@Containers": "./dist/Containers",
+                    "@Layouts": "./dist/Fragments",
+                    "@Inputs": "./dist/Inputs",
+                    "@Text": "./dist/Text",
+                    "@Themes": "./dist/Themes",
+                    "@Utils": "./dist/Utils"
+                }
+            },
+            "babel-plugin-styled-components"
+        ],
+        "recharts"
+    ]
 }

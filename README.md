@@ -1,42 +1,39 @@
-# CheaprEats React UI
-React UI library for CheaprEats
+# CheaprEats UI Library
 
-## Usage
+## PR Requirements
+- Showcase Visual Layer through an Image on your Pull Request
+- Showcase Interactions / Animations Layer through a GIF / Video on your Pull Request
+  - Macbook: Command+Shift+5
+  - Windows: Snip Tool
 
-Create a Folder for the new component, use the consistent `export` terminology.
+## Installation Requirements
 
-In `src/components/index.js` EXPORT your new component for use `export * from './YOUR_FOLDER/YOUR_COMPONENT_NAME';`
+**Prettier:** https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode
 
-Then add the stories in `src/stories/YOUR_COMPONENT_NAME` and your done!
+## *Getting Started*
 
-## Installation
+**Storybook:** https://storybook.js.org/
 
-To use this UI library, run the following command first:
+**TypeScript:** https://www.typescriptlang.org/
 
-```bash
-$ npm install @cheapreats/react-ui
-```
+**Atomic Design:** https://atomicdesign.bradfrost.com/
 
-Then you have to install `Quicksand` font, the easiest way is to include this tag in your HTML head:
+This repository encompasses the [Component Driven Design Methodology](https://medium.com/the-s-curve/why-component-driven-design-drives-great-software-products-7cace364e815).
 
-```html
-<link href="https://fonts.googleapis.com/css?family=Quicksand:400,700" rel="stylesheet">
-```
+## src/
+This folder is where you will be building your UI, no-data-logic only components.
 
-## Installation From Github
+## stories/
+This folder is where you will be testing your UI on Storybook for different ViewPorts (Responsiveness), Accessibility and functionality.
 
-If you've updated this libarary but haven't deployed it to NPM but still want to test it out in your production apps while waiting feel free to:
-1) Add Your New Component
-2) Run ```npm run build```
-3) In the Application, install the Github Master Version: ```npm install https://github.com/CheaprEats/react-ui```
-4) Import like: ```import { Button, FormInput, Heading1 }            from '@cheapreats/react-ui';```
+## .storybook/
+This folder contains the Storybook configuration options
 
-## Documentation
+## scripts/
+This folder contains code generation scripts to help make development faster.
 
-Documentation of this library can be found at https://react-ui.cheapreats.com
-
-## Contributing
-
-To add a new component, create appropriate module within `components`, don't forget to add or update `index.js`!
-
-You can add new stories within `stories` folder, and register them within `.storybook/config.js`.
+### Helpful Resources
+#### Themes/ 
+Contains all the styling that CheaprEats uses so you don't have to guess to color codes, Also your components will automatically translate to dark mode!
+##### Mixins (Responsiveness)
+- Ensure that you are using the consistent Mixins for your Media Queries: https://github.com/cheapreats/react-ui-library/blob/v2/src/Themes/ThemeTemplate.ts#L138
