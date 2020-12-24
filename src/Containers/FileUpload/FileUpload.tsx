@@ -1,4 +1,4 @@
-import React,{useCallback} from 'react'
+import React,{useCallback,useState} from 'react'
 import styled from 'styled-components'
 import {flex} from '@Utils/Mixins'
 import {StyledIcon} from '@styled-icons/styled-icon'
@@ -23,6 +23,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     setBase64,
     isUploading,
 }):React.ReactElement=>{
+    const [isDragEnter,setIsDragEnter]=useState(false);
     const onDrop = useCallback((acceptedFiles:File[]) => {
         acceptedFiles.forEach((file) => {
             const reader = new FileReader()
@@ -41,12 +42,21 @@ export const FileUpload:React.FC<IFileUploadProps>=({
                 }
             }
             reader.readAsArrayBuffer(file)
+            setIsDragEnter(false)
         })
-    }, [])
-    const {getRootProps, getInputProps} = useDropzone({onDrop})
+    }, []);
+    const onDragEnter=useCallback((event:React.DragEvent)=>{
+        event.preventDefault();
+        setIsDragEnter(true);
+    },[]);
+    const onDragLeave=useCallback((event:React.DragEvent)=>{
+        event.preventDefault();
+        setIsDragEnter(false);
+    },[]);
+    const {getRootProps, getInputProps} = useDropzone({onDrop,onDragEnter,onDragLeave})
     return (
         <div>
-            <Container {...getRootProps({dashed:true,withFlex:true,withBorder:true})}>
+            <Container {...getRootProps({dashed:true,withFlex:true,withBorder:true,isDragEnter})}>
                 <SubContainer minHeight={minHeight}>
                     <Icon as={Image} />
                     <TextLayout bold color='DarkBlue'>
@@ -73,17 +83,19 @@ interface IContainerProps{
     withBorder?:boolean;
     width?:string;
     padding?:string;
+    isDragEnter?:boolean;
 }
 
 const Container=styled.div<IContainerProps>`  
 border-radius:10px;
-${({dashed,withFlex,withBorder,width,padding}):string=>`
+${({dashed,withFlex,withBorder,width,padding,isDragEnter}):string=>`
 ${withBorder?`
 border:2px ${dashed?'dashed':'solid'} rgba(128,128,128,.8);
 `:''}
 ${withFlex?flex('center'):''}
 ${width?`width:${width};`:''}
 ${padding?`padding:${padding};`:'padding:10px;'}
+${isDragEnter?'background-color:#cce6ff;border-color:#3399ff;':''}
 `}
 margin:10px;
 `
