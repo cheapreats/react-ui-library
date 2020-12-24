@@ -3,7 +3,7 @@ const path = require('path');
 
 module.exports = {
     stories: ['../src/**/*.stories.@(js|mdx|tsx|ts|jsx)'],
-    addons: ['@storybook/addon-docs', '@storybook/addon-viewport', '@storybook/addon-knobs/', '@storybook/addon-links/', '@storybook/addon-actions/', '@storybook/addon-toolbars', '@storybook/addon-a11y', '@storybook/addon-controls', '@storybook/addon-backgrounds'],
+    addons: ['@storybook/addon-docs', '@storybook/addon-viewport','@storybook/addon-controls', '@storybook/addon-actions/', '@storybook/addon-links/', '@storybook/addon-toolbars', '@storybook/addon-a11y', '@storybook/addon-backgrounds'],
     webpackFinal: async (config, { configType }) => {
         Object.entries(aliases).forEach(([key, val]) => {
             config.resolve.alias[key] = path.resolve(__dirname, `../${val}`);

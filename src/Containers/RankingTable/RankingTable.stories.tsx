@@ -1,7 +1,6 @@
 import React from 'react';
-import { storiesOf } from '@storybook/react';
-import { withKnobs } from '@storybook/addon-knobs';
-import { RankingTable } from '../../index';
+import { Meta, Story } from "@storybook/react";
+import { RankingTable, RankingTableProps } from "../../index";
 import { createStoryTitle } from '../../Constants';
 
 const data = [
@@ -77,21 +76,18 @@ const data = [
     },
 ];
 
-storiesOf(createStoryTitle('Ranking Table'), module)
-    .addDecorator(withKnobs)
-    .add('with default', () => (
-        <RankingTable
-            title="Top 3 Products"
-            IsTimeIntervalFilterVisible={false}
-            data={data}
-            rowsVisible={3}
-        />
-    ))
-    .add('with time interval', () => (
-        <RankingTable
-            title="Top 3 Products"
-            IsTimeIntervalFilterVisible
-            data={data}
-            rowsVisible={10}
-        />
-    ));
+
+export default {
+    title: createStoryTitle('Ranking Table'),
+    component: RankingTable,
+    args: {
+        title: "Top 3 Products",
+        IsTimeIntervalFilterVisible: false,
+        data: data,
+        rowsVisible: 3
+    },
+} as Meta;
+
+export const Basic: Story<RankingTableProps> = (args) => (
+  <RankingTable {...args} />
+);

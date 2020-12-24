@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 
-const MockElement = ({ init, render }) =>
-    render(...init.map((state) => useState(state)));
+const MockElement = ({ init, render }: any) =>
+    render(...init.map((state: any) => useState(state)));
 
-export const mockElement = (render, ...initState) => () => (
+export const mockElement = (render: any, ...initState: any) => () => (
     <MockElement render={render} init={initState} />
 );
