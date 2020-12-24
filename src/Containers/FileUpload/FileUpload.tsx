@@ -1,46 +1,91 @@
-import React from 'react'
+import React,{useCallback} from 'react'
 import styled from 'styled-components'
 import {flex} from '@Utils/Mixins'
 import {StyledIcon} from '@styled-icons/styled-icon'
 import {TextLayout} from '@Layouts'
+import {useDropzone} from 'react-dropzone'
+import {Loading} from '../Loading/Loading'
 
 export interface IFileUploadProps{
-    Title:React.FC;
+    title:string;
     subTitle:string;
     Image:StyledIcon;
     minHeight:number;
-    onDrop:(event: React.DragEvent<HTMLDivElement>) => void;
-    onDragOver: (event: React.DragEvent<HTMLDivElement>) => void;
+    setBase64:(base64StringFile:string)=>void;
+    isUploading:boolean;
 }
 
 export const FileUpload:React.FC<IFileUploadProps>=({
-    Title,
+    title,
     subTitle,
     Image,
     minHeight,
-    onDrop,
-    onDragOver,
+    setBase64,
+    isUploading,
 }):React.ReactElement=>{
-
+    const onDrop = useCallback((acceptedFiles:File[]) => {
+        acceptedFiles.forEach((file) => {
+            const reader = new FileReader()
+            reader.onload = () => {
+                if(reader.result){
+                    let base64StringFile=''
+                    if(typeof(reader.result)==='string'){
+                        base64StringFile=btoa(reader.result)
+                    }else{
+                        const bytes = Array.from(new Uint8Array(reader.result));
+                        base64StringFile = btoa(bytes.map((item) => String.fromCharCode(item)).join(""));
+                    }
+                    if(base64StringFile){
+                        setBase64(base64StringFile)
+                    }
+                }
+            }
+            reader.readAsArrayBuffer(file)
+        })
+    }, [])
+    const {getRootProps, getInputProps} = useDropzone({onDrop})
     return (
-        <Container onDrop={onDrop} onDragOver={onDragOver}>
-            <SubContainer minHeight={minHeight}>
-                <Icon as={Image} />
-                {Title}
-                <TextLayout size='small' bold color='rgba(128,128,128,.8)'>{subTitle}</TextLayout>
-            </SubContainer>
-        </Container>
+        <div>
+            <Container {...getRootProps({dashed:true,withFlex:true,withBorder:true})}>
+                <SubContainer minHeight={minHeight}>
+                    <Icon as={Image} />
+                    <TextLayout bold color='DarkBlue'>
+                        {title}
+                    </TextLayout>      
+                    <TextLayout size='small' bold color='rgba(128,128,128,.8)'>{subTitle}</TextLayout>
+                    <input {...getInputProps()}  />
+                </SubContainer>
+            </Container>
+            {isUploading&&
+            (
+                <Container withBorder padding='30px 20px 43px 20px'>
+                    <Loading loading={isUploading} message='Uploading...' />
+                </Container>
+            )}
+        </div>
+        
     )
 }
 
 interface IContainerProps{
+    dashed?:boolean;
+    withFlex?:boolean;
+    withBorder?:boolean;
+    width?:string;
+    padding?:string;
 }
 
 const Container=styled.div<IContainerProps>`  
 border-radius:10px;
-border:2px dashed rgba(128,128,128,.8);
-${flex('center')}
-padding:10px;
+${({dashed,withFlex,withBorder,width,padding}):string=>`
+${withBorder?`
+border:2px ${dashed?'dashed':'solid'} rgba(128,128,128,.8);
+`:''}
+${withFlex?flex('center'):''}
+${width?`width:${width};`:''}
+${padding?`padding:${padding};`:'padding:10px;'}
+`}
+margin:10px;
 `
 
 interface ISubContainerProps{
