@@ -54,7 +54,7 @@ const getReactTableProps = () => ({
             Header: 'Client',
             accessor: 'col_client',
             profileStyleProps: {
-                style: { marginTop: '5px' }
+                style: { marginTop: '10px' }
             },
             Cell: (cell) => (
                 <Profile 
@@ -62,7 +62,7 @@ const getReactTableProps = () => ({
                     name={cell.row.original.name} 
                     email={cell.row.original.email} 
                     imageUrl={cell.row.original?.imageUrl}
-                    profileProps={{ style: { marginTop: '5px' } }}
+                    profileProps={{ style: { marginTop: 'tpx' } }}
                 />
             )
         },
@@ -73,7 +73,7 @@ const getReactTableProps = () => ({
                 <TagContainer 
                     tags={cell.row.original.tags} 
                     isHoverable={isHoverable} 
-                    style={{ marginTop: '5px' }}
+                    style={{ padding: '10px 0' }}
                     tagProps={{ style: { margin: '5px 10px 0 0' }}}
                 />
             )
@@ -82,7 +82,7 @@ const getReactTableProps = () => ({
             Header: 'Created',
             accessor: 'col_created',
             Cell: (cell) => (
-                <div style={{ marginTop: '10px' }}>
+                <div style={{ padding: '10px 0' }}>
                     <SmallText style={{ padding: '0 10px' }}>
                         {cell.row.original.createdAt}
                     </SmallText>

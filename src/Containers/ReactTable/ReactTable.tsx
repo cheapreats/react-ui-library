@@ -19,6 +19,7 @@ export interface IReactTableProps<T extends IVendorsData> extends MainInterface,
     tableRowProps?: TableRowProps;
     paginationProps?: IPaginationProps;
     pageSelectOptions: number[];
+    isPaginated?: boolean;
 };
 
 const INITIAL_OPTION = 0;
@@ -31,6 +32,7 @@ export const ReactTable = <T extends IVendorsData>({
     tableRowProps,
     paginationProps,
     pageSelectOptions,
+    isPaginated = true,
     ...props
 }: IReactTableProps<T>): React.ReactElement => {
     const {
@@ -96,17 +98,20 @@ export const ReactTable = <T extends IVendorsData>({
                     {getRowComponent()}
                 </tbody>
             </table>
-            <Pagination 
-                goToPreviousPage={previousPage}
-                goToNextPage={nextPage}
-                goToPage={gotoPage}
-                pageLength={pageCount}
-                pageOptionsLength={pageOptionsLength}
-                pageSelectOptions={pageSelectOptions}
-                pageSize={pageSize}
-                setPageSize={setPageSize}
-                {...paginationProps}
-            />
+            {!!isPaginated && (
+                <Pagination 
+                    goToPreviousPage={previousPage}
+                    goToNextPage={nextPage}
+                    goToPage={gotoPage}
+                    pageLength={pageCount}
+                    pageOptionsLength={pageOptionsLength}
+                    pageSelectOptions={pageSelectOptions}
+                    pageSize={pageSize}
+                    setPageSize={setPageSize}
+                    pageIndex={pageIndex}
+                    {...paginationProps}
+                />
+            )}
         </div>
     );
 };

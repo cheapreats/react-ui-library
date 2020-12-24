@@ -7,7 +7,7 @@ import { flex } from '../../Utils/Mixins';
 
 export interface IRowSelectorProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
     setPageSize: (pageSize: number) => void;
-    pageSize?: string;
+    pageSize: string;
     pageSelectOptions: number[];
     pageOptionsLength: number;
     smallTextProps?: SmallTextProps;

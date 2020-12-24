@@ -19,6 +19,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
     goToNextPage,
     goToPage,
     pageLength,
+    pageIndex,
     rowSelectorProps,
     pageSelectorProps,
     ...props
@@ -37,6 +38,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
                 goToNextPage={goToNextPage}
                 goToPage={goToPage}
                 pageLength={pageLength}
+                pageIndex={pageIndex}
                 {...pageSelectorProps}
             />
         </Wrapper>
