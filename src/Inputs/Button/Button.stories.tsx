@@ -1,8 +1,8 @@
 import React from 'react';
 import { Save } from '@styled-icons/fa-solid/Save';
+import { Meta, Story } from '@storybook/react';
 import { Button, ButtonProps } from '../../index';
 import { createStoryTitle, getCaptionForLocale } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Button'),

@@ -1,8 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { SearchBar, SearchBarProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
-import { useArgs } from '@storybook/addons';
 
 export default {
     title: createStoryTitle('Search Bar'),
@@ -25,19 +24,17 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<SearchBarProps> = (args) => {
-    return (
-        <SearchBar {...args}>
-            <option value="a">Admiral Baldrick</option>
-            <option value="b">Beadle</option>
-            <option value="c">Baldrick</option>
-            <option value="d">Lady Farrow </option>
-            <option value="e">Don Speekingleesh</option>
-            <option value="f">Lady Emma Hamilton</option>
-            <option value="g">Lady Elizabeth</option>
-            <option value="h">Jack Large</option>
-            <option value="i">Earl Farrow</option>
-            <option value="j">Captain Redbeard Rum</option>
-        </SearchBar>
-    );
-};
+export const Basic: Story<SearchBarProps> = (args) => (
+    <SearchBar {...args}>
+        <option value="a">Admiral Baldrick</option>
+        <option value="b">Beadle</option>
+        <option value="c">Baldrick</option>
+        <option value="d">Lady Farrow </option>
+        <option value="e">Don Speekingleesh</option>
+        <option value="f">Lady Emma Hamilton</option>
+        <option value="g">Lady Elizabeth</option>
+        <option value="h">Jack Large</option>
+        <option value="i">Earl Farrow</option>
+        <option value="j">Captain Redbeard Rum</option>
+    </SearchBar>
+);

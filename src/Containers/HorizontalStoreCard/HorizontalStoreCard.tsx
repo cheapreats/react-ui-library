@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { Card as C } from '../Card/Card';
-import { PictureCard } from '../PictureCard/PictureCard';
 import { Paragraph } from '@Text/Paragraph';
 import { SmallText } from '@Text/SmallText';
+import { Card as C } from '../Card/Card';
+import { PictureCard } from '../PictureCard/PictureCard';
 
 interface TagProps {
     icon: StyledIcon;
@@ -39,40 +39,38 @@ export const HorizontalStoreCard: React.FC<HorizontalStoreCardProps> = ({
     heading,
     description,
     ...cardProps
-}): React.ReactElement => {
-    return (
-        <Card width={width} {...cardProps}>
-            <PictureCard
-                image={image}
-                tags={pictureTags}
-                alt={alt}
-                width="45%"
-                height={height}
-                borderRadiusBottom="8px"
-                borderRadiusTop="8px"
-            />
-            <ContentCard>
-                <RowContainer>
-                    <Paragraph bold>{heading}</Paragraph>
-                    <RatingContainer>{rating}</RatingContainer>
-                </RowContainer>
-                <HeaderTags>{headerTags?.join(' • ')}</HeaderTags>
-                <RowContainer>
-                    <SmallText bold>{description}</SmallText>
-                </RowContainer>
-                {tags && (
-                    <TagRowContainer>
-                        {tags.map(
-                            (tag): React.ReactElement => (
-                                <Tag>{tag}</Tag>
-                            ),
-                        )}
-                    </TagRowContainer>
-                )}
-            </ContentCard>
-        </Card>
-    );
-};
+}): React.ReactElement => (
+    <Card width={width} {...cardProps}>
+        <PictureCard
+            image={image}
+            tags={pictureTags}
+            alt={alt}
+            width="45%"
+            height={height}
+            borderRadiusBottom="8px"
+            borderRadiusTop="8px"
+        />
+        <ContentCard>
+            <RowContainer>
+                <Paragraph bold>{heading}</Paragraph>
+                <RatingContainer>{rating}</RatingContainer>
+            </RowContainer>
+            <HeaderTags>{headerTags?.join(' • ')}</HeaderTags>
+            <RowContainer>
+                <SmallText bold>{description}</SmallText>
+            </RowContainer>
+            {tags && (
+                <TagRowContainer>
+                    {tags.map(
+                        (tag): React.ReactElement => (
+                            <Tag>{tag}</Tag>
+                        ),
+                    )}
+                </TagRowContainer>
+            )}
+        </ContentCard>
+    </Card>
+);
 
 interface CardProps {
     width?: string;

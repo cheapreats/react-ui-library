@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { Switch, SwitchProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Switch'),
@@ -12,7 +12,7 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<SwitchProps> = (args) => <Switch {...args}></Switch>;
+export const Basic: Story<SwitchProps> = (args) => <Switch {...args} />;
 
 export const WithTags = Basic.bind({});
 WithTags.args = {

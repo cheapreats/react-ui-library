@@ -35,22 +35,20 @@ export const ColorCard: React.FC<ColorCardProps> = ({
     color,
     label,
     ...props
-}): React.ReactElement => {
-    return (
-        <Card {...props}>
-            <Color color={color} />
-            <div>
-                <Title type="h6" bold>
-                    {label}
-                </Title>
-                <Grid>
-                    <Label label="HEX" value={color} />
-                    <Label label="RGB" value={getRGBFromHEX(color)} />
-                </Grid>
-            </div>
-        </Card>
-    );
-};
+}): React.ReactElement => (
+    <Card {...props}>
+        <Color color={color} />
+        <div>
+            <Title type="h6" bold>
+                {label}
+            </Title>
+            <Grid>
+                <Label label="HEX" value={color} />
+                <Label label="RGB" value={getRGBFromHEX(color)} />
+            </Grid>
+        </div>
+    </Card>
+);
 
 export default ColorCard;
 

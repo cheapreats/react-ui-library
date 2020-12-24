@@ -17,21 +17,19 @@ export const ListItem: React.FC<ListItemProps> = ({
     setIsOpen,
     isSelected,
     ...props
-}): React.ReactElement => {
-    return (
-        <Item
-            onClick={(el): void => {
-                if (setIsOpen) setIsOpen(false);
-                if (onClick) onClick(el);
-            }}
-            padding={padding}
-            isSelected={isSelected}
-            {...props}
-        >
-            {children}
-        </Item>
-    );
-};
+}): React.ReactElement => (
+    <Item
+        onClick={(el): void => {
+            if (setIsOpen) setIsOpen(false);
+            if (onClick) onClick(el);
+        }}
+        padding={padding}
+        isSelected={isSelected}
+        {...props}
+    >
+        {children}
+    </Item>
+);
 
 interface ItemProps {
     padding?: string;
@@ -45,10 +43,10 @@ const Item = styled.li<ItemProps>`
     ${({ theme, isSelected }): string => `
         border-bottom: 2px solid ${theme.colors.text}20;
         ${
-            isSelected
-                ? `background-color: ${Mixins.darken('#ffffff', 0.05)}`
-                : Mixins.clickable('#ffffff', 0.05)
-        };
+    isSelected
+        ? `background-color: ${Mixins.darken('#ffffff', 0.05)}`
+        : Mixins.clickable('#ffffff', 0.05)
+};
     `}
     &:last-child {
         border-bottom: none;

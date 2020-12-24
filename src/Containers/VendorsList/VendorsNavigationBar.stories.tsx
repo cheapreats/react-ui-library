@@ -11,31 +11,32 @@ export default {
     component: NavigationBar,
 } as Meta;
 
-const getVendorNavigationBarProps = () => ({
+const getVendorNavigationBarProps = (): INavigationBarProps => ({
     navigationBarItems: [
         {
             icon: TableView,
-            label: 'Overview'
+            label: 'Overview',
         },
         {
             icon: List,
-            label: 'List View'
+            label: 'List View',
         },
         {
             icon: ViewGrid,
-            label: 'Segment'
-        }
+            label: 'Segment',
+        },
     ],
     navigationItemProps: {
+        label: 'Icon',
         style: {
             margin: '0 20px',
-            paddingBottom: '5px', 
+            paddingBottom: '5px',
         },
         iconProps: {
             style: {
-                paddingRight: '5px'
-            }
-        }
+                paddingRight: '5px',
+            },
+        },
     },
 });
 

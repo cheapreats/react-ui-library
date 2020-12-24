@@ -4,10 +4,13 @@ import { NavigationItem, INavigationItemProps } from './NavigationItem';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media, scroll } from '../../Utils/Mixins';
 
-export interface INavigationBarProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
+export interface INavigationBarProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     navigationBarItems: INavigationItemProps[];
     navigationItemProps?: INavigationItemProps;
-};
+}
 
 const FIRST_LABEL = 0;
 
@@ -16,11 +19,13 @@ export const NavigationBar: React.FC<INavigationBarProps> = ({
     navigationItemProps,
     ...props
 }): React.ReactElement => {
-    const [selectedItem, setSelectedItem] = useState<string>(navigationBarItems[FIRST_LABEL]?.label);
+    const [selectedItem, setSelectedItem] = useState<string>(
+        navigationBarItems[FIRST_LABEL]?.label,
+    );
     return (
         <Wrapper {...props}>
-            {navigationBarItems.map(item => (
-                <NavigationItem 
+            {navigationBarItems.map((item) => (
+                <NavigationItem
                     key={item.label}
                     icon={item.icon}
                     label={item.label}
@@ -43,5 +48,6 @@ const Wrapper = styled.div`
         `
         ${flex('column', 'center')};
         ${scroll};
-    `)};
+    `,
+    )};
 `;

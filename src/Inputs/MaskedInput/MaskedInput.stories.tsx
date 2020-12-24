@@ -1,9 +1,5 @@
 import React from 'react';
-import {
-    MaskedInputPreset,
-    MaskedInput,
-    MaskedInputProps,
-} from '@Inputs';
+import { MaskedInputPreset, MaskedInput, MaskedInputProps } from '@Inputs';
 import { Meta, Story } from '@storybook/react';
 import { useArgs } from '@storybook/client-api';
 import { createStoryTitle } from '../../Constants';
@@ -33,13 +29,13 @@ export default {
         description: 'Enter a value',
         min: 1,
         max: 100,
-        error: ''
+        error: '',
     },
 } as Meta;
 
 export const Basic: Story<MaskedInputProps> = (args) => {
-    const [{ realValue }, updateArgs] = useArgs();
+    const [, updateArgs] = useArgs();
     const onChange = (event: React.ChangeEvent<HTMLInputElement>) =>
         updateArgs({ realValue: event.target.value });
-    return <MaskedInput onChange={onChange} {...args} />;
+    return <MaskedInput {...args} onChange={onChange} />;
 };

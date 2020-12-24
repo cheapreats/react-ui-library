@@ -14,11 +14,14 @@ export const Copyright: React.FC<CopyrightProps> = ({
     margin,
     version,
     ...props
-}): React.ReactElement => {
-    return (
-        <SmallText color="secondary" margin={margin} bold {...props}>
-            Copyright CheaprEats Incorporated 2018 - {new Date().getFullYear()},
-            Version {version}
-        </SmallText>
-    );
-};
+}): React.ReactElement => (
+    <SmallText color="secondary" margin={margin} bold {...props}>
+        Copyright CheaprEats Incorporated 2018 - 
+        {' '}
+        {new Date().getFullYear()}
+        ,
+        Version 
+        {' '}
+        {version}
+    </SmallText>
+);

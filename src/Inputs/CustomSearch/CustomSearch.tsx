@@ -13,7 +13,7 @@ interface TagProps {
     text: string;
 }
 
-interface CustomSearchProps extends MainInterface, ResponsiveInterface {
+export interface CustomSearchProps extends MainInterface, ResponsiveInterface {
     image: string;
     tags?: TagProps[];
     alt?: string;
@@ -45,15 +45,9 @@ export const CustomSearch: React.FC<CustomSearchProps> = ({
     pricePlaceholder,
     locationPlaceholder,
     foodPlaceholder,
-    onPriceChange = (): void => {
-        return undefined;
-    },
-    onLocationChange = (): void => {
-        return undefined;
-    },
-    onFoodChange = (): void => {
-        return undefined;
-    },
+    onPriceChange = (): void => undefined,
+    onLocationChange = (): void => undefined,
+    onFoodChange = (): void => undefined,
     ...cardProps
 }): React.ReactElement => {
     const [priceValue, setPriceValue] = useState('');

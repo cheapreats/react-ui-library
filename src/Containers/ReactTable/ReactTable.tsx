@@ -9,9 +9,12 @@ import { media, scroll, flex } from '../../Utils/Mixins';
 export interface IVendorsData extends IProfileProps {
     tags?: string[];
     createdAt?: string;
-};
+}
 
-export interface IReactTableProps<T extends IVendorsData> extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
+export interface IReactTableProps<T extends IVendorsData>
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     data: T[];
     columns: Column<T>[];
     tableProps?: TableProps;
@@ -62,23 +65,32 @@ export const ReactTable = <T extends IVendorsData>({
     const pageOptionsLength = data.length;
 
     const getHeaderGroup = useCallback(
-        () => headerGroups.map((headerGroup, index) => (
-            <SHeadTableRow {...headerGroup.getHeaderGroupProps()} key={headerGroup.headers[index].Header?.toString()}>
-                {headerGroup.headers.map(column => (
-                    <STableHeader {...column.getHeaderProps()} key={column.Header?.toString()} {...tableHeaderProps}>
-                        {column.render('Header')}
-                    </STableHeader>
-                ))}
-            </SHeadTableRow>
-        )), [headerGroups]
+        () =>
+            headerGroups.map((headerGroup, index) => (
+                <SHeadTableRow
+                    {...headerGroup.getHeaderGroupProps()}
+                    key={headerGroup.headers[index].Header?.toString()}
+                >
+                    {headerGroup.headers.map((column) => (
+                        <STableHeader
+                            {...column.getHeaderProps()}
+                            key={column.Header?.toString()}
+                            {...tableHeaderProps}
+                        >
+                            {column.render('Header')}
+                        </STableHeader>
+                    ))}
+                </SHeadTableRow>
+            )),
+        [headerGroups],
     );
 
     const getRowComponent = useCallback(
-        () => page.map((row) => {
+        () => page.map((row: any) => {
             prepareRow(row);
             return (
                 <STableRow {...row.getRowProps()} key={row.original.id} {...tableRowProps}>
-                    {row.cells.map((cell) => (
+                    {row.cells.map((cell: any) => (
                         <STableData {...cell.getCellProps()}>
                             {cell.render('Cell')}
                         </STableData>

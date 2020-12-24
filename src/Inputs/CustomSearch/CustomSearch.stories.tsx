@@ -1,7 +1,7 @@
 import React from 'react';
-import { CustomSearch } from '../../index';
-import { createStoryTitle } from '../../Constants';
 import { Meta, Story } from '@storybook/react';
+import { CustomSearch, CustomSearchProps } from '../../index';
+import { createStoryTitle } from '../../Constants';
 
 export default {
     title: createStoryTitle('Custom Search'),
@@ -38,7 +38,7 @@ export default {
         ],
         locationOptions: [
             <option value="4th Dimentional Dwight Schrute's Beet Farm">
-                4th Dimentional Dwight Schrute's Beet Farm
+                4th Dimentional Dwight Schrute&apos;s Beet Farm
             </option>,
             <option value="Wasp Universe">Wasp Universe</option>,
             <option value="Anatomy Park">Anatomy Park</option>,
@@ -48,7 +48,7 @@ export default {
                 Galactic Federation Outpost
             </option>,
             <option value="Clackspire Labyrinth">Clackspire Labyrinth</option>,
-            <option value="Unity's Planet">Unity's Planet</option>,
+            <option value="Unity's Planet">Unity&apos;s Planet</option>,
             <option value="Brazil">Brazil</option>,
             <option value="Fantasy World">Fantasy World</option>,
         ],
@@ -67,6 +67,6 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<CustomSearch> = (args) => (
-    <CustomSearch {...args}></CustomSearch>
+export const Basic: Story<CustomSearchProps> = (args) => (
+    <CustomSearch {...args} />
 );

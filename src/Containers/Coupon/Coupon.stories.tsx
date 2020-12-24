@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { Coupon, CouponProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Coupon'),
@@ -15,7 +15,7 @@ const defaultArgs = {
     color: 'lightblue',
 };
 
-const Template: Story<CouponProps> = (args) => <Coupon {...args}></Coupon>;
+const Template: Story<CouponProps> = (args) => <Coupon {...args} />;
 
 export const Basic = Template.bind({});
 

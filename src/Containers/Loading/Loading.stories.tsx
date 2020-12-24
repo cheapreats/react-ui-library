@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { Loading, LoadingProps } from '../../index';
 import { createStoryTitle, getCaptionForLocale } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Loading'),

@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { Mixins } from '@Utils';
-import { Card as C } from '../Card/Card';
 import { Heading } from '@Text';
+import { Card as C } from '../Card/Card';
 
 export interface SettingsCardProps
     extends MainInterface,
@@ -21,17 +21,15 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({
     icon,
     onClick,
     ...props
-}): React.ReactElement => {
-    return (
-        <Card {...props}>
-            <CardHeading type="h2">
-                <HeadingIcon as={icon} onClick={onClick} />
-                {heading}
-            </CardHeading>
-            {children}
-        </Card>
-    );
-};
+}): React.ReactElement => (
+    <Card {...props}>
+        <CardHeading type="h2">
+            <HeadingIcon as={icon} onClick={onClick} />
+            {heading}
+        </CardHeading>
+        {children}
+    </Card>
+);
 interface HeadingIconProps {
     onClick?: (event: React.MouseEvent<Element, MouseEvent>) => void;
 }

@@ -31,7 +31,7 @@ interface NavProps {
 
 interface IPages {
     [name: string]: {
-        component: React.LazyExoticComponent<React.ComponentType>;
+        component: React.LazyExoticComponent<React.ComponentType> | null;
         navProps: NavProps;
     };
 }

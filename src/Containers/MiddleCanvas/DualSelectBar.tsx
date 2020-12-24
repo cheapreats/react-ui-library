@@ -3,12 +3,15 @@ import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { scroll, media, flex } from '../../Utils/Mixins';
 
-export interface DualSelectBarProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-    leftSelectOption: string,
-    rightSelectOption: string,
-    selectedOption: string,
-    setSelectedOption: React.Dispatch<React.SetStateAction<string>>,
-};
+export interface DualSelectBarProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    leftSelectOption: string;
+    rightSelectOption: string;
+    selectedOption: string;
+    setSelectedOption: React.Dispatch<React.SetStateAction<string>>;
+}
 
 export const DualSelectBar: React.FC<DualSelectBarProps> = ({
     leftSelectOption,
@@ -16,26 +19,23 @@ export const DualSelectBar: React.FC<DualSelectBarProps> = ({
     selectedOption,
     setSelectedOption,
     ...props
-}): React.ReactElement => {
-    
-    return (
-        <Wrapper {...props}>
-            <Option 
-                isSelected={selectedOption === leftSelectOption}
-                onClick={() => setSelectedOption(leftSelectOption)}
-            >
-                { leftSelectOption }
-            </Option>
-            <Divider />
-            <Option 
-                isSelected={selectedOption === rightSelectOption}
-                onClick={() => setSelectedOption(rightSelectOption)}
-            >
-                { rightSelectOption }
-            </Option>
-        </Wrapper>
-    );
-}
+}): React.ReactElement => (
+    <Wrapper {...props}>
+        <Option
+            isSelected={selectedOption === leftSelectOption}
+            onClick={() => setSelectedOption(leftSelectOption)}
+        >
+            {leftSelectOption}
+        </Option>
+        <Divider />
+        <Option
+            isSelected={selectedOption === rightSelectOption}
+            onClick={() => setSelectedOption(rightSelectOption)}
+        >
+            {rightSelectOption}
+        </Option>
+    </Wrapper>
+);
 
 const Wrapper = styled.div`
     ${({ theme }): string => `
@@ -48,7 +48,8 @@ const Wrapper = styled.div`
         'tablet',
         `
         width: 100%
-    `)};
+    `,
+    )};
     font-weight: bold;
     line-height: 1.25;
     margin: 5px;
@@ -56,8 +57,8 @@ const Wrapper = styled.div`
 `;
 
 interface OptionProps {
-    isSelected?: boolean
-};
+    isSelected?: boolean;
+}
 const Option = styled.div<OptionProps>`
     margin: 5px;
     padding: 5px;

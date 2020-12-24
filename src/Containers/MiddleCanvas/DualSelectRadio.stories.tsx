@@ -1,7 +1,7 @@
 import React from 'react';
-import { DualSelectRadio, DualSelectRadioProps } from "../../index";
-import { createStoryTitle } from '../../Constants';
 import { Story, Meta } from '@storybook/react';
+import { DualSelectRadio, DualSelectRadioProps } from '../../index';
+import { createStoryTitle } from '../../Constants';
 
 export default {
     title: createStoryTitle('Dual Select Radio'),
@@ -13,14 +13,14 @@ export default {
         dualSelectOptions: {
             LIGHT: {
                 title: 'Light',
-                labels: ['Flash Once', 'Flash Twice']
+                labels: ['Flash Once', 'Flash Twice'],
             },
             SOUND: {
                 title: 'Sound',
-                labels: ['Beep Once', 'Beep Twice']
-            }
+                labels: ['Beep Once', 'Beep Twice'],
+            },
         },
-    }
+    },
 } as Meta;
 
 export const Basic: Story<DualSelectRadioProps> = (args) => (

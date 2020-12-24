@@ -10,10 +10,10 @@ import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
 import { Heading, Paragraph } from '@Text';
 import { Tag } from '@Containers';
+import { Mixins } from '@Utils';
 import { Select } from '../Select/Select';
 import { Datepicker } from '../Datepicker';
 import { Button } from '../Button/Button';
-import { Mixins } from '@Utils';
 
 export interface ExcelOptionsProps
     extends MainInterface,
@@ -27,14 +27,12 @@ export interface ExcelOptionsProps
 
 const FROM_TO = ['from', 'to'];
 
-const keyToHeader = (data: string): string => {
-    return data
-        .replace(/[^a-zA-Z0-9 ]/g, ' ')
-        .replace(/(^\w{1})|(\s{1}\w{1})/g, (matchedLetter): string =>
-            matchedLetter.toUpperCase(),
-        )
-        .trim();
-};
+const keyToHeader = (data: string): string => data
+    .replace(/[^a-zA-Z0-9 ]/g, ' ')
+    .replace(/(^\w{1})|(\s{1}\w{1})/g, (matchedLetter): string =>
+        matchedLetter.toUpperCase(),
+    )
+    .trim();
 
 const DATA_TYPE = {
     NONE: 'None',
@@ -56,9 +54,7 @@ interface ResultObjectType {
 export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
     headers = [],
     defaultHeaders = [],
-    onResult = (): void => {
-        return undefined;
-    },
+    onResult = (): void => undefined,
 }): React.ReactElement => {
     const [resultObject, setResultObject] = useState<ResultObjectType>({
         dates: { from: undefined, to: undefined },
@@ -120,8 +116,14 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                     <ShownHeadersDiv>
                         <Heading type="h3">Headers</Heading>
                         <Paragraph>
-                            You can <b>Add/Remove</b> desired headers and
-                            <b> Rearrange The Order</b> by dragging them
+                            You can 
+                            {' '}
+                            <b>Add/Remove</b>
+                            {' '}
+                            desired headers and
+                            <b> Rearrange The Order</b>
+                            {' '}
+                            by dragging them
                         </Paragraph>
                         <Droppable droppableId="labels" direction="horizontal">
                             {(provided): React.ReactElement => (
@@ -154,8 +156,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                                             onClick={(): void =>
                                                                 removeHeader(
                                                                     index,
-                                                                )
-                                                            }
+                                                                )}
                                                         >
                                                             {keyToHeader(
                                                                 header,

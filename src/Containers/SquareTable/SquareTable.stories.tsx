@@ -1,6 +1,6 @@
 import React from 'react';
-import { SquareTable, ISquareTable } from './SquareTable';
 import { Meta, Story } from '@storybook/react';
+import { SquareTable, ISquareTable } from './SquareTable';
 import { createStoryTitle } from '../../Constants';
 
 export default {

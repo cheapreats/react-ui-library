@@ -1,7 +1,7 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { ExcelOptions, ExcelOptionsProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Excel options'),
@@ -21,5 +21,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<ExcelOptionsProps> = (args) => (
-    <ExcelOptions {...args}></ExcelOptions>
+    <ExcelOptions {...args} />
 );

@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { Select, SelectProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 // TODO: ADD STATE to component
 
@@ -23,7 +23,7 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<SelectProps> = (args) => <Select {...args}></Select>;
+export const Basic: Story<SelectProps> = (args) => <Select {...args} />;
 
 export const WithError = Basic.bind({});
 WithError.args = {

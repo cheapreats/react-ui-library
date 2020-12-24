@@ -12,12 +12,12 @@ export default {
 
 const isHoverable = false;
 
-const getReactTableProps = () => ({
+const getReactTableProps = (): any => ({
     pageSelectOptions: [10, 20, 30],
     tableHeaderProps: {
         style: {
             marginBottom: '10px',
-        }
+        },
     },
     paginationProps: {
         style: {
@@ -56,81 +56,90 @@ const getReactTableProps = () => ({
             profileStyleProps: {
                 style: { marginTop: '10px' }
             },
-            Cell: (cell) => (
-                <Profile 
-                    key={cell.row.original.id} 
-                    name={cell.row.original.name} 
-                    email={cell.row.original.email} 
+            Cell: (cell: any) => (
+                <Profile
+                    key={cell.row.original.id}
+                    name={cell.row.original.name}
+                    email={cell.row.original.email}
                     imageUrl={cell.row.original?.imageUrl}
                     profileProps={{ style: { marginTop: 'tpx' } }}
                 />
-            )
+            ),
         },
         {
             Header: 'Tags',
             accessor: 'col_tags',
-            Cell: (cell) => (
+            Cell: (cell: any) => (
                 <TagContainer 
                     tags={cell.row.original.tags} 
                     isHoverable={isHoverable} 
                     style={{ padding: '10px 0' }}
                     tagProps={{ style: { margin: '5px 10px 0 0' }}}
                 />
-            )
+            ),
         },
         {
             Header: 'Created',
             accessor: 'col_created',
-            Cell: (cell) => (
+            Cell: (cell: any) => (
                 <div style={{ padding: '10px 0' }}>
                     <SmallText style={{ padding: '0 10px' }}>
                         {cell.row.original.createdAt}
                     </SmallText>
                 </div>
-            )
-        }
+            ),
+        },
     ],
     data: [
         {
-            id: 1,
+            key: 1,
+            id: '1',
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
-            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+            imageUrl:
+                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
             tags: ['VIP Client', 'Early Adopter'],
-            createdAt: '24/05/2019'
+            createdAt: '24/05/2019',
         },
         {
-            id: 2,
+            key: 2,
+            id: '2',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019'
+            createdAt: '24/05/2019',
         },
         {
-            id: 3,
+            key: 3,
+            id: '3',
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
-            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+            imageUrl:
+                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
             tags: ['VIP Client', 'Early Adopter'],
-            createdAt: '24/05/2019'
+            createdAt: '24/05/2019',
         },
         {
-            id: 4,
+            key: 4,
+            id: '4',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019'
+            createdAt: '24/05/2019',
         },
         {
-            id: 5,
+            key: 5,
+            id: '5',
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
-            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+            imageUrl:
+                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
             tags: ['VIP Client', 'Early Adopter'],
-            createdAt: '24/05/2019'
+            createdAt: '24/05/2019',
         },
         {
-            id: 6,
+            key: 6,
+            id: '6',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],

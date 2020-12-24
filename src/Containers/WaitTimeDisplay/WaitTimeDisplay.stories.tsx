@@ -1,6 +1,6 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { WaitTimeDisplay, IWaitTimeDisplay } from '../../index';
-import {Meta, Story} from "@storybook/react";
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -8,7 +8,9 @@ export default {
     component: WaitTimeDisplay,
 } as Meta;
 
-const Template: Story<IWaitTimeDisplay> = (args) => <WaitTimeDisplay {...args} />;
+const Template: Story<IWaitTimeDisplay> = (args) => (
+    <WaitTimeDisplay {...args} />
+);
 
 export const Primary = Template.bind({});
 

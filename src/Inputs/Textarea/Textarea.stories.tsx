@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { Textarea, TextareaProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Text area'),
@@ -13,9 +13,7 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<TextareaProps> = (args) => (
-    <Textarea {...args}></Textarea>
-);
+export const Basic: Story<TextareaProps> = (args) => <Textarea {...args} />;
 
 export const WithSuccess = Basic.bind({});
 WithSuccess.args = {

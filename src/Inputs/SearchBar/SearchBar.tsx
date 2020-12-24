@@ -3,11 +3,7 @@ import { Search } from '@styled-icons/fa-solid/Search';
 import styled from 'styled-components';
 import { flex, transition } from '@Utils/Mixins';
 
-import {
-    LabelLayout,
-    InputFragment as I,
-    LabelLayoutProps,
-} from '@Layouts';
+import { LabelLayout, InputFragment as I, LabelLayoutProps } from '@Layouts';
 import { useTransition } from '@Utils/Hooks';
 
 import { SelectList } from '../../Containers/SelectList/SelectList';
@@ -28,12 +24,8 @@ export interface SearchBarProps extends LabelLayoutProps {
 export const SearchBar: React.FC<SearchBarProps> = ({
     children,
     limit = MAX_VIEWING_LIMIT,
-    onChange = (): void => {
-        return undefined;
-    },
-    onInput = (): void => {
-        return undefined;
-    },
+    onChange = (): void => undefined,
+    onInput = (): void => undefined,
     placeholder,
     backgroundColor = '#f5f5f5',
     borderRadius = '8px',

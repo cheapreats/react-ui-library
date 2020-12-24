@@ -5,12 +5,12 @@ import { MultiSelectContext } from './MultiSelectContext';
 import { Button, ButtonProps } from '../Button/Button';
 
 export interface MultiSelectItemProps extends ButtonProps {
-    containerColumns: string | number;
+    containerColumns?: string | number;
 }
 
 export const MultiSelectItem: React.FC<MultiSelectItemProps> = ({
     children,
-    containerColumns,
+    containerColumns = 1,
     ...props
 }): React.ReactElement => {
     const columns = useContext(MultiSelectContext);
@@ -38,8 +38,8 @@ const Container = styled(Button)<ContainerProps>`
 
     ${({ theme, columns }): string => `
         max-width: calc(${100 / parseInt(columns.toString(), 10)}% - ${
-        theme.dimensions.multiSelect.spacing * 2
-    }px);
+    theme.dimensions.multiSelect.spacing * 2
+}px);
     `}
     border: none;
     width: 100%;

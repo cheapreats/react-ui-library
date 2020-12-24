@@ -15,12 +15,12 @@ const FIX_NUMBER_TO_TWO_DECIMALS = 2;
 const ERROR_MESSAGE_VALUE_CALCULATION = 1;
 const DASH_TO_SEPERATE_PHONE_DIGITS = '-';
 const VALIDATE_INPUT_FORMAT = /^[+-]?(?:\d*\.)?\d+$/gm;
-const PHONE_NUMBER_MATCH = /(?:(?=\d{1,4}$)\d{1,4}$|\d{1,3})/gm
+const PHONE_NUMBER_MATCH = /(?:(?=\d{1,4}$)\d{1,4}$|\d{1,3})/gm;
 
 export enum MaskedInputPreset {
     DOLLAR = 'DOLLAR',
     PERCENTAGE = 'PERCENTAGE',
-    PHONE = 'PHONE'
+    PHONE = 'PHONE',
 }
 
 export interface MaskedInputProps extends LabelLayoutProps, InputFragmentProps {
@@ -43,9 +43,9 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     const [displayValue, setDisplayValue] = useState('');
     const [isFocused, setIsFocused] = useState(false);
     const [isError, setIsError] = useState<boolean | string>(false);
-    
+
     useEffect(() => {
-        if(error) {
+        if (error) {
             setIsError(error);
         }
     }, [error]);
@@ -75,17 +75,19 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     };
 
     const PHONE_FORMAT_MASK = (s: string): string => {
-        const firstDigit = s.slice(FIRST_CHARACTER,SECOND_CHARACTER);
+        const firstDigit = s.slice(FIRST_CHARACTER, SECOND_CHARACTER);
         const phoneNumberToMatch = s.slice(SECOND_CHARACTER);
         const phoneNumberFormat = phoneNumberToMatch.match(PHONE_NUMBER_MATCH);
         if (phoneNumberFormat) {
-            return `${firstDigit}-${phoneNumberFormat.join(DASH_TO_SEPERATE_PHONE_DIGITS)}`;
-        } 
+            return `${firstDigit}-${phoneNumberFormat.join(
+                DASH_TO_SEPERATE_PHONE_DIGITS,
+            )}`;
+        }
         if (firstDigit) {
-            return `${firstDigit}`
+            return `${firstDigit}`;
         }
         return '';
-    }
+    };
 
     const getMaskFunction_ = (
         maskInputPreset: MaskedInputPreset | ((value: string) => string),
@@ -120,9 +122,17 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
         } else {
             setDisplayValue(targetValue);
             if (min && !greaterThanMin) {
-                setIsError(`Value must be greater than ${min - ERROR_MESSAGE_VALUE_CALCULATION}`);
+                setIsError(
+                    `Value must be greater than ${
+                        min - ERROR_MESSAGE_VALUE_CALCULATION
+                    }`,
+                );
             } else if (max) {
-                setIsError(`Value must be less than ${max + ERROR_MESSAGE_VALUE_CALCULATION}`);
+                setIsError(
+                    `Value must be less than ${
+                        max + ERROR_MESSAGE_VALUE_CALCULATION
+                    }`,
+                );
             }
         }
     };

@@ -145,3 +145,27 @@ const types = [
     // Period - Example (am/pm), (AM/PM)
     'p', 'P'
 ]; */
+
+/**
+ * This function converts from milliseconds to hours, minutes and seconds
+ * @param duration {numer} - The number of milliseconds
+ * @returns {{hours:number;minutes:number;seconds:number;}} The hours, minutes and seconds
+ */
+export const msToTime = (duration: number) => {
+    const seconds = Math.floor((duration / 1000) % 60);
+    const minutes = Math.floor((duration / (1000 * 60)) % 60);
+    const hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    return { hours, minutes, seconds };
+};
+
+/**
+ * This function converts an input of hours and minutes into an output of milliseconds
+ * @param hours {number} - The number of hours
+ * @param minutes {number} - The number of minutes
+ * @returns {number} The number of milliseconds
+ */
+export const hoursMinutesToMilliseconds = (
+    hours: number,
+    minutes: number,
+): number => (hours * 60 * 60 + minutes * 60) * 1000;

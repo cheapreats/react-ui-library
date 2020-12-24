@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { FeaturedProfilesCard, IFeaturedProfilesCardProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 const profiles = [
     {
@@ -94,5 +94,5 @@ export default {
 } as Meta;
 
 export const Demo: Story<IFeaturedProfilesCardProps> = (args) => (
-    <FeaturedProfilesCard {...args}></FeaturedProfilesCard>
+    <FeaturedProfilesCard {...args} />
 );

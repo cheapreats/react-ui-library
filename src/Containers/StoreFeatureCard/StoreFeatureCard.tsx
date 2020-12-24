@@ -2,10 +2,10 @@ import React from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
-import { Card as C } from '../Card/Card';
-import { PictureCard } from '../PictureCard/PictureCard';
 import { Paragraph } from '@Text/Paragraph';
 import { SmallText } from '@Text/SmallText';
+import { Card as C } from '../Card/Card';
+import { PictureCard } from '../PictureCard/PictureCard';
 
 interface TagProps {
     icon: StyledIcon;
@@ -37,31 +37,29 @@ export const StoreFeatureCard: React.FC<StoreFeatureCardProps> = ({
     description,
     linktitle,
     ...cardProps
-}): React.ReactElement => {
-    return (
-        <Card width={width} {...cardProps}>
-            <PictureCard
-                image={image}
-                tags={tags}
-                alt={alt}
-                width={width}
-                height={height}
-                borderRadiusBottom="0px"
-                borderRadiusTop="8px"
-            />
-            <ContentCard linktitle={linktitle}>
-                <RowContainer>
-                    <Paragraph bold>{heading}</Paragraph>
-                    <RatingContainer>{rating}</RatingContainer>
-                </RowContainer>
-                <RowContainer>
-                    <SmallText bold>{description}</SmallText>
-                </RowContainer>
-            </ContentCard>
-            {linktitle && <LinkCard>{linktitle}</LinkCard>}
-        </Card>
-    );
-};
+}): React.ReactElement => (
+    <Card width={width} {...cardProps}>
+        <PictureCard
+            image={image}
+            tags={tags}
+            alt={alt}
+            width={width}
+            height={height}
+            borderRadiusBottom="0px"
+            borderRadiusTop="8px"
+        />
+        <ContentCard linktitle={linktitle}>
+            <RowContainer>
+                <Paragraph bold>{heading}</Paragraph>
+                <RatingContainer>{rating}</RatingContainer>
+            </RowContainer>
+            <RowContainer>
+                <SmallText bold>{description}</SmallText>
+            </RowContainer>
+        </ContentCard>
+        {linktitle && <LinkCard>{linktitle}</LinkCard>}
+    </Card>
+);
 
 interface CardProps {
     width?: string;

@@ -22,9 +22,7 @@ export const Switch: React.FC<SwitchProps> = ({
     rightTag,
     activeColor,
     switchColor,
-    onChange = (): void => {
-        return undefined;
-    },
+    onChange = (): void => undefined,
     isChecked,
     label,
     description,

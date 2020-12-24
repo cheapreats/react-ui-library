@@ -21,9 +21,7 @@ export interface ModalProps
 }
 
 const _Modal: React.FC<ModalProps> = ({
-    onClose = (): void => {
-        return undefined;
-    },
+    onClose = (): void => undefined,
     width = 'default',
     children,
     theme,
@@ -81,9 +79,9 @@ const Box = styled.div<
         box-shadow: ${theme.depth[1]};
         width: ${theme.dimensions.modal.width[props.width] || props.width};
         ${Main({
-            padding: theme.dimensions.padding.container,
-            ...props,
-        })}
+        padding: theme.dimensions.padding.container,
+        ...props,
+    })}
     `}
 
     ${({ show }): string =>

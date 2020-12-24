@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { HorizontalScrollList, ScrollListProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 const exampleHoveredStyle = () => `
     color: red;
@@ -39,5 +39,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<ScrollListProps> = (args) => (
-    <HorizontalScrollList {...args}></HorizontalScrollList>
+    <HorizontalScrollList {...args} />
 );

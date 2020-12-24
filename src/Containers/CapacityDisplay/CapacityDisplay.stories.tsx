@@ -6,11 +6,8 @@
 */
 
 import React from 'react';
-import {
-    CapacityDisplay,
-    ICapacityDisplay,
-} from './CapacityDisplay';
 import { Meta, Story } from '@storybook/react';
+import { CapacityDisplay, ICapacityDisplay } from './CapacityDisplay';
 import { createStoryTitle } from '../../Constants';
 
 export default {

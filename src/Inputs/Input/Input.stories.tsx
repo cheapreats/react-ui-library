@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { Input, InputProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Input'),
@@ -13,7 +13,7 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<InputProps> = (args) => <Input {...args}></Input>;
+export const Basic: Story<InputProps> = (args) => <Input {...args} />;
 
 export const WithSuccess = Basic.bind({});
 WithSuccess.args = {

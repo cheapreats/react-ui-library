@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Heading, SmallText as S } from '@Text';
+import { flex, media, scroll } from '@Utils/Mixins';
 import { Loading } from '../Loading/Loading';
 import { Card, CardProps } from '../Card/Card';
 import { Copyright } from '../Copyright/Copyright';
-import { Heading, SmallText as S } from '@Text';
-import { flex, media, scroll } from '@Utils/Mixins';
 
 export interface ILandingProps extends CardProps {
     children: React.ReactNode;
@@ -23,31 +23,29 @@ export const Landing: React.FC<ILandingProps> = ({
     version,
     logo,
     ...props
-}): React.ReactElement => {
-    return (
-        <Loading loading={loading} inlineStyle={loadingStyles}>
-            <Container>
-                <Card {...props} inlineStyle={cardStyles}>
-                    <Header>
-                        {!!logo && <Logo width="60" src={logo} />}
-                        {!!label && (
-                            <Heading margin="10px 0 0" lineHeight="1.2" bold>
-                                {label}
-                            </Heading>
-                        )}
-                    </Header>
-                    {!!description && (
-                        <SmallText margin="5px 0 20px" bold>
-                            {description}
-                        </SmallText>
+}): React.ReactElement => (
+    <Loading loading={loading} inlineStyle={loadingStyles}>
+        <Container>
+            <Card {...props} inlineStyle={cardStyles}>
+                <Header>
+                    {!!logo && <Logo width="60" src={logo} />}
+                    {!!label && (
+                        <Heading margin="10px 0 0" lineHeight="1.2" bold>
+                            {label}
+                        </Heading>
                     )}
-                    {children}
-                    <Copyright margin="20px 0 0" version={version} />
-                </Card>
-            </Container>
-        </Loading>
-    );
-};
+                </Header>
+                {!!description && (
+                    <SmallText margin="5px 0 20px" bold>
+                        {description}
+                    </SmallText>
+                )}
+                {children}
+                <Copyright margin="20px 0 0" version={version} />
+            </Card>
+        </Container>
+    </Loading>
+);
 
 const Container = styled.main`
     ${flex('column', 'flex-start', 'center')}

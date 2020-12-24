@@ -1,7 +1,7 @@
 import React from 'react';
+import { Meta, Story } from '@storybook/react';
 import { ComboBox, ComboBoxSelectorProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { Meta, Story } from '@storybook/react';
 
 export default {
     title: createStoryTitle('Combo box'),
@@ -24,5 +24,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<ComboBoxSelectorProps> = (args) => (
-    <ComboBox {...args}></ComboBox>
+    <ComboBox {...args} />
 );

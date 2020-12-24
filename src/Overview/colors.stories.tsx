@@ -4,7 +4,12 @@ import { storiesOf } from '@storybook/react';
 import { MainTheme } from '@Themes/MainTheme';
 import { Heading, ColorCard } from '../index';
 
-const ListGrid = styled.ul`
+interface IListGridProps {
+    columnWidth: number;
+    gap: number;
+}
+
+const ListGrid = styled.ul<IListGridProps>`
     list-style-type: none;
     display: grid;
     align-items: end;
@@ -16,17 +21,14 @@ const ListGrid = styled.ul`
     `}
 `;
 
-const flattenColors = (value, label) => (
+const flattenColors = (Value: string, label: string) => (
     <Fragment key={label}>
-        {Object.entries(value).map(([innerKey, value]) =>
+        {Object.entries(Value).map(([innerKey, value]) =>
             typeof value === 'object' ? (
                 flattenColors(value, `${label}.${innerKey}`)
             ) : (
                 <li key={`${label}.${innerKey}`}>
-                    <ColorCard
-                        color={value}
-                        label={`${label}.${innerKey}`}
-                    ></ColorCard>
+                    <ColorCard color={value} label={`${label}.${innerKey}`} />
                 </li>
             ),
         )}
@@ -43,10 +45,10 @@ storiesOf('Design System/Colors', module).add('Overview', () => (
         <ListGrid columnWidth={300} gap={15}>
             {Object.entries(MainTheme.colors).map(([key, value]) =>
                 typeof value === 'object' ? (
-                    flattenColors(value, key)
+                    flattenColors(value as any, key)
                 ) : (
                     <li key={key}>
-                        <ColorCard color={value} label={key}></ColorCard>
+                        <ColorCard color={value} label={key} />
                     </li>
                 ),
             )}

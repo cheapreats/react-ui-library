@@ -2,7 +2,7 @@ import React from 'react';
 import { Import } from '@styled-icons/boxicons-regular/Import';
 import { Add } from '@styled-icons/ionicons-sharp/Add';
 import { Story, Meta } from '@storybook/react';
-import { VendorsHeader, IVendorsHeaderProps } from "../../index";
+import { VendorsHeader, IVendorsHeaderProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -15,19 +15,16 @@ const getVendorHeaderProps = () => ({
     rightButtonText: 'Add Client',
     leftButtonProps: {
         icon: Import,
-        margin: '0 20px'
+        margin: '0 20px',
     },
     rightButtonProps: {
         icon: Add,
-        primary: true
-    }
+        primary: true,
+    },
 });
 
 const Template: Story<IVendorsHeaderProps> = (args) => (
-    <VendorsHeader
-        style={{ padding: '20px' }}
-        {...args}
-    />
+    <VendorsHeader style={{ padding: '20px' }} {...args} />
 );
 
 export const Basic = Template.bind({});

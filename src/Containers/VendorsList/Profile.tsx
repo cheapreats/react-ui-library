@@ -1,17 +1,23 @@
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
-import { FeaturedProfile, IFeaturedProfileProps } from '../FeaturedProfile/FeaturedProfile';
+import {
+    FeaturedProfile,
+    IFeaturedProfileProps,
+} from '../FeaturedProfile/FeaturedProfile';
 import { HeaderRow, HeaderRowProps } from '../HeaderRow/HeaderRow';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
 
-export interface IProfileProps extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
+export interface IProfileProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     key: number;
     name: string;
     email: string;
     imageUrl?: string;
     headerRowProps?: HeaderRowProps;
-    profileProps?: Omit<IFeaturedProfileProps, 'key'|'background'>;
+    profileProps?: Omit<IFeaturedProfileProps, 'key' | 'background'>;
 }
 
 const MATCH_FIRST_LETTER = /\b\w/g;
@@ -20,9 +26,9 @@ const PROFILE_HEIGHT = 50;
 
 export const Profile: React.FC<IProfileProps> = ({
     key,
-    name, 
+    name,
     email,
-    imageUrl, 
+    imageUrl,
     headerRowProps,
     profileProps,
     ...props
@@ -35,28 +41,30 @@ export const Profile: React.FC<IProfileProps> = ({
      */
     const getInitials = (inputName: string) => {
         const initials = inputName.match(MATCH_FIRST_LETTER) || [];
-        const profileInitials = ((initials.shift() || '') + (initials.pop() || '')).toUpperCase();
+        const profileInitials = (
+            (initials.shift() || '') + (initials.pop() || '')
+        ).toUpperCase();
         return profileInitials;
     };
 
     /**
-     * Returns profile component based on whether an imageurl is provided 
+     * Returns profile component based on whether an imageurl is provided
      * @param inputName {string} - person's name
      * @param id {number} - id for key
      * @param image {string} - image's url
      */
     const getProfiles = (inputName: string, id: number, image?: string) => {
         const profileInitials = getInitials(inputName);
-        const getDefaultProfileProps = ({
+        const getDefaultProfileProps = {
             key: id,
             width: PROFILE_WIDTH,
             height: PROFILE_HEIGHT,
-            background: !!image ? 'none' : theme.colors.primary,
-            initials: !!image ? '' : profileInitials
-        });
-        
+            background: image ? 'none' : theme.colors.primary,
+            initials: image ? '' : profileInitials,
+        };
+
         return (
-            <FeaturedProfile 
+            <FeaturedProfile
                 image={image}
                 {...getDefaultProfileProps}
                 {...profileProps}
@@ -67,11 +75,11 @@ export const Profile: React.FC<IProfileProps> = ({
     return (
         <Wrapper {...props}>
             {getProfiles(name, key, imageUrl)}
-            <SHeaderRow 
+            <SHeaderRow
                 key={key}
-                label={name} 
-                type='h6' 
-                display='column'
+                label={name}
+                type="h6"
+                display="column"
                 size={theme.font.size.default}
                 {...headerRowProps}
             >
@@ -87,11 +95,12 @@ const Wrapper = styled.div`
         'phone',
         `
         ${flex('column', 'center')};
-    `)};
+    `,
+    )};
 `;
 
 const SHeaderRow = styled(HeaderRow)`
     ${({ theme }): string => `
         font-size: ${theme.font.size.small};
     `}
-`
+`;

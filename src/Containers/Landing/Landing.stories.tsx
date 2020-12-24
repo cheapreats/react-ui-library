@@ -35,35 +35,33 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<ILandingProps> = (args) => {
-    return (
-        <Landing {...args}>
-            <Input
-                id="username-input"
-                label={'Username'}
-                description={'The username of your employee account'}
-                placeholder={'Username'}
-                margin="5px 0 0"
-                name="username"
-            />
-            <Input
-                id="password-input"
-                label={'Password'}
-                description={'The password of your employee account'}
-                placeholder={'Password'}
-                margin="10px 0 0"
-                type="password"
-                name="password"
-            />
-            <Controls>
-                <Button id="login-button" margin="5px" primary>
-                    {'Login'}
-                </Button>
-                <Button margin="5px">{'Back'}</Button>
-            </Controls>
-        </Landing>
-    );
-};
+export const Basic: Story<ILandingProps> = (args) => (
+    <Landing {...args}>
+        <Input
+            id="username-input"
+            label="Username"
+            description="The username of your employee account"
+            placeholder="Username"
+            margin="5px 0 0"
+            name="username"
+        />
+        <Input
+            id="password-input"
+            label="Password"
+            description="The password of your employee account"
+            placeholder="Password"
+            margin="10px 0 0"
+            type="password"
+            name="password"
+        />
+        <Controls>
+            <Button id="login-button" margin="5px" primary>
+                Login
+            </Button>
+            <Button margin="5px">Back</Button>
+        </Controls>
+    </Landing>
+);
 
 const Controls = styled.div`
     ${Mixins.flex()}

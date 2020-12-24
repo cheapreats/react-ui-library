@@ -22,22 +22,20 @@ export const KitchenCardItems: React.FC<KitchenCardItemsProps> = ({
     isFullName,
 }): React.ReactElement => {
     const itemModifierRender = useCallback(
-        (item: OrderItem) => {
-            return item.modifiers.map((modifier) =>
-                modifier.choices.map(
-                    (choice: ModifierChoiceInput): React.ReactElement => (
-                        <Paragraph margin="5px 0 0 20px">
-                            {`${
-                                choice.choice_type ===
+        (item: OrderItem) => item.modifiers.map((modifier) =>
+            modifier.choices.map(
+                (choice: ModifierChoiceInput): React.ReactElement => (
+                    <Paragraph margin="5px 0 0 20px">
+                        {`${
+                            choice.choice_type ===
                                 ModifierChoiceTypeEnum.DEFAULT
-                                    ? ''
-                                    : choice.choice_type
-                            } ${choice.name}`}
-                        </Paragraph>
-                    ),
+                                ? ''
+                                : choice.choice_type
+                        } ${choice.name}`}
+                    </Paragraph>
                 ),
-            );
-        },
+            ),
+        ),
         [items],
     );
 

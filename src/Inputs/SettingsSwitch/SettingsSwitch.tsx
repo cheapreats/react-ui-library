@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Paragraph } from '@Text';
-import { Switch, SwitchProps } from '../Switch/Switch';
 import { flex } from '@Utils/Mixins';
+import { Switch, SwitchProps } from '../Switch/Switch';
 
 export interface SettingsSwitchProps extends SwitchProps {
     text?: string;
@@ -19,9 +19,7 @@ export interface SettingsSwitchProps extends SwitchProps {
 export const SettingsSwitch: React.FC<SettingsSwitchProps> = ({
     text,
     type,
-    onSwitch = (): void => {
-        return undefined;
-    },
+    onSwitch = (): void => undefined,
     onSwitchValue,
     flexDirection,
     height,

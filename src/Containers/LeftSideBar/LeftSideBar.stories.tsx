@@ -1,6 +1,4 @@
 import React from 'react';
-import { LeftSideBar, LeftSideBarProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
 import { Story, Meta } from '@storybook/react';
 import { TextFields } from '@styled-icons/material/TextFields';
 import { ImageAlt } from '@styled-icons/boxicons-solid/ImageAlt';
@@ -9,6 +7,8 @@ import { ListNumbered } from '@styled-icons/icomoon/ListNumbered';
 import { Dollar } from '@styled-icons/boxicons-regular/Dollar';
 import { Qrcode } from '@styled-icons/icomoon/Qrcode';
 import { Settings } from '@styled-icons/ionicons-sharp/Settings';
+import { createStoryTitle } from '../../Constants';
+import { LeftSideBar, LeftSideBarProps } from '../../index';
 
 export default {
     title: createStoryTitle('Left Sidebar'),

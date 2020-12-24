@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { ThreeBars } from '@styled-icons/octicons/ThreeBars';
-import { 
-    DragDropContext, 
+import {
+    DragDropContext,
     Droppable,
     DroppableProvided,
     Draggable,
@@ -17,26 +17,28 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { scroll, media, flex } from '../../Utils/Mixins';
 
 export interface TemplateProps extends MainInterface, ResponsiveInterface {
-    isPreview?: boolean,
-    templatePrefills: ITemplatePrefill
-};
+    isPreview?: boolean;
+    templatePrefills: ITemplatePrefill;
+}
 
 export const Template: React.FC<TemplateProps> = ({
     isPreview,
     templatePrefills,
     ...props
 }): React.ReactElement => {
-    const [items, setItems] = useState<ITemplatePrefill[]>(Object.values(templatePrefills));
-    
+    const [items, setItems] = useState<ITemplatePrefill[]>(
+        Object.values(templatePrefills),
+    );
+
     /**
      * Handles the draggable elements when dragged - required function
      * @param {DropResult} result - react-beautiful-dnd object that gives access to source and destination ids
      */
     const onDrag = (result: DropResult): void => {
         const { source, destination } = result;
-    
-        if(!destination) return;
-    
+
+        if (!destination) return;
+
         const reorderedList = reorder(items, source.index, destination.index);
         setItems(reorderedList);
     };
@@ -46,16 +48,19 @@ export const Template: React.FC<TemplateProps> = ({
      * @param {string | undefined} componentType - type of component (like a table)
      * @param {string[][]} labels - labels needed to be mapped in each individual component
      */
-    const conditionalHeaderComponent = (componentType: string | undefined, labels: string[][]): React.ReactElement => {
-        switch(componentType) {
+    const conditionalHeaderComponent = (
+        componentType: string | undefined,
+        labels: string[][],
+    ): React.ReactElement => {
+        switch (componentType) {
         case 'table':
             return (
-                <TableComponent 
+                <TableComponent
                     droppableLabels={labels}
                     isPreview={isPreview}
                 />
-            )
-        default: 
+            );
+        default:
             return (
                 <DroppableElement
                     droppableLabels={labels}
@@ -65,34 +70,40 @@ export const Template: React.FC<TemplateProps> = ({
         }
     };
 
-    const renderDraggableComponent = () => Object.values(items).map((templatePrefill, index) => (
-        <Draggable
-            key={templatePrefill.title}
-            draggableId={templatePrefill.title}
-            index={index}
-            isDragDisabled={isPreview}
-        >
-            {(providedDraggable: DraggableProvided, snapshotDraggable: DraggableStateSnapshot) => (
-                <DraggableWrapper
-                    ref={providedDraggable.innerRef}
-                    style={providedDraggable.draggableProps.style}
-                    isDragging={snapshotDraggable.isDragging}
-                    {...providedDraggable.draggableProps}
-                >
-                    {!isPreview && (
-                        <Header>
-                            {templatePrefill.title}
-                            <div {...providedDraggable.dragHandleProps}>
-                                <Icon as={ThreeBars} />
-                            </div>
-                        </Header>
-                    )}
-                    {conditionalHeaderComponent(templatePrefill.componentType, templatePrefill.labels)}
-                </DraggableWrapper>
-
-            )}
-        </Draggable>
-    ));
+    const renderDraggableComponent = () =>
+        Object.values(items).map((templatePrefill, index) => (
+            <Draggable
+                key={templatePrefill.title}
+                draggableId={templatePrefill.title}
+                index={index}
+                isDragDisabled={isPreview}
+            >
+                {(
+                    providedDraggable: DraggableProvided,
+                    snapshotDraggable: DraggableStateSnapshot,
+                ) => (
+                    <DraggableWrapper
+                        ref={providedDraggable.innerRef}
+                        style={providedDraggable.draggableProps.style}
+                        isDragging={snapshotDraggable.isDragging}
+                        {...providedDraggable.draggableProps}
+                    >
+                        {!isPreview && (
+                            <Header>
+                                {templatePrefill.title}
+                                <div {...providedDraggable.dragHandleProps}>
+                                    <Icon as={ThreeBars} />
+                                </div>
+                            </Header>
+                        )}
+                        {conditionalHeaderComponent(
+                            templatePrefill.componentType,
+                            templatePrefill.labels,
+                        )}
+                    </DraggableWrapper>
+                )}
+            </Draggable>
+        ));
 
     return (
         <Wrapper isPreview={isPreview} {...props}>
@@ -111,11 +122,11 @@ export const Template: React.FC<TemplateProps> = ({
             </DragDropContext>
         </Wrapper>
     );
-}
+};
 
 interface WrapperProps {
     isPreview?: boolean;
-};
+}
 const Wrapper = styled.div<WrapperProps>`
     ${scroll};
     width: 30%;
@@ -123,7 +134,8 @@ const Wrapper = styled.div<WrapperProps>`
         'tablet',
         `
         width: 100%
-    `)};
+    `,
+    )};
     ${({ theme, isPreview }): string => `
         font-size: ${theme.font.size.small};
         border: dotted 0.5px ${theme.colors.text};
@@ -138,11 +150,17 @@ const Wrapper = styled.div<WrapperProps>`
 
 interface DraggableWrapperProps {
     isDragging?: boolean;
-};
+}
 const DraggableWrapper = styled.div<DraggableWrapperProps>`
     ${({ theme, isDragging }): string => `
-        background-color: ${isDragging ? theme.colors.border : theme.colors.background};
-        border: ${isDragging? `solid 1px ${theme.colors.text}` : theme.colors.background};
+        background-color: ${
+    isDragging ? theme.colors.border : theme.colors.background
+};
+        border: ${
+    isDragging
+        ? `solid 1px ${theme.colors.text}`
+        : theme.colors.background
+};
         padding-bottom: 10px;
     `};
 `;
