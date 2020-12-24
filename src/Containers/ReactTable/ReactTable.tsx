@@ -1,9 +1,10 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { useTable, Column, TableHeaderProps, TableRowProps } from 'react-table';
+import { useTable, usePagination, Column, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
+import { Pagination, IPaginationProps } from './Pagination';
 import { IProfileProps } from '../VendorsList/Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { media, scroll } from '../../Utils/Mixins';
+import { media, scroll, flex } from '../../Utils/Mixins';
 
 export interface IVendorsData extends IProfileProps {
     tags?: string[];
@@ -16,27 +17,52 @@ export interface IReactTableProps<T extends IVendorsData>
         React.HTMLAttributes<HTMLDivElement> {
     data: T[];
     columns: Column<T>[];
+    tableProps?: TableProps;
     tableHeaderProps?: TableHeaderProps;
     tableRowProps?: TableRowProps;
-}
+    paginationProps?: IPaginationProps;
+    pageSelectOptions: number[];
+    isPaginated?: boolean;
+};
+
+const INITIAL_OPTION = 0;
 
 export const ReactTable = <T extends IVendorsData>({
     data,
     columns,
+    tableProps,
     tableHeaderProps,
     tableRowProps,
+    paginationProps,
+    pageSelectOptions,
+    isPaginated = true,
     ...props
 }: IReactTableProps<T>): React.ReactElement => {
     const {
         getTableProps,
         getTableBodyProps,
         headerGroups,
-        rows,
         prepareRow,
-    } = useTable({
-        columns,
-        data,
-    });
+        page,
+        canPreviousPage,
+        canNextPage,
+        pageOptions,
+        pageCount,
+        gotoPage,
+        nextPage,
+        previousPage,
+        setPageSize,
+        state: { pageIndex, pageSize }
+    } = useTable(
+        {
+            columns, 
+            data,
+            initialState: { pageIndex: 0, pageSize: pageSelectOptions[INITIAL_OPTION] }
+        },
+        usePagination
+    );
+
+    const pageOptionsLength = data.length;
 
     const getHeaderGroup = useCallback(
         () =>
@@ -60,34 +86,58 @@ export const ReactTable = <T extends IVendorsData>({
     );
 
     const getRowComponent = useCallback(
-        () =>
-            rows.map((row) => {
-                prepareRow(row);
-                return (
-                    <STableRow
-                        {...row.getRowProps()}
-                        key={row.original.id}
-                        {...tableRowProps}
-                    >
-                        {row.cells.map((cell) => (
-                            <STableData {...cell.getCellProps()}>
-                                {cell.render('Cell')}
-                            </STableData>
-                        ))}
-                    </STableRow>
-                );
-            }),
-        [rows],
+        () => page.map((row: any) => {
+            prepareRow(row);
+            return (
+                <STableRow {...row.getRowProps()} key={row.original.id} {...tableRowProps}>
+                    {row.cells.map((cell: any) => (
+                        <STableData {...cell.getCellProps()}>
+                            {cell.render('Cell')}
+                        </STableData>
+                    ))}
+                </STableRow>
+            );
+        }), [page]
     );
 
     return (
-        <table {...getTableProps()} {...props}>
-            <STableHead>{getHeaderGroup()}</STableHead>
-            <tbody {...getTableBodyProps()}>{getRowComponent()}</tbody>
-        </table>
+        <Wrapper {...props}>
+            <table {...getTableProps()} {...tableProps}>
+                <STableHead>
+                    {getHeaderGroup()}
+                </STableHead>
+                <tbody {...getTableBodyProps()}>
+                    {getRowComponent()}
+                </tbody>
+            </table>
+            {!!isPaginated && (
+                <Pagination 
+                    goToPreviousPage={previousPage}
+                    goToNextPage={nextPage}
+                    goToPage={gotoPage}
+                    pageLength={pageCount}
+                    pageOptionsLength={pageOptionsLength}
+                    pageSelectOptions={pageSelectOptions}
+                    pageSize={pageSize}
+                    setPageSize={setPageSize}
+                    pageIndex={pageIndex}
+                    {...paginationProps}
+                />
+            )}
+        </Wrapper>
     );
 };
-
+ 
+const Wrapper = styled.div`
+    width: 60%;
+    ${media(
+        'tabletLarge',
+        `
+        width: 95%;
+        ${flex('column', 'center')};
+        `,
+    )}
+`;
 const STableHead = styled.thead`
     display: block;
 `;
