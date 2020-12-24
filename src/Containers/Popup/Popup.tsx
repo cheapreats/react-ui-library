@@ -16,18 +16,16 @@ export const Popup: React.FC<PopupProps> = ({
     width,
     height,
     ...props
-}): React.ReactElement => {
-    return (
-        <Container left={left} top={top}>
-            <Rectangle width={width} height={height} {...props}>
-                {children}
-            </Rectangle>
-            <Triangle>
-                <InnerTriangle />
-            </Triangle>
-        </Container>
-    );
-};
+}): React.ReactElement => (
+    <Container left={left} top={top}>
+        <Rectangle width={width} height={height} {...props}>
+            {children}
+        </Rectangle>
+        <Triangle>
+            <InnerTriangle />
+        </Triangle>
+    </Container>
+);
 
 const Rectangle = styled.div<PopupProps>`
     height: ${({ height }): string => (height ? `${height}px` : 'auto')};

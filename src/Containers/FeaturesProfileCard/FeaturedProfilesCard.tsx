@@ -85,9 +85,7 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
         };
 
         return profiles.map(
-            (profile, index): React.ReactElement => {
-                return getProfiles(profile, index);
-            },
+            (profile, index): React.ReactElement => getProfiles(profile, index),
         );
     }, [profileData]);
 

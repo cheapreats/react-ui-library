@@ -19,9 +19,7 @@ export interface TimepickerProps
 export const Timepicker: React.FC<TimepickerProps> = withTheme(
     ({
         value = new Date(),
-        onChange = (): void => {
-            return undefined;
-        },
+        onChange = (): void => undefined,
         disabled,
         theme,
         name,

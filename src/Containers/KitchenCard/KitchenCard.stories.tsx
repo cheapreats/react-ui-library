@@ -240,8 +240,6 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<KitchenCardProps> = (args) => {
-    return (
-        <KitchenCard {...args} statusColor={StatusColorFilter[args.status]} />
-    );
-};
+export const Basic: Story<KitchenCardProps> = (args) => (
+    <KitchenCard {...args} statusColor={StatusColorFilter[args.status]} />
+);

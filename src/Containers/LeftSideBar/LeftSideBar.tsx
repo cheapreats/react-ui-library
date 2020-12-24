@@ -68,12 +68,8 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
     const draggableComponentsObj: IDraggableComponent = Object.values(
         ReceiptElements,
     )
-        .map((ReceiptElement) => {
-            return ReceiptElement.draggableComponents;
-        })
-        .reduce((prev, current) => {
-            return { ...prev, ...current };
-        });
+        .map((ReceiptElement) => ReceiptElement.draggableComponents)
+        .reduce((prev, current) => ({ ...prev, ...current }));
 
     return (
         <div {...props}>
@@ -111,13 +107,11 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                             value={searchValue}
                         >
                             {Object.values(draggableComponentsObj).map(
-                                (draggable) => {
-                                    return (
-                                        <option value={draggable.key}>
-                                            {draggable.field}
-                                        </option>
-                                    );
-                                },
+                                (draggable) => (
+                                    <option value={draggable.key}>
+                                        {draggable.field}
+                                    </option>
+                                ),
                             )}
                         </StyledSearchBar>
                     </>

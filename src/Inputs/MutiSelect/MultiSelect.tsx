@@ -14,15 +14,13 @@ export const MultiSelect: React.FC<MultiSelectProps> = ({
     columns = 2,
     children,
     ...props
-}): React.ReactElement => {
-    return (
-        <MultiSelectContext.Provider value={columns}>
-            <LabelLayout {...props}>
-                <Container columns={columns}>{children}</Container>
-            </LabelLayout>
-        </MultiSelectContext.Provider>
-    );
-};
+}): React.ReactElement => (
+    <MultiSelectContext.Provider value={columns}>
+        <LabelLayout {...props}>
+            <Container columns={columns}>{children}</Container>
+        </LabelLayout>
+    </MultiSelectContext.Provider>
+);
 
 const Container = styled.div<{
     columns?: string | number;

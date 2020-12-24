@@ -15,14 +15,12 @@ export const Tag: React.FC<TagProps> = ({
     children,
     isHoverable = true,
     ...props
-}): React.ReactElement => {
-    return (
-        <TagDiv {...props}>
-            {children}
-            {!!isHoverable && <Icon as={icon} />}
-        </TagDiv>
-    );
-};
+}): React.ReactElement => (
+    <TagDiv {...props}>
+        {children}
+        {!!isHoverable && <Icon as={icon} />}
+    </TagDiv>
+);
 
 export default Tag;
 

@@ -18,17 +18,15 @@ export const TagContainer: React.FC<ITagContainerProps> = ({
     isHoverable,
     tagProps,
     ...props
-}): React.ReactElement => {
-    return (
-        <Wrapper {...props}>
-            {tags.map((tagText) => (
-                <Tag isHoverable={isHoverable} {...tagProps}>
-                    {tagText}
-                </Tag>
-            ))}
-        </Wrapper>
-    );
-};
+}): React.ReactElement => (
+    <Wrapper {...props}>
+        {tags.map((tagText) => (
+            <Tag isHoverable={isHoverable} {...tagProps}>
+                {tagText}
+            </Tag>
+        ))}
+    </Wrapper>
+);
 
 const Wrapper = styled.div`
     position: relative;

@@ -83,11 +83,11 @@ export default {
     args: {
         title: "Top 3 Products",
         IsTimeIntervalFilterVisible: false,
-        data: data,
+        data,
         rowsVisible: 3
     },
 } as Meta;
 
 export const Basic: Story<RankingTableProps> = (args) => (
-  <RankingTable {...args} />
+    <RankingTable {...args} />
 );

@@ -19,14 +19,12 @@ export const SelectBox: React.FC<SelectBoxProps> = ({
     size = 'default',
     onSelect,
     ...props
-}): React.ReactElement => {
-    return (
-        <SelectBoxDiv {...props} size={size} onClick={onSelect}>
-            {text}
-            {children}
-        </SelectBoxDiv>
-    );
-};
+}): React.ReactElement => (
+    <SelectBoxDiv {...props} size={size} onClick={onSelect}>
+        {text}
+        {children}
+    </SelectBoxDiv>
+);
 
 const SelectBoxDiv = styled.div<SelectBoxProps>`
     ${({ theme, ...props }): string => `

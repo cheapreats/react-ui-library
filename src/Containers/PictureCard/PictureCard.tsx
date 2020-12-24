@@ -34,40 +34,38 @@ export const PictureCard: React.FC<PictureCardProps> = ({
     borderRadiusTop,
     borderRadiusBottom,
     ...cardProps
-}): React.ReactElement => {
-    return (
-        <Card
-            width={width}
-            height={height}
-            borderRadiusTop={borderRadiusTop}
-            borderRadiusBottom={borderRadiusBottom}
-            {...cardProps}
-        >
-            <ImageWrapper>
-                <Image
-                    src={image}
-                    alt={alt}
-                    height={height}
-                    borderRadiusTop={borderRadiusTop}
-                    borderRadiusBottom={borderRadiusBottom}
-                />
-                {tags && (
-                    <Tags>
-                        {tags.map(
-                            ({ icon, text }): React.ReactElement => (
-                                <Tag>
-                                    {icon && <Icon as={icon} hasText={text} />}
-                                    {text}
-                                </Tag>
-                            ),
-                        )}
-                    </Tags>
-                )}
-            </ImageWrapper>
-            {children && <Content>{children}</Content>}
-        </Card>
-    );
-};
+}): React.ReactElement => (
+    <Card
+        width={width}
+        height={height}
+        borderRadiusTop={borderRadiusTop}
+        borderRadiusBottom={borderRadiusBottom}
+        {...cardProps}
+    >
+        <ImageWrapper>
+            <Image
+                src={image}
+                alt={alt}
+                height={height}
+                borderRadiusTop={borderRadiusTop}
+                borderRadiusBottom={borderRadiusBottom}
+            />
+            {tags && (
+                <Tags>
+                    {tags.map(
+                        ({ icon, text }): React.ReactElement => (
+                            <Tag>
+                                {icon && <Icon as={icon} hasText={text} />}
+                                {text}
+                            </Tag>
+                        ),
+                    )}
+                </Tags>
+            )}
+        </ImageWrapper>
+        {children && <Content>{children}</Content>}
+    </Card>
+);
 
 interface CardProps {
     width?: string;

@@ -30,26 +30,24 @@ export const FeaturedProfile: React.FC<IFeaturedProfileProps> = ({
     width = 100,
     height = 100,
     ...props
-}) => {
-    return (
-        <CircleImage
-            width={width}
-            height={height}
-            background={background}
-            key={key}
-            {...props}
-        >
-            {!!image && (
-                <img src={image} alt={alt} width={width} height={height} />
-            )}
-            {!!initials && <CircleContent>{initials}</CircleContent>}
-            {!!remainingProfiles && (
-                <CircleContent>{remainingProfiles}</CircleContent>
-            )}
-            {!!icon && <Icon as={AddUser} />}
-        </CircleImage>
-    );
-};
+}) => (
+    <CircleImage
+        width={width}
+        height={height}
+        background={background}
+        key={key}
+        {...props}
+    >
+        {!!image && (
+            <img src={image} alt={alt} width={width} height={height} />
+        )}
+        {!!initials && <CircleContent>{initials}</CircleContent>}
+        {!!remainingProfiles && (
+            <CircleContent>{remainingProfiles}</CircleContent>
+        )}
+        {!!icon && <Icon as={AddUser} />}
+    </CircleImage>
+);
 
 interface ICircleImageProps {
     background: string;

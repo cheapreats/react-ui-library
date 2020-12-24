@@ -24,16 +24,14 @@ export const NavigationItem: React.FC<INavigationItemProps> = ({
     iconProps,
     headingProps,
     ...props
-}): React.ReactElement => {
-    return (
-        <Wrapper selectedItem={selectedItem} label={label} {...props}>
-            <Icon as={icon} {...iconProps} />
-            <Heading type="h6" {...headingProps}>
-                {label}
-            </Heading>
-        </Wrapper>
-    );
-};
+}): React.ReactElement => (
+    <Wrapper selectedItem={selectedItem} label={label} {...props}>
+        <Icon as={icon} {...iconProps} />
+        <Heading type="h6" {...headingProps}>
+            {label}
+        </Heading>
+    </Wrapper>
+);
 
 const Wrapper = styled.div<
     Pick<INavigationItemProps, 'selectedItem' | 'label'>

@@ -37,9 +37,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
     disabled,
     value,
     name,
-    onChange = (): void => {
-        return undefined;
-    },
+    onChange = (): void => undefined,
     ...props
 }): React.ReactElement => {
     const implicitProps = __useImplicitProps(props, [

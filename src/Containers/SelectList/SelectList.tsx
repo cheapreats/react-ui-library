@@ -29,9 +29,7 @@ export const SelectList: React.FC<SelectSearchBarProps> = ({
     limit,
     expanded,
     inputValue,
-    onChange = (): void => {
-        return undefined;
-    },
+    onChange = (): void => undefined,
     name,
 }): React.ReactElement => {
     const refSelectList = useRef() as RefObject<HTMLDivElement>;
@@ -108,9 +106,7 @@ export const SelectList: React.FC<SelectSearchBarProps> = ({
         [name],
     );
 
-    const options = useMemo((): React.ReactNode[] => {
-        return Children.toArray(children);
-    }, [expanded]);
+    const options = useMemo((): React.ReactNode[] => Children.toArray(children), [expanded]);
 
     return (
         <List

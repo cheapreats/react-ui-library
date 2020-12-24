@@ -5,15 +5,15 @@ import { createStoryTitle } from '../Constants';
 
 
 export default {
-  title: createStoryTitle('Paragraph'),
-  component: Paragraph,
-  args: {
-    children: 'Hello World',
-    bold: true,
-    color: 'black'
-  },
+    title: createStoryTitle('Paragraph'),
+    component: Paragraph,
+    args: {
+        children: 'Hello World',
+        bold: true,
+        color: 'black'
+    },
 } as Meta;
 
 export const Basic: Story<ParagraphProps> = (args) => (
-  <Paragraph {...args}>{args.children}</Paragraph>
+    <Paragraph {...args}>{args.children}</Paragraph>
 );

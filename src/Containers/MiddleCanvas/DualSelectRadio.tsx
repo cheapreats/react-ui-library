@@ -30,9 +30,7 @@ export const DualSelectRadio: React.FC<DualSelectRadioProps> = ({
 }): React.ReactElement => {
     const selectOptionsObj = useCallback(
         () =>
-            Object.values(dualSelectOptions).map((selectOption): string => {
-                return selectOption.labels[FIRST_LABEL];
-            }),
+            Object.values(dualSelectOptions).map((selectOption): string => selectOption.labels[FIRST_LABEL]),
         [dualSelectOptions],
     );
     const [selectOption, setSelectOption] = useState(selectOptionsObj);

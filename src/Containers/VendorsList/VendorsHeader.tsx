@@ -21,19 +21,17 @@ export const VendorsHeader: React.FC<IVendorsHeaderProps> = ({
     leftButtonProps,
     rightButtonProps,
     ...props
-}): React.ReactElement => {
-    return (
-        <Wrapper {...props}>
-            <Heading type="h1" bold>
-                {headerText}
-            </Heading>
-            <Row>
-                <Button {...leftButtonProps} />
-                <Button {...rightButtonProps}>{rightButtonText}</Button>
-            </Row>
-        </Wrapper>
-    );
-};
+}): React.ReactElement => (
+    <Wrapper {...props}>
+        <Heading type="h1" bold>
+            {headerText}
+        </Heading>
+        <Row>
+            <Button {...leftButtonProps} />
+            <Button {...rightButtonProps}>{rightButtonText}</Button>
+        </Row>
+    </Wrapper>
+);
 
 const Wrapper = styled.div`
     ${flex('row', 'space-between')};

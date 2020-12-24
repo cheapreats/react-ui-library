@@ -34,21 +34,17 @@ export const SegmentedButton: React.FC<ISegmentedButtonProps> = ({
     onClick,
     ...props
 }): React.ReactElement => {
-    const renderSegments = useCallback(() => {
-        return segments.map((segment, index) => {
-            return (
-                <Segment
-                    active={segment.active}
-                    onClick={(event) => onClick(event, index)}
-                    key={segment.name}
-                    id={segment.name}
-                >
-                    {segment.icon && <Icon as={segment.icon} />}
-                    {segment.name}
-                </Segment>
-            );
-        });
-    }, [segments]);
+    const renderSegments = useCallback(() => segments.map((segment, index) => (
+        <Segment
+            active={segment.active}
+            onClick={(event) => onClick(event, index)}
+            key={segment.name}
+            id={segment.name}
+        >
+            {segment.icon && <Icon as={segment.icon} />}
+            {segment.name}
+        </Segment>
+    )), [segments]);
 
     return (
         <SegmentContainer

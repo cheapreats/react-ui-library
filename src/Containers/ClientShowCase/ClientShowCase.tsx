@@ -37,34 +37,30 @@ export const ClientShowCase: React.FC<ShowCaseProps> = ({
     imgHeightEnum = 'medium',
     blurOnHover = true,
     ...props
-}): React.ReactElement => {
-    return (
-        <ImageListDiv onClick={handleImageListClick} {...props}>
-            <ClientList
-                imgData={imgData}
-                imgHeight={IMAGE_HEIGHTS[imgHeightEnum]}
-                blurOnHover={blurOnHover}
-            />
-            <OnHoverComponentDiv>{onHoverComponent}</OnHoverComponentDiv>
-        </ImageListDiv>
-    );
-};
+}): React.ReactElement => (
+    <ImageListDiv onClick={handleImageListClick} {...props}>
+        <ClientList
+            imgData={imgData}
+            imgHeight={IMAGE_HEIGHTS[imgHeightEnum]}
+            blurOnHover={blurOnHover}
+        />
+        <OnHoverComponentDiv>{onHoverComponent}</OnHoverComponentDiv>
+    </ImageListDiv>
+);
 
 const ClientList: React.FC<ClientListProps> = ({
     imgData,
     imgHeight,
     blurOnHover,
-}): React.ReactElement => {
-    return (
-        <ImageList blurOnHover={blurOnHover}>
-            {imgData.map(
-                (imgURL: string): React.ReactElement => (
-                    <ClientImg imgHeight={imgHeight} src={imgURL} />
-                ),
-            )}
-        </ImageList>
-    );
-};
+}): React.ReactElement => (
+    <ImageList blurOnHover={blurOnHover}>
+        {imgData.map(
+            (imgURL: string): React.ReactElement => (
+                <ClientImg imgHeight={imgHeight} src={imgURL} />
+            ),
+        )}
+    </ImageList>
+);
 
 const ImageListDiv = styled.div``;
 

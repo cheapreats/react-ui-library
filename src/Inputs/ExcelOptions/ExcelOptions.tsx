@@ -27,14 +27,12 @@ export interface ExcelOptionsProps
 
 const FROM_TO = ['from', 'to'];
 
-const keyToHeader = (data: string): string => {
-    return data
-        .replace(/[^a-zA-Z0-9 ]/g, ' ')
-        .replace(/(^\w{1})|(\s{1}\w{1})/g, (matchedLetter): string =>
-            matchedLetter.toUpperCase(),
-        )
-        .trim();
-};
+const keyToHeader = (data: string): string => data
+    .replace(/[^a-zA-Z0-9 ]/g, ' ')
+    .replace(/(^\w{1})|(\s{1}\w{1})/g, (matchedLetter): string =>
+        matchedLetter.toUpperCase(),
+    )
+    .trim();
 
 const DATA_TYPE = {
     NONE: 'None',
@@ -56,9 +54,7 @@ interface ResultObjectType {
 export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
     headers = [],
     defaultHeaders = [],
-    onResult = (): void => {
-        return undefined;
-    },
+    onResult = (): void => undefined,
 }): React.ReactElement => {
     const [resultObject, setResultObject] = useState<ResultObjectType>({
         dates: { from: undefined, to: undefined },

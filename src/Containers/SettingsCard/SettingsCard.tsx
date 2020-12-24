@@ -21,17 +21,15 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({
     icon,
     onClick,
     ...props
-}): React.ReactElement => {
-    return (
-        <Card {...props}>
-            <CardHeading type="h2">
-                <HeadingIcon as={icon} onClick={onClick} />
-                {heading}
-            </CardHeading>
-            {children}
-        </Card>
-    );
-};
+}): React.ReactElement => (
+    <Card {...props}>
+        <CardHeading type="h2">
+            <HeadingIcon as={icon} onClick={onClick} />
+            {heading}
+        </CardHeading>
+        {children}
+    </Card>
+);
 interface HeadingIconProps {
     onClick?: (event: React.MouseEvent<Element, MouseEvent>) => void;
 }

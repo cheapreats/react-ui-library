@@ -17,17 +17,15 @@ export const TableComponent: React.FC<TableComponentProps> = ({
     droppableLabels,
     isPreview,
     ...props
-}): React.ReactElement => {
-    return (
-        <Wrapper {...props}>
-            <Table isPreview={isPreview}>
-                {droppableLabels.map((row) => (
-                    <TableRow key={row[FIRST_LABEL]} labels={row} />
-                ))}
-            </Table>
-        </Wrapper>
-    );
-};
+}): React.ReactElement => (
+    <Wrapper {...props}>
+        <Table isPreview={isPreview}>
+            {droppableLabels.map((row) => (
+                <TableRow key={row[FIRST_LABEL]} labels={row} />
+            ))}
+        </Table>
+    </Wrapper>
+);
 
 const Wrapper = styled.div`
     margin: 10px;

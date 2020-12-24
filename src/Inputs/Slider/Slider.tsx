@@ -36,9 +36,7 @@ export interface SliderProps extends LabelLayoutProps {
 }
 
 export const Slider: React.FunctionComponent<SliderProps> = ({
-    onChange = (): void => {
-        return undefined;
-    },
+    onChange = (): void => undefined,
     hasPopup = false,
     disabled = false,
     hasRail = false,
@@ -66,9 +64,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     const [isRightKnobDragging, setIsRightKnobDragging] = useState(false);
     const [isLeftKnobDragging, setIsLeftKnobDragging] = useState(false);
 
-    const maxAndMinDifference = useMemo((): number => {
-        return max - min;
-    }, [max, min]);
+    const maxAndMinDifference = useMemo((): number => max - min, [max, min]);
 
     // Translate a value to Pixel
     const translateToPixels = (theValue: number): number => {
@@ -78,16 +74,14 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     };
 
     // Rounding up/down to steps
-    const roundToSteps = (theValue: number): number => {
-        return (
-            Math.round(
-                ((theValue * maxAndMinDifference) /
+    const roundToSteps = (theValue: number): number => (
+        Math.round(
+            ((theValue * maxAndMinDifference) /
                     (barRef.current?.clientWidth as number) +
                     min) /
                     step,
-            ) * step
-        );
-    };
+        ) * step
+    );
 
     useLayoutEffect((): void => {
         onChange({

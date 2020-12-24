@@ -121,19 +121,17 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
                 value={selectActiveCategory}
             >
                 {Object.entries(allCategories).map(
-                    (listAllCategories): React.ReactElement => {
-                        return (
-                            <option
-                                key={listAllCategories[CATEGORY_INDEX]}
-                                value={
-                                    listAllCategories[CATEGORY_SCHEDULE]
-                                        .category
-                                }
-                            >
-                                {listAllCategories[CATEGORY_SCHEDULE].category}
-                            </option>
-                        );
-                    },
+                    (listAllCategories): React.ReactElement => (
+                        <option
+                            key={listAllCategories[CATEGORY_INDEX]}
+                            value={
+                                listAllCategories[CATEGORY_SCHEDULE]
+                                    .category
+                            }
+                        >
+                            {listAllCategories[CATEGORY_SCHEDULE].category}
+                        </option>
+                    ),
                 )}
             </Section>
             <ButtonsContainer>

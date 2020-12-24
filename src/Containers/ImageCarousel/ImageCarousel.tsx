@@ -25,9 +25,7 @@ export interface ImageCarouselProps
 
 export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     imageData,
-    onClick = (): void => {
-        return undefined;
-    },
+    onClick = (): void => undefined,
     pointer = true,
     hoverIcon = Times,
     hoverOverlay = true,
@@ -36,34 +34,32 @@ export const ImageCarousel: React.FC<ImageCarouselProps> = ({
     width = 150,
     height = 75,
     ...props
-}): React.ReactElement => {
-    return (
-        <Items {...props}>
-            {imageData.map(
-                (image: string): React.ReactElement => (
-                    <Item
-                        key={image}
-                        onClick={(): void => onClick(image)}
-                        cursor={pointer}
-                    >
-                        {hoverOverlay && (
-                            <Overlay>
-                                <Icon as={hoverIcon} />
-                                {hoverText}
-                            </Overlay>
-                        )}
-                        <img
-                            width={width}
-                            height={height}
-                            alt={altText}
-                            src={image}
-                        />
-                    </Item>
-                ),
-            )}
-        </Items>
-    );
-};
+}): React.ReactElement => (
+    <Items {...props}>
+        {imageData.map(
+            (image: string): React.ReactElement => (
+                <Item
+                    key={image}
+                    onClick={(): void => onClick(image)}
+                    cursor={pointer}
+                >
+                    {hoverOverlay && (
+                        <Overlay>
+                            <Icon as={hoverIcon} />
+                            {hoverText}
+                        </Overlay>
+                    )}
+                    <img
+                        width={width}
+                        height={height}
+                        alt={altText}
+                        src={image}
+                    />
+                </Item>
+            ),
+        )}
+    </Items>
+);
 
 interface StyledItemProps {
     cursor: boolean;
