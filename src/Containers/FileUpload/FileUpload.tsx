@@ -1,27 +1,34 @@
 import React,{useCallback,useState} from 'react'
 import styled from 'styled-components'
 import {flex} from '@Utils/Mixins'
-import {StyledIcon} from '@styled-icons/styled-icon'
 import {TextLayout} from '@Layouts'
 import {useDropzone} from 'react-dropzone'
+import {Image} from '@styled-icons/fa-solid/Image';
+import {CheckCircle} from '@styled-icons/fa-solid/CheckCircle'
+import {TimesCircle} from '@styled-icons/fa-solid/TimesCircle'
+import {MainTheme} from '@Themes'
 import {Loading} from '../Loading/Loading'
 
 export interface IFileUploadProps{
     title:string;
     subTitle:string;
-    Image:StyledIcon;
     minHeight:number;
     setBase64:(base64StringFile:string)=>void;
     isUploading:boolean;
+    isSuccess:boolean;
+    successMessage:string;
+    failureMessage:string;
 }
 
 export const FileUpload:React.FC<IFileUploadProps>=({
     title,
     subTitle,
-    Image,
     minHeight,
     setBase64,
     isUploading,
+    isSuccess,
+    successMessage,
+    failureMessage,
 }):React.ReactElement=>{
     const [isDragEnter,setIsDragEnter]=useState(false);
     const onDrop = useCallback((acceptedFiles:File[]) => {
@@ -56,7 +63,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     const {getRootProps, getInputProps} = useDropzone({onDrop,onDragEnter,onDragLeave})
     return (
         <div>
-            <Container {...getRootProps({dashed:true,withFlex:true,withBorder:true,isDragEnter})}>
+            <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:true,isDragEnter,padding:'10px'})}>
                 <SubContainer minHeight={minHeight}>
                     <Icon as={Image} />
                     <TextLayout bold color='DarkBlue'>
@@ -66,10 +73,24 @@ export const FileUpload:React.FC<IFileUploadProps>=({
                     <input {...getInputProps()}  />
                 </SubContainer>
             </Container>
-            {isUploading&&
+            {(isUploading|| isSuccess!==undefined)&&
             (
                 <Container withBorder padding='30px 20px 43px 20px'>
-                    <Loading loading={isUploading} message='Uploading...' />
+                    {isSuccess===undefined&&<Loading loading={isUploading} message='Uploading...' />}
+                    {isSuccess&&
+                    (
+                        <Container withFlexSpaceBetween>
+                            <TextLayout bold color='DarkBlue'>{successMessage}</TextLayout>
+                            <Icon as={CheckCircle} color={MainTheme.colors.statusColors.green} />
+                        </Container>
+                    )}
+                    {isSuccess===false&&
+                    (
+                        <Container withFlexSpaceBetween>
+                            <TextLayout bold color='DarkBlue'>{failureMessage}</TextLayout>
+                            <Icon as={TimesCircle} color={MainTheme.colors.statusColors.red} />
+                        </Container>
+                    )}
                 </Container>
             )}
         </div>
@@ -79,7 +100,8 @@ export const FileUpload:React.FC<IFileUploadProps>=({
 
 interface IContainerProps{
     dashed?:boolean;
-    withFlex?:boolean;
+    withFlexCenter?:boolean;
+    withFlexSpaceBetween?:boolean;
     withBorder?:boolean;
     width?:string;
     padding?:string;
@@ -88,13 +110,14 @@ interface IContainerProps{
 
 const Container=styled.div<IContainerProps>`  
 border-radius:10px;
-${({dashed,withFlex,withBorder,width,padding,isDragEnter}):string=>`
+${({dashed,withFlexCenter,withBorder,width,padding,isDragEnter,withFlexSpaceBetween}):string=>`
 ${withBorder?`
 border:2px ${dashed?'dashed':'solid'} rgba(128,128,128,.8);
 `:''}
-${withFlex?flex('center'):''}
+${withFlexCenter?flex('center'):''}
+${withFlexSpaceBetween?flex('space-between','center'):''}
 ${width?`width:${width};`:''}
-${padding?`padding:${padding};`:'padding:10px;'}
+${padding?`padding:${padding};`:''}
 ${isDragEnter?'background-color:#cce6ff;border-color:#3399ff;':''}
 `}
 margin:10px;
@@ -113,7 +136,14 @@ min-height:${minHeight}px;
 `} 
 `
 
-const Icon = styled.svg`
+interface IIconProps{
+    color?:string;
+}
+
+const Icon = styled.svg<IIconProps>`
+    ${({color}):string=>`
+    ${color?`color:${color};`:''}
+    `}
     width: 35px;
     height: 35px;
 `;
