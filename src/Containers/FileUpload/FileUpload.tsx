@@ -86,13 +86,12 @@ export const FileUpload:React.FC<IFileUploadProps>=({
             const width=containerRef.current?.getBoundingClientRect().width
             if(width){
                 setWidthIsSuccess(width-padding*2-margin*2)
-                console.log('width issuccess',width)
             }
         }
     },[isSuccess])
 
     useEffect(()=>{
-        if(!isUploading){
+        if(!isUploading||isSuccess){
             setOpacityLoading(0)
             setPositionLoading(true)
         }
@@ -100,7 +99,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
             setPositionLoading(false)
             setOpacityLoading(1)
         }
-    },[isUploading])
+    },[isUploading,isSuccess])
 
     useEffect(()=>{
         if(!isSuccess){
