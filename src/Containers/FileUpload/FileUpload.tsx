@@ -16,6 +16,7 @@ export interface IFileUploadProps{
     setBase64:(base64StringFile:string)=>void;
     isUploading:boolean;
     isSuccess:boolean;
+    isFailure:boolean;
     successMessage:string;
     failureMessage:string;
 }
@@ -27,6 +28,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     setBase64,
     isUploading,
     isSuccess,
+    isFailure,
     successMessage,
     failureMessage,
 }):React.ReactElement=>{
@@ -44,9 +46,11 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     const [widthComponent,setWidthComponent]=useState<number>(0)
     const [margin]=useState(10)
     const [widthIsSuccess,setWidthIsSuccess]=useState(0)
+    const [positionIsFailure,setPositionIsFailure]=useState(!isFailure)
+    const [opacityIsFailure,setOpacityIsFailure]=useState(0)
 
     useEffect(()=>{
-        if(isUploading||isSuccess){
+        if(isUploading||isSuccess||isFailure){
             if(totalHeightPlus){
                 setHeight(totalHeightPlus)
             }else{
@@ -56,7 +60,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         }else if(totalHeight){
             setHeight(totalHeight)   
         }
-    },[isUploading,isSuccess,totalHeight,totalHeightPlus])
+    },[isUploading,isSuccess,isFailure,totalHeight,totalHeightPlus])
 
     useEffect(()=>{
         if(containerRef.current?.scrollHeight){
@@ -71,7 +75,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     },[])
 
     useEffect(()=>{
-        if(height===undefined&&(isUploading||isSuccess)){ 
+        if(height===undefined&&(isUploading||isSuccess||isFailure)){ 
             if(containerRef.current?.scrollHeight){
                 setTotalHeightPlus(containerRef.current.scrollHeight-padding*2)
             }
@@ -79,19 +83,19 @@ export const FileUpload:React.FC<IFileUploadProps>=({
                 setPositionTopLoading(loadingContainerRef.current?.getBoundingClientRect().top-margin)
             }
         }
-    },[height,isUploading,isSuccess])
+    },[height,isUploading,isSuccess,isFailure])
 
     useEffect(()=>{
-        if(isSuccess){
+        if(isSuccess||isFailure){
             const width=containerRef.current?.getBoundingClientRect().width
             if(width){
                 setWidthIsSuccess(width-padding*2-margin*2)
             }
         }
-    },[isSuccess])
+    },[isSuccess,isFailure])
 
     useEffect(()=>{
-        if(!isUploading||isSuccess){
+        if(!isUploading||isSuccess||isFailure){
             setOpacityLoading(0)
             setPositionLoading(true)
         }
@@ -99,10 +103,10 @@ export const FileUpload:React.FC<IFileUploadProps>=({
             setPositionLoading(false)
             setOpacityLoading(1)
         }
-    },[isUploading,isSuccess])
+    },[isUploading,isSuccess,isFailure])
 
     useEffect(()=>{
-        if(!isSuccess){
+        if(!isSuccess||isFailure){
             setOpacityIsSuccess(0)
             setPositionIsSuccess(true)
         }
@@ -110,11 +114,22 @@ export const FileUpload:React.FC<IFileUploadProps>=({
             setPositionIsSuccess(false)
             setOpacityIsSuccess(1)
         }
-    },[isSuccess])
+    },[isSuccess,isFailure])
+
+
+    useEffect(()=>{
+        if(!isFailure){
+            setOpacityIsFailure(0)
+            setPositionIsFailure(true)
+        }
+        return ()=>{
+            setPositionIsFailure(false)
+            setOpacityIsFailure(1)
+        }
+    },[isFailure])
 
     const containerRef=useRef<HTMLDivElement>(null)
     const loadingContainerRef=useRef<HTMLDivElement>(null)
-    const isSuccessContainerRef=useRef<HTMLDivElement>(null)
 
     useEffect(()=>{
         if(isUploading&&loadingContainerRef.current?.scrollHeight){
@@ -169,18 +184,18 @@ export const FileUpload:React.FC<IFileUploadProps>=({
             <Container withBorder padding='30px 20px 43px 20px' opacity={opacityLoading} position={positionLoading} ref={loadingContainerRef} overflow='hidden' width={widthComponent} margin={`${margin}px`} positionTop={positionTopLoading}>
                 <Loading loading={isUploading} message='Uploading...' />
             </Container>
-            <Container withBorder opacity={opacityIsSuccess} height={loadingContainerHeight} position={positionIsSuccess} ref={isSuccessContainerRef} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
+            <Container withBorder opacity={opacityIsSuccess} height={loadingContainerHeight} position={positionIsSuccess} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
                 <Container withFlexSpaceBetween>
                     <TextLayout bold color='DarkBlue'>{successMessage}</TextLayout>
                     <Icon as={CheckCircle} color={MainTheme.colors.statusColors.green} />
                 </Container>
             </Container>
-            {/* <Container withBorder opacity={opacity} height={loadingContainerHeight}>
+            <Container withBorder opacity={opacityIsFailure} height={loadingContainerHeight} position={positionIsFailure} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
                 <Container withFlexSpaceBetween>
                     <TextLayout bold color='DarkBlue'>{failureMessage}</TextLayout>
                     <Icon as={TimesCircle} color={MainTheme.colors.statusColors.red} />
                 </Container>
-            </Container>  */}
+            </Container> 
         </Container>
     )
 }
