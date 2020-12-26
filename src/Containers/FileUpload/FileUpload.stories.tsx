@@ -14,7 +14,7 @@ export default {
             console.log(base64StringFile)
         },
         isUploading:false,
-        isSuccess:undefined,
+        isSuccess:false,
         successMessage:'Completed',
         failureMessage:'Something went wrong'
     }
@@ -22,11 +22,11 @@ export default {
 
 export const Basic: Story<IFileUploadProps> = (args) => <FileUpload {...args} />;
 
-export const IsSuccessDefined= Basic.bind({});
+// export const IsSuccessDefined= Basic.bind({});
 
-IsSuccessDefined.args={
-    ...IsSuccessDefined.args,
-    isSuccess:false
-}
+// IsSuccessDefined.args={
+//     ...IsSuccessDefined.args,
+//     isSuccess:false
+// }
 
 

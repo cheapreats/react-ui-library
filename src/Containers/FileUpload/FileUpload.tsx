@@ -1,4 +1,4 @@
-import React,{useCallback,useState} from 'react'
+import React,{useCallback,useState,useRef,useEffect} from 'react'
 import styled from 'styled-components'
 import {flex} from '@Utils/Mixins'
 import {TextLayout} from '@Layouts'
@@ -30,6 +30,99 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     successMessage,
     failureMessage,
 }):React.ReactElement=>{
+    const [height,setHeight]=useState<number|undefined>(undefined)
+    const [totalHeight,setTotalHeight]=useState(0)
+    const [totalHeightPlus,setTotalHeightPlus]=useState(0)
+    const [padding]=useState(10)
+    const [maxHeight,setMaxHeight]=useState<number|undefined>(undefined)
+    const [positionLoading,setPositionLoading]=useState(!isUploading)
+    const [positionTopLoading,setPositionTopLoading]=useState(0)
+    const [opacityLoading,setOpacityLoading]=useState(0)
+    const [positionIsSuccess,setPositionIsSuccess]=useState(!isSuccess)
+    const [opacityIsSuccess,setOpacityIsSuccess]=useState(0)
+    const [loadingContainerHeight,setLoadingContainerHeight]=useState(0)
+    const [widthComponent,setWidthComponent]=useState<number>(0)
+    const [margin]=useState(10)
+    const [widthIsSuccess,setWidthIsSuccess]=useState(0)
+
+    useEffect(()=>{
+        if(isUploading||isSuccess){
+            if(totalHeightPlus){
+                setHeight(totalHeightPlus)
+            }else{
+                setHeight(undefined)
+                setMaxHeight(600)
+            }
+        }else if(totalHeight){
+            setHeight(totalHeight)   
+        }
+    },[isUploading,isSuccess,totalHeight,totalHeightPlus])
+
+    useEffect(()=>{
+        if(containerRef.current?.scrollHeight){
+            const contentHeight=containerRef.current.scrollHeight
+            setTotalHeight(contentHeight-padding*2)
+            setHeight(contentHeight-padding*2)
+            setMaxHeight(contentHeight-padding*2)
+        }
+        if(rootRef.current?.clientWidth){
+            setWidthComponent(rootRef.current?.clientWidth-margin*2-padding*2)
+        }
+    },[])
+
+    useEffect(()=>{
+        if(height===undefined&&(isUploading||isSuccess)){ 
+            if(containerRef.current?.scrollHeight){
+                setTotalHeightPlus(containerRef.current.scrollHeight-padding*2)
+            }
+            if(loadingContainerRef.current?.getBoundingClientRect().top){
+                setPositionTopLoading(loadingContainerRef.current?.getBoundingClientRect().top-margin)
+            }
+        }
+    },[height,isUploading,isSuccess])
+
+    useEffect(()=>{
+        if(isSuccess){
+            const width=containerRef.current?.getBoundingClientRect().width
+            if(width){
+                setWidthIsSuccess(width-padding*2-margin*2)
+                console.log('width issuccess',width)
+            }
+        }
+    },[isSuccess])
+
+    useEffect(()=>{
+        if(!isUploading){
+            setOpacityLoading(0)
+            setPositionLoading(true)
+        }
+        return ()=>{
+            setPositionLoading(false)
+            setOpacityLoading(1)
+        }
+    },[isUploading])
+
+    useEffect(()=>{
+        if(!isSuccess){
+            setOpacityIsSuccess(0)
+            setPositionIsSuccess(true)
+        }
+        return ()=>{
+            setPositionIsSuccess(false)
+            setOpacityIsSuccess(1)
+        }
+    },[isSuccess])
+
+    const containerRef=useRef<HTMLDivElement>(null)
+    const loadingContainerRef=useRef<HTMLDivElement>(null)
+    const isSuccessContainerRef=useRef<HTMLDivElement>(null)
+
+    useEffect(()=>{
+        if(isUploading&&loadingContainerRef.current?.scrollHeight){
+            setLoadingContainerHeight(loadingContainerRef.current?.scrollHeight)
+        }
+    },[isUploading])
+
     const [isDragEnter,setIsDragEnter]=useState(false);
     const onDrop = useCallback((acceptedFiles:File[]) => {
         acceptedFiles.forEach((file) => {
@@ -60,10 +153,11 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         event.preventDefault();
         setIsDragEnter(false);
     },[]);
-    const {getRootProps, getInputProps} = useDropzone({onDrop,onDragEnter,onDragLeave})
+    const {getRootProps, getInputProps,rootRef} = useDropzone({onDrop,onDragEnter,onDragLeave})
+
     return (
-        <div>
-            <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:true,isDragEnter,padding:'10px'})}>
+        <Container backgroundColor='white' padding='10px' borderRadius='20px' ref={containerRef} maxHeight={maxHeight} overflow='hidden' height={height} margin={`${margin}px`}>
+            <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:true,isDragEnter,padding:'10px',margin:`${margin}px`})}>
                 <SubContainer minHeight={minHeight}>
                     <Icon as={Image} />
                     <TextLayout bold color='DarkBlue'>
@@ -73,28 +167,22 @@ export const FileUpload:React.FC<IFileUploadProps>=({
                     <input {...getInputProps()}  />
                 </SubContainer>
             </Container>
-            {(isUploading|| isSuccess!==undefined)&&
-            (
-                <Container withBorder padding='30px 20px 43px 20px'>
-                    {isSuccess===undefined&&<Loading loading={isUploading} message='Uploading...' />}
-                    {isSuccess&&
-                    (
-                        <Container withFlexSpaceBetween>
-                            <TextLayout bold color='DarkBlue'>{successMessage}</TextLayout>
-                            <Icon as={CheckCircle} color={MainTheme.colors.statusColors.green} />
-                        </Container>
-                    )}
-                    {isSuccess===false&&
-                    (
-                        <Container withFlexSpaceBetween>
-                            <TextLayout bold color='DarkBlue'>{failureMessage}</TextLayout>
-                            <Icon as={TimesCircle} color={MainTheme.colors.statusColors.red} />
-                        </Container>
-                    )}
+            <Container withBorder padding='30px 20px 43px 20px' opacity={opacityLoading} position={positionLoading} ref={loadingContainerRef} overflow='hidden' width={widthComponent} margin={`${margin}px`} positionTop={positionTopLoading}>
+                <Loading loading={isUploading} message='Uploading...' />
+            </Container>
+            <Container withBorder opacity={opacityIsSuccess} height={loadingContainerHeight} position={positionIsSuccess} ref={isSuccessContainerRef} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
+                <Container withFlexSpaceBetween>
+                    <TextLayout bold color='DarkBlue'>{successMessage}</TextLayout>
+                    <Icon as={CheckCircle} color={MainTheme.colors.statusColors.green} />
                 </Container>
-            )}
-        </div>
-        
+            </Container>
+            {/* <Container withBorder opacity={opacity} height={loadingContainerHeight}>
+                <Container withFlexSpaceBetween>
+                    <TextLayout bold color='DarkBlue'>{failureMessage}</TextLayout>
+                    <Icon as={TimesCircle} color={MainTheme.colors.statusColors.red} />
+                </Container>
+            </Container>  */}
+        </Container>
     )
 }
 
@@ -103,24 +191,40 @@ interface IContainerProps{
     withFlexCenter?:boolean;
     withFlexSpaceBetween?:boolean;
     withBorder?:boolean;
-    width?:string;
+    width?:number;
     padding?:string;
     isDragEnter?:boolean;
+    backgroundColor?:string;
+    borderRadius?:string;
+    height?:number;
+    opacity?:number;
+    overflow?:string;
+    position?:boolean;
+    maxHeight?:number;
+    margin?:string;
+    positionTop?:number;
 }
 
 const Container=styled.div<IContainerProps>`  
-border-radius:10px;
-${({dashed,withFlexCenter,withBorder,width,padding,isDragEnter,withFlexSpaceBetween}):string=>`
+${({dashed,withFlexCenter,withBorder,width,padding,isDragEnter,withFlexSpaceBetween,backgroundColor,borderRadius,height,opacity,maxHeight,overflow,position,margin,positionTop}):string=>`
+${borderRadius?`border-radius:${borderRadius};`:'border-radius:10px;'}
 ${withBorder?`
 border:2px ${dashed?'dashed':'solid'} rgba(128,128,128,.8);
 `:''}
 ${withFlexCenter?flex('center'):''}
 ${withFlexSpaceBetween?flex('space-between','center'):''}
-${width?`width:${width};`:''}
+${width?`width:${width}px;`:''}
 ${padding?`padding:${padding};`:''}
 ${isDragEnter?'background-color:#cce6ff;border-color:#3399ff;':''}
+${backgroundColor?`background-color:${backgroundColor};`:''}
+${opacity!==undefined?`opacity:${opacity};`:''}
+${height?`height:${height}px;`:'height:auto;'}
+${maxHeight!==undefined?`max-height:${maxHeight}px;`:''}
+${overflow?`overflow:${overflow};`:''}
+${position?`position:absolute;top:${positionTop}px;`:''}
+${margin?`margin:${margin};`:''}
 `}
-margin:10px;
+transition:height .5s,opacity 1s,max-height 5s;
 `
 
 interface ISubContainerProps{
