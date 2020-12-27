@@ -8,6 +8,8 @@ import {CheckCircle} from '@styled-icons/fa-solid/CheckCircle'
 import {TimesCircle} from '@styled-icons/fa-solid/TimesCircle'
 import {MainTheme} from '@Themes'
 import {Loading} from '../Loading/Loading'
+import {BottomPanel} from './BottomPanel'
+import {Container} from './Container'
 
 export interface IFileUploadProps{
     title:string;
@@ -186,65 +188,24 @@ export const FileUpload:React.FC<IFileUploadProps>=({
                     <input {...getInputProps()}  />
                 </SubContainer>
             </Container>
-            <Container withBorder padding='30px 20px 43px 20px' opacity={opacityLoading} position={positionLoading} ref={loadingContainerRef} overflow='hidden' width={widthComponent} margin={`${margin}px`} positionTop={positionTopLoading}>
+            <BottomPanel withBorder padding='30px 20px 43px 20px' opacity={opacityLoading} position={positionLoading} ref={loadingContainerRef} overflow='hidden' width={widthComponent} margin={`${margin}px`} positionTop={positionTopLoading}>
                 <Loading loading={isUploading} message='Uploading...' />
-            </Container>
-            <Container withBorder opacity={opacityIsSuccess} height={loadingContainerHeight} position={positionIsSuccess} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
+            </BottomPanel>
+            <BottomPanel withBorder opacity={opacityIsSuccess} height={loadingContainerHeight} position={positionIsSuccess} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
                 <Container withFlexSpaceBetween>
                     <TextLayout bold color='DarkBlue'>{successMessage}</TextLayout>
                     <Icon as={CheckCircle} color={MainTheme.colors.statusColors.green} />
                 </Container>
-            </Container>
-            <Container withBorder opacity={opacityIsFailure} height={loadingContainerHeight} position={positionIsFailure} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
+            </BottomPanel>
+            <BottomPanel withBorder opacity={opacityIsFailure} height={loadingContainerHeight} position={positionIsFailure} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
                 <Container withFlexSpaceBetween>
                     <TextLayout bold color='DarkBlue'>{failureMessage}</TextLayout>
                     <Icon as={TimesCircle} color={MainTheme.colors.statusColors.red} />
                 </Container>
-            </Container> 
+            </BottomPanel> 
         </Container>
     )
 }
-
-interface IContainerProps{
-    dashed?:boolean;
-    withFlexCenter?:boolean;
-    withFlexSpaceBetween?:boolean;
-    withBorder?:boolean;
-    width?:number;
-    padding?:string;
-    isDragEnter?:boolean;
-    backgroundColor?:string;
-    borderRadius?:string;
-    height?:number;
-    opacity?:number;
-    overflow?:string;
-    position?:boolean;
-    maxHeight?:number;
-    margin?:string;
-    positionTop?:number;
-}
-
-const Container=styled.div<IContainerProps>`  
-${({dashed,withFlexCenter,withBorder,width,padding,isDragEnter,withFlexSpaceBetween,backgroundColor,borderRadius,height,opacity,maxHeight,overflow,position,margin,positionTop}):string=>`
-${borderRadius?`border-radius:${borderRadius};`:'border-radius:10px;'}
-${withBorder?`
-border:2px ${dashed?'dashed':'solid'} rgba(128,128,128,.8);
-`:''}
-${withFlexCenter?flex('center'):''}
-${withFlexSpaceBetween?flex('space-between','center'):''}
-${width?`width:${width}px;`:''}
-${padding?`padding:${padding};`:''}
-${isDragEnter?'background-color:#cce6ff;border-color:#3399ff;':''}
-${backgroundColor?`background-color:${backgroundColor};`:''}
-${opacity!==undefined?`opacity:${opacity};`:''}
-${height?`height:${height}px;`:'height:auto;'}
-${maxHeight!==undefined?`max-height:${maxHeight}px;`:''}
-${overflow?`overflow:${overflow};`:''}
-${position?`position:absolute;top:${positionTop}px;`:''}
-${margin?`margin:${margin};`:''}
-`}
-transition:height .5s,opacity .5s,max-height 5s;
-`
 
 interface ISubContainerProps{
     minHeight?:number;
