@@ -17,7 +17,8 @@ export default {
         isSuccess:false,
         isFailure:false,
         successMessage:'Completed',
-        failureMessage:'Something went wrong'
+        failureMessage:'Something went wrong',
+        disabled:false,
     }
 } as Meta;
 

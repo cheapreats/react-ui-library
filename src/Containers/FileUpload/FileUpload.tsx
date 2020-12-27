@@ -21,6 +21,7 @@ export interface IFileUploadProps{
     isFailure:boolean;
     successMessage:string;
     failureMessage:string;
+    disabled:boolean;
 }
 
 export const FileUpload:React.FC<IFileUploadProps>=({
@@ -33,6 +34,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     isFailure,
     successMessage,
     failureMessage,
+    disabled,
 }):React.ReactElement=>{
     const [height,setHeight]=useState<number|undefined>(undefined)
     const [totalHeight,setTotalHeight]=useState(0)
@@ -174,7 +176,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         event.preventDefault();
         setIsDragEnter(false);
     },[]);
-    const {getRootProps, getInputProps,rootRef} = useDropzone({onDrop,onDragEnter,onDragLeave})
+    const {getRootProps, getInputProps,rootRef} = useDropzone({onDrop,onDragEnter,onDragLeave,disabled})
 
     return (
         <Container backgroundColor='white' padding='10px' borderRadius='20px' ref={containerRef} maxHeight={maxHeight} overflow='hidden' height={height} margin={`${margin}px`}>
