@@ -43,12 +43,13 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     const [positionIsSuccess,setPositionIsSuccess]=useState(!isSuccess)
     const [opacityIsSuccess,setOpacityIsSuccess]=useState(0)
     const [loadingContainerHeight,setLoadingContainerHeight]=useState(0)
-    const [widthComponent,setWidthComponent]=useState<number>(0)
+    const [widthComponent,setWidthComponent]=useState(0)
     const [margin]=useState(10)
     const [widthIsSuccess,setWidthIsSuccess]=useState(0)
     const [positionIsFailure,setPositionIsFailure]=useState(!isFailure)
     const [opacityIsFailure,setOpacityIsFailure]=useState(0)
 
+    // this sets height of the component, is used to transition between heights. 
     useEffect(()=>{
         if(isUploading||isSuccess||isFailure){
             if(totalHeightPlus){
@@ -62,11 +63,11 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         }
     },[isUploading,isSuccess,isFailure,totalHeight,totalHeightPlus])
 
+    // this is to calculate (set) some values
     useEffect(()=>{
         if(containerRef.current?.scrollHeight){
             const contentHeight=containerRef.current.scrollHeight
             setTotalHeight(contentHeight-padding*2)
-            setHeight(contentHeight-padding*2)
             setMaxHeight(contentHeight-padding*2)
         }
         if(rootRef.current?.clientWidth){
@@ -74,6 +75,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         }
     },[])
 
+    // this is to set some values the first time when the component it's expanded
     useEffect(()=>{
         if(height===undefined&&(isUploading||isSuccess||isFailure)){ 
             if(containerRef.current?.scrollHeight){
@@ -85,6 +87,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         }
     },[height,isUploading,isSuccess,isFailure])
 
+    // this is to calculate and set the width of the success and failure container component
     useEffect(()=>{
         if(isSuccess||isFailure){
             const width=containerRef.current?.getBoundingClientRect().width
@@ -94,6 +97,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         }
     },[isSuccess,isFailure])
 
+    // this is to fade out uploading container component
     useEffect(()=>{
         if(!isUploading||isSuccess||isFailure){
             setOpacityLoading(0)
@@ -105,6 +109,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         }
     },[isUploading,isSuccess,isFailure])
 
+    // this is to fade out success container component
     useEffect(()=>{
         if(!isSuccess||isFailure){
             setOpacityIsSuccess(0)
@@ -116,7 +121,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         }
     },[isSuccess,isFailure])
 
-
+    // this is to fade out failure container component
     useEffect(()=>{
         if(!isFailure){
             setOpacityIsFailure(0)
@@ -238,7 +243,7 @@ ${overflow?`overflow:${overflow};`:''}
 ${position?`position:absolute;top:${positionTop}px;`:''}
 ${margin?`margin:${margin};`:''}
 `}
-transition:height .5s,opacity 1s,max-height 5s;
+transition:height .5s,opacity .5s,max-height 5s;
 `
 
 interface ISubContainerProps{
