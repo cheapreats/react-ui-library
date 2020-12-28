@@ -9,7 +9,7 @@ import { Heading } from '@Text/Heading';
 export interface ICollapsibleHeadingProps extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement>{
-    title: string;
+    title?: string;
     ChildElement?: React.ReactElement;
     isCollapsed?: boolean;
     setCollapsed?: () => void;
