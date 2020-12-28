@@ -181,7 +181,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
 
     return (
         <Container backgroundColor='white' padding='10px' borderRadius='20px' ref={containerRef} maxHeight={maxHeight} overflow='hidden' height={height} margin={`${margin}px`}>
-            <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:true,isDragEnter,padding:'10px',margin:`${margin}px`})}>
+            <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:!isDragEnter,isDragEnter,padding:'10px',margin:`${margin}px`})}>
                 <SubContainer minHeight={minHeight}>
                     {isDragEnter?<FileMovingAnimation />:<Icon as={Image} />}
                     <TextLayout bold color='DarkBlue'>
@@ -194,7 +194,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
             <BottomPanel withBorder padding='30px 20px 43px 20px' opacity={opacityLoading} position={positionLoading} ref={loadingContainerRef} overflow='hidden' width={widthComponent} margin={`${margin}px`} positionTop={positionTopLoading}>
                 <Loading loading={isUploading} message='Uploading...' />
             </BottomPanel>
-            <BottomPanel withBorder opacity={opacityIsSuccess} height={loadingContainerHeight} position={positionIsSuccess} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
+            <BottomPanel opacity={opacityIsSuccess} height={loadingContainerHeight} position={positionIsSuccess} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
                 <Container withFlexSpaceBetween>
                     <TextLayout bold color='DarkBlue'>{successMessage}</TextLayout>
                     <Icon as={CheckCircle} color={MainTheme.colors.statusColors.green} />
