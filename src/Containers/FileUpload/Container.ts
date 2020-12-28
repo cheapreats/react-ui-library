@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 import {flex} from '@Utils/Mixins'
 
-interface IContainerProps{
+export interface IContainerProps{
     dashed?:boolean;
     withFlexCenter?:boolean;
     withFlexSpaceBetween?:boolean;

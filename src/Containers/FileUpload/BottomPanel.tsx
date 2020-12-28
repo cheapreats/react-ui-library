@@ -1,24 +1,7 @@
 import React,{forwardRef} from 'react'
-import {Container} from './Container'
+import {Container,IContainerProps} from './Container'
 
-interface IBottomPanelProps{
-    children:React.ReactElement;
-    dashed?:boolean;
-    withFlexCenter?:boolean;
-    withFlexSpaceBetween?:boolean;
-    withBorder?:boolean;
-    width?:number;
-    padding?:string;
-    isDragEnter?:boolean;
-    backgroundColor?:string;
-    borderRadius?:string;
-    height?:number;
-    opacity?:number;
-    overflow?:string;
-    position?:boolean;
-    maxHeight?:number;
-    margin?:string;
-    positionTop?:number;
+interface IBottomPanelProps extends IContainerProps{
 }
 
 export const BottomPanel=forwardRef<HTMLDivElement,IBottomPanelProps>(({children,...props},forwadedRef):React.ReactElement=>{
