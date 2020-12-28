@@ -17,7 +17,9 @@ export interface IVendorsFilterProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    filterItems?: IFilterItems[];
+    headingTitle: string;
+    buttonText: string;
+    filterItems: IFilterItems[];
     headingProps?: HeadingProps;
     buttonProps?: ButtonProps;
     collapsibleHeadingProps?: ICollapsibleHeadingProps;
@@ -28,6 +30,8 @@ const BACKGROUND_COLOR = '#FFFFFF';
 const FIRST_ITEM = 0;
 
 export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
+    headingTitle,
+    buttonText,
     filterItems,
     headingProps,
     buttonProps,
@@ -35,9 +39,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
     ...props
 }): React.ReactElement => {
     const [filterApplied, setFilterApplied] = useState(false);
-    const [isCollapsedArr, setIsCollapsedArr] = useState(
-        Array(Object.values(filterItems).length).fill(false),
-    );
+    const [isCollapsedArr, setIsCollapsedArr] = useState(Array(filterItems.length).fill(false));
     return (
         <div>
             <List
@@ -51,7 +53,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                 backgroundColor={BACKGROUND_COLOR}
                 header={(
                     <Heading bold {...headingProps}>
-                        Filters
+                        {headingTitle}
                     </Heading>
                 )}
             >
@@ -85,7 +87,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                         onClick={() => setFilterApplied(!filterApplied)}
                         {...buttonProps}
                     >
-                        Apply
+                        {buttonText}
                     </Button>
                 </Wrapper>
             </List>

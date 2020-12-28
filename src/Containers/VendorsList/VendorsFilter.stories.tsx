@@ -9,6 +9,8 @@ export default {
 } as Meta;
 
 const getVendorFilterProps = () => ({
+    headingTitle: 'Filters',
+    buttonText: 'Apply',
     style: {
         padding: '20px'
     },
