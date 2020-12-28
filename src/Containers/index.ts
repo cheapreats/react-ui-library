@@ -49,6 +49,6 @@ export * from './VendorsList';
 export * from './ReactTable/ReactTable';
 export * from './ReportIssue/ReportIssue';
 export * from './WaitTimeDisplay/WaitTimeDisplay';
-export * from './VendorsList';
 export * from './MiddleCanvas';
 export * from './WarningCard/WarningCard';
+export * from './CollapsibleHeading/CollapsibleHeading';
