@@ -10,6 +10,7 @@ import {MainTheme} from '@Themes'
 import {Loading} from '../Loading/Loading'
 import {BottomPanel} from './BottomPanel'
 import {Container} from './Container'
+import {FileMovingAnimation} from './FileMovingAnimation'
 
 export interface IFileUploadProps{
     title:string;
@@ -182,7 +183,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         <Container backgroundColor='white' padding='10px' borderRadius='20px' ref={containerRef} maxHeight={maxHeight} overflow='hidden' height={height} margin={`${margin}px`}>
             <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:true,isDragEnter,padding:'10px',margin:`${margin}px`})}>
                 <SubContainer minHeight={minHeight}>
-                    <Icon as={Image} />
+                    {isDragEnter?<FileMovingAnimation />:<Icon as={Image} />}
                     <TextLayout bold color='DarkBlue'>
                         {title}
                     </TextLayout>      
@@ -230,6 +231,6 @@ const Icon = styled.svg<IIconProps>`
     ${({color}):string=>`
     ${color?`color:${color};`:''}
     `}
-    width: 35px;
-    height: 35px;
+    width: 140px;
+    height: 80px;
 `;
