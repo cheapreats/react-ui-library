@@ -1,4 +1,4 @@
-import React,{useCallback,useState,useRef,useEffect} from 'react'
+import React,{useCallback,useState,useRef,useEffect,useLayoutEffect} from 'react'
 import styled from 'styled-components'
 import {flex} from '@Utils/Mixins'
 import {TextLayout} from '@Layouts'
@@ -138,6 +138,24 @@ export const FileUpload:React.FC<IFileUploadProps>=({
             setOpacityIsFailure(1)
         }
     },[isFailure])
+
+    // this is used to resize bottom panel with when resizing window browser
+    useLayoutEffect(() => {
+        function updateSize() {
+            if(rootRef.current?.clientWidth){
+                setWidthComponent(rootRef.current?.clientWidth-margin*2-padding*2)
+            }
+            if(isSuccess||isFailure){
+                const width=containerRef.current?.getBoundingClientRect().width
+                if(width){
+                    setWidthIsSuccess(width-padding*2-margin*2)
+                }
+            }
+        }
+        window.addEventListener('resize', updateSize);
+        updateSize();
+        return () => window.removeEventListener('resize', updateSize);
+    }, [isSuccess,isFailure]);
 
     const containerRef=useRef<HTMLDivElement>(null)
     const loadingContainerRef=useRef<HTMLDivElement>(null)
