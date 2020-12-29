@@ -183,7 +183,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     return (
         <Container backgroundColor='white' padding='10px' borderRadius='20px' ref={containerRef} maxHeight={maxHeight} overflow='hidden' height={height} margin={`${margin}px`}>
             <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:!isDragEnter,isDragEnter,padding:'10px',margin:`${margin}px`})}>
-                <SubContainer minHeight={minHeight}>
+                <SubContainer minHeight={minHeight} disabled={disabled}>
                     {isDragEnter?<FileMovingAnimation />:<Icon as={Image} width={140} height={80} />}
                     <TextLayout bold color='DarkBlue'>
                         {title}
@@ -207,14 +207,16 @@ export const FileUpload:React.FC<IFileUploadProps>=({
 
 interface ISubContainerProps{
     minHeight?:number;
+    disabled:boolean;
 }
 
 const SubContainer=styled.div<ISubContainerProps>`
 ${flex('column','space-between','center')}
-${({minHeight}):string=>`
+${({minHeight,disabled}):string=>`
 ${minHeight?`
 min-height:${minHeight}px;
 `:''}
+${disabled?`opacity:0.6;`:''}
 `} 
 `
 
