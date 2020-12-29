@@ -1,23 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Chair, IChair } from './Chair';
+import { Chair, IChair } from '../Chair';
 
-// Define a type for Position to restrict to four specific values
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
-// Define a type for the getChairsTopBottom function
 type getChairsTopBottomType = (array: Array<IChair>) => JSX.Element[];
 
-// Define a type for the getChairsLeftRight function
 type getChairsLeftRightType = (array: Array<IChair>) => JSX.Element[];
 
-// Define a type for the generateKey function
 type generateKeyType = (pre: string) => string;
 
-// Define a type for the chairRowSwitch function
 type chairRowSwitchType = () => JSX.Element;
 
-export interface IChairRow {
+interface IChairRow {
     /**
      * The position of the chair relative to the table (top/bottom/left/right)
      */
@@ -26,15 +21,19 @@ export interface IChairRow {
      * Array of chairs
      */
     chairs: Array<IChair>;
+    /**
+     * The size for the component relative to the parent
+     */
+    relativeSize: number;
 }
 
 /**
- * Primary UI component for user interaction
+ * ChairRow component for chair placement around tables
  */
-
 export const ChairRow: React.FC<IChairRow> = ({
     position = 'top',
     chairs = [],
+    relativeSize = 1.0,
     ...props
 }) => {
     /**
@@ -50,6 +49,7 @@ export const ChairRow: React.FC<IChairRow> = ({
                     occupiedBy={i.occupiedBy}
                     isSeated={i.isSeated}
                     isVisible={i.isVisible}
+                    relativeSize={relativeSize}
                 />
             </ChairCol>
         ));
@@ -62,13 +62,17 @@ export const ChairRow: React.FC<IChairRow> = ({
      */
     const getChairsLeftRight: getChairsLeftRightType = (array) => {
         return array.map((i) => (
-            <SideChairRow key={generateKey(position + i)}>
+            <SideChairRow
+                relativeSize={relativeSize}
+                key={generateKey(position + i)}
+            >
                 <SideChairCentering>
                     <Chair
                         position={i.position}
                         occupiedBy={i.occupiedBy}
                         isSeated={i.isSeated}
                         isVisible={i.isVisible}
+                        relativeSize={relativeSize}
                     />
                 </SideChairCentering>
             </SideChairRow>
@@ -95,7 +99,7 @@ export const ChairRow: React.FC<IChairRow> = ({
                 return (
                     <div>
                         <TopBottomRow
-                            chairs={chairs}
+                            relativeSize={relativeSize}
                             chairNumOnSide={chairs.length}
                         >
                             {getChairsTopBottom(chairs)}
@@ -106,7 +110,7 @@ export const ChairRow: React.FC<IChairRow> = ({
                 return (
                     <div>
                         <TopBottomRow
-                            chairs={chairs}
+                            relativeSize={relativeSize}
                             chairNumOnSide={chairs.length}
                         >
                             {getChairsTopBottom(chairs)}
@@ -125,33 +129,21 @@ export const ChairRow: React.FC<IChairRow> = ({
     return <div {...props}>{chairRowSwitch()}</div>;
 };
 
-// Define a type for the isSideChairs function
-type isSideChairsType = (chairs: Array<IChair>) => boolean;
-
 /**
- * Determines if there are any chairs on the left side of the table
- * to correct top or bottom row's margins
- * @return {boolean} - Returns true if there are left chairs, otherwise false
- */
-const isSideChairs: isSideChairsType = (chairs) => {
-    const left = chairs.filter((i) => i.position === 'left').length;
-    return left > 0;
-};
-
-/**
- * variables for the styled components
+ * variables for the styled components for the ChairRow component
  */
 
 interface ITopBottomRow {
     chairNumOnSide: number;
-    chairs: Array<IChair>;
+    relativeSize: number;
 }
 
 const TopBottomRow = styled.div<ITopBottomRow>`
     display: flex;
     flex-wrap: wrap;
-    width: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
-    margin-left: ${({ chairs }) => (isSideChairs(chairs) ? 1.5 : -1)}rem;
+    width: ${({ chairNumOnSide, relativeSize }) =>
+        chairNumOnSide * 20 * relativeSize}rem;
+    margin-left: ${({ relativeSize }) => relativeSize * 2.7}rem;
 `;
 
 const ChairCol = styled.div`
@@ -160,12 +152,16 @@ const ChairCol = styled.div`
     max-width: 100%;
 `;
 
-const SideChairRow = styled.div`
+interface ISideChairRow {
+    relativeSize: number;
+}
+
+const SideChairRow = styled.div<ISideChairRow>`
     display: flex;
     flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-    height: 20rem;
+    margin-right: ${({ relativeSize }) => -15 * relativeSize}px;
+    margin-left: ${({ relativeSize }) => -15 * relativeSize}px;
+    height: ${({ relativeSize }) => 20 * relativeSize}rem;
 `;
 
 const SideChairCentering = styled.div`

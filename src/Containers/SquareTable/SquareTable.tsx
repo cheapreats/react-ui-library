@@ -4,9 +4,13 @@
  */
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
-import { Chair, IChair } from '@Containers/Chair';
+import { IChair } from '../Chair';
+import { ChairRow } from './_ChairRow';
 
-// Define a type for the getSquareTableSize function
+type Position = 'top' | 'bottom' | 'left' | 'right';
+
+type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
+
 type getSquareTableSizeType = (
     top: number,
     bottom: number,
@@ -14,16 +18,12 @@ type getSquareTableSizeType = (
     right: number,
 ) => number;
 
-// Define a type for the getRectangleTop function
 type getRectangleTopType = (top: number, bottom: number) => number;
 
-// Define a type for the getRectangleSide function
 type getRectangleSideType = (left: number, right: number) => number;
 
-// Define a type for the getOccupancyColor function
 type getOccupancyColorType = () => string;
 
-// Define a type for the fillArray function
 type fillArrayType = (
     array: Array<IChair>,
     targetSize: number,
@@ -51,12 +51,10 @@ export interface ISquareTable {
      * Whether the table is a square
      */
     isSquare: boolean;
-}
-
-enum occupancyStatusTypes {
-    Vacant = 'Vacant',
-    Reserved = 'Reserved',
-    Occupied = 'Occupied',
+    /**
+     * The size for the component relative to the parent
+     */
+    relativeSize: number;
 }
 
 /**
@@ -66,8 +64,9 @@ enum occupancyStatusTypes {
 export const SquareTable: React.FC<ISquareTable> = ({
     tableID = 'T1',
     partyName = 'Null',
-    occupancyStatus = occupancyStatusTypes.Vacant,
+    occupancyStatus = 'Vacant',
     chairs = [],
+    relativeSize = 1.0,
     isSquare = false,
     ...props
 }) => {
@@ -151,10 +150,11 @@ export const SquareTable: React.FC<ISquareTable> = ({
     const fillArray: fillArrayType = (array, size, position) => {
         while (array.length < size) {
             array.push({
-                position: position,
+                position,
                 isSeated: false,
                 occupiedBy: '',
                 isVisible: false,
+                relativeSize,
             });
         }
     };
@@ -181,13 +181,13 @@ export const SquareTable: React.FC<ISquareTable> = ({
      */
     const getOccupancyColor: getOccupancyColorType = () => {
         switch (occupancyStatus) {
-            case occupancyStatusTypes.Vacant:
+            case 'Vacant':
                 return colors.occupancyStatusColors.Vacant;
 
-            case occupancyStatusTypes.Reserved:
+            case 'Reserved':
                 return colors.occupancyStatusColors.Reserved;
 
-            case occupancyStatusTypes.Occupied:
+            case 'Occupied':
                 return colors.occupancyStatusColors.Occupied;
 
             default:
@@ -198,15 +198,24 @@ export const SquareTable: React.FC<ISquareTable> = ({
     return (
         <div {...props}>
             {/** chairs top */}
-            <ChairRow position="top" chairs={topArray} />
+            <ChairRow
+                position="top"
+                chairs={topArray}
+                relativeSize={relativeSize}
+            />
 
             {/** table itself */}
             <div>
-                <Row>
+                <Row relativeSize={relativeSize}>
                     {/** chairs left */}
-                    <ChairRow position="left" chairs={leftArray} />
+                    <ChairRow
+                        relativeSize={relativeSize}
+                        position="left"
+                        chairs={leftArray}
+                    />
 
                     <TableBody
+                        relativeSize={relativeSize}
                         chairNumOnSide={
                             isSquare ? squareTableSize : rectangleSideSize
                         }
@@ -214,8 +223,8 @@ export const SquareTable: React.FC<ISquareTable> = ({
                             isSquare ? squareTableSize : rectangleTopSize
                         }
                     >
-                        <Row>
-                            <TableInfo>
+                        <Row relativeSize={relativeSize}>
+                            <TableInfo relativeSize={relativeSize}>
                                 <div>
                                     {`${tableID}\n${partyName}`}
                                     <Status
@@ -226,6 +235,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                                 </div>
                             </TableInfo>
                             <ColorDiv
+                                relativeSize={relativeSize}
                                 chairNumOnSide={
                                     isSquare
                                         ? squareTableSize
@@ -237,12 +247,20 @@ export const SquareTable: React.FC<ISquareTable> = ({
                     </TableBody>
 
                     {/** chairs right */}
-                    <ChairRow position="right" chairs={rightArray} />
+                    <ChairRow
+                        relativeSize={relativeSize}
+                        position="right"
+                        chairs={rightArray}
+                    />
                 </Row>
             </div>
 
             {/** chairs bottom */}
-            <ChairRow position="bottom" chairs={bottomArray} />
+            <ChairRow
+                relativeSize={relativeSize}
+                position="bottom"
+                chairs={bottomArray}
+            />
         </div>
     );
 };
@@ -254,42 +272,55 @@ export const SquareTable: React.FC<ISquareTable> = ({
 interface ITableBody {
     chairNumOnSide: number;
     chairNumOnTop: number;
+    relativeSize: number;
 }
 
 const TableBody = styled.div<ITableBody>`
-    height: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
-    width: ${({ chairNumOnTop }) => chairNumOnTop * 20}rem;
-    border-radius: 3rem;
+    height: ${({ chairNumOnSide, relativeSize }) =>
+        chairNumOnSide * 20 * relativeSize}rem;
+    width: ${({ chairNumOnTop, relativeSize }) =>
+        chairNumOnTop * 20 * relativeSize}rem;
+    border-radius: ${({ relativeSize }) => 3 * relativeSize}rem;
     background-color: #6c757d;
 `;
 
 interface IColorDiv {
     chairNumOnSide: number;
     occupancyColor: string;
+    relativeSize: number;
 }
 
 const ColorDiv = styled.div<IColorDiv>`
-    height: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
-    width: 3rem;
+    height: ${({ chairNumOnSide, relativeSize }) =>
+        chairNumOnSide * 20 * relativeSize}rem;
+    width: ${({ relativeSize }) => 3 * relativeSize}rem;
     margin-left: auto;
-    margin-right: 0.95rem;
-    border-top-right-radius: 3rem;
-    border-bottom-right-radius: 3rem;
+    margin-right: ${({ relativeSize }) => 0.95 * relativeSize}rem;
+    border-top-right-radius: ${({ relativeSize }) => 3 * relativeSize}rem;
+    border-bottom-right-radius: ${({ relativeSize }) => 3 * relativeSize}rem;
     background-color: ${({ occupancyColor }) => occupancyColor};
 `;
 
-const Row = styled.div`
+interface IRow {
+    relativeSize: number;
+}
+
+const Row = styled.div<IRow>`
     display: flex;
     flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
+    margin-right: ${({ relativeSize }) => -15 * relativeSize}px;
+    margin-left: ${({ relativeSize }) => -15 * relativeSize}px;
 `;
 
-const TableInfo = styled.div`
+interface ITableInfo {
+    relativeSize: number;
+}
+
+const TableInfo = styled.div<ITableInfo>`
     color: ${({ theme }) => theme.colors.background};
     font-weight: bold;
-    margin-top: 2rem;
-    margin-left: 3rem;
+    margin-top: ${({ relativeSize }) => 2 * relativeSize}rem;
+    margin-left: ${({ relativeSize }) => 3 * relativeSize}rem;
     white-space: pre-line;
 `;
 
@@ -299,156 +330,4 @@ interface IStatus {
 
 const Status = styled.div<IStatus>`
     color: ${({ occupancyColor }) => occupancyColor};
-`;
-
-// Typings and Interface for the ChairRow component
-
-// Define a type for Position to restrict to four specific values
-type Position = 'top' | 'bottom' | 'left' | 'right';
-
-// Define a type for the getChairsTopBottom function
-type getChairsTopBottomType = (array: Array<IChair>) => JSX.Element[];
-
-// Define a type for the getChairsLeftRight function
-type getChairsLeftRightType = (array: Array<IChair>) => JSX.Element[];
-
-// Define a type for the generateKey function
-type generateKeyType = (pre: string) => string;
-
-// Define a type for the chairRowSwitch function
-type chairRowSwitchType = () => JSX.Element;
-
-interface IChairRow {
-    /**
-     * The position of the chair relative to the table (top/bottom/left/right)
-     */
-    position: Position;
-    /**
-     * Array of chairs
-     */
-    chairs: Array<IChair>;
-}
-
-/**
- * ChairRow component for chair placement around tables
- */
-const ChairRow: React.FC<IChairRow> = ({
-    position = 'top',
-    chairs = [],
-    ...props
-}) => {
-    /**
-     * Returns the chairs for the top and bottom rows
-     * @param array {Array<IChair>} - array of chairs
-     * @return {JSX.Element[]} - chairs on top and bottom row
-     */
-    const getChairsTopBottom: getChairsTopBottomType = (array) => {
-        return array.map((i) => (
-            <ChairCol key={generateKey(position + i)}>
-                <Chair
-                    position={i.position}
-                    occupiedBy={i.occupiedBy}
-                    isSeated={i.isSeated}
-                    isVisible={i.isVisible}
-                />
-            </ChairCol>
-        ));
-    };
-
-    /**
-     * Return the chairs for the left and right rows
-     * @param array {Array<IChair>} - array of chairs
-     * @return {JSX.Element[]} - chairs on right and left row
-     */
-    const getChairsLeftRight: getChairsLeftRightType = (array) => {
-        return array.map((i) => (
-            <SideChairRow key={generateKey(position + i)}>
-                <SideChairCentering>
-                    <Chair
-                        position={i.position}
-                        occupiedBy={i.occupiedBy}
-                        isSeated={i.isSeated}
-                        isVisible={i.isVisible}
-                    />
-                </SideChairCentering>
-            </SideChairRow>
-        ));
-    };
-
-    /**
-     * Generates a unique key based on a string and a current timestamp
-     * @param pre - a string to append to timestamp
-     * @returns {string} a unique key
-     */
-    const generateKey: generateKeyType = (pre) => {
-        return `${pre}_${Math.random()}`;
-    };
-
-    /**
-     * Returns a JSX element for the ChairRow with the correct styles
-     * based on whether position is top/bottom or left/right
-     * @returns {JSX.Element} the correct JSX.Element based on position
-     */
-    const chairRowSwitch: chairRowSwitchType = () => {
-        switch (position) {
-            case 'top':
-                return (
-                    <div>
-                        <TopBottomRow chairNumOnSide={chairs.length}>
-                            {getChairsTopBottom(chairs)}
-                        </TopBottomRow>
-                    </div>
-                );
-            case 'bottom':
-                return (
-                    <div>
-                        <TopBottomRow chairNumOnSide={chairs.length}>
-                            {getChairsTopBottom(chairs)}
-                        </TopBottomRow>
-                    </div>
-                );
-            case 'left':
-                return <div>{getChairsLeftRight(chairs)}</div>;
-            case 'right':
-                return <div>{getChairsLeftRight(chairs)}</div>;
-            default:
-                return <div />;
-        }
-    };
-
-    return <div {...props}>{chairRowSwitch()}</div>;
-};
-
-/**
- * variables for the styled components for the ChairRow component
- */
-
-interface ITopBottomRow {
-    chairNumOnSide: number;
-}
-
-const TopBottomRow = styled.div<ITopBottomRow>`
-    display: flex;
-    flex-wrap: wrap;
-    width: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
-    margin-left: 1.5rem;
-`;
-
-const ChairCol = styled.div`
-    flex-basis: 0;
-    flex-grow: 1;
-    max-width: 100%;
-`;
-
-const SideChairRow = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-    height: 20rem;
-`;
-
-const SideChairCentering = styled.div`
-    margin-top: auto;
-    margin-bottom: auto;
 `;

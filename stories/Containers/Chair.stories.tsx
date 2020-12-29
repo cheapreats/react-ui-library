@@ -16,6 +16,7 @@ const Template: Story<IChair> = (args) => <Chair {...args} />;
 export const ChairFreeTop = Template.bind({});
 ChairFreeTop.args = {
     position: 'top',
+    relativeSize: 0.5,
 };
 
 /**
@@ -74,4 +75,5 @@ ChairOccupiedRound.args = {
     isSeated: true,
     occupiedBy: 'Jack',
     isRound: true,
+    relativeSize: 0.5,
 };
