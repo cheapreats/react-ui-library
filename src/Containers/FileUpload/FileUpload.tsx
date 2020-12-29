@@ -9,8 +9,9 @@ import {TimesCircle} from '@styled-icons/fa-solid/TimesCircle'
 import {MainTheme} from '@Themes'
 import {Loading} from '../Loading/Loading'
 import {BottomPanel} from './BottomPanel'
-import {Container} from './Container'
+import {Container,Icon} from './StyledIcons'
 import {FileMovingAnimation} from './FileMovingAnimation'
+import {IsFailureIsSuccessPanel} from './IsFailureIsSuccessPanel'
 
 export interface IFileUploadProps{
     title:string;
@@ -183,7 +184,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         <Container backgroundColor='white' padding='10px' borderRadius='20px' ref={containerRef} maxHeight={maxHeight} overflow='hidden' height={height} margin={`${margin}px`}>
             <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:!isDragEnter,isDragEnter,padding:'10px',margin:`${margin}px`})}>
                 <SubContainer minHeight={minHeight}>
-                    {isDragEnter?<FileMovingAnimation />:<Icon as={Image} />}
+                    {isDragEnter?<FileMovingAnimation />:<Icon as={Image} width={140} height={80} />}
                     <TextLayout bold color='DarkBlue'>
                         {title}
                     </TextLayout>      
@@ -194,17 +195,11 @@ export const FileUpload:React.FC<IFileUploadProps>=({
             <BottomPanel withBorder padding='30px 20px 43px 20px' opacity={opacityLoading} position={positionLoading} ref={loadingContainerRef} overflow='hidden' width={widthComponent} margin={`${margin}px`} positionTop={positionTopLoading}>
                 <Loading loading={isUploading} message='Uploading...' />
             </BottomPanel>
-            <BottomPanel opacity={opacityIsSuccess} height={loadingContainerHeight} position={positionIsSuccess} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
-                <Container withFlexSpaceBetween>
-                    <TextLayout bold color='DarkBlue'>{successMessage}</TextLayout>
-                    <Icon as={CheckCircle} color={MainTheme.colors.statusColors.green} />
-                </Container>
+            <BottomPanel withBorder opacity={opacityIsSuccess} height={loadingContainerHeight} position={positionIsSuccess} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
+                <IsFailureIsSuccessPanel message={successMessage} iconColor={MainTheme.colors.statusColors.green} IconToShow={CheckCircle} />
             </BottomPanel>
             <BottomPanel withBorder opacity={opacityIsFailure} height={loadingContainerHeight} position={positionIsFailure} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
-                <Container withFlexSpaceBetween>
-                    <TextLayout bold color='DarkBlue'>{failureMessage}</TextLayout>
-                    <Icon as={TimesCircle} color={MainTheme.colors.statusColors.red} />
-                </Container>
+                <IsFailureIsSuccessPanel message={failureMessage} iconColor={MainTheme.colors.statusColors.red} IconToShow={TimesCircle} />
             </BottomPanel> 
         </Container>
     )
@@ -223,14 +218,3 @@ min-height:${minHeight}px;
 `} 
 `
 
-interface IIconProps{
-    color?:string;
-}
-
-const Icon = styled.svg<IIconProps>`
-    ${({color}):string=>`
-    ${color?`color:${color};`:''}
-    `}
-    width: 140px;
-    height: 80px;
-`;

@@ -56,3 +56,17 @@ ${margin?`margin:${margin};`:''}
 `}
 transition:height .5s,opacity .5s,max-height 5s;
 `
+
+interface IIconProps{
+  color?:string;
+  width:number;
+  height:number;
+}
+
+export const Icon = styled.svg<IIconProps>`
+  ${({color,width,height}):string=>`
+  ${color?`color:${color};`:''}
+  width: ${width}px;
+  height: ${height}px;
+  `}
+`;

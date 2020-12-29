@@ -1,5 +1,5 @@
 import React,{forwardRef} from 'react'
-import {Container,IContainerProps} from './Container'
+import {Container,IContainerProps} from './StyledIcons'
 
 interface IBottomPanelProps extends IContainerProps{
     children:React.ReactElement;
