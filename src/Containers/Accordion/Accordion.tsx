@@ -23,7 +23,7 @@ export const Accordion: React.FC<AccordionProps> = ({
                     if (isValidElement(section)) {
                         return (
                             <AccordionItem
-                                header={section.props.header}
+                                header={section.props["data-header"]}
                                 activeStyle={activeStyle}
                             >
                                 {section.props.children}

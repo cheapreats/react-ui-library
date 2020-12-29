@@ -15,6 +15,4 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<DatepickerProps> = (args) => {
-    return <Datepicker {...args} />;
-};
+export const Basic: Story<DatepickerProps> = (args) => <Datepicker {...args} />;

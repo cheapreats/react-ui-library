@@ -37,9 +37,7 @@ export interface ComboBoxSelectorProps extends LabelLayoutProps {
 const _Select: React.FC<ComboBoxSelectorProps> = ({
     children,
     limit = MAX_VIEWING_LIMIT,
-    onChange = (): void => {
-        return undefined;
-    },
+    onChange = (): void => undefined,
     theme,
     placeholder,
     name,
@@ -117,9 +115,7 @@ const _Select: React.FC<ComboBoxSelectorProps> = ({
         [name],
     );
 
-    const options = useMemo((): React.ReactNode[] => {
-        return Children.toArray(children);
-    }, [expanded]);
+    const options = useMemo((): React.ReactNode[] => Children.toArray(children), [expanded]);
 
     useLayoutEffect((): void | (() => void) => {
         if (refSelectList.current?.children.length) {

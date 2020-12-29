@@ -41,35 +41,33 @@ export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
     return (
         <TimeRow {...props}>
             {Object.entries(storeHours).map(
-                (time): React.ReactElement => {
-                    return (
-                        <Container
-                            as={Timepicker}
-                            key={time[INITIAL_TIME_INDEX]}
-                            name={time[INITIAL_TIME_INDEX]}
-                            label={time[
-                                INITIAL_TIME_INDEX
-                            ].replace(
-                                MATCH_FIRST_LETTER_PATTERN,
-                                (char): string => char.toUpperCase(),
-                            )}
-                            value={time[INITIAL_DATE_INDEX]}
-                            onChange={(
-                                e: React.ChangeEvent<HTMLInputElement>,
-                            ): void =>
-                                setStoreHours({
-                                    ...storeHours,
-                                    [time[INITIAL_TIME_INDEX]]: e.target.value,
-                                })}
-                            error={
-                                (time[INITIAL_TIME_INDEX] === FROM &&
+                (time): React.ReactElement => (
+                    <Container
+                        as={Timepicker}
+                        key={time[INITIAL_TIME_INDEX]}
+                        name={time[INITIAL_TIME_INDEX]}
+                        label={time[
+                            INITIAL_TIME_INDEX
+                        ].replace(
+                            MATCH_FIRST_LETTER_PATTERN,
+                            (char): string => char.toUpperCase(),
+                        )}
+                        value={time[INITIAL_DATE_INDEX]}
+                        onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>,
+                        ): void =>
+                            setStoreHours({
+                                ...storeHours,
+                                [time[INITIAL_TIME_INDEX]]: e.target.value,
+                            })}
+                        error={
+                            (time[INITIAL_TIME_INDEX] === FROM &&
                                     errors.fromTooBig) ||
                                 (time[INITIAL_TIME_INDEX] === TO &&
                                     errors.anotherTime)
-                            }
-                        />
-                    );
-                },
+                        }
+                    />
+                ),
             )}
         </TimeRow>
     );

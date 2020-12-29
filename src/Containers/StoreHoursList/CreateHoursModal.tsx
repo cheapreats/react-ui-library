@@ -161,29 +161,27 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                         {SELECT_A_DAY_TITLE}
                     </StyledHeading>
                     {Object.entries(checkboxes).map(
-                        (checked): React.ReactElement => {
-                            return (
-                                <Section
-                                    as={Checkbox}
-                                    key={checked[CHECKED_INITIAL_INDEX]}
-                                    label={checked[
-                                        CHECKED_INITIAL_INDEX
-                                    ].replace(
-                                        MATCH_FIRST_LETTER_PATTERN,
-                                        (char: string): string =>
-                                            char.toUpperCase(),
-                                    )}
-                                    onChange={(): void => {
-                                        setCheckboxes({
-                                            ...checkboxes,
-                                            [checked[
-                                                CHECKED_INITIAL_INDEX
-                                            ]]: !checked[CHECKED_VALUE],
-                                        });
-                                    }}
-                                />
-                            );
-                        },
+                        (checked): React.ReactElement => (
+                            <Section
+                                as={Checkbox}
+                                key={checked[CHECKED_INITIAL_INDEX]}
+                                label={checked[
+                                    CHECKED_INITIAL_INDEX
+                                ].replace(
+                                    MATCH_FIRST_LETTER_PATTERN,
+                                    (char: string): string =>
+                                        char.toUpperCase(),
+                                )}
+                                onChange={(): void => {
+                                    setCheckboxes({
+                                        ...checkboxes,
+                                        [checked[
+                                            CHECKED_INITIAL_INDEX
+                                        ]]: !checked[CHECKED_VALUE],
+                                    });
+                                }}
+                            />
+                        ),
                     )}
                 </DaysDiv>
                 <FromToDualTimeSelector
@@ -203,24 +201,22 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     value={addStoreHoursCategory}
                 >
                     {Object.entries(allCategories).map(
-                        (listAllCategories): React.ReactElement => {
-                            return (
-                                <option
-                                    key={
-                                        listAllCategories[ALL_CATEGORIES_INDEX]
-                                    }
-                                    value={
-                                        listAllCategories[ALL_CATEGORIES_TIMES]
-                                            .category
-                                    }
-                                >
-                                    {
-                                        listAllCategories[ALL_CATEGORIES_TIMES]
-                                            .category
-                                    }
-                                </option>
-                            );
-                        },
+                        (listAllCategories): React.ReactElement => (
+                            <option
+                                key={
+                                    listAllCategories[ALL_CATEGORIES_INDEX]
+                                }
+                                value={
+                                    listAllCategories[ALL_CATEGORIES_TIMES]
+                                        .category
+                                }
+                            >
+                                {
+                                    listAllCategories[ALL_CATEGORIES_TIMES]
+                                        .category
+                                }
+                            </option>
+                        ),
                     )}
                 </Section>
                 <CenteredButton

@@ -27,7 +27,7 @@ interface ItemProps {
     totalSpent1Y?: number;
 }
 
-interface RankingTableProps extends MainInterface, ResponsiveInterface {
+export interface RankingTableProps extends MainInterface, ResponsiveInterface {
     data: CustomerProps[] | ItemProps[];
     rowsVisible?: number;
     IsTimeIntervalFilterVisible?: boolean;

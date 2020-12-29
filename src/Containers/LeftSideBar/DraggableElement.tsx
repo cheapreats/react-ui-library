@@ -40,27 +40,25 @@ export const DraggableElement: React.FC<DraggableElementProps> = ({
     isRecommended,
     isRequired,
     ...props
-}) => {
-    return (
-        <Wrapper
-            ref={providedDraggable.innerRef}
-            {...providedDraggable.draggableProps}
-            {...providedDraggable.dragHandleProps}
-            style={providedDraggable.draggableProps.style}
-            isDragging={isDragging ?? false}
+}) => (
+    <Wrapper
+        ref={providedDraggable.innerRef}
+        {...providedDraggable.draggableProps}
+        {...providedDraggable.dragHandleProps}
+        style={providedDraggable.draggableProps.style}
+        isDragging={isDragging ?? false}
+        isRecommended={isRecommended}
+        isRequired={isRequired}
+        {...props}
+    >
+        <Icon
+            as={DragIndicator}
             isRecommended={isRecommended}
             isRequired={isRequired}
-            {...props}
-        >
-            <Icon
-                as={DragIndicator}
-                isRecommended={isRecommended}
-                isRequired={isRequired}
-            />
-            {children}
-        </Wrapper>
-    );
-};
+        />
+        {children}
+    </Wrapper>
+);
 
 const Wrapper = styled.div<WrapperProps>`
     ${({ theme }): string => `

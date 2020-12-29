@@ -19,25 +19,23 @@ export const DualSelectBar: React.FC<DualSelectBarProps> = ({
     selectedOption,
     setSelectedOption,
     ...props
-}): React.ReactElement => {
-    return (
-        <Wrapper {...props}>
-            <Option
-                isSelected={selectedOption === leftSelectOption}
-                onClick={() => setSelectedOption(leftSelectOption)}
-            >
-                {leftSelectOption}
-            </Option>
-            <Divider />
-            <Option
-                isSelected={selectedOption === rightSelectOption}
-                onClick={() => setSelectedOption(rightSelectOption)}
-            >
-                {rightSelectOption}
-            </Option>
-        </Wrapper>
-    );
-};
+}): React.ReactElement => (
+    <Wrapper {...props}>
+        <Option
+            isSelected={selectedOption === leftSelectOption}
+            onClick={() => setSelectedOption(leftSelectOption)}
+        >
+            {leftSelectOption}
+        </Option>
+        <Divider />
+        <Option
+            isSelected={selectedOption === rightSelectOption}
+            onClick={() => setSelectedOption(rightSelectOption)}
+        >
+            {rightSelectOption}
+        </Option>
+    </Wrapper>
+);
 
 const Wrapper = styled.div`
     ${({ theme }): string => `

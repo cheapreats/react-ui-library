@@ -31,14 +31,13 @@ interface NavProps {
 
 interface IPages {
     [name: string]: {
-        component: React.LazyExoticComponent<React.ComponentType>;
+        component: React.LazyExoticComponent<React.ComponentType> | null;
         navProps: NavProps;
     };
 }
 
 const pages: IPages = {
     Item1: {
-        
         component: null,
         navProps: {
             to: '/:id/orders',
@@ -46,7 +45,6 @@ const pages: IPages = {
         },
     },
     Item2: {
-        
         component: null,
         navProps: {
             to: '/:id/whatever',
@@ -54,7 +52,6 @@ const pages: IPages = {
         },
     },
     Home: {
-        
         component: null,
         navProps: {
             to: '/:id',

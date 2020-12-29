@@ -37,31 +37,29 @@ export const StoreFeatureCard: React.FC<StoreFeatureCardProps> = ({
     description,
     linktitle,
     ...cardProps
-}): React.ReactElement => {
-    return (
-        <Card width={width} {...cardProps}>
-            <PictureCard
-                image={image}
-                tags={tags}
-                alt={alt}
-                width={width}
-                height={height}
-                borderRadiusBottom="0px"
-                borderRadiusTop="8px"
-            />
-            <ContentCard linktitle={linktitle}>
-                <RowContainer>
-                    <Paragraph bold>{heading}</Paragraph>
-                    <RatingContainer>{rating}</RatingContainer>
-                </RowContainer>
-                <RowContainer>
-                    <SmallText bold>{description}</SmallText>
-                </RowContainer>
-            </ContentCard>
-            {linktitle && <LinkCard>{linktitle}</LinkCard>}
-        </Card>
-    );
-};
+}): React.ReactElement => (
+    <Card width={width} {...cardProps}>
+        <PictureCard
+            image={image}
+            tags={tags}
+            alt={alt}
+            width={width}
+            height={height}
+            borderRadiusBottom="0px"
+            borderRadiusTop="8px"
+        />
+        <ContentCard linktitle={linktitle}>
+            <RowContainer>
+                <Paragraph bold>{heading}</Paragraph>
+                <RatingContainer>{rating}</RatingContainer>
+            </RowContainer>
+            <RowContainer>
+                <SmallText bold>{description}</SmallText>
+            </RowContainer>
+        </ContentCard>
+        {linktitle && <LinkCard>{linktitle}</LinkCard>}
+    </Card>
+);
 
 interface CardProps {
     width?: string;

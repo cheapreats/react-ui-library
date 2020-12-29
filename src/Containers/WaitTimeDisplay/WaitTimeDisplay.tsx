@@ -20,24 +20,22 @@ export interface IWaitTimeDisplay {
 export const WaitTimeDisplay: React.FC<IWaitTimeDisplay> = ({
     AverageWaitTime = BUSY,
     ...props
-}) => {
-    return (
-        <Row {...props}>
-            <PieChart AverageWaitTime={AverageWaitTime} />
-            <TextPaddingLeftTop>
-                <SmallText size="3rem" bold>
-                    Avg. Wait
-                </SmallText>
-                <br />
-                <SmallText size="3rem" bold>
-                    {AverageWaitTime}
-                    {' '}
-                    Min
-                </SmallText>
-            </TextPaddingLeftTop>
-        </Row>
-    );
-};
+}) => (
+    <Row {...props}>
+        <PieChart AverageWaitTime={AverageWaitTime} />
+        <TextPaddingLeftTop>
+            <SmallText size="3rem" bold>
+                Avg. Wait
+            </SmallText>
+            <br />
+            <SmallText size="3rem" bold>
+                {AverageWaitTime}
+                {' '}
+                Min
+            </SmallText>
+        </TextPaddingLeftTop>
+    </Row>
+);
 
 /**
  * variables for the styled components

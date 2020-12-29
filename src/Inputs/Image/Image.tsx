@@ -24,12 +24,8 @@ export interface ImageProps
 export const Image: React.FC<ImageProps> = ({
     accept = 'image/*',
     aspect = 1,
-    onImageReturn = (): void => {
-        return undefined;
-    },
-    drawImage = (): void => {
-        return undefined;
-    },
+    onImageReturn = (): void => undefined,
+    drawImage = (): void => undefined,
     ...props
 }): React.ReactElement => {
     const [crop, setCrop] = useState({

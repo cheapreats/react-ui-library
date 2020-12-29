@@ -13,15 +13,13 @@ export interface DroppableContainerContentsProps
 export const DroppableContainerContents: React.FC<DroppableContainerContentsProps> = ({
     droppableLabel,
     ...props
-}): React.ReactElement => {
-    return (
-        <Wrapper {...props}>
-            {droppableLabel.map((label) => (
-                <div key={label}>{label}</div>
-            ))}
-        </Wrapper>
-    );
-};
+}): React.ReactElement => (
+    <Wrapper {...props}>
+        {droppableLabel.map((label) => (
+            <div key={label}>{label}</div>
+        ))}
+    </Wrapper>
+);
 
 const Wrapper = styled.div`
     ${flex('space-between')};

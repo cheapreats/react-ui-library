@@ -20,17 +20,15 @@ export const ErrorModal: React.FC<ErrorModalProps> = ({
     icon = CircleWithCross,
     children,
     ...props
-}): React.ReactElement => {
-    return (
-        <StyledModal state={modalState} {...props}>
-            <StyledHeading type="h6">
-                <Icon as={icon} />
-                {errorMessage}
-            </StyledHeading>
-            {children}
-        </StyledModal>
-    );
-};
+}): React.ReactElement => (
+    <StyledModal state={modalState} {...props}>
+        <StyledHeading type="h6">
+            <Icon as={icon} />
+            {errorMessage}
+        </StyledHeading>
+        {children}
+    </StyledModal>
+);
 
 const StyledModal = styled(Modal)`
     max-height: 70%;

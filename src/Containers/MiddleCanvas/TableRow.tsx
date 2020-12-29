@@ -12,17 +12,15 @@ export interface TableRowProps
 export const TableRow: React.FC<TableRowProps> = ({
     labels,
     ...props
-}): React.ReactElement => {
-    return (
-        <Tr {...props}>
-            <td>
-                {labels.map((label) => (
-                    <Td key={label}>{label}</Td>
-                ))}
-            </td>
-        </Tr>
-    );
-};
+}): React.ReactElement => (
+    <Tr {...props}>
+        <td>
+            {labels.map((label) => (
+                <Td key={label}>{label}</Td>
+            ))}
+        </td>
+    </Tr>
+);
 
 const Tr = styled.tr`
     text-align: left;

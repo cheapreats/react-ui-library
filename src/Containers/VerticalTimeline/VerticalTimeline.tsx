@@ -89,30 +89,28 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
     }, [timelineData]);
 
     const renderBlocks = useCallback(
-        (deltas_: IDelta[]): JSX.Element[] => {
-            return deltas_.map((delta, index, array) => (
-                <Block
-                    delta={delta.value}
-                    color={delta.color}
-                    step={(
-                        <Step
-                            label={timelineData[index].label}
-                            width={widthRightPanels}
-                            height={heightPanels}
-                            center
-                            relative={index}
-                            length={array.length}
-                        />
-                    )}
-                    relative={index}
-                    verticalSpacing={verticalSpacing}
-                    widthLeftPanels={widthLeftPanels}
-                    heightPanels={heightPanels}
-                    length={array.length}
-                    getLabel={getLabel}
-                />
-            ));
-        },
+        (deltas_: IDelta[]): JSX.Element[] => deltas_.map((delta, index, array) => (
+            <Block
+                delta={delta.value}
+                color={delta.color}
+                step={(
+                    <Step
+                        label={timelineData[index].label}
+                        width={widthRightPanels}
+                        height={heightPanels}
+                        center
+                        relative={index}
+                        length={array.length}
+                    />
+                )}
+                relative={index}
+                verticalSpacing={verticalSpacing}
+                widthLeftPanels={widthLeftPanels}
+                heightPanels={heightPanels}
+                length={array.length}
+                getLabel={getLabel}
+            />
+        )),
         [
             deltas,
             getLabel,
@@ -167,21 +165,19 @@ const Step: React.FC<IStepProps> = ({
     relative,
     length,
     end,
-}): React.ReactElement => {
-    return (
-        <StepBox
-            width={width}
-            height={height}
-            margin="0 0 0 10px"
-            center={center}
-            index={relative}
-            length={length}
-            end={end}
-        >
-            {label}
-        </StepBox>
-    );
-};
+}): React.ReactElement => (
+    <StepBox
+        width={width}
+        height={height}
+        margin="0 0 0 10px"
+        center={center}
+        index={relative}
+        length={length}
+        end={end}
+    >
+        {label}
+    </StepBox>
+);
 
 interface IStepBoxProps {
     width: number;

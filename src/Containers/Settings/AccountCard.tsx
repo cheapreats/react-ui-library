@@ -27,25 +27,23 @@ export const AccountCard: React.FC<AccountProps> = ({
     accountID = 'Account Id',
     logoutButton = 'Logout',
     role = 'Role',
-}): React.ReactElement => {
-    return (
-        <SettingsCard heading={accountInfo} icon={UserCircle}>
-            <DisplayItem label={userName} value={employee.username} />
-            <DisplayItem
-                label={role}
-                value={
-                    employee.role.charAt(0).toUpperCase() +
+}): React.ReactElement => (
+    <SettingsCard heading={accountInfo} icon={UserCircle}>
+        <DisplayItem label={userName} value={employee.username} />
+        <DisplayItem
+            label={role}
+            value={
+                employee.role.charAt(0).toUpperCase() +
                     employee.role.slice(1)
-                }
-            />
-            <DisplayItem
-                label={accountID}
-                value={employee._id}
-                margin="2px 0 auto"
-            />
-            <Button margin="20px 0 0" onClick={logout} icon={SignOutAlt}>
-                {logoutButton}
-            </Button>
-        </SettingsCard>
-    );
-};
+            }
+        />
+        <DisplayItem
+            label={accountID}
+            value={employee._id}
+            margin="2px 0 auto"
+        />
+        <Button margin="20px 0 0" onClick={logout} icon={SignOutAlt}>
+            {logoutButton}
+        </Button>
+    </SettingsCard>
+);

@@ -17,21 +17,19 @@ export const ListItem: React.FC<ListItemProps> = ({
     setIsOpen,
     isSelected,
     ...props
-}): React.ReactElement => {
-    return (
-        <Item
-            onClick={(el): void => {
-                if (setIsOpen) setIsOpen(false);
-                if (onClick) onClick(el);
-            }}
-            padding={padding}
-            isSelected={isSelected}
-            {...props}
-        >
-            {children}
-        </Item>
-    );
-};
+}): React.ReactElement => (
+    <Item
+        onClick={(el): void => {
+            if (setIsOpen) setIsOpen(false);
+            if (onClick) onClick(el);
+        }}
+        padding={padding}
+        isSelected={isSelected}
+        {...props}
+    >
+        {children}
+    </Item>
+);
 
 interface ItemProps {
     padding?: string;

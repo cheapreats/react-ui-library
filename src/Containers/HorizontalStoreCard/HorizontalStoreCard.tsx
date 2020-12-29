@@ -39,40 +39,38 @@ export const HorizontalStoreCard: React.FC<HorizontalStoreCardProps> = ({
     heading,
     description,
     ...cardProps
-}): React.ReactElement => {
-    return (
-        <Card width={width} {...cardProps}>
-            <PictureCard
-                image={image}
-                tags={pictureTags}
-                alt={alt}
-                width="45%"
-                height={height}
-                borderRadiusBottom="8px"
-                borderRadiusTop="8px"
-            />
-            <ContentCard>
-                <RowContainer>
-                    <Paragraph bold>{heading}</Paragraph>
-                    <RatingContainer>{rating}</RatingContainer>
-                </RowContainer>
-                <HeaderTags>{headerTags?.join(' • ')}</HeaderTags>
-                <RowContainer>
-                    <SmallText bold>{description}</SmallText>
-                </RowContainer>
-                {tags && (
-                    <TagRowContainer>
-                        {tags.map(
-                            (tag): React.ReactElement => (
-                                <Tag>{tag}</Tag>
-                            ),
-                        )}
-                    </TagRowContainer>
-                )}
-            </ContentCard>
-        </Card>
-    );
-};
+}): React.ReactElement => (
+    <Card width={width} {...cardProps}>
+        <PictureCard
+            image={image}
+            tags={pictureTags}
+            alt={alt}
+            width="45%"
+            height={height}
+            borderRadiusBottom="8px"
+            borderRadiusTop="8px"
+        />
+        <ContentCard>
+            <RowContainer>
+                <Paragraph bold>{heading}</Paragraph>
+                <RatingContainer>{rating}</RatingContainer>
+            </RowContainer>
+            <HeaderTags>{headerTags?.join(' • ')}</HeaderTags>
+            <RowContainer>
+                <SmallText bold>{description}</SmallText>
+            </RowContainer>
+            {tags && (
+                <TagRowContainer>
+                    {tags.map(
+                        (tag): React.ReactElement => (
+                            <Tag>{tag}</Tag>
+                        ),
+                    )}
+                </TagRowContainer>
+            )}
+        </ContentCard>
+    </Card>
+);
 
 interface CardProps {
     width?: string;
