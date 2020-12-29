@@ -33,7 +33,7 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
     ...props
 }): React.ReactElement => {
     const [selectValue, setSelectValue] = useState(selectOptions[FIRST_OPTION]);
-    const [inputValue, setInputValue] = useState('');
+    const [inputValue, setInputValue] = useState(placeholder);
     return (
         <div {...props}>
             {filterApplied ? (
@@ -62,7 +62,7 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
                         ))}
                     </Select>
                     <Input 
-                        placeholder={placeholder}
+                        placeholder={inputValue}
                         onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                             setInputValue(e.target.value);
                         }}
