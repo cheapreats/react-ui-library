@@ -1,4 +1,4 @@
-import React,{useCallback,useState,useRef,useEffect,useLayoutEffect} from 'react'
+import React,{useCallback,useRef,useEffect,useLayoutEffect,useReducer} from 'react'
 import styled from 'styled-components'
 import {flex} from '@Utils/Mixins'
 import {TextLayout} from '@Layouts'
@@ -12,6 +12,156 @@ import {BottomPanel} from './BottomPanel'
 import {Container,Icon} from './StyledIcons'
 import {FileMovingAnimation} from './FileMovingAnimation'
 import {IsFailureIsSuccessPanel} from './IsFailureIsSuccessPanel'
+
+interface IOptions{
+    position:boolean;
+    opacity:number;
+}
+
+interface IState{
+    height:number|undefined;
+    totalHeight:number;
+    totalHeightPlus:number;
+    padding:number;
+    margin:number;
+    maxHeight:number|undefined;
+    loading:IOptions;
+    isSuccess:IOptions;
+    isFailure:IOptions;
+    positionTopLoading:number;
+    loadingContainerHeight:number;
+    componentWidth:number;
+    isSuccessWidth:number;
+    isDragEnter:boolean;
+}
+
+const SET_HEIGHT='SET_HEIGHT'
+const SET_MAXHEIGHT='SET_MAXHEIGHT'
+const SET_TOTALHEIGHT='SET_TOTALHEIGHT'
+const SET_COMPONENTWIDTH='SET_COMPONENTWIDTH'
+const SET_TOTALHEIGHTPLUS='SET_TOTALHEIGHTPLUS'
+const SET_POSITIONTOPLOADING='SET_POSITIONTOPLOADING'
+const SET_ISSUCCESSWIDTH='SET_ISSUCCESSWIDTH'
+const SET_OPACITYLOADING='SET_OPACITYLOADING'
+const SET_POSITIONLOADING='SET_POSITIONLOADING'
+const SET_OPACITYISSUCCESS='SET_OPACITYISSUCCESS'
+const SET_POSITIONISSUCCESS='SET_POSITIONISSUCCESS'
+const SET_OPACITYISFAILURE='SET_OPACITYISFAILURE'
+const SET_POSITIONISFAILURE='SET_POSITIONISFAILURE'
+const SET_LOADINGCONTAINERHEIGHT='SET_LOADINGCONTAINERHEIGHT'
+const SET_ISDRAGENTER='SET_ISDRAGENTER'
+
+type Action=|{
+    type:'SET_HEIGHT'|'SET_MAXHEIGHT';
+    value:number|undefined;
+}|{
+    type:'SET_TOTALHEIGHT'|'SET_COMPONENTWIDTH'|'SET_TOTALHEIGHTPLUS'|'SET_POSITIONTOPLOADING'|'SET_ISSUCCESSWIDTH'|'SET_OPACITYLOADING'|'SET_OPACITYISSUCCESS'|'SET_OPACITYISFAILURE'|'SET_LOADINGCONTAINERHEIGHT';
+    value:number;
+}|{
+    type:'SET_POSITIONLOADING'|'SET_POSITIONISSUCCESS'|'SET_POSITIONISFAILURE'|'SET_ISDRAGENTER';
+    value:boolean;
+}
+
+const reducer=(state:IState,action:Action):IState=>{
+    switch(action.type){
+    case SET_HEIGHT:
+        return {
+            ...state,
+            height:action.value,
+        }
+    case SET_MAXHEIGHT:
+        return {
+            ...state,
+            maxHeight:action.value,
+        }
+    case SET_TOTALHEIGHT:
+        return {
+            ...state,
+            totalHeight:action.value,
+        }
+    case SET_COMPONENTWIDTH:
+        return {
+            ...state,
+            componentWidth:action.value,
+        }
+    case SET_TOTALHEIGHTPLUS:
+        return {
+            ...state,
+            totalHeightPlus:action.value
+        }
+    case SET_POSITIONTOPLOADING:
+        return {
+            ...state,
+            positionTopLoading:action.value
+        }
+    case SET_ISSUCCESSWIDTH:
+        return {
+            ...state,
+            isSuccessWidth:action.value,
+        }
+    case SET_OPACITYLOADING:
+        return {
+            ...state,
+            loading:{
+                ...state.loading,
+                opacity:action.value,
+            },
+        }
+    case SET_POSITIONLOADING:
+        return {
+            ...state,
+            loading:{
+                ...state.loading,
+                position:action.value,
+            },
+        }
+    case SET_OPACITYISSUCCESS:
+        return {
+            ...state,
+            isSuccess:{
+                ...state.isSuccess,
+                opacity:action.value,
+            },
+        }
+    case SET_POSITIONISSUCCESS:
+        return {
+            ...state,
+            isSuccess:{
+                ...state.isSuccess,
+                position:action.value,
+            },
+        }
+    case SET_OPACITYISFAILURE:
+        return {
+            ...state,
+            isFailure:{
+                ...state.isFailure,
+                opacity:action.value,
+            },
+        }
+    case SET_POSITIONISFAILURE:
+        return {
+            ...state,
+            isFailure:{
+                ...state.isFailure,
+                position:action.value,
+            },
+        }
+    case SET_LOADINGCONTAINERHEIGHT:
+        return {
+            ...state,
+            loadingContainerHeight:action.value,
+        }
+    case SET_ISDRAGENTER:
+        return {
+            ...state,
+            isDragEnter:action.value,
+        }
+    default:
+        return state
+    }
+}
+
 
 export interface IFileUploadProps{
     title:string;
@@ -38,104 +188,105 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     failureMessage,
     disabled,
 }):React.ReactElement=>{
-    const [height,setHeight]=useState<number|undefined>(undefined)
-    const [totalHeight,setTotalHeight]=useState(0)
-    const [totalHeightPlus,setTotalHeightPlus]=useState(0)
-    const [padding]=useState(10)
-    const [maxHeight,setMaxHeight]=useState<number|undefined>(undefined)
-    const [positionLoading,setPositionLoading]=useState(!isUploading)
-    const [positionTopLoading,setPositionTopLoading]=useState(0)
-    const [opacityLoading,setOpacityLoading]=useState(0)
-    const [positionIsSuccess,setPositionIsSuccess]=useState(!isSuccess)
-    const [opacityIsSuccess,setOpacityIsSuccess]=useState(0)
-    const [loadingContainerHeight,setLoadingContainerHeight]=useState(0)
-    const [widthComponent,setWidthComponent]=useState(0)
-    const [margin]=useState(10)
-    const [widthIsSuccess,setWidthIsSuccess]=useState(0)
-    const [positionIsFailure,setPositionIsFailure]=useState(!isFailure)
-    const [opacityIsFailure,setOpacityIsFailure]=useState(0)
+    const initState:IState={
+        height:undefined,
+        totalHeight:0,
+        totalHeightPlus:0,
+        maxHeight:undefined,
+        padding:10,
+        margin:10,
+        loading:{position:!isUploading,opacity:0},
+        isSuccess:{position:!isSuccess,opacity:0},
+        isFailure:{position:!isFailure,opacity:0},
+        positionTopLoading:0,
+        loadingContainerHeight:0,
+        componentWidth:0,
+        isSuccessWidth:0,
+        isDragEnter:false,
+    }
+    const [state,dispatch]=useReducer(reducer,initState)
 
     // this sets height of the component, is used to transition between heights. 
     useEffect(()=>{
         if(isUploading||isSuccess||isFailure){
-            if(totalHeightPlus){
-                setHeight(totalHeightPlus)
+            if(state.totalHeightPlus){
+                dispatch({type:SET_HEIGHT,value:state.totalHeightPlus})
             }else{
-                setHeight(undefined)
-                setMaxHeight(600)
+                dispatch({type:SET_HEIGHT,value:undefined})
+                dispatch({type:SET_MAXHEIGHT,value:600})
             }
-        }else if(totalHeight){
-            setHeight(totalHeight)   
+        }else if(state.totalHeight){
+            dispatch({type:SET_HEIGHT,value:state.totalHeight})
         }
-    },[isUploading,isSuccess,isFailure,totalHeight,totalHeightPlus])
+    },[isUploading,isSuccess,isFailure,state.totalHeight,state.totalHeightPlus])
 
     // this is to calculate (set) some values
     useEffect(()=>{
         if(containerRef.current?.scrollHeight){
             const contentHeight=containerRef.current.scrollHeight
-            setTotalHeight(contentHeight-padding*2)
-            setMaxHeight(contentHeight-padding*2)
+            dispatch({type:SET_TOTALHEIGHT,value:contentHeight-state.padding*2})
+            dispatch({type:SET_MAXHEIGHT,value:contentHeight-state.padding*2})
         }
         if(rootRef.current?.clientWidth){
-            setWidthComponent(rootRef.current?.clientWidth-margin*2-padding*2)
+            dispatch({type:SET_COMPONENTWIDTH,value:rootRef.current.clientWidth-state.margin*2-state.padding*2})
         }
     },[])
 
     // this is to set some values the first time when the component it's expanded
     useEffect(()=>{
-        if(height===undefined&&(isUploading||isSuccess||isFailure)){ 
+        if(state.height===undefined&&(isUploading||isSuccess||isFailure)){ 
             if(containerRef.current?.scrollHeight){
-                setTotalHeightPlus(containerRef.current.scrollHeight-padding*2)
+                dispatch({type:SET_TOTALHEIGHTPLUS,value:containerRef.current.scrollHeight-state.padding*2})
             }
             if(loadingContainerRef.current?.getBoundingClientRect().top){
-                setPositionTopLoading(loadingContainerRef.current?.getBoundingClientRect().top-margin)
+                dispatch({type:SET_POSITIONTOPLOADING,value:loadingContainerRef.current?.getBoundingClientRect().top-state.margin})
             }
         }
-    },[height,isUploading,isSuccess,isFailure])
+    },[state.height,isUploading,isSuccess,isFailure,state.padding,state.margin])
 
     // this is to calculate and set the width of the success and failure container component
     useEffect(()=>{
         if(isSuccess||isFailure){
             const width=containerRef.current?.getBoundingClientRect().width
             if(width){
-                setWidthIsSuccess(width-padding*2-margin*2)
+                dispatch({type:SET_ISSUCCESSWIDTH,value:width-state.padding*2-state.margin*2})
             }
         }
-    },[isSuccess,isFailure])
+    },[isSuccess,isFailure,state.padding,state.margin])
 
     // this is to fade out uploading container component
     useEffect(()=>{
         if(!isUploading||isSuccess||isFailure){
-            setOpacityLoading(0)
-            setPositionLoading(true)
+            dispatch({type:SET_OPACITYLOADING,value:0})
+            dispatch({type:SET_POSITIONLOADING,value:true})
         }
         return ()=>{
-            setPositionLoading(false)
-            setOpacityLoading(1)
+            dispatch({type:SET_POSITIONLOADING,value:false})
+            dispatch({type:SET_OPACITYLOADING,value:1})
         }
     },[isUploading,isSuccess,isFailure])
 
     // this is to fade out success container component
     useEffect(()=>{
         if(!isSuccess||isFailure){
-            setOpacityIsSuccess(0)
-            setPositionIsSuccess(true)
+            dispatch({type:SET_OPACITYISSUCCESS,value:0})
+            dispatch({type:SET_POSITIONISSUCCESS,value:true})
         }
         return ()=>{
-            setPositionIsSuccess(false)
-            setOpacityIsSuccess(1)
+            dispatch({type:SET_POSITIONISSUCCESS,value:false})
+            dispatch({type:SET_OPACITYISSUCCESS,value:1})
         }
     },[isSuccess,isFailure])
 
     // this is to fade out failure container component
     useEffect(()=>{
         if(!isFailure){
-            setOpacityIsFailure(0)
-            setPositionIsFailure(true)
+            dispatch({type:SET_OPACITYISFAILURE,value:0})
+            dispatch({type:SET_POSITIONISFAILURE,value:true})
         }
         return ()=>{
-            setPositionIsFailure(false)
-            setOpacityIsFailure(1)
+            dispatch({type:SET_POSITIONISFAILURE,value:false})
+            dispatch({type:SET_OPACITYISFAILURE,value:1})
         }
     },[isFailure])
 
@@ -143,30 +294,29 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     useLayoutEffect(() => {
         function updateSize() {
             if(rootRef.current?.clientWidth){
-                setWidthComponent(rootRef.current?.clientWidth-margin*2-padding*2)
+                dispatch({type:SET_COMPONENTWIDTH,value:rootRef.current.clientWidth-state.margin*2-state.padding*2})
             }
             if(isSuccess||isFailure){
                 const width=containerRef.current?.getBoundingClientRect().width
                 if(width){
-                    setWidthIsSuccess(width-padding*2-margin*2)
+                    dispatch({type:SET_ISSUCCESSWIDTH,value:width-state.padding*2-state.margin*2})
                 }
             }
         }
         window.addEventListener('resize', updateSize);
         updateSize();
         return () => window.removeEventListener('resize', updateSize);
-    }, [isSuccess,isFailure]);
+    }, [isSuccess,isFailure,state.padding,state.margin]);
 
     const containerRef=useRef<HTMLDivElement>(null)
     const loadingContainerRef=useRef<HTMLDivElement>(null)
 
     useEffect(()=>{
         if(isUploading&&loadingContainerRef.current?.scrollHeight){
-            setLoadingContainerHeight(loadingContainerRef.current?.scrollHeight)
+            dispatch({type:SET_LOADINGCONTAINERHEIGHT,value:loadingContainerRef.current.scrollHeight})
         }
     },[isUploading])
 
-    const [isDragEnter,setIsDragEnter]=useState(false);
     const onDrop = useCallback((acceptedFiles:File[]) => {
         acceptedFiles.forEach((file) => {
             const reader = new FileReader()
@@ -185,24 +335,24 @@ export const FileUpload:React.FC<IFileUploadProps>=({
                 }
             }
             reader.readAsArrayBuffer(file)
-            setIsDragEnter(false)
+            dispatch({type:SET_ISDRAGENTER,value:false})
         })
     }, []);
     const onDragEnter=useCallback((event:React.DragEvent)=>{
         event.preventDefault();
-        setIsDragEnter(true);
+        dispatch({type:SET_ISDRAGENTER,value:true})
     },[]);
     const onDragLeave=useCallback((event:React.DragEvent)=>{
         event.preventDefault();
-        setIsDragEnter(false);
+        dispatch({type:SET_ISDRAGENTER,value:false})
     },[]);
     const {getRootProps, getInputProps,rootRef} = useDropzone({onDrop,onDragEnter,onDragLeave,disabled})
 
     return (
-        <Container backgroundColor='white' padding='10px' borderRadius='20px' ref={containerRef} maxHeight={maxHeight} overflow='hidden' height={height} margin={`${margin}px`}>
-            <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:!isDragEnter,isDragEnter,padding:'10px',margin:`${margin}px`})}>
+        <Container backgroundColor='white' padding='10px' borderRadius='20px' ref={containerRef} maxHeight={state.maxHeight} overflow='hidden' height={state.height} margin={`${state.margin}px`}>
+            <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:!state.isDragEnter,isDragEnter:state.isDragEnter,padding:'10px',margin:`${state.margin}px`})}>
                 <SubContainer minHeight={minHeight} disabled={disabled}>
-                    {isDragEnter?<FileMovingAnimation />:<Icon as={Image} width={140} height={80} />}
+                    {state.isDragEnter?<FileMovingAnimation />:<Icon as={Image} width={140} height={80} />}
                     <TextLayout bold color='DarkBlue'>
                         {title}
                     </TextLayout>      
@@ -210,13 +360,13 @@ export const FileUpload:React.FC<IFileUploadProps>=({
                     <input {...getInputProps()}  />
                 </SubContainer>
             </Container>
-            <BottomPanel withBorder padding='30px 20px 43px 20px' opacity={opacityLoading} position={positionLoading} ref={loadingContainerRef} overflow='hidden' width={widthComponent} margin={`${margin}px`} positionTop={positionTopLoading}>
+            <BottomPanel withBorder padding='30px 20px 43px 20px' opacity={state.loading.opacity} position={state.loading.position} ref={loadingContainerRef} overflow='hidden' width={state.componentWidth} margin={`${state.margin}px`} positionTop={state.positionTopLoading}>
                 <Loading loading={isUploading} message='Uploading...' />
             </BottomPanel>
-            <BottomPanel withBorder opacity={opacityIsSuccess} height={loadingContainerHeight} position={positionIsSuccess} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
+            <BottomPanel withBorder opacity={state.isSuccess.opacity} height={state.loadingContainerHeight} position={state.isSuccess.position} margin={`${state.margin}px`} positionTop={state.positionTopLoading} width={state.isSuccessWidth}>
                 <IsFailureIsSuccessPanel message={successMessage} iconColor={MainTheme.colors.statusColors.green} IconToShow={CheckCircle} />
             </BottomPanel>
-            <BottomPanel withBorder opacity={opacityIsFailure} height={loadingContainerHeight} position={positionIsFailure} margin={`${margin}px`} positionTop={positionTopLoading} width={widthIsSuccess}>
+            <BottomPanel withBorder opacity={state.isFailure.opacity} height={state.loadingContainerHeight} position={state.isFailure.position} margin={`${state.margin}px`} positionTop={state.positionTopLoading} width={state.isSuccessWidth}>
                 <IsFailureIsSuccessPanel message={failureMessage} iconColor={MainTheme.colors.statusColors.red} IconToShow={TimesCircle} />
             </BottomPanel> 
         </Container>
