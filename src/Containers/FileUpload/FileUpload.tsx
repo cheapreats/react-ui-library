@@ -276,7 +276,8 @@ export const FileUpload:React.FC<IFileUploadProps>=({
             dispatch({type:SET_MAXHEIGHT,value:contentHeight-state.padding*2})
         }
         if(rootRef.current?.clientWidth){
-            dispatch({type:SET_COMPONENTWIDTH,value:rootRef.current.clientWidth-state.margin*2-state.padding*2})
+            const innerComponentWidth=rootRef.current.clientWidth-state.margin*2-state.padding*2
+            dispatch({type:SET_COMPONENTWIDTH,value:innerComponentWidth})
         }
     },[])
 
