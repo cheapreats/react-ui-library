@@ -350,8 +350,8 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     useLayoutEffect(() => {
         function updateSize() {
             if(rootRef.current?.clientWidth){
-                const width=rootRef.current.clientWidth-state.margin*2-state.padding*2
-                dispatch({type:SET_COMPONENTWIDTH,value:width})
+                const innerComponentWidth=rootRef.current.clientWidth-state.margin*2-state.padding*2
+                dispatch({type:SET_COMPONENTWIDTH,value:innerComponentWidth})
             }
             if(isSuccess||isFailure){
                 const width=containerRef.current?.getBoundingClientRect().width
