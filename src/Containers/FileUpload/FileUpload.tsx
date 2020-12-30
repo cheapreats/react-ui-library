@@ -308,6 +308,10 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         }else if(state.totalHeight){
             dispatch({type:SET_HEIGHT,value:state.totalHeight})
         }
+        // this is to calculate and set isuploading container panel
+        if(isUploading&&loadingContainerRef.current?.scrollHeight){
+            dispatch({type:SET_LOADINGCONTAINERHEIGHT,value:loadingContainerRef.current.scrollHeight})
+        }
     },[state.height,isUploading,isSuccess,isFailure,state.padding,state.margin,state.totalHeight,state.totalHeightPlus])
 
     // this is to fade out uploading container component
@@ -361,12 +365,6 @@ export const FileUpload:React.FC<IFileUploadProps>=({
 
     const containerRef=useRef<HTMLDivElement>(null)
     const loadingContainerRef=useRef<HTMLDivElement>(null)
-
-    useEffect(()=>{
-        if(isUploading&&loadingContainerRef.current?.scrollHeight){
-            dispatch({type:SET_LOADINGCONTAINERHEIGHT,value:loadingContainerRef.current.scrollHeight})
-        }
-    },[isUploading])
 
     const onDrop = useCallback((acceptedFiles:File[]) => {
         acceptedFiles.forEach((file) => {
