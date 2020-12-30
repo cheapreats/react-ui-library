@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { List } from '../List';
 import { CollapsibleHeading, ICollapsibleHeadingProps } from '../CollapsibleHeading/CollapsibleHeading';
-import { FilterSelect } from '../CollapsibleHeading/FilterSelect';
+import { FilterSelect, IFilterSelectProps } from '../CollapsibleHeading/FilterSelect';
 import { Heading, HeadingProps } from '../../Text/Heading';
 import { Button, ButtonProps } from '../../Inputs/Button/Button';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -23,6 +23,7 @@ export interface IVendorsFilterProps
     headingProps?: HeadingProps;
     buttonProps?: ButtonProps;
     collapsibleHeadingProps?: ICollapsibleHeadingProps;
+    filterSelectProps?: IFilterSelectProps;
 }
 
 const LOADING = false;
@@ -62,12 +63,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                         <CollapsibleHeading 
                             title={filterItem.title}
                             isCollapsed={isCollapsedArr[index]} 
-                            setCollapsed={() => setIsCollapsedArr(
-                                isCollapsedArr.map((isCollapsed, idx) => {
-                                    if (idx === index) return !isCollapsed;
-                                    return isCollapsed;
-                                }),
-                            )}
+                            setCollapsed={() => setIsCollapsedArr[index](!isCollapsedArr[index])}
                             ChildElement={(
                                 <FilterSelect 
                                     selectOptions={filterItem.selectOptions}
@@ -75,8 +71,6 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                                     placeholder={filterItem.placeholder}
                                     filterApplied={filterApplied}
                                     setFilterApplied={setFilterApplied}
-                                    inputProps={{ style: { margin: '10px 0' } }}
-                                    tagProps={{ style: { margin: '10px 0' }}}
                                 />
                             )}
                             {...collapsibleHeadingProps}

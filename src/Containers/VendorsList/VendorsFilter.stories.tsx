@@ -29,6 +29,18 @@ const getVendorFilterProps = () => ({
             marginBottom: '20px'
         }
     },
+    filterSelectProps: {
+        inputProps:{
+            style: { 
+                margin: '10px 0' 
+            } 
+        },
+        tagProps: {
+            style: { 
+                margin: '10px 0' 
+            }
+        }
+    },
     filterItems: [
         {
             title: 'Email',
