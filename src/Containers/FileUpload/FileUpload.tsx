@@ -56,18 +56,20 @@ const ISSUCCESS_FADEOUT='ISSUCCESS_FADEOUT'
 const ISSUCCESS_RESTORE='ISSUCCESS_RESTORE'
 const ISFAILURE_FADEOUT='ISFAILURE_FADEOUT'
 const ISFAILURE_RESTORE='ISFAILURE_RESTORE'
+const SET_INITIAL_HEIGHT_VALUES='SET_INITIAL_HEIGHT_VALUES'
+const SET_INITIAL_HEIGHT_PLUS_VALUES='SET_INITIAL_HEIGHT_PLUS_VALUES'
 
 type Action=|{
     type:'SET_HEIGHT'|'SET_MAXHEIGHT';
     value:number|undefined;
 }|{
-    type:'SET_TOTALHEIGHT'|'SET_COMPONENTWIDTH'|'SET_TOTALHEIGHTPLUS'|'SET_POSITIONTOPLOADING'|'SET_ISSUCCESSWIDTH'|'SET_OPACITYLOADING'|'SET_OPACITYISSUCCESS'|'SET_OPACITYISFAILURE'|'SET_LOADINGCONTAINERHEIGHT';
+    type:'SET_TOTALHEIGHT'|'SET_COMPONENTWIDTH'|'SET_TOTALHEIGHTPLUS'|'SET_POSITIONTOPLOADING'|'SET_ISSUCCESSWIDTH'|'SET_OPACITYLOADING'|'SET_OPACITYISSUCCESS'|'SET_OPACITYISFAILURE'|'SET_LOADINGCONTAINERHEIGHT'|'SET_INITIAL_HEIGHT_VALUES';
     value:number;
 }|{
     type:'SET_POSITIONLOADING'|'SET_POSITIONISSUCCESS'|'SET_POSITIONISFAILURE'|'SET_ISDRAGENTER';
     value:boolean;
 }|{
-    type:'LOADING_FADEOUT'|'LOADING_RESTORE'|'ISSUCCESS_FADEOUT'|'ISSUCCESS_RESTORE'|'ISFAILURE_FADEOUT'|'ISFAILURE_RESTORE'
+    type:'LOADING_FADEOUT'|'LOADING_RESTORE'|'ISSUCCESS_FADEOUT'|'ISSUCCESS_RESTORE'|'ISFAILURE_FADEOUT'|'ISFAILURE_RESTORE'|'SET_INITIAL_HEIGHT_PLUS_VALUES'
 }
 
 const reducer=(state:IState,action:Action):IState=>{
@@ -219,11 +221,22 @@ const reducer=(state:IState,action:Action):IState=>{
                 position:false,
             },
         }
+    case SET_INITIAL_HEIGHT_VALUES:
+        return {
+            ...state,
+            maxHeight:action.value,
+            totalHeight:action.value,
+        }
+    case SET_INITIAL_HEIGHT_PLUS_VALUES:
+        return {
+            ...state,
+            height:undefined,
+            maxHeight:600,
+        }
     default:
         return state
     }
 }
-
 
 export interface IFileUploadProps{
     title:string;
@@ -271,9 +284,8 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     // this is to calculate (set) some values after the first render
     useEffect(()=>{
         if(containerRef.current?.scrollHeight){
-            const contentHeight=containerRef.current.scrollHeight
-            dispatch({type:SET_TOTALHEIGHT,value:contentHeight-state.padding*2})
-            dispatch({type:SET_MAXHEIGHT,value:contentHeight-state.padding*2})
+            const innerContentHeight=containerRef.current.scrollHeight-state.padding*2
+            dispatch({type:SET_INITIAL_HEIGHT_VALUES,value:innerContentHeight})
         }
         if(rootRef.current?.clientWidth){
             const innerComponentWidth=rootRef.current.clientWidth-state.margin*2-state.padding*2
@@ -303,8 +315,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
             if(state.totalHeightPlus){
                 dispatch({type:SET_HEIGHT,value:state.totalHeightPlus})
             }else{
-                dispatch({type:SET_HEIGHT,value:undefined})
-                dispatch({type:SET_MAXHEIGHT,value:600})
+                dispatch({type:SET_INITIAL_HEIGHT_PLUS_VALUES})
             }
         }else if(state.totalHeight){
             dispatch({type:SET_HEIGHT,value:state.totalHeight})
