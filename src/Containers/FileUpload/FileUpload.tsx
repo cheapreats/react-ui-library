@@ -50,6 +50,12 @@ const SET_OPACITYISFAILURE='SET_OPACITYISFAILURE'
 const SET_POSITIONISFAILURE='SET_POSITIONISFAILURE'
 const SET_LOADINGCONTAINERHEIGHT='SET_LOADINGCONTAINERHEIGHT'
 const SET_ISDRAGENTER='SET_ISDRAGENTER'
+const LOADING_FADEOUT='LOADING_FADEOUT'
+const LOADING_RESTORE='LOADING_RESTORE'
+const ISSUCCESS_FADEOUT='ISSUCCESS_FADEOUT'
+const ISSUCCESS_RESTORE='ISSUCCESS_RESTORE'
+const ISFAILURE_FADEOUT='ISFAILURE_FADEOUT'
+const ISFAILURE_RESTORE='ISFAILURE_RESTORE'
 
 type Action=|{
     type:'SET_HEIGHT'|'SET_MAXHEIGHT';
@@ -60,6 +66,8 @@ type Action=|{
 }|{
     type:'SET_POSITIONLOADING'|'SET_POSITIONISSUCCESS'|'SET_POSITIONISFAILURE'|'SET_ISDRAGENTER';
     value:boolean;
+}|{
+    type:'LOADING_FADEOUT'|'LOADING_RESTORE'|'ISSUCCESS_FADEOUT'|'ISSUCCESS_RESTORE'|'ISFAILURE_FADEOUT'|'ISFAILURE_RESTORE'
 }
 
 const reducer=(state:IState,action:Action):IState=>{
@@ -156,6 +164,60 @@ const reducer=(state:IState,action:Action):IState=>{
         return {
             ...state,
             isDragEnter:action.value,
+        }
+    case LOADING_FADEOUT:
+        return {
+            ...state,
+            loading:{
+                ...state.loading,
+                opacity:0,
+                position:true,
+            },
+        }
+    case LOADING_RESTORE:
+        return {
+            ...state,
+            loading:{
+                ...state.loading,
+                opacity:1,
+                position:false,
+            },
+        }
+    case ISSUCCESS_FADEOUT:
+        return {
+            ...state,
+            isSuccess:{
+                ...state.isSuccess,
+                opacity:0,
+                position:true,
+            },
+        }
+    case ISSUCCESS_RESTORE:
+        return {
+            ...state,
+            isSuccess:{
+                ...state.isSuccess,
+                opacity:1,
+                position:false,
+            },
+        }
+    case ISFAILURE_FADEOUT:
+        return {
+            ...state,
+            isFailure:{
+                ...state.isFailure,
+                opacity:0,
+                position:true,
+            },
+        }
+    case ISFAILURE_RESTORE:
+        return {
+            ...state,
+            isFailure:{
+                ...state.isFailure,
+                opacity:1,
+                position:false,
+            },
         }
     default:
         return state
@@ -257,36 +319,30 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     // this is to fade out uploading container component
     useEffect(()=>{
         if(!isUploading||isSuccess||isFailure){
-            dispatch({type:SET_OPACITYLOADING,value:0})
-            dispatch({type:SET_POSITIONLOADING,value:true})
+            dispatch({type:LOADING_FADEOUT})
         }
         return ()=>{
-            dispatch({type:SET_POSITIONLOADING,value:false})
-            dispatch({type:SET_OPACITYLOADING,value:1})
+            dispatch({type:LOADING_RESTORE})
         }
     },[isUploading,isSuccess,isFailure])
 
     // this is to fade out success container component
     useEffect(()=>{
         if(!isSuccess||isFailure){
-            dispatch({type:SET_OPACITYISSUCCESS,value:0})
-            dispatch({type:SET_POSITIONISSUCCESS,value:true})
+            dispatch({type:ISSUCCESS_FADEOUT})
         }
         return ()=>{
-            dispatch({type:SET_POSITIONISSUCCESS,value:false})
-            dispatch({type:SET_OPACITYISSUCCESS,value:1})
+            dispatch({type:ISSUCCESS_RESTORE})
         }
     },[isSuccess,isFailure])
 
     // this is to fade out failure container component
     useEffect(()=>{
         if(!isFailure){
-            dispatch({type:SET_OPACITYISFAILURE,value:0})
-            dispatch({type:SET_POSITIONISFAILURE,value:true})
+            dispatch({type:ISFAILURE_FADEOUT})
         }
         return ()=>{
-            dispatch({type:SET_POSITIONISFAILURE,value:false})
-            dispatch({type:SET_OPACITYISFAILURE,value:1})
+            dispatch({type:ISFAILURE_RESTORE})
         }
     },[isFailure])
 
