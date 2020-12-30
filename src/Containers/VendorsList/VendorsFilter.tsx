@@ -37,6 +37,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
     headingProps,
     buttonProps,
     collapsibleHeadingProps,
+    filterSelectProps,
     ...props
 }): React.ReactElement => {
     const [filterApplied, setFilterApplied] = useState(false);
@@ -63,7 +64,12 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                         <CollapsibleHeading 
                             title={filterItem.title}
                             isCollapsed={isCollapsedArr[index]} 
-                            setCollapsed={() => setIsCollapsedArr[index](!isCollapsedArr[index])}
+                            setCollapsed={() => setIsCollapsedArr(
+                                isCollapsedArr.map((isCollapsed, idx) => {
+                                    if (idx === index) return !isCollapsed;
+                                    return isCollapsed;
+                                })
+                            )}
                             ChildElement={(
                                 <FilterSelect 
                                     selectOptions={filterItem.selectOptions}
@@ -71,6 +77,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                                     placeholder={filterItem.placeholder}
                                     filterApplied={filterApplied}
                                     setFilterApplied={setFilterApplied}
+                                    {...filterSelectProps}
                                 />
                             )}
                             {...collapsibleHeadingProps}
