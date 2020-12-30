@@ -8,7 +8,7 @@ type getChairsTopBottomType = (array: Array<IChair>) => JSX.Element[];
 
 type getChairsLeftRightType = (array: Array<IChair>) => JSX.Element[];
 
-type generateKeyType = (pre: string) => string;
+type generateChairRowKeyType = (pre: string) => string;
 
 type chairRowSwitchType = () => JSX.Element;
 
@@ -43,7 +43,7 @@ export const ChairRow: React.FC<IChairRow> = ({
      */
     const getChairsTopBottom: getChairsTopBottomType = (array) => {
         return array.map((i) => (
-            <ChairCol key={generateKey(position + i)}>
+            <ChairCol key={generateChairRowKey(position + i)}>
                 <Chair
                     position={i.position}
                     occupiedBy={i.occupiedBy}
@@ -64,7 +64,7 @@ export const ChairRow: React.FC<IChairRow> = ({
         return array.map((i) => (
             <SideChairRow
                 relativeSize={relativeSize}
-                key={generateKey(position + i)}
+                key={generateChairRowKey(position + i)}
             >
                 <SideChairCentering>
                     <Chair
@@ -81,11 +81,11 @@ export const ChairRow: React.FC<IChairRow> = ({
 
     /**
      * Generates a unique key based on a string and a current timestamp
-     * @param pre - a string to append to timestamp
+     * @param prefix - a string to append to timestamp
      * @returns {string} a unique key
      */
-    const generateKey: generateKeyType = (pre) => {
-        return `${pre}_${Math.random()}`;
+    const generateChairRowKey: generateChairRowKeyType = (prefix) => {
+        return `${prefix}_${Math.random()}`;
     };
 
     /**
@@ -141,9 +141,9 @@ interface ITopBottomRow {
 const TopBottomRow = styled.div<ITopBottomRow>`
     display: flex;
     flex-wrap: wrap;
-    width: ${({ chairNumOnSide, relativeSize }) =>
-        chairNumOnSide * 20 * relativeSize}rem;
-    margin-left: ${({ relativeSize }) => relativeSize * 2.7}rem;
+    ${({ chairNumOnSide, relativeSize }) =>
+        `width: ${chairNumOnSide * 20 * relativeSize}rem;
+        margin-left: ${relativeSize * 2.7}rem;`}
 `;
 
 const ChairCol = styled.div`
@@ -159,9 +159,10 @@ interface ISideChairRow {
 const SideChairRow = styled.div<ISideChairRow>`
     display: flex;
     flex-wrap: wrap;
-    margin-right: ${({ relativeSize }) => -15 * relativeSize}px;
-    margin-left: ${({ relativeSize }) => -15 * relativeSize}px;
-    height: ${({ relativeSize }) => 20 * relativeSize}rem;
+    ${({ relativeSize }) =>
+        `margin-right: ${-15 * relativeSize}px;
+        margin-left: ${-15 * relativeSize}px;
+        height: ${20 * relativeSize}rem;`}
 `;
 
 const SideChairCentering = styled.div`

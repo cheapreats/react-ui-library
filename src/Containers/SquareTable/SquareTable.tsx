@@ -22,8 +22,6 @@ type getRectangleTopType = (top: number, bottom: number) => number;
 
 type getRectangleSideType = (left: number, right: number) => number;
 
-type getOccupancyColorType = () => string;
-
 type fillArrayType = (
     array: Array<IChair>,
     targetSize: number,
@@ -77,11 +75,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
     const rightArray = chairs.filter((i) => i.position === 'right');
     const leftArray = chairs.filter((i) => i.position === 'left');
     const bottomArray = chairs.filter((i) => i.position === 'bottom');
-
-    /**
-     * Get proper theme color for the table
-     */
-    const { colors } = useTheme();
 
     /**
      * Determines how many chairs to put per each side
@@ -173,28 +166,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
         fillArray(rightArray, rectangleSideSize, 'right');
     }
 
-    /**
-     * Determines the correct color for Status and ColorDiv based on occupancyStatus
-     * and returns the hexadecimal color value as a string
-     *
-     * @return {string} - Hexadecimal color value
-     */
-    const getOccupancyColor: getOccupancyColorType = () => {
-        switch (occupancyStatus) {
-            case 'Vacant':
-                return colors.occupancyStatusColors.Vacant;
-
-            case 'Reserved':
-                return colors.occupancyStatusColors.Reserved;
-
-            case 'Occupied':
-                return colors.occupancyStatusColors.Occupied;
-
-            default:
-                return '';
-        }
-    };
-
     return (
         <div {...props}>
             {/** chairs top */}
@@ -227,9 +198,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                             <TableInfo relativeSize={relativeSize}>
                                 <div>
                                     {`${tableID}\n${partyName}`}
-                                    <Status
-                                        occupancyColor={getOccupancyColor()}
-                                    >
+                                    <Status occupancyStatus={occupancyStatus}>
                                         {occupancyStatus}
                                     </Status>
                                 </div>
@@ -241,7 +210,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                                         ? squareTableSize
                                         : rectangleSideSize
                                 }
-                                occupancyColor={getOccupancyColor()}
+                                occupancyStatus={occupancyStatus}
                             />
                         </Row>
                     </TableBody>
@@ -265,6 +234,30 @@ export const SquareTable: React.FC<ISquareTable> = ({
     );
 };
 
+type getOccupancyColorType = (occupancyStatus: occupancyStatusTypes) => string;
+
+/**
+ * Determines the correct color for Status and ColorDiv based on occupancyStatus
+ * and returns the hexadecimal color value as a string
+ *
+ * @return {string} - Hexadecimal color value
+ */
+const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
+    switch (occupancyStatus) {
+        case 'Vacant':
+            return useTheme().colors.occupancyStatusColors.Vacant;
+
+        case 'Reserved':
+            return useTheme().colors.occupancyStatusColors.Reserved;
+
+        case 'Occupied':
+            return useTheme().colors.occupancyStatusColors.Occupied;
+
+        default:
+            return '';
+    }
+};
+
 /**
  * variables for the styled components
  */
@@ -276,29 +269,29 @@ interface ITableBody {
 }
 
 const TableBody = styled.div<ITableBody>`
-    height: ${({ chairNumOnSide, relativeSize }) =>
-        chairNumOnSide * 20 * relativeSize}rem;
-    width: ${({ chairNumOnTop, relativeSize }) =>
-        chairNumOnTop * 20 * relativeSize}rem;
-    border-radius: ${({ relativeSize }) => 3 * relativeSize}rem;
-    background-color: #6c757d;
+    ${({ chairNumOnSide, chairNumOnTop, relativeSize }) =>
+        `height: ${chairNumOnSide * 20 * relativeSize}rem;
+        width: ${chairNumOnTop * 20 * relativeSize}rem;
+        border-radius: ${3 * relativeSize}rem;`}
+    background-color: ${({ theme }) => theme.colors.chairTableBackground};
 `;
 
 interface IColorDiv {
     chairNumOnSide: number;
-    occupancyColor: string;
+    occupancyStatus: occupancyStatusTypes;
     relativeSize: number;
 }
 
 const ColorDiv = styled.div<IColorDiv>`
-    height: ${({ chairNumOnSide, relativeSize }) =>
-        chairNumOnSide * 20 * relativeSize}rem;
-    width: ${({ relativeSize }) => 3 * relativeSize}rem;
+    ${({ chairNumOnSide, relativeSize }) =>
+        `height: ${chairNumOnSide * 20 * relativeSize}rem;
+        width: ${3 * relativeSize}rem;
+        margin-right: ${0.95 * relativeSize}rem;
+        border-top-right-radius: ${3 * relativeSize}rem;
+        border-bottom-right-radius: ${3 * relativeSize}rem;`}
     margin-left: auto;
-    margin-right: ${({ relativeSize }) => 0.95 * relativeSize}rem;
-    border-top-right-radius: ${({ relativeSize }) => 3 * relativeSize}rem;
-    border-bottom-right-radius: ${({ relativeSize }) => 3 * relativeSize}rem;
-    background-color: ${({ occupancyColor }) => occupancyColor};
+    background-color: ${({ occupancyStatus }) =>
+        getOccupancyColor(occupancyStatus)};
 `;
 
 interface IRow {
@@ -308,8 +301,9 @@ interface IRow {
 const Row = styled.div<IRow>`
     display: flex;
     flex-wrap: wrap;
-    margin-right: ${({ relativeSize }) => -15 * relativeSize}px;
-    margin-left: ${({ relativeSize }) => -15 * relativeSize}px;
+    ${({ relativeSize }) =>
+        `margin-right: ${-15 * relativeSize}px;
+        margin-left: ${-15 * relativeSize}px;`}
 `;
 
 interface ITableInfo {
@@ -319,15 +313,12 @@ interface ITableInfo {
 const TableInfo = styled.div<ITableInfo>`
     color: ${({ theme }) => theme.colors.background};
     font-weight: bold;
-    margin-top: ${({ relativeSize }) => 2 * relativeSize}rem;
-    margin-left: ${({ relativeSize }) => 3 * relativeSize}rem;
     white-space: pre-line;
+    ${({ relativeSize }) =>
+        `margin-top: ${2 * relativeSize}rem;
+        margin-left: ${3 * relativeSize}rem;`}
 `;
 
-interface IStatus {
-    occupancyColor: string;
-}
-
-const Status = styled.div<IStatus>`
-    color: ${({ occupancyColor }) => occupancyColor};
+const Status = styled.div<Pick<ISquareTable, 'occupancyStatus'>>`
+    color: ${({ occupancyStatus }) => getOccupancyColor(occupancyStatus)};
 `;

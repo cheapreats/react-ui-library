@@ -117,39 +117,43 @@ const getChairColor: getChairColorType = (isSeated) => {
  */
 
 const topChairStyle = css<Pick<IChair, 'relativeSize'>>`
-    border-top-left-radius: ${({ relativeSize }) => relativeSize * 3}rem;
-    border-top-right-radius: ${({ relativeSize }) => relativeSize * 3}rem;
-    height: ${({ relativeSize }) => relativeSize * 3}rem;
-    width: ${({ relativeSize }) => relativeSize * 10}rem;
-    margin-bottom: ${({ relativeSize }) => relativeSize * 0.25}rem;
-    margin-left: auto;
-    margin-right: auto;
+    ${({ relativeSize }) =>
+        `border-top-left-radius:  ${relativeSize * 3}rem;
+        border-top-right-radius: ${relativeSize * 3}rem;
+        height: ${relativeSize * 3}rem;
+        width: ${relativeSize * 10}rem;
+        margin-bottom: ${relativeSize * 0.25}rem;
+        margin-left: auto;
+        margin-right: auto;`}
 `;
 
 const leftChairStyle = css<Pick<IChair, 'relativeSize'>>`
-    border-top-left-radius: ${({ relativeSize }) => relativeSize * 3}rem;
-    border-bottom-left-radius: ${({ relativeSize }) => relativeSize * 3}rem;
-    width: ${({ relativeSize }) => relativeSize * 3}rem;
-    height: ${({ relativeSize }) => relativeSize * 10}rem;
-    margin: ${({ relativeSize }) => relativeSize * 1.25}rem;
+    ${({ relativeSize }) =>
+        `border-top-left-radius: ${relativeSize * 3}rem;
+        border-bottom-left-radius: ${relativeSize * 3}rem;
+        width: ${relativeSize * 3}rem;
+        height: ${relativeSize * 10}rem;
+        margin: ${relativeSize * 1.25}rem;`}
 `;
 
 const rightChairStyle = css<Pick<IChair, 'relativeSize'>>`
-    border-top-right-radius: ${({ relativeSize }) => relativeSize * 3}rem;
-    border-bottom-right-radius: ${({ relativeSize }) => relativeSize * 3}rem;
-    width: ${({ relativeSize }) => relativeSize * 3}rem;
-    height: ${({ relativeSize }) => relativeSize * 10}rem;
-    margin: ${({ relativeSize }) => relativeSize * 1.25}rem;
+    ${({ relativeSize }) =>
+        `border-top-right-radius: ${relativeSize * 3}rem;
+        border-bottom-right-radius: ${relativeSize * 3}rem;
+        width: ${relativeSize * 3}rem;
+        height: ${relativeSize * 10}rem;
+        margin: ${relativeSize * 1.25}rem;`}
 `;
 
 const bottomChairStyle = css<Pick<IChair, 'relativeSize'>>`
-    border-bottom-left-radius: ${({ relativeSize }) => relativeSize * 3}rem;
-    border-bottom-right-radius: ${({ relativeSize }) => relativeSize * 3}rem;
-    height: ${({ relativeSize }) => relativeSize * 3}rem;
-    width: ${({ relativeSize }) => relativeSize * 10}rem;
-    margin-top: ${({ relativeSize }) => relativeSize * 0.25}rem;
-    margin-left: auto;
-    margin-right: auto;
+    ${({ relativeSize }) =>
+        `border-bottom-left-radius: ${relativeSize * 3}rem;
+        border-bottom-right-radius: ${relativeSize * 3}rem;
+        height: ${relativeSize * 3}rem;
+        width: ${relativeSize * 10}rem;
+        margin-top: ${relativeSize * 0.25}rem;
+        margin-left: auto;
+        margin-right: auto;`}
 `;
 
 const textBaseStyle = css`
@@ -163,17 +167,19 @@ const textBaseStyle = css`
 
 const textTopBottomStyle = css<Pick<IChair, 'relativeSize'>>`
     ${textBaseStyle};
-    width: ${({ relativeSize }) => relativeSize * 9}rem;
-    margin-left: ${({ relativeSize }) => relativeSize * 0.65}rem;
-    padding-top: ${({ relativeSize }) => relativeSize * 0.35}rem;
+    ${({ relativeSize }) =>
+        `width: ${relativeSize * 9}rem;
+        margin-left: ${relativeSize * 0.65}rem;
+        padding-top: ${relativeSize * 0.35}rem;`}
 `;
 
 const textLeftRightStyle = css<Pick<IChair, 'relativeSize'>>`
     ${textBaseStyle};
     height: 90%;
-    padding-top: ${({ relativeSize }) => relativeSize * 0.5}rem;
-    margin-left: ${({ relativeSize }) => relativeSize * 0.5}rem;
-    writing-mode: vertical-rl;
+    ${({ relativeSize }) =>
+        `padding-top: ${relativeSize * 0.5}rem;
+        margin-left: ${relativeSize * 0.5}rem;
+        writing-mode: vertical-rl;`}
 `;
 
 const textRoundStyle = css<Pick<IChair, 'relativeSize'>>`
@@ -188,9 +194,10 @@ const BaseChair = styled.div<Pick<IChair, 'isVisible' | 'isSeated'>>`
 
 const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
     border-radius: 50%;
-    width: ${({ relativeSize }) => relativeSize * 6.5}rem;
-    height: ${({ relativeSize }) => relativeSize * 6.5}rem;
-    border: ${({ relativeSize }) => relativeSize * 2}px solid black;
+    ${({ relativeSize }) =>
+        `width: ${relativeSize * 6.5}rem;
+        height: ${relativeSize * 6.5}rem;
+        border: ${relativeSize * 2}px solid black;`}
 `;
 
 const PositionChair = styled(BaseChair)<

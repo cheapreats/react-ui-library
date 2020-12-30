@@ -2,8 +2,6 @@ import React from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Chair, IChair } from '@Containers/Chair';
 
-type getOccupancyColorType = () => string;
-
 type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
 type getChairsType = (
@@ -11,7 +9,7 @@ type getChairsType = (
     relativeSize: number,
 ) => JSX.Element[];
 
-type generateKeyType = (pre: string) => string;
+type generateChairKeyType = (pre: string) => string;
 
 export interface ICircleTable {
     /**
@@ -47,30 +45,6 @@ export const CircleTable: React.FC<ICircleTable> = ({
     relativeSize = 1.0,
     ...props
 }) => {
-    const { colors } = useTheme();
-
-    /**
-     * Determines the correct color for Status and ColorDiv based on occupancyStatus
-     * and returns the hexadecimal color value as a string
-     *
-     * @return {string} - Hexadecimal color value
-     */
-    const getOccupancyColor: getOccupancyColorType = () => {
-        switch (occupancyStatus) {
-            case 'Vacant':
-                return colors.occupancyStatusColors.Vacant;
-
-            case 'Reserved':
-                return colors.occupancyStatusColors.Reserved;
-
-            case 'Occupied':
-                return colors.occupancyStatusColors.Occupied;
-
-            default:
-                return '';
-        }
-    };
-
     /**
      * Returns a JSX element array containing the Chairs and ChairWrappers
      * @param array {Array<IChair>} - array of chairs
@@ -82,7 +56,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                 relativeSize={relativeSize}
                 numOfChairs={array.length}
                 counter={index + 1}
-                key={generateKey(item.position + index)}
+                key={generateChairKey(item.position + index)}
                 position={item.position}
             >
                 <Chair
@@ -99,11 +73,11 @@ export const CircleTable: React.FC<ICircleTable> = ({
 
     /**
      * Generates a unique key based on a string and a random number
-     * @param pre - a string to append to random number
+     * @param prefix - a string to append to random number
      * @returns {string} a unique key
      */
-    const generateKey: generateKeyType = (pre) => {
-        return `${pre}_${Math.random()}`;
+    const generateChairKey: generateChairKeyType = (prefix) => {
+        return `${prefix}_${Math.random()}`;
     };
 
     // Calculate the tangent based on the number of chairs in the array
@@ -114,9 +88,8 @@ export const CircleTable: React.FC<ICircleTable> = ({
             <TableBody
                 relativeSize={relativeSize}
                 numOfChairs={chairs.length}
-                chairTableBackground={colors.chairTableBackground}
                 tangentValue={tan}
-                occupancyColor={getOccupancyColor()}
+                occupancyStatus={occupancyStatus}
             >
                 {getChairs(chairs, relativeSize)}
 
@@ -126,7 +99,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                         <br />
                         {partyName}
                         <br />
-                        <Status occupancyColor={getOccupancyColor()}>
+                        <Status occupancyStatus={occupancyStatus}>
                             {occupancyStatus}
                         </Status>
                         <br />
@@ -141,15 +114,17 @@ type Position = 'top' | 'bottom' | 'left' | 'right';
 
 type getPositionValueType = (position: Position) => number;
 
+type getOccupancyColorType = (occupancyStatus: occupancyStatusTypes) => string;
+
 type getTurnValueType = (
     counter: number,
     numOfChairs: number,
     position: Position,
 ) => string;
 
-const minChairsBeforeTableResize = 4;
-const tangentValueForLessThanThreeChairs = 1.73;
-const minChairsBeforeSetTangentValue = 3;
+const MIN_CHAIRS_BEFORE_TABLE_RESIZE = 4;
+const TANGENT_VALUE_FOR_LESS_THAN_THREE_CHAIRS = 1.73;
+const MIN_CHAIRS_BEFORE_SET_TANGENT_VALUE = 3;
 
 /**
  * Returns a number value for each position (right, left, top, bottom)
@@ -181,10 +156,33 @@ const getPositionValue: getPositionValueType = (position) => {
  * @return {string} - the correct turn value for a specific chair
  */
 const getTurnValue: getTurnValueType = (counter, numOfChairs, position) => {
-    if (numOfChairs < minChairsBeforeSetTangentValue) {
+    if (numOfChairs < MIN_CHAIRS_BEFORE_SET_TANGENT_VALUE) {
         return `${getPositionValue(position)}turn / 1`;
     }
     return `${counter}turn / ${numOfChairs}`;
+};
+
+/**
+ * Determines the correct color for Status and ColorDiv based on occupancyStatus
+ * and returns the hexadecimal color value as a string
+ *
+ * @param occupancyStatus - the occupancy status for the table
+ * @return {string} - Hexadecimal color value
+ */
+const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
+    switch (occupancyStatus) {
+        case 'Vacant':
+            return useTheme().colors.occupancyStatusColors.Vacant;
+
+        case 'Reserved':
+            return useTheme().colors.occupancyStatusColors.Reserved;
+
+        case 'Occupied':
+            return useTheme().colors.occupancyStatusColors.Occupied;
+
+        default:
+            return '';
+    }
 };
 
 /**
@@ -194,33 +192,35 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, position) => {
 interface ITableBody {
     numOfChairs: number;
     tangentValue: number;
-    occupancyColor: string;
-    chairTableBackground: string;
+    occupancyStatus: occupancyStatusTypes;
     relativeSize: number;
 }
 
 const TableBody = styled.div<ITableBody>`
-    --d: ${({ relativeSize }) => 6.5 * relativeSize}em; /* chair size */
+    ${({ relativeSize }) =>
+        `--d: ${6.5 * relativeSize}em; /* chair size */
+        border-width: ${relativeSize * 1.5}em;
+        margin: ${relativeSize * 3}em;`}
     --rel: 1; /* how much extra space we want between images, 1 = one chair size */
-    --tan: ${({ numOfChairs, tangentValue }) =>
-        numOfChairs < minChairsBeforeSetTangentValue
-            ? tangentValueForLessThanThreeChairs
-            : tangentValue};
-    --r: calc(
-        ${({ numOfChairs }) =>
-                numOfChairs < minChairsBeforeTableResize ? 1.0 : 0.5} *
-            (1 + var(--rel)) * var(--d) / var(--tan)
-    ); /* circle radius */
+    ${({ numOfChairs, tangentValue }) =>
+        `--tan: ${
+            numOfChairs < MIN_CHAIRS_BEFORE_SET_TANGENT_VALUE
+                ? TANGENT_VALUE_FOR_LESS_THAN_THREE_CHAIRS
+                : tangentValue
+        };
+        --r: calc(
+            ${numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
+                (1 + var(--rel)) * var(--d) / var(--tan)
+        ); /* circle radius */`}
     --s: calc(2 * var(--r)); /* container size */
     position: relative;
     width: var(--s);
     height: var(--s);
-    background: ${({ chairTableBackground }) => chairTableBackground};
+    background: ${({ theme }) => theme.colors.chairTableBackground};
     border-radius: 50%;
     border-style: solid;
-    border-color: ${({ occupancyColor }) => occupancyColor};
-    border-width: ${({ relativeSize }) => relativeSize * 1.5}em;
-    margin: ${({ relativeSize }) => relativeSize * 3}em;
+    border-color: ${({ occupancyStatus }) =>
+        getOccupancyColor(occupancyStatus)};
 `;
 
 interface IChairWrapper {
@@ -235,7 +235,7 @@ const ChairWrapper = styled.div<IChairWrapper>`
     --rel: 1; /* how much extra space we want between images, 1 = one image size */
     --r: calc(
         ${({ numOfChairs }) =>
-                numOfChairs < minChairsBeforeTableResize ? 1.0 : 0.5} *
+                numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
             (1 + var(--rel)) * var(--d) / var(--tan)
     ); /* circle radius */
     position: absolute;
@@ -262,10 +262,6 @@ const TableInfo = styled.div`
     font-weight: bold;
 `;
 
-interface IStatus {
-    occupancyColor: string;
-}
-
-const Status = styled.div<IStatus>`
-    color: ${({ occupancyColor }) => occupancyColor};
+const Status = styled.div<Pick<ICircleTable, 'occupancyStatus'>>`
+    color: ${({ occupancyStatus }) => getOccupancyColor(occupancyStatus)};
 `;
