@@ -268,21 +268,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     }
     const [state,dispatch]=useReducer(reducer,initState)
 
-    // this sets height of the component, is used to transition between heights. 
-    useEffect(()=>{
-        if(isUploading||isSuccess||isFailure){
-            if(state.totalHeightPlus){
-                dispatch({type:SET_HEIGHT,value:state.totalHeightPlus})
-            }else{
-                dispatch({type:SET_HEIGHT,value:undefined})
-                dispatch({type:SET_MAXHEIGHT,value:600})
-            }
-        }else if(state.totalHeight){
-            dispatch({type:SET_HEIGHT,value:state.totalHeight})
-        }
-    },[isUploading,isSuccess,isFailure,state.totalHeight,state.totalHeightPlus])
-
-    // this is to calculate (set) some values
+    // this is to calculate (set) some values after the first render
     useEffect(()=>{
         if(containerRef.current?.scrollHeight){
             const contentHeight=containerRef.current.scrollHeight
@@ -294,8 +280,8 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         }
     },[])
 
-    // this is to set some values the first time when the component it's expanded
     useEffect(()=>{
+        // this is to set some values the first time when the component it's expanded
         if(state.height===undefined&&(isUploading||isSuccess||isFailure)){ 
             if(containerRef.current?.scrollHeight){
                 dispatch({type:SET_TOTALHEIGHTPLUS,value:containerRef.current.scrollHeight-state.padding*2})
@@ -304,17 +290,25 @@ export const FileUpload:React.FC<IFileUploadProps>=({
                 dispatch({type:SET_POSITIONTOPLOADING,value:loadingContainerRef.current?.getBoundingClientRect().top-state.margin})
             }
         }
-    },[state.height,isUploading,isSuccess,isFailure,state.padding,state.margin])
-
-    // this is to calculate and set the width of the success and failure container component
-    useEffect(()=>{
+        // this is to calculate and set the width of the success and failure container component
         if(isSuccess||isFailure){
             const width=containerRef.current?.getBoundingClientRect().width
             if(width){
                 dispatch({type:SET_ISSUCCESSWIDTH,value:width-state.padding*2-state.margin*2})
             }
         }
-    },[isSuccess,isFailure,state.padding,state.margin])
+        // this sets height of the component, is used to transition between heights.
+        if(isUploading||isSuccess||isFailure){
+            if(state.totalHeightPlus){
+                dispatch({type:SET_HEIGHT,value:state.totalHeightPlus})
+            }else{
+                dispatch({type:SET_HEIGHT,value:undefined})
+                dispatch({type:SET_MAXHEIGHT,value:600})
+            }
+        }else if(state.totalHeight){
+            dispatch({type:SET_HEIGHT,value:state.totalHeight})
+        }
+    },[state.height,isUploading,isSuccess,isFailure,state.padding,state.margin,state.totalHeight,state.totalHeightPlus])
 
     // this is to fade out uploading container component
     useEffect(()=>{
