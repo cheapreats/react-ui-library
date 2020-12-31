@@ -1,7 +1,7 @@
 import React from 'react';
-import { CircleTable, ICircleTable } from '../../src/Containers';
 import { Meta, Story } from '@storybook/react';
-import { createStoryTitle } from '../Constants';
+import { CircleTable, ICircleTable } from '@Containers';
+import { createStoryTitle } from '../../../stories/Constants';
 
 export default {
     title: createStoryTitle('CircleTable'),

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Chair, IChair } from '../Chair';
+import { Chair, IChair } from '../Chair/Chair';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
 

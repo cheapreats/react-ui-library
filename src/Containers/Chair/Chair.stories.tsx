@@ -1,7 +1,7 @@
 import React from 'react';
-import { Chair, IChair } from '../../src/Containers';
 import { Meta, Story } from '@storybook/react';
-import { createStoryTitle } from '../Constants';
+import { Chair, IChair } from './Chair';
+import { createStoryTitle } from '../../../stories/Constants';
 
 export default {
     title: createStoryTitle('Chair'),

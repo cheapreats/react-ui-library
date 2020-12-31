@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
-import { Chair, IChair } from '@Containers/Chair';
+import { Chair, IChair } from '@Containers/Chair/Chair';
 
 type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 

@@ -4,7 +4,7 @@
  */
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
-import { IChair } from '../Chair';
+import { IChair } from '../Chair/Chair';
 import { ChairRow } from './_ChairRow';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';

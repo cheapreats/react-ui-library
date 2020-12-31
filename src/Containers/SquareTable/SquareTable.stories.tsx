@@ -1,7 +1,7 @@
 import React from 'react';
-import { SquareTable, ISquareTable } from '../../src/Containers';
 import { Meta, Story } from '@storybook/react';
-import { createStoryTitle } from '../Constants';
+import { SquareTable, ISquareTable } from '@Containers';
+import { createStoryTitle } from '../../../stories/Constants';
 
 export default {
     title: createStoryTitle('SquareTable'),
