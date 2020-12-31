@@ -36,40 +36,40 @@ interface IState{
 }
 
 const SET_HEIGHT='SET_HEIGHT'
-const SET_MAXHEIGHT='SET_MAXHEIGHT'
-const SET_TOTALHEIGHT='SET_TOTALHEIGHT'
-const SET_COMPONENTWIDTH='SET_COMPONENTWIDTH'
-const SET_TOTALHEIGHTPLUS='SET_TOTALHEIGHTPLUS'
-const SET_POSITIONTOPLOADING='SET_POSITIONTOPLOADING'
-const SET_ISSUCCESSWIDTH='SET_ISSUCCESSWIDTH'
-const SET_OPACITYLOADING='SET_OPACITYLOADING'
-const SET_POSITIONLOADING='SET_POSITIONLOADING'
-const SET_OPACITYISSUCCESS='SET_OPACITYISSUCCESS'
-const SET_POSITIONISSUCCESS='SET_POSITIONISSUCCESS'
-const SET_OPACITYISFAILURE='SET_OPACITYISFAILURE'
-const SET_POSITIONISFAILURE='SET_POSITIONISFAILURE'
-const SET_LOADINGCONTAINERHEIGHT='SET_LOADINGCONTAINERHEIGHT'
-const SET_ISDRAGENTER='SET_ISDRAGENTER'
-const LOADING_FADEOUT='LOADING_FADEOUT'
+const SET_MAX_HEIGHT='SET_MAX_HEIGHT'
+const SET_TOTAL_HEIGHT='SET_TOTAL_HEIGHT'
+const SET_COMPONENT_WIDTH='SET_COMPONENT_WIDTH'
+const SET_TOTAL_HEIGHT_PLUS='SET_TOTAL_HEIGHT_PLUS'
+const SET_POSITION_TOP_LOADING='SET_POSITION_TOP_LOADING'
+const SET_IS_SUCCESS_WIDTH='SET_IS_SUCCESS_WIDTH'
+const SET_OPACITY_LOADING='SET_OPACITY_LOADING'
+const SET_POSITION_LOADING='SET_POSITION_LOADING'
+const SET_OPACITY_IS_SUCCESS='SET_OPACITY_IS_SUCCESS'
+const SET_POSITION_IS_SUCCESS='SET_POSITION_IS_SUCCESS'
+const SET_OPACITY_IS_FAILURE='SET_OPACITY_IS_FAILURE'
+const SET_POSITION_IS_FAILURE='SET_POSITION_IS_FAILURE'
+const SET_LOADING_CONTAINER_HEIGHT='SET_LOADING_CONTAINER_HEIGHT'
+const SET_IS_DRAG_ENTER='SET_IS_DRAG_ENTER'
+const LOADING_FADE_OUT='LOADING_FADE_OUT'
 const LOADING_RESTORE='LOADING_RESTORE'
-const ISSUCCESS_FADEOUT='ISSUCCESS_FADEOUT'
-const ISSUCCESS_RESTORE='ISSUCCESS_RESTORE'
-const ISFAILURE_FADEOUT='ISFAILURE_FADEOUT'
-const ISFAILURE_RESTORE='ISFAILURE_RESTORE'
+const IS_SUCCESS_FADE_OUT='IS_SUCCESS_FADE_OUT'
+const IS_SUCCESS_RESTORE='IS_SUCCESS_RESTORE'
+const IS_FAILURE_FADE_OUT='IS_FAILURE_FADE_OUT'
+const IS_FAILURE_RESTORE='IS_FAILURE_RESTORE'
 const SET_INITIAL_HEIGHT_VALUES='SET_INITIAL_HEIGHT_VALUES'
 const SET_INITIAL_HEIGHT_PLUS_VALUES='SET_INITIAL_HEIGHT_PLUS_VALUES'
 
 type Action=|{
-    type:'SET_HEIGHT'|'SET_MAXHEIGHT';
+    type:'SET_HEIGHT'|'SET_MAX_HEIGHT';
     value:number|undefined;
 }|{
-    type:'SET_TOTALHEIGHT'|'SET_COMPONENTWIDTH'|'SET_TOTALHEIGHTPLUS'|'SET_POSITIONTOPLOADING'|'SET_ISSUCCESSWIDTH'|'SET_OPACITYLOADING'|'SET_OPACITYISSUCCESS'|'SET_OPACITYISFAILURE'|'SET_LOADINGCONTAINERHEIGHT'|'SET_INITIAL_HEIGHT_VALUES';
+    type:'SET_TOTAL_HEIGHT'|'SET_COMPONENT_WIDTH'|'SET_TOTAL_HEIGHT_PLUS'|'SET_POSITION_TOP_LOADING'|'SET_IS_SUCCESS_WIDTH'|'SET_OPACITY_LOADING'|'SET_OPACITY_IS_SUCCESS'|'SET_OPACITY_IS_FAILURE'|'SET_LOADING_CONTAINER_HEIGHT'|'SET_INITIAL_HEIGHT_VALUES';
     value:number;
 }|{
-    type:'SET_POSITIONLOADING'|'SET_POSITIONISSUCCESS'|'SET_POSITIONISFAILURE'|'SET_ISDRAGENTER';
+    type:'SET_POSITION_LOADING'|'SET_POSITION_IS_SUCCESS'|'SET_POSITION_IS_FAILURE'|'SET_IS_DRAG_ENTER';
     value:boolean;
 }|{
-    type:'LOADING_FADEOUT'|'LOADING_RESTORE'|'ISSUCCESS_FADEOUT'|'ISSUCCESS_RESTORE'|'ISFAILURE_FADEOUT'|'ISFAILURE_RESTORE'|'SET_INITIAL_HEIGHT_PLUS_VALUES'
+    type:'LOADING_FADE_OUT'|'LOADING_RESTORE'|'IS_SUCCESS_FADE_OUT'|'IS_SUCCESS_RESTORE'|'IS_FAILURE_FADE_OUT'|'IS_FAILURE_RESTORE'|'SET_INITIAL_HEIGHT_PLUS_VALUES'
 }
 
 const reducer=(state:IState,action:Action):IState=>{
@@ -79,37 +79,37 @@ const reducer=(state:IState,action:Action):IState=>{
             ...state,
             height:action.value,
         }
-    case SET_MAXHEIGHT:
+    case SET_MAX_HEIGHT:
         return {
             ...state,
             maxHeight:action.value,
         }
-    case SET_TOTALHEIGHT:
+    case SET_TOTAL_HEIGHT:
         return {
             ...state,
             totalHeight:action.value,
         }
-    case SET_COMPONENTWIDTH:
+    case SET_COMPONENT_WIDTH:
         return {
             ...state,
             componentWidth:action.value,
         }
-    case SET_TOTALHEIGHTPLUS:
+    case SET_TOTAL_HEIGHT_PLUS:
         return {
             ...state,
             totalHeightPlus:action.value
         }
-    case SET_POSITIONTOPLOADING:
+    case SET_POSITION_TOP_LOADING:
         return {
             ...state,
             positionTopLoading:action.value
         }
-    case SET_ISSUCCESSWIDTH:
+    case SET_IS_SUCCESS_WIDTH:
         return {
             ...state,
             isSuccessWidth:action.value,
         }
-    case SET_OPACITYLOADING:
+    case SET_OPACITY_LOADING:
         return {
             ...state,
             loading:{
@@ -117,7 +117,7 @@ const reducer=(state:IState,action:Action):IState=>{
                 opacity:action.value,
             },
         }
-    case SET_POSITIONLOADING:
+    case SET_POSITION_LOADING:
         return {
             ...state,
             loading:{
@@ -125,7 +125,7 @@ const reducer=(state:IState,action:Action):IState=>{
                 position:action.value,
             },
         }
-    case SET_OPACITYISSUCCESS:
+    case SET_OPACITY_IS_SUCCESS:
         return {
             ...state,
             isSuccess:{
@@ -133,7 +133,7 @@ const reducer=(state:IState,action:Action):IState=>{
                 opacity:action.value,
             },
         }
-    case SET_POSITIONISSUCCESS:
+    case SET_POSITION_IS_SUCCESS:
         return {
             ...state,
             isSuccess:{
@@ -141,7 +141,7 @@ const reducer=(state:IState,action:Action):IState=>{
                 position:action.value,
             },
         }
-    case SET_OPACITYISFAILURE:
+    case SET_OPACITY_IS_FAILURE:
         return {
             ...state,
             isFailure:{
@@ -149,7 +149,7 @@ const reducer=(state:IState,action:Action):IState=>{
                 opacity:action.value,
             },
         }
-    case SET_POSITIONISFAILURE:
+    case SET_POSITION_IS_FAILURE:
         return {
             ...state,
             isFailure:{
@@ -157,17 +157,17 @@ const reducer=(state:IState,action:Action):IState=>{
                 position:action.value,
             },
         }
-    case SET_LOADINGCONTAINERHEIGHT:
+    case SET_LOADING_CONTAINER_HEIGHT:
         return {
             ...state,
             loadingContainerHeight:action.value,
         }
-    case SET_ISDRAGENTER:
+    case SET_IS_DRAG_ENTER:
         return {
             ...state,
             isDragEnter:action.value,
         }
-    case LOADING_FADEOUT:
+    case LOADING_FADE_OUT:
         return {
             ...state,
             loading:{
@@ -185,7 +185,7 @@ const reducer=(state:IState,action:Action):IState=>{
                 position:false,
             },
         }
-    case ISSUCCESS_FADEOUT:
+    case IS_SUCCESS_FADE_OUT:
         return {
             ...state,
             isSuccess:{
@@ -194,7 +194,7 @@ const reducer=(state:IState,action:Action):IState=>{
                 position:true,
             },
         }
-    case ISSUCCESS_RESTORE:
+    case IS_SUCCESS_RESTORE:
         return {
             ...state,
             isSuccess:{
@@ -203,7 +203,7 @@ const reducer=(state:IState,action:Action):IState=>{
                 position:false,
             },
         }
-    case ISFAILURE_FADEOUT:
+    case IS_FAILURE_FADE_OUT:
         return {
             ...state,
             isFailure:{
@@ -212,7 +212,7 @@ const reducer=(state:IState,action:Action):IState=>{
                 position:true,
             },
         }
-    case ISFAILURE_RESTORE:
+    case IS_FAILURE_RESTORE:
         return {
             ...state,
             isFailure:{
@@ -289,7 +289,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         }
         if(rootRef.current?.clientWidth){
             const innerComponentWidth=rootRef.current.clientWidth-state.margin*2-state.padding*2
-            dispatch({type:SET_COMPONENTWIDTH,value:innerComponentWidth})
+            dispatch({type:SET_COMPONENT_WIDTH,value:innerComponentWidth})
         }
     },[])
 
@@ -297,17 +297,17 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         // this is to set some values the first time when the component it's expanded
         if(state.height===undefined&&(isUploading||isSuccess||isFailure)){ 
             if(containerRef.current?.scrollHeight){
-                dispatch({type:SET_TOTALHEIGHTPLUS,value:containerRef.current.scrollHeight-state.padding*2})
+                dispatch({type:SET_TOTAL_HEIGHT_PLUS,value:containerRef.current.scrollHeight-state.padding*2})
             }
             if(loadingContainerRef.current?.getBoundingClientRect().top){
-                dispatch({type:SET_POSITIONTOPLOADING,value:loadingContainerRef.current?.getBoundingClientRect().top-state.margin})
+                dispatch({type:SET_POSITION_TOP_LOADING,value:loadingContainerRef.current.getBoundingClientRect().top-state.margin})
             }
         }
         // this is to calculate and set the width of the success and failure container component
         if(isSuccess||isFailure){
             const width=containerRef.current?.getBoundingClientRect().width
             if(width){
-                dispatch({type:SET_ISSUCCESSWIDTH,value:width-state.padding*2-state.margin*2})
+                dispatch({type:SET_IS_SUCCESS_WIDTH,value:width-state.padding*2-state.margin*2})
             }
         }
         // this sets height of the component, is used to transition between heights.
@@ -323,13 +323,13 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         // this is to calculate and set isuploading container panel
         if(isUploading&&!isFailure&&!isSuccess&&loadingContainerRef.current?.scrollHeight){
             const loadingContainerHeight=loadingContainerRef.current.scrollHeight
-            dispatch({type:SET_LOADINGCONTAINERHEIGHT,value:loadingContainerHeight})
+            dispatch({type:SET_LOADING_CONTAINER_HEIGHT,value:loadingContainerHeight})
         }
     },[state.height,isUploading,isSuccess,isFailure,state.padding,state.margin,state.totalHeight,state.totalHeightPlus])
 
     useEffect(()=>{
         if(!isUploading){
-            dispatch({type:SET_OPACITYLOADING,value:0})
+            dispatch({type:SET_OPACITY_LOADING,value:0})
         }
         return ()=>{
             dispatch({type:LOADING_RESTORE})
@@ -338,19 +338,19 @@ export const FileUpload:React.FC<IFileUploadProps>=({
 
     useEffect(()=>{
         if(!isFailure){
-            dispatch({type:SET_OPACITYISFAILURE,value:0})
+            dispatch({type:SET_OPACITY_IS_FAILURE,value:0})
         }
         return ()=>{
-            dispatch({type:ISFAILURE_RESTORE})
+            dispatch({type:IS_FAILURE_RESTORE})
         }
     },[isFailure])
 
     useEffect(()=>{
         if(!isSuccess){
-            dispatch({type:SET_OPACITYISSUCCESS,value:0})
+            dispatch({type:SET_OPACITY_IS_SUCCESS,value:0})
         }
         return ()=>{
-            dispatch({type:ISSUCCESS_RESTORE})
+            dispatch({type:IS_SUCCESS_RESTORE})
         }
     },[isSuccess])
 
@@ -359,12 +359,12 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         function updateSize() {
             if(rootRef.current?.clientWidth){
                 const innerComponentWidth=rootRef.current.clientWidth-state.margin*2-state.padding*2
-                dispatch({type:SET_COMPONENTWIDTH,value:innerComponentWidth})
+                dispatch({type:SET_COMPONENT_WIDTH,value:innerComponentWidth})
             }
             if(isSuccess||isFailure){
                 const width=containerRef.current?.getBoundingClientRect().width
                 if(width){
-                    dispatch({type:SET_ISSUCCESSWIDTH,value:width-state.padding*2-state.margin*2})
+                    dispatch({type:SET_IS_SUCCESS_WIDTH,value:width-state.padding*2-state.margin*2})
                 }
             }
         }
@@ -394,16 +394,16 @@ export const FileUpload:React.FC<IFileUploadProps>=({
                 }
             }
             reader.readAsArrayBuffer(file)
-            dispatch({type:SET_ISDRAGENTER,value:false})
+            dispatch({type:SET_IS_DRAG_ENTER,value:false})
         })
     }, []);
     const onDragEnter=useCallback((event:React.DragEvent)=>{
         event.preventDefault();
-        dispatch({type:SET_ISDRAGENTER,value:true})
+        dispatch({type:SET_IS_DRAG_ENTER,value:true})
     },[]);
     const onDragLeave=useCallback((event:React.DragEvent)=>{
         event.preventDefault();
-        dispatch({type:SET_ISDRAGENTER,value:false})
+        dispatch({type:SET_IS_DRAG_ENTER,value:false})
     },[]);
     const {getRootProps, getInputProps,rootRef} = useDropzone({onDrop,onDragEnter,onDragLeave,disabled})
 
