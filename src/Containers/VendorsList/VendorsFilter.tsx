@@ -23,7 +23,7 @@ export interface IVendorsFilterProps
     headingProps?: HeadingProps;
     buttonProps?: ButtonProps;
     collapsibleHeadingProps?: ICollapsibleHeadingProps;
-    filterSelectProps?: IFilterSelectProps;
+    filterSelectProps?: Omit<IFilterSelectProps, 'headingTitle' | 'buttonText' | 'filterItems'>;
 }
 
 const LOADING = false;
