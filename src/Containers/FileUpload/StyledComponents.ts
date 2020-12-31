@@ -18,10 +18,11 @@ export interface IContainerProps{
     maxHeight?:number;
     margin?:string;
     positionTop?:number;
+    flexGrow?:boolean;
 }
 
 export const Container=styled.div<IContainerProps>`  
-${({dashed,withFlexCenter,withBorder,width,padding,isDragEnter,withFlexSpaceBetween,backgroundColor,borderRadius,height,opacity,maxHeight,overflow,position,margin,positionTop}):string=>`
+${({dashed,withFlexCenter,withBorder,width,padding,isDragEnter,withFlexSpaceBetween,backgroundColor,borderRadius,height,opacity,maxHeight,overflow,position,margin,positionTop,flexGrow}):string=>`
 ${borderRadius?`border-radius:${borderRadius};`:'border-radius:10px;'}
 ${withBorder?`
 border:2px ${dashed?'dashed':'solid'} rgba(128,128,128,.8);
@@ -53,6 +54,7 @@ ${maxHeight!==undefined?`max-height:${maxHeight}px;`:''}
 ${overflow?`overflow:${overflow};`:''}
 ${position?`position:absolute;top:${positionTop}px;`:''}
 ${margin?`margin:${margin};`:''}
+${flexGrow?`flex:1;`:''}
 `}
 transition:height .5s,opacity .5s,max-height 5s;
 `
