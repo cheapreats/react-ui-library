@@ -29,7 +29,7 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
         }
 
         chairTableBackground: string;
-
+        chairOccupiedBackground: string;
     };
 }
 
@@ -57,12 +57,11 @@ export const MainTheme: MainThemeInterface = {
         },
 
         chairTableBackground: '#6c757d',
-
+        chairOccupiedBackground: '#EE2434',
         PieChartColors: {
             Red: '#FF0000',
             Green: '#008000',
             Yellow: '#ffff00',
         },
-
     },
 };
