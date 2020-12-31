@@ -2,13 +2,13 @@ import React,{forwardRef} from 'react'
 import {Container,IContainerProps} from './StyledIcons'
 
 interface IBottomPanelProps extends IContainerProps{
-    children:React.ReactElement;
+    children:React.ReactElement|undefined;
 }
 
-export const BottomPanel=forwardRef<HTMLDivElement,IBottomPanelProps>(({children,...props},forwadedRef):React.ReactElement=>{
-    return (
+export const BottomPanel=forwardRef<HTMLDivElement,IBottomPanelProps>(({children,...props},forwadedRef):React.ReactElement=>
+    (
         <Container {...props} ref={forwadedRef}>
             {children}
         </Container>
     )
-})
+)

@@ -321,40 +321,38 @@ export const FileUpload:React.FC<IFileUploadProps>=({
             dispatch({type:SET_HEIGHT,value:state.totalHeight})
         }
         // this is to calculate and set isuploading container panel
-        if(isUploading&&loadingContainerRef.current?.scrollHeight){
-            dispatch({type:SET_LOADINGCONTAINERHEIGHT,value:loadingContainerRef.current.scrollHeight})
+        if(isUploading&&!isFailure&&!isSuccess&&loadingContainerRef.current?.scrollHeight){
+            const loadingContainerHeight=loadingContainerRef.current.scrollHeight
+            dispatch({type:SET_LOADINGCONTAINERHEIGHT,value:loadingContainerHeight})
         }
     },[state.height,isUploading,isSuccess,isFailure,state.padding,state.margin,state.totalHeight,state.totalHeightPlus])
 
-    // this is to fade out uploading container component
     useEffect(()=>{
-        if(!isUploading||isSuccess||isFailure){
-            dispatch({type:LOADING_FADEOUT})
+        if(!isUploading){
+            dispatch({type:SET_OPACITYLOADING,value:0})
         }
         return ()=>{
             dispatch({type:LOADING_RESTORE})
         }
-    },[isUploading,isSuccess,isFailure])
+    },[isUploading])
 
-    // this is to fade out success container component
-    useEffect(()=>{
-        if(!isSuccess||isFailure){
-            dispatch({type:ISSUCCESS_FADEOUT})
-        }
-        return ()=>{
-            dispatch({type:ISSUCCESS_RESTORE})
-        }
-    },[isSuccess,isFailure])
-
-    // this is to fade out failure container component
     useEffect(()=>{
         if(!isFailure){
-            dispatch({type:ISFAILURE_FADEOUT})
+            dispatch({type:SET_OPACITYISFAILURE,value:0})
         }
         return ()=>{
             dispatch({type:ISFAILURE_RESTORE})
         }
     },[isFailure])
+
+    useEffect(()=>{
+        if(!isSuccess){
+            dispatch({type:SET_OPACITYISSUCCESS,value:0})
+        }
+        return ()=>{
+            dispatch({type:ISSUCCESS_RESTORE})
+        }
+    },[isSuccess])
 
     // this is used to resize bottom panel with when resizing window browser
     useLayoutEffect(() => {
@@ -409,6 +407,19 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     },[]);
     const {getRootProps, getInputProps,rootRef} = useDropzone({onDrop,onDragEnter,onDragLeave,disabled})
 
+    const renderChild=():React.ReactElement|undefined=>{
+        if(isFailure){
+            return <IsFailureIsSuccessPanel message={failureMessage} iconColor={MainTheme.colors.statusColors.red} IconToShow={TimesCircle} />
+        }
+        if(isSuccess){
+            return <IsFailureIsSuccessPanel message={successMessage} iconColor={MainTheme.colors.statusColors.green} IconToShow={CheckCircle} />
+        }
+        if(isUploading){
+            return <Loading loading={isUploading} message='Uploading...' />
+        }
+        return undefined
+    }
+
     return (
         <Container backgroundColor='white' padding='10px' borderRadius='20px' ref={containerRef} maxHeight={state.maxHeight} overflow='hidden' height={state.height} margin={`${state.margin}px`}>
             <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:!state.isDragEnter,isDragEnter:state.isDragEnter,padding:'10px',margin:`${state.margin}px`})}>
@@ -421,15 +432,9 @@ export const FileUpload:React.FC<IFileUploadProps>=({
                     <input {...getInputProps()}  />
                 </SubContainer>
             </Container>
-            <BottomPanel withBorder padding='30px 20px 43px 20px' opacity={state.loading.opacity} position={state.loading.position} ref={loadingContainerRef} overflow='hidden' width={state.componentWidth} margin={`${state.margin}px`} positionTop={state.positionTopLoading}>
-                <Loading loading={isUploading} message='Uploading...' />
+            <BottomPanel withBorder padding={isFailure||isSuccess?undefined:'30px 20px 43px 20px'} opacity={state.loading.opacity||state.isSuccess.opacity||state.isFailure.opacity} position={state.loading.position&&state.isFailure.position&&state.isSuccess.position} ref={loadingContainerRef} overflow='hidden' width={isFailure||isSuccess?state.isSuccessWidth:state.componentWidth} margin={`${state.margin}px`} positionTop={state.positionTopLoading} height={isFailure||isSuccess?state.loadingContainerHeight:undefined}>
+                {renderChild()}
             </BottomPanel>
-            <BottomPanel withBorder opacity={state.isSuccess.opacity} height={state.loadingContainerHeight} position={state.isSuccess.position} margin={`${state.margin}px`} positionTop={state.positionTopLoading} width={state.isSuccessWidth}>
-                <IsFailureIsSuccessPanel message={successMessage} iconColor={MainTheme.colors.statusColors.green} IconToShow={CheckCircle} />
-            </BottomPanel>
-            <BottomPanel withBorder opacity={state.isFailure.opacity} height={state.loadingContainerHeight} position={state.isFailure.position} margin={`${state.margin}px`} positionTop={state.positionTopLoading} width={state.isSuccessWidth}>
-                <IsFailureIsSuccessPanel message={failureMessage} iconColor={MainTheme.colors.statusColors.red} IconToShow={TimesCircle} />
-            </BottomPanel> 
         </Container>
     )
 }
