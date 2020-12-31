@@ -173,13 +173,10 @@ const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
         case 'Vacant':
             return useTheme().colors.occupancyStatusColors.Vacant;
-
         case 'Reserved':
             return useTheme().colors.occupancyStatusColors.Reserved;
-
         case 'Occupied':
             return useTheme().colors.occupancyStatusColors.Occupied;
-
         default:
             return '';
     }
@@ -197,10 +194,14 @@ interface ITableBody {
 }
 
 const TableBody = styled.div<ITableBody>`
-    ${({ relativeSize }) =>
-        `--d: ${6.5 * relativeSize}em; /* chair size */
-        border-width: ${relativeSize * 1.5}em;
-        margin: ${relativeSize * 3}em;`}
+    ${({ relativeSize }) => {
+        const BASE_CHAIR_SIZE = 6.5;
+        const BASE_TABLE_BORDER_WIDTH = 1.5;
+        const BASE_TABLE_BODY_MARGIN = 3;
+        return `--d: ${BASE_CHAIR_SIZE * relativeSize}em; /* chair size */
+        border-width: ${relativeSize * BASE_TABLE_BORDER_WIDTH}em;
+        margin: ${relativeSize * BASE_TABLE_BODY_MARGIN}em;`;
+    }}
     --rel: 1; /* how much extra space we want between images, 1 = one chair size */
     ${({ numOfChairs, tangentValue }) =>
         `--tan: ${
@@ -231,7 +232,10 @@ interface IChairWrapper {
 }
 
 const ChairWrapper = styled.div<IChairWrapper>`
-    --d: ${({ relativeSize }) => 6.5 * relativeSize}em; /* chair size */
+    --d: ${({ relativeSize }) => {
+        const BASE_CHAIR_SIZE = 6.5;
+        return BASE_CHAIR_SIZE * relativeSize;
+    }}em; /* chair size */
     --rel: 1; /* how much extra space we want between images, 1 = one image size */
     --r: calc(
         ${({ numOfChairs }) =>

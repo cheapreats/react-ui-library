@@ -141,9 +141,12 @@ interface ITopBottomRow {
 const TopBottomRow = styled.div<ITopBottomRow>`
     display: flex;
     flex-wrap: wrap;
-    ${({ chairNumOnSide, relativeSize }) =>
-        `width: ${chairNumOnSide * 20 * relativeSize}rem;
-        margin-left: ${relativeSize * 2.7}rem;`}
+    ${({ chairNumOnSide, relativeSize }) => {
+        const MIN_WIDTH_OF_ROW = 20;
+        const BASE_MARGIN_LEFT_FOR_TOP_BOTTOM_ROW = 2.7;
+        return `width: ${chairNumOnSide * MIN_WIDTH_OF_ROW * relativeSize}rem;
+        margin-left: ${relativeSize * BASE_MARGIN_LEFT_FOR_TOP_BOTTOM_ROW}rem;`;
+    }}
 `;
 
 const ChairCol = styled.div`
@@ -159,10 +162,15 @@ interface ISideChairRow {
 const SideChairRow = styled.div<ISideChairRow>`
     display: flex;
     flex-wrap: wrap;
-    ${({ relativeSize }) =>
-        `margin-right: ${-15 * relativeSize}px;
-        margin-left: ${-15 * relativeSize}px;
-        height: ${20 * relativeSize}rem;`}
+    ${({ relativeSize }) => {
+        const WHITE_SPACE_BESIDE_VERTICAL_CHAIRS = -15;
+        const MIN_SIDE_CHAIR_ROW_HEIGHT = 20;
+        return `margin-right: ${
+            WHITE_SPACE_BESIDE_VERTICAL_CHAIRS * relativeSize
+        }px;
+        margin-left: ${WHITE_SPACE_BESIDE_VERTICAL_CHAIRS * relativeSize}px;
+        height: ${MIN_SIDE_CHAIR_ROW_HEIGHT * relativeSize}rem;`;
+    }}
 `;
 
 const SideChairCentering = styled.div`

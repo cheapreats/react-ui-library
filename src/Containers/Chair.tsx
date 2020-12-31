@@ -61,9 +61,9 @@ export const Chair: React.FC<IChair> = ({
                     isSeated={isSeated}
                     isVisible={isVisible}
                 >
-                    <RoundText relativeSize={relativeSize}>
+                    <RoundChairText relativeSize={relativeSize}>
                         {occupiedBy}
-                    </RoundText>
+                    </RoundChairText>
                 </RoundChair>
             </div>
         );
@@ -77,16 +77,19 @@ export const Chair: React.FC<IChair> = ({
     const getPositionChair: getPositionChairType = () => {
         return (
             <div {...props}>
-                <PositionChair
+                <RectangleChair
                     relativeSize={relativeSize}
                     isSeated={isSeated}
                     isVisible={isVisible}
                     position={position}
                 >
-                    <StyledText position={position} relativeSize={relativeSize}>
+                    <RectangleChairText
+                        position={position}
+                        relativeSize={relativeSize}
+                    >
                         {occupiedBy}
-                    </StyledText>
-                </PositionChair>
+                    </RectangleChairText>
+                </RectangleChair>
             </div>
         );
     };
@@ -112,48 +115,88 @@ const getChairColor: getChairColorType = (isSeated) => {
     return colors.chairTableBackground;
 };
 
+type getRectangleChairStyles = (
+    position: Position,
+    relativeSize: number,
+) => string;
+
+/**
+ * Returns the correct styles for the RectangleChair based on the chair's position
+ *
+ * @return {string} - the correct styles for the given chair
+ */
+const getRectangleChairStyles: getRectangleChairStyles = (
+    position,
+    relativeSize,
+) => {
+    const BASE_BORDER_RADIUS = 3;
+    const BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS = 0.25;
+    switch (position) {
+        case 'top':
+            return `border-top-left-radius:  ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
+            border-top-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
+            margin-bottom: ${
+                relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
+            }rem;
+        `;
+        case 'left':
+            return `border-top-left-radius: ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
+            border-bottom-left-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
+        `;
+        case 'right':
+            return `border-top-right-radius: ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
+            border-bottom-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
+        `;
+        case 'bottom':
+            return `border-bottom-left-radius: ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
+            border-bottom-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
+            margin-top: ${
+                relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
+            }rem;
+        `;
+        default:
+            return '';
+    }
+};
+
 /**
  * variables for the styled components
  */
 
-const topChairStyle = css<Pick<IChair, 'relativeSize'>>`
-    ${({ relativeSize }) =>
-        `border-top-left-radius:  ${relativeSize * 3}rem;
-        border-top-right-radius: ${relativeSize * 3}rem;
-        height: ${relativeSize * 3}rem;
-        width: ${relativeSize * 10}rem;
-        margin-bottom: ${relativeSize * 0.25}rem;
-        margin-left: auto;
-        margin-right: auto;`}
+const HorizontalChairStyle = css<Pick<IChair, 'relativeSize' | 'position'>>`
+    ${({ relativeSize }) => {
+        const HORIZONTAL_CHAIR_BASE_HEIGHT = 3;
+        const HORIZONTAL_CHAIR_BASE_WIDTH = 10;
+        return `height: ${relativeSize * HORIZONTAL_CHAIR_BASE_HEIGHT}rem;
+            width: ${relativeSize * HORIZONTAL_CHAIR_BASE_WIDTH}rem;
+            margin-left: auto;
+            margin-right: auto;
+        `;
+    }}
+    ${({ relativeSize, position }) =>
+        getRectangleChairStyles(position, relativeSize)}
 `;
 
-const leftChairStyle = css<Pick<IChair, 'relativeSize'>>`
-    ${({ relativeSize }) =>
-        `border-top-left-radius: ${relativeSize * 3}rem;
-        border-bottom-left-radius: ${relativeSize * 3}rem;
-        width: ${relativeSize * 3}rem;
-        height: ${relativeSize * 10}rem;
-        margin: ${relativeSize * 1.25}rem;`}
-`;
-
-const rightChairStyle = css<Pick<IChair, 'relativeSize'>>`
-    ${({ relativeSize }) =>
-        `border-top-right-radius: ${relativeSize * 3}rem;
-        border-bottom-right-radius: ${relativeSize * 3}rem;
-        width: ${relativeSize * 3}rem;
-        height: ${relativeSize * 10}rem;
-        margin: ${relativeSize * 1.25}rem;`}
-`;
-
-const bottomChairStyle = css<Pick<IChair, 'relativeSize'>>`
-    ${({ relativeSize }) =>
-        `border-bottom-left-radius: ${relativeSize * 3}rem;
-        border-bottom-right-radius: ${relativeSize * 3}rem;
-        height: ${relativeSize * 3}rem;
-        width: ${relativeSize * 10}rem;
-        margin-top: ${relativeSize * 0.25}rem;
-        margin-left: auto;
-        margin-right: auto;`}
+const VerticalChairStyle = css<Pick<IChair, 'relativeSize' | 'position'>>`
+    ${({ relativeSize }) => {
+        const VERTICAL_CHAIR_BASE_WIDTH = 3;
+        const VERTICAL_CHAIR_BASE_HEIGHT = 10;
+        const VERTICAL_CHAIR_BASE_MARGIN = 1.25;
+        return `width: ${relativeSize * VERTICAL_CHAIR_BASE_WIDTH}rem;
+            height: ${relativeSize * VERTICAL_CHAIR_BASE_HEIGHT}rem;
+            margin: ${relativeSize * VERTICAL_CHAIR_BASE_MARGIN}rem;
+        `;
+    }}
+    ${({ relativeSize, position }) =>
+        getRectangleChairStyles(position, relativeSize)}
 `;
 
 const textBaseStyle = css`
@@ -165,26 +208,43 @@ const textBaseStyle = css`
     text-overflow: ellipsis;
 `;
 
-const textTopBottomStyle = css<Pick<IChair, 'relativeSize'>>`
+const textHorizontalChairStyle = css<Pick<IChair, 'relativeSize'>>`
     ${textBaseStyle};
-    ${({ relativeSize }) =>
-        `width: ${relativeSize * 9}rem;
-        margin-left: ${relativeSize * 0.65}rem;
-        padding-top: ${relativeSize * 0.35}rem;`}
+    ${({ relativeSize }) => {
+        const HORIZONTAL_CHAIR_BASE_WIDTH = 9;
+        const HORIZONTAL_CHAIR_BASE_MARGIN_LEFT = 0.65;
+        const HORIZONTAL_CHAIR_BASE_PADDING_TOP = 0.35;
+        return `width: ${relativeSize * HORIZONTAL_CHAIR_BASE_WIDTH}rem;
+            margin-left: ${relativeSize * HORIZONTAL_CHAIR_BASE_MARGIN_LEFT}rem;
+            padding-top: ${
+                relativeSize * HORIZONTAL_CHAIR_BASE_PADDING_TOP
+            }rem;`;
+    }}
 `;
 
-const textLeftRightStyle = css<Pick<IChair, 'relativeSize'>>`
+const textVerticalChairStyle = css<Pick<IChair, 'relativeSize'>>`
     ${textBaseStyle};
     height: 90%;
-    ${({ relativeSize }) =>
-        `padding-top: ${relativeSize * 0.5}rem;
-        margin-left: ${relativeSize * 0.5}rem;
-        writing-mode: vertical-rl;`}
+    ${({ relativeSize }) => {
+        const VERTICAL_CHAIR_TEXT_BASE_PADDING_TOP = 0.5;
+        const VERTICAL_CHAIR_TEXT_BASE_MARGIN_LEFT = 0.5;
+        return `padding-top: ${
+            relativeSize * VERTICAL_CHAIR_TEXT_BASE_PADDING_TOP
+        }rem;
+            margin-left: ${
+                relativeSize * VERTICAL_CHAIR_TEXT_BASE_MARGIN_LEFT
+            }rem;
+            writing-mode: vertical-rl;`;
+    }}
 `;
 
 const textRoundStyle = css<Pick<IChair, 'relativeSize'>>`
     ${textBaseStyle};
-    padding: ${({ relativeSize }) => relativeSize * 2.0}em 0;
+    padding: ${({ relativeSize }) => {
+            const BASE_PADDING_FOR_TEXT_ROUND_STYLE = 2.0;
+            return relativeSize * BASE_PADDING_FOR_TEXT_ROUND_STYLE;
+        }}em
+        0;
 `;
 
 const BaseChair = styled.div<Pick<IChair, 'isVisible' | 'isSeated'>>`
@@ -194,34 +254,43 @@ const BaseChair = styled.div<Pick<IChair, 'isVisible' | 'isSeated'>>`
 
 const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
     border-radius: 50%;
-    ${({ relativeSize }) =>
-        `width: ${relativeSize * 6.5}rem;
-        height: ${relativeSize * 6.5}rem;
-        border: ${relativeSize * 2}px solid black;`}
+    ${({ relativeSize }) => {
+        const BASE_WIDTH_AND_HEIGHT_FOR_ROUND_CHAIR = 6.5;
+        const BASE_BORDER_WIDTH_FOR_ROUND_CHAIR = 2;
+        return `width: ${
+            relativeSize * BASE_WIDTH_AND_HEIGHT_FOR_ROUND_CHAIR
+        }rem;
+            height: ${relativeSize * BASE_WIDTH_AND_HEIGHT_FOR_ROUND_CHAIR}rem;
+            border: ${
+                relativeSize * BASE_BORDER_WIDTH_FOR_ROUND_CHAIR
+            }px solid black;`;
+    }}
 `;
 
-const PositionChair = styled(BaseChair)<
+const RectangleChair = styled(BaseChair)<
     Pick<IChair, 'position' | 'relativeSize'>
 >`
     ${({ position }) =>
         ({
-            top: topChairStyle,
-            bottom: bottomChairStyle,
-            left: leftChairStyle,
-            right: rightChairStyle,
+            top: HorizontalChairStyle,
+            bottom: HorizontalChairStyle,
+            left: VerticalChairStyle,
+            right: VerticalChairStyle,
         }[position])};
 `;
 
-const StyledText = styled.div<Pick<IChair, 'position' | 'relativeSize'>>`
+const RectangleChairText = styled.div<
+    Pick<IChair, 'position' | 'relativeSize'>
+>`
     ${({ position }) =>
         ({
-            top: textTopBottomStyle,
-            bottom: textTopBottomStyle,
-            left: textLeftRightStyle,
-            right: textLeftRightStyle,
+            top: textHorizontalChairStyle,
+            bottom: textHorizontalChairStyle,
+            left: textVerticalChairStyle,
+            right: textVerticalChairStyle,
         }[position])};
 `;
 
-const RoundText = styled.div<Pick<IChair, 'relativeSize'>>`
+const RoundChairText = styled.div<Pick<IChair, 'relativeSize'>>`
     ${textRoundStyle};
 `;

@@ -13,7 +13,6 @@ const Template: Story<ICircleTable> = (args) => <CircleTable {...args} />;
 /**
  *Creates a SquareTable component with 4 chairs
  */
-
 export const FourTopTable = Template.bind({});
 FourTopTable.args = {
     tableID: 'T1',

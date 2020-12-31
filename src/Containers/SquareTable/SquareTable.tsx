@@ -246,13 +246,10 @@ const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
         case 'Vacant':
             return useTheme().colors.occupancyStatusColors.Vacant;
-
         case 'Reserved':
             return useTheme().colors.occupancyStatusColors.Reserved;
-
         case 'Occupied':
             return useTheme().colors.occupancyStatusColors.Occupied;
-
         default:
             return '';
     }
@@ -269,10 +266,17 @@ interface ITableBody {
 }
 
 const TableBody = styled.div<ITableBody>`
-    ${({ chairNumOnSide, chairNumOnTop, relativeSize }) =>
-        `height: ${chairNumOnSide * 20 * relativeSize}rem;
-        width: ${chairNumOnTop * 20 * relativeSize}rem;
-        border-radius: ${3 * relativeSize}rem;`}
+    ${({ chairNumOnSide, chairNumOnTop, relativeSize }) => {
+        const BASE_TABLE_BODY_WIDTH_AND_HEIGHT = 20;
+        const BASE_BORDER_RADIUS = 3;
+        return `height: ${
+            chairNumOnSide * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
+        }rem;
+            width: ${
+                chairNumOnTop * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
+            }rem;
+            border-radius: ${BASE_BORDER_RADIUS * relativeSize}rem;`;
+    }}
     background-color: ${({ theme }) => theme.colors.chairTableBackground};
 `;
 
@@ -283,12 +287,23 @@ interface IColorDiv {
 }
 
 const ColorDiv = styled.div<IColorDiv>`
-    ${({ chairNumOnSide, relativeSize }) =>
-        `height: ${chairNumOnSide * 20 * relativeSize}rem;
-        width: ${3 * relativeSize}rem;
-        margin-right: ${0.95 * relativeSize}rem;
-        border-top-right-radius: ${3 * relativeSize}rem;
-        border-bottom-right-radius: ${3 * relativeSize}rem;`}
+    ${({ chairNumOnSide, relativeSize }) => {
+        const BASE_COLOR_DIV_HEIGHT = 20;
+        const BASE_COLOR_DIV_WIDTH = 3;
+        const BASE_COLOR_DIV_BORDER_RADIUS = 3;
+        const BASE_COLOR_DIV_MARGIN_RIGHT = 0.95;
+        return `height: ${
+            chairNumOnSide * BASE_COLOR_DIV_HEIGHT * relativeSize
+        }rem;
+            width: ${BASE_COLOR_DIV_WIDTH * relativeSize}rem;
+            margin-right: ${BASE_COLOR_DIV_MARGIN_RIGHT * relativeSize}rem;
+            border-top-right-radius: ${
+                BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+            }rem;
+            border-bottom-right-radius: ${
+                BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+            }rem;`;
+    }}
     margin-left: auto;
     background-color: ${({ occupancyStatus }) =>
         getOccupancyColor(occupancyStatus)};
@@ -301,9 +316,13 @@ interface IRow {
 const Row = styled.div<IRow>`
     display: flex;
     flex-wrap: wrap;
-    ${({ relativeSize }) =>
-        `margin-right: ${-15 * relativeSize}px;
-        margin-left: ${-15 * relativeSize}px;`}
+    ${({ relativeSize }) => {
+        const BASE_ROW_LEFT_AND_RIGHT_MARGIN = -15;
+        return `margin-right: ${
+            BASE_ROW_LEFT_AND_RIGHT_MARGIN * relativeSize
+        }px;
+            margin-left: ${BASE_ROW_LEFT_AND_RIGHT_MARGIN * relativeSize}px;`;
+    }}
 `;
 
 interface ITableInfo {
@@ -314,9 +333,12 @@ const TableInfo = styled.div<ITableInfo>`
     color: ${({ theme }) => theme.colors.background};
     font-weight: bold;
     white-space: pre-line;
-    ${({ relativeSize }) =>
-        `margin-top: ${2 * relativeSize}rem;
-        margin-left: ${3 * relativeSize}rem;`}
+    ${({ relativeSize }) => {
+        const BASE_TABLE_INFO_MARGIN_TOP = 2;
+        const BASE_TABLE_INFO_MARGIN_LEFT = 3;
+        return `margin-top: ${BASE_TABLE_INFO_MARGIN_TOP * relativeSize}rem;
+            margin-left: ${BASE_TABLE_INFO_MARGIN_LEFT * relativeSize}rem;`;
+    }}
 `;
 
 const Status = styled.div<Pick<ISquareTable, 'occupancyStatus'>>`
