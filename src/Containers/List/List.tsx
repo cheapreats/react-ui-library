@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { Mixins } from '../../Utils';
 import { Responsive, Main } from '../../Utils/BaseStyles';
-import { Loading } from '../Loading';
+import { Loading } from '../Loading/Loading';
 
 export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
     loading: boolean;
@@ -39,14 +39,14 @@ export const List: React.FC<ListProps> = ({
         const handler = ({ type }: { type: string }): void => {
             if (setIsOpen) {
                 switch (type) {
-                    case 'swipeRight':
-                        setIsOpen(true);
-                        break;
-                    case 'swipeLeft':
-                        setIsOpen(false);
-                        break;
-                    default:
-                        break;
+                case 'swipeRight':
+                    setIsOpen(true);
+                    break;
+                case 'swipeLeft':
+                    setIsOpen(false);
+                    break;
+                default:
+                    break;
                 }
             }
         };

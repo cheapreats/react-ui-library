@@ -10,7 +10,7 @@ import {
     position,
 } from '../../Utils/Mixins';
 import { WEEKDAYS, MONTHS } from '../../Utils/Constants';
-import { Button } from '../Button';
+import { Button } from '../Button/Button';
 
 const SIZE = 40;
 
@@ -74,9 +74,7 @@ export interface DateboxProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Datebox: React.FC<DateboxProps> = ({
     changePage,
-    clearDate = (): void => {
-        return undefined;
-    },
+    clearDate = (): void => undefined,
     selectedDate,
     selectDate,
     animate,

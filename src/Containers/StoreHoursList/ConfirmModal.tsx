@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import { Check } from '@styled-icons/boxicons-regular/Check';
 import { Cross } from '@styled-icons/entypo/Cross';
 import { ICategoryWithHoursTypes } from './types';
-import { Modal } from '../Modal';
+import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
-import { Button } from '../../Inputs/Button';
+import { Button } from '../../Inputs/Button/Button';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 

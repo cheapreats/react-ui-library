@@ -5,10 +5,10 @@ import { ICategoryWithHoursTypes } from './types';
 import { ErrorModal } from './ErrorModal';
 import { createCategoryWithHours } from './CategoryScheduleFunctions';
 import { Heading, SmallText } from '../../Text';
-import { Modal } from '../Modal';
-import { Input } from '../../Inputs/Input';
-import { Button } from '../../Inputs/Button';
-import { Tag } from '../Tag';
+import { Modal } from '../Modal/Modal';
+import { Input } from '../../Inputs/Input/Input';
+import { Button } from '../../Inputs/Button/Button';
+import { Tag } from '../Tag/Tag';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 
@@ -95,40 +95,38 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
                 </TextContainer>
                 <Container>
                     {Object.entries(allCategories).map(
-                        (listAllCategories): React.ReactElement => {
-                            return (
-                                <Section
-                                    as={Tag}
-                                    key={listAllCategories[CATEGORY_INDEX]}
-                                    onClick={(): void => {
-                                        if (
-                                            listAllCategories[CATEGORY_SCHEDULE]
-                                                .category === activeCategory
-                                        ) {
-                                            // prevent deleting active category as it would throw errors
-                                            setError(CANNOT_DELETE_ACTIVE);
-                                            setErrorModalState(
-                                                !errorModalState,
-                                            );
-                                        } else if (allCategories.length !== 1) {
-                                            setDeletedCategory(
-                                                listAllCategories[
-                                                    CATEGORY_SCHEDULE
-                                                ].category,
-                                            );
-                                            setConfirmModalState(
-                                                !confirmModalState,
-                                            );
-                                        }
-                                    }}
-                                >
-                                    {
+                        (listAllCategories): React.ReactElement => (
+                            <Section
+                                as={Tag}
+                                key={listAllCategories[CATEGORY_INDEX]}
+                                onClick={(): void => {
+                                    if (
                                         listAllCategories[CATEGORY_SCHEDULE]
-                                            .category
+                                            .category === activeCategory
+                                    ) {
+                                        // prevent deleting active category as it would throw errors
+                                        setError(CANNOT_DELETE_ACTIVE);
+                                        setErrorModalState(
+                                            !errorModalState,
+                                        );
+                                    } else if (allCategories.length !== 1) {
+                                        setDeletedCategory(
+                                            listAllCategories[
+                                                CATEGORY_SCHEDULE
+                                            ].category,
+                                        );
+                                        setConfirmModalState(
+                                            !confirmModalState,
+                                        );
                                     }
-                                </Section>
-                            );
-                        },
+                                }}
+                            >
+                                {
+                                    listAllCategories[CATEGORY_SCHEDULE]
+                                        .category
+                                }
+                            </Section>
+                        ),
                     )}
                 </Container>
                 <CenteredButton

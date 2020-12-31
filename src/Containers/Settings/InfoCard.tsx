@@ -7,10 +7,10 @@ import { QuestionCircle } from '@styled-icons/fa-solid/QuestionCircle';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 import { Heading, Paragraph } from '../../Text';
-import { SettingsCard } from '../SettingsCard';
-import { Button } from '../../Inputs/Button';
-import { Modal } from '../Modal';
-import { Copyright } from '../Copyright';
+import { SettingsCard } from '../SettingsCard/SettingsCard';
+import { Button } from '../../Inputs/Button/Button';
+import { Modal } from '../Modal/Modal';
+import { Copyright } from '../Copyright/Copyright';
 
 export interface InfoProps
     extends React.HTMLAttributes<HTMLDivElement>,
@@ -69,8 +69,7 @@ export const InfoCard: React.FC<InfoProps> = ({
                     margin="5px"
                     icon={Book}
                     onClick={(): null | Window =>
-                        window.open(companyPrivacyURL, '_blank')
-                    }
+                        window.open(companyPrivacyURL, '_blank')}
                 >
                     {privacyPolicyButton}
                 </Button>
@@ -85,8 +84,7 @@ export const InfoCard: React.FC<InfoProps> = ({
                     margin="5px"
                     icon={QuestionCircle}
                     onClick={(): Window | null =>
-                        window.open(faqLink, '_blank')
-                    }
+                        window.open(faqLink, '_blank')}
                 >
                     {faqName}
                 </Button>

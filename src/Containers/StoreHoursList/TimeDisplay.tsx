@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { convertTime } from './TimeFunctions';
 import { ICategoryWithHoursTypes } from './types';
 import { Heading } from '../../Text';
-import { Tag } from '../Tag';
+import { Tag } from '../Tag/Tag';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 interface TimeDisplayProps
@@ -27,58 +27,56 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
     setActiveCategorySchedule,
     is24,
     ...props
-}): React.ReactElement => {
-    return (
-        <Section {...props}>
-            {Object.entries(activeCategorySchedule.hoursByDay).map(
-                (day): React.ReactElement | null => {
-                    const capitalDay = day[
-                        CHECKBOX_DAY
-                    ].replace(
-                        MATCH_FIRST_LETTER_PATTERN,
-                        (chr: string): string => chr.toUpperCase(),
-                    );
-                    return day[CHECKBOX_TIME].length > 0 ? (
-                        <div>
-                            <Heading bold size="0.95em" padding="5">
-                                {capitalDay}
-                            </Heading>
-                            <Section
-                                as={Tag}
-                                key={day[CHECKBOX_DAY]}
-                                onClick={(): void => {
-                                    const firstTime =
+}): React.ReactElement => (
+    <Section {...props}>
+        {Object.entries(activeCategorySchedule.hoursByDay).map(
+            (day): React.ReactElement | null => {
+                const capitalDay = day[
+                    CHECKBOX_DAY
+                ].replace(
+                    MATCH_FIRST_LETTER_PATTERN,
+                    (chr: string): string => chr.toUpperCase(),
+                );
+                return day[CHECKBOX_TIME].length > 0 ? (
+                    <div>
+                        <Heading bold size="0.95em" padding="5">
+                            {capitalDay}
+                        </Heading>
+                        <Section
+                            as={Tag}
+                            key={day[CHECKBOX_DAY]}
+                            onClick={(): void => {
+                                const firstTime =
                                         activeCategorySchedule.hoursByDay[
                                             day[CHECKBOX_DAY]
                                         ];
-                                    firstTime.pop(); // only works with one time tag
-                                    setActiveCategorySchedule({
-                                        ...activeCategorySchedule,
-                                        [day[CHECKBOX_DAY]]: [],
-                                    });
-                                }}
-                            >
-                                {convertTime(
-                                    day[CHECKBOX_TIME][FIRST_TIME].from,
-                                    is24,
-                                )}
-                                {` - `}
-                                {convertTime(
-                                    day[CHECKBOX_TIME][FIRST_TIME].to,
-                                    is24,
-                                )}
-                            </Section>
-                        </div>
-                    ) : (
-                        <Heading bold size="0.95em" margin="0">
-                            {capitalDay}
-                        </Heading>
-                    );
-                },
-            )}
-        </Section>
-    );
-};
+                                firstTime.pop(); // only works with one time tag
+                                setActiveCategorySchedule({
+                                    ...activeCategorySchedule,
+                                    [day[CHECKBOX_DAY]]: [],
+                                });
+                            }}
+                        >
+                            {convertTime(
+                                day[CHECKBOX_TIME][FIRST_TIME].from,
+                                is24,
+                            )}
+                            {` - `}
+                            {convertTime(
+                                day[CHECKBOX_TIME][FIRST_TIME].to,
+                                is24,
+                            )}
+                        </Section>
+                    </div>
+                ) : (
+                    <Heading bold size="0.95em" margin="0">
+                        {capitalDay}
+                    </Heading>
+                );
+            },
+        )}
+    </Section>
+);
 const Section = styled.div`
     margin: 5px;
 `;

@@ -4,10 +4,10 @@ import { Add } from '@styled-icons/ionicons-outline/Add';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { ICategoryWithHoursTypes } from './types';
 import { findActive } from './CategoryScheduleFunctions';
-import { Modal } from '../Modal';
+import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
-import { Button } from '../../Inputs/Button';
-import { Select } from '../../Inputs/Select';
+import { Button } from '../../Inputs/Button/Button';
+import { Select } from '../../Inputs/Select/Select';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 
@@ -121,19 +121,17 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
                 value={selectActiveCategory}
             >
                 {Object.entries(allCategories).map(
-                    (listAllCategories): React.ReactElement => {
-                        return (
-                            <option
-                                key={listAllCategories[CATEGORY_INDEX]}
-                                value={
-                                    listAllCategories[CATEGORY_SCHEDULE]
-                                        .category
-                                }
-                            >
-                                {listAllCategories[CATEGORY_SCHEDULE].category}
-                            </option>
-                        );
-                    },
+                    (listAllCategories): React.ReactElement => (
+                        <option
+                            key={listAllCategories[CATEGORY_INDEX]}
+                            value={
+                                listAllCategories[CATEGORY_SCHEDULE]
+                                    .category
+                            }
+                        >
+                            {listAllCategories[CATEGORY_SCHEDULE].category}
+                        </option>
+                    ),
                 )}
             </Section>
             <ButtonsContainer>

@@ -14,7 +14,7 @@ import {
 } from './ReceiptElements';
 import { CollapsibleHeader } from './CollapsibleHeader';
 import { List, ListToggle } from '../List';
-import { SearchBar } from '../../Inputs/SearchBar';
+import { SearchBar } from '../../Inputs/SearchBar/SearchBar';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 const loading = false;
@@ -68,12 +68,8 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
     const draggableComponentsObj: IDraggableComponent = Object.values(
         ReceiptElements,
     )
-        .map((ReceiptElement) => {
-            return ReceiptElement.draggableComponents;
-        })
-        .reduce((prev, current) => {
-            return { ...prev, ...current };
-        });
+        .map((ReceiptElement) => ReceiptElement.draggableComponents)
+        .reduce((prev, current) => ({ ...prev, ...current }));
 
     return (
         <div {...props}>
@@ -87,15 +83,15 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                 onCloseTranslateXAxis="-100%"
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                toggleComponent={
+                toggleComponent={(
                     <ListToggle
                         isOpen={isOpen}
                         setIsOpen={setIsOpen}
                         isLeftToggle
                     />
-                }
+                )}
                 backgroundColor={backgroundColor}
-                header={
+                header={(
                     <>
                         <StyledSearchBar
                             placeholder="Search"
@@ -111,17 +107,15 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                             value={searchValue}
                         >
                             {Object.values(draggableComponentsObj).map(
-                                (draggable) => {
-                                    return (
-                                        <option value={draggable.key}>
-                                            {draggable.field}
-                                        </option>
-                                    );
-                                },
+                                (draggable) => (
+                                    <option value={draggable.key}>
+                                        {draggable.field}
+                                    </option>
+                                ),
                             )}
                         </StyledSearchBar>
                     </>
-                }
+                )}
             >
                 <DragDropContext onDragEnd={onDrag}>
                     <Droppable

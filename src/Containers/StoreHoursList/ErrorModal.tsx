@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { CircleWithCross } from '@styled-icons/entypo/CircleWithCross';
-import { Modal } from '../Modal';
+import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
@@ -20,17 +20,15 @@ export const ErrorModal: React.FC<ErrorModalProps> = ({
     icon = CircleWithCross,
     children,
     ...props
-}): React.ReactElement => {
-    return (
-        <StyledModal state={modalState} {...props}>
-            <StyledHeading type="h6">
-                <Icon as={icon} />
-                {errorMessage}
-            </StyledHeading>
-            {children}
-        </StyledModal>
-    );
-};
+}): React.ReactElement => (
+    <StyledModal state={modalState} {...props}>
+        <StyledHeading type="h6">
+            <Icon as={icon} />
+            {errorMessage}
+        </StyledHeading>
+        {children}
+    </StyledModal>
+);
 
 const StyledModal = styled(Modal)`
     max-height: 70%;

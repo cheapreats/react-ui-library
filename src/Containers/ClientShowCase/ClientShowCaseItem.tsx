@@ -9,13 +9,11 @@ export interface ClientProps {
 export const ClientImg: React.FC<ClientProps> = ({
     src,
     imgHeight,
-}): React.ReactElement => {
-    return (
-        <IconListItem key={src}>
-            <IconImg imgHeight={imgHeight} src={src} />
-        </IconListItem>
-    );
-};
+}): React.ReactElement => (
+    <IconListItem key={src}>
+        <IconImg imgHeight={imgHeight} src={src} />
+    </IconListItem>
+);
 
 const IconListItem = styled.li`
     display: inline-block;
