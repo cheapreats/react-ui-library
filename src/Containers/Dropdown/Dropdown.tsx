@@ -17,19 +17,24 @@ type DropdownComponent<P = {}> = React.NamedExoticComponent<P> & {
   Item: typeof DropdownItem
 }
 
-interface IDropdownProps {
-    dropdownButton: Element;
-    dropdownWidth: string;
-    children: ReactNode
+export interface IDropdownProps {
+    dropdownButton: any;
+    dropdownWidth?: number;
 };
 
 interface IDropdownContentProps {
-    dropdownWidth: string;
+    dropdownWidth?: number;
     contentLength: number | undefined;
     ref: React.RefObject<HTMLUListElement>;
 }
 
+interface IDropdownContainerProps {
+    width?: number;
+    height: number
+}
+
 const EXTRA_HEIGHT = 20;
+const PADDING = 20;
 const MAX_DROPDOWN_HEIGHT = 250;
 
 const useClickAway = (
@@ -53,12 +58,12 @@ const useClickAway = (
  * @param {dropdownButton} -component used to open the dropdown menu
  */
 
-const Dropdown = ({
+const Dropdown: React.FC<IDropdownProps> = ({
     dropdownButton,
     dropdownWidth,
     children,
     ...props
-}: IDropdownProps): ReactElement => {
+}): ReactElement => {
     const [isActive, setIsActive] = useState(false);
     const [height, setHeight] = useState(0);
     const buttonRef = useRef<HTMLDivElement>(null);
@@ -72,13 +77,13 @@ const Dropdown = ({
 
     const validChild = (elements: ReactNode, targetChild: React.ElementType) => {
         const targetChildren: ReactNode[] = [];
-        Children.map(elements, (item) => {
-            if (!isValidElement(item)) return item;
-            if (item.type === targetChild) {
-                targetChildren.push(item);
+        Children.map(elements, (element) => {
+            if (!isValidElement(element)) return element;
+            if (element.type === targetChild) {
+                targetChildren.push(element);
                 return null;
             }
-            return item;
+            return element;
         });
         return targetChildren.length >= 0 ? targetChildren : undefined;
     };
@@ -101,7 +106,7 @@ const Dropdown = ({
     }
 
     return (
-        <DropdownContainer ref={containerRef} height={height} onClick={stopPropagation} {...props}>
+        <DropdownContainer width={dropdownWidth} ref={containerRef} height={height} onClick={stopPropagation} {...props}>
             <ToggleContainer ref={buttonRef} onClick={toggleIsVisible}>
                 {dropdownButton}
             </ToggleContainer>
@@ -116,16 +121,19 @@ const Dropdown = ({
     );
 };
 
-const DropdownContainer = styled.div<{ height: number }>`
+const DropdownContainer = styled.div<IDropdownContainerProps>`
     overflow: hidden;
+    display: inline-block;
     position: relative;
     cursor: pointer;
+    width: ${({width}) => width && (width + PADDING)}px;
     height: ${({ height }): number => height}px;
     ${transition(['height'], '0.5s')}
 `;
 
 const ToggleContainer = styled.div`
     margin-bottom: 10px;
+    display: inline-flex;
     padding: 5px 0;
     align-items: center;
 `;
@@ -142,8 +150,9 @@ const DropdownContent = styled.ul<IDropdownContentProps>`
     row-gap: 15px;
     font-family: ${theme.font.family};
     background: ${theme.colors.background};
-    max-width: ${dropdownWidth};
-    width: 100%;
+    max-width: ${dropdownWidth}px;
+    min-width: 0;
+    width: ${ `${dropdownWidth}px` || "auto"};
     box-shadow: ${theme.depth[1]};
     border-radius: ${theme.dimensions.radius};
 `}
