@@ -1,3 +1,4 @@
+// @ts-nocheck
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { useTable, usePagination, Column, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
@@ -44,9 +45,6 @@ export const ReactTable = <T extends IVendorsData>({
         headerGroups,
         prepareRow,
         page,
-        canPreviousPage,
-        canNextPage,
-        pageOptions,
         pageCount,
         gotoPage,
         nextPage,

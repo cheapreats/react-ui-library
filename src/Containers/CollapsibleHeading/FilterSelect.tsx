@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { flex } from '@Utils/Mixins';
 import { Tag, TagProps } from '../Tag/Tag';
 import { Input, InputProps } from '../../Inputs/Input/Input';
 import { Select, SelectProps } from '../../Inputs/Select/Select';
