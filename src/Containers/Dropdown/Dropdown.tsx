@@ -8,6 +8,7 @@ import React, {
     useEffect,
     ReactElement,
     ReactNode,
+    useMemo,
 } from 'react';
 import styled from 'styled-components';
 import { transition,scroll } from '../../Utils/Mixins';
@@ -87,7 +88,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
         });
         return targetChildren.length >= 0 ? targetChildren : undefined;
     };
-    const itemChildren = validChild(children, DropdownItem);
+    const itemChildren = useMemo(() => validChild(children, DropdownItem), [children]);
     useLayoutEffect(() => {
         const buttonRefCurrent = buttonRef.current;
         const bodyRefCurrent = bodyRef.current;
