@@ -36,7 +36,7 @@ interface IDropdownContainerProps {
 
 const EXTRA_HEIGHT = 20;
 const PADDING = 20;
-const MAX_DROPDOWN_HEIGHT = 250;
+const MAX_DROPDOWN_HEIGHT = 300;
 
 const useClickAway = (
     ref: MutableRefObject<HTMLElement | null>,
