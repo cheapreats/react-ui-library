@@ -127,7 +127,7 @@ const DropdownContainer = styled.div<IDropdownContainerProps>`
     display: inline-block;
     position: relative;
     cursor: pointer;
-    width: ${({width}) => width && (width + PADDING)}px;
+    width: ${({ width }) => width ? `${(width + PADDING)}px`: "100%"};
     height: ${({ height }): number => height}px;
     ${transition(['height'], '0.5s')}
 `;
