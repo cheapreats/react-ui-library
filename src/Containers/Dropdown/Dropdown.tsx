@@ -18,8 +18,8 @@ type DropdownComponent<P = {}> = React.NamedExoticComponent<P> & {
   Item: typeof DropdownItem
 }
 
-export interface IDropdownProps {
-    dropdownButton: any;
+export interface IDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
+    dropdownButton: Element;
     dropdownWidth?: number;
 };
 
@@ -72,7 +72,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
     const containerRef = useRef<HTMLDivElement>(null);
     
     useClickAway(containerRef, () => setIsActive(false));
-    const toggleIsVisible = (): void => {
+    const toggleIsActive = (): void => {
         setIsActive(!isActive);
     };
 
@@ -108,7 +108,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
 
     return (
         <DropdownContainer width={dropdownWidth} ref={containerRef} height={height} onClick={stopPropagation} {...props}>
-            <ToggleContainer ref={buttonRef} onClick={toggleIsVisible}>
+            <ToggleContainer ref={buttonRef} onClick={toggleIsActive}>
                 {dropdownButton}
             </ToggleContainer>
             <DropdownContent
