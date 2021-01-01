@@ -50,3 +50,5 @@ export * from './WaitTimeDisplay/WaitTimeDisplay';
 export * from './MiddleCanvas';
 export * from './WarningCard/WarningCard';
 export * from './CollapsibleHeading/CollapsibleHeading';
+export * from './MainContainer/MainContainer';
+export * from './DraggableDemoFront/DraggableDemoFront';
