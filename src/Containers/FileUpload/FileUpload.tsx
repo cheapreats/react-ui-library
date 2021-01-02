@@ -33,8 +33,8 @@ interface IState{
     isDragEnter:boolean;
 }
 
-const padding=10;
-const margin=10;
+const PADDING=10;
+const MARGIN=10;
 
 const SET_HEIGHT='SET_HEIGHT'
 const SET_MAX_HEIGHT='SET_MAX_HEIGHT'
@@ -283,11 +283,11 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     // this is to calculate (set) some values after the first render
     useEffect(()=>{
         if(containerRef.current?.scrollHeight){
-            const innerContentHeight=containerRef.current.scrollHeight-padding*2
+            const innerContentHeight=containerRef.current.scrollHeight-PADDING*2
             dispatch({type:SET_INITIAL_HEIGHT_VALUES,value:innerContentHeight})
         }
         if(rootRef.current?.clientWidth){
-            const innerComponentWidth=rootRef.current.clientWidth-margin*2-padding*2
+            const innerComponentWidth=rootRef.current.clientWidth-MARGIN*2-PADDING*2
             dispatch({type:SET_COMPONENT_WIDTH,value:innerComponentWidth})
         }
     },[])
@@ -296,17 +296,17 @@ export const FileUpload:React.FC<IFileUploadProps>=({
         // this is to set some values the first time when the component it's expanded
         if(state.height===undefined&&(isUploading||isSuccess||isFailure)){ 
             if(containerRef.current?.scrollHeight){
-                dispatch({type:SET_TOTAL_HEIGHT_PLUS,value:containerRef.current.scrollHeight-padding*2})
+                dispatch({type:SET_TOTAL_HEIGHT_PLUS,value:containerRef.current.scrollHeight-PADDING*2})
             }
             if(loadingContainerRef.current?.getBoundingClientRect().top){
-                dispatch({type:SET_POSITION_TOP_LOADING,value:loadingContainerRef.current.getBoundingClientRect().top-margin})
+                dispatch({type:SET_POSITION_TOP_LOADING,value:loadingContainerRef.current.getBoundingClientRect().top-MARGIN})
             }
         }
         // this is to calculate and set the width of the success and failure container component
         if(isSuccess||isFailure){
             const width=containerRef.current?.getBoundingClientRect().width
             if(width){
-                dispatch({type:SET_IS_SUCCESS_WIDTH,value:width-padding*2-margin*2})
+                dispatch({type:SET_IS_SUCCESS_WIDTH,value:width-PADDING*2-MARGIN*2})
             }
         }
         // this sets height of the component, is used to transition between heights.
@@ -357,13 +357,13 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     useLayoutEffect(() => {
         function updateSize() {
             if(rootRef.current?.clientWidth){
-                const innerComponentWidth=rootRef.current.clientWidth-margin*2-padding*2
+                const innerComponentWidth=rootRef.current.clientWidth-MARGIN*2-PADDING*2
                 dispatch({type:SET_COMPONENT_WIDTH,value:innerComponentWidth})
             }
             if(isSuccess||isFailure){
                 const width=containerRef.current?.getBoundingClientRect().width
                 if(width){
-                    dispatch({type:SET_IS_SUCCESS_WIDTH,value:width-padding*2-margin*2})
+                    dispatch({type:SET_IS_SUCCESS_WIDTH,value:width-PADDING*2-MARGIN*2})
                 }
             }
         }
@@ -420,8 +420,8 @@ export const FileUpload:React.FC<IFileUploadProps>=({
     }
 
     return (
-        <Container backgroundColor='white' padding='10px' borderRadius='20px' ref={containerRef} maxHeight={state.maxHeight} overflow='hidden' height={state.height} margin={`${margin}px`}>
-            <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:!state.isDragEnter,isDragEnter:state.isDragEnter,padding:'10px',margin:`${margin}px`})}>
+        <Container backgroundColor='white' padding='10px' borderRadius='20px' ref={containerRef} maxHeight={state.maxHeight} overflow='hidden' height={state.height} margin={`${MARGIN}px`}>
+            <Container {...getRootProps({dashed:true,withFlexCenter:true,withBorder:!state.isDragEnter,isDragEnter:state.isDragEnter,padding:'10px',margin:`${MARGIN}px`})}>
                 <SubContainer minHeight={minHeight} disabled={disabled}>
                     {state.isDragEnter?<FileMovingAnimation />:<Icon as={Image} width={140} height={80} />}
                     <TextLayout bold color='DarkBlue'>
@@ -431,7 +431,7 @@ export const FileUpload:React.FC<IFileUploadProps>=({
                     <input {...getInputProps()}  />
                 </SubContainer>
             </Container>
-            <BottomPanel withBorder padding={isFailure||isSuccess?undefined:'30px 20px 43px 20px'} opacity={state.loading.opacity||state.isSuccess.opacity||state.isFailure.opacity} position={state.loading.position&&state.isFailure.position&&state.isSuccess.position} ref={loadingContainerRef} overflow='hidden' width={isFailure||isSuccess?state.isSuccessWidth:state.componentWidth} margin={`${margin}px`} positionTop={state.positionTopLoading} height={isFailure||isSuccess?state.loadingContainerHeight:undefined} withFlexSpaceBetween={isFailure||isSuccess?true:undefined}>
+            <BottomPanel withBorder padding={isFailure||isSuccess?undefined:'30px 20px 43px 20px'} opacity={state.loading.opacity||state.isSuccess.opacity||state.isFailure.opacity} position={state.loading.position&&state.isFailure.position&&state.isSuccess.position} ref={loadingContainerRef} overflow='hidden' width={isFailure||isSuccess?state.isSuccessWidth:state.componentWidth} margin={`${MARGIN}px`} positionTop={state.positionTopLoading} height={isFailure||isSuccess?state.loadingContainerHeight:undefined} withFlexSpaceBetween={isFailure||isSuccess?true:undefined}>
                 {renderChild()}
             </BottomPanel>
         </Container>
