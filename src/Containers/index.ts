@@ -49,4 +49,5 @@ export * from './ReportIssue/ReportIssue';
 export * from './WaitTimeDisplay/WaitTimeDisplay';
 export * from './MiddleCanvas';
 export * from './WarningCard/WarningCard';
+export * from './FileUpload/FileUpload';
 export * from './CollapsibleHeading/CollapsibleHeading';

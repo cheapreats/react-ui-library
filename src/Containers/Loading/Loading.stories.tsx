@@ -15,3 +15,11 @@ export default {
 export const Basic: Story<LoadingProps> = (args) => (
     <Loading {...args}>{getCaptionForLocale(args.children)}</Loading>
 );
+
+export const Uploading = Basic.bind({});
+
+Uploading.args = {
+    ...Uploading.args,
+    message: 'Uploading...',
+};
+

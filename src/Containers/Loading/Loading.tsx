@@ -15,11 +15,13 @@ export interface LoadingProps
         MainInterface {
     loading?: boolean;
     theme: DefaultTheme;
+    message?:string;
 }
 
 const _Loading: React.FC<LoadingProps> = ({
     children,
     loading = false,
+    message='Loading...',
     theme,
     ...props
 }): React.ReactElement => {
@@ -31,7 +33,7 @@ const _Loading: React.FC<LoadingProps> = ({
             {mount ? (
                 <>
                     <Bar />
-                    <Text>Loading...</Text>
+                    <Text>{message}</Text>
                 </>
             ) : (
                 children
