@@ -23,33 +23,31 @@ export const Pagination: React.FC<IPaginationProps> = ({
     rowSelectorProps,
     pageSelectorProps,
     ...props
-}): React.ReactElement => {
-    return (
-        <Wrapper {...props}>
-            <RowSelector 
-                pageSize={pageSize}
-                setPageSize={setPageSize}
-                pageOptionsLength={pageOptionsLength}
-                pageSelectOptions={pageSelectOptions}
-                {...rowSelectorProps}
-            />
-            <PageSelector 
-                goToPreviousPage={goToPreviousPage}
-                goToNextPage={goToNextPage}
-                goToPage={goToPage}
-                pageLength={pageLength}
-                pageIndex={pageIndex}
-                {...pageSelectorProps}
-            />
-        </Wrapper>
-    );
-};
+}): React.ReactElement => (
+    <Wrapper {...props}>
+        <RowSelector 
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            pageOptionsLength={pageOptionsLength}
+            pageSelectOptions={pageSelectOptions}
+            {...rowSelectorProps}
+        />
+        <PageSelector 
+            goToPreviousPage={goToPreviousPage}
+            goToNextPage={goToNextPage}
+            goToPage={goToPage}
+            pageLength={pageLength}
+            pageIndex={pageIndex}
+            {...pageSelectorProps}
+        />
+    </Wrapper>
+);
 
 const Wrapper = styled.div`
     ${flex('space-between')};
     ${media(
-    'tabletLarge',
-    `
+        'tabletLarge',
+        `
         ${flex('column', 'center')};
     `,
     )};
