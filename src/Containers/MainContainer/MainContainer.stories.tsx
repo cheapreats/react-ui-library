@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, Meta }  from '@storybook/react';
-import { MainContainer, IMainContainer } from '@Containers';
+import { MainContainer, IMainContainer } from './MainContainer';
 import { createStoryTitle} from "../../Constants";
 
 export default {

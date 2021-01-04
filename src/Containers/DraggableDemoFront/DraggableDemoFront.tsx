@@ -9,9 +9,9 @@
 import React from 'react';
 import Draggable from 'react-draggable';
 import styled from 'styled-components';
-import { SquareTable } from '..';
-import { CircleTable } from '..';
-import { CapacityDisplay } from '..';
+import { SquareTable } from '../SquareTable/SquareTable';
+import { CircleTable } from '@Containers';
+import { CapacityDisplay } from '@Containers';
 
 /**
  *  This component creates the draggable demo for the front page.
@@ -30,7 +30,6 @@ export class DraggableCanvas extends React.Component {
             y: 200,
         },
     };
-
     handleDrag = (e, ui) => {
         const { x, y } = this.state.deltaPosition;
         this.setState({
@@ -62,10 +61,10 @@ export class DraggableCanvas extends React.Component {
     render() {
         const dragHandlers = { onStart: this.onStart, onStop: this.onStop };
         return (
-            <Pb3Mb5 id="demo">
-                <Pb2TextCenterWithH5>
+            <SpacingForBottom id="demo">
+                <PaddingForH52TextCenter>
                     Drag the tables and create your own design!
-                </Pb2TextCenterWithH5>
+                </PaddingForH52TextCenter>
                 <StylesForDraggableDemo>
                     <StylesForCanvas>
                         <FloatRight>
@@ -83,6 +82,7 @@ export class DraggableCanvas extends React.Component {
                                 <SquareTable
                                     tableID="T1"
                                     partyName=""
+                                    isSquare= { true }
                                     occupancyStatus="Vacant"
                                     relativeSize={0.4}
                                     chairs={[
@@ -91,12 +91,14 @@ export class DraggableCanvas extends React.Component {
                                             isSeated: false,
                                             occupiedBy: '',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                         {
                                             position: 'bottom',
                                             isSeated: false,
                                             occupiedBy: '',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                     ]}
                                 />
@@ -111,6 +113,7 @@ export class DraggableCanvas extends React.Component {
                                 <SquareTable
                                     tableID="T4"
                                     partyName="Tina"
+                                    isSquare={ true }
                                     occupancyStatus="Occupied"
                                     relativeSize={0.4}
                                     chairs={[
@@ -119,12 +122,14 @@ export class DraggableCanvas extends React.Component {
                                             isSeated: true,
                                             occupiedBy: 'Suzy',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                         {
                                             position: 'bottom',
                                             isSeated: true,
                                             occupiedBy: 'Tina',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                     ]}
                                 />
@@ -139,6 +144,7 @@ export class DraggableCanvas extends React.Component {
                                 <SquareTable
                                     tableID="T5"
                                     partyName="Scott"
+                                    isSquare={false}
                                     occupancyStatus="Occupied"
                                     chairs={[
                                         {
@@ -146,48 +152,56 @@ export class DraggableCanvas extends React.Component {
                                             isSeated: true,
                                             occupiedBy: 'Scott',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                         {
                                             position: 'top',
                                             isSeated: false,
                                             occupiedBy: '',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                         {
                                             position: 'left',
                                             isSeated: false,
                                             occupiedBy: '',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                         {
                                             position: 'left',
                                             isSeated: true,
                                             occupiedBy: 'Jessica',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                         {
                                             position: 'right',
                                             isSeated: false,
                                             occupiedBy: '',
                                             isVisible: false,
+                                            relativeSize: 1,
                                         },
                                         {
                                             position: 'right',
                                             isSeated: true,
                                             occupiedBy: 'Jack',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                         {
                                             position: 'bottom',
                                             isSeated: false,
                                             occupiedBy: '',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                         {
                                             position: 'bottom',
                                             isSeated: true,
                                             occupiedBy: 'Tara',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                     ]}
                                     relativeSize={0.4}
@@ -203,6 +217,7 @@ export class DraggableCanvas extends React.Component {
                                 <SquareTable
                                     tableID="T3"
                                     partyName="Dmytro"
+                                    isSquare={ false }
                                     occupancyStatus="Reserved"
                                     relativeSize={0.4}
                                     chairs={[
@@ -211,24 +226,31 @@ export class DraggableCanvas extends React.Component {
                                             isSeated: false,
                                             occupiedBy: '',
                                             isVisible: true,
+                                            relativeSize: 1,
                                         },
                                         {
                                             position: 'bottom',
                                             isSeated: false,
                                             occupiedBy: '',
                                             isVisible: true,
+                                            relativeSize: 1,
+
                                         },
                                         {
                                             position: 'top',
                                             isSeated: false,
                                             occupiedBy: '',
                                             isVisible: true,
+                                            relativeSize: 1,
+
                                         },
                                         {
                                             position: 'bottom',
                                             isSeated: false,
                                             occupiedBy: '',
                                             isVisible: true,
+                                            relativeSize: 1,
+
                                         },
                                     ]}
                                 />
@@ -237,7 +259,7 @@ export class DraggableCanvas extends React.Component {
                         <Draggable
                             bounds="parent"
                             {...dragHandlers}
-                            defaultPosition={{ x: 350, y: -750 }}
+                            defaultPosition={{ x: 350, y: -625 }}
                         >
                             <CircleTableWidth>
                                 <CircleTable
@@ -252,6 +274,8 @@ export class DraggableCanvas extends React.Component {
                                             occupiedBy: 'Sarah',
                                             isVisible: true,
                                             isRound: true,
+                                            relativeSize: 1,
+
                                         },
                                         {
                                             position: 'top',
@@ -259,6 +283,8 @@ export class DraggableCanvas extends React.Component {
                                             occupiedBy: '',
                                             isVisible: true,
                                             isRound: true,
+                                            relativeSize: 1,
+
                                         },
                                         {
                                             position: 'top',
@@ -266,6 +292,8 @@ export class DraggableCanvas extends React.Component {
                                             occupiedBy: 'Dean',
                                             isVisible: true,
                                             isRound: true,
+                                            relativeSize: 1,
+
                                         },
                                         {
                                             position: 'top',
@@ -273,6 +301,8 @@ export class DraggableCanvas extends React.Component {
                                             occupiedBy: 'Corey',
                                             isVisible: true,
                                             isRound: true,
+                                            relativeSize: 1,
+
                                         },
                                         {
                                             position: 'top',
@@ -280,6 +310,8 @@ export class DraggableCanvas extends React.Component {
                                             occupiedBy: 'Claire',
                                             isVisible: true,
                                             isRound: true,
+                                            relativeSize: 1,
+
                                         },
                                         {
                                             position: 'top',
@@ -287,6 +319,8 @@ export class DraggableCanvas extends React.Component {
                                             occupiedBy: 'Sam',
                                             isVisible: true,
                                             isRound: true,
+                                            relativeSize: 1,
+
                                         },
                                     ]}
                                 />
@@ -296,7 +330,7 @@ export class DraggableCanvas extends React.Component {
                     </StylesForCanvas>
                 </StylesForDraggableDemo>{' '}
                 {/* End Draggable Canvas */}
-            </Pb3Mb5>
+            </SpacingForBottom>
         );
     }
 }
@@ -305,11 +339,11 @@ export class DraggableCanvas extends React.Component {
  * variables for the styled components
  */
 const RectangleTwoTopWidth = styled.div`
-    width: 140px;
+    width: 175px;
 `;
 
 const SquareEightTopWidth = styled.div`
-    width: 300px;
+    width: 310px;
 `;
 
 const FloatRight = styled.div`
@@ -321,7 +355,7 @@ const CircleTableWidth = styled.div`
 `;
 
 const RectangleFourTopWidth = styled.div`
-    width: 270px;
+    width: 300px;
 `;
 
 const StylesForCanvas = styled.div`
@@ -342,12 +376,12 @@ const StylesForDraggableDemo = styled.div`
     background-color: transparent;
 `;
 
-const Pb3Mb5 = styled.div`
+const SpacingForBottom = styled.div`
     padding-bottom: 1rem;
     margin-bottom: 3rem;
 `;
 
-const Pb2TextCenterWithH5 = styled.h5`
+const PaddingForH52TextCenter = styled.h5`
     text-align: center;
     padding-bottom: 0.5rem;
 `;

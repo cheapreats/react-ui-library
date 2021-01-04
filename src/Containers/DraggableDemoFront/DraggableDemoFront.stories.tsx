@@ -1,12 +1,12 @@
 import React from 'react';
-import { DraggableCanvas } from '@Containers'
+import { DraggableCanvas } from './DraggableDemoFront'
 import { createStoryTitle} from "../../Constants";
-import { Story } from '@storybook/react';
+import { Story, Meta } from '@storybook/react';
 
 export default {
     title: createStoryTitle('DraggableCanvas'),
     component: DraggableCanvas,
-};
+} as Meta;
 
 const Template: Story<DraggableCanvas> = (args) => (
     <DraggableCanvas {...args} />
