@@ -3,7 +3,7 @@
         "outDir": "dist",
         "module": "commonjs",
         "target": "es2017",
-        "lib": ["es2017", "dom"],
+        "lib": ["es2017", "dom", "ES2020", "ESNext"],
         "sourceMap": false,
         "jsx": "react",
         "strict": true,
@@ -39,6 +39,6 @@
             "@Utils": ["./Utils"]
         }
     },
-    "include": ["src/**/*"],
+    "include": ["src/**/*", "__tests__"],
     "exclude": ["node_modules", "scripts", "dist"]
 }

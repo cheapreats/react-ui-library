@@ -10,15 +10,18 @@ export interface InputFragmentProps
     disabled?: boolean;
     placeholder?: string;
     onChange?: React.ChangeEventHandler<HTMLInputElement>;
-    value?: string | number;
-    error?: boolean;
+    value?: string | number | string[];
+    error?: boolean | string;
     success?: boolean;
+    backgroundColor?: string;
+    borderRadius?: string;
     children?: React.ReactNode;
     onFocus?: React.FocusEventHandler<HTMLInputElement>;
     onBlur?: React.FocusEventHandler<HTMLInputElement>;
     onKeyDown?: React.KeyboardEventHandler<HTMLInputElement>;
     onClick?: React.MouseEventHandler<HTMLInputElement>;
     className?: string;
+    type?: string;
 }
 
 export const InputFragment: React.FC<InputFragmentProps> = ({
@@ -31,7 +34,6 @@ const InputElement = styled.input<InputFragmentProps>`
     font-weight: bold;
     outline: none;
     border: none;
-
 
     // Disabled
     &:disabled {
@@ -52,12 +54,12 @@ const InputElement = styled.input<InputFragmentProps>`
     // Background color
     ${({ theme, error = false, success = false }): string => `
         background-color: ${styledCondition(
-            error,
-            theme.colors.input.error,
-            success,
-            theme.colors.input.success,
-            theme.colors.input.default,
-        )};
+        error,
+        theme.colors.input.error,
+        success,
+        theme.colors.input.success,
+        theme.colors.input.default,
+    )};
     `}
 `;
 

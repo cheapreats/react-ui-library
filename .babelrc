@@ -4,7 +4,7 @@
             "module-resolver",
             {
                 "root": "./dist",
-                "extensions": [".ts"],
+                "extensions": [".ts", ".tsx"],
                 "alias": {
                     "@Containers": "./dist/Containers",
                     "@Layouts": "./dist/Fragments",
@@ -13,7 +13,9 @@
                     "@Themes": "./dist/Themes",
                     "@Utils": "./dist/Utils"
                 }
-            }
-        ]
+            },
+            "babel-plugin-styled-components"
+        ],
+        "recharts"
     ]
 }

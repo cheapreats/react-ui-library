@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { AngleLeft } from 'styled-icons/fa-solid/AngleLeft';
-import { AngleRight } from 'styled-icons/fa-solid/AngleRight';
+import { AngleLeft } from '@styled-icons/fa-solid/AngleLeft';
+import { AngleRight } from '@styled-icons/fa-solid/AngleRight';
 import {
     transition,
     styledCondition,
@@ -10,7 +10,7 @@ import {
     position,
 } from '../../Utils/Mixins';
 import { WEEKDAYS, MONTHS } from '../../Utils/Constants';
-import { Button } from '../Button';
+import { Button } from '../Button/Button';
 
 const SIZE = 40;
 
@@ -74,7 +74,7 @@ export interface DateboxProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const Datebox: React.FC<DateboxProps> = ({
     changePage,
-    clearDate = (): void => {},
+    clearDate = (): void => undefined,
     selectedDate,
     selectDate,
     animate,

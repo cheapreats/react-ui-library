@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback } from 'react';
+import React, { useMemo, useCallback, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 import { transition, position, flex } from '../../Utils/Mixins';
 import { TimeColumn } from './TimeColumn';
@@ -12,8 +12,11 @@ const VALUES = {
 interface TimeboxProps {
     value: Date;
     show: boolean;
+    setShow: React.Dispatch<React.SetStateAction<boolean>>;
     name: string;
     onChange: Function;
+    mount: boolean;
+    disabled: boolean;
 }
 
 export const Timebox: React.FC<TimeboxProps> = ({
@@ -21,7 +24,11 @@ export const Timebox: React.FC<TimeboxProps> = ({
     onChange,
     name,
     show,
+    setShow,
+    mount,
+    disabled,
 }): React.ReactElement => {
+    const ref = useRef<HTMLDivElement>(null);
     const [hour, min, period] = useMemo(
         (): [number, number, string] => [
             value.getHours() % 12 || 12,
@@ -36,22 +43,22 @@ export const Timebox: React.FC<TimeboxProps> = ({
     const _onChange = useCallback(
         (_name, _value): void => {
             switch (_name) {
-                case 'HOUR':
-                    value.setHours(
-                        ((_value + 1) % 12) + (period === 'AM' ? 0 : 12),
-                    );
-                    break;
-                case 'MINUTE':
-                    value.setMinutes(_value);
-                    break;
-                case 'PERIOD':
-                    value.setHours(value.getHours() % 12);
-                    if (_value) {
-                        value.setHours(value.getHours() + 12);
-                    }
-                    break;
-                default:
-                    break;
+            case 'HOUR':
+                value.setHours(
+                    ((_value + 1) % 12) + (period === 'AM' ? 0 : 12),
+                );
+                break;
+            case 'MINUTE':
+                value.setMinutes(_value);
+                break;
+            case 'PERIOD':
+                value.setHours(value.getHours() % 12);
+                if (_value) {
+                    value.setHours(value.getHours() + 12);
+                }
+                break;
+            default:
+                break;
             }
             onChange({
                 target: {
@@ -62,9 +69,24 @@ export const Timebox: React.FC<TimeboxProps> = ({
         },
         [value, period, name, onChange],
     );
+    useEffect((): void | (() => undefined | void) => {
+        if (!mount) return undefined;
+        const handler = ({ target }: MouseEvent): void => {
+            if (ref.current && !ref.current.contains(target as HTMLElement)) {
+                setShow(false);
+            }
+        };
+        window.setTimeout((): void => {
+            window.addEventListener('click', handler);
+        }, 100);
+        return (): void => {
+            window.removeEventListener('click', handler);
+            if (disabled) setShow(false);
+        };
+    }, [mount, disabled]);
 
     return (
-        <Container show={show}>
+        <Container show={show} ref={ref}>
             <TimeColumn
                 items={VALUES.HOURS}
                 onChange={_onChange}

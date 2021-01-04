@@ -6,13 +6,14 @@ export interface ClientProps {
     imgHeight: number;
 }
 
-export const ClientImg: React.FC<ClientProps> = ({ src, imgHeight }) => {
-    return (
-        <IconListItem key={src}>
-            <IconImg imgHeight={imgHeight} src={src} />
-        </IconListItem>
-    );
-};
+export const ClientImg: React.FC<ClientProps> = ({
+    src,
+    imgHeight,
+}): React.ReactElement => (
+    <IconListItem key={src}>
+        <IconImg imgHeight={imgHeight} src={src} />
+    </IconListItem>
+);
 
 const IconListItem = styled.li`
     display: inline-block;

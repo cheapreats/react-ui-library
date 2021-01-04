@@ -37,39 +37,37 @@ export const ClientShowCase: React.FC<ShowCaseProps> = ({
     imgHeightEnum = 'medium',
     blurOnHover = true,
     ...props
-}): React.ReactElement => {
-    return (
-        <ImageListDiv onClick={handleImageListClick} {...props}>
-            <ClientList
-                imgData={imgData}
-                imgHeight={IMAGE_HEIGHTS[imgHeightEnum]}
-                blurOnHover={blurOnHover}
-            />
-            <OnHoverComponentDiv>{onHoverComponent}</OnHoverComponentDiv>
-        </ImageListDiv>
-    );
-};
+}): React.ReactElement => (
+    <ImageListDiv onClick={handleImageListClick} {...props}>
+        <ClientList
+            imgData={imgData}
+            imgHeight={IMAGE_HEIGHTS[imgHeightEnum]}
+            blurOnHover={blurOnHover}
+        />
+        <OnHoverComponentDiv>{onHoverComponent}</OnHoverComponentDiv>
+    </ImageListDiv>
+);
 
 const ClientList: React.FC<ClientListProps> = ({
     imgData,
     imgHeight,
     blurOnHover,
-}) => {
-    return (
-        <ImageList blurOnHover={blurOnHover}>
-            {imgData.map((imgURL: string) => (
+}): React.ReactElement => (
+    <ImageList blurOnHover={blurOnHover}>
+        {imgData.map(
+            (imgURL: string): React.ReactElement => (
                 <ClientImg imgHeight={imgHeight} src={imgURL} />
-            ))}
-        </ImageList>
-    );
-};
+            ),
+        )}
+    </ImageList>
+);
 
 const ImageListDiv = styled.div``;
 
 const ImageList = styled.ul<ImgListProps>`
     list-style-type: none;
     text-align: center;
-    ${({ blurOnHover }) =>
+    ${({ blurOnHover }): string =>
         blurOnHover
             ? `${ImageListDiv}:hover & {
                 ${Mixins.transition(['filter'], '1s')}

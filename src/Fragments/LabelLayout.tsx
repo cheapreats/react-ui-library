@@ -21,8 +21,8 @@ export interface LabelLayoutProps
         ImplicitPropsInterface {
     name?: string;
     label?: string;
-    description?: string;
-    error?: boolean;
+    description?: React.ReactNode;
+    error?: boolean | string;
     success?: boolean;
     className?: string;
     children?: React.ReactNode;
@@ -45,7 +45,9 @@ export const LabelLayout: React.ForwardRefExoticComponent<LabelLayoutProps> = fo
         },
         ref,
     ): React.ReactElement => {
-        const [, _error] = useTransition(error, { end: 250 });
+        const [, mount, animation] = useTransition(!!error, {
+            end: 250,
+        });
         const implicitProps = __useImplicitProps(props, [
             ...MainProps,
             ...ResponsiveProps,
@@ -61,9 +63,11 @@ export const LabelLayout: React.ForwardRefExoticComponent<LabelLayoutProps> = fo
                 {label && <Label htmlFor={name}>{label}</Label>}
                 {description && <Info id={`${name}-info`}>{description}</Info>}
                 {children}
-                <ErrorLabel id={`${name}-error`} error={error}>
-                    {_error}
-                </ErrorLabel>
+                {mount && (
+                    <ErrorLabel id={`${name}-error`} error={animation}>
+                        {error}
+                    </ErrorLabel>
+                )}
             </Layout>
         );
     },
