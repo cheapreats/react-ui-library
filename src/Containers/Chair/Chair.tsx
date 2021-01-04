@@ -53,46 +53,42 @@ export const Chair: React.FC<IChair> = ({
      * @returns {JSX.Element}
      *
      */
-    const getRoundChair: getRoundChairType = () => {
-        return (
-            <div {...props}>
-                <RoundChair
-                    relativeSize={relativeSize}
-                    isSeated={isSeated}
-                    isVisible={isVisible}
-                >
-                    <RoundChairText relativeSize={relativeSize}>
-                        {occupiedBy}
-                    </RoundChairText>
-                </RoundChair>
-            </div>
-        );
-    };
+    const getRoundChair: getRoundChairType = () => (
+        <div {...props}>
+            <RoundChair
+                relativeSize={relativeSize}
+                isSeated={isSeated}
+                isVisible={isVisible}
+            >
+                <RoundChairText relativeSize={relativeSize}>
+                    {occupiedBy}
+                </RoundChairText>
+            </RoundChair>
+        </div>
+    );
 
     /**
      * Returns a JSX.Element for the Chair with the correct styles based on position
      * @returns {JSX.Element}
      *
      */
-    const getPositionChair: getPositionChairType = () => {
-        return (
-            <div {...props}>
-                <RectangleChair
-                    relativeSize={relativeSize}
-                    isSeated={isSeated}
-                    isVisible={isVisible}
+    const getPositionChair: getPositionChairType = () => (
+        <div {...props}>
+            <RectangleChair
+                relativeSize={relativeSize}
+                isSeated={isSeated}
+                isVisible={isVisible}
+                position={position}
+            >
+                <RectangleChairText
                     position={position}
+                    relativeSize={relativeSize}
                 >
-                    <RectangleChairText
-                        position={position}
-                        relativeSize={relativeSize}
-                    >
-                        {occupiedBy}
-                    </RectangleChairText>
-                </RectangleChair>
-            </div>
-        );
-    };
+                    {occupiedBy}
+                </RectangleChairText>
+            </RectangleChair>
+        </div>
+    );
 
     return isRound ? getRoundChair() : getPositionChair();
 };

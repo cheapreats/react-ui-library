@@ -50,35 +50,31 @@ export const CircleTable: React.FC<ICircleTable> = ({
      * @param array {Array<IChair>} - array of chairs
      * @return {JSX.Element[]} - Chairs and ChairWrappers for the table
      */
-    const getChairs: getChairsType = (array) => {
-        return array.map((item, index) => (
-            <ChairWrapper
+    const getChairs: getChairsType = (array) => array.map((item, index) => (
+        <ChairWrapper
+            relativeSize={relativeSize}
+            numOfChairs={array.length}
+            counter={index + 1}
+            key={generateChairKey(item.position + index)}
+            position={item.position}
+        >
+            <Chair
                 relativeSize={relativeSize}
-                numOfChairs={array.length}
-                counter={index + 1}
-                key={generateChairKey(item.position + index)}
                 position={item.position}
-            >
-                <Chair
-                    relativeSize={relativeSize}
-                    position={item.position}
-                    occupiedBy={item.occupiedBy}
-                    isSeated={item.isSeated}
-                    isVisible={item.isVisible}
-                    isRound={item.isRound}
-                />
-            </ChairWrapper>
-        ));
-    };
+                occupiedBy={item.occupiedBy}
+                isSeated={item.isSeated}
+                isVisible={item.isVisible}
+                isRound={item.isRound}
+            />
+        </ChairWrapper>
+    ));
 
     /**
      * Generates a unique key based on a string and a random number
      * @param prefix - a string to append to random number
      * @returns {string} a unique key
      */
-    const generateChairKey: generateChairKeyType = (prefix) => {
-        return `${prefix}_${Math.random()}`;
-    };
+    const generateChairKey: generateChairKeyType = (prefix) => `${prefix}_${Math.random()}`;
 
     // Calculate the tangent based on the number of chairs in the array
     const tan = Math.tan(Math.PI / chairs.length);
