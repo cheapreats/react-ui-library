@@ -23,32 +23,30 @@ export const RowSelector: React.FC<IRowSelectorProps> = ({
     pageSelectOptions,
     smallTextProps,
     ...props
-}): React.ReactElement => {
-    return (
-        <Wrapper {...props}>
-            <SmallText {...smallTextProps}>
-                {LEFT_ROW_TEXT}
-            </SmallText>
-            <Select
-                onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                    setPageSize(Number(e.target.value));
-                }}
-                value={pageSize}
-                placeholder={pageSize}
-            >
-                {pageSelectOptions.map((selectOption): React.ReactElement => (
-                    <option key={selectOption} value={selectOption}>
-                        {selectOption}
-                    </option>
-                ))}
-            </Select>
-            <SmallText {...smallTextProps}>
-                {RIGHT_ROW_TEXT} 
-                {pageOptionsLength}
-            </SmallText>
-        </Wrapper>
-    );
-};
+}): React.ReactElement => (
+    <Wrapper {...props}>
+        <SmallText {...smallTextProps}>
+            {LEFT_ROW_TEXT}
+        </SmallText>
+        <Select
+            onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                setPageSize(Number(e.target.value));
+            }}
+            value={pageSize}
+            placeholder={pageSize}
+        >
+            {pageSelectOptions.map((selectOption): React.ReactElement => (
+                <option key={selectOption} value={selectOption}>
+                    {selectOption}
+                </option>
+            ))}
+        </Select>
+        <SmallText {...smallTextProps}>
+            {RIGHT_ROW_TEXT} 
+            {pageOptionsLength}
+        </SmallText>
+    </Wrapper>
+);
 
 const Wrapper = styled.div`
     ${flex('row')};

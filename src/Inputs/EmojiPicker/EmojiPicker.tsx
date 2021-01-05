@@ -5,7 +5,7 @@ import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
 import { scroll } from '@Utils/Mixins';
-import { Modal } from '@Containers';
+import { Modal } from '@Containers/Modal/Modal';
 import { Button } from '../Button/Button';
 
 export interface EmojiPickerProps

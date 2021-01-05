@@ -41,9 +41,29 @@ export const ChairRow: React.FC<IChairRow> = ({
      * @param array {Array<IChair>} - array of chairs
      * @return {JSX.Element[]} - chairs on top and bottom row
      */
-    const getChairsTopBottom: getChairsTopBottomType = (array) => {
-        return array.map((i) => (
-            <ChairCol key={generateChairRowKey(position + i)}>
+    const getChairsTopBottom: getChairsTopBottomType = (array) => array.map((i) => (
+        <ChairCol key={generateChairRowKey(position + i)}>
+            <Chair
+                position={i.position}
+                occupiedBy={i.occupiedBy}
+                isSeated={i.isSeated}
+                isVisible={i.isVisible}
+                relativeSize={relativeSize}
+            />
+        </ChairCol>
+    ));
+
+    /**
+     * Return the chairs for the left and right rows
+     * @param array {Array<IChair>} - array of chairs
+     * @return {JSX.Element[]} - chairs on right and left row
+     */
+    const getChairsLeftRight: getChairsLeftRightType = (array) => array.map((i) => (
+        <SideChairRow
+            relativeSize={relativeSize}
+            key={generateChairRowKey(position + i)}
+        >
+            <SideChairCentering>
                 <Chair
                     position={i.position}
                     occupiedBy={i.occupiedBy}
@@ -51,42 +71,16 @@ export const ChairRow: React.FC<IChairRow> = ({
                     isVisible={i.isVisible}
                     relativeSize={relativeSize}
                 />
-            </ChairCol>
-        ));
-    };
-
-    /**
-     * Return the chairs for the left and right rows
-     * @param array {Array<IChair>} - array of chairs
-     * @return {JSX.Element[]} - chairs on right and left row
-     */
-    const getChairsLeftRight: getChairsLeftRightType = (array) => {
-        return array.map((i) => (
-            <SideChairRow
-                relativeSize={relativeSize}
-                key={generateChairRowKey(position + i)}
-            >
-                <SideChairCentering>
-                    <Chair
-                        position={i.position}
-                        occupiedBy={i.occupiedBy}
-                        isSeated={i.isSeated}
-                        isVisible={i.isVisible}
-                        relativeSize={relativeSize}
-                    />
-                </SideChairCentering>
-            </SideChairRow>
-        ));
-    };
+            </SideChairCentering>
+        </SideChairRow>
+    ));
 
     /**
      * Generates a unique key based on a string and a current timestamp
      * @param prefix - a string to append to timestamp
      * @returns {string} a unique key
      */
-    const generateChairRowKey: generateChairRowKeyType = (prefix) => {
-        return `${prefix}_${Math.random()}`;
-    };
+    const generateChairRowKey: generateChairRowKeyType = (prefix) => `${prefix}_${Math.random()}`;
 
     /**
      * Returns a JSX element for the ChairRow with the correct styles

@@ -59,6 +59,7 @@ module.exports = {
         'no-use-before-define': [0],
         'no-underscore-dangle': 'off',
         'no-param-reassign': 'off',
+        '@typescript-eslint/ban-ts-comment': 'off',
         indent: ['error', 4],
     },
 };
