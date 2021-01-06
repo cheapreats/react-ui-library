@@ -18,8 +18,8 @@ export interface IReactTableProps<T extends IVendorsData>
     data: T[];
     columns: Column<T>[];
     tableProps?: TableProps;
-    tableHeaderProps?: TableHeaderProps;
-    tableRowProps?: TableRowProps;
+    tableHeaderProps?: Omit<TableHeaderProps, 'key'>;
+    tableRowProps?: Omit<TableRowProps, 'key'>;
     paginationProps?: IPaginationProps;
     pageSelectOptions: number[];
     isPaginated?: boolean;
@@ -44,9 +44,6 @@ export const ReactTable = <T extends IVendorsData>({
         headerGroups,
         prepareRow,
         page,
-        canPreviousPage,
-        canNextPage,
-        pageOptions,
         pageCount,
         gotoPage,
         nextPage,
