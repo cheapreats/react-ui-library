@@ -114,7 +114,8 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     headingProps={{ style: { margin: '0 5px' } }}
                     paginationProps={{ style: { marginTop: '10px' },
                         pageSelectorProps: { buttonProps: { style: { margin: '0 2px' } }, style: { margin: '10px 0' } }, 
-                        rowSelectorProps: { style: { margin: '10px 0' }, smallTextProps: { style: { margin: '5px 5px 0 5px' } } } }}
+                        rowSelectorProps: { style: { margin: '10px 0' }, smallTextProps: { style: { margin: '5px 5px 0 5px' } },
+                            selectProps: { iconProps: { style: { marginLeft: '5px' } } } } }}
                 />
             </Row>
         </Wrapper>

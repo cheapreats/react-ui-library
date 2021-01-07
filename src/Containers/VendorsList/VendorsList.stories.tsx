@@ -54,6 +54,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
     columns: [
         {
             Header: 'Client',
+            accessor: 'client',
             Cell: (cell: any) => (
                 <Profile
                     key={cell.row.original.id}
@@ -63,10 +64,11 @@ const getVendorsListProps = (): IVendorsListProps => ({
                     profileProps={{ style: { marginTop: '5px' } }}
                 />
             ),
-            Filter: DefaultFilter,
+            Filter: DefaultFilter
         },
         {
             Header: 'Tags',
+            accessor: 'tags',
             Cell: (cell: any) => (
                 <TagContainer 
                     tags={cell.row.original.tags} 
@@ -79,15 +81,13 @@ const getVendorsListProps = (): IVendorsListProps => ({
         },
         {
             Header: 'Created',
+            accessor: 'created_at',
             Cell: (cell: any) => (
                 <SmallText style={{ padding: '0 10px' }}>
                     {cell.row.original.createdAt}
                 </SmallText>
             ),
-            Filter: DefaultFilter,
-            filterMethod: (filter: any, row: any) => {
-                console.log(filter)
-            },
+            Filter: DefaultFilter
         },
     ],    
     data: [

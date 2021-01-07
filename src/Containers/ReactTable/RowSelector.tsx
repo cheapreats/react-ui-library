@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Select } from '../../Inputs/Select/Select';
+import { Select, SelectProps } from '../../Inputs/Select/Select';
 import { SmallText, SmallTextProps } from '../../Text/SmallText';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex } from '../../Utils/Mixins';
@@ -11,6 +11,7 @@ export interface IRowSelectorProps extends MainInterface, ResponsiveInterface,Re
     pageSelectOptions: number[];
     pageOptionsLength: number;
     smallTextProps?: SmallTextProps;
+    selectProps?: SelectProps;
 };
 
 const LEFT_ROW_TEXT = 'Rows per page';
@@ -22,6 +23,7 @@ export const RowSelector: React.FC<IRowSelectorProps> = ({
     pageOptionsLength,
     pageSelectOptions,
     smallTextProps,
+    selectProps,
     ...props
 }): React.ReactElement => (
     <Wrapper {...props}>
@@ -34,6 +36,7 @@ export const RowSelector: React.FC<IRowSelectorProps> = ({
             }}
             value={pageSize}
             placeholder={pageSize.toString()}
+            {...selectProps}
         >
             {pageSelectOptions.map((selectOption): React.ReactElement => (
                 <option key={selectOption} value={selectOption}>

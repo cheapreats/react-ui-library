@@ -50,6 +50,7 @@ export interface SelectProps extends LabelLayoutProps {
     theme: DefaultTheme;
     onChange?: Function;
     limit?: number;
+    iconProps?: { style: any };
 }
 
 const _Select: React.FC<SelectProps> = ({
@@ -61,6 +62,7 @@ const _Select: React.FC<SelectProps> = ({
     onChange = (): void => undefined,
     theme,
     name,
+    iconProps,
     ...props
 }): React.ReactElement => {
     const [expanded, setExpanded] = useState(false);
@@ -126,7 +128,7 @@ const _Select: React.FC<SelectProps> = ({
                             ? (selected as React.ReactElement).props.children
                             : placeholder}
                     </SelectText>
-                    <Icon />
+                    <Icon {...iconProps} />
                 </SelectDisplay>
                 {mount && (
                     <SelectList

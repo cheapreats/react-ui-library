@@ -14,9 +14,7 @@ export const DefaultFilter: React.FC<IFilterProps> = ({
 }): React.ReactElement => (
     <Input
         value={filterValue || ""}
-        onChange={e => {
-            setFilter(e.target.value || undefined); 
-        }}
+        onChange={e => setFilter(e.target.value || undefined)}
         placeholder={`Search ${length} results`}
         {...props}
     />
