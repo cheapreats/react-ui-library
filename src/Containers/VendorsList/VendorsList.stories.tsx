@@ -73,7 +73,6 @@ const getVendorsListProps = (): IVendorsListProps => ({
                 <TagContainer 
                     tags={cell.row.original.tags} 
                     isHoverable={false} 
-                    style={{ padding: '10px 0' }}
                     tagProps={{ style: { marginRight: '10px' }}}
                 />
             ),

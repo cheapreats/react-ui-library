@@ -61,30 +61,6 @@ export const ReactTable = <T extends IVendorsData>({
     pageSize,
     ...props
 }: IReactTableProps<T>): React.ReactElement => {
-<<<<<<< HEAD
-=======
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        prepareRow,
-        page,
-        pageCount,
-        gotoPage,
-        nextPage,
-        previousPage,
-        setPageSize,
-        state: { pageIndex, pageSize }
-    } = useTable(
-        {
-            columns, 
-            data,
-            initialState: { pageIndex: 0, pageSize: pageSelectOptions[INITIAL_OPTION] }
-        },
-        usePagination
-    );
->>>>>>> 23e2bee78eaaf3c72a1b11470a0187469c2cfa14
-
     const pageOptionsLength = data.length;
 
     const getHeaderGroup = useCallback(
