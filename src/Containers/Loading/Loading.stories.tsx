@@ -13,7 +13,7 @@ export default {
 } as Meta;
 
 export const Basic: Story<LoadingProps> = (args) => (
-    <Loading {...args}>{getCaptionForLocale(args.children)}</Loading>
+    <Loading {...args}>{getCaptionForLocale(args.children as string)}</Loading>
 );
 
 export const Uploading = Basic.bind({});

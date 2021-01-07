@@ -5,10 +5,11 @@
     File Description:          This component creates the draggable demo for the front page. It includes the
                                example data for the tables and the capacity component in the demo.
 */
-import React, { useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import Draggable from 'react-draggable';
 import styled from 'styled-components';
-import { CircleTable, CapacityDisplay } from '@Containers';
+import { CircleTable } from '../CircleTable/CircleTable';
+import {CapacityDisplay} from '../CapacityDisplay/CapacityDisplay';
 import { SquareTable } from '../SquareTable/SquareTable';
 
 /**
@@ -16,13 +17,13 @@ import { SquareTable } from '../SquareTable/SquareTable';
  *  It includes the example data for the tables and the capacity
  *  component in the demo.
  */
-export const DraggableCanvas = () => {
+export const DraggableCanvas = (): ReactElement => {
     const [deltaPosition, setDeltaPosition] = useState({
         x: 0,
         y: 0,
     });
 
-    const handleDrag = (e: Event, ui: any) => {
+    const handleDrag = (e: Event, ui: { deltaX: number, deltaY: number }) => {
         const { x, y } = deltaPosition;
         setDeltaPosition({
             x: x + ui.deltaX,
@@ -290,10 +291,12 @@ export const DraggableCanvas = () => {
                                 ]}
                             />
                         </CircleTableWidth>
-                    </Draggable>{' '}
+                    </Draggable>
+                    {' '}
                     {/* End draggable table 2 */}
                 </StylesForCanvas>
-            </StylesForDraggableDemo>{' '}
+            </StylesForDraggableDemo>
+            {' '}
             {/* End Draggable Canvas */}
         </SpacingForBottom>
     );

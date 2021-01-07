@@ -2,10 +2,12 @@ import { useGlobals } from '@storybook/addons';
 
 export const COMPONENTS_TITLE = 'Components';
 
-export const createStoryTitle = (componentName: string) =>
+type createStoryTitleType = (componentName: string) => string;
+
+export const createStoryTitle: createStoryTitleType = (componentName) =>
     `${COMPONENTS_TITLE}/${componentName}`;
 
-export const getCaptionForLocale = (children?: any): string => {
+export const getCaptionForLocale = (children?: string): string => {
     const [{ locale }] = useGlobals();
     if (children && locale === 'none') {
         return children;

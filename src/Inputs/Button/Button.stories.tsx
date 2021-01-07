@@ -20,5 +20,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<ButtonProps> = (args) => (
-    <Button {...args}>{getCaptionForLocale(args.children)}</Button>
+    <Button {...args}>{getCaptionForLocale(args.children as string)}</Button>
 );

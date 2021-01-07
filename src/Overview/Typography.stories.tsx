@@ -115,7 +115,7 @@ storiesOf('Design System/Typography', module).add(
                     {Object.entries(MainTheme.font.size)
                         .filter(([key]) => !key.match(/^h[1-6]$/))
                         .map(([type, size], index) => (
-                            <li key={type}>
+                            <li key={type + index.toString()}>
                                 <TextLayout size={type}>{type}</TextLayout>
                                 <SmallText>{size}</SmallText>
                             </li>
