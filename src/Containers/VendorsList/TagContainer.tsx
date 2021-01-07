@@ -21,7 +21,7 @@ export const TagContainer: React.FC<ITagContainerProps> = ({
 }): React.ReactElement => (
     <Wrapper {...props}>
         {tags.map((tagText) => (
-            <Tag isHoverable={isHoverable} {...tagProps}>
+            <Tag key={tagText} isHoverable={isHoverable} {...tagProps}>
                 {tagText}
             </Tag>
         ))}

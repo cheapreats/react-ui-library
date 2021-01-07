@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { List } from '../List';
 import { CollapsibleHeading, ICollapsibleHeadingProps } from '../CollapsibleHeading/CollapsibleHeading';
-import { FilterSelect, IFilterSelectProps } from '../CollapsibleHeading/FilterSelect';
+import { DefaultFilter} from './DefaultFilter';
 import { Heading, HeadingProps } from '../../Text/Heading';
 import { Button, ButtonProps } from '../../Inputs/Button/Button';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -23,12 +23,12 @@ export interface IVendorsFilterProps
     headingProps?: HeadingProps;
     buttonProps?: ButtonProps;
     collapsibleHeadingProps?: ICollapsibleHeadingProps;
-    filterSelectProps?: Omit<IFilterSelectProps, 'headingTitle' | 'buttonText' | 'filterItems'>;
+    filterValuesArr: string[];
+    setFilterValuesArr: React.Dispatch<React.SetStateAction<string[]>>;
+    columns: any;
 }
 
-const LOADING = false;
 const BACKGROUND_COLOR = '#FFFFFF';
-const FIRST_ITEM = 0;
 
 export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
     headingTitle,
@@ -37,7 +37,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
     headingProps,
     buttonProps,
     collapsibleHeadingProps,
-    filterSelectProps,
+    columns,
     ...props
 }): React.ReactElement => {
     const [filterApplied, setFilterApplied] = useState(false);
@@ -46,12 +46,11 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
         <div>
             <List
                 id="vendors-filter"
-                loading={LOADING}
+                loading={false}
                 cssPosition="absolute"
                 margin="0"
                 left="0"
                 right="auto"
-                onCloseTranslateXAxis="-100%"
                 backgroundColor={BACKGROUND_COLOR}
                 header={(
                     <Heading bold {...headingProps}>
@@ -60,36 +59,25 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                 )}
             >
                 <Wrapper {...props}>
-                    {!!filterItems && filterItems.map((filterItem, index) => (
-                        <CollapsibleHeading 
-                            title={filterItem.title}
-                            isCollapsed={isCollapsedArr[index]} 
-                            setCollapsed={() => setIsCollapsedArr(
-                                isCollapsedArr.map((isCollapsed, idx) => {
-                                    if (idx === index) return !isCollapsed;
-                                    return isCollapsed;
-                                })
-                            )}
-                            ChildElement={(
-                                <FilterSelect 
-                                    selectOptions={filterItem.selectOptions}
-                                    selectedValue={filterItem.selectOptions[FIRST_ITEM]}
-                                    placeholder={filterItem.placeholder}
-                                    filterApplied={filterApplied}
-                                    setFilterApplied={setFilterApplied}
-                                    {...filterSelectProps}
+                    {!!filterItems && filterItems.map((filterItem, index) => {
+                        console.log("inside filter:", columns[0].headers[index]);
+                        return (
+                            <>
+                                <CollapsibleHeading 
+                                    key={filterItem.title}
+                                    title={filterItem.title}
+                                    isCollapsed={isCollapsedArr[index]} 
+                                    setCollapsed={() => setIsCollapsedArr(
+                                        isCollapsedArr.map((isCollapsed, idx) => {
+                                            if (idx === index) return !isCollapsed;
+                                            return isCollapsed;
+                                        })
+                                    )}
+                                    ChildElement={<DefaultFilter column={columns[0].headers[index]} />}
+                                    {...collapsibleHeadingProps}
                                 />
-                            )}
-                            {...collapsibleHeadingProps}
-                        />
-                    ))}
-                    <Button 
-                        primary 
-                        onClick={() => setFilterApplied(!filterApplied)}
-                        {...buttonProps}
-                    >
-                        {buttonText}
-                    </Button>
+                            </>
+                        )})}
                 </Wrapper>
             </List>
         </div>

@@ -6,8 +6,8 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
 
 export interface IPaginationProps extends IRowSelectorProps, IPageSelectorProps, MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
-    rowSelectorProps?: IRowSelectorProps;
-    pageSelectorProps?: IPageSelectorProps
+    rowSelectorProps?: Omit<IRowSelectorProps, 'setPageSize' | 'pageSize' | 'pageSelectOptions' | 'pageOptionsLength'>;
+    pageSelectorProps?: Omit<IPageSelectorProps, 'goToPreviousPage' | 'goToNextPage' | 'goToPage' | 'pageLength' | 'pageIndex'>;
 };
 
 export const Pagination: React.FC<IPaginationProps> = ({
@@ -23,34 +23,32 @@ export const Pagination: React.FC<IPaginationProps> = ({
     rowSelectorProps,
     pageSelectorProps,
     ...props
-}): React.ReactElement => {
-    return (
-        <Wrapper {...props}>
-            <RowSelector 
-                pageSize={pageSize}
-                setPageSize={setPageSize}
-                pageOptionsLength={pageOptionsLength}
-                pageSelectOptions={pageSelectOptions}
-                {...rowSelectorProps}
-            />
-            <PageSelector 
-                goToPreviousPage={goToPreviousPage}
-                goToNextPage={goToNextPage}
-                goToPage={goToPage}
-                pageLength={pageLength}
-                pageIndex={pageIndex}
-                {...pageSelectorProps}
-            />
-        </Wrapper>
-    );
-};
+}): React.ReactElement => (
+    <Wrapper {...props}>
+        <RowSelector 
+            pageSize={pageSize}
+            setPageSize={setPageSize}
+            pageOptionsLength={pageOptionsLength}
+            pageSelectOptions={pageSelectOptions}
+            {...rowSelectorProps}
+        />
+        <PageSelector 
+            goToPreviousPage={goToPreviousPage}
+            goToNextPage={goToNextPage}
+            goToPage={goToPage}
+            pageLength={pageLength}
+            pageIndex={pageIndex}
+            {...pageSelectorProps}
+        />
+    </Wrapper>
+);
 
 const Wrapper = styled.div`
-    ${flex('space-between')};
     ${media(
-    'tabletLarge',
-    `
+        'tabletLarge',
+        `
         ${flex('column', 'center')};
     `,
     )};
+    align-items: center;
 `;

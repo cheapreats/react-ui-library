@@ -30,47 +30,54 @@ export const PageSelector: React.FC<IPageSelectorProps> = ({
     buttonProps,
     smallTextProps,
     ...props
-}): React.ReactElement => {
-    return (
-        <Wrapper {...props}>
-            <Section>
-                <Button 
-                    icon={LeftArrowAlt}
-                    onClick={() => goToPreviousPage()}
-                    primary
-                    {...buttonProps} 
-                />
-                {[...Array(pageLength)].map((pageNumber, index) => (
-                    <Button 
-                        key={pageNumber} 
-                        onClick={() => goToPage(index)}
-                        {...buttonProps}
-                    > 
-                        {index + INDEX_SHIFT}
-                    </Button>
-                ))}
-                <Button 
-                    icon={RightArrowAlt}
-                    onClick={() => goToNextPage()}
-                    primary
-                    {...buttonProps} 
-                />
-            </Section>
-            <Section>
-                <SmallText {...smallTextProps}>
-                    {LEFT_TEXT}
-                    {pageIndex + INDEX_SHIFT} 
-                    {MIDDLE_TEXT} 
-                    {pageLength}
-                </SmallText>
-            </Section>
-        </Wrapper>
-    );
-};
+}): React.ReactElement => (
+    <Wrapper {...props}>
+        <Section>
+            <Button 
+                icon={LeftArrowAlt}
+                onClick={() => goToPreviousPage()}
+                primary
+                {...buttonProps} 
+            />
+            {[...Array(pageLength)].map((pageNumber, index) => (
+                <SButton 
+                    key={pageNumber} 
+                    isActive={pageIndex === index}
+                    onClick={() => goToPage(index)}
+                    {...buttonProps}
+                > 
+                    {index + INDEX_SHIFT}
+                </SButton>
+            ))}
+            <Button 
+                icon={RightArrowAlt}
+                onClick={() => goToNextPage()}
+                primary
+                {...buttonProps} 
+            />
+        </Section>
+        <Section>
+            <SmallText {...smallTextProps}>
+                {LEFT_TEXT}
+                {pageIndex + INDEX_SHIFT} 
+                {MIDDLE_TEXT} 
+                {pageLength}
+            </SmallText>
+        </Section>
+    </Wrapper>
+);
 
 const Section = styled.div`
     ${flex('row')};
 `;
 const Wrapper = styled.div`
     ${flex('column', 'center')};
+`;
+interface ISButtonProps {
+    isActive?: boolean;
+}
+const SButton = styled(Button)<ISButtonProps>`
+    ${({ theme, isActive }) => ` 
+        background-color: ${isActive ? theme.colors.border: theme.colors.background};
+    `};
 `;

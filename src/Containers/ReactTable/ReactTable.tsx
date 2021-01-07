@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { useTable, usePagination, Column, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
+import { useTable, usePagination, Row, Column, HeaderGroup, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
 import { Pagination, IPaginationProps } from './Pagination';
 import { IProfileProps } from '../VendorsList/Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -18,14 +18,24 @@ export interface IReactTableProps<T extends IVendorsData>
     data: T[];
     columns: Column<T>[];
     tableProps?: TableProps;
-    tableHeaderProps?: TableHeaderProps;
-    tableRowProps?: TableRowProps;
+    tableHeaderProps?: Omit<TableHeaderProps, 'key'>;
+    tableRowProps?: Omit<TableRowProps, 'key'>;
     paginationProps?: IPaginationProps;
     pageSelectOptions: number[];
     isPaginated?: boolean;
+    getTableProps: Function;
+    getTableBodyProps: Function;
+    headerGroups: HeaderGroup<T>[];
+    prepareRow: (row: Row<T>) => void
+    page: any;
+    pageCount: number;
+    gotoPage: () => void;
+    nextPage: () => void;
+    previousPage: () => void;
+    setPageSize: () => void;
+    pageIndex: number;
+    pageSize: number;
 };
-
-const INITIAL_OPTION = 0;
 
 export const ReactTable = <T extends IVendorsData>({
     data,
@@ -36,31 +46,20 @@ export const ReactTable = <T extends IVendorsData>({
     paginationProps,
     pageSelectOptions,
     isPaginated = true,
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    pageIndex,
+    pageSize,
     ...props
 }: IReactTableProps<T>): React.ReactElement => {
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        prepareRow,
-        page,
-        canPreviousPage,
-        canNextPage,
-        pageOptions,
-        pageCount,
-        gotoPage,
-        nextPage,
-        previousPage,
-        setPageSize,
-        state: { pageIndex, pageSize }
-    } = useTable(
-        {
-            columns, 
-            data,
-            initialState: { pageIndex: 0, pageSize: pageSelectOptions[INITIAL_OPTION] }
-        },
-        usePagination
-    );
 
     const pageOptionsLength = data.length;
 
@@ -72,13 +71,15 @@ export const ReactTable = <T extends IVendorsData>({
                     key={headerGroup.headers[index].Header?.toString()}
                 >
                     {headerGroup.headers.map((column) => (
-                        <STableHeader
-                            {...column.getHeaderProps()}
-                            key={column.Header?.toString()}
-                            {...tableHeaderProps}
-                        >
-                            {column.render('Header')}
-                        </STableHeader>
+                        <>
+                            <STableHeader
+                                {...column.getHeaderProps()}
+                                key={column.Header?.toString()}
+                                {...tableHeaderProps}
+                            >
+                                {column.render('Header')}
+                            </STableHeader>
+                        </>
                     ))}
                 </SHeadTableRow>
             )),
@@ -91,7 +92,7 @@ export const ReactTable = <T extends IVendorsData>({
             return (
                 <STableRow {...row.getRowProps()} key={row.original.id} {...tableRowProps}>
                     {row.cells.map((cell: any) => (
-                        <STableData {...cell.getCellProps()}>
+                        <STableData key={cell.row.original.id} {...cell.getCellProps()}>
                             {cell.render('Cell')}
                         </STableData>
                     ))}
@@ -177,6 +178,7 @@ const SHeadTableRow = styled.tr`
     ${scroll}
 `;
 const STableRow = styled(SHeadTableRow)`
+    align-items: center;
     ${({ theme }): string => `
         :hover {
             transform: scale(1.01);
