@@ -41,13 +41,14 @@ export const PageSelector: React.FC<IPageSelectorProps> = ({
                     {...buttonProps} 
                 />
                 {[...Array(pageLength)].map((pageNumber, index) => (
-                    <Button 
+                    <SButton 
                         key={pageNumber} 
+                        isActive={pageIndex === index}
                         onClick={() => goToPage(index)}
                         {...buttonProps}
                     > 
                         {index + INDEX_SHIFT}
-                    </Button>
+                    </SButton>
                 ))}
                 <Button 
                     icon={RightArrowAlt}
@@ -73,4 +74,12 @@ const Section = styled.div`
 `;
 const Wrapper = styled.div`
     ${flex('column', 'center')};
+`;
+interface ISButtonProps {
+    isActive?: boolean;
+}
+const SButton = styled(Button)<ISButtonProps>`
+    ${({ theme, isActive }) => ` 
+        background-color: ${isActive ? theme.colors.border: theme.colors.background};
+    `};
 `;

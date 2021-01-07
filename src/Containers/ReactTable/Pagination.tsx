@@ -46,11 +46,5 @@ export const Pagination: React.FC<IPaginationProps> = ({
 };
 
 const Wrapper = styled.div`
-    ${flex('space-between')};
-    ${media(
-    'tabletLarge',
-    `
-        ${flex('column', 'center')};
-    `,
-    )};
+    ${flex('column', 'center')};
 `;

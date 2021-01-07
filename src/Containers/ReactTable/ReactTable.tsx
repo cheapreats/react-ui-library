@@ -175,6 +175,7 @@ const SHeadTableRow = styled.tr`
 `;
 const STableRow = styled(SHeadTableRow)`
     ${({ theme }): string => `
+        align-items: center;
         :hover {
             transform: scale(1.01);
             box-shadow: ${theme.depth[2]}

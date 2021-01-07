@@ -10,8 +10,6 @@ export default {
     component: ReactTable,
 } as Meta;
 
-const isHoverable = false;
-
 const getReactTableProps = (): any => ({
     pageSelectOptions: [10, 20, 30],
     tableHeaderProps: {
@@ -62,7 +60,7 @@ const getReactTableProps = (): any => ({
                     name={cell.row.original.name}
                     email={cell.row.original.email}
                     imageUrl={cell.row.original?.imageUrl}
-                    profileProps={{ style: { marginTop: 'tpx' } }}
+                    profileProps={{ style: { marginBottom: '5px' } }}
                 />
             ),
         },
@@ -72,7 +70,7 @@ const getReactTableProps = (): any => ({
             Cell: (cell: any) => (
                 <TagContainer 
                     tags={cell.row.original.tags} 
-                    isHoverable={isHoverable} 
+                    isHoverable={false} 
                     style={{ padding: '10px 0' }}
                     tagProps={{ style: { margin: '5px 10px 0 0' }}}
                 />

@@ -71,7 +71,6 @@ const getVendorsListProps = (): IVendorsListProps => ({
                     name={cell.row.original.name}
                     email={cell.row.original.email}
                     imageUrl={cell.row.original?.imageUrl}
-                    profileProps={{ style: { marginTop: 'tpx' } }}
                 />
             ),
         },
@@ -82,18 +81,16 @@ const getVendorsListProps = (): IVendorsListProps => ({
                     tags={cell.row.original.tags} 
                     isHoverable={isHoverable} 
                     style={{ padding: '10px 0' }}
-                    tagProps={{ style: { margin: '5px 10px 0 0' }}}
+                    tagProps={{ style: { marginRight: '10px' }}}
                 />
             ),
         },
         {
             Header: 'Created',
             Cell: (cell: any) => (
-                <div style={{ padding: '10px 0' }}>
-                    <SmallText style={{ padding: '0 10px' }}>
-                        {cell.row.original.createdAt}
-                    </SmallText>
-                </div>
+                <SmallText style={{ padding: '0 10px' }}>
+                    {cell.row.original.createdAt}
+                </SmallText>
             ),
         },
     ],    

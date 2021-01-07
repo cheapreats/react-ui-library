@@ -66,9 +66,10 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                 columns={columns}
                 pageSelectOptions={[5, 10, 15, 20]}
                 tableHeaderProps={{ style: { marginBottom: '10px' } }}
-                paginationProps={{ style: { marginTop: '10px' },
+                tableRowProps={{ style: { padding: '5px 0' } }}
+                paginationProps={{ style: { marginTop: '20px' },
                     pageSelectorProps: { buttonProps: { style: { margin: '0 2px' } }, style: { margin: '5px 0' } }, 
-                    rowSelectorProps: { style: { margin: '5px 0' }, smallTextProps: { style: { margin: '5px 5px 0 5px' } } } }}
+                    rowSelectorProps: { style: { margin: '20px 0' }, smallTextProps: { style: { margin: '5px 5px 0 5px' } } } }}
             />
         </Row>
     </Wrapper>
@@ -88,7 +89,7 @@ const Row = styled.div`
     ${flex('column')};
 `;
 const SVendorsHeader = styled(VendorsHeader)`
-    margin: 20px 20px 30px 10px;
+    margin: 20px 10px;
 `;
 const SVendorsFilter = styled(VendorsFilter)`
     padding: 20px;
