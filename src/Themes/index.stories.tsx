@@ -6,5 +6,5 @@ import { createStoryTitle } from '../Constants';
 const stories = storiesOf(createStoryTitle('Theme'), module);
 
 Object.entries(Themes).forEach(([key, value]) => {
-    stories.add(`with ${key}`, () => <span>To be automated</span>);
+    stories.add(`with ${key} returns ${value}`, () => <span>To be automated</span>);
 });

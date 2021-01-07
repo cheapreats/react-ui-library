@@ -1,4 +1,4 @@
-import theme from '@Themes/ThemeTemplate';
+import theme from '../../Themes/ThemeTemplate';
 
 /**
  * Defined transition for specific property

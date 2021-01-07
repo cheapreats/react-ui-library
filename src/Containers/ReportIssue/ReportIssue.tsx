@@ -1,3 +1,6 @@
+import { Button } from '@Inputs/Button/Button';
+import { Select} from '@Inputs/Select/Select';
+import { Textarea } from '@Inputs/Textarea/Textarea';
 import React, { FormEvent, ReactElement, useState } from 'react';
 import styled from 'styled-components';
 import { HeaderRow } from '../HeaderRow/HeaderRow';

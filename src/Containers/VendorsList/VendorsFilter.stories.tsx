@@ -75,4 +75,5 @@ const Template: Story<IVendorsFilterProps> = (args) => (
 );
 
 export const Basic = Template.bind({});
+// @ts-ignore
 Basic.args = getVendorFilterProps();

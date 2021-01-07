@@ -1,6 +1,32 @@
+/**
+ * Documentation – the order of chairs are in the chairs array will populate the table from top left to the bottom right
+ * “the purpose of the order in the array is to populate the chairs from top left to bottom right”
+ */
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
-import { ChairRow } from '../ChairRow/ChairRow';
+import { IChair } from '../Chair/Chair';
+import { ChairRow } from './_ChairRow';
+
+type Position = 'top' | 'bottom' | 'left' | 'right';
+
+type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
+
+type getSquareTableSizeType = (
+    top: number,
+    bottom: number,
+    left: number,
+    right: number,
+) => number;
+
+type getRectangleTopType = (top: number, bottom: number) => number;
+
+type getRectangleSideType = (left: number, right: number) => number;
+
+type fillArrayType = (
+    array: Array<IChair>,
+    targetSize: number,
+    position: Position,
+) => void;
 
 export interface ISquareTable {
     /**
@@ -8,27 +34,25 @@ export interface ISquareTable {
      */
     tableID: string;
     /**
-     * The number of chairs at the table
-     */
-    numOfChairs: number;
-    /**
      * The name of the party assigned to the table
      */
     partyName: string;
     /**
      * The occupancy status for the table
      */
-    occupancyStatus: string;
+    occupancyStatus: occupancyStatusTypes;
     /**
-     * The seating/reservation time for the party at the table
+     * Array of chairs
      */
-    reservationTime?: Date;
-}
-
-enum occupancyStatusTypes {
-    Vacant = 'Vacant',
-    Reserved = 'Reserved',
-    Occupied = 'Occupied',
+    chairs: Array<IChair>;
+    /**
+     * Whether the table is a square
+     */
+    isSquare: boolean;
+    /**
+     * The size for the component relative to the parent
+     */
+    relativeSize: number;
 }
 
 /**
@@ -37,102 +61,198 @@ enum occupancyStatusTypes {
  */
 export const SquareTable: React.FC<ISquareTable> = ({
     tableID = 'T1',
-    numOfChairs = 4,
     partyName = 'Null',
-    occupancyStatus = occupancyStatusTypes.Vacant,
+    occupancyStatus = 'Vacant',
+    chairs = [],
+    relativeSize = 1.0,
+    isSquare = false,
     ...props
 }) => {
-    const chairNumOnSide = getChairNumOnSide();
-    const { colors } = useTheme();
+    /**
+     * Split chairs array into four arrays for each table side
+     */
+    const topArray = chairs.filter((i) => i.position === 'top');
+    const rightArray = chairs.filter((i) => i.position === 'right');
+    const leftArray = chairs.filter((i) => i.position === 'left');
+    const bottomArray = chairs.filter((i) => i.position === 'bottom');
 
     /**
-     * This function will determine how many chair to put per each side
-     * of the table (left, right, top, bottom)
-     *
-     * @return {number} - Number of chair per table side
+     * Determines how many chairs to put per each side
+     * of a square table (left, right, top, bottom)
+     * @param top {number} - Number of chairs on top side
+     * @param bottom {number} - Number of chairs on bottom side
+     * @param left {number} - Number of chairs on left side
+     * @param right {number} - Number of chairs on right side
+     * @return {number} - The largest number of chairs
      */
-    function getChairNumOnSide() {
-        if (numOfChairs < 1) {
-            return 1;
-        }
-        if (numOfChairs % 4 === 0) {
-            return numOfChairs / 4;
-        }
-        return Math.floor(numOfChairs / 4) + 1;
-    }
+    const getSquareTableSize: getSquareTableSizeType = (
+        top,
+        bottom,
+        left,
+        right,
+    ) => {
+        const maxSideValue = Math.max(top, bottom, left, right);
+        return maxSideValue > 0 ? maxSideValue : 1;
+    };
+
+    const squareTableSize = getSquareTableSize(
+        topArray.length,
+        bottomArray.length,
+        leftArray.length,
+        rightArray.length,
+    );
 
     /**
-     * This function will determine what color should be the Status and ColorDiv
-     * and return hexadecimal color value
-     *
-     * @return {string} - Hexadecimal color value
+     * Determines how many chairs to put on the top and bottom sides
+     * of a rectangle table (top, bottom)
+     * @param top {number} - Number of chairs on top side
+     * @param bottom {number} - Number of chairs on bottom side
+     * @return {number} - The largest number of chairs
      */
-    function getOccupancyColor(): string {
-        switch (occupancyStatus) {
-        case occupancyStatusTypes.Vacant:
-            return colors.occupancyStatusColors.Vacant;
+    const getRectangleTopSize: getRectangleTopType = (top, bottom) => {
+        const maxSideValue = Math.max(top, bottom);
+        return maxSideValue > 0 ? maxSideValue : 1;
+    };
 
-        case occupancyStatusTypes.Reserved:
-            return colors.occupancyStatusColors.Reserved;
+    const rectangleTopSize = getRectangleTopSize(
+        topArray.length,
+        bottomArray.length,
+    );
 
-        case occupancyStatusTypes.Occupied:
-            return colors.occupancyStatusColors.Occupied;
+    /**
+     * Determines how many chairs to put on the left and right sides
+     * of a rectangle table (left, right)
+     * @param left {number} - Number of chairs on left side
+     * @param right {number} - Number of chairs on right side
+     * @return {number} - The largest number of chairs
+     */
+    const getRectangleSideSize: getRectangleSideType = (left, right) => {
+        const maxSideValue = Math.max(left, right);
+        return maxSideValue > 0 ? maxSideValue : 1;
+    };
 
-        default:
-            return '';
+    const rectangleSideSize = getRectangleSideSize(
+        leftArray.length,
+        rightArray.length,
+    );
+
+    /**
+     * Checks an array to see if it has fewer chairs than the target size
+     * and adds invisible chairs if needed so array size matches target size
+     */
+    const fillArray: fillArrayType = (array, size, position) => {
+        while (array.length < size) {
+            array.push({
+                position,
+                isSeated: false,
+                occupiedBy: '',
+                isVisible: false,
+                relativeSize,
+            });
         }
+    };
+
+    // Add empty/invisible chairs to the arrays as needed so there are chairs at each
+    // spot on the table
+    if (isSquare) {
+        fillArray(topArray, squareTableSize, 'top');
+        fillArray(bottomArray, squareTableSize, 'bottom');
+        fillArray(leftArray, squareTableSize, 'left');
+        fillArray(rightArray, squareTableSize, 'right');
+    } else {
+        fillArray(topArray, rectangleTopSize, 'top');
+        fillArray(bottomArray, rectangleTopSize, 'bottom');
+        fillArray(leftArray, rectangleSideSize, 'left');
+        fillArray(rightArray, rectangleSideSize, 'right');
     }
 
     return (
-        <div>
+        <div {...props}>
             {/** chairs top */}
             <ChairRow
                 position="top"
-                chairNumOnSide={chairNumOnSide}
-                {...props}
+                chairs={topArray}
+                relativeSize={relativeSize}
             />
 
             {/** table itself */}
             <div>
-                <Row {...props}>
+                <Row relativeSize={relativeSize}>
                     {/** chairs left */}
-                    <ChairRow position="left" chairNumOnSide={chairNumOnSide} />
+                    <ChairRow
+                        relativeSize={relativeSize}
+                        position="left"
+                        chairs={leftArray}
+                    />
 
-                    <TableBody chairNumOnSide={chairNumOnSide}>
-                        <Row>
-                            <TableInfo>
+                    <TableBody
+                        relativeSize={relativeSize}
+                        chairNumOnSide={
+                            isSquare ? squareTableSize : rectangleSideSize
+                        }
+                        chairNumOnTop={
+                            isSquare ? squareTableSize : rectangleTopSize
+                        }
+                    >
+                        <Row relativeSize={relativeSize}>
+                            <TableInfo relativeSize={relativeSize}>
                                 <div>
                                     {`${tableID}\n${partyName}`}
-                                    <Status
-                                        occupancyColor={getOccupancyColor()}
-                                    >
+                                    <Status occupancyStatus={occupancyStatus}>
                                         {occupancyStatus}
                                     </Status>
                                 </div>
                             </TableInfo>
                             <ColorDiv
-                                chairNumOnSide={chairNumOnSide}
-                                occupancyColor={getOccupancyColor()}
+                                relativeSize={relativeSize}
+                                chairNumOnSide={
+                                    isSquare
+                                        ? squareTableSize
+                                        : rectangleSideSize
+                                }
+                                occupancyStatus={occupancyStatus}
                             />
                         </Row>
                     </TableBody>
 
                     {/** chairs right */}
                     <ChairRow
+                        relativeSize={relativeSize}
                         position="right"
-                        chairNumOnSide={chairNumOnSide}
+                        chairs={rightArray}
                     />
                 </Row>
             </div>
 
             {/** chairs bottom */}
             <ChairRow
+                relativeSize={relativeSize}
                 position="bottom"
-                chairNumOnSide={chairNumOnSide}
-                {...props}
+                chairs={bottomArray}
             />
         </div>
     );
+};
+
+type getOccupancyColorType = (occupancyStatus: occupancyStatusTypes) => string;
+
+/**
+ * Determines the correct color for Status and ColorDiv based on occupancyStatus
+ * and returns the hexadecimal color value as a string
+ *
+ * @return {string} - Hexadecimal color value
+ */
+const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
+    switch (occupancyStatus) {
+    case 'Vacant':
+        return useTheme().colors.occupancyStatusColors.Vacant;
+    case 'Reserved':
+        return useTheme().colors.occupancyStatusColors.Reserved;
+    case 'Occupied':
+        return useTheme().colors.occupancyStatusColors.Occupied;
+    default:
+        return '';
+    }
 };
 
 /**
@@ -141,48 +261,86 @@ export const SquareTable: React.FC<ISquareTable> = ({
 
 interface ITableBody {
     chairNumOnSide: number;
+    chairNumOnTop: number;
+    relativeSize: number;
 }
 
 const TableBody = styled.div<ITableBody>`
-    height: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
-    width: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
-    border-radius: 3rem;
-    background-color: #6c757d;
+    ${({ chairNumOnSide, chairNumOnTop, relativeSize }) => {
+        const BASE_TABLE_BODY_WIDTH_AND_HEIGHT = 20;
+        const BASE_BORDER_RADIUS = 3;
+        return `height: ${
+            chairNumOnSide * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
+        }rem;
+            width: ${
+    chairNumOnTop * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
+}rem;
+            border-radius: ${BASE_BORDER_RADIUS * relativeSize}rem;`;
+    }}
+    background-color: ${({ theme }) => theme.colors.chairTableBackground};
 `;
 
 interface IColorDiv {
     chairNumOnSide: number;
-    occupancyColor: string;
+    occupancyStatus: occupancyStatusTypes;
+    relativeSize: number;
 }
 
 const ColorDiv = styled.div<IColorDiv>`
-    height: ${({ chairNumOnSide }) => chairNumOnSide * 20}rem;
-    width: 3rem;
+    ${({ chairNumOnSide, relativeSize }) => {
+        const BASE_COLOR_DIV_HEIGHT = 20;
+        const BASE_COLOR_DIV_WIDTH = 3;
+        const BASE_COLOR_DIV_BORDER_RADIUS = 3;
+        const BASE_COLOR_DIV_MARGIN_RIGHT = 0.95;
+        return `height: ${
+            chairNumOnSide * BASE_COLOR_DIV_HEIGHT * relativeSize
+        }rem;
+            width: ${BASE_COLOR_DIV_WIDTH * relativeSize}rem;
+            margin-right: ${BASE_COLOR_DIV_MARGIN_RIGHT * relativeSize}rem;
+            border-top-right-radius: ${
+    BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+}rem;
+            border-bottom-right-radius: ${
+    BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+}rem;`;
+    }}
     margin-left: auto;
-    margin-right: 0.95rem;
-    border-top-right-radius: 3rem;
-    border-bottom-right-radius: 3rem;
-    background-color: ${({ occupancyColor }) => occupancyColor};
+    background-color: ${({ occupancyStatus }) =>
+        getOccupancyColor(occupancyStatus)};
 `;
 
-const Row = styled.div`
-    display: flex;
-    flex-wrap: wrap;
-    margin-right: -15px;
-    margin-left: -15px;
-`;
-
-const TableInfo = styled.div`
-    color: #f8f9fa;
-    margin-top: 2rem;
-    margin-left: 3rem;
-    white-space: pre-line;
-`;
-
-interface IStatus {
-    occupancyColor: string;
+interface IRow {
+    relativeSize: number;
 }
 
-const Status = styled.div<IStatus>`
-    color: ${({ occupancyColor }) => occupancyColor};
+const Row = styled.div<IRow>`
+    display: flex;
+    flex-wrap: wrap;
+    ${({ relativeSize }) => {
+        const BASE_ROW_LEFT_AND_RIGHT_MARGIN = -15;
+        return `margin-right: ${
+            BASE_ROW_LEFT_AND_RIGHT_MARGIN * relativeSize
+        }px;
+            margin-left: ${BASE_ROW_LEFT_AND_RIGHT_MARGIN * relativeSize}px;`;
+    }}
+`;
+
+interface ITableInfo {
+    relativeSize: number;
+}
+
+const TableInfo = styled.div<ITableInfo>`
+    color: ${({ theme }) => theme.colors.background};
+    font-weight: bold;
+    white-space: pre-line;
+    ${({ relativeSize }) => {
+        const BASE_TABLE_INFO_MARGIN_TOP = 2;
+        const BASE_TABLE_INFO_MARGIN_LEFT = 3;
+        return `margin-top: ${BASE_TABLE_INFO_MARGIN_TOP * relativeSize}rem;
+            margin-left: ${BASE_TABLE_INFO_MARGIN_LEFT * relativeSize}rem;`;
+    }}
+`;
+
+const Status = styled.div<Pick<ISquareTable, 'occupancyStatus'>>`
+    color: ${({ occupancyStatus }) => getOccupancyColor(occupancyStatus)};
 `;

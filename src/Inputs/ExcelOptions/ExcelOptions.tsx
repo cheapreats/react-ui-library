@@ -9,7 +9,7 @@ import {
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
 import { Heading, Paragraph } from '@Text';
-import { Tag } from '@Containers';
+import { Tag } from '@Containers/Tag/Tag';
 import { Mixins } from '@Utils';
 import { Select } from '../Select/Select';
 import { Datepicker } from '../Datepicker';

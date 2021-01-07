@@ -3,15 +3,15 @@
         [
             "module-resolver",
             {
-                "root": "./dist",
+                "root": "./src",
                 "extensions": [".ts", ".tsx"],
                 "alias": {
-                    "@Containers": "./dist/Containers",
-                    "@Layouts": "./dist/Fragments",
-                    "@Inputs": "./dist/Inputs",
-                    "@Text": "./dist/Text",
-                    "@Themes": "./dist/Themes",
-                    "@Utils": "./dist/Utils"
+                    "@Containers": "./src/Containers",
+                    "@Layouts": "./src/Fragments",
+                    "@Inputs": "./src/Inputs",
+                    "@Text": "./src/Text",
+                    "@Themes": "./src/Themes",
+                    "@Utils": "./src/Utils"
                 }
             },
             "babel-plugin-styled-components"
