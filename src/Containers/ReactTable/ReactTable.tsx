@@ -1,6 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { useTable, usePagination, Row, Column, HeaderGroup, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
+import { Row, Column, HeaderGroup, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
 import { Pagination, IPaginationProps } from './Pagination';
 import { IProfileProps } from '../VendorsList/Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -180,6 +180,7 @@ const SHeadTableRow = styled.tr`
 const STableRow = styled(SHeadTableRow)`
     align-items: center;
     ${({ theme }): string => `
+        align-items: center;
         :hover {
             transform: scale(1.01);
             box-shadow: ${theme.depth[2]}

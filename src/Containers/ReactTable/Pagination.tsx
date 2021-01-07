@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { RowSelector, IRowSelectorProps } from './RowSelector';
 import { PageSelector, IPageSelectorProps } from './PageSelector';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { flex, media } from '../../Utils/Mixins';
+import { flex } from '../../Utils/Mixins';
 
 export interface IPaginationProps extends IRowSelectorProps, IPageSelectorProps, MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
     rowSelectorProps?: Omit<IRowSelectorProps, 'setPageSize' | 'pageSize' | 'pageSelectOptions' | 'pageOptionsLength'>;
@@ -44,11 +44,5 @@ export const Pagination: React.FC<IPaginationProps> = ({
 );
 
 const Wrapper = styled.div`
-    ${media(
-        'tabletLarge',
-        `
-        ${flex('column', 'center')};
-    `,
-    )};
-    align-items: center;
+    ${flex('column', 'center')};
 `;

@@ -9,8 +9,8 @@ import { Import } from '@styled-icons/boxicons-regular/Import';
 import { Add } from '@styled-icons/ionicons-sharp/Add';
 import { VendorsFilter, IFilterItems } from './VendorsFilter';
 import { VendorsHeader } from './VendorsHeader';
-import { NavigationBar } from './NavigationBar';
 import { INavigationItemProps } from './NavigationItem';
+import { NavigationBar } from './NavigationBar';
 import { DefaultFilter } from './DefaultFilter';
 import { ReactTable, IVendorsData } from '../ReactTable/ReactTable';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -66,7 +66,6 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
         useFilters, 
         usePagination
     );
-
     return (
         <Wrapper {...props}>
             <Row>
@@ -136,7 +135,7 @@ const Row = styled.div`
     ${flex('column')};
 `;
 const SVendorsHeader = styled(VendorsHeader)`
-    margin: 20px 20px 30px 10px;
+    margin: 20px 10px;
 `;
 const SVendorsFilter = styled(VendorsFilter)`
     padding: 20px;

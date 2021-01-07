@@ -3,14 +3,11 @@ import { Story, Meta } from '@storybook/react';
 import { TableView } from '@styled-icons/material/TableView';
 import { List } from '@styled-icons/bootstrap/List';
 import { ViewGrid } from '@styled-icons/heroicons-solid/ViewGrid';
-import { 
-    VendorsList, 
-    IVendorsListProps, 
-    Profile, 
-    TagContainer, 
-    SmallText 
-} from '../../index';
 import { DefaultFilter } from './DefaultFilter';
+import { Profile } from './Profile'; 
+import { TagContainer } from './TagContainer';
+import { SmallText } from '../../Text/SmallText';
+import { VendorsList, IVendorsListProps } from './VendorsList';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -19,11 +16,29 @@ export default {
 } as Meta;
 
 const getVendorsListProps = (): IVendorsListProps => ({
-    filterItems: [
+    filterButtonText: 'Apply',
+    filterTitleText: 'Filters',
+    headerText: 'Clients',
+    headerRightButtonText: 'Add Client',
+    navigationBarItems: [
+        {
+            icon: TableView,
+            label: 'Overview',
+        },
+        {
+            icon: List,
+            label: 'List View',
+        },
+        {
+            icon: ViewGrid,
+            label: 'Segment',
+        },
+    ],    
+    filterItems:  [
         {
             title: 'Name',
             selectOptions: ['Contains', 'Equals'],
-            placeholder: 'Add name'
+            placeholder: 'Add email'
         },
         {
             title: 'Tag',
@@ -39,7 +54,6 @@ const getVendorsListProps = (): IVendorsListProps => ({
     columns: [
         {
             Header: 'Client',
-            accessor: 'client',
             Cell: (cell: any) => (
                 <Profile
                     key={cell.row.original.id}
@@ -53,48 +67,29 @@ const getVendorsListProps = (): IVendorsListProps => ({
         },
         {
             Header: 'Tags',
-            accessor: 'tags',
             Cell: (cell: any) => (
                 <TagContainer 
                     tags={cell.row.original.tags} 
                     isHoverable={false} 
                     style={{ padding: '10px 0' }}
-                    tagProps={{ style: { margin: '5px 10px 0 0' }}}
+                    tagProps={{ style: { marginRight: '10px' }}}
                 />
             ),
-            Filter: DefaultFilter,
+            Filter: DefaultFilter
         },
         {
             Header: 'Created',
-            accessor: 'header',
             Cell: (cell: any) => (
-                <div style={{ padding: '10px 0' }}>
-                    <SmallText style={{ padding: '0 10px' }}>
-                        {cell.row.original.createdAt}
-                    </SmallText>
-                </div>
+                <SmallText style={{ padding: '0 10px' }}>
+                    {cell.row.original.createdAt}
+                </SmallText>
             ),
             Filter: DefaultFilter,
+            filterMethod: (filter: any, row: any) => {
+                console.log(filter)
+            },
         },
-    ],
-    filterButtonText: 'Apply',
-    filterTitleText: 'Filters',
-    headerRightButtonText: 'Add Client',
-    headerText: "Clients",
-    navigationBarItems: [
-        {
-            icon: TableView,
-            label: 'Overview',
-        },
-        {
-            icon: List,
-            label: 'List View',
-        },
-        {
-            icon: ViewGrid,
-            label: 'Segment',
-        },
-    ],
+    ],    
     data: [
         {
             key: 1,

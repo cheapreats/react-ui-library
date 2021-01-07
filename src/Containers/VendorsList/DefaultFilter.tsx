@@ -13,8 +13,10 @@ export const DefaultFilter: React.FC<IFilterProps> = ({
     ...props
 }): React.ReactElement => (
     <Input
-        value={filterValue || ''}
-        onChange={(e) => setFilter(e.target.value || undefined)}
+        value={filterValue || ""}
+        onChange={e => {
+            setFilter(e.target.value || undefined); 
+        }}
         placeholder={`Search ${length} results`}
         {...props}
     />

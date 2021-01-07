@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { AngleDown } from '@styled-icons/fa-solid/AngleDown';
-import { StyledIcon } from '@styled-icons/styled-icon';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { flex, transition } from '@Utils/Mixins';
 import { Heading } from '@Text/Heading';
