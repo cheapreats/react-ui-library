@@ -1,8 +1,9 @@
 {
     "name": "@cheapreats/react-ui",
-    "version": "2.3.66",
+    "version": "2.3.68",
     "description": "React UI library for CheaprEats",
     "main": "dist/index.js",
+    "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
     "files": [
         "dist"
@@ -11,7 +12,8 @@
     "scripts": {
         "start": "start-storybook -p 6006",
         "deploy": "npm run build && build-storybook -s dist -o .deploy",
-        "build": "rm -rf dist  && tsc && NODE_ENV=production babel dist -d dist",
+        "build": "rm -rf dist && rollup -c",
+        "build:watch": "rollup -c -w",
         "test": "tsc && npm run eslint:fix",
         "prepublish": "npm run lint && npm run build",
         "eslint": "eslint ./src --ext tsx,ts,jsx,js",
@@ -91,6 +93,10 @@
         ".deploy"
     ],
     "dependencies": {
+        "@babel/preset-typescript": "^7.12.7",
+        "@rollup/plugin-commonjs": "^17.0.0",
+        "@rollup/plugin-json": "^4.1.0",
+        "@rollup/plugin-node-resolve": "^11.0.1",
         "@types/emoji-mart": "^3.0.4",
         "@types/react-beautiful-dnd": "^13.0.0",
         "@types/react-dom": "^17.0.0",
@@ -101,15 +107,28 @@
         "@types/styled-components": "^5.1.7",
         "@typescript-eslint/eslint-plugin": "^4.11.0",
         "@typescript-eslint/parser": "^4.11.0",
+        "@zerollup/ts-transform-paths": "^1.7.18",
         "babel-plugin-recharts": "^1.2.1",
+        "babel-plugin-styled-components": "^1.12.0",
+        "babel-plugin-transform-class-properties": "^6.24.1",
+        "babel-runtime": "^6.26.0",
         "emoji-mart": "^3.0.0",
+        "react": "17.0.1",
         "react-beautiful-dnd": "^13.0.0",
         "react-dropzone": "^11.2.4",
-        "react-lottie": "^1.2.3",
         "react-image-crop": "^8.6.6",
+        "react-lottie": "^1.2.3",
         "react-router-dom": "^5.2.0",
         "react-table": "^7.6.2",
         "recharts": "^1.8.5",
+        "rollup": "^2.36.1",
+        "rollup-plugin-babel": "^4.4.0",
+        "rollup-plugin-css-only": "^3.1.0",
+        "rollup-plugin-postcss": "^4.0.0",
+        "rollup-plugin-typescript-paths": "^1.2.2",
+        "rollup-plugin-typescript2": "^0.29.0",
+        "ttypescript": "^1.5.12",
+        "typescript-transform-paths": "^2.2.0",
         "win-node-env": "^0.4.0"
     },
     "optionalDependencies": {

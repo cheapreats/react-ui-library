@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink as L, useParams } from 'react-router-dom';
-import styled, { withTheme, DefaultTheme } from 'styled-components';
+import styled, { useTheme} from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
 import { Paragraph as P } from '../../Text';
 import { Mixins } from '../../Utils';
@@ -15,22 +15,21 @@ interface _NavigationItemProps {
     to?: string;
     exact?: boolean;
     type?: any | string | number | symbol;
-    theme: DefaultTheme;
 }
 
 interface NavigationParams {
     id: string;
 }
 
-const _NavigationItem: React.FC<_NavigationItemProps> = ({
+export const NavigationItem: React.FC<_NavigationItemProps> = ({
     children,
     icon,
     to = '',
     exact = false,
     type,
-    theme,
     ...props
 }) => {
+    const theme = useTheme();
     const params = useParams<NavigationParams>();
     const isExternal = to.startsWith('http');
     return (
@@ -52,8 +51,6 @@ const _NavigationItem: React.FC<_NavigationItemProps> = ({
         </Item>
     );
 };
-
-export const NavigationItem = withTheme(_NavigationItem);
 
 const Item = styled.li`
     ${({ theme }) => `

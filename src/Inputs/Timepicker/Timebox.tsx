@@ -16,7 +16,7 @@ interface TimeboxProps {
     name: string;
     onChange: Function;
     mount: boolean;
-    disabled: boolean;
+    disabled?: boolean;
 }
 
 export const Timebox: React.FC<TimeboxProps> = ({
