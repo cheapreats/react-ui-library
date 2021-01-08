@@ -9,7 +9,7 @@ import React, {
     RefObject,
     useLayoutEffect,
 } from 'react';
-import styled, { withTheme, DefaultTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import {
     flex,
     scroll,
@@ -28,21 +28,20 @@ const SPEED = 'normal';
 
 export interface ComboBoxSelectorProps extends LabelLayoutProps {
     value?: string | number;
-    theme: DefaultTheme;
     onChange?: Function;
     limit?: number;
     placeholder?: string;
 }
 
-const _Select: React.FC<ComboBoxSelectorProps> = ({
+export const ComboBox: React.FC<ComboBoxSelectorProps> = ({
     children,
     limit = MAX_VIEWING_LIMIT,
     onChange = (): void => undefined,
-    theme,
     placeholder,
     name,
     ...props
 }): React.ReactElement => {
+    const theme = useTheme();
     const [expanded, setExpanded] = useState(false);
     const [inputValue, setinputValue] = useState('');
     const [, mount, animation] = useTransition(expanded, {
@@ -168,8 +167,6 @@ const _Select: React.FC<ComboBoxSelectorProps> = ({
         </LabelLayout>
     );
 };
-
-export const ComboBox = withTheme(_Select);
 
 const Container = styled.div`
     ${flex('column')}
