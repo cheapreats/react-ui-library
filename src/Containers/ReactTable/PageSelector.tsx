@@ -5,7 +5,7 @@ import { RightArrowAlt } from '@styled-icons/boxicons-regular/RightArrowAlt';
 import { Button, ButtonProps } from '../../Inputs/Button/Button';
 import { SmallText, SmallTextProps } from '../../Text/SmallText';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { flex } from '../../Utils/Mixins';
+import { flex, darken } from '../../Utils/Mixins';
 
 export interface IPageSelectorProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
     goToPreviousPage: () => void;
@@ -44,6 +44,7 @@ export const PageSelector: React.FC<IPageSelectorProps> = ({
                     key={pageNumber} 
                     isActive={pageIndex === index}
                     onClick={() => goToPage(index)}
+                    primary
                     {...buttonProps}
                 > 
                     {index + INDEX_SHIFT}
@@ -77,7 +78,7 @@ interface ISButtonProps {
     isActive?: boolean;
 }
 const SButton = styled(Button)<ISButtonProps>`
-    ${({ theme, isActive }) => ` 
-        background-color: ${isActive ? theme.colors.border: theme.colors.background};
+    ${({ theme, isActive }) => isActive &&` 
+        background-color: ${darken(theme.colors.primary)};
     `};
 `;

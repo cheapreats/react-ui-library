@@ -1,5 +1,7 @@
+// @ts-nocheck
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
+import { useTable, usePagination } from 'react-table';
 import { ReactTable, IReactTableProps, IVendorsData } from './ReactTable';
 import { Profile, TagContainer } from '../VendorsList'; 
 import { SmallText } from '../../Text/SmallText';
@@ -50,44 +52,34 @@ const getReactTableProps = (): any => ({
     columns: [
         {
             Header: 'Client',
-            accessor: 'col_client',
-            profileStyleProps: {
-                style: { marginTop: '10px' }
-            },
             Cell: (cell: any) => (
                 <Profile
                     key={cell.row.original.id}
                     name={cell.row.original.name}
                     email={cell.row.original.email}
                     imageUrl={cell.row.original?.imageUrl}
-                    profileProps={{ style: { marginBottom: '5px' } }}
                 />
-            ),
+            )
         },
         {
             Header: 'Tags',
-            accessor: 'col_tags',
             Cell: (cell: any) => (
                 <TagContainer 
                     tags={cell.row.original.tags} 
                     isHoverable={false} 
-                    style={{ padding: '10px 0' }}
-                    tagProps={{ style: { margin: '5px 10px 0 0' }}}
+                    tagProps={{ style: { marginRight: '10px' }}}
                 />
-            ),
+            )
         },
         {
             Header: 'Created',
-            accessor: 'col_created',
             Cell: (cell: any) => (
-                <div style={{ padding: '10px 0' }}>
-                    <SmallText style={{ padding: '0 10px' }}>
-                        {cell.row.original.createdAt}
-                    </SmallText>
-                </div>
-            ),
+                <SmallText style={{ padding: '0 10px' }}>
+                    {cell.row.original.createdAt}
+                </SmallText>
+            )
         },
-    ],
+    ],    
     data: [
         {
             key: 1,
@@ -105,7 +97,7 @@ const getReactTableProps = (): any => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019',
+            createdAt: '23/05/2019',
         },
         {
             key: 3,
@@ -123,7 +115,7 @@ const getReactTableProps = (): any => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019',
+            createdAt: '23/05/2019',
         },
         {
             key: 5,
@@ -144,43 +136,49 @@ const getReactTableProps = (): any => ({
             createdAt: '24/05/2019'
         },
         {
-            id: 7,
+            key: 6,
+            id: '7',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
             createdAt: '24/05/2019'
         },
         {
-            id: 8,
+            key: 8,
+            id: '8',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
             createdAt: '24/05/2019'
         },
         {
-            id: 9,
+            key: 9,
+            id: '9',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019'
+            createdAt: '23/05/2019'
         },
         {
-            id: 10,
+            key: 10,
+            id: '10',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
             createdAt: '24/05/2019'
         },
         {
-            id: 11,
+            key: 11,
+            id: '11',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
             createdAt: '24/05/2019'
         },
         {
-            id: 12,
+            key: 12,
+            id: '12',
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
@@ -188,7 +186,8 @@ const getReactTableProps = (): any => ({
             createdAt: '24/05/2019'
         },
         {
-            id: 13,
+            key: 13,
+            id: '13',
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
@@ -196,14 +195,16 @@ const getReactTableProps = (): any => ({
             createdAt: '24/05/2019'
         },
         {
-            id: 14,
+            key: 14,
+            id: '14',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
             createdAt: '24/05/2019'
         },
         {
-            id: 15,
+            key: 15,
+            id: '15',
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
@@ -211,77 +212,62 @@ const getReactTableProps = (): any => ({
             createdAt: '24/05/2019'
         },
         {
-            id: 16,
+            key: 16,
+            id: '16',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
             createdAt: '24/05/2019'
-        },
-        {
-            id: 17,
-            name: 'Emy Jackson',
-            email: 'emy_jac@upmind.com',
-            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            tags: ['VIP Client', 'Early Adopter'],
-            createdAt: '24/05/2019'
-        },
-        {
-            id: 18,
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
-            createdAt: '24/05/2019'
-        },
-        {
-            id: 19,
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
-            createdAt: '24/05/2019'
-        },
-        {
-            id: 20,
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
-            createdAt: '24/05/2019'
-        },
-        {
-            id: 21,
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            tags: ['VIP Client'],
-            createdAt: '24/05/2019'
-        },
-        {
-            id: 22,
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
-            createdAt: '24/05/2019'
-        },
-        {
-            id: 23,
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
-            createdAt: '24/05/2019'
-        },
-        {
-            id: 24,
-            name: 'Emy Jackson',
-            email: 'emy_jac@upmind.com',
-            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            tags: ['VIP Client', 'Early Adopter'],
-            createdAt: '24/05/2019'
-        },
+        }
     ],
 });
 
-const Template: Story<IReactTableProps<IVendorsData>> = (args) => (
-    <ReactTable {...args} />
-);
+const Template: Story<IReactTableProps<IVendorsData>> = (args) => {
+    const { columns, data } = args;
+    console.log(columns)
+    const {
+        getTableProps,
+        getTableBodyProps,
+        headerGroups,
+        prepareRow,
+        page,
+        pageCount,
+        gotoPage,
+        nextPage,
+        previousPage,
+        setPageSize,
+        state: { pageIndex, pageSize }
+    } = useTable(
+        {
+            columns,
+            data,
+            initialState: { 
+                pageIndex: 0, 
+                pageSize: 5
+            }
+        },
+        usePagination
+    );
+    return (
+        <ReactTable 
+            data={data}
+            columns={columns}
+            getTableProps={getTableProps}
+            getTableBodyProps={getTableBodyProps}
+            headerGroups={headerGroups}
+            page={page}
+            prepareRow={prepareRow}
+            pageCount={pageCount}
+            gotoPage={gotoPage}
+            nextPage={nextPage}
+            previousPage={previousPage}
+            setPageSize={setPageSize}
+            pageIndex={pageIndex}
+            pageSize={pageSize}
+            {...args}
+        />
+    );
+}
 
 export const Basic = Template.bind({});
 Basic.args = getReactTableProps();

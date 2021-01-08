@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { HeaderGroup } from "react-table";
 import { List } from '../List';
 import { CollapsibleHeading, ICollapsibleHeadingProps } from '../CollapsibleHeading/CollapsibleHeading';
 import { DefaultFilter} from './DefaultFilter';
+import { IVendorsData } from '../ReactTable/ReactTable';
 import { Heading, HeadingProps } from '../../Text/Heading';
 import { ButtonProps } from '../../Inputs/Button/Button';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -25,7 +27,7 @@ export interface IVendorsFilterProps
     collapsibleHeadingProps?: ICollapsibleHeadingProps;
     filterValuesArr: string[];
     setFilterValuesArr: React.Dispatch<React.SetStateAction<string[]>>;
-    columns: any;
+    headerGroups: HeaderGroup<IVendorsData>;
 }
 
 const BACKGROUND_COLOR = '#FFFFFF';
@@ -36,7 +38,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
     filterItems,
     headingProps,
     collapsibleHeadingProps,
-    columns,
+    headerGroups,
     ...props
 }): React.ReactElement => {
     const [isCollapsedArr, setIsCollapsedArr] = useState(Array(filterItems.length).fill(false));
@@ -69,7 +71,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                                         return isCollapsed;
                                     })
                                 )}
-                                ChildElement={<DefaultFilter column={columns[FIRST_OPTION].headers[index]} />}
+                                ChildElement={<DefaultFilter column={headerGroups[FIRST_OPTION].headers[index]} />}
                                 {...collapsibleHeadingProps}
                             />
                         </>

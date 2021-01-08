@@ -1,6 +1,6 @@
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
-import { occupancyStatusTypes } from '../CircleTable2/CircleTable2';
+import { occupancyStatusTypes } from '../CircleTable/CircleTable';
 
 export interface IRectangleTable {
     /**

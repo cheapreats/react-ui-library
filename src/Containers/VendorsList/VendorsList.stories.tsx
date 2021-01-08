@@ -61,7 +61,6 @@ const getVendorsListProps = (): IVendorsListProps => ({
                     name={cell.row.original.name}
                     email={cell.row.original.email}
                     imageUrl={cell.row.original?.imageUrl}
-                    profileProps={{ style: { marginTop: '5px' } }}
                 />
             ),
             Filter: DefaultFilter

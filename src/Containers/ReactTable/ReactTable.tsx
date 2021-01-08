@@ -40,7 +40,6 @@ export interface IReactTableProps<T extends IVendorsData>
 
 export const ReactTable = <T extends IVendorsData>({
     data,
-    columns,
     tableProps,
     tableHeaderProps,
     tableRowProps,
@@ -73,9 +72,9 @@ export const ReactTable = <T extends IVendorsData>({
                     {headerGroup.headers.map((column) => (
                         <>
                             <STableHeader
+                                {...tableHeaderProps}
                                 {...column.getHeaderProps()}
                                 key={column.Header?.toString()}
-                                {...tableHeaderProps}
                             >
                                 {column.render('Header')}
                             </STableHeader>

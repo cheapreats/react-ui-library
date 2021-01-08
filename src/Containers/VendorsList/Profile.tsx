@@ -21,8 +21,8 @@ export interface IProfileProps
 }
 
 const MATCH_FIRST_LETTER = /\b\w/g;
-const PROFILE_WIDTH = 50;
-const PROFILE_HEIGHT = 50;
+const PROFILE_WIDTH = 60;
+const PROFILE_HEIGHT = 60;
 
 export const Profile: React.FC<IProfileProps> = ({
     key,

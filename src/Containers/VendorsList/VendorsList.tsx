@@ -5,6 +5,7 @@ import {
     useTable, 
     usePagination, 
     useFilters, 
+    Column,
 } from 'react-table';
 import { Import } from '@styled-icons/boxicons-regular/Import';
 import { Add } from '@styled-icons/ionicons-sharp/Add';
@@ -17,13 +18,17 @@ import { ReactTable, IVendorsData } from '../ReactTable/ReactTable';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
 
+interface ColumnData extends Column<IVendorsData> {
+    accessor: string;
+}
+
 export interface IVendorsListProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
             filterItems: IFilterItems[];
             data: IVendorsData[];
-            columns: any;
+            columns: ColumnData<IVendorsData>;
             navigationBarItems: INavigationItemProps[];
             headerRightButtonText: string;
             headerText: string;
@@ -71,7 +76,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
         <Wrapper {...props}>
             <Row>
                 <SVendorsFilter
-                    columns={headerGroups}
+                    headerGroups={headerGroups}
                     headingTitle={filterTitleText}
                     buttonText={filterButtonText}
                     filterItems={filterItems}
@@ -111,7 +116,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     pageSize={pageSize}
                     pageSelectOptions={[5, 10, 15, 20]}
                     tableHeaderProps={{ style: { marginBottom: '10px' } }}
-                    tableRowProps={{ style: { padding: '5px 0' } }}
+                    tableRowProps={{ style: { padding: '10px 0' } }}
                     headingProps={{ style: { margin: '0 5px' } }}
                     paginationProps={{ style: { marginTop: '10px' },
                         pageSelectorProps: { buttonProps: { style: { margin: '0 2px' } }, style: { margin: '10px 0' } }, 
