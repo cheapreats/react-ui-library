@@ -40,5 +40,5 @@
         }
     },
     "include": ["src/**/*", "__tests__"],
-    "exclude": ["node_modules", "scripts", "dist"]
+    "exclude": ["**/node_modules", "**/.*/", "scripts", "dist"]
 }
