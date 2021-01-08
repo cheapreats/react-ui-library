@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import styled, { withTheme, DefaultTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { position, flex, scroll, transition } from '@Utils/Mixins';
 import {
     Main,
@@ -14,20 +14,19 @@ export interface ModalProps
     extends ResponsiveInterface,
         MainInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    theme: DefaultTheme;
     onClose?: Function;
     width?: string | number;
     state: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
-const _Modal: React.FC<ModalProps> = ({
+export const Modal: React.FC<ModalProps> = ({
     onClose = (): void => undefined,
     width = 'default',
     children,
-    theme,
     state,
     ...props
 }): React.ReactElement => {
+    const theme = useTheme();
     const [show, setShow] = state;
     const [, mount, animation] = useTransition(show, {
         end: theme.speed.normal,
@@ -48,8 +47,6 @@ const _Modal: React.FC<ModalProps> = ({
         document.querySelector(`#modal`) as Element,
     );
 };
-
-export const Modal = withTheme(_Modal);
 
 const Container = styled.div`
     ${position('fixed')}

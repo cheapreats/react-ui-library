@@ -1,31 +1,37 @@
-import typescript from 'rollup-plugin-typescript2';
+import tsPlugin from 'rollup-plugin-typescript2';
+import ttypescript from 'ttypescript'
 import babel from "rollup-plugin-babel";
 import commonjs from "@rollup/plugin-commonjs";
-import pkg from './package.json';
+import { nodeResolve } from '@rollup/plugin-node-resolve';
+import css from 'rollup-plugin-css-only';
+import json from '@rollup/plugin-json';
 
-
-// include: [ "*.ts+(|x)", "**/*.ts+(|x)" ], 
-// useTsconfigDeclarationDir: false - emitted in directory given in tsconfig
 export default {
     input: 'src/index.ts',
     output: [
         {
-            file: pkg.main,
-            format: 'cjs',
-            exports: 'named',
-            sourcemap: true,
-            strict: false
+            dir: './dist',
+            format: 'esm',
         }
     ],
     plugins: [
-        typescript({ tsconfig: './tsconfig.json', tsconfigOverride: { compilerOptions : { module: "es2015" } } }),
+        tsPlugin({ typescript: ttypescript, tsconfigOverride: { compilerOptions : { module: "es2015" } }, tsconfigDefaults: {
+            compilerOptions: {
+                plugins: [
+                    { "transform": "@zerollup/ts-transform-paths" }
+                ]
+            }
+        } }),
         babel({
             exclude: 'node_modules/**',
             extensions: ['.ts', '.tsx'],
             plugins: ['babel-plugin-styled-components', 'babel-plugin-transform-class-properties'],
             presets: ['@babel/preset-env', '@babel/preset-react','@babel/preset-typescript']
         }),
-        commonjs()
+        css({output: 'bundle.css'}),
+        commonjs(),
+        json(),
+        nodeResolve({preferBuiltins: false}),
     ],
     external: ['react', 'react-dom']
 }
