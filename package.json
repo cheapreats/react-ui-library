@@ -1,8 +1,9 @@
 {
     "name": "@cheapreats/react-ui",
-    "version": "2.3.67",
+    "version": "2.3.68",
     "description": "React UI library for CheaprEats",
-    "main": "dist/index.ts",
+    "main": "dist/index.js",
+    "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
     "files": [
         "dist"
@@ -112,6 +113,7 @@
         "babel-plugin-transform-class-properties": "^6.24.1",
         "babel-runtime": "^6.26.0",
         "emoji-mart": "^3.0.0",
+        "react": "17.0.1",
         "react-beautiful-dnd": "^13.0.0",
         "react-dropzone": "^11.2.4",
         "react-image-crop": "^8.6.6",
@@ -122,6 +124,7 @@
         "rollup": "^2.36.1",
         "rollup-plugin-babel": "^4.4.0",
         "rollup-plugin-css-only": "^3.1.0",
+        "rollup-plugin-postcss": "^4.0.0",
         "rollup-plugin-typescript-paths": "^1.2.2",
         "rollup-plugin-typescript2": "^0.29.0",
         "ttypescript": "^1.5.12",
