@@ -3,6 +3,7 @@
     "version": "2.3.66",
     "description": "React UI library for CheaprEats",
     "main": "dist/index.js",
+    "types": "dist/index.d.ts",
     "files": [
         "dist"
     ],
