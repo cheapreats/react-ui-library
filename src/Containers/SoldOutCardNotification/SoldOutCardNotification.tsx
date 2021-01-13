@@ -3,23 +3,26 @@ import {Card as C} from '@Containers/Card/Card'
 import styled from 'styled-components'
 import {Mixins} from '@Utils'
 
+const FLEX_GROW_VALUE=1
+
 export interface ISoldOutCardNotificationProps{
     imgSrc:string;
     header:React.ReactElement;
     footer:React.ReactElement;
     content:React.ReactElement;
+    maxWidth?:number;
 }
 
-export const SoldOutCardNotification:React.FC<ISoldOutCardNotificationProps>=({imgSrc,header,footer,content}):React.ReactElement=>
+export const SoldOutCardNotification:React.FC<ISoldOutCardNotificationProps>=({imgSrc,header,footer,content,maxWidth=355}):React.ReactElement=>
     (
-        <Card animated widthFitContent>
-            <Container flex1='row'>
-                <Container flex1='column' flex2='space-around' flex={1}>
+        <Card animated widthFitContent maxWidth={maxWidth}>
+            <Container flexParam1='row'>
+                <Container flexParam1='column' flexParam2='space-around' flexGrow={FLEX_GROW_VALUE}>
                     {header}
                     {content}
                     {footer}
                 </Container>
-                <Container flex1='column' flex2='flex-end' flex={1}>
+                <Container flexParam1='column' flexParam2='flex-end' flexGrow={FLEX_GROW_VALUE}>
                     <Img src={imgSrc} />
                 </Container>
             </Container>
@@ -27,23 +30,18 @@ export const SoldOutCardNotification:React.FC<ISoldOutCardNotificationProps>=({i
     )
 
 interface IContainerProps{
-    flex1?:string;
-    flex2?:string;
-    flex?:number;
+    flexParam1?:string;
+    flexParam2?:string;
+    flexParam3?:string;
+    flexGrow?:number;
 }
 
 const Container=styled.div<IContainerProps>`
-    ${({flex1,flex2}):string=>{
-        if(flex1&&flex2){
-            return `${Mixins.flex(flex1,flex2)}`
-        }
-        if(flex1){
-            return `${Mixins.flex(flex1)}`
-        }
-        return ``
-    }}
-    ${({flex}):string=>`
-    ${flex!==undefined?`flex:${flex};`:''}
+    ${({flexParam1,flexParam2,flexParam3}):string=>`
+    ${flexParam1?`${Mixins.flex(flexParam1,flexParam2,flexParam3)}`:''}
+    `}
+    ${({flexGrow}):string=>`
+    ${flexGrow!==undefined?`flex:${flexGrow};`:''}
     `}
 `
 
@@ -54,8 +52,14 @@ border-radius:${theme.dimensions.radius};
 `}
 `
 
-const Card=styled(C)`
-max-width:355px;
+interface ICardProps{
+    maxWidth?:number;
+}
+
+const Card=styled(C)<ICardProps>`
+${({maxWidth}):string=>`
+${maxWidth!==undefined?`max-width:${maxWidth}px;`:''}
+`}
 `
 
 
