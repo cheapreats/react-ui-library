@@ -5,6 +5,10 @@ import {Mixins} from '@Utils'
 
 const FLEX_GROW_VALUE=1
 const MAX_WIDTH_DEFAULT_VALUE=355
+const FLEX_ROW='row'
+const FLEX_COLUMN='column'
+const FLEX_SPACE_AROUND='space-around'
+const FLEX_END='flex-end'
 
 export interface ISoldOutCardNotificationProps{
     imgSrc:string;
@@ -17,13 +21,13 @@ export interface ISoldOutCardNotificationProps{
 export const SoldOutCardNotification:React.FC<ISoldOutCardNotificationProps>=({imgSrc,header,footer,content,maxWidth=MAX_WIDTH_DEFAULT_VALUE}):React.ReactElement=>
     (
         <Card animated widthFitContent maxWidth={maxWidth}>
-            <Container flexParam1='row'>
-                <Container flexParam1='column' flexParam2='space-around' flexGrow={FLEX_GROW_VALUE}>
+            <Container flexParam1={FLEX_ROW}>
+                <Container flexParam1={FLEX_COLUMN} flexParam2={FLEX_SPACE_AROUND} flexGrow={FLEX_GROW_VALUE}>
                     {header}
                     {content}
                     {footer}
                 </Container>
-                <Container flexParam1='column' flexParam2='flex-end' flexGrow={FLEX_GROW_VALUE}>
+                <Container flexParam1={FLEX_COLUMN} flexParam2={FLEX_END} flexGrow={FLEX_GROW_VALUE}>
                     <Img src={imgSrc} />
                 </Container>
             </Container>
