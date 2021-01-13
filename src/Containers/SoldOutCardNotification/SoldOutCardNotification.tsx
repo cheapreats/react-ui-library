@@ -4,6 +4,7 @@ import styled from 'styled-components'
 import {Mixins} from '@Utils'
 
 const FLEX_GROW_VALUE=1
+const MAX_WIDTH_DEFAULT_VALUE=355
 
 export interface ISoldOutCardNotificationProps{
     imgSrc:string;
@@ -13,7 +14,7 @@ export interface ISoldOutCardNotificationProps{
     maxWidth?:number;
 }
 
-export const SoldOutCardNotification:React.FC<ISoldOutCardNotificationProps>=({imgSrc,header,footer,content,maxWidth=355}):React.ReactElement=>
+export const SoldOutCardNotification:React.FC<ISoldOutCardNotificationProps>=({imgSrc,header,footer,content,maxWidth=MAX_WIDTH_DEFAULT_VALUE}):React.ReactElement=>
     (
         <Card animated widthFitContent maxWidth={maxWidth}>
             <Container flexParam1='row'>
