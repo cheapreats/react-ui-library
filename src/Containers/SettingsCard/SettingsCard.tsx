@@ -4,15 +4,16 @@ import { StyledIcon } from 'styled-icons/types';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { Mixins } from '@Utils';
 import { Heading } from '@Text';
-import { Card as C } from '../Card/Card';
+import { Card as C, CardProps } from '../Card/Card';
 
 export interface SettingsCardProps
-    extends MainInterface,
+    extends CardProps, MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     heading: string;
     icon: StyledIcon;
     onClick?: (event: React.MouseEvent<Element, MouseEvent>) => void;
+    width: string;
 }
 
 export const SettingsCard: React.FC<SettingsCardProps> = ({
@@ -20,9 +21,10 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({
     heading,
     icon,
     onClick,
+    width = 'calc(50% - 20px)',
     ...props
 }): React.ReactElement => (
-    <Card {...props}>
+    <Card {...props} width={width}>
         <CardHeading type="h2">
             <HeadingIcon as={icon} onClick={onClick} />
             {heading}
@@ -33,7 +35,9 @@ export const SettingsCard: React.FC<SettingsCardProps> = ({
 interface HeadingIconProps {
     onClick?: (event: React.MouseEvent<Element, MouseEvent>) => void;
 }
-
+interface ICardProps extends CardProps {
+    width : string
+}
 const CardHeading = styled(Heading)`
     ${Mixins.flex('center')}
     margin: 5px 0 20px;
@@ -49,10 +53,10 @@ const HeadingIcon = styled.svg<HeadingIconProps>`
     margin: 5px 12px;
     ${(props): string => (props.onClick ? 'cursor: pointer;' : '')}
 `;
-const Card = styled(C)`
+const Card = styled(C)<ICardProps>`
     ${Mixins.flex('column')}
     padding: 20px 25px;
-    width: calc(50% - 20px);
+    width: ${({width}) => width};
     box-sizing: border-box;
     margin: 10px;
     ${Mixins.media(

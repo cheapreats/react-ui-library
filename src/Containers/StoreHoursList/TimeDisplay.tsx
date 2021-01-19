@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { convertTime } from './TimeFunctions';
-import { ICategoryWithHoursTypes } from './types';
+import { IHoursByDay, IToFromHours } from './types';
 import { Heading } from '../../Text';
 import { Tag } from '../Tag/Tag';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -10,63 +10,49 @@ interface TimeDisplayProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    activeCategorySchedule: ICategoryWithHoursTypes;
-    setActiveCategorySchedule: React.Dispatch<
-        React.SetStateAction<ICategoryWithHoursTypes>
-    >;
+    allCategoriesWithHours: IHoursByDay;
+    handleRemoveHours: (day: string, hoursIndex: number) => void;
     is24: boolean;
 }
 
-const CHECKBOX_DAY = 0;
-const CHECKBOX_TIME = 1;
-const FIRST_TIME = 0;
 const MATCH_FIRST_LETTER_PATTERN = /^\w/;
 
 export const TimeDisplay: React.FC<TimeDisplayProps> = ({
-    activeCategorySchedule,
-    setActiveCategorySchedule,
+    allCategoriesWithHours,
+    handleRemoveHours,
     is24,
     ...props
 }): React.ReactElement => (
     <Section {...props}>
-        {Object.entries(activeCategorySchedule.hoursByDay).map(
-            (day): React.ReactElement | null => {
-                const capitalDay = day[
-                    CHECKBOX_DAY
-                ].replace(
+        {Object.entries(allCategoriesWithHours).map(
+            ([day, toFromHoursArray]: [string, IToFromHours[]]): React.ReactElement | null => {
+                const capitalDay = day.replace(
                     MATCH_FIRST_LETTER_PATTERN,
                     (chr: string): string => chr.toUpperCase(),
                 );
-                return day[CHECKBOX_TIME].length > 0 ? (
+                return toFromHoursArray.length > 0 ? (
                     <div>
                         <Heading bold size="0.95em" padding="5">
                             {capitalDay}
                         </Heading>
-                        <Section
-                            as={Tag}
-                            key={day[CHECKBOX_DAY]}
-                            onClick={(): void => {
-                                const firstTime =
-                                        activeCategorySchedule.hoursByDay[
-                                            day[CHECKBOX_DAY]
-                                        ];
-                                firstTime.pop(); // only works with one time tag
-                                setActiveCategorySchedule({
-                                    ...activeCategorySchedule,
-                                    [day[CHECKBOX_DAY]]: [],
-                                });
-                            }}
-                        >
-                            {convertTime(
-                                day[CHECKBOX_TIME][FIRST_TIME].from,
-                                is24,
-                            )}
-                            {` - `}
-                            {convertTime(
-                                day[CHECKBOX_TIME][FIRST_TIME].to,
-                                is24,
-                            )}
-                        </Section>
+                        {toFromHoursArray.map((toFromHours, hoursIndex) => (
+                            <Section
+                                as={Tag}
+                                key={day}
+                                onClick={() => handleRemoveHours(day, hoursIndex)}
+                            >
+                                {convertTime(
+                                    toFromHours.from,
+                                    is24,
+                                )}
+                                {` - `}
+                                {convertTime(
+                                    toFromHours.to,
+                                    is24,
+                                )}
+                            </Section>
+                        ))}
+                            
                     </div>
                 ) : (
                     <Heading bold size="0.95em" margin="0">

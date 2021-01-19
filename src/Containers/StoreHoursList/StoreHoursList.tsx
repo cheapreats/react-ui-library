@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { BusinessTime } from '@styled-icons/fa-solid/BusinessTime';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
-import { ICategoryWithHoursTypes } from './types';
+import { ICategoryWithHoursTypes, ICategoryNew } from './types';
 import { findActive } from './CategoryScheduleFunctions';
 import { TimeDisplay } from './TimeDisplay';
 import { ErrorModal } from './ErrorModal';
@@ -21,13 +21,15 @@ export interface StoreHoursListProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    allCategories: ICategoryWithHoursTypes[];
+    allCategories: ICategoryNew;
     textHeaders: I_DICT;
+    width: string;
 }
 
 export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     allCategories,
     textHeaders,
+    width
 }): React.ReactElement => {
     const editModal = useState(false);
     const [editModalState, setEditModalState] = editModal;
@@ -36,52 +38,33 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const confirmModal = useState(false);
     const errorModal = useState(false);
 
-    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<
-        ICategoryWithHoursTypes[]
-    >(allCategories);
+    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryNew>(allCategories);
     const [deletedCategory, setDeletedCategory] = useState('');
-
-    const [activeCategory, setActiveCategory] = useState(
-        findActive(allCategoriesWithHours).category,
-    );
-    const [activeCategorySchedule, setActiveCategorySchedule] = useState<
-        ICategoryWithHoursTypes
-    >(findActive(allCategoriesWithHours));
+    const [activeCategory, setActiveCategory] = useState('');
 
     const [error] = useState('');
 
     const [is24, setIs24] = useState(true);
-
-    /**
-     * Gets the active schedule
-     * @param {string} categoryName - Name of category user creates
-     * @returns {ICategoryWithHoursTypes}
-     */
-    const getActiveSchedule = (
-        categoryName: string,
-    ): ICategoryWithHoursTypes => {
-        findActive(allCategoriesWithHours).isActive = false;
-        setActiveCategory(categoryName);
-        const activeSchedule = allCategoriesWithHours.find(
-            (el): ICategoryWithHoursTypes | null | boolean =>
-                categoryName === el.category,
-        );
-        if (activeSchedule) {
-            activeSchedule.isActive = true;
-            return activeSchedule;
-        }
-        return activeCategorySchedule;
-    };
+    const handleRemoveHours = (day: string, hoursIndex: number) => {
+        const allCategoriesWithHoursCopy = {...allCategoriesWithHours};
+        // Should remove the hours index of the array
+        allCategoriesWithHoursCopy[activeCategory][day].splice(hoursIndex, 1)
+        setAllCategoriesWithHours(allCategoriesWithHoursCopy);
+    }
 
     useEffect((): void => {
-        setActiveCategorySchedule(getActiveSchedule(activeCategory));
-    }, [activeCategorySchedule]);
+        const initialActive: string | undefined = Object.keys(allCategories)[0];
+        if(initialActive) {
+            setActiveCategory(initialActive);
+        }
+    }, []);
 
     return (
         <>
             <SettingsCard
                 heading={textHeaders.TITLES.HEADING}
                 icon={BusinessTime}
+                width={width}
             >
                 <ButtonsContainer>
                     <Section
@@ -99,11 +82,11 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 </ButtonsContainer>
                 <StyledHeading type="h6">
                     {textHeaders.TITLES.OPERATIONS}
-                    {activeCategorySchedule.category}
+                    {allCategoriesWithHours[activeCategory].category}
                 </StyledHeading>
                 <TimeDisplay
-                    activeCategorySchedule={activeCategorySchedule}
-                    setActiveCategorySchedule={setActiveCategorySchedule}
+                    allCategoriesWithHours={allCategoriesWithHours[activeCategory].hoursByDay}
+                    handleRemoveHours={handleRemoveHours}
                     is24={is24}
                 />
             </SettingsCard>
@@ -123,8 +106,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 SET_ACTIVE_BUTTON={textHeaders.BUTTONS.SET_ACTIVE}
                 activeCategory={activeCategory}
                 setActiveCategory={setActiveCategory}
-                activeCategorySchedule={activeCategorySchedule}
-                setActiveCategorySchedule={setActiveCategorySchedule}
             />
             <EditCategoryModal
                 isVisible={editCategoryModal}
@@ -155,6 +136,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 ADD_HOURS_BUTTON={textHeaders.BUTTONS.ADD_HOURS}
                 errorMessage={textHeaders.ERRORS.ONLY_ONE_TIME}
                 allCategories={allCategoriesWithHours}
+                activeCategory={activeCategory}
             />
             <ConfirmModal
                 isVisible={confirmModal}

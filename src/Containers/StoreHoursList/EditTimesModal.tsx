@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
-import { ICategoryWithHoursTypes } from './types';
+import { ICategoryWithHoursTypes, ICategoryNew } from './types';
 import { findActive } from './CategoryScheduleFunctions';
 import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
@@ -24,20 +24,11 @@ interface EditTimeProps
     CHANGE_ACTIVE: string;
     CHANGE_ACTIVE_SUBTITLE: string;
     SET_ACTIVE_BUTTON: string;
-    allCategories: ICategoryWithHoursTypes[];
-    setAllCategories: React.Dispatch<
-        React.SetStateAction<ICategoryWithHoursTypes[]>
-    >;
+    allCategories: ICategoryNew;
+    setAllCategories: React.Dispatch<React.SetStateAction<ICategoryNew>>
     activeCategory: string;
     setActiveCategory: React.Dispatch<React.SetStateAction<string>>;
-    activeCategorySchedule: ICategoryWithHoursTypes;
-    setActiveCategorySchedule: React.Dispatch<
-        React.SetStateAction<ICategoryWithHoursTypes>
-    >;
 }
-
-const CATEGORY_INDEX = 0;
-const CATEGORY_SCHEDULE = 1;
 
 export const EditTimesModal: React.FC<EditTimeProps> = ({
     isVisible,
@@ -51,8 +42,6 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
     SET_ACTIVE_BUTTON,
     activeCategory,
     setActiveCategory,
-    activeCategorySchedule,
-    setActiveCategorySchedule,
     allCategories,
     ...props
 }): React.ReactElement => {
@@ -62,30 +51,8 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
         setEditCategoryModalState,
     ] = editCategoryModal;
 
-    const [selectActiveCategory, setSelectActiveCategory] = useState(
-        findActive(allCategories).category,
-    );
+    const [selectActiveCategory, setSelectActiveCategory] = useState(activeCategory);
 
-    /**
-     * Gets the active schedule
-     * @param {string} categoryName - Name of category user creates
-     * @returns {ICategoryWithHoursTypes}
-     */
-    const getActiveSchedule = (
-        categoryName: string,
-    ): ICategoryWithHoursTypes => {
-        findActive(allCategories).isActive = false;
-        setActiveCategory(categoryName);
-        const activeSchedule = allCategories.find(
-            (el): ICategoryWithHoursTypes | null | boolean =>
-                categoryName === el.category,
-        );
-        if (activeSchedule) {
-            activeSchedule.isActive = true;
-            return activeSchedule;
-        }
-        return activeCategorySchedule;
-    };
 
     return (
         <StyledModal state={isVisible} {...props}>
@@ -120,16 +87,13 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
                 }}
                 value={selectActiveCategory}
             >
-                {Object.entries(allCategories).map(
-                    (listAllCategories): React.ReactElement => (
+                {Object.values(allCategories).map(
+                    ({category}): React.ReactElement => (
                         <option
-                            key={listAllCategories[CATEGORY_INDEX]}
-                            value={
-                                listAllCategories[CATEGORY_SCHEDULE]
-                                    .category
-                            }
+                            key={category}
+                            value={category}
                         >
-                            {listAllCategories[CATEGORY_SCHEDULE].category}
+                            {category}
                         </option>
                     ),
                 )}
@@ -137,11 +101,7 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
             <ButtonsContainer>
                 <Section
                     as={Button}
-                    onClick={(): void => {
-                        setActiveCategorySchedule(
-                            getActiveSchedule(selectActiveCategory),
-                        );
-                    }}
+                    onClick={(): void => setActiveCategory(selectActiveCategory)}
                 >
                     {SET_ACTIVE_BUTTON}
                 </Section>

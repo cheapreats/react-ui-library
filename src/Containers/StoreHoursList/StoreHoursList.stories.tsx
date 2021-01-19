@@ -7,8 +7,8 @@ export default {
     title: createStoryTitle('StoreHoursList'),
     component: StoreHoursList,
     args: {
-        allCategories: [
-            {
+        allCategories: {
+            Winter: {
                 category: 'Winter',
                 hoursByDay: {
                     monday: [
@@ -29,9 +29,8 @@ export default {
                     saturday: [],
                     sunday: [],
                 },
-                isActive: true,
             },
-            {
+            Summer: {
                 category: 'Summer',
                 hoursByDay: {
                     monday: [
@@ -54,7 +53,7 @@ export default {
                 },
                 isActive: false,
             },
-            {
+            Holidays: {
                 category: 'Holidays',
                 hoursByDay: {
                     monday: [
@@ -76,8 +75,9 @@ export default {
                     sunday: [],
                 },
                 isActive: false,
-            },
-        ],
+            }
+        },
+        width: '50%'
     },
 } as Meta;
 

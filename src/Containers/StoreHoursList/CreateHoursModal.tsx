@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { ICategoryWithHoursTypes, InitialCheckboxState } from './types';
 import { convertDateToHours } from './TimeFunctions';
-import { findActive } from './CategoryScheduleFunctions';
 import { ErrorModal } from './ErrorModal';
 import { FromToDualTimeSelector } from './FromToDualTimeSelector';
 import { Modal } from '../Modal/Modal';
@@ -26,6 +25,7 @@ interface CreateHoursProps
     ADD_HOURS_BUTTON: string;
     errorMessage: string;
     allCategories: ICategoryWithHoursTypes[];
+    activeCategory: string;
 }
 
 const CHECKED_INITIAL_INDEX = 0;
@@ -55,6 +55,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     ADD_HOURS_BUTTON,
     errorMessage,
     allCategories,
+    activeCategory,
     ...props
 }): React.ReactElement => {
     const [addModalState, setAddModalState] = isVisible;
@@ -68,9 +69,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
         to: new Date(),
     });
 
-    const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(
-        findActive(allCategories).category,
-    );
+    const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(activeCategory);
 
     const [error, setError] = useState('');
 
