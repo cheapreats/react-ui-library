@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { BusinessTime } from '@styled-icons/fa-solid/BusinessTime';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
+import { Formik } from 'formik';
 import { ICategoryWithHoursTypes, ICategoryNew } from './types';
-import { findActive } from './CategoryScheduleFunctions';
 import { TimeDisplay } from './TimeDisplay';
 import { ErrorModal } from './ErrorModal';
 import { ConfirmModal } from './ConfirmModal';
@@ -21,7 +21,7 @@ export interface StoreHoursListProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    allCategories: ICategoryNew;
+    allCategories: ICategoryWithHoursTypes[];
     textHeaders: I_DICT;
     width: string;
 }
@@ -37,10 +37,10 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const editCategoryModal = useState(false);
     const confirmModal = useState(false);
     const errorModal = useState(false);
-
-    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryNew>(allCategories);
-    const [deletedCategory, setDeletedCategory] = useState('');
-    const [activeCategory, setActiveCategory] = useState('');
+    console.log(allCategories, 'all categories')
+    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryWithHoursTypes[]>(allCategories);
+    const [deletedCategory, setDeletedCategory] = useState(0);
+    const [activeCategory, setActiveCategory] = useState(0);
 
     const [error] = useState('');
 
@@ -48,107 +48,108 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const handleRemoveHours = (day: string, hoursIndex: number) => {
         const allCategoriesWithHoursCopy = {...allCategoriesWithHours};
         // Should remove the hours index of the array
-        allCategoriesWithHoursCopy[activeCategory][day].splice(hoursIndex, 1)
+        allCategoriesWithHoursCopy[activeCategory].hoursByDay[day].splice(hoursIndex, 1);
+
         setAllCategoriesWithHours(allCategoriesWithHoursCopy);
     }
 
-    useEffect((): void => {
-        const initialActive: string | undefined = Object.keys(allCategories)[0];
-        if(initialActive) {
-            setActiveCategory(initialActive);
-        }
-    }, []);
-
     return (
-        <>
-            <SettingsCard
-                heading={textHeaders.TITLES.HEADING}
-                icon={BusinessTime}
-                width={width}
-            >
-                <ButtonsContainer>
-                    <Section
-                        as={Button}
-                        icon={Edit}
-                        onClick={(): void => {
-                            setEditModalState(!editModalState);
-                        }}
+        <Formik
+            initialValues={allCategoriesWithHours}
+            onSubmit={() => undefined}
+            enableReinitialize
+        >
+            {({ values, dirty, isValid }) => (
+                <>
+                    <SettingsCard
+                        heading={textHeaders.TITLES.HEADING}
+                        icon={BusinessTime}
+                        width={width}
                     >
-                        {textHeaders.BUTTONS.EDIT}
-                    </Section>
-                    <Section as={Button} onClick={(): void => setIs24(!is24)}>
-                        {textHeaders.BUTTONS.TOGGLE}
-                    </Section>
-                </ButtonsContainer>
-                <StyledHeading type="h6">
-                    {textHeaders.TITLES.OPERATIONS}
-                    {allCategoriesWithHours[activeCategory].category}
-                </StyledHeading>
-                <TimeDisplay
-                    allCategoriesWithHours={allCategoriesWithHours[activeCategory].hoursByDay}
-                    handleRemoveHours={handleRemoveHours}
-                    is24={is24}
-                />
-            </SettingsCard>
-            <EditTimesModal
-                isVisible={editModal}
-                FIRST_MODAL_HEADER={textHeaders.TITLES.FIRST_MODAL_HEADER}
-                allCategories={allCategoriesWithHours}
-                setAllCategories={setAllCategoriesWithHours}
-                addModal={addModal}
-                editCategoryModal={editCategoryModal}
-                ADD_HOURS_BUTTON={textHeaders.BUTTONS.ADD_HOURS}
-                EDIT_CATEGORY_BUTTON={textHeaders.BUTTONS.EDIT_CATEGORIES}
-                CHANGE_ACTIVE={textHeaders.TITLES.CHANGE_ACTIVE}
-                CHANGE_ACTIVE_SUBTITLE={
-                    textHeaders.TITLES.CHANGE_ACTIVE_SUBTITLE
-                }
-                SET_ACTIVE_BUTTON={textHeaders.BUTTONS.SET_ACTIVE}
-                activeCategory={activeCategory}
-                setActiveCategory={setActiveCategory}
-            />
-            <EditCategoryModal
-                isVisible={editCategoryModal}
-                thirdModalHeader={textHeaders.TITLES.THIRD_MODAL_HEADER}
-                CANNOT_ADD_EMPTY={textHeaders.ERRORS.CANNOT_ADD_EMPTY}
-                CATEGORY_EXISTS={textHeaders.ERRORS.CATEGORY_EXISTS}
-                ALL_CATEGORIES={textHeaders.TITLES.ALL_CATEGORIES}
-                ADD_CATEGORIES_SUBTITLE={
-                    textHeaders.TITLES.ALL_CATEGORIES_SUBTITLE
-                }
-                CANNOT_DELETE_ACTIVE={
-                    textHeaders.ERRORS.CANNOT_DELETE_ACTIVE_CATEGORY
-                }
-                ADD_CATEGORY_BUTTON={textHeaders.BUTTONS.ADD_CATEGORY}
-                allCategories={allCategoriesWithHours}
-                setAllCategories={setAllCategoriesWithHours}
-                activeCategory={activeCategory}
-                isConfirmModal={confirmModal}
-                setDeletedCategory={setDeletedCategory}
-            />
-            <CreateHoursModal
-                isVisible={addModal}
-                MODAL_HEADER={textHeaders.TITLES.SECOND_MODAL_HEADER}
-                SELECT_A_DAY_TITLE={textHeaders.TITLES.SELECT_A_DAY}
-                fromTimeTooBigError={textHeaders.ERRORS.FROM_TIME_TOO_BIG}
-                toTimeTooSmallError={textHeaders.ERRORS.TO_TIME_TOO_SMALL}
-                SELECT_A_CATEGORY={textHeaders.TITLES.SELECT_A_CATEGORY}
-                ADD_HOURS_BUTTON={textHeaders.BUTTONS.ADD_HOURS}
-                errorMessage={textHeaders.ERRORS.ONLY_ONE_TIME}
-                allCategories={allCategoriesWithHours}
-                activeCategory={activeCategory}
-            />
-            <ConfirmModal
-                isVisible={confirmModal}
-                confirmDelete={textHeaders.TITLES.CONFIRM_DELETE}
-                yesButtonLabel={textHeaders.BUTTONS.YES}
-                noButtonLabel={textHeaders.BUTTONS.NO}
-                allCategories={allCategoriesWithHours}
-                setAllCategories={setAllCategoriesWithHours}
-                deletedCategory={deletedCategory}
-            />
-            <ErrorModal modalState={errorModal} errorMessage={error} />
-        </>
+                        <ButtonsContainer>
+                            <Section
+                                as={Button}
+                                icon={Edit}
+                                onClick={(): void => {
+                                    setEditModalState(!editModalState);
+                                }}
+                            >
+                                {textHeaders.BUTTONS.EDIT}
+                            </Section>
+                            <Section as={Button} onClick={(): void => setIs24(!is24)}>
+                                {textHeaders.BUTTONS.TOGGLE}
+                            </Section>
+                        </ButtonsContainer>
+                        <StyledHeading type="h6">
+                            {textHeaders.TITLES.OPERATIONS}
+                            {values[activeCategory].category}
+                        </StyledHeading>
+                        <TimeDisplay
+                            allCategoriesWithHours={values[activeCategory].hoursByDay}
+                            handleRemoveHours={handleRemoveHours}
+                            is24={is24}
+                        />
+                    </SettingsCard>
+                    <EditTimesModal
+                        isVisible={editModal}
+                        FIRST_MODAL_HEADER={textHeaders.TITLES.FIRST_MODAL_HEADER}
+                        allCategories={values}
+                        addModal={addModal}
+                        editCategoryModal={editCategoryModal}
+                        ADD_HOURS_BUTTON={textHeaders.BUTTONS.ADD_HOURS}
+                        EDIT_CATEGORY_BUTTON={textHeaders.BUTTONS.EDIT_CATEGORIES}
+                        CHANGE_ACTIVE={textHeaders.TITLES.CHANGE_ACTIVE}
+                        CHANGE_ACTIVE_SUBTITLE={
+                            textHeaders.TITLES.CHANGE_ACTIVE_SUBTITLE
+                        }
+                        SET_ACTIVE_BUTTON={textHeaders.BUTTONS.SET_ACTIVE}
+                        activeCategory={activeCategory}
+                        setActiveCategory={setActiveCategory}
+                    />
+                    <EditCategoryModal
+                        isVisible={editCategoryModal}
+                        thirdModalHeader={textHeaders.TITLES.THIRD_MODAL_HEADER}
+                        CANNOT_ADD_EMPTY={textHeaders.ERRORS.CANNOT_ADD_EMPTY}
+                        CATEGORY_EXISTS={textHeaders.ERRORS.CATEGORY_EXISTS}
+                        ALL_CATEGORIES={textHeaders.TITLES.ALL_CATEGORIES}
+                        ADD_CATEGORIES_SUBTITLE={
+                            textHeaders.TITLES.ALL_CATEGORIES_SUBTITLE
+                        }
+                        CANNOT_DELETE_ACTIVE={
+                            textHeaders.ERRORS.CANNOT_DELETE_ACTIVE_CATEGORY
+                        }
+                        ADD_CATEGORY_BUTTON={textHeaders.BUTTONS.ADD_CATEGORY}
+                        allCategories={allCategoriesWithHours}
+                        setAllCategories={setAllCategoriesWithHours}
+                        activeCategory={activeCategory}
+                        isConfirmModal={confirmModal}
+                        setDeletedCategory={setDeletedCategory}
+                    />
+                    <CreateHoursModal
+                        isVisible={addModal}
+                        MODAL_HEADER={textHeaders.TITLES.SECOND_MODAL_HEADER}
+                        SELECT_A_DAY_TITLE={textHeaders.TITLES.SELECT_A_DAY}
+                        fromTimeTooBigError={textHeaders.ERRORS.FROM_TIME_TOO_BIG}
+                        toTimeTooSmallError={textHeaders.ERRORS.TO_TIME_TOO_SMALL}
+                        SELECT_A_CATEGORY={textHeaders.TITLES.SELECT_A_CATEGORY}
+                        ADD_HOURS_BUTTON={textHeaders.BUTTONS.ADD_HOURS}
+                        errorMessage={textHeaders.ERRORS.ONLY_ONE_TIME}
+                        allCategories={allCategoriesWithHours}
+                        activeCategory={activeCategory}
+                    />
+                    <ConfirmModal
+                        isVisible={confirmModal}
+                        confirmDelete={textHeaders.TITLES.CONFIRM_DELETE}
+                        yesButtonLabel={textHeaders.BUTTONS.YES}
+                        noButtonLabel={textHeaders.BUTTONS.NO}
+                        allCategories={allCategoriesWithHours}
+                        setAllCategories={setAllCategoriesWithHours}
+                        deletedCategory={deletedCategory}
+                    />
+                    <ErrorModal modalState={errorModal} errorMessage={error} />
+                </>
+            )}
+        </Formik>
     );
 };
 

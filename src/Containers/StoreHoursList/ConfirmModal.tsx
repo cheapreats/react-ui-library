@@ -21,7 +21,7 @@ interface ConfirmModalProps
     setAllCategories: React.Dispatch<
         React.SetStateAction<ICategoryWithHoursTypes[]>
     >;
-    deletedCategory: string;
+    deletedCategory: number;
 }
 
 export const ConfirmModal: React.FC<ConfirmModalProps> = ({
@@ -38,12 +38,9 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
 
     const handleClick = (): void => {
         setConfirmModalState(!confirmModalState);
-        setAllCategories(
-            allCategories.filter(
-                (el): ICategoryWithHoursTypes | null | boolean =>
-                    el.category !== deletedCategory,
-            ),
-        );
+        const categoriesCopy = [...allCategories];
+        categoriesCopy.splice(deletedCategory, 1)
+        setAllCategories(categoriesCopy);
     };
 
     return (

@@ -10,7 +10,7 @@ interface ErrorModalProps
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     modalState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-    errorMessage: string;
+    errorMessage?: string;
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
 }
 

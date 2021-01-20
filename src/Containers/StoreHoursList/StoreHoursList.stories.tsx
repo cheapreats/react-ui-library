@@ -7,8 +7,8 @@ export default {
     title: createStoryTitle('StoreHoursList'),
     component: StoreHoursList,
     args: {
-        allCategories: {
-            Winter: {
+        allCategories: [
+            {
                 category: 'Winter',
                 hoursByDay: {
                     monday: [
@@ -29,8 +29,7 @@ export default {
                     saturday: [],
                     sunday: [],
                 },
-            },
-            Summer: {
+            },{
                 category: 'Summer',
                 hoursByDay: {
                     monday: [
@@ -51,9 +50,8 @@ export default {
                     saturday: [],
                     sunday: [],
                 },
-                isActive: false,
             },
-            Holidays: {
+            {
                 category: 'Holidays',
                 hoursByDay: {
                     monday: [
@@ -73,11 +71,9 @@ export default {
                     friday: [],
                     saturday: [],
                     sunday: [],
-                },
-                isActive: false,
+                }
             }
-        },
-        width: '50%'
+        ]
     },
 } as Meta;
 
@@ -91,7 +87,7 @@ const textHeaders = {
         CHANGE_ACTIVE: 'Change the active category',
         CHANGE_ACTIVE_SUBTILTE:
             'This will be the category of times shown to the customers',
-        SELECT_A_DAY: 'Select a day',
+        SELECT_A_DAY: 'Select days to add hours',
         SELECT_A_CATEGORY: 'Select a category',
         ALL_CATEGORIES: 'Current Categories',
         ALL_CATEGORIES_SUBTITLE:

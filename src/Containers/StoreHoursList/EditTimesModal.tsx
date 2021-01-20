@@ -2,8 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
-import { ICategoryWithHoursTypes, ICategoryNew } from './types';
-import { findActive } from './CategoryScheduleFunctions';
+import { ICategoryWithHoursTypes } from './types';
 import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button/Button';
@@ -24,10 +23,9 @@ interface EditTimeProps
     CHANGE_ACTIVE: string;
     CHANGE_ACTIVE_SUBTITLE: string;
     SET_ACTIVE_BUTTON: string;
-    allCategories: ICategoryNew;
-    setAllCategories: React.Dispatch<React.SetStateAction<ICategoryNew>>
-    activeCategory: string;
-    setActiveCategory: React.Dispatch<React.SetStateAction<string>>;
+    allCategories: ICategoryWithHoursTypes[];
+    activeCategory: number;
+    setActiveCategory: React.Dispatch<React.SetStateAction<number>>;
 }
 
 export const EditTimesModal: React.FC<EditTimeProps> = ({
@@ -81,17 +79,17 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
                 as={Select}
                 label={CHANGE_ACTIVE}
                 description={CHANGE_ACTIVE_SUBTITLE}
-                placeholder={activeCategory}
+                placeholder={allCategories[selectActiveCategory].category}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                    setSelectActiveCategory(e.target.value);
+                    setSelectActiveCategory(e.target.value as unknown as number);
                 }}
-                value={selectActiveCategory}
+                value={allCategories[selectActiveCategory].category}
             >
                 {Object.values(allCategories).map(
-                    ({category}): React.ReactElement => (
+                    ({category}, index): React.ReactElement => (
                         <option
                             key={category}
-                            value={category}
+                            value={index}
                         >
                             {category}
                         </option>

@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { ICategoryWithHoursTypes, InitialCheckboxState } from './types';
+import  moment  from 'moment';
+import { useFormik, FieldArray } from 'formik';
+
+import { ICategoryWithHoursTypes, InitialCheckboxState, IToFromHours, IHoursByDay } from './types';
 import { convertDateToHours } from './TimeFunctions';
 import { ErrorModal } from './ErrorModal';
 import { FromToDualTimeSelector } from './FromToDualTimeSelector';
@@ -25,7 +28,7 @@ interface CreateHoursProps
     ADD_HOURS_BUTTON: string;
     errorMessage: string;
     allCategories: ICategoryWithHoursTypes[];
-    activeCategory: string;
+    activeCategory: number;
 }
 
 const CHECKED_INITIAL_INDEX = 0;
@@ -35,16 +38,28 @@ const ALL_CATEGORIES_TIMES = 1;
 const CHECKBOX_DAY = 0;
 const CHECKBOX_TIME = 1;
 const MATCH_FIRST_LETTER_PATTERN = /^\w/;
-const initialCheckboxState: InitialCheckboxState = {
-    monday: false,
-    tuesday: false,
-    wednesday: false,
-    thursday: false,
-    friday: false,
-    saturday: false,
-    sunday: false,
+const initialState = {
+    checkboxes: {monday: false,
+        tuesday: false,
+        wednesday: false,
+        thursday: false,
+        friday: false,
+        saturday: false,
+        sunday: false,
+    },
+    storeHours: {
+        from: moment().format('HH:mm'),
+        to: moment().format('HH:mm'),
+    }
 };
-
+const DAYS_OF_THE_WEEK = ["monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday"
+]
 export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     isVisible,
     MODAL_HEADER,
@@ -59,98 +74,94 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     ...props
 }): React.ReactElement => {
     const [addModalState, setAddModalState] = isVisible;
-    const errorModal = useState(false);
-    const [errorModalState, setErrorModalState] = errorModal;
-
-    const [checkboxes, setCheckboxes] = useState(initialCheckboxState);
-
-    const [storeHours, setStoreHours] = useState({
-        from: new Date(),
-        to: new Date(),
-    });
-
+    const [errorModalState, setErrorModalState] = useState(false);
     const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(activeCategory);
-
-    const [error, setError] = useState('');
-
-    useEffect((): void => {
-        setCheckboxes(initialCheckboxState);
-    }, [addModalState]);
+    const [mergeMessage, setMergeMessage] = useState('')
+    const {
+        values,
+        dirty,
+        isValid,
+        errors,
+        handleChange,
+        setFieldValue
+    } = useFormik({
+        initialValues: initialState,
+        onSubmit: ()=> undefined,
+        enableReinitialize: true,
+    });
+    // useEffect((): void => {
+    //     setCheckboxes(initialState);
+    // }, [addModalState]);
 
     /**
      * Checks if there is more than one time in a day given a category name
      * @param {string} categoryName - Name of category that needs hours to be saved
      * @returns {boolean} - Returns true if more than one category appears
      */
-    const onlyOneTimePerDay = (categoryName: string): boolean => {
-        let check = false;
-        const timedArray = allCategories.find(
-            (
-                categorySchedule: ICategoryWithHoursTypes,
-            ): ICategoryWithHoursTypes | null | boolean =>
-                categorySchedule.category === categoryName,
-        );
-        if (timedArray !== undefined) {
-            Object.entries(checkboxes).forEach((checkbox): void => {
-                if (
-                    checkbox[CHECKBOX_TIME] &&
-                    timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length >= 1
-                ) {
-                    // cannot have more than one time per day
-                    check = true;
-                }
-            });
-        }
-        return check;
-    };
-
-    /**
-     * Saves selected time from user
-     * @param {string} categoryName - Name of category that needs hours to be saved
-     * @returns {ICategoryWithHoursType | null} - Updated category schedule with new time
-     */
-    const saveHours = (categoryName: string): void => {
-        const timedArray = allCategories.find(
-            (
-                categorySchedule: ICategoryWithHoursTypes,
-            ): ICategoryWithHoursTypes | null | boolean =>
-                categorySchedule.category === categoryName,
-        );
-        if (timedArray !== undefined) {
-            Object.entries(checkboxes).map(
-                (checkbox): ICategoryWithHoursTypes | null => {
-                    if (
-                        checkbox[CHECKBOX_TIME] &&
-                        timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].length ===
-                            0
-                    ) {
-                        // add time
-                        const convertedTime = convertDateToHours(storeHours);
-                        if (convertedTime !== null) {
-                            timedArray.hoursByDay[checkbox[CHECKBOX_DAY]].push({
-                                from: convertedTime.from,
-                                to: convertedTime.to,
-                            });
-                            setCheckboxes(initialCheckboxState);
-                            return timedArray;
+    const mergeOrAddTime = (categoryName: number) => {
+        const category = allCategories[categoryName]
+        const mergedToFromHours = {
+            monday: [],
+            tuesday: [],
+            wednesday: [],
+            thursday: [],
+            friday: [],
+            saturday: [],
+            sunday: [],
+        };
+        const mergedTimes = {};
+        DAYS_OF_THE_WEEK.map(day => {
+        
+            const hoursForDayOfWeek: IToFromHours[] = category.hoursByDay[day];
+            if (values.checkboxes[day]) {
+                const hoursCopy = {...values.storeHours};
+                if(hoursForDayOfWeek.length > 0) {
+                    hoursForDayOfWeek.map(hours => {
+                        console.log(moment(hoursCopy.to, 'HH:mm').isAfter(moment(hours.from, 'HH:mm'), 'minutes'), moment(hoursCopy.to, 'HH:mm').isBefore(moment(hours.to, 'HH:mm'), 'minutes'), moment(hoursCopy.from, 'HH:mm').isAfter(moment(hours.from, 'HH:mm'), 'minutes'), moment(hoursCopy.from, 'HH:mm').isBefore(moment(hours.to, 'HH:mm'), 'minutes'))
+                        if(moment(hoursCopy.to).isAfter(hours.from, 'minutes')  && moment(hoursCopy.to).isBefore(hours.to, 'minutes')) {
+                            console.log('moment to')
+                            hoursCopy.to = hours.to
+                            if (moment(hoursCopy.from).isAfter(hours.from, 'minutes')) {
+                                hoursCopy.from = hours.from
+                            }
+                            mergedTimes[day] = hours;
+                        } 
+                        if (moment(hoursCopy.from).isAfter(hours.from, 'minutes')  && moment(hoursCopy.from).isBefore(hours.to, 'minutes')) {
+                            console.log('moment from')
+                            hoursCopy.from = hours.from
+                            if (moment(hoursCopy.to).isBefore(hours.to, 'minutes')) {
+                                hoursCopy.to = hours.to
+                            }
+                            mergedTimes[day] = hours;
+                        } else {
+                            mergedToFromHours[day].push(hours)
                         }
-                    }
-                    return null;
-                },
-            );
-        }
+                        
+                    })
+                }
+               
+            } else {
+                mergedToFromHours[day] = hoursForDayOfWeek;
+            }
+        })
+        console.log(mergedTimes, mergedToFromHours, 'merged')
     };
+    
+    const setStoreHours = (hours: IToFromHours) => {
+        setFieldValue('storeHours', hours)
+    }
 
-    const handleChange = (): void => {
-        if (onlyOneTimePerDay(addStoreHoursCategory)) {
-            setError(errorMessage);
-            setErrorModalState(!errorModalState);
-        } else {
-            saveHours(addStoreHoursCategory);
-            setAddModalState(!addModalState);
-        }
-    };
-
+    const upperCaseFirstLetter = (day: string) => day.charAt(0).toUpperCase() + day.slice(1)
+    // const handleAddHours = (): void => {
+    //     if (mergeOrAddTime(addStoreHoursCategory)) {
+    //         setError(errorMessage);
+    //         setErrorModalState(!errorModalState);
+    //     } else {
+    //         saveHours(addStoreHoursCategory);
+    //         setAddModalState(!addModalState);
+    //     }
+    // };
+    console.log(values.storeHours, 'storehours')
     return (
         <>
             <StyledModal state={isVisible} {...props}>
@@ -159,34 +170,20 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     <StyledHeading type="h6">
                         {SELECT_A_DAY_TITLE}
                     </StyledHeading>
-                    {Object.entries(checkboxes).map(
-                        (checked): React.ReactElement => (
+                    { DAYS_OF_THE_WEEK.map(
+                        (day): React.ReactElement => (
                             <Section
                                 as={Checkbox}
-                                key={checked[CHECKED_INITIAL_INDEX]}
-                                label={checked[
-                                    CHECKED_INITIAL_INDEX
-                                ].replace(
-                                    MATCH_FIRST_LETTER_PATTERN,
-                                    (char: string): string =>
-                                        char.toUpperCase(),
-                                )}
-                                onChange={(): void => {
-                                    setCheckboxes({
-                                        ...checkboxes,
-                                        [checked[
-                                            CHECKED_INITIAL_INDEX
-                                        ]]: !checked[CHECKED_VALUE],
-                                    });
-                                }}
+                                key={day}
+                                name={`checkboxes.${day}`}
+                                label={upperCaseFirstLetter(day)}
+                                onChange={handleChange}
                             />
                         ),
                     )}
                 </DaysDiv>
                 <FromToDualTimeSelector
-                    fromTimeTooBigError={fromTimeTooBigError}
-                    toTimeTooSmallError={toTimeTooSmallError}
-                    storeHours={storeHours}
+                    storeHours={values.storeHours}
                     setStoreHours={setStoreHours}
                 />
                 <StyledHeading type="h6">{SELECT_A_CATEGORY}</StyledHeading>
@@ -195,40 +192,30 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     onChange={(
                         e: React.ChangeEvent<HTMLInputElement>,
                     ): void => {
-                        setAddStoreHoursCategory(e.target.value);
+                        setAddStoreHoursCategory(e.target.value as unknown as number);
                     }}
-                    value={addStoreHoursCategory}
+                    placeholder={allCategories[addStoreHoursCategory].category}
+                    value={allCategories[addStoreHoursCategory].category}
                 >
-                    {Object.entries(allCategories).map(
-                        (listAllCategories): React.ReactElement => (
+                    {Object.values(allCategories).map(
+                        ({category}, index): React.ReactElement => (
                             <option
-                                key={
-                                    listAllCategories[ALL_CATEGORIES_INDEX]
-                                }
-                                value={
-                                    listAllCategories[ALL_CATEGORIES_TIMES]
-                                        .category
-                                }
+                                key={category}
+                                value={index}
                             >
-                                {
-                                    listAllCategories[ALL_CATEGORIES_TIMES]
-                                        .category
-                                }
+                                {category}
                             </option>
                         ),
                     )}
                 </Section>
                 <CenteredButton
-                    onClick={handleChange}
-                    disabled={
-                        storeHours.from > storeHours.to ||
-                        checkboxes === initialCheckboxState
-                    }
+                    onClick={()=>mergeOrAddTime(addStoreHoursCategory)}
+                    disabled={!isValid || !dirty}
                 >
                     {ADD_HOURS_BUTTON}
                 </CenteredButton>
             </StyledModal>
-            <ErrorModal modalState={errorModal} errorMessage={error} />
+            <ErrorModal modalState={[errorModalState, setErrorModalState]} errorMessage={mergeMessage} />
         </>
     );
 };
