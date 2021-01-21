@@ -1,12 +1,13 @@
 import React, {useState} from 'react';
 import styled from 'styled-components';
-// import { useFormik } from 'Formik';
+import { useFormik } from 'formik';
 import { Cross } from '@styled-icons/entypo/Cross';
 import { Swap } from '@styled-icons/entypo/Swap';
 import { Merge } from '@styled-icons/entypo/Merge';
-// import { ArrowForward } from '@styled-icons/evaicons-outline/ArrowForwardOutline';
+import { RightArrowAlt } from '@styled-icons/boxicons-regular/RightArrowAlt';
 import { Mixins } from '@Utils';
 import { Button } from '@Inputs/Button/Button';
+import { Select } from '@Inputs/Select/Select';
 import { Tag } from '../Tag/Tag';
 import { ICategoryWithHoursTypes, IHoursByDay, IToFromHours, DAYS_OF_THE_WEEK, upperCaseFirstLetter} from './constants';
 import { convertTime } from './TimeFunctions';
@@ -24,6 +25,31 @@ interface MergeModalProps
     overWrittenTimes: IHoursByDay;
 }
 
+enum MergeActions {
+    MERGE = 'Merge',
+    REPLACE = 'Replace',
+    KEEP = 'Keep'
+}
+
+interface IMergeDays {
+    monday: MergeActions;
+    tuesday: MergeActions;
+    wednesday: MergeActions;
+    thursday: MergeActions;
+    friday: MergeActions;
+    saturday: MergeActions;
+    sunday: MergeActions;
+}
+
+const initalValues: IMergeDays = {
+    monday: MergeActions.MERGE,
+    tuesday: MergeActions.MERGE,
+    wednesday: MergeActions.MERGE,
+    thursday: MergeActions.MERGE,
+    friday: MergeActions.MERGE,
+    saturday: MergeActions.MERGE,
+    sunday: MergeActions.MERGE
+}
 export const MergeModal: React.FC<MergeModalProps> = ({
     isVisible,
     storeHours,
@@ -33,23 +59,21 @@ export const MergeModal: React.FC<MergeModalProps> = ({
 }): React.ReactElement => {
     const [mergeModalState, setMergeModalState] = isVisible;
     const [is24, setIs24] = useState(false);
-    // const {
-    //     values,
-    //     dirty,
-    //     isValid,
-    //     errors,
-    //     handleChange,
-    //     setFieldValue
-    // } = useFormik({
-    //     initialValues: initialState,
-    //     onSubmit: ()=> undefined,
-    //     enableReinitialize: true,
-    // });
+    const {
+        values,
+        dirty,
+        isValid,
+        errors,
+        handleChange,
+        setFieldValue
+    } = useFormik({
+        initialValues: initalValues,
+        onSubmit: ()=> undefined,
+        enableReinitialize: true,
+    });
 
     const storeHoursChange = (
-        <Tag
-            isHoverable={false}
-        >
+        <HoursItem>
             {convertTime(
                 storeHours.from,
                 is24,
@@ -59,61 +83,83 @@ export const MergeModal: React.FC<MergeModalProps> = ({
                 storeHours.to,
                 is24,
             )}
-        </Tag>
+        </HoursItem>
     )
     
     const renderStoreHoursMerge = () => DAYS_OF_THE_WEEK.map(day => {
         if (overWrittenTimes[day].length > 0) {
-            const overWrittenTimesDisplay = overWrittenTimes[day].map((time: IToFromHours)=> (
-                <Tag
-                    key={day}
-                    isHoverable={false}
-                >
-                    {convertTime(
-                        time.from,
-                        is24,
-                    )}
-                    {` - `}
-                    {convertTime(
-                        time.to,
-                        is24,
-                    )}
-                </Tag>
-            ))
-            const mergedTime = mergedToFromHours[day].map((time: IToFromHours)=> (
-                <Tag
-                    key={day}
-                    isHoverable={false}
-                >
-                    {convertTime(
-                        time.from,
-                        is24,
-                    )}
-                    {` - `}
-                    {convertTime(
-                        time.to,
-                        is24,
-                    )}
-                </Tag>
-            ))
+            const overWrittenTimesDisplay = (
+                <Column>
+                    {overWrittenTimes[day].map((time: IToFromHours)=> (
+                        <HoursItem
+                            key={day}
+                        >
+                            {convertTime(
+                                time.from,
+                                is24,
+                            )}
+                            {` - `}
+                            {convertTime(
+                                time.to,
+                                is24,
+                            )}
+                        </HoursItem>
+                    ))}
+                </Column>
+            )
+            // handle multiple merged Times
+            const mergedTime = (
+                <Column>
+                    {mergedToFromHours[day].map((time: IToFromHours)=> (
+                        <HoursItem
+                            key={day}
+                        >
+                            {convertTime(
+                                time.from,
+                                is24,
+                            )}
+                            {` - `}
+                            {convertTime(
+                                time.to,
+                                is24,
+                            )}
+                        </HoursItem>
+                    ))}
+                </Column>
+            )
+
+            const selectedMergeTypeDisplay = () => {
+                switch (values[day]) {
+                case MergeActions.MERGE:
+                    return mergedTime;
+                case MergeActions.REPLACE:
+                    return storeHoursChange
+                case MergeActions.KEEP:
+                default:
+                    return null;
+                }
+            }
+
             return (
-                <>
+                <Column>  
                     <Heading type="h5">{upperCaseFirstLetter(day)}</Heading>
-                    <MergeConflictGrid>
-                        <Row>
-                            {mergedTime}
-                            <Button icon={Merge}>Merge Hours</Button>
-                        </Row>
-                        <Row>
-                            {storeHoursChange}
-                            <Button icon={Swap}>Replace Hours</Button>
-                        </Row>
-                        <Row>
-                            {overWrittenTimesDisplay}
-                            <Button icon={Cross}>Keep Current</Button>
-                        </Row>
-                    </MergeConflictGrid>
-                </>
+                    <SelectRow>
+                        {overWrittenTimesDisplay}
+                        {values[day] === MergeActions.KEEP ? null : <Icon as={RightArrowAlt} />}
+                        {selectedMergeTypeDisplay()}
+                        <div style={{width: '150px', margin:'auto 0px auto auto'}}>                        
+                            <Select
+                                name={`${day}`}
+                                value={values[day]}
+                                onChange={handleChange}
+                            >
+                                <option value={MergeActions.MERGE}>{MergeActions.MERGE}</option>
+                                <option value={MergeActions.REPLACE}>{MergeActions.REPLACE}</option>
+                                <option value={MergeActions.KEEP}>{MergeActions.KEEP}</option>
+                            </Select>
+                        </div>
+                    </SelectRow>
+                </Column>
             )
         } 
         return null
@@ -125,27 +171,30 @@ export const MergeModal: React.FC<MergeModalProps> = ({
     // If overwritten times display messages to either merge or overwrite
     // If no overwritten times confirm to add store hours display 
     return (
-        <StyledModal state={isVisible} {...props}>
-            <StyledHeading type="h2">Merge, Replace, Cancel</StyledHeading>
+        <StyledModal state={[mergeModalState, setMergeModalState]} {...props}>
+            <StyledHeading type="h2">Merge, Replace, Keep</StyledHeading>
             {renderStoreHoursMerge()}
         </StyledModal>
     );
 };
 
-const MergeConflictGrid = styled.div`
-${Mixins.flex('column')};
+const Column = styled.div`
+${Mixins.flex('column', 'flex-start')};
     margin: auto;
 `;
 const Row = styled.div`
     ${Mixins.flex('row')};
     margin: 0px 5px;
 `;
+const SelectRow = styled.div`
+    ${Mixins.flex('row')};
+    margin: 0px 5px;
+`;
 const StyledModal = styled(Modal)`
-    max-height: 70%;
-    margin: auto;
     ${({ theme }): string => `
         padding: ${theme.dimensions.padding.container};
     `};
+    height:50vh;
 `;
 const StyledHeading = styled(Heading)`
     font-weight: bold;
@@ -153,12 +202,30 @@ const StyledHeading = styled(Heading)`
     text-align: center;
     margin: 10px;
 `;
-const ButtonsContainer = styled.div`
-    ${Mixins.flex('center')};
-    ${Mixins.media(
-        'phone',
-        `
-        ${Mixins.flex('Row')};  
-    `,
-    )}
+
+
+const Icon = styled.svg`
+    flex-shrink: 0;
+    ${({ theme }) => `
+    color:${theme.colors.primary};
+    `}
+    width: 30px;
+    box-sizing: border-box;
+    padding: 4px;
+`;
+interface IHoursItem {
+    active?: boolean
+    margin?: string; 
+}
+
+const HoursItem = styled.div<IHoursItem>`
+    ${Mixins.transition(['background-color', 'color'])}
+    ${Mixins.flex('flex-start', 'center')}
+    ${({ active, margin, theme }): string =>`
+        ${margin && `margin: ${margin}`}
+        color: ${theme.colors.primary};
+        background-color: ${Mixins.darken('#ffffff', 0.03)};
+    `}
+    box-sizing: border-box;
+    height: 40px;
 `;
