@@ -1,4 +1,4 @@
-import { ICategoryWithHoursTypes } from './types';
+import { ICategoryWithHoursTypes } from './constants';
 
 /**
  * Creates a store hours schedule with a new category

@@ -1,5 +1,5 @@
 import moment from 'moment';
-import { ITimeTypes } from './types';
+import { ITimeTypes } from './constants';
 
 const START_INDEX_OF_SELECTION = 0;
 const START_INDEX_OF_SELECTION_FOR_DATE = -2;
@@ -14,8 +14,8 @@ const END_INDEX_OF_SELECTION_DATE_TO_HOURS = -3;
  * @returns {React.ReactElement | null} -
  */
 export const convertTime = (date: string, toggle: boolean): string => {
-    let convertedDate = moment(date, 'HHmm').format('h:mm');
-    if (!toggle) {
+    let convertedDate = moment(date, 'HHmm').format('h:mm a');
+    if (toggle) {
         convertedDate = moment(date, 'HHmm').format('HH:mm')
     }
     return convertedDate;

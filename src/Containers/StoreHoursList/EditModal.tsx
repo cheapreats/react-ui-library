@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
-import { ICategoryWithHoursTypes } from './types';
+import { ICategoryWithHoursTypes } from './constants';
 import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button/Button';
@@ -28,7 +28,7 @@ interface EditTimeProps
     setActiveCategory: React.Dispatch<React.SetStateAction<number>>;
 }
 
-export const EditTimesModal: React.FC<EditTimeProps> = ({
+export const EditModal: React.FC<EditTimeProps> = ({
     isVisible,
     addModal,
     editCategoryModal,

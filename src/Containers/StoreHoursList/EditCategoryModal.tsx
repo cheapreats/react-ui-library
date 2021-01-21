@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { useFormik } from 'formik';
-import { ICategoryWithHoursTypes } from './types';
+import { ICategoryWithHoursTypes } from './constants';
 import { ErrorModal } from './ErrorModal';
 import { createCategoryWithHours } from './CategoryScheduleFunctions';
 import { Heading, SmallText } from '../../Text';

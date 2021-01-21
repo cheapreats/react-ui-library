@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { convertTime } from './TimeFunctions';
-import { IHoursByDay, IToFromHours } from './types';
+import { IHoursByDay, IToFromHours } from './constants';
 import { Heading } from '../../Text';
 import { Tag } from '../Tag/Tag';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';

@@ -21,6 +21,10 @@ export default {
                     wednesday: [],
                     thursday: [
                         {
+                            from: '9:00',
+                            to: '11:00'
+                        },
+                        {
                             from: '12:00',
                             to: '20:00',
                         },

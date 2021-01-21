@@ -1,3 +1,6 @@
+
+const FIRST_LETTER_OF_DAY = 0;
+const SECOND_LETTER_OF_DAY = 1;
 export interface ICategoryWithHoursTypes {
     category: string;
     hoursByDay: IHoursByDay;
@@ -39,3 +42,13 @@ export interface InitialCheckboxState {
     saturday: boolean;
     sunday: boolean;
 }
+export const DAYS_OF_THE_WEEK = ["monday",
+    "tuesday",
+    "wednesday",
+    "thursday",
+    "friday",
+    "saturday",
+    "sunday"
+]
+
+export const upperCaseFirstLetter = (day: string): string => day.charAt(FIRST_LETTER_OF_DAY).toUpperCase() + day.slice(SECOND_LETTER_OF_DAY)

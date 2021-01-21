@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Check } from '@styled-icons/boxicons-regular/Check';
 import { Cross } from '@styled-icons/entypo/Cross';
-import { ICategoryWithHoursTypes } from './types';
+import { ICategoryWithHoursTypes } from './constants';
 import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button/Button';

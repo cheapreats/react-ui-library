@@ -8,7 +8,7 @@ import {
     Main,
 } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
-import { ICategoryWithHoursTypes, InitialCheckboxState, IToFromHours, IHoursByDay } from './types';
+import { ICategoryWithHoursTypes, InitialCheckboxState, IToFromHours, IHoursByDay } from './constants';
 
 interface FromToDualTimeSelectorProps
     extends MainInterface,
