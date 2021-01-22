@@ -42,7 +42,8 @@ export interface InitialCheckboxState {
     saturday: boolean;
     sunday: boolean;
 }
-export const DAYS_OF_THE_WEEK = ["monday",
+export const DAYS_OF_THE_WEEK = [
+    "monday",
     "tuesday",
     "wednesday",
     "thursday",
@@ -50,5 +51,21 @@ export const DAYS_OF_THE_WEEK = ["monday",
     "saturday",
     "sunday"
 ]
+
+export enum MergeActions {
+    MERGE = 'Merge',
+    REPLACE = 'Replace',
+    KEEP = 'Keep'
+}
+
+export interface IMergeDays {
+    monday: MergeActions;
+    tuesday: MergeActions;
+    wednesday: MergeActions;
+    thursday: MergeActions;
+    friday: MergeActions;
+    saturday: MergeActions;
+    sunday: MergeActions;
+}
 
 export const upperCaseFirstLetter = (day: string): string => day.charAt(FIRST_LETTER_OF_DAY).toUpperCase() + day.slice(SECOND_LETTER_OF_DAY)

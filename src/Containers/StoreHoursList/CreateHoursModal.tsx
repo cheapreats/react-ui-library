@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import  moment  from 'moment';
-import { useFormik, FieldArray } from 'formik';
+import { useFormik } from 'formik';
 import { MergeModal } from './MergeModal';
-import { ICategoryWithHoursTypes, InitialCheckboxState, IToFromHours, IHoursByDay, DAYS_OF_THE_WEEK, upperCaseFirstLetter } from './constants';
-import { convertDateToHours } from './TimeFunctions';
-import { ErrorModal } from './ErrorModal';
+import { ICategoryWithHoursTypes, InitialCheckboxState, IToFromHours, DAYS_OF_THE_WEEK, upperCaseFirstLetter, IHoursByDay, MergeActions, IMergeDays } from './constants';
 import { FromToDualTimeSelector } from './FromToDualTimeSelector';
 import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
@@ -15,6 +13,9 @@ import { Select } from '../../Inputs/Select/Select';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 
+const NO_MERGED_HOURS = 0;
+const NO_UNMERGED_HOURS = 0;
+
 interface CreateHoursProps
     extends MainInterface,
         ResponsiveInterface,
@@ -22,13 +23,11 @@ interface CreateHoursProps
     isVisible: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
     MODAL_HEADER: string;
     SELECT_A_DAY_TITLE: string;
-    fromTimeTooBigError: string;
-    toTimeTooSmallError: string;
     SELECT_A_CATEGORY: string;
     ADD_HOURS_BUTTON: string;
-    errorMessage: string;
     allCategories: ICategoryWithHoursTypes[];
     activeCategory: number;
+    handleStoreHoursUpdate: (updateHoursByDay: IHoursByDay, index: number) => void;
 }
 
 export interface ICreateHoursInitalState {
@@ -68,17 +67,17 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     SELECT_A_DAY_TITLE,
     SELECT_A_CATEGORY,
     ADD_HOURS_BUTTON,
-    errorMessage,
     allCategories,
     activeCategory,
+    handleStoreHoursUpdate,
     ...props
 }): React.ReactElement => {
     const [addModalState, setAddModalState] = isVisible;
     const [mergeModalState, setMergeModalState] = useState(false);
     const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(activeCategory);
-    const [mergeMessage, setMergeMessage] = useState('');
-    const [mergedStoreHours, setMergedStoreHours] = useState(initialMergeState);
+    const [mergedHours, setMergeHours] = useState(initialMergeState);
     const [overWrittenHours, setOverWrittenHours] = useState(initialMergeState);
+    const [unmergedHours, setUnmergedHours] = useState(initialMergeState)
     const {
         values,
         dirty,
@@ -91,18 +90,17 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
         onSubmit: ()=> undefined,
         enableReinitialize: true,
     });
-    // useEffect((): void => {
-    //     setCheckboxes(initialState);
-    // }, [addModalState]);
-
+    
     /**
      * Checks if there is more than one time in a day given a category name
      * @param {number} activeCategoryIndex - Name of category that needs hours to be saved
      * @returns {IHoursByDay} - Returns the merged hours
      */
-    const mergeOrAddTime = (activeCategoryIndex: number) => {
-        const category = allCategories[activeCategoryIndex]
-        const mergedToFromHours = {
+    const mergeOrAddTime = () => {
+        const category = allCategories[addStoreHoursCategory]
+        let merged = false;
+        // onmerge keep these
+        const unMergedHoursByDay = {
             monday: [],
             tuesday: [],
             wednesday: [],
@@ -110,8 +108,8 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
             friday: [],
             saturday: [],
             sunday: [],
-        };
-        const overWrittenTimes = {
+        }
+        const overWrittenHoursByDay = {
             monday: [],
             tuesday: [],
             wednesday: [],
@@ -119,61 +117,118 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
             friday: [],
             saturday: [],
             sunday: [],
-        };
+        }
+        const mergedHoursByDay = {
+            monday: [],
+            tuesday: [],
+            wednesday: [],
+            thursday: [],
+            friday: [],
+            saturday: [],
+            sunday: [],
+        }
         DAYS_OF_THE_WEEK.map(day => {
-        
             const hoursForDayOfWeek: IToFromHours[] = category.hoursByDay[day];
+            const hoursCopy = {...values.storeHours};
             if (values.checkboxes[day]) {
-                const hoursCopy = {...values.storeHours};
                 if(hoursForDayOfWeek.length > 0) {
                     hoursForDayOfWeek.map(hours => {
                         if(moment(hoursCopy.to, 'HH:mm').isAfter(moment(hours.from, 'HH:mm'), 'minutes')  && moment(hoursCopy.to, 'HH:mm').isBefore(moment(hours.to, 'HH:mm'), 'minutes')) {
+                            merged = true;
                             hoursCopy.to = hours.to
                             if (moment(hoursCopy.from).isAfter(moment(hours.from,'HH:mm'), 'minutes')) {
                                 hoursCopy.from = hours.from
                             }
-                            overWrittenTimes[day].push(hours);
+                            overWrittenHoursByDay[day].push(hours);
                         } else  if (moment(hoursCopy.from, 'HH:mm').isAfter(moment(hours.from, 'HH:mm'), 'minutes')  && moment(hoursCopy.from, 'HH:mm').isBefore(moment(hours.to, 'HH:mm'), 'minutes')) {
+                            merged = true;
                             hoursCopy.from = hours.from
                             if (moment(hoursCopy.to).isBefore(moment(hours.to, 'HH:mm'), 'minutes')) {
                                 hoursCopy.to = hours.to
                             }
-                            overWrittenTimes[day].push(hours);
+                            overWrittenHoursByDay[day].push(hours);
                         } else  if (moment(hoursCopy.from, 'HH:mm').isBefore(moment(hours.from, 'HH:mm'), 'minutes')  && moment(hoursCopy.to, 'HH:mm').isAfter(moment(hours.to, 'HH:mm'), 'minutes')) {
-                            overWrittenTimes[day].push(hours);
+                            merged = true;
+                            overWrittenHoursByDay[day].push(hours);
                         } else {
-                            mergedToFromHours[day].push(hours)
+                            unMergedHoursByDay[day].push(hours)
                         }
                     })
+                    mergedHoursByDay[day].push(hoursCopy)
+                } else {
+                    unMergedHoursByDay[day].push(hoursCopy);
                 }
-                mergedToFromHours[day].push(hoursCopy)
             } else {
-                mergedToFromHours[day] = hoursForDayOfWeek;
+                unMergedHoursByDay[day] = hoursForDayOfWeek
+            }
+        })        
+        
+        if (merged) {
+            setMergeHours(mergedHoursByDay);
+            setOverWrittenHours(overWrittenHoursByDay);
+            setUnmergedHours(unMergedHoursByDay);
+            setMergeModalState(true);
+        } else {
+            const updateStoreHours = {...unMergedHoursByDay}
+            DAYS_OF_THE_WEEK.map(day => {
+                if(mergedHoursByDay[day].length > NO_MERGED_HOURS){
+                    updateStoreHours[day].push(...mergedHoursByDay[day])
+                }})
+            handleStoreHoursUpdate(updateStoreHours, addStoreHoursCategory);
+        }
+    };
+    const confirmMerge = (merge: IMergeDays) => {
+        const confirmedHours = {
+            monday: [],
+            tuesday: [],
+            wednesday: [],
+            thursday: [],
+            friday: [],
+            saturday: [],
+            sunday: [],
+        };
+        DAYS_OF_THE_WEEK.map(day => 
+        {
+            if(unmergedHours[day].length > NO_UNMERGED_HOURS) {
+                confirmedHours[day].push(...unmergedHours[day])
+            }
+            if (mergedHours[day].length > NO_MERGED_HOURS) {
+                switch (merge[day]) {
+                case MergeActions.MERGE:
+                    confirmedHours[day].push(...mergedHours[day])                
+                    break;
+                case MergeActions.REPLACE:
+                    confirmedHours[day].push(values.storeHours)
+                    break;          
+                case MergeActions.KEEP:
+                    confirmedHours[day].push(...overWrittenHours[day])
+                    break;
+                default:
+                    break;
+                }
             }
         })
-        setMergedStoreHours(mergedToFromHours)
-        setOverWrittenHours(overWrittenTimes);
-        setMergeModalState(true);
-        console.log(overWrittenTimes, mergedToFromHours, 'merged')
-    };
-    
+        handleStoreHoursUpdate(confirmedHours, addStoreHoursCategory);
+        setMergeModalState(false)
+    }
+
     const setStoreHours = (hours: IToFromHours) => {
         setFieldValue('storeHours', hours)
     }
  
     return (
         <>
-            <StyledModal state={isVisible} {...props}>
+            <StyledModal state={[addModalState, setAddModalState]} {...props}>
                 <StyledHeading type="h3">{MODAL_HEADER}</StyledHeading>
                 <DaysDiv>
                     <StyledHeading type="h6">
                         {SELECT_A_DAY_TITLE}
                     </StyledHeading>
-                    { DAYS_OF_THE_WEEK.map(
+                    {DAYS_OF_THE_WEEK.map(
                         (day): React.ReactElement => (
                             <Section
                                 as={Checkbox}
-                                key={day}
+                                key={`create${day}`}
                                 name={`checkboxes.${day}`}
                                 label={upperCaseFirstLetter(day)}
                                 onChange={handleChange}
@@ -208,13 +263,19 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     )}
                 </Section>
                 <CenteredButton
-                    onClick={()=>mergeOrAddTime(addStoreHoursCategory)}
+                    onClick={()=> mergeOrAddTime()}
                     disabled={!isValid || !dirty}
                 >
                     {ADD_HOURS_BUTTON}
                 </CenteredButton>
             </StyledModal>
-            <MergeModal isVisible={[mergeModalState, setMergeModalState]} storeHours={values.storeHours} mergedToFromHours={mergedStoreHours} overWrittenTimes={overWrittenHours} />
+            <MergeModal 
+                isVisible={[mergeModalState, setMergeModalState]}
+                storeHours={values.storeHours}
+                mergedHours={mergedHours}
+                overWrittenHours={overWrittenHours}
+                confirmMerge={confirmMerge}
+            />
         </>
     );
 };

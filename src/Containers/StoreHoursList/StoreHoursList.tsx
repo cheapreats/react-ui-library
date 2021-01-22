@@ -4,6 +4,7 @@ import { BusinessTime } from '@styled-icons/fa-solid/BusinessTime';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { useFormik, FieldArray } from 'formik';
 import { SaveButton } from '@Containers/SaveButton/SaveButton';
+import { deepCopy } from '@Utils/deepCopy';
 import { ICategoryWithHoursTypes, ICategoryNew, IToFromHours, IHoursByDay } from './constants';
 import { TimeDisplay } from './TimeDisplay';
 import { ErrorModal } from './ErrorModal';
@@ -29,6 +30,8 @@ export interface StoreHoursListProps
     onDelete: (updatedCategories: ICategoryWithHoursTypes[]) => void;
 }
 
+// TODO: this is mutating allCategories for some reason assignment of deep variables points to previous array
+
 export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     allCategories,
     textHeaders,
@@ -42,14 +45,13 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const editCategoryModal = useState(false);
     const confirmModal = useState(false);
     const errorModal = useState(false);
-    console.log(allCategories, 'all categories')
     const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryWithHoursTypes[]>(allCategories);
     const [deletedCategory, setDeletedCategory] = useState(0);
     const [activeCategory, setActiveCategory] = useState(0);
     const {
         values,
         dirty,
-        isValid,
+        resetForm,
         errors,
         handleChange,
         setFieldValue
@@ -61,10 +63,10 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const {categories} = values;
     const [is24, setIs24] = useState(false);
     const handleRemoveHours = (day: string, hoursIndex: number) => {
-        const allCategoriesWithHoursCopy = {...allCategoriesWithHours};
+        const allCategoriesWithHoursCopy = deepCopy(allCategories);
         // Should remove the hours index of the array
         allCategoriesWithHoursCopy[activeCategory].hoursByDay[day].splice(hoursIndex, 1);
-        setAllCategoriesWithHours(allCategoriesWithHoursCopy);
+        setFieldValue('categories', allCategoriesWithHoursCopy)
     }
 
     // saves store hours and resets the form state
@@ -72,14 +74,10 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         onSave(categories)
         setAllCategoriesWithHours(categories);
     }
-    const deleteStoreHours = () => {
-        onDelete(categories)
-    }
 
-    const handleStoreHoursUpdate = ( updateToFromHours: IHoursByDay, day: string, index: number,) => {
-        const updateToFromHoursCopy = {...updateToFromHours};
-        const updatedAllCategories = {...allCategories};
-        updatedAllCategories[index].hoursByDay = updateToFromHours
+    const handleStoreHoursUpdate = ( updateHoursByDay: IHoursByDay, index: number,) => {
+        const updatedAllCategories = deepCopy(allCategories);
+        updatedAllCategories[index].hoursByDay = updateHoursByDay;
         setFieldValue('categories', updatedAllCategories)
     }
     const handleCategoriesUpdate = (updateCategories: ICategoryWithHoursTypes) => {
@@ -94,6 +92,15 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 width={width}
             >
                 <ButtonsContainer>
+                    <Section
+                        as={Button}
+                        icon={Edit}
+                        onClick={(): void => {
+                            resetForm({values: {categories: allCategories}});
+                        }}
+                    >
+                        Reset
+                    </Section>
                     <Section
                         as={Button}
                         icon={Edit}
@@ -157,13 +164,11 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 isVisible={addModal}
                 MODAL_HEADER={textHeaders.TITLES.SECOND_MODAL_HEADER}
                 SELECT_A_DAY_TITLE={textHeaders.TITLES.SELECT_A_DAY}
-                fromTimeTooBigError={textHeaders.ERRORS.FROM_TIME_TOO_BIG}
-                toTimeTooSmallError={textHeaders.ERRORS.TO_TIME_TOO_SMALL}
                 SELECT_A_CATEGORY={textHeaders.TITLES.SELECT_A_CATEGORY}
                 ADD_HOURS_BUTTON={textHeaders.BUTTONS.ADD_HOURS}
-                errorMessage={textHeaders.ERRORS.ONLY_ONE_TIME}
                 allCategories={allCategoriesWithHours}
                 activeCategory={activeCategory}
+                handleStoreHoursUpdate={handleStoreHoursUpdate}
             />
             <ConfirmModal
                 isVisible={confirmModal}

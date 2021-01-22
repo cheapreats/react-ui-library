@@ -69,7 +69,6 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
     );
 };
 const Footnote = styled(F)`
-    z-index: 90;
     ${Mixins.flex('space-between', 'center')}
 `;
 const Button = styled(B)`

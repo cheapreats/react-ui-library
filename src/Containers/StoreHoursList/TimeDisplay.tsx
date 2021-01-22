@@ -38,7 +38,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
                         {toFromHoursArray.map((toFromHours, hoursIndex) => (
                             <Section
                                 as={Tag}
-                                key={day}
+                                key={`${toFromHours.to}`}
                                 onClick={() => handleRemoveHours(day, hoursIndex)}
                             >
                                 {convertTime(

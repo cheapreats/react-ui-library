@@ -2,10 +2,6 @@ import moment from 'moment';
 import { ITimeTypes } from './constants';
 
 const START_INDEX_OF_SELECTION = 0;
-const START_INDEX_OF_SELECTION_FOR_DATE = -2;
-const END_INDEX_OF_SELECTION_FOR_CONST_D = 2;
-const FIRST_HALF_OF_A_DAY_IN_HOURS = 12;
-const RADIX_BASE_TEN = 10;
 const END_INDEX_OF_SELECTION_DATE_TO_HOURS = -3;
 
 /**

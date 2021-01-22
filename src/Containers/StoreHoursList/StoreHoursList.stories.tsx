@@ -13,6 +13,14 @@ export default {
                 hoursByDay: {
                     monday: [
                         {
+                            from: '5:00',
+                            to: '6:00'
+                        },
+                        {
+                            from: '9:00',
+                            to: '10:00'
+                        },
+                        {
                             from: '12:00',
                             to: '20:00',
                         },

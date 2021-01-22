@@ -9,6 +9,8 @@ import { Button } from '../../Inputs/Button/Button';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 
+const DELETE_SINGLE_CATEGORY = 1;
+
 interface ConfirmModalProps
     extends MainInterface,
         ResponsiveInterface,
@@ -39,7 +41,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
     const handleClick = (): void => {
         setConfirmModalState(!confirmModalState);
         const categoriesCopy = [...allCategories];
-        categoriesCopy.splice(deletedCategory, 1)
+        categoriesCopy.splice(deletedCategory, DELETE_SINGLE_CATEGORY)
         setAllCategories(categoriesCopy);
     };
 
