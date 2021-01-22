@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BusinessTime } from '@styled-icons/fa-solid/BusinessTime';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
-import { useFormik, FieldArray } from 'formik';
+import { useFormik } from 'formik';
 import { SaveButton } from '@Containers/SaveButton/SaveButton';
 import { deepCopy } from '@Utils/deepCopy';
-import { ICategoryWithHoursTypes, ICategoryNew, IToFromHours, IHoursByDay } from './constants';
+import { ICategoryWithHoursTypes, IHoursByDay } from './constants';
 import { TimeDisplay } from './TimeDisplay';
 import { ErrorModal } from './ErrorModal';
 import { ConfirmModal } from './ConfirmModal';
@@ -27,17 +27,14 @@ export interface StoreHoursListProps
     textHeaders: I_DICT;
     width: string;
     onSave: (updatedCategories: ICategoryWithHoursTypes[]) => void;
-    onDelete: (updatedCategories: ICategoryWithHoursTypes[]) => void;
 }
 
-// TODO: this is mutating allCategories for some reason assignment of deep variables points to previous array
-
+// TODO: Double Check deepCopy functioning properly with allcategories
 export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     allCategories,
     textHeaders,
     width,
-    onSave,
-    onDelete
+    onSave
 }): React.ReactElement => {
     const editModal = useState(false);
     const [editModalState, setEditModalState] = editModal;
@@ -52,8 +49,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         values,
         dirty,
         resetForm,
-        errors,
-        handleChange,
         setFieldValue
     } = useFormik({
         initialValues: {categories: allCategoriesWithHours},
@@ -79,9 +74,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         const updatedAllCategories = deepCopy(allCategories);
         updatedAllCategories[index].hoursByDay = updateHoursByDay;
         setFieldValue('categories', updatedAllCategories)
-    }
-    const handleCategoriesUpdate = (updateCategories: ICategoryWithHoursTypes) => {
-        setFieldValue('categories', updateCategories)
     }
 
     return (

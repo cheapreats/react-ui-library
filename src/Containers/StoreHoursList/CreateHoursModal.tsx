@@ -82,7 +82,6 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
         values,
         dirty,
         isValid,
-        errors,
         handleChange,
         setFieldValue
     } = useFormik({
@@ -161,8 +160,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
             } else {
                 unMergedHoursByDay[day] = hoursForDayOfWeek
             }
-        })        
-        
+        });
         if (merged) {
             setMergeHours(mergedHoursByDay);
             setOverWrittenHours(overWrittenHoursByDay);
@@ -209,7 +207,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
             }
         })
         handleStoreHoursUpdate(confirmedHours, addStoreHoursCategory);
-        setMergeModalState(false)
+        setMergeModalState(false);
     }
 
     const setStoreHours = (hours: IToFromHours) => {

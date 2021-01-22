@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { useFormik } from 'formik';
 import { ICategoryWithHoursTypes } from './constants';
-import { ErrorModal } from './ErrorModal';
 import { createCategoryWithHours } from './CategoryScheduleFunctions';
 import { Heading, SmallText } from '../../Text';
 import { Modal } from '../Modal/Modal';
@@ -81,18 +80,13 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
         onSubmit: ()=>undefined,
         enableReinitialize: true,
     });
-
-    const [confirmModalState, setConfirmModalState] = isConfirmModal;
-    const [errorModalState, setErrorModalState] = useState(false);    
+    const [confirmModalState, setConfirmModalState] = isConfirmModal;   
     const removeCategory = (index: number) => {
         if (
             index === activeCategory
         ) {
             // prevent deleting active category as it would throw errors
             setErrors({createCategory: CANNOT_DELETE_ACTIVE});
-            setErrorModalState(
-                !errorModalState,
-            );
         } else if (allCategories.length !== 1) {
             setDeletedCategory(index);
             setConfirmModalState(
@@ -113,8 +107,7 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
                 }
             </Section>
         ),
-    )
-        
+    );   
     return (
         <>
             <StyledModal state={isVisible} {...props}>
@@ -143,7 +136,6 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
                     {ADD_CATEGORY_BUTTON}
                 </CenteredButton>
             </StyledModal>
-            <ErrorModal modalState={[errorModalState, setErrorModalState]} errorMessage={formErrors.createCategory} />
         </>
     );
 };
