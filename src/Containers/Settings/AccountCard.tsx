@@ -28,7 +28,7 @@ export const AccountCard: React.FC<AccountProps> = ({
     logoutButton = 'Logout',
     role = 'Role',
 }): React.ReactElement => (
-    <SettingsCard heading={accountInfo} icon={UserCircle} width="50%">
+    <SettingsCard heading={accountInfo} icon={UserCircle}>
         <DisplayItem label={userName} value={employee.username} />
         <DisplayItem
             label={role}
