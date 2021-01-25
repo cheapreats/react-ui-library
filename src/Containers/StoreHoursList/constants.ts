@@ -81,3 +81,7 @@ export const convertTime = (date: string, toggle: boolean): string => {
     }
     return convertedDate;
 };
+
+export const isAfterMoment = (initialTime: string, compareTime: string ): boolean => moment(initialTime, MOMENT_24_HOUR_FORMAT ).isAfter(moment(compareTime, MOMENT_24_HOUR_FORMAT), TIME_FRAME_MINUTES)
+export const isBeforeMoment = (initialTime: string, compareTime: string ): boolean => moment(initialTime, MOMENT_24_HOUR_FORMAT ).isBefore(moment(compareTime, MOMENT_24_HOUR_FORMAT), TIME_FRAME_MINUTES)
+export const isSameMoment = (initialTime: string, compareTime: string ): boolean => moment(initialTime, MOMENT_24_HOUR_FORMAT ).isSame(moment(compareTime, MOMENT_24_HOUR_FORMAT), TIME_FRAME_MINUTES)

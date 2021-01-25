@@ -48,7 +48,6 @@ export const EditModal: React.FC<EditTimeProps> = ({
         editCategoryModalState,
         setEditCategoryModalState,
     ] = editCategoryModal;
-
     const [selectActiveCategory, setSelectActiveCategory] = useState(activeCategory);
 
 

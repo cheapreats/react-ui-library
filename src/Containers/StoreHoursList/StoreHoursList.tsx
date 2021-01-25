@@ -22,7 +22,8 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 const INITIAL_ACTIVE_CATEGORY = 0;
 const NO_STORE_HOURS = 0;
-const CATEGORY_DEFAULT_NAME = 'Regular'
+const NO_CATEGORIES = 0;
+const CATEGORY_DEFAULT_NAME = 'Regular';
 
 export interface StoreHoursListProps
     extends MainInterface,
@@ -110,7 +111,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
             icon={BusinessTime}
             width={width}
         >
-            {categories.length > 0 && (
+            {categories.length > NO_CATEGORIES && (
                 <>
                     <ButtonsContainer>
                         <Section

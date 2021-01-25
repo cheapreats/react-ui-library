@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import  moment  from 'moment';
 import { useFormik } from 'formik';
 import { useMounted } from '@Utils/Hooks/useMounted';
+import { deepCopy } from '@Utils/deepCopy';
 import { MergeModal } from './MergeModal';
 import { ICategoryWithHoursTypes, ICreateHoursInitalState, IToFromHours, IHoursByDay, MergeActions, IMergeDays, IErrors} from './interfaces';
-import {  DAYS_OF_THE_WEEK, upperCaseFirstLetter, validateToFromTime, MOMENT_24_HOUR_FORMAT } from './constants';
+import {  DAYS_OF_THE_WEEK, upperCaseFirstLetter, validateToFromTime, MOMENT_24_HOUR_FORMAT, isAfterMoment, isBeforeMoment, isSameMoment} from './constants';
 import { FromToDualTimeSelector } from './FromToDualTimeSelector';
 import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
@@ -57,8 +58,8 @@ const initialState: ICreateHoursInitalState = {
         sunday: false,
     },
     storeHours: {
-        from: moment().format(MOMENT_24_HOUR_FORMAT ),
-        to: moment().format(MOMENT_24_HOUR_FORMAT ),
+        from: moment().format(MOMENT_24_HOUR_FORMAT),
+        to: moment().format(MOMENT_24_HOUR_FORMAT),
     }
 };
 
@@ -106,41 +107,17 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
      * @returns {IHoursByDay} - Returns the merged hours
      */
     const mergeOrAddTime = () => {
-        const category = allCategories[addStoreHoursCategory]
+        const category = allCategories[addStoreHoursCategory];
         let merged = false;
         // unMerged Hours are hours without conflict and always kept
-        const unMergedHoursByDay = {
-            monday: [],
-            tuesday: [],
-            wednesday: [],
-            thursday: [],
-            friday: [],
-            saturday: [],
-            sunday: [],
-        }
+        const unMergedHoursByDay = deepCopy(initialMergeState);
 
         // overWritten Hours are hours that would be lost on merge
-        const overWrittenHoursByDay = {
-            monday: [],
-            tuesday: [],
-            wednesday: [],
-            thursday: [],
-            friday: [],
-            saturday: [],
-            sunday: [],
-        }
+        const overWrittenHoursByDay = deepCopy(initialMergeState);
 
         // merged Hours are house that will replace overwritten hours
         // they are the union of overWritten Hours and Store Hours
-        const mergedHoursByDay = {
-            monday: [],
-            tuesday: [],
-            wednesday: [],
-            thursday: [],
-            friday: [],
-            saturday: [],
-            sunday: [],
-        }
+        const mergedHoursByDay = deepCopy(initialMergeState);
 
         DAYS_OF_THE_WEEK.map(day => {
             const hoursForDayOfWeek: IToFromHours[] = category.hoursByDay[day];
@@ -151,36 +128,36 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     // check all for each day of the week updating overwritten hours and creating a mergedStoreHours
                     hoursForDayOfWeek.map(hours => {
                         // Calculate if to (end time) of new hours falls between current hours
-                        if(moment(storeHoursToMerge.to, MOMENT_24_HOUR_FORMAT ).isAfter(moment(hours.from, MOMENT_24_HOUR_FORMAT ), 'minutes')  && moment(storeHoursToMerge.to, MOMENT_24_HOUR_FORMAT ).isBefore(moment(hours.to, MOMENT_24_HOUR_FORMAT ), 'minutes')) {
+                        if(isAfterMoment(storeHoursToMerge.to,hours.from)  && isBeforeMoment(storeHoursToMerge.to, hours.to)) {
                             merged = true;
                             // set new end time to be the current hours end time since it falls after
                             storeHoursToMerge.to = hours.to
                             // check if from (beginning time) is after current from
-                            if (moment(storeHoursToMerge.from).isAfter(moment(hours.from,MOMENT_24_HOUR_FORMAT ), 'minutes')) {
+                            if (isAfterMoment(storeHoursToMerge.from, hours.from)) {
                                 // sets new beginning time to current beginning since new falls after
                                 storeHoursToMerge.from = hours.from
                             }
                             // copy hours overwritten
                             overWrittenHoursByDay[day].push(hours);                            
                             // Calculate if from (beginning time) of new hours falls between current hours
-                        } else  if (moment(storeHoursToMerge.from, MOMENT_24_HOUR_FORMAT ).isAfter(moment(hours.from, MOMENT_24_HOUR_FORMAT ), 'minutes')  && moment(storeHoursToMerge.from, MOMENT_24_HOUR_FORMAT ).isBefore(moment(hours.to, MOMENT_24_HOUR_FORMAT ), 'minutes')) {
+                        } else  if (isAfterMoment(storeHoursToMerge.from, hours.from)  && isBeforeMoment(storeHoursToMerge.from,hours.to)) {
                             merged = true;
                             // set new beginning time to be the current hours end time since it falls before
                             storeHoursToMerge.from = hours.from
                             // check if to (end time) is before current to
-                            if (moment(storeHoursToMerge.to).isBefore(moment(hours.to, MOMENT_24_HOUR_FORMAT ), 'minutes')) {
+                            if (isBeforeMoment(storeHoursToMerge.to, hours.to)) {
                                 // sets new end time to current beginning since new falls before
                                 storeHoursToMerge.to = hours.to
                             }
                             // copy hours overwritten
                             overWrittenHoursByDay[day].push(hours);
                             // Check if new hours enclose current times. The from is before the current from and the to is after the current to
-                        } else  if (moment(storeHoursToMerge.from, MOMENT_24_HOUR_FORMAT ).isBefore(moment(hours.from, MOMENT_24_HOUR_FORMAT ), 'minutes')  && moment(storeHoursToMerge.to, MOMENT_24_HOUR_FORMAT ).isAfter(moment(hours.to, MOMENT_24_HOUR_FORMAT ), 'minutes')) {
+                        } else  if (isBeforeMoment(storeHoursToMerge.from, hours.from)  && isAfterMoment(storeHoursToMerge.to, hours.to)) {
                             merged = true;
                             // copy hours overwritten
                             overWrittenHoursByDay[day].push(hours);
                             // Check if the new hours are not the same as the old store hours
-                        } else if (!moment(storeHoursToMerge.from, MOMENT_24_HOUR_FORMAT ).isSame(moment(hours.from, MOMENT_24_HOUR_FORMAT ), 'minutes')  && !moment(storeHoursToMerge.to, MOMENT_24_HOUR_FORMAT ).isSame(moment(hours.to, MOMENT_24_HOUR_FORMAT ), 'minutes')) {
+                        } else if (!isSameMoment(storeHoursToMerge.from, hours.from)  && !isSameMoment(storeHoursToMerge.to, hours.to)) {
                             unMergedHoursByDay[day].push(hours)
                         }
                     })
