@@ -23,7 +23,6 @@ interface FromToDualTimeSelectorProps
 
 const MATCH_FIRST_LETTER_PATTERN = /^\w/;
 
-// TODO: errors
 export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
     storeHours,
     setStoreHours,

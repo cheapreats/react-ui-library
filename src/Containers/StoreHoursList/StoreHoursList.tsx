@@ -35,7 +35,6 @@ export interface StoreHoursListProps
     isLoading?: boolean;
 }
 
-// TODO: Double Check deepCopy functioning properly with allcategories
 export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     allCategories,
     textHeaders,
