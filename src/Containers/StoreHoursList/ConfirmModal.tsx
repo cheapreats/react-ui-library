@@ -2,14 +2,11 @@ import React from 'react';
 import styled from 'styled-components';
 import { Check } from '@styled-icons/boxicons-regular/Check';
 import { Cross } from '@styled-icons/entypo/Cross';
-import { ICategoryWithHoursTypes } from './constants';
 import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button/Button';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
-
-const DELETE_SINGLE_CATEGORY = 1;
 
 interface ConfirmModalProps
     extends MainInterface,
@@ -19,11 +16,7 @@ interface ConfirmModalProps
     confirmDelete: string;
     yesButtonLabel: string;
     noButtonLabel: string;
-    allCategories: ICategoryWithHoursTypes[];
-    setAllCategories: React.Dispatch<
-        React.SetStateAction<ICategoryWithHoursTypes[]>
-    >;
-    deletedCategory: number;
+    onConfirm: () => void;
 }
 
 export const ConfirmModal: React.FC<ConfirmModalProps> = ({
@@ -31,25 +24,16 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
     confirmDelete,
     yesButtonLabel,
     noButtonLabel,
-    allCategories,
-    setAllCategories,
-    deletedCategory,
+    onConfirm,
     ...props
 }): React.ReactElement => {
     const [confirmModalState, setConfirmModalState] = isVisible;
-
-    const handleClick = (): void => {
-        setConfirmModalState(!confirmModalState);
-        const categoriesCopy = [...allCategories];
-        categoriesCopy.splice(deletedCategory, DELETE_SINGLE_CATEGORY)
-        setAllCategories(categoriesCopy);
-    };
 
     return (
         <StyledModal state={isVisible} {...props}>
             <StyledHeading type="h6">{confirmDelete}</StyledHeading>
             <ButtonsContainer>
-                <Section as={Button} icon={Check} onClick={handleClick}>
+                <Section as={Button} icon={Check} onClick={()=> onConfirm()}>
                     {yesButtonLabel}
                 </Section>
                 <Section

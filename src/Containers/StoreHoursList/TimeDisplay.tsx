@@ -6,6 +6,9 @@ import { Heading } from '../../Text';
 import { Tag } from '../Tag/Tag';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
+const NO_HOURS_FOR_DAY = 0;
+const MATCH_FIRST_LETTER_PATTERN = /^\w/;
+
 interface TimeDisplayProps
     extends MainInterface,
         ResponsiveInterface,
@@ -14,8 +17,6 @@ interface TimeDisplayProps
     handleRemoveHours: (day: string, hoursIndex: number) => void;
     is24: boolean;
 }
-
-const MATCH_FIRST_LETTER_PATTERN = /^\w/;
 
 export const TimeDisplay: React.FC<TimeDisplayProps> = ({
     allCategoriesWithHours,
@@ -30,7 +31,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
                     MATCH_FIRST_LETTER_PATTERN,
                     (chr: string): string => chr.toUpperCase(),
                 );
-                return toFromHoursArray.length > 0 ? (
+                return toFromHoursArray.length > NO_HOURS_FOR_DAY ? (
                     <div>
                         <Heading bold size="0.95em" padding="5">
                             {capitalDay}

@@ -1,6 +1,11 @@
 
 const FIRST_LETTER_OF_DAY = 0;
 const SECOND_LETTER_OF_DAY = 1;
+
+interface IErrors {
+    [key: string]: string;
+}
+
 export interface ICategoryWithHoursTypes {
     category: string;
     hoursByDay: IHoursByDay;
@@ -68,4 +73,16 @@ export interface IMergeDays {
     sunday: MergeActions;
 }
 
-export const upperCaseFirstLetter = (day: string): string => day.charAt(FIRST_LETTER_OF_DAY).toUpperCase() + day.slice(SECOND_LETTER_OF_DAY)
+export const upperCaseFirstLetter = (day: string): string => day.charAt(FIRST_LETTER_OF_DAY).toUpperCase() + day.slice(SECOND_LETTER_OF_DAY);
+
+export const validateCreateCategory = (values: {createCategory: string}, categories: ICategoryWithHoursTypes[], duplicateErrorMessage: string, emptyErrorMessage: string): IErrors => {
+    const errors: IErrors = {};
+    const categoryNames = categories.map(({category}) => category)
+    const isCategoryDuplicate = categoryNames.find(name => name === values.createCategory);
+    if (isCategoryDuplicate) {
+        errors.createCategory = duplicateErrorMessage
+    } else if (!values.createCategory) {
+        errors.createCategory = emptyErrorMessage
+    }
+    return errors
+}

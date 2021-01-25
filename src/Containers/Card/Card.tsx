@@ -24,7 +24,7 @@ export const Card: React.FC<CardProps> = ({
 
 const CardBox = styled.div<CardProps & MainInterface & ResponsiveInterface>`
     background-color: white;
-
+    position: relative;
     // Theme Stuff
     ${({ theme, ...props }): string => `
     border-radius: ${theme.dimensions.radius};

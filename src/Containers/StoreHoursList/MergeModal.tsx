@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState } from 'react';
 import styled from 'styled-components';
 import { useFormik } from 'formik';
 import { Mixins } from '@Utils';
@@ -50,7 +50,8 @@ export const MergeModal: React.FC<MergeModalProps> = ({
         enableReinitialize: true,
     });
 
-    const storeHoursChange = (
+    // render store hours
+    const renderStoreHours = (
         <Column>
             <HoursItem>
                 {convertTime(
@@ -66,14 +67,15 @@ export const MergeModal: React.FC<MergeModalProps> = ({
         </Column>
     )
     
-    const renderStoreHoursMerge = useCallback(() => DAYS_OF_THE_WEEK.map(day => {
+    // create list of store hours that require resolution
+    // if no hours require merging return null
+    const renderStoreHoursMerge = () => DAYS_OF_THE_WEEK.map(day => {
         if (overWrittenHours[day].length > 0) {
-            const renderOriginalTimes = (
+            // create elements to display overWritten times
+            const renderOverwrittenTimes = (
                 <Column>
                     {overWrittenHours[day].map((time: IToFromHours)=> (
-                        <HoursItem
-                            key={`overWritten${day}`}
-                        >
+                        <HoursItem>
                             {convertTime(
                                 time.from,
                                 is24,
@@ -87,13 +89,11 @@ export const MergeModal: React.FC<MergeModalProps> = ({
                     ))}
                 </Column>
             )
-            // handle multiple merged Times
+            // create elements to display merged times
             const renderMergedTime = (
                 <Column>
                     {mergedHours[day].map((time: IToFromHours)=> (
-                        <HoursItem
-                            key={`merged${day}`}
-                        >
+                        <HoursItem>
                             {convertTime(
                                 time.from,
                                 is24,
@@ -107,15 +107,16 @@ export const MergeModal: React.FC<MergeModalProps> = ({
                     ))}
                 </Column>
             )
-
+            
+            // render different resolution based on the day's merge action to be performed
             const renderResolution = () => {
                 switch (values[day]) {
                 case MergeActions.MERGE:
                     return renderMergedTime;
                 case MergeActions.REPLACE:
-                    return storeHoursChange;
+                    return renderStoreHours;
                 case MergeActions.KEEP:
-                    return renderOriginalTimes
+                    return renderOverwrittenTimes
                 default:
                     return null;
                 }
@@ -131,7 +132,7 @@ export const MergeModal: React.FC<MergeModalProps> = ({
                             <Heading type='h6'>Resolved</Heading>
                         </>
                         <>
-                            {renderOriginalTimes}
+                            {renderOverwrittenTimes}
                             <Select
                                 name={`${day}`}
                                 value={values[day]}
@@ -148,14 +149,15 @@ export const MergeModal: React.FC<MergeModalProps> = ({
             )
         } 
         return null
-        
-    }), [mergedHours, overWrittenHours, values])
+    })
+    
+
     return (
         <StyledModal state={[mergeModalState, setMergeModalState]} {...props}>
-            <Button onClick={()=> setIs24(!is24)}>Toggle 24 hrs</Button>
             <StyledHeading type="h2">Resolve Hours Conflicts</StyledHeading>
+            <Button margin='auto' onClick={()=> setIs24(!is24)}>Toggle 24 hrs</Button>
             {renderStoreHoursMerge()}
-            <Button primary onClick={()=> confirmMerge(values)}>Resolve</Button>
+            <Button margin='auto 10px auto auto' primary onClick={()=> confirmMerge(values)}>Resolve</Button>
         </StyledModal>
     );
 };

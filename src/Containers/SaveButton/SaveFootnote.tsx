@@ -12,7 +12,6 @@ export interface SaveButtonProps extends ButtonProps {
     show?: boolean;
     action?: React.MouseEventHandler;
     loading?: boolean;
-    text?: string;
     buttonText?: string;
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     disabled?: boolean;
@@ -23,11 +22,11 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
     show,
     action,
     loading,
-    text = 'Changes have been made.',
     buttonText = 'Submit',
     icon = Check,
     disabled,
     disabledMessage,
+    children,
     ...props
 }) => {
     const [isHovered, setIsHovered] = useState<boolean>(false);
@@ -41,10 +40,8 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
     );
 
     return (
-        <Footnote padding='10px' show={show} position='relative'>
-            <SmallText margin='auto 5px auto 10px' type='span' bold>
-                {text}
-            </SmallText>
+        <Footnote padding='10px' show={show} position='absolute'>
+            {children}
             <HoverDetectDiv
                 onMouseEnter={() => handleHover(true)}
                 onMouseLeave={() => handleHover(false)}

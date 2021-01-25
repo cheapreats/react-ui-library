@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import  moment  from 'moment';
 import { useFormik } from 'formik';
@@ -89,7 +89,11 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
         onSubmit: ()=> undefined,
         enableReinitialize: true,
     });
-    
+
+    useEffect(() => {
+        setAddStoreHoursCategory(activeCategory)
+    }, [activeCategory]);
+
     /**
      * Checks if there is more than one time in a day given a category name
      * @param {number} activeCategoryIndex - Name of category that needs hours to be saved
@@ -98,7 +102,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     const mergeOrAddTime = () => {
         const category = allCategories[addStoreHoursCategory]
         let merged = false;
-        // onmerge keep these
+        // unMerged Hours are hours without conflict and always kept
         const unMergedHoursByDay = {
             monday: [],
             tuesday: [],
@@ -108,6 +112,8 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
             saturday: [],
             sunday: [],
         }
+
+        // overWritten Hours are hours that would be lost on merge
         const overWrittenHoursByDay = {
             monday: [],
             tuesday: [],
@@ -117,6 +123,9 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
             saturday: [],
             sunday: [],
         }
+
+        // merged Hours are house that will replace overwritten hours
+        // they are the union of overWritten Hours and Store Hours
         const mergedHoursByDay = {
             monday: [],
             tuesday: [],
@@ -126,38 +135,56 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
             saturday: [],
             sunday: [],
         }
+
         DAYS_OF_THE_WEEK.map(day => {
             const hoursForDayOfWeek: IToFromHours[] = category.hoursByDay[day];
-            const hoursCopy = {...values.storeHours};
+            const storeHoursToMerge = {...values.storeHours};
+            // check if current day is selected to update store hours
             if (values.checkboxes[day]) {
                 if(hoursForDayOfWeek.length > 0) {
+                    // check all for each day of the week updating overwritten hours and creating a mergedStoreHours
                     hoursForDayOfWeek.map(hours => {
-                        if(moment(hoursCopy.to, 'HH:mm').isAfter(moment(hours.from, 'HH:mm'), 'minutes')  && moment(hoursCopy.to, 'HH:mm').isBefore(moment(hours.to, 'HH:mm'), 'minutes')) {
+                        // Calculate if to (end time) of new hours falls between current hours
+                        if(moment(storeHoursToMerge.to, 'HH:mm').isAfter(moment(hours.from, 'HH:mm'), 'minutes')  && moment(storeHoursToMerge.to, 'HH:mm').isBefore(moment(hours.to, 'HH:mm'), 'minutes')) {
                             merged = true;
-                            hoursCopy.to = hours.to
-                            if (moment(hoursCopy.from).isAfter(moment(hours.from,'HH:mm'), 'minutes')) {
-                                hoursCopy.from = hours.from
+                            // set new end time to be the current hours end time since it falls after
+                            storeHoursToMerge.to = hours.to
+                            // check if from (beginning time) is after current from
+                            if (moment(storeHoursToMerge.from).isAfter(moment(hours.from,'HH:mm'), 'minutes')) {
+                                // sets new beginning time to current beginning since new falls after
+                                storeHoursToMerge.from = hours.from
                             }
-                            overWrittenHoursByDay[day].push(hours);
-                        } else  if (moment(hoursCopy.from, 'HH:mm').isAfter(moment(hours.from, 'HH:mm'), 'minutes')  && moment(hoursCopy.from, 'HH:mm').isBefore(moment(hours.to, 'HH:mm'), 'minutes')) {
+                            // copy hours overwritten
+                            overWrittenHoursByDay[day].push(hours);                            
+                            // Calculate if from (beginning time) of new hours falls between current hours
+                        } else  if (moment(storeHoursToMerge.from, 'HH:mm').isAfter(moment(hours.from, 'HH:mm'), 'minutes')  && moment(storeHoursToMerge.from, 'HH:mm').isBefore(moment(hours.to, 'HH:mm'), 'minutes')) {
                             merged = true;
-                            hoursCopy.from = hours.from
-                            if (moment(hoursCopy.to).isBefore(moment(hours.to, 'HH:mm'), 'minutes')) {
-                                hoursCopy.to = hours.to
+                            // set new beginning time to be the current hours end time since it falls before
+                            storeHoursToMerge.from = hours.from
+                            // check if to (end time) is before current to
+                            if (moment(storeHoursToMerge.to).isBefore(moment(hours.to, 'HH:mm'), 'minutes')) {
+                                // sets new end time to current beginning since new falls before
+                                storeHoursToMerge.to = hours.to
                             }
+                            // copy hours overwritten
                             overWrittenHoursByDay[day].push(hours);
-                        } else  if (moment(hoursCopy.from, 'HH:mm').isBefore(moment(hours.from, 'HH:mm'), 'minutes')  && moment(hoursCopy.to, 'HH:mm').isAfter(moment(hours.to, 'HH:mm'), 'minutes')) {
+                            // Check if new hours enclose current times. The from is before the current from and the to is after the current to
+                        } else  if (moment(storeHoursToMerge.from, 'HH:mm').isBefore(moment(hours.from, 'HH:mm'), 'minutes')  && moment(storeHoursToMerge.to, 'HH:mm').isAfter(moment(hours.to, 'HH:mm'), 'minutes')) {
                             merged = true;
+                            // copy hours overwritten
                             overWrittenHoursByDay[day].push(hours);
                         } else {
+                            // if no conditions are met push current hours to the unMergedHoursByDay to be kept
                             unMergedHoursByDay[day].push(hours)
                         }
                     })
-                    mergedHoursByDay[day].push(hoursCopy)
+                    // Add the merged storeHours to the mergedHours object
+                    mergedHoursByDay[day].push(storeHoursToMerge)
                 } else {
-                    unMergedHoursByDay[day].push(hoursCopy);
+                    unMergedHoursByDay[day].push(storeHoursToMerge);
                 }
             } else {
+                // set unmerged hours for day to be equal to current
                 unMergedHoursByDay[day] = hoursForDayOfWeek
             }
         });
@@ -169,12 +196,14 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
         } else {
             const updateStoreHours = {...unMergedHoursByDay}
             DAYS_OF_THE_WEEK.map(day => {
-                if(mergedHoursByDay[day].length > NO_MERGED_HOURS){
+                if (mergedHoursByDay[day].length > NO_MERGED_HOURS) {
                     updateStoreHours[day].push(...mergedHoursByDay[day])
                 }})
             handleStoreHoursUpdate(updateStoreHours, addStoreHoursCategory);
+            setAddModalState(false);
         }
     };
+
     const confirmMerge = (merge: IMergeDays) => {
         const confirmedHours = {
             monday: [],
@@ -213,7 +242,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     const setStoreHours = (hours: IToFromHours) => {
         setFieldValue('storeHours', hours)
     }
- 
+
     return (
         <>
             <StyledModal state={[addModalState, setAddModalState]} {...props}>
@@ -244,7 +273,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     onChange={(
                         e: React.ChangeEvent<HTMLInputElement>,
                     ): void => {
-                        setAddStoreHoursCategory(e.target.value as unknown as number);
+                        setAddStoreHoursCategory(parseFloat(e.target.value));
                     }}
                     placeholder={allCategories[addStoreHoursCategory].category}
                     value={allCategories[addStoreHoursCategory].category}

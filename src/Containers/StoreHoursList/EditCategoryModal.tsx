@@ -1,8 +1,10 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { useFormik } from 'formik';
-import { ICategoryWithHoursTypes } from './constants';
+import { ConfirmModal } from '@Containers/StoreHoursList/ConfirmModal';
+import { deepCopy } from '@Utils/deepCopy';
+import { ICategoryWithHoursTypes, validateCreateCategory } from './constants';
 import { createCategoryWithHours } from './CategoryScheduleFunctions';
 import { Heading, SmallText } from '../../Text';
 import { Modal } from '../Modal/Modal';
@@ -11,6 +13,11 @@ import { Button } from '../../Inputs/Button/Button';
 import { Tag } from '../Tag/Tag';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
+
+
+const CATEGORY_INDEX = 0;
+const CATEGORY_SCHEDULE = 1;
+const DELETE_SINGLE_CATEGORY = 1;
 
 interface EditCategoryProps
     extends MainInterface,
@@ -24,19 +31,12 @@ interface EditCategoryProps
     ADD_CATEGORIES_SUBTITLE: string;
     CANNOT_DELETE_ACTIVE: string;
     ADD_CATEGORY_BUTTON: string;
+    yesButtonLabel: string;
+    noButtonLabel: string;
     allCategories: ICategoryWithHoursTypes[];
-    setAllCategories: React.Dispatch<
-        React.SetStateAction<ICategoryWithHoursTypes[]>
-    >;
+    setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
+    setActiveCategory: React.Dispatch<React.SetStateAction<number>>;
     activeCategory: number;
-    isConfirmModal: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-    setDeletedCategory: React.Dispatch<React.SetStateAction<number>>;
-}
-
-const CATEGORY_INDEX = 0;
-const CATEGORY_SCHEDULE = 1;
-interface IErrors {
-    [key: string]: string;
 }
 
 export const EditCategoryModal: React.FC<EditCategoryProps> = ({
@@ -49,23 +49,15 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
     CANNOT_DELETE_ACTIVE,
     ADD_CATEGORY_BUTTON,
     allCategories,
-    setAllCategories,
+    setFieldValue,
+    setActiveCategory,
     activeCategory,
-    isConfirmModal,
-    setDeletedCategory,
+    yesButtonLabel,
+    noButtonLabel,
     ...props
 }): React.ReactElement => {
-    const validateCreateCategory = (validationValues: {createCategory: string}, categories: ICategoryWithHoursTypes[]) => {
-        const errors: IErrors = {};
-        const categoryNames = categories.map(({category}) => category)
-        const isCategoryDuplicate = categoryNames.find(name => name === validationValues.createCategory);
-        if (isCategoryDuplicate) {
-            errors.createCategory = CATEGORY_EXISTS
-        } else if (!validationValues.createCategory) {
-            errors.createCategory = CANNOT_ADD_EMPTY
-        }
-        return errors
-    }
+    const [confirmModalState, setConfirmModalState] = useState(false);
+    const [deletedCategory, setDeletedCategory] = useState(0)
     const {
         values,
         errors: formErrors,
@@ -75,12 +67,12 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
         handleChange,
     } = useFormik({
         initialValues: {createCategory: ''},
-        validate: (validationValues: {createCategory: string} )=> validateCreateCategory(validationValues, allCategories),
+        validate: (validationValues: {createCategory: string} )=> validateCreateCategory(validationValues, allCategories, CATEGORY_EXISTS, CANNOT_ADD_EMPTY),
         validateOnChange: true,
         onSubmit: ()=>undefined,
         enableReinitialize: true,
-    });
-    const [confirmModalState, setConfirmModalState] = isConfirmModal;   
+    }); 
+
     const removeCategory = (index: number) => {
         if (
             index === activeCategory
@@ -94,16 +86,33 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
             );
         }
     }
-    const renderCategories = () => Object.entries(allCategories).map(
-        (listAllCategories, index): React.ReactElement => (
+
+    const handleDeleteCategory = (): void => {
+        setConfirmModalState(!confirmModalState);
+        // get category name to find new index;
+        const activeCategoryName = allCategories[activeCategory].category;
+        const categoriesCopy = deepCopy(allCategories);
+        // remove category to delete
+        categoriesCopy.splice(deletedCategory, DELETE_SINGLE_CATEGORY)
+        // find new index of active category by categoryName
+        const activeCategoryIndexAfterDelete = categoriesCopy.findIndex(categoryWithHours => categoryWithHours.category === activeCategoryName);
+        setActiveCategory(activeCategoryIndexAfterDelete);
+        setFieldValue('categories', categoriesCopy);
+    };
+
+    const handleCreateCategory = (): void => {
+        const newCategory = createCategoryWithHours(values.createCategory);
+        setFieldValue('categories', [...allCategories, newCategory]);
+    };
+
+    const renderCategories = () => allCategories.map(
+        ({category}, index): React.ReactElement => (
             <Section
                 as={Tag}
-                key={listAllCategories[CATEGORY_INDEX]}
                 onClick={(): void => removeCategory(index)}
             >
                 {
-                    listAllCategories[CATEGORY_SCHEDULE]
-                        .category
+                    category
                 }
             </Section>
         ),
@@ -127,15 +136,13 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
                 </Container>
                 <CenteredButton
                     icon={Add}
-                    onClick={(): void => {
-                        const newCategory = createCategoryWithHours(values.createCategory);
-                        setAllCategories([...allCategories, newCategory]);
-                    }}
+                    onClick={() => handleCreateCategory()}
                     disabled={!dirty || !isValid}
                 >
                     {ADD_CATEGORY_BUTTON}
                 </CenteredButton>
             </StyledModal>
+            <ConfirmModal confirmDelete='Are you sure you want to delete this category' yesButtonLabel={yesButtonLabel} noButtonLabel={noButtonLabel} isVisible={[confirmModalState, setConfirmModalState]} onConfirm={()=> handleDeleteCategory()} />
         </>
     );
 };

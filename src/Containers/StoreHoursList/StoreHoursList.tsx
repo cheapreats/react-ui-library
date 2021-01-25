@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { BusinessTime } from '@styled-icons/fa-solid/BusinessTime';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
+import { Revision } from '@styled-icons/boxicons-regular/Revision';
 import { useFormik } from 'formik';
-import { SaveButton } from '@Containers/SaveButton/SaveButton';
+import { SaveButton } from '@Containers/SaveButton/SaveFootnote';
 import { deepCopy } from '@Utils/deepCopy';
 import { ICategoryWithHoursTypes, IHoursByDay } from './constants';
 import { TimeDisplay } from './TimeDisplay';
@@ -16,15 +17,16 @@ import { SettingsCard } from '../SettingsCard/SettingsCard';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button/Button';
 import { Mixins } from '../../Utils';
-import { I_DICT } from '../../Utils/Constants/dict';
+import { ITextHeaders } from './interfaces';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
+
 
 export interface StoreHoursListProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     allCategories: ICategoryWithHoursTypes[];
-    textHeaders: I_DICT;
+    textHeaders: ITextHeaders;
     width: string;
     onSave: (updatedCategories: ICategoryWithHoursTypes[]) => void;
 }
@@ -40,10 +42,9 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const [editModalState, setEditModalState] = editModal;
     const addModal = useState(false);
     const editCategoryModal = useState(false);
-    const confirmModal = useState(false);
+    const [confirmModal, setConfirmModalState] = useState(false);
     const errorModal = useState(false);
     const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryWithHoursTypes[]>(allCategories);
-    const [deletedCategory, setDeletedCategory] = useState(0);
     const [activeCategory, setActiveCategory] = useState(0);
     const {
         values,
@@ -57,23 +58,37 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     });
     const {categories} = values;
     const [is24, setIs24] = useState(false);
+
+    /**
+    *@param {day} - Day of the week to update hours
+    *@param {hoursIndex} - location in array of the hours in the day array to update 
+    * */
     const handleRemoveHours = (day: string, hoursIndex: number) => {
-        const allCategoriesWithHoursCopy = deepCopy(allCategories);
+        const allCategoriesWithHoursCopy = deepCopy(categories);
         // Should remove the hours index of the array
         allCategoriesWithHoursCopy[activeCategory].hoursByDay[day].splice(hoursIndex, 1);
         setFieldValue('categories', allCategoriesWithHoursCopy)
     }
 
-    // saves store hours and resets the form state
+    // saves store hours and resets the initial form state to current values
     const saveStoreHours = () => {
         onSave(categories)
         setAllCategoriesWithHours(categories);
     }
 
-    const handleStoreHoursUpdate = ( updateHoursByDay: IHoursByDay, index: number,) => {
-        const updatedAllCategories = deepCopy(allCategories);
-        updatedAllCategories[index].hoursByDay = updateHoursByDay;
+    /**
+    *@param {updateHoursByDay} - complete week of hours to be updated in the store
+    *@param {categoryIndex} - the category to be updated with new week of hours
+    * */
+    const handleStoreHoursUpdate = ( updateHoursByDay: IHoursByDay, categoryIndex: number,) => {
+        const updatedAllCategories = deepCopy(categories);
+        updatedAllCategories[categoryIndex].hoursByDay = updateHoursByDay;
         setFieldValue('categories', updatedAllCategories)
+    }
+
+    const confirmFormReset = () => {
+        setConfirmModalState(false)
+        resetForm({values: {categories: allCategories}});
     }
 
     return (
@@ -84,15 +99,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 width={width}
             >
                 <ButtonsContainer>
-                    <Section
-                        as={Button}
-                        icon={Edit}
-                        onClick={(): void => {
-                            resetForm({values: {categories: allCategories}});
-                        }}
-                    >
-                        Reset
-                    </Section>
                     <Section
                         as={Button}
                         icon={Edit}
@@ -115,7 +121,15 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     handleRemoveHours={handleRemoveHours}
                     is24={is24}
                 />
-                <SaveButton show={dirty} text='Save Hours' buttonText='Save' action={()=> saveStoreHours()} />
+                <SaveButton show={dirty} buttonText='Save' action={()=> saveStoreHours()}>
+                    <Section
+                        as={Button}
+                        icon={Revision}
+                        onClick={() => setConfirmModalState(true)}
+                    >
+                        Reset
+                    </Section>
+                </SaveButton>
             </SettingsCard>
             <EditModal
                 isVisible={editModal}
@@ -146,11 +160,12 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     textHeaders.ERRORS.CANNOT_DELETE_ACTIVE_CATEGORY
                 }
                 ADD_CATEGORY_BUTTON={textHeaders.BUTTONS.ADD_CATEGORY}
-                allCategories={allCategoriesWithHours}
-                setAllCategories={setAllCategoriesWithHours}
+                yesButtonLabel={textHeaders.BUTTONS.YES}
+                noButtonLabel={textHeaders.BUTTONS.NO}
+                allCategories={categories}
+                setFieldValue={setFieldValue}
+                setActiveCategory={setActiveCategory}
                 activeCategory={activeCategory}
-                isConfirmModal={confirmModal}
-                setDeletedCategory={setDeletedCategory}
             />
             <CreateHoursModal
                 isVisible={addModal}
@@ -158,21 +173,19 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                 SELECT_A_DAY_TITLE={textHeaders.TITLES.SELECT_A_DAY}
                 SELECT_A_CATEGORY={textHeaders.TITLES.SELECT_A_CATEGORY}
                 ADD_HOURS_BUTTON={textHeaders.BUTTONS.ADD_HOURS}
-                allCategories={allCategoriesWithHours}
+                allCategories={categories}
                 activeCategory={activeCategory}
                 handleStoreHoursUpdate={handleStoreHoursUpdate}
             />
             <ConfirmModal
-                isVisible={confirmModal}
-                confirmDelete={textHeaders.TITLES.CONFIRM_DELETE}
+                isVisible={[confirmModal, setConfirmModalState]}
+                confirmDelete={textHeaders.TITLES.RESET_FORM}
                 yesButtonLabel={textHeaders.BUTTONS.YES}
                 noButtonLabel={textHeaders.BUTTONS.NO}
-                allCategories={allCategoriesWithHours}
-                setAllCategories={setAllCategoriesWithHours}
-                deletedCategory={deletedCategory}
+                onConfirm={confirmFormReset}
             />
             {/** TODO: Error message */}
-            <ErrorModal modalState={errorModal} errorMessage="error" />
+            <ErrorModal modalState={errorModal} errorMessage='Are you sure you want to reset' />
         </>
     );
 };

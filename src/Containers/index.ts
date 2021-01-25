@@ -55,4 +55,4 @@ export * from './DraggableDemoFront/DraggableDemoFront';
 export * from './FileUpload/FileUpload';
 export * from './TransactionList/TransactionList';
 export * from './SoldOutCardNotification/SoldOutCardNotification';
-export * from './SaveButton/SaveButton'
+export * from './SaveButton/SaveFootnote'

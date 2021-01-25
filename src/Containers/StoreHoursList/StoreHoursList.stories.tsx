@@ -105,6 +105,8 @@ const textHeaders = {
         ALL_CATEGORIES_SUBTITLE:
             'Hover over and click the categories to delete them.',
         CONFIRM_DELETE: 'Are you sure you want to delete this category?',
+        CHANGE_ACTIVE_SUBTITLE: 'Change Active',
+        RESET_FORM: 'Are you sure you want to reset'
     },
     BUTTONS: {
         EDIT: 'Edit',

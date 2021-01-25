@@ -81,7 +81,7 @@ export const EditModal: React.FC<EditTimeProps> = ({
                 description={CHANGE_ACTIVE_SUBTITLE}
                 placeholder={allCategories[selectActiveCategory].category}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                    setSelectActiveCategory(e.target.value as unknown as number);
+                    setSelectActiveCategory(parseFloat(e.target.value));
                 }}
                 value={allCategories[selectActiveCategory].category}
             >
