@@ -1,3 +1,69 @@
+export interface ICategoryWithHoursTypes {
+    category: string;
+    hoursByDay: IHoursByDay;
+}
+
+export interface IErrors {
+    [key: string]: string;
+}
+
+export interface IToFromHours { 
+    to: string; from: string 
+}
+
+export interface IHoursByDay {
+    monday: IToFromHours[];
+    tuesday: IToFromHours[];
+    wednesday: IToFromHours[];
+    thursday: IToFromHours[];
+    friday: IToFromHours[];
+    saturday: IToFromHours[];
+    sunday: IToFromHours[]; 
+}
+
+export interface ICreateHoursInitalState {
+    checkboxes : InitialCheckboxState,
+    storeHours: IToFromHours
+}
+
+export interface ICategoryNew {
+    [category: string] : {
+        category: string;
+        hoursByDay: IHoursByDay
+    }
+}
+
+export interface ITimeTypes {
+    to: Date | string;
+    from: Date | string;
+}
+
+export interface InitialCheckboxState {
+    monday: boolean;
+    tuesday: boolean;
+    wednesday: boolean;
+    thursday: boolean;
+    friday: boolean;
+    saturday: boolean;
+    sunday: boolean;
+}
+
+export enum MergeActions {
+    MERGE = 'Merge',
+    REPLACE = 'Replace',
+    KEEP = 'Keep'
+}
+
+export interface IMergeDays {
+    monday: MergeActions;
+    tuesday: MergeActions;
+    wednesday: MergeActions;
+    thursday: MergeActions;
+    friday: MergeActions;
+    saturday: MergeActions;
+    sunday: MergeActions;
+}
+
 export interface ITextHeaders {
     TITLES: {
         HEADING: string,
@@ -26,6 +92,8 @@ export interface ITextHeaders {
         SET_ACTIVE: string,
         YES: string,
         NO: string,
+        RESET: string,
+        SAVE: string,
     },
     ERRORS: {
         CANNOT_DELETE_ACTIVE_CATEGORY: string,

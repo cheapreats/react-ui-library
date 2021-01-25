@@ -13,7 +13,7 @@ export interface SettingsCardProps
     heading: string;
     icon: StyledIcon;
     onClick?: (event: React.MouseEvent<Element, MouseEvent>) => void;
-    width: string;
+    width?: string;
 }
 
 export const SettingsCard: React.FC<SettingsCardProps> = ({

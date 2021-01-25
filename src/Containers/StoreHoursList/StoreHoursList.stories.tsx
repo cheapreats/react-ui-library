@@ -3,91 +3,85 @@ import { Story, Meta } from '@storybook/react';
 import { StoreHoursList, StoreHoursListProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
-export default {
-    title: createStoryTitle('StoreHoursList'),
-    component: StoreHoursList,
-    args: {
-        allCategories: [
-            {
-                category: 'Winter',
-                hoursByDay: {
-                    monday: [
-                        {
-                            from: '5:00',
-                            to: '6:00'
-                        },
-                        {
-                            from: '9:00',
-                            to: '10:00'
-                        },
-                        {
-                            from: '12:00',
-                            to: '20:00',
-                        },
-                    ],
-                    tuesday: [],
-                    wednesday: [],
-                    thursday: [
-                        {
-                            from: '9:00',
-                            to: '11:00'
-                        },
-                        {
-                            from: '12:00',
-                            to: '20:00',
-                        },
-                    ],
-                    friday: [],
-                    saturday: [],
-                    sunday: [],
+const defaultCategories = [
+    {
+        category: 'Winter',
+        hoursByDay: {
+            monday: [
+                {
+                    from: '5:00',
+                    to: '6:00'
                 },
-            },{
-                category: 'Summer',
-                hoursByDay: {
-                    monday: [
-                        {
-                            from: '12:00',
-                            to: '20:00',
-                        },
-                    ],
-                    tuesday: [],
-                    wednesday: [],
-                    thursday: [
-                        {
-                            from: '12:00',
-                            to: '20:00',
-                        },
-                    ],
-                    friday: [],
-                    saturday: [],
-                    sunday: [],
+                {
+                    from: '9:00',
+                    to: '10:00'
                 },
-            },
-            {
-                category: 'Holidays',
-                hoursByDay: {
-                    monday: [
-                        {
-                            from: '12:00',
-                            to: '20:00',
-                        },
-                    ],
-                    tuesday: [],
-                    wednesday: [],
-                    thursday: [
-                        {
-                            from: '12:00',
-                            to: '20:00',
-                        },
-                    ],
-                    friday: [],
-                    saturday: [],
-                    sunday: [],
-                }
-            }
-        ]
+                {
+                    from: '12:00',
+                    to: '20:00',
+                },
+            ],
+            tuesday: [],
+            wednesday: [],
+            thursday: [
+                {
+                    from: '9:00',
+                    to: '11:00'
+                },
+                {
+                    from: '12:00',
+                    to: '20:00',
+                },
+            ],
+            friday: [],
+            saturday: [],
+            sunday: [],
+        },
+    },{
+        category: 'Summer',
+        hoursByDay: {
+            monday: [
+                {
+                    from: '12:00',
+                    to: '20:00',
+                },
+            ],
+            tuesday: [],
+            wednesday: [],
+            thursday: [
+                {
+                    from: '12:00',
+                    to: '20:00',
+                },
+            ],
+            friday: [],
+            saturday: [],
+            sunday: [],
+        },
     },
-} as Meta;
+    {
+        category: 'Holidays',
+        hoursByDay: {
+            monday: [
+                {
+                    from: '12:00',
+                    to: '20:00',
+                },
+            ],
+            tuesday: [],
+            wednesday: [],
+            thursday: [
+                {
+                    from: '12:00',
+                    to: '20:00',
+                },
+            ],
+            friday: [],
+            saturday: [],
+            sunday: [],
+        }
+    }
+];
 
 const textHeaders = {
     TITLES: {
@@ -117,6 +111,8 @@ const textHeaders = {
         SET_ACTIVE: 'Set As Active',
         YES: 'Yes',
         NO: 'No',
+        RESET: 'Reset',
+        SAVE: 'Save'
     },
     ERRORS: {
         CANNOT_DELETE_ACTIVE_CATEGORY: 'You cannot delete an active category',
@@ -128,6 +124,26 @@ const textHeaders = {
     },
 };
 
+const onSave = (categories: any) => console.log(categories);
+
+export default {
+    title: createStoryTitle('StoreHoursList'),
+    component: StoreHoursList,
+    args: {
+        allCategories: defaultCategories,
+        onSave
+    },
+} as Meta;
+
+
+
+
+
 export const Basic: Story<StoreHoursListProps> = (args) => (
     <StoreHoursList {...args} textHeaders={textHeaders} />
 );
+
+export const NoCategories = Basic.bind({title: createStoryTitle('StoreHoursList Empty Categories')});
+NoCategories.args = {
+    allCategories: []
+};

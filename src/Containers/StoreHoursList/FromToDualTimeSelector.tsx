@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import moment from 'moment';
+import { FormikErrors } from 'formik';
 import { Timepicker } from '../../Inputs/Timepicker';
 import {
     MainInterface,
@@ -8,14 +9,16 @@ import {
     Main,
 } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
-import { IToFromHours } from './constants';
+import { IToFromHours, IErrors } from './interfaces';
+import { MOMENT_24_HOUR_FORMAT } from './constants';
 
 interface FromToDualTimeSelectorProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     storeHours: IToFromHours;
-    setStoreHours: (hours: IToFromHours) => void
+    setStoreHours: (hours: IToFromHours) => void;
+    errors?: IErrors | FormikErrors<IToFromHours>
 }
 
 const MATCH_FIRST_LETTER_PATTERN = /^\w/;
@@ -24,6 +27,7 @@ const MATCH_FIRST_LETTER_PATTERN = /^\w/;
 export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
     storeHours,
     setStoreHours,
+    errors,
     ...props
 }): React.ReactElement => (
     <TimeRow {...props}>
@@ -37,13 +41,14 @@ export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
                         MATCH_FIRST_LETTER_PATTERN,
                         (char): string => char.toUpperCase(),
                     )}
-                    value={moment(time, 'HH:mm').toDate()}
+                    value={moment(time, MOMENT_24_HOUR_FORMAT ).toDate()}
+                    error={errors ? errors[key] : false}
                     onChange={(
                         e: React.ChangeEvent<HTMLInputElement>,
                     ): void =>
                         setStoreHours({
                             ...storeHours,
-                            [key]: moment(e.target.value).format('HH:mm'),
+                            [key]: moment(e.target.value).format(MOMENT_24_HOUR_FORMAT ),
                         })}
                     
                 />

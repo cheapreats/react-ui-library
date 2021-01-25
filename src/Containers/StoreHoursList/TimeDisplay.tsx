@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
-import { convertTime } from './TimeFunctions';
-import { IHoursByDay, IToFromHours } from './constants';
+import { convertTime, DASH_BEWTWEEN_TIME_PERIODS } from './constants';
+import { IHoursByDay, IToFromHours } from './interfaces';
 import { Heading } from '../../Text';
 import { Tag } from '../Tag/Tag';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 const NO_HOURS_FOR_DAY = 0;
 const MATCH_FIRST_LETTER_PATTERN = /^\w/;
+const FONT_SIZE = "0.95em";
 
 interface TimeDisplayProps
     extends MainInterface,
@@ -33,7 +34,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
                 );
                 return toFromHoursArray.length > NO_HOURS_FOR_DAY ? (
                     <div>
-                        <Heading bold size="0.95em" padding="5">
+                        <Heading bold size={FONT_SIZE}>
                             {capitalDay}
                         </Heading>
                         {toFromHoursArray.map((toFromHours, hoursIndex) => (
@@ -46,7 +47,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
                                     toFromHours.from,
                                     is24,
                                 )}
-                                {` - `}
+                                {DASH_BEWTWEEN_TIME_PERIODS}
                                 {convertTime(
                                     toFromHours.to,
                                     is24,
@@ -56,7 +57,7 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
                             
                     </div>
                 ) : (
-                    <Heading bold size="0.95em" margin="0">
+                    <Heading bold size={FONT_SIZE}>
                         {capitalDay}
                     </Heading>
                 );

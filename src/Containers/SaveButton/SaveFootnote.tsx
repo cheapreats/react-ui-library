@@ -40,7 +40,7 @@ export const SaveButton: React.FC<SaveButtonProps> = ({
     );
 
     return (
-        <Footnote padding='10px' show={show} position='absolute'>
+        <Footnote padding='10px' show={show} position='relative'>
             {children}
             <HoverDetectDiv
                 onMouseEnter={() => handleHover(true)}
@@ -81,7 +81,7 @@ const HoverDisplay = styled.div<IHoverDisplayProps>`
     height: 50px;
     border-radius: 10px;
     z-index: 99;
-    position: fixed;
+    position: absolute;
     opacity: 0;
     right: 20px;
     bottom: 70px;

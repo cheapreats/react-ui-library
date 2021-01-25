@@ -4,8 +4,8 @@ import { useFormik } from 'formik';
 import { Mixins } from '@Utils';
 import { Button } from '@Inputs/Button/Button';
 import { Select } from '@Inputs/Select/Select';
-import { IHoursByDay, IToFromHours, DAYS_OF_THE_WEEK, upperCaseFirstLetter, MergeActions, IMergeDays} from './constants';
-import { convertTime } from './TimeFunctions';
+import { IHoursByDay, IToFromHours, MergeActions, IMergeDays } from './interfaces';
+import { DAYS_OF_THE_WEEK, upperCaseFirstLetter, convertTime, DASH_BEWTWEEN_TIME_PERIODS } from './constants';
 import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -58,7 +58,7 @@ export const MergeModal: React.FC<MergeModalProps> = ({
                     storeHours.from,
                     is24,
                 )}
-                {` - `}
+                {DASH_BEWTWEEN_TIME_PERIODS}
                 {convertTime(
                     storeHours.to,
                     is24,
@@ -80,7 +80,7 @@ export const MergeModal: React.FC<MergeModalProps> = ({
                                 time.from,
                                 is24,
                             )}
-                            {` - `}
+                            {DASH_BEWTWEEN_TIME_PERIODS}
                             {convertTime(
                                 time.to,
                                 is24,
@@ -98,7 +98,7 @@ export const MergeModal: React.FC<MergeModalProps> = ({
                                 time.from,
                                 is24,
                             )}
-                            {` - `}
+                            {DASH_BEWTWEEN_TIME_PERIODS}
                             {convertTime(
                                 time.to,
                                 is24,

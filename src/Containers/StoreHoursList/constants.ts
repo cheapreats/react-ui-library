@@ -1,52 +1,12 @@
+import moment from 'moment';
+import { ICategoryWithHoursTypes, ICreateHoursInitalState, IErrors } from './interfaces';
+
 
 const FIRST_LETTER_OF_DAY = 0;
 const SECOND_LETTER_OF_DAY = 1;
 
-interface IErrors {
-    [key: string]: string;
-}
 
-export interface ICategoryWithHoursTypes {
-    category: string;
-    hoursByDay: IHoursByDay;
-}
-
-export interface IToFromHours { 
-    to: string; from: string 
-}
-
-export interface IHoursByDay {
-    monday: IToFromHours[];
-    tuesday: IToFromHours[];
-    wednesday: IToFromHours[];
-    thursday: IToFromHours[];
-    friday: IToFromHours[];
-    saturday: IToFromHours[];
-    sunday: IToFromHours[]; 
-}
-
-// Change to use activeCategory and keys since array is awful
-export interface ICategoryNew {
-    [category: string] : {
-        category: string;
-        hoursByDay: IHoursByDay
-    }
-}
-
-export interface ITimeTypes {
-    to: Date | string;
-    from: Date | string;
-}
-
-export interface InitialCheckboxState {
-    monday: boolean;
-    tuesday: boolean;
-    wednesday: boolean;
-    thursday: boolean;
-    friday: boolean;
-    saturday: boolean;
-    sunday: boolean;
-}
+export const DASH_BEWTWEEN_TIME_PERIODS = ` - `;
 export const DAYS_OF_THE_WEEK = [
     "monday",
     "tuesday",
@@ -56,22 +16,10 @@ export const DAYS_OF_THE_WEEK = [
     "saturday",
     "sunday"
 ]
-
-export enum MergeActions {
-    MERGE = 'Merge',
-    REPLACE = 'Replace',
-    KEEP = 'Keep'
-}
-
-export interface IMergeDays {
-    monday: MergeActions;
-    tuesday: MergeActions;
-    wednesday: MergeActions;
-    thursday: MergeActions;
-    friday: MergeActions;
-    saturday: MergeActions;
-    sunday: MergeActions;
-}
+export const CATEGORY_FIELD = 'categories';
+export const MOMENT_24_HOUR_FORMAT = 'HH:mm' ;
+export const MOMENT_12_HOUR_FORMAT = 'h:mm a';
+export const TIME_FRAME_MINUTES = 'minutes';
 
 export const upperCaseFirstLetter = (day: string): string => day.charAt(FIRST_LETTER_OF_DAY).toUpperCase() + day.slice(SECOND_LETTER_OF_DAY);
 
@@ -86,3 +34,50 @@ export const validateCreateCategory = (values: {createCategory: string}, categor
     }
     return errors
 }
+
+export const validateToFromTime = (values: ICreateHoursInitalState, fromTimeToBig: string, toTimeToSmall: string): IErrors => {
+    const errors: IErrors = {};
+    if (moment(values.storeHours.from, MOMENT_24_HOUR_FORMAT).isAfter(moment(values.storeHours.to, MOMENT_24_HOUR_FORMAT), TIME_FRAME_MINUTES)) {
+        errors.from = fromTimeToBig;
+    }
+    if (moment(values.storeHours.to, MOMENT_24_HOUR_FORMAT).isBefore(moment(values.storeHours.from, MOMENT_24_HOUR_FORMAT), TIME_FRAME_MINUTES)) {
+        errors.to = toTimeToSmall
+    }
+    return errors
+}
+
+/**
+ * Creates a store hours schedule with a new category
+ * @param {string} categoryName - Name of category user creates
+ * @returns {ICategoryWithHoursTypes}
+ */
+export const createCategoryWithHours = (
+    categoryName: string,
+): ICategoryWithHoursTypes => {
+    const oneCategoryWithHours: ICategoryWithHoursTypes = {
+        category: categoryName,
+        hoursByDay: {
+            monday: [],
+            tuesday: [],
+            wednesday: [],
+            thursday: [],
+            friday: [],
+            saturday: [],
+            sunday: [],
+        }
+    };
+    return oneCategoryWithHours;
+};
+
+/**
+ * Toggles between 24 hours and 12 hour time (AM/PM)
+ * @param {boolean} categoryName - Name of category user creates
+ * @returns {React.ReactElement | null} -
+ */
+export const convertTime = (date: string, toggle: boolean): string => {
+    let convertedDate = moment(date, MOMENT_24_HOUR_FORMAT).format(MOMENT_12_HOUR_FORMAT);
+    if (toggle) {
+        convertedDate = moment(date, MOMENT_24_HOUR_FORMAT).format(MOMENT_24_HOUR_FORMAT)
+    }
+    return convertedDate;
+};
