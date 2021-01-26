@@ -13,7 +13,7 @@ interface IInputData {
 
 interface ISignUpPopupProps {
     heading: string;
-    subHeading: string;
+    subHeading?: string;
     inputPlaceholder: string;
     handleSubmit: (arg0: EventListenerObject, arg1: IInputData) => void;
 }
@@ -123,8 +123,17 @@ const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: IS
     )
 }
 
+
 const StyledModal = styled(Modal)`
-text-align: center;
+    display: flex;
+    flex-direction: column;
+`;
+const StyledParagraph = styled(Paragraph)`
+    margin-top: 20px;
+    display: inline-flex;
+    text-align: center;
+    cursor: pointer;
+    justify-content: center;
 `;
 
 const HeadingContainer = styled.div`
@@ -155,11 +164,5 @@ display: flex;
 align-items: flex-start;
 `;
 
-const StyledParagraph = styled(Paragraph)`
-margin-top: 20px;
-display: inline-flex;
-text-align: center;
-cursor: pointer;
-`;
 
 export default SignUpPopup
