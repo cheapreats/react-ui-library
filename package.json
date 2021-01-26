@@ -129,6 +129,7 @@
         "rollup-plugin-typescript2": "^0.29.0",
         "ttypescript": "^1.5.12",
         "typescript-transform-paths": "^2.2.0",
+        "universal-cookie": "^4.0.4",
         "win-node-env": "^0.4.0"
     },
     "optionalDependencies": {
