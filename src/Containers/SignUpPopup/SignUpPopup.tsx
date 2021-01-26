@@ -23,6 +23,7 @@ const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: IS
     const isModalVisible = useState(false);
     const [inputValue, setinputValue] = useState("");
     const [inputError, setInputError] = useState("");
+    const [isInputLoading, setIsInputLoading] = useState(false);
     const [isSubmitValueSuccess, setIsSubmitValueSuccess] = useState(false);
     const [isOnCloseReady, setIsOnCloseReady] = useState(false);
     
@@ -36,24 +37,24 @@ const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: IS
 
 
     useEffect(() => {
-        let timer: NodeJS.Timeout;
+        let isModalVisibleTimer: NodeJS.Timeout;
         let onCloseTimer: NodeJS.Timeout;
         if (cookies.get("SignUpPopupSeen")) {
             return;
         } 
         // eslint-disable-next-line prefer-const
-        timer = global.setTimeout(() => {
+        isModalVisibleTimer = global.setTimeout(() => {
             isModalVisible[1](true)
-        }, 1000)
+        }, 7000)
 
         // eslint-disable-next-line prefer-const
         onCloseTimer = global.setTimeout(() => {
             setIsOnCloseReady(true);
-        }, 1001);
+        }, 7001);
         
         // eslint-disable-next-line consistent-return
         return (): void => {
-            clearTimeout(timer);
+            clearTimeout(isModalVisibleTimer);
             clearTimeout(onCloseTimer)
         }
         
@@ -62,6 +63,7 @@ const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: IS
 
     const handleFormSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
+        setIsInputLoading(true);
         if (EMAIL_REGEX.test(inputValue)) {
             setInputError("");
             try {
@@ -76,6 +78,8 @@ const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: IS
         else {
             setInputError("invalid email!")
         }
+        setIsInputLoading(false)
+            
     }
 
     const handleClosePopUp = () => {
@@ -115,7 +119,7 @@ const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: IS
                         />
                         {isSubmitValueSuccess && <SuccessParagraph bold color="green">Success!</SuccessParagraph>}
                     </InputContainer>
-                    <Button onClick={handleFormSubmit}>Submit</Button>
+                    <Button loading={isInputLoading} onClick={handleFormSubmit}>Submit</Button>
                 </FormContainer>
                 <StyledParagraph color="gray" onClick={handleClosePopUp}>No Thanks</StyledParagraph>
             </StyledModal>
