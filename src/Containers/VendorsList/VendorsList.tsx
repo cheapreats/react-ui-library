@@ -1,4 +1,3 @@
-// @ts-nocheck
 import React from 'react';
 import styled from 'styled-components';
 import { 
@@ -6,6 +5,7 @@ import {
     usePagination, 
     useFilters, 
     Column,
+    ColumnWithStrictAccessor
 } from 'react-table';
 import { Import } from '@styled-icons/boxicons-regular/Import';
 import { Add } from '@styled-icons/ionicons-sharp/Add';
@@ -18,22 +18,20 @@ import { ReactTable, IVendorsData } from '../ReactTable/ReactTable';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
 
-interface ColumnData extends Column<IVendorsData> {
-    accessor: string;
-}
-
 export interface IVendorsListProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
             filterItems: IFilterItems[];
             data: IVendorsData[];
-            columns: ColumnData<IVendorsData>;
+            columns: Column<IVendorsData>[];
             navigationBarItems: INavigationItemProps[];
             headerRightButtonText: string;
             headerText: string;
             filterButtonText: string;
             filterTitleText: string;
+            onSelectRow: (original: any) => void;
+            tableHeight?: string;
 };
 
 export const VendorsList: React.FC<IVendorsListProps> = ({
@@ -45,6 +43,8 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
     headerText,
     filterButtonText,
     filterTitleText,
+    onSelectRow,
+    tableHeight,
     ...props
 }): React.ReactElement => {
     const {
@@ -83,8 +83,6 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     headingProps={{ style: { padding: '20px 0 0 20px' } }}
                     buttonProps={{ style: { margin: '20px 0' } }}
                     collapsibleHeadingProps={{ style: { marginBottom: '20px' } }}
-                    filterSelectProps={{ inputProps: { style: { margin: '10px 0'} },
-                        tagProps: { style: { margin: '10px 0'} } }}
                 />
             </Row>
             <Row>
@@ -99,7 +97,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                         style: { margin: '0 20px', paddingBottom: '5px' } }}
                     navigationBarItems={navigationBarItems}
                 />
-                <SReactTable 
+                <ReactTable 
                     data={data}
                     columns={columns}
                     getTableProps={getTableProps}
@@ -118,10 +116,13 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     tableHeaderProps={{ style: { marginBottom: '10px' } }}
                     tableRowProps={{ style: { padding: '10px 0' } }}
                     headingProps={{ style: { margin: '0 5px' } }}
+                    // @ts-ignore
                     paginationProps={{ style: { marginTop: '10px' },
-                        pageSelectorProps: { buttonProps: { style: { margin: '0 2px' } }, style: { margin: '10px 0' } }, 
-                        rowSelectorProps: { style: { margin: '10px 0' }, smallTextProps: { style: { margin: '5px 5px 0 5px' } },
-                            selectProps: { iconProps: { style: { marginLeft: '5px' } } } } }}
+                        pageSelectorProps: { buttonProps: { style: { margin: '0 5px' } }, style: { margin: '10px 0' }, smallTextProps: {margin: '10px 0'} }, 
+                        rowSelectorProps: { style: { margin: '10px 0' }, smallTextProps: { style: { margin: 'auto 5px' } },
+                            selectProps: { iconProps: { style: { marginLeft: '10px' } } } } }}
+                    onSelectRow={onSelectRow}
+                    tableHeight={tableHeight}
                 />
             </Row>
         </Wrapper>

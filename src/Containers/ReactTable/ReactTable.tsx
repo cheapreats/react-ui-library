@@ -1,7 +1,6 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { Row, Column, HeaderGroup, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
+import { Row, Column, ColumnWithLooseAccessor, Cell, HeaderGroup, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
 import { Pagination, IPaginationProps } from './Pagination';
 import { IProfileProps } from '../VendorsList/Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -12,12 +11,12 @@ export interface IVendorsData extends IProfileProps {
     createdAt?: string;
 }
 
-export interface IReactTableProps<T extends IVendorsData>
+export interface IReactTableProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    data: T[];
-    columns: Column<T>[];
+    data: any[];
+    columns: Column<any>[];
     tableProps?: TableProps;
     tableHeaderProps?: Omit<TableHeaderProps, 'key'>;
     tableRowProps?: Omit<TableRowProps, 'key'>;
@@ -26,19 +25,21 @@ export interface IReactTableProps<T extends IVendorsData>
     isPaginated?: boolean;
     getTableProps: Function;
     getTableBodyProps: Function;
-    headerGroups: HeaderGroup<T>[];
-    prepareRow: (row: Row<T>) => void
+    headerGroups: HeaderGroup<any>[];
+    prepareRow: (row: Row<any>) => void
     page: any;
     pageCount: number;
-    gotoPage: () => void;
+    gotoPage: (updater: number | ((pageIndex: number) => number)) => void;
     nextPage: () => void;
     previousPage: () => void;
-    setPageSize: () => void;
+    setPageSize: (pageSize: number) => void;
     pageIndex: number;
     pageSize: number;
+    onSelectRow: (original: any) => void;
+    tableHeight?: string;
 };
 
-export const ReactTable = <T extends IVendorsData>({
+export const ReactTable: React.FC<IReactTableProps> = ({
     data,
     tableProps,
     tableHeaderProps,
@@ -58,10 +59,11 @@ export const ReactTable = <T extends IVendorsData>({
     setPageSize,
     pageIndex,
     pageSize,
+    onSelectRow,
+    tableHeight,
     ...props
-}: IReactTableProps<T>): React.ReactElement => {
+}: IReactTableProps): React.ReactElement => {
     const pageOptionsLength = data.length;
-
     const getHeaderGroup = useCallback(
         () =>
             headerGroups.map((headerGroup, index) => (
@@ -86,12 +88,12 @@ export const ReactTable = <T extends IVendorsData>({
     );
 
     const getRowComponent = useCallback(
-        () => page.map((row: any) => {
+        () => page.map((row: Row<any>) => {
             prepareRow(row);
             return (
-                <STableRow {...row.getRowProps()} key={row.original.id} {...tableRowProps}>
-                    {row.cells.map((cell: any) => (
-                        <STableData key={cell.row.original.id} {...cell.getCellProps()}>
+                <STableRow {...row.getRowProps()} key={row.original.name} onClick={() => onSelectRow(row.original)} {...tableRowProps}>
+                    {row.cells.map((cell: Cell<any>) => (
+                        <STableData {...cell.getCellProps()}>
                             {cell.render('Cell')}
                         </STableData>
                     ))}
@@ -106,11 +108,13 @@ export const ReactTable = <T extends IVendorsData>({
                 <STableHead>
                     {getHeaderGroup()}
                 </STableHead>
-                <tbody {...getTableBodyProps()}>
-                    {getRowComponent()}
-                </tbody>
+                <Scrollable height={tableHeight}>
+                    <tbody {...getTableBodyProps()}>
+                        {getRowComponent()}
+                    </tbody>
+                </Scrollable>
             </table>
-            {!!isPaginated && (
+            {isPaginated && (
                 <Pagination 
                     goToPreviousPage={previousPage}
                     goToNextPage={nextPage}
@@ -127,6 +131,19 @@ export const ReactTable = <T extends IVendorsData>({
         </Wrapper>
     );
 };
+
+interface IScrollable {
+    height?: string
+}
+
+const Scrollable = styled.div<IScrollable>`
+    ${({height})=> height && `
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: ${height}
+    `};
+    ${scroll}
+`
  
 const Wrapper = styled.div`
     width: 60%;

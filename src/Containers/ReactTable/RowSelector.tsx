@@ -52,5 +52,5 @@ export const RowSelector: React.FC<IRowSelectorProps> = ({
 );
 
 const Wrapper = styled.div`
-    ${flex('row')};
+    ${flex('row', 'center')};
 `;

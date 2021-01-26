@@ -11,7 +11,7 @@ export interface INavigationItemProps
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     icon?: StyledIcon;
-    label: string;
+    label?: string;
     selectedItem?: string;
     iconProps?: IconProps | { style: any };
     headingProps?: HeadingProps;

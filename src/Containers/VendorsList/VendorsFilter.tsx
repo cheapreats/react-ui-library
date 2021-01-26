@@ -25,9 +25,9 @@ export interface IVendorsFilterProps
     headingProps?: HeadingProps;
     buttonProps?: ButtonProps;
     collapsibleHeadingProps?: ICollapsibleHeadingProps;
-    filterValuesArr: string[];
-    setFilterValuesArr: React.Dispatch<React.SetStateAction<string[]>>;
-    headerGroups: HeaderGroup<IVendorsData>;
+    // filterValuesArr: string[];
+    // setFilterValuesArr: React.Dispatch<React.SetStateAction<string[]>>;
+    headerGroups: HeaderGroup<any>[];
 }
 
 const BACKGROUND_COLOR = '#FFFFFF';
@@ -42,6 +42,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
     ...props
 }): React.ReactElement => {
     const [isCollapsedArr, setIsCollapsedArr] = useState(Array(filterItems.length).fill(false));
+    console.log(headerGroups, ' headerGroups')
     return (
         <div>
             <List
@@ -58,30 +59,22 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                     </Heading>
                 )}
             >
-                <Wrapper {...props}>
-                    {!!filterItems && filterItems.map((filterItem, index) => (
-                        <>
-                            <CollapsibleHeading 
-                                key={filterItem.title}
-                                title={filterItem.title}
-                                isCollapsed={isCollapsedArr[index]} 
-                                setCollapsed={() => setIsCollapsedArr(
-                                    isCollapsedArr.map((isCollapsed, idx) => {
-                                        if (idx === index) return !isCollapsed;
-                                        return isCollapsed;
-                                    })
-                                )}
-                                ChildElement={<DefaultFilter column={headerGroups[FIRST_OPTION].headers[index]} />}
-                                {...collapsibleHeadingProps}
-                            />
-                        </>
-                    ))}
-                </Wrapper>
+                {filterItems.map((filterItem, index) => (
+                    <CollapsibleHeading 
+                        key={filterItem.title}
+                        title={filterItem.title}
+                        isCollapsed={isCollapsedArr[index]} 
+                        setCollapsed={() => setIsCollapsedArr(
+                            isCollapsedArr.map((isCollapsed, idx) => {
+                                if (idx === index) return !isCollapsed;
+                                return isCollapsed;
+                            })
+                        )}
+                        ChildElement={<DefaultFilter column={headerGroups[FIRST_OPTION].headers[index]} />}
+                        {...collapsibleHeadingProps}
+                    />
+                ))}
             </List>
         </div>
     );
 };
-
-const Wrapper = styled.div`
-    
-`;

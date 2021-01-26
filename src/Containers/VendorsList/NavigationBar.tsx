@@ -19,7 +19,7 @@ export const NavigationBar: React.FC<INavigationBarProps> = ({
     navigationItemProps,
     ...props
 }): React.ReactElement => {
-    const [selectedItem, setSelectedItem] = useState<string>(
+    const [selectedItem, setSelectedItem] = useState(
         navigationBarItems[FIRST_LABEL]?.label,
     );
     return (

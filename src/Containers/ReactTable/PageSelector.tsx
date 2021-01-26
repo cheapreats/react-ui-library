@@ -37,11 +37,11 @@ export const PageSelector: React.FC<IPageSelectorProps> = ({
                 icon={LeftArrowAlt}
                 onClick={() => goToPreviousPage()}
                 primary
-                {...buttonProps} 
+                {...buttonProps}
             />
-            {[...Array(pageLength)].map((pageNumber, index) => (
+            {Array(pageLength).fill(0).map((fill, index) => (
                 <SButton 
-                    key={pageNumber} 
+                    key={`Page${fill}`} 
                     isActive={pageIndex === index}
                     onClick={() => goToPage(index)}
                     primary
@@ -54,17 +54,15 @@ export const PageSelector: React.FC<IPageSelectorProps> = ({
                 icon={RightArrowAlt}
                 onClick={() => goToNextPage()}
                 primary
-                {...buttonProps} 
+                {...buttonProps}
             />
         </Section>
-        <Section>
-            <SmallText {...smallTextProps}>
-                {LEFT_TEXT}
-                {pageIndex + INDEX_SHIFT} 
-                {MIDDLE_TEXT} 
-                {pageLength}
-            </SmallText>
-        </Section>
+        <SmallText {...smallTextProps}>
+            {LEFT_TEXT}
+            {pageIndex + INDEX_SHIFT} 
+            {MIDDLE_TEXT} 
+            {pageLength}
+        </SmallText>
     </Wrapper>
 );
 
@@ -78,7 +76,8 @@ interface ISButtonProps {
     isActive?: boolean;
 }
 const SButton = styled(Button)<ISButtonProps>`
-    ${({ theme, isActive }) => isActive &&` 
-        background-color: ${darken(theme.colors.primary)};
+    ${({ theme, isActive }) => !isActive &&` 
+        background-color: ${theme.colors.background};
+        color: ${theme.colors.text};
     `};
 `;
