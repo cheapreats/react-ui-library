@@ -41,10 +41,12 @@ const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: IS
         if (cookies.get("SignUpPopupSeen")) {
             return;
         } 
+        // eslint-disable-next-line prefer-const
         timer = global.setTimeout(() => {
             isModalVisible[1](true)
         }, 1000)
 
+        // eslint-disable-next-line prefer-const
         onCloseTimer = global.setTimeout(() => {
             setIsOnCloseReady(true);
         }, 1001);
