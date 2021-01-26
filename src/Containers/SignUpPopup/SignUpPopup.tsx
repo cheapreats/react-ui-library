@@ -63,8 +63,8 @@ const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: IS
 
     const handleFormSubmit = async (event: { preventDefault: () => void; }) => {
         event.preventDefault();
-        setIsInputLoading(true);
         if (EMAIL_REGEX.test(inputValue)) {
+            setIsInputLoading(true);
             setInputError("");
             try {
                 await handleSubmit(event, inputValue);
@@ -73,13 +73,13 @@ const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: IS
             } catch (e) {
                 setInputError("Something went wrong! Please try again")
                 console.error("handleFormSubmitError",e)
+            } finally {
+                setIsInputLoading(false)
             }
         }
         else {
             setInputError("invalid email!")
-        }
-        setIsInputLoading(false)
-            
+        }            
     }
 
     const handleClosePopUp = () => {
