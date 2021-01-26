@@ -6,7 +6,7 @@ import React, {
     Children,
     isValidElement,
 } from 'react';
-import styled, { withTheme, DefaultTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { AngleDown } from '@styled-icons/fa-solid/AngleDown';
 import {
     flex,
@@ -47,24 +47,23 @@ export interface SelectProps extends LabelLayoutProps {
     disabled?: boolean;
     placeholder?: string | HTMLOptionElement;
     value?: string | number | HTMLOptionElement;
-    theme: DefaultTheme;
     onChange?: Function;
     limit?: number;
     iconProps?: { style: any };
 }
 
-const _Select: React.FC<SelectProps> = ({
+export const Select: React.FC<SelectProps> = ({
     disabled,
     value,
     children,
     limit = 4,
     placeholder = '',
     onChange = (): void => undefined,
-    theme,
     name,
     iconProps,
     ...props
 }): React.ReactElement => {
+    const theme = useTheme();
     const [expanded, setExpanded] = useState(false);
     const options = Children.toArray(children);
 
@@ -142,8 +141,6 @@ const _Select: React.FC<SelectProps> = ({
         </LabelLayout>
     );
 };
-
-export const Select = withTheme(_Select);
 
 const Container = styled.div`
     ${flex('column')}

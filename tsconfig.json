@@ -10,8 +10,8 @@
         "skipLibCheck": true,
         "esModuleInterop": true,
         "moduleResolution": "node",
-        "rootDirs": ["src", "stories"],
-        "baseUrl": "./src",
+        "rootDirs": ["src"],
+        "baseUrl": "src",
         "forceConsistentCasingInFileNames": true,
         "noImplicitReturns": true,
         "noImplicitThis": true,
@@ -21,6 +21,7 @@
         "noUnusedLocals": true,
         "declaration": true,
         "declarationMap": false,
+        "declarationDir": "dist",
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
@@ -40,5 +41,5 @@
         }
     },
     "include": ["src/**/*", "__tests__"],
-    "exclude": ["node_modules", "scripts", "dist"]
+    "exclude": ["node_modules", "**/.*/", "../src/**/*.stories.@(js|mdx|tsx|ts|jsx)", "scripts", "dist"]
 }
