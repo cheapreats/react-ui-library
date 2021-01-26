@@ -7,15 +7,12 @@ import { Input } from "../../Inputs/Input/Input";
 import { Paragraph } from "../../Text/Paragraph";
 import { Modal } from '../Modal/Modal';
 
-interface IInputData {
-    inputValue: string;
-}
 
-interface ISignUpPopupProps {
+export interface ISignUpPopupProps {
     heading: string;
     subHeading?: string;
     inputPlaceholder: string;
-    handleSubmit: (arg0: EventListenerObject, arg1: IInputData) => void;
+    handleSubmit: (arg0: { preventDefault: () => void }, arg1: string) => void;
 }
 
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
@@ -39,24 +36,25 @@ const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: IS
 
 
     useEffect(() => {
-        let timer: NodeJS.Timeout | undefined;
-        let onCloseTimer: NodeJS.Timeout | undefined;
+        let timer: NodeJS.Timeout;
+        let onCloseTimer: NodeJS.Timeout;
         if (cookies.get("SignUpPopupSeen")) {
             return;
         } 
-        timer = setTimeout(() => {
+        timer = global.setTimeout(() => {
             isModalVisible[1](true)
         }, 1000)
 
-        onCloseTimer = setTimeout(() => {
+        onCloseTimer = global.setTimeout(() => {
             setIsOnCloseReady(true);
         }, 1001);
         
-        
-        return () => {
+        // eslint-disable-next-line consistent-return
+        return (): void => {
             clearTimeout(timer);
-            clearTimeout(onCloseTimer);
+            clearTimeout(onCloseTimer)
         }
+        
         
     }, []);
 

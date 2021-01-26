@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import SignUpPopup  from './SignUpPopup';
+import SignUpPopup, {ISignUpPopupProps}  from './SignUpPopup';
 import { createStoryTitle } from '../../Constants';
 
 const handleSubmit = (event: any, data: any) => {
@@ -20,6 +20,6 @@ export default {
     }
 } as Meta;
 
-export const Basic: Story = (args) => (
+export const Basic: Story<ISignUpPopupProps> = (args) => (
     <SignUpPopup {...args} />
 );
