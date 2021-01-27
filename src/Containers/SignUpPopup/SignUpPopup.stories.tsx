@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import SignUpPopup, {ISignUpPopupProps}  from './SignUpPopup';
+import {SignUpPopup, ISignUpPopupProps}  from './SignUpPopup';
 import { createStoryTitle } from '../../Constants';
 
 const handleSubmit = (event: any, data: any) => {
