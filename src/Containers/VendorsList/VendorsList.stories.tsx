@@ -54,6 +54,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
     columns: [
         {
             Header: 'Client',
+            accessor: 'name',
             Cell: (cell: any) => (
                 <Profile
                     key={cell.row.original.id}
@@ -77,9 +78,10 @@ const getVendorsListProps = (): IVendorsListProps => ({
         },
         {
             Header: 'Created',
+            accessor: 'created_at',
             Cell: (cell: any) => (
-                <SmallText style={{ padding: '0 10px' }}>
-                    {cell.row.original.createdAt}
+                <SmallText style={{ padding: '0 10px' }} key={cell.row.original.created_at}>
+                    {cell.row.original.created_at}
                 </SmallText>
             ),
             Filter: DefaultFilter
@@ -94,7 +96,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             imageUrl:
                 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
             tags: ['VIP Client', 'Early Adopter'],
-            createdAt: '24/05/2019',
+            created_at: '24/05/2019',
         },
         {
             key: 2,
@@ -102,7 +104,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '23/05/2019',
+            created_at: '23/05/2019',
         },
         {
             key: 3,
@@ -112,7 +114,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             imageUrl:
                 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
             tags: ['VIP Client', 'Early Adopter'],
-            createdAt: '24/05/2019',
+            created_at: '24/05/2019',
         },
         {
             key: 4,
@@ -120,7 +122,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '23/05/2019',
+            created_at: '23/05/2019',
         },
         {
             key: 5,
@@ -130,7 +132,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             imageUrl:
                 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
             tags: ['VIP Client', 'Early Adopter'],
-            createdAt: '24/05/2019',
+            created_at: '24/05/2019',
         },
         {
             key: 6,
@@ -138,7 +140,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019'
+            created_at: '24/05/2019'
         },
         {
             key: 6,
@@ -146,7 +148,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019'
+            created_at: '24/05/2019'
         },
         {
             key: 8,
@@ -154,7 +156,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019'
+            created_at: '24/05/2019'
         },
         {
             key: 9,
@@ -163,7 +165,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             email: 'amy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
             tags: ['VIP Client'],
-            createdAt: '23/05/2019'
+            created_at: '23/05/2019'
         },
         {
             key: 10,
@@ -171,7 +173,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019'
+            created_at: '24/05/2019'
         },
         {
             key: 11,
@@ -179,7 +181,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019'
+            created_at: '24/05/2019'
         },
         {
             key: 12,
@@ -188,7 +190,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             email: 'emy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
             tags: ['VIP Client', 'Early Adopter'],
-            createdAt: '24/05/2019'
+            created_at: '24/05/2019'
         },
         {
             key: 13,
@@ -197,7 +199,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             email: 'emy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
             tags: ['VIP Client', 'Early Adopter'],
-            createdAt: '24/05/2019'
+            created_at: '24/05/2019'
         },
         {
             key: 14,
@@ -205,7 +207,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019'
+            created_at: '24/05/2019'
         },
         {
             key: 15,
@@ -214,7 +216,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             email: 'emy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
             tags: ['VIP Client', 'Early Adopter'],
-            createdAt: '24/05/2019'
+            created_at: '24/05/2019'
         },
         {
             key: 16,
@@ -222,10 +224,26 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            createdAt: '24/05/2019'
+            created_at: '24/05/2019'
         }
     ],
     onSelectRow: (original) => console.log(original, 'contact clicked'),
+    listProps: {
+        id: 'vendor_list',
+        columnWidth: '300px',
+        loading: false,
+        cssPosition: 'relative',
+        margin: '0',
+        left: '0',
+        right: 'auto',
+        mediaMixin: 'tablet',
+        mediaCssPosition: 'absolute',
+        mediaLeft: '0',
+        mediaRight: 'auto',
+        mediaMargin: 'auto',
+        mediaOnCloseTranslateXAxis: '-100%',
+        zIndex: 3
+    },
     tableHeight: '50vh'
 });
 

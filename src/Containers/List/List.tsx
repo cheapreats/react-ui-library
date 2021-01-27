@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import styled from 'styled-components';
+import styled, {css} from 'styled-components';
 import { Mixins } from '../../Utils';
 import { Responsive, Main } from '../../Utils/BaseStyles';
 import { Loading } from '../Loading/Loading';
 
 export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
-    loading: boolean;
+    loading?: boolean;
     header?: React.ReactElement;
     footer?: React.ReactElement;
     toggleComponent?: React.ReactElement;
@@ -20,10 +20,16 @@ export interface ListProps extends React.HTMLAttributes<HTMLDivElement> {
     isOpen?: boolean;
     setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
     zIndex?: number;
+    mediaMixin?: string;
+    mediaMargin?: string;
+    mediaRight?: string;
+    mediaLeft?: string;
+    mediaCssPosition?: string;
+    mediaOnCloseTranslateXAxis?: string;
 }
 
 export const List: React.FC<ListProps> = ({
-    loading,
+    loading = false,
     children,
     header,
     footer,
@@ -57,6 +63,7 @@ export const List: React.FC<ListProps> = ({
             window.removeEventListener('swipeLeft', handler);
         };
     }, []);
+    
 
     return (
         <Wrapper isOpen={isOpen} {...props}>
@@ -83,6 +90,12 @@ interface WrapperProps {
     cssPosition?: string;
     onCloseTranslateXAxis?: string;
     zIndex?: number;
+    mediaMixin?: string;
+    mediaMargin?: string;
+    mediaRight?: string;
+    mediaLeft?: string;
+    mediaCssPosition?: string;
+    mediaOnCloseTranslateXAxis: string;
 }
 
 interface ColumnProps {
@@ -103,12 +116,37 @@ const Wrapper = styled.div<WrapperProps>`
         left,
         cssPosition,
         zIndex,
-    }): string => `
-        transform: translateX(${isOpen ? '0' : onCloseTranslateXAxis});
+        theme,
+        mediaMixin,
+        mediaMargin,
+        mediaRight,
+        mediaLeft,
+        mediaCssPosition,
+        mediaOnCloseTranslateXAxis
+    }): string => {
+        const media = mediaMixin ? `
+                @media (max-width: ${theme.media[mediaMixin] || mediaMixin}px) {
+                    transform: translateX(${isOpen ? '0' : mediaOnCloseTranslateXAxis});
+                    position: ${mediaCssPosition};
+                    margin: ${mediaMargin};
+                    top: 0;
+                    right: ${mediaRight};
+                    bottom: 0;
+                    left: ${mediaLeft};
+                }
+            `: `position: ${cssPosition};
+                margin: ${margin};
+                top: 0;
+                right: ${right};
+                bottom: 0;
+                left: ${left};`
+        const onClose = onCloseTranslateXAxis ? `transform: translateX(${isOpen ? '0' : onCloseTranslateXAxis});`: ''
+        return `
         width: ${columnWidth};
         z-index: ${zIndex};
-        ${Mixins.position(cssPosition, margin, 0, right, 0, left)}        
-    `}
+        ${onClose}
+        ${media}`
+    }}
 `;
 
 const Container = styled.div<ColumnProps>`

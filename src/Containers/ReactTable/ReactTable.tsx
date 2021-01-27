@@ -66,17 +66,15 @@ export const ReactTable: React.FC<IReactTableProps> = ({
     const pageOptionsLength = data.length;
     const getHeaderGroup = useCallback(
         () =>
-            headerGroups.map((headerGroup, index) => (
+            headerGroups.map(headerGroup => (
                 <SHeadTableRow
                     {...headerGroup.getHeaderGroupProps()}
-                    key={headerGroup.headers[index].Header?.toString()}
                 >
                     {headerGroup.headers.map((column) => (
                         <>
                             <STableHeader
                                 {...tableHeaderProps}
                                 {...column.getHeaderProps()}
-                                key={column.Header?.toString()}
                             >
                                 {column.render('Header')}
                             </STableHeader>
@@ -89,9 +87,10 @@ export const ReactTable: React.FC<IReactTableProps> = ({
 
     const getRowComponent = useCallback(
         () => page.map((row: Row<any>) => {
+            console.log(row, 'row')
             prepareRow(row);
             return (
-                <STableRow {...row.getRowProps()} key={row.original.name} onClick={() => onSelectRow(row.original)} {...tableRowProps}>
+                <STableRow {...row.getRowProps()} onClick={() => onSelectRow(row.original)} {...tableRowProps}>
                     {row.cells.map((cell: Cell<any>) => (
                         <STableData {...cell.getCellProps()}>
                             {cell.render('Cell')}
@@ -146,14 +145,8 @@ const Scrollable = styled.div<IScrollable>`
 `
  
 const Wrapper = styled.div`
-    width: 60%;
-    ${media(
-        'tabletLarge',
-        `
-        width: 95%;
-        ${flex('column', 'center')};
-        `,
-    )}
+    width: 100%;
+   
 `;
 const STableHead = styled.thead`
     display: block;

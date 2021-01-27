@@ -1,14 +1,16 @@
-import React from 'react';
+import React, {useMemo} from 'react';
 import styled from 'styled-components';
 import { 
     useTable, 
     usePagination, 
     useFilters, 
     Column,
-    ColumnWithStrictAccessor
+    useGlobalFilter,
+    ColumnWithLooseAccessor
 } from 'react-table';
 import { Import } from '@styled-icons/boxicons-regular/Import';
 import { Add } from '@styled-icons/ionicons-sharp/Add';
+import { ListProps } from '@Containers/List';
 import { VendorsFilter, IFilterItems } from './VendorsFilter';
 import { VendorsHeader } from './VendorsHeader';
 import { INavigationItemProps } from './NavigationItem';
@@ -23,14 +25,15 @@ export interface IVendorsListProps
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
             filterItems: IFilterItems[];
-            data: IVendorsData[];
-            columns: Column<IVendorsData>[];
+            data: any[];
+            columns: Column<any>[];
             navigationBarItems: INavigationItemProps[];
             headerRightButtonText: string;
             headerText: string;
             filterButtonText: string;
             filterTitleText: string;
             onSelectRow: (original: any) => void;
+            listProps: ListProps;
             tableHeight?: string;
 };
 
@@ -44,9 +47,12 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
     filterButtonText,
     filterTitleText,
     onSelectRow,
+    listProps,
     tableHeight,
     ...props
 }): React.ReactElement => {
+    const defaultColumn = useMemo(()=>({ Filter: DefaultFilter}), [])
+    const memoColumns = useMemo(()=> columns, [])
     const {
         getTableProps,
         getTableBodyProps,
@@ -58,18 +64,21 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
         nextPage,
         previousPage,
         setPageSize,
-        state: { pageIndex, pageSize }
+        preGlobalFilteredRows,
+        setGlobalFilter,
+        state: { globalFilter, pageIndex, pageSize }
     } = useTable(
         {
-            columns,
+            columns: memoColumns,
             data,
-            defaultColumn: { Filter: DefaultFilter },
+            defaultColumn,
             initialState: { 
                 pageIndex: 0, 
                 pageSize: 5
             }
         },
         useFilters, 
+        useGlobalFilter,
         usePagination
     );
     return (
@@ -80,6 +89,10 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     headingTitle={filterTitleText}
                     buttonText={filterButtonText}
                     filterItems={filterItems}
+                    listProps={listProps}
+                    preGlobalFilteredRows={preGlobalFilteredRows}
+                    setGlobalFilter={setGlobalFilter}
+                    globalFilter={globalFilter}
                     headingProps={{ style: { padding: '20px 0 0 20px' } }}
                     buttonProps={{ style: { margin: '20px 0' } }}
                     collapsibleHeadingProps={{ style: { marginBottom: '20px' } }}
@@ -130,14 +143,9 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
 }
 
 const Wrapper = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 2fr;
-    ${media(
-        'phone',
-        `
-        ${flex('column', 'center')};
-    `,
-    )};
+    display: flex;
+    ${flex('row')};
+    height: 100%;
 `;
 const Row = styled.div`
     ${flex('column')};
