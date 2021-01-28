@@ -18,7 +18,7 @@ export interface ISignUpPopupProps {
 const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const SIGN_UP_COOKIE = "SignUpPopupSeen";
 
-const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: ISignUpPopupProps): ReactElement => {
+export const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmit }: ISignUpPopupProps): ReactElement => {
 
     const isModalVisible = useState(false);
     const [inputValue, setinputValue] = useState("");
@@ -168,5 +168,3 @@ display: flex;
 align-items: flex-start;
 `;
 
-
-export default SignUpPopup
