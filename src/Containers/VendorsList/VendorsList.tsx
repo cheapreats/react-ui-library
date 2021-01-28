@@ -12,6 +12,7 @@ import {
 import { Import } from '@styled-icons/boxicons-regular/Import';
 import { Add } from '@styled-icons/ionicons-sharp/Add';
 import { ListProps } from '@Containers/List';
+import moment from 'moment';
 import { VendorsFilter, IFilterItems } from './VendorsFilter';
 import { VendorsHeader } from './VendorsHeader';
 import { INavigationItemProps } from './NavigationItem';
@@ -36,10 +37,8 @@ export interface IVendorsListProps
             onSelectRow: (original: any) => void;
             listProps: ListProps;
             tableHeight?: string;
+            globalFilterMethod?: (rows: Row<object>[], theColumns: string[], filterValue: any) => Row<object>[];
 };
-
-interface IOriginalValues {email: string, name: string, tags: string[], created_at: string};
-
 
 export const VendorsList: React.FC<IVendorsListProps> = ({
     data,
@@ -53,26 +52,11 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
     onSelectRow,
     listProps,
     tableHeight,
+    globalFilterMethod,
     ...props
 }): React.ReactElement => {
     const defaultColumn = useMemo(()=>({ Filter: DefaultFilter}), [])
     const memoColumns = useMemo(()=> columns, [])
-    const globalFilterMethod =  (rows: Row<object>[], theColumns: string[], filterValue: any) => {
-        console.log(rows, theColumns, filterValue, "globalFilter")
-        const stringRegexMatch = new RegExp(filterValue, 'gi')
-        const filteredRows = rows.filter((row) => {
-            const {email, name, tags, created_at} : IOriginalValues = row.original as IOriginalValues;
-            const emailMatch = stringRegexMatch.test(email);
-            const nameMatch = stringRegexMatch.test(name);
-            const tagsMatch = stringRegexMatch.test(tags.join(''));
-            const createdAtMatch = stringRegexMatch.test(created_at);
-            console.log(emailMatch,nameMatch,tagsMatch, email, name, tags, ' filtering')
-            if(emailMatch || nameMatch || tagsMatch || createdAtMatch) {
-                return true;
-            }
-        })
-        return filteredRows
-    }
     const {
         getTableProps,
         getTableBodyProps,
@@ -85,6 +69,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
         previousPage,
         setPageSize,
         preGlobalFilteredRows,
+        filteredRows,
         setGlobalFilter,
         state: { globalFilter, pageIndex, pageSize }
     } = useTable(
@@ -103,7 +88,6 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
         usePagination
     );
 
-    // global filter value not updating
     return (
         <Wrapper {...props}>
             <WrapperRow>
@@ -148,6 +132,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     setPageSize={setPageSize}
                     pageIndex={pageIndex}
                     pageSize={pageSize}
+                    filteredRows={filteredRows}
                     pageSelectOptions={[5, 10, 15, 20]}
                     tableHeaderProps={{ style: { marginBottom: '10px' } }}
                     tableRowProps={{ style: { padding: '10px 0' } }}

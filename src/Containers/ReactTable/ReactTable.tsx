@@ -37,6 +37,7 @@ export interface IReactTableProps
     pageSize: number;
     onSelectRow: (original: any) => void;
     tableHeight?: string;
+    filteredRows: any[];
 };
 
 export const ReactTable: React.FC<IReactTableProps> = ({
@@ -60,10 +61,11 @@ export const ReactTable: React.FC<IReactTableProps> = ({
     pageIndex,
     pageSize,
     onSelectRow,
+    filteredRows,
     tableHeight,
     ...props
 }: IReactTableProps): React.ReactElement => {
-    const pageOptionsLength = data.length;
+    const pageOptionsLength = filteredRows.length;
     const getHeaderGroup = useCallback(
         () =>
             headerGroups.map(headerGroup => (
@@ -87,7 +89,6 @@ export const ReactTable: React.FC<IReactTableProps> = ({
 
     const getRowComponent = useCallback(
         () => page.map((row: Row<any>) => {
-            console.log(row, 'row')
             prepareRow(row);
             return (
                 <STableRow {...row.getRowProps()} onClick={() => onSelectRow(row.original)} {...tableRowProps}>

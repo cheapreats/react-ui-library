@@ -17,6 +17,7 @@ export interface IRowSelectorProps extends MainInterface, ResponsiveInterface,Re
 const LEFT_ROW_TEXT = 'Rows per page';
 const RIGHT_ROW_TEXT = 'out of ';
 
+// TODO: This out of doesn't make any sense
 export const RowSelector: React.FC<IRowSelectorProps> = ({
     pageSize,
     setPageSize,

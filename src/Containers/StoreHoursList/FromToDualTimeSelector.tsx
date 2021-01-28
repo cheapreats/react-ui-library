@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import moment from 'moment';
+import { FormikErrors } from 'formik';
 import { Timepicker } from '../../Inputs/Timepicker';
 import {
     MainInterface,
@@ -7,71 +9,52 @@ import {
     Main,
 } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
+import { IToFromHours, IErrors } from './interfaces';
+import { MOMENT_24_HOUR_FORMAT } from './constants';
 
 interface FromToDualTimeSelectorProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    fromTimeTooBigError: string;
-    toTimeTooSmallError: string;
-    storeHours: { from: Date; to: Date };
-    setStoreHours: React.Dispatch<
-        React.SetStateAction<{ from: Date; to: Date }>
-    >;
+    storeHours: IToFromHours;
+    setStoreHours: (hours: IToFromHours) => void;
+    errors?: IErrors | FormikErrors<IToFromHours>
 }
 
-const INITIAL_TIME_INDEX = 0;
-const INITIAL_DATE_INDEX = 1;
 const MATCH_FIRST_LETTER_PATTERN = /^\w/;
-const FROM = 'from';
-const TO = 'to';
 
 export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
-    fromTimeTooBigError,
-    toTimeTooSmallError,
     storeHours,
     setStoreHours,
+    errors,
     ...props
-}): React.ReactElement => {
-    const errors = {
-        fromTooBig: storeHours.from > storeHours.to ? fromTimeTooBigError : '',
-        anotherTime: storeHours.from > storeHours.to ? toTimeTooSmallError : '',
-    };
-
-    return (
-        <TimeRow {...props}>
-            {Object.entries(storeHours).map(
-                (time): React.ReactElement => (
-                    <Container
-                        as={Timepicker}
-                        key={time[INITIAL_TIME_INDEX]}
-                        name={time[INITIAL_TIME_INDEX]}
-                        label={time[
-                            INITIAL_TIME_INDEX
-                        ].replace(
-                            MATCH_FIRST_LETTER_PATTERN,
-                            (char): string => char.toUpperCase(),
-                        )}
-                        value={time[INITIAL_DATE_INDEX]}
-                        onChange={(
-                            e: React.ChangeEvent<HTMLInputElement>,
-                        ): void =>
-                            setStoreHours({
-                                ...storeHours,
-                                [time[INITIAL_TIME_INDEX]]: e.target.value,
-                            })}
-                        error={
-                            (time[INITIAL_TIME_INDEX] === FROM &&
-                                    errors.fromTooBig) ||
-                                (time[INITIAL_TIME_INDEX] === TO &&
-                                    errors.anotherTime)
-                        }
-                    />
-                ),
-            )}
-        </TimeRow>
-    );
-};
+}): React.ReactElement => (
+    <TimeRow {...props}>
+        {Object.entries(storeHours).map(
+            ([key, time]): React.ReactElement => (
+                <Container
+                    as={Timepicker}
+                    key={key}
+                    name={key}
+                    label={key.replace(
+                        MATCH_FIRST_LETTER_PATTERN,
+                        (char): string => char.toUpperCase(),
+                    )}
+                    value={moment(time, MOMENT_24_HOUR_FORMAT ).toDate()}
+                    error={errors ? errors[key] : false}
+                    onChange={(
+                        e: React.ChangeEvent<HTMLInputElement>,
+                    ): void =>
+                        setStoreHours({
+                            ...storeHours,
+                            [key]: moment(e.target.value).format(MOMENT_24_HOUR_FORMAT ),
+                        })}
+                    
+                />
+            ),
+        )}
+    </TimeRow>
+);
 
 const TimeRow = styled.div`
     ${Mixins.flex()}

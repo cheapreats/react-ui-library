@@ -14,7 +14,7 @@ export interface FootnoteProps
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     show?: boolean;
-    position?: 'absolute' | 'fixed';
+    position?: 'absolute' | 'fixed' | 'relative';
 }
 
 export const Footnote: React.FC<FootnoteProps> = ({
