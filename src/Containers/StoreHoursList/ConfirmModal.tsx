@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Check } from '@styled-icons/boxicons-regular/Check';
 import { Cross } from '@styled-icons/entypo/Cross';
-import { ICategoryWithHoursTypes } from './types';
 import { Modal } from '../Modal/Modal';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button/Button';
@@ -17,11 +16,8 @@ interface ConfirmModalProps
     confirmDelete: string;
     yesButtonLabel: string;
     noButtonLabel: string;
-    allCategories: ICategoryWithHoursTypes[];
-    setAllCategories: React.Dispatch<
-        React.SetStateAction<ICategoryWithHoursTypes[]>
-    >;
-    deletedCategory: string;
+    onConfirm: () => void;
+    onReject?: () => void;
 }
 
 export const ConfirmModal: React.FC<ConfirmModalProps> = ({
@@ -29,36 +25,33 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
     confirmDelete,
     yesButtonLabel,
     noButtonLabel,
-    allCategories,
-    setAllCategories,
-    deletedCategory,
+    onConfirm,
+    onReject,
     ...props
 }): React.ReactElement => {
     const [confirmModalState, setConfirmModalState] = isVisible;
-
-    const handleClick = (): void => {
-        setConfirmModalState(!confirmModalState);
-        setAllCategories(
-            allCategories.filter(
-                (el): ICategoryWithHoursTypes | null | boolean =>
-                    el.category !== deletedCategory,
-            ),
-        );
-    };
+    const confirm = () => {
+        onConfirm()
+        setConfirmModalState(false);
+    }
+    const reject = () => {
+        if(onReject) {
+            onReject();
+        }
+        setConfirmModalState(false);
+    }
 
     return (
-        <StyledModal state={isVisible} {...props}>
+        <StyledModal state={[confirmModalState, setConfirmModalState]} {...props}>
             <StyledHeading type="h6">{confirmDelete}</StyledHeading>
             <ButtonsContainer>
-                <Section as={Button} icon={Check} onClick={handleClick}>
+                <Section as={Button} icon={Check} onClick={confirm}>
                     {yesButtonLabel}
                 </Section>
                 <Section
                     as={Button}
                     icon={Cross}
-                    onClick={(): void => {
-                        setConfirmModalState(!confirmModalState);
-                    }}
+                    onClick={reject}
                 >
                     {noButtonLabel}
                 </Section>

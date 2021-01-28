@@ -10,7 +10,7 @@ interface ErrorModalProps
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     modalState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
-    errorMessage: string;
+    errorMessage?: string;
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
 }
 
@@ -20,15 +20,18 @@ export const ErrorModal: React.FC<ErrorModalProps> = ({
     icon = CircleWithCross,
     children,
     ...props
-}): React.ReactElement => (
-    <StyledModal state={modalState} {...props}>
-        <StyledHeading type="h6">
-            <Icon as={icon} />
-            {errorMessage}
-        </StyledHeading>
-        {children}
-    </StyledModal>
-);
+}): React.ReactElement => {
+    const [, setErrorModalState] = modalState
+    return (
+        <StyledModal state={modalState} {...props}>
+            <StyledHeading type="h6" onClick={()=> setErrorModalState(false)}>
+                <Icon as={icon} />
+                {errorMessage}
+            </StyledHeading>
+            {children}
+        </StyledModal>
+    )
+};
 
 const StyledModal = styled(Modal)`
     max-height: 70%;
@@ -42,9 +45,12 @@ const StyledHeading = styled(Heading)`
     flex-wrap: wrap;
     text-align: center;
     margin: 10px;
+    cursor: pointer;
 `;
+
 const Icon = styled.svg`
-    width: 22px;
+    width: 30px;
     flex-shrink: 0;
     margin: 5px 12px;
+    cursor: pointer;
 `;

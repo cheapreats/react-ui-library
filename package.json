@@ -113,6 +113,8 @@
         "babel-plugin-transform-class-properties": "^6.24.1",
         "babel-runtime": "^6.26.0",
         "emoji-mart": "^3.0.0",
+        "formik": "^2.2.6",
+        "moment": "^2.29.1",
         "react": "17.0.1",
         "react-beautiful-dnd": "^13.0.0",
         "react-dropzone": "^11.2.4",
