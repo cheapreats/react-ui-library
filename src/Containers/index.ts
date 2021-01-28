@@ -34,6 +34,7 @@ export * from './Chart/Chart';
 export * from './CircleTable/CircleTable';
 export * from './SquareTable/SquareTable';
 export * from './SquareTable/_ChairRow';
+export * from './SignUpPopup/SignUpPopup';
 export * from './Chair/Chair';
 export * from './CapacityDisplay/CapacityDisplay';
 export * from './Stock/Stock';
