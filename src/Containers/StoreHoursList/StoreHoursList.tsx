@@ -48,7 +48,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const addModal = useState(false);
     const editCategoryModal = useState(false);
     const [confirmModal, setConfirmModalState] = useState(false);
-    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryWithHoursTypes[]>([]);
+    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryWithHoursTypes[]>(allCategories);
     const [activeCategory, setActiveCategory] = useState(0);
     const {
         values,
@@ -95,7 +95,6 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     }
 
     const confirmFormReset = () => {
-        setConfirmModalState(false)
         setActiveCategory(INITIAL_ACTIVE_CATEGORY)
         resetFormToInitial();
     }

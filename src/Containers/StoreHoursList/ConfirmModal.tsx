@@ -45,7 +45,7 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
         <StyledModal state={[confirmModalState, setConfirmModalState]} {...props}>
             <StyledHeading type="h6">{confirmDelete}</StyledHeading>
             <ButtonsContainer>
-                <Section as={Button} icon={Check} onClick={confirm} primary>
+                <Section as={Button} icon={Check} onClick={confirm}>
                     {yesButtonLabel}
                 </Section>
                 <Section

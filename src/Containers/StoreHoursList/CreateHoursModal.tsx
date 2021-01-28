@@ -92,7 +92,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
         setFieldValue,
         resetForm
     } = useFormik({
-        initialValues: {...initialState},
+        initialValues: initialState,
         validate: validationValues => validateToFromTime(validationValues, FROM_TIME_TO_BIG, TO_TIME_TO_SMALL),
         onSubmit: ()=> undefined,
         enableReinitialize: true,

@@ -89,7 +89,6 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
     }
 
     const handleDeleteCategory = (): void => {
-        setConfirmModalState(!confirmModalState);
         // get category name to find new index;
         const activeCategoryName = allCategories[activeCategory].category;
         const categoriesCopy = deepCopy(allCategories);
@@ -119,7 +118,8 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
                 }
             </Section>
         ),
-    );   
+    );
+
     return (
         <>
             <StyledModal state={isVisible} {...props}>
