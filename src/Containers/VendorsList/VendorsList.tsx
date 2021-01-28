@@ -6,6 +6,7 @@ import {
     useFilters, 
     Column,
     useGlobalFilter,
+    Row,
     ColumnWithLooseAccessor
 } from 'react-table';
 import { Import } from '@styled-icons/boxicons-regular/Import';
@@ -37,6 +38,9 @@ export interface IVendorsListProps
             tableHeight?: string;
 };
 
+interface IOriginalValues {email: string, name: string, tags: string[], created_at: string};
+
+
 export const VendorsList: React.FC<IVendorsListProps> = ({
     data,
     columns,
@@ -53,6 +57,22 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
 }): React.ReactElement => {
     const defaultColumn = useMemo(()=>({ Filter: DefaultFilter}), [])
     const memoColumns = useMemo(()=> columns, [])
+    const globalFilterMethod =  (rows: Row<object>[], theColumns: string[], filterValue: any) => {
+        console.log(rows, theColumns, filterValue, "globalFilter")
+        const stringRegexMatch = new RegExp(filterValue, 'gi')
+        const filteredRows = rows.filter((row) => {
+            const {email, name, tags, created_at} : IOriginalValues = row.original as IOriginalValues;
+            const emailMatch = stringRegexMatch.test(email);
+            const nameMatch = stringRegexMatch.test(name);
+            const tagsMatch = stringRegexMatch.test(tags.join(''));
+            const createdAtMatch = stringRegexMatch.test(created_at);
+            console.log(emailMatch,nameMatch,tagsMatch, email, name, tags, ' filtering')
+            if(emailMatch || nameMatch || tagsMatch || createdAtMatch) {
+                return true;
+            }
+        })
+        return filteredRows
+    }
     const {
         getTableProps,
         getTableBodyProps,
@@ -75,12 +95,15 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
             initialState: { 
                 pageIndex: 0, 
                 pageSize: 5
-            }
+            },
+            globalFilter: globalFilterMethod
         },
         useFilters, 
         useGlobalFilter,
         usePagination
     );
+
+    // global filter value not updating
     return (
         <Wrapper {...props}>
             <Row>

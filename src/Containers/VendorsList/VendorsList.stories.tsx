@@ -104,7 +104,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            created_at: '23/05/2019',
+            created_at: '01/10/2020',
         },
         {
             key: 3,
@@ -113,7 +113,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             email: 'emy_jac@upmind.com',
             imageUrl:
                 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            tags: ['VIP Client', 'Early Adopter'],
+            tags: ['VIP Client', 'Early Adopter', 'Pizza Fanatic'],
             created_at: '24/05/2019',
         },
         {
@@ -139,7 +139,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '6',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
+            tags: ['VIP Client', 'Dog Lover'],
             created_at: '24/05/2019'
         },
         {
@@ -148,7 +148,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             tags: ['VIP Client'],
-            created_at: '24/05/2019'
+            created_at: '02/30/2018'
         },
         {
             key: 8,

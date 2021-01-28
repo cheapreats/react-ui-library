@@ -26,7 +26,6 @@ export const GlobalFilter: React.FC<IFilterProps> = ({
         setValue(target.value);
         onChange(target.value);
     }
-    console.log(preGlobalFilteredRows, globalFilter, setGlobalFilter)
     return (
         <Input
             value={value || ''}
