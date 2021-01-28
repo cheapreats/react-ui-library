@@ -106,7 +106,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
     // global filter value not updating
     return (
         <Wrapper {...props}>
-            <Row>
+            <WrapperRow>
                 <SVendorsFilter
                     headerGroups={headerGroups}
                     headingTitle={filterTitleText}
@@ -120,8 +120,8 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     buttonProps={{ style: { margin: '20px 0' } }}
                     collapsibleHeadingProps={{ style: { marginBottom: '20px' } }}
                 />
-            </Row>
-            <Row>
+            </WrapperRow>
+            <WrapperRow>
                 <SVendorsHeader 
                     headerText={headerText}
                     rightButtonText={headerRightButtonText}
@@ -160,7 +160,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     onSelectRow={onSelectRow}
                     tableHeight={tableHeight}
                 />
-            </Row>
+            </WrapperRow>
         </Wrapper>
     );
 }
@@ -170,7 +170,7 @@ const Wrapper = styled.div`
     ${flex('row')};
     height: 100%;
 `;
-const Row = styled.div`
+const WrapperRow = styled.div`
     ${flex('column')};
 `;
 const SVendorsHeader = styled(VendorsHeader)`
