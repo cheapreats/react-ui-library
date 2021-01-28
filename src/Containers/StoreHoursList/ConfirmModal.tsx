@@ -17,6 +17,7 @@ interface ConfirmModalProps
     yesButtonLabel: string;
     noButtonLabel: string;
     onConfirm: () => void;
+    onReject?: () => void;
 }
 
 export const ConfirmModal: React.FC<ConfirmModalProps> = ({
@@ -25,23 +26,32 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
     yesButtonLabel,
     noButtonLabel,
     onConfirm,
+    onReject,
     ...props
 }): React.ReactElement => {
     const [confirmModalState, setConfirmModalState] = isVisible;
+    const confirm = () => {
+        onConfirm()
+        setConfirmModalState(false);
+    }
+    const reject = () => {
+        if(onReject) {
+            onReject();
+        }
+        setConfirmModalState(false);
+    }
 
     return (
-        <StyledModal state={isVisible} {...props}>
+        <StyledModal state={[confirmModalState, setConfirmModalState]} {...props}>
             <StyledHeading type="h6">{confirmDelete}</StyledHeading>
             <ButtonsContainer>
-                <Section as={Button} icon={Check} onClick={()=> onConfirm()}>
+                <Section as={Button} icon={Check} onClick={confirm} primary>
                     {yesButtonLabel}
                 </Section>
                 <Section
                     as={Button}
                     icon={Cross}
-                    onClick={(): void => {
-                        setConfirmModalState(!confirmModalState);
-                    }}
+                    onClick={reject}
                 >
                     {noButtonLabel}
                 </Section>

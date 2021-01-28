@@ -4,6 +4,7 @@ import { Add } from '@styled-icons/ionicons-outline/Add';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
 import { ICategoryWithHoursTypes } from './interfaces';
 import { Modal } from '../Modal/Modal';
+import { ConfirmModal } from './ConfirmModal';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button/Button';
 import { Select } from '../../Inputs/Select/Select';
@@ -26,6 +27,9 @@ interface EditTimeProps
     allCategories: ICategoryWithHoursTypes[];
     activeCategory: number;
     setActiveCategory: React.Dispatch<React.SetStateAction<number>>;
+    saveStoreHours:  () => void;
+    resetForm: () => void;
+    isDirty: boolean;
 }
 
 export const EditModal: React.FC<EditTimeProps> = ({
@@ -41,15 +45,35 @@ export const EditModal: React.FC<EditTimeProps> = ({
     activeCategory,
     setActiveCategory,
     allCategories,
+    saveStoreHours,
+    resetForm,
+    isDirty,
     ...props
 }): React.ReactElement => {
     const [addModalState, setAddModalState] = addModal;
+    const [confirmModalState, setConfirmModalState] = useState(false);
     const [
         editCategoryModalState,
         setEditCategoryModalState,
     ] = editCategoryModal;
     const [selectActiveCategory, setSelectActiveCategory] = useState(activeCategory);
+    const confirm = () => {
+        saveStoreHours()
+        setActiveCategory(selectActiveCategory)
+    };
 
+    const reject = () => {
+        resetForm()
+        setActiveCategory(selectActiveCategory)
+    };
+
+    const onSetNewActive = () => {
+        if (isDirty) {
+            setConfirmModalState(true);
+        } else {
+            setActiveCategory(selectActiveCategory)
+        }
+    };
 
     return (
         <StyledModal state={isVisible} {...props}>
@@ -98,11 +122,20 @@ export const EditModal: React.FC<EditTimeProps> = ({
             <ButtonsContainer>
                 <Section
                     as={Button}
-                    onClick={(): void => setActiveCategory(selectActiveCategory)}
+                    onClick={onSetNewActive}
+                    disabled={activeCategory === selectActiveCategory}
                 >
                     {SET_ACTIVE_BUTTON}
                 </Section>
             </ButtonsContainer>
+            <ConfirmModal
+                isVisible={[confirmModalState, setConfirmModalState]}
+                confirmDelete='Save or Discard current changes'
+                yesButtonLabel='Save'
+                noButtonLabel='Discard'
+                onConfirm={confirm}
+                onReject={reject}
+            />
         </StyledModal>
     );
 };

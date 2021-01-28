@@ -77,21 +77,22 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     ...props
 }): React.ReactElement => {
     const isMounted = useMounted();
+    const [mergedHours, setMergeHours] = useState(initialMergeState);
+    const [overWrittenHours, setOverWrittenHours] = useState(initialMergeState);
+    const [unmergedHours, setUnmergedHours] = useState(initialMergeState);
     const [addModalState, setAddModalState] = isVisible;
     const [mergeModalState, setMergeModalState] = useState(false);
     const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(activeCategory);
-    const [mergedHours, setMergeHours] = useState(initialMergeState);
-    const [overWrittenHours, setOverWrittenHours] = useState(initialMergeState);
-    const [unmergedHours, setUnmergedHours] = useState(initialMergeState)
     const {
         values,
         dirty,
         isValid,
         errors,
         handleChange,
-        setFieldValue
+        setFieldValue,
+        resetForm
     } = useFormik({
-        initialValues: initialState,
+        initialValues: {...initialState},
         validate: validationValues => validateToFromTime(validationValues, FROM_TIME_TO_BIG, TO_TIME_TO_SMALL),
         onSubmit: ()=> undefined,
         enableReinitialize: true,
@@ -99,6 +100,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
 
     useEffect(() => {
         setAddStoreHoursCategory(activeCategory)
+        return () => resetForm({values: initialState})
     }, [activeCategory]);
 
     /**
@@ -185,6 +187,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     updateStoreHours[day].push(...mergedHoursByDay[day])
                 }})
             if (isMounted.current) {
+                resetForm({values: initialState})
                 handleStoreHoursUpdate(updateStoreHours, addStoreHoursCategory);
                 setAddModalState(false);
             }
@@ -227,6 +230,8 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
             setOverWrittenHours(initialMergeState);
             setUnmergedHours(initialMergeState);
             handleStoreHoursUpdate(confirmedHours, addStoreHoursCategory);
+            resetForm({values: initialState});
+            setAddModalState(false);
             setMergeModalState(false);
         }
     }
@@ -234,6 +239,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     const setStoreHours = (hours: IToFromHours) => {
         setFieldValue('storeHours', hours)
     }
+
     return (
         <>
             <StyledModal state={[addModalState, setAddModalState]} {...props}>
@@ -248,6 +254,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                                 as={Checkbox}
                                 key={`create${day}`}
                                 name={`checkboxes.${day}`}
+                                value={values.checkboxes[day]}
                                 label={upperCaseFirstLetter(day)}
                                 onChange={handleChange}
                             />
@@ -283,7 +290,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     )}
                 </Section>
                 <CenteredButton
-                    onClick={()=> mergeOrAddTime()}
+                    onClick={mergeOrAddTime}
                     disabled={!isValid || !dirty}
                 >
                     {ADD_HOURS_BUTTON}

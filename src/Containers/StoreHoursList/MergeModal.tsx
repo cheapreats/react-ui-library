@@ -44,6 +44,7 @@ export const MergeModal: React.FC<MergeModalProps> = ({
     const {
         values,
         handleChange,
+        resetForm
     } = useFormik({
         initialValues: initalValues,
         onSubmit: ()=> undefined,
@@ -151,13 +152,17 @@ export const MergeModal: React.FC<MergeModalProps> = ({
         return null
     })
     
+    const resolveMergeConflicts = () => {
+        confirmMerge(values)
+        resetForm({values: initalValues})
+    }
 
     return (
         <StyledModal state={[mergeModalState, setMergeModalState]} {...props}>
             <StyledHeading type="h2">Resolve Hours Conflicts</StyledHeading>
             <Button margin='auto' onClick={()=> setIs24(!is24)}>Toggle 24 hrs</Button>
             {renderStoreHoursMerge()}
-            <Button margin='auto 10px auto auto' primary onClick={()=> confirmMerge(values)}>Resolve</Button>
+            <Button margin='20px 10px auto auto' primary onClick={resolveMergeConflicts}>Resolve</Button>
         </StyledModal>
     );
 };

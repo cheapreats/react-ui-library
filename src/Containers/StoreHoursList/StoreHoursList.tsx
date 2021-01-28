@@ -90,10 +90,14 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
         setFieldValue(CATEGORY_FIELD, updatedAllCategories)
     }
 
+    const resetFormToInitial = () => {
+        resetForm({values: {categories: allCategoriesWithHours}});
+    }
+
     const confirmFormReset = () => {
         setConfirmModalState(false)
         setActiveCategory(INITIAL_ACTIVE_CATEGORY)
-        resetForm({values: {categories: allCategories}});
+        resetFormToInitial();
     }
 
     useEffect(()=> {
@@ -101,7 +105,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
             const newStoreHours = [createCategoryWithHours(CATEGORY_DEFAULT_NAME)]
             setAllCategoriesWithHours(newStoreHours);
         } else {
-            setAllCategoriesWithHours(allCategories);
+            setAllCategoriesWithHours(allCategoriesWithHours);
         }
     }, [allCategories])
 
@@ -168,6 +172,9 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         SET_ACTIVE_BUTTON={textHeaders.BUTTONS.SET_ACTIVE}
                         activeCategory={activeCategory}
                         setActiveCategory={setActiveCategory}
+                        saveStoreHours={saveStoreHours}
+                        resetForm={resetFormToInitial}
+                        isDirty={dirty}
                     />
                     <EditCategoryModal
                         isVisible={editCategoryModal}
