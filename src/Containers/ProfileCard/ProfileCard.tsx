@@ -1,42 +1,85 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Heading, Paragraph } from '@Text';
+import { Paragraph } from '@Text';
 import { Button } from '@Inputs';
 import { PhoneCall } from '@styled-icons/boxicons-solid/PhoneCall';
+import {Heart} from '@styled-icons/boxicons-solid/Heart';
 
 export interface ProfileCardProps extends React.HTMLAttributes<HTMLDivElement> {
     visitCount: string,
     profileName: string,
     lastVisitedDate: string,
-
+    onCallClick: () => void,
+    profileImage: string,
+    // TODO: Use the Enum from the SDK
+    customerLoyaltyType: string,
+    isFavoriteStore: boolean
 }
 
 export const ProfileCard: React.FC<ProfileCardProps> = ({
+    profileImage,
     visitCount,
-    profileName = 'Ashley DavidSon Moooo',
+    profileName,
     lastVisitedDate,
+    customerLoyaltyType,
+    onCallClick,
+    isFavoriteStore,
     ...props
-}): React.ReactElement => (
-    <Container {...props}>
-        <LeftContainer>
-            <ProfilePhoto>
-                <VisitCount>
-                    <VisitCountText>{visitCount}</VisitCountText>
-                </VisitCount>
-            </ProfilePhoto>
-            <ProfileCardContainer>
-                <TopProfileInfoContainer>
-                    <ProfileName>{profileName}</ProfileName>
-                    <CallButton icon={PhoneCall}>Call</CallButton>
-                </TopProfileInfoContainer>
-                <HorizontalLine  />
-                <BottomProfileInfoContainer>
-                    <LastVisitedDate>Last Visited: {lastVisitedDate}</LastVisitedDate>
-                </BottomProfileInfoContainer>
-            </ProfileCardContainer>
-        </LeftContainer>
-    </Container>
-);
+}): React.ReactElement => {
+
+    /**
+     * A function that as the number of visits increase dynamically resizes the
+     * visit count text perfectly until value 9999, at 10000 it breaks.
+     */
+    const dynamicFontSizeByVisitCountLength = () => {
+        const textLength = visitCount.length;
+        let fontSize = 1;
+        if (textLength === 3) {
+            fontSize = 0.8;
+        }
+        if (textLength > 3) {
+            fontSize /= textLength;
+        }
+        return `${fontSize}rem`;
+    }
+
+    return (
+        <Container {...props}>
+            <LeftContainer>
+                <ProfilePhoto customerLoyaltyType={customerLoyaltyType} src={profileImage} alt="Profile Image" />
+                <VisitCountContainer>
+                    <VisitCountText fontSize={dynamicFontSizeByVisitCountLength}>{visitCount}</VisitCountText>
+                </VisitCountContainer>
+                {isFavoriteStore && <HeartIcon />}
+                <ProfileCardContainer>
+                    <TopProfileInfoContainer>
+                        <ProfileName>{profileName}</ProfileName>
+                        <CallButton icon={PhoneCall} onClick={onCallClick}>Call</CallButton>
+                    </TopProfileInfoContainer>
+                    <HorizontalLine />
+                    <BottomProfileInfoContainer>
+                        <LastVisitedDate>
+                            Last Visited:
+                            {lastVisitedDate}
+                        </LastVisitedDate>
+                    </BottomProfileInfoContainer>
+                </ProfileCardContainer>
+            </LeftContainer>
+        </Container>
+    );
+};
+
+const HeartIcon = styled(Heart)`
+  height: 30px;
+  width: 30px;
+  color: ${({theme }) => theme.colors.primary};
+  position: absolute;
+  stroke: white;
+  stroke-width: 2;
+  top: 115px;
+  left: 125px;
+  z-index: 11;
+`;
 
 const Container = styled.div`
   width: 640px;
@@ -58,8 +101,12 @@ const LeftContainer = styled.div`
   justify-content: center;
 `;
 
-const ProfilePhoto = styled.div`
-  border: 5px solid rgba(255, 215, 112, 1);
+const ProfilePhoto = styled.img<Pick<ProfileCardProps, 'customerLoyaltyType'>>`
+  ${({customerLoyaltyType}) => ({
+        'FIRST_TIME': 'border: 5px solid rgba(169, 113, 66, 1);',
+        'CASUAL': 'border: 5px solid rgba(190, 194, 203, 1);',
+        'REGULAR': 'border: 5px solid rgba(255, 215, 112, 1);',
+    }[customerLoyaltyType])};
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
   width: 110px;
   height: 110px;
@@ -68,7 +115,7 @@ const ProfilePhoto = styled.div`
   background-color: grey;
 `;
 
-const VisitCount = styled.div`
+const VisitCountContainer = styled.div`
   width: 25px;
   height: 25px;
   border-radius: 999px;
@@ -77,15 +124,20 @@ const VisitCount = styled.div`
   border: 2px solid rgba(255, 255, 255, 1);
   position: absolute;
   // Height of Photo + Half Height of Self
-  top: 120px;
+  top: 115px;
+  left: 40px;
   z-index: 11;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
-const VisitCountText = styled(Paragraph)`
+const VisitCountText = styled(Paragraph)<any>`
   padding: 0;
   margin: 0;
   color: white;
   text-align: center;
+  font-size: ${({fontSize}) => fontSize};
   z-index: 12;
 `;
 

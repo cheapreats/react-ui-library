@@ -6,13 +6,25 @@ import { createStoryTitle } from '../../Constants';
 export default {
     title: createStoryTitle('ProfileCard'),
     component: ProfileCard,
+    argTypes: {
+        onCallClick: { action: 'OnCallClick Pressed' },
+        customerLoyaltyType: {
+            control: {
+                type: 'select',
+                options: [
+                    'REGULAR',
+                    'CASUAL',
+                    'FIRST_TIME'
+                ],
+            },
+        },
+    },
     args: {
-        left: 10,
-        top: 10,
-        width: 40,
-        height: 30,
-        popup: true,
-        content: 'Content',
+        profileImage: 'https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif',
+        visitCount: 4,
+        profileName: 'Ashley Tisdale The Third',
+        lastVisitedDate: '23 Days Ago',
+        isFavoriteStore: true
     },
 } as Meta;
 
