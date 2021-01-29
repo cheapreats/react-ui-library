@@ -13,7 +13,7 @@ export interface ProfileCardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 export const ProfileCard: React.FC<ProfileCardProps> = ({
     visitCount,
-    profileName,
+    profileName = 'Ashley DavidSon Moooo',
     lastVisitedDate,
     ...props
 }): React.ReactElement => (
@@ -26,7 +26,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
             </ProfilePhoto>
             <ProfileCardContainer>
                 <TopProfileInfoContainer>
-                    <ProfileName type="h1">{profileName}</ProfileName>
+                    <ProfileName>{profileName}</ProfileName>
                     <CallButton icon={PhoneCall}>Call</CallButton>
                 </TopProfileInfoContainer>
                 <HorizontalLine  />
@@ -47,12 +47,11 @@ const Container = styled.div`
 `;
 
 const LeftContainer = styled.div`
-  width: 416px;
+  width: 415px;
   height: 150px;
   background-color: ${({theme }) => theme.colors.primary};
   border-top-left-radius: 10px;
   border-bottom-left-radius: 10px;
-  padding: 20px 25px;
   flex-direction: row;
   display: flex;
   align-items: center;
@@ -66,6 +65,7 @@ const ProfilePhoto = styled.div`
   height: 110px;
   border-radius: 999px;
   z-index: 10;
+  background-color: grey;
 `;
 
 const VisitCount = styled.div`
@@ -76,8 +76,8 @@ const VisitCount = styled.div`
   background: rgba(237, 36, 42, 1);
   border: 2px solid rgba(255, 255, 255, 1);
   position: absolute;
-  // Height of Photo + Height of Self
-  top: 135px;
+  // Height of Photo + Half Height of Self
+  top: 120px;
   z-index: 11;
 `;
 
@@ -96,11 +96,18 @@ const ProfileCardContainer = styled.div`
   border-radius: 10px;
   flex-direction: row;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-  margin-left: -20px;
+  margin-left: -22px;
 `;
 
-const ProfileName = styled(Heading)`
-  background-color: black;
+const ProfileName = styled.p`
+  font-size: 25px;
+  float: left;
+  margin: 0;
+  padding: 0;
+  width: 140px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 `;
 
 const CallButton = styled(Button)`
