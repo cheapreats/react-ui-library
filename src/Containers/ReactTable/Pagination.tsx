@@ -7,7 +7,7 @@ import { flex } from '../../Utils/Mixins';
 
 export interface IPaginationProps extends IRowSelectorProps, IPageSelectorProps, MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
     rowSelectorProps?: Omit<IRowSelectorProps, 'setPageSize' | 'pageSize' | 'pageSelectOptions' | 'pageOptionsLength'>;
-    pageSelectorProps?: Omit<IPageSelectorProps, 'goToPreviousPage' | 'goToNextPage' | 'goToPage' | 'pageLength' | 'pageIndex'>;
+    pageSelectorProps?: Omit<IPageSelectorProps, 'goToPreviousPage' | 'goToNextPage' | 'goToPage' | 'pageCount' | 'pageIndex'>;
 };
 
 export const Pagination: React.FC<IPaginationProps> = ({
@@ -18,7 +18,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
     goToPreviousPage,
     goToNextPage,
     goToPage,
-    pageLength,
+    pageCount,
     pageIndex,
     rowSelectorProps,
     pageSelectorProps,
@@ -36,7 +36,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
             goToPreviousPage={goToPreviousPage}
             goToNextPage={goToNextPage}
             goToPage={goToPage}
-            pageLength={pageLength}
+            pageCount={pageCount}
             pageIndex={pageIndex}
             {...pageSelectorProps}
         />

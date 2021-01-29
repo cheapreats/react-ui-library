@@ -1,73 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { Tag, TagProps } from '../Tag/Tag';
-import { Input, InputProps } from '../../Inputs/Input/Input';
+import {useMounted} from '@Utils/Hooks'
+import styled from 'styled-components';
+import { flex } from '@Utils/Mixins/flex';
+import { TagContainer } from '@Containers/VendorsList/TagContainer';
+import { TagProps } from '../Tag/Tag';
 import { Select, SelectProps } from '../../Inputs/Select/Select';
+
 
 export interface IFilterSelectProps extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement>{
-    selectedValue: string;
     placeholder: string;
     selectOptions: string[];
     selectProps?: SelectProps;
-    inputProps?: InputProps;
-    tagProps?: Omit<TagProps, 'children'>;
-    filterApplied: boolean;
-    setFilterApplied: React.Dispatch<React.SetStateAction<boolean>>
+    onSelectFilter?: (selectedFilter: string) => void;
 }
-
-const FIRST_OPTION = 0;
-const SEPARATOR_TEXT = ': '
 
 export const FilterSelect: React.FC<IFilterSelectProps> = ({
     placeholder,
     selectOptions,
     selectProps,
-    inputProps,
-    tagProps,
-    filterApplied,
-    setFilterApplied,
+    onSelectFilter = ()=> console.log('selected'),
+    children,
     ...props
-}): React.ReactElement => {
-    const [selectValue, setSelectValue] = useState(selectOptions[FIRST_OPTION]);
-    const [inputValue, setInputValue] = useState(placeholder);
-    return (
-        <div {...props}>
-            {filterApplied ? (
-                <Tag 
-                    onClick={() => setFilterApplied(false)}
-                    {...tagProps}
-                >
-                    {selectValue}
-                    {SEPARATOR_TEXT}
-                    {inputValue}
-                </Tag>
-            ) : (
-                <>
-                    <Select
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                            setSelectValue(e.target.value);
-                        }}
-                        value={selectValue}
-                        placeholder={selectValue}
-                        {...selectProps}
-                    >
-                        {selectOptions.map((selectOption): React.ReactElement => (
-                            <option key={selectOption} value={selectOption}>
-                                {selectOption}
-                            </option>
-                        ))}
-                    </Select>
-                    <Input 
-                        placeholder={inputValue}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                            setInputValue(e.target.value);
-                        }}
-                        {...inputProps}
-                    />
-                </>
-            )}
-        </div>
-    )
-};
+}): React.ReactElement => (
+    <Wrapper {...props}>
+        <Select
+            onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                onSelectFilter(e.target.value);
+            }}
+            placeholder={placeholder}
+            limit={selectOptions.length}
+            {...selectProps}
+        >
+            {selectOptions.map((selectOption): React.ReactElement => (
+                <option key={selectOption} value={selectOption}>
+                    {selectOption}
+                </option>
+            ))}
+        </Select>
+        {children}
+    </Wrapper>
+);
+
+const Wrapper = styled.div`
+    ${flex('column')}
+    height: auto;
+`

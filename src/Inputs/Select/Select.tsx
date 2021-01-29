@@ -145,6 +145,7 @@ export const Select: React.FC<SelectProps> = ({
 const Container = styled.div`
     ${flex('column')}
     position: relative;
+    height: auto;
 `;
 
 const SelectDisplay = styled.p<SelectProps>`

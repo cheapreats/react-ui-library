@@ -39,10 +39,10 @@ export const CollapsibleHeading: React.FC<ICollapsibleHeadingProps> = ({
 );
 
 const Wrapper = styled.div`
-position: relative;
-display: flex;
-flex-direction: column;
-height: fit-content(100%);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    height: auto;
 `;
 const Row = styled.div`
     ${flex('space-between')};

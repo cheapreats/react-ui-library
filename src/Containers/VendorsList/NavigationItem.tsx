@@ -6,26 +6,32 @@ import { Heading, HeadingProps } from '../../Text/Heading';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex } from '../../Utils/Mixins';
 
-export interface INavigationItemProps
-    extends MainInterface,
-        ResponsiveInterface,
-        React.HTMLAttributes<HTMLDivElement> {
-    icon?: StyledIcon;
+export interface IWrapperProps {
     label?: string;
-    selectedItem?: string;
+    selectedItem?: string; 
+    icon?: StyledIcon;
+    isSelected?: boolean;
+}
+
+export interface INavigationItemProps
+    extends IWrapperProps, MainInterface,
+        ResponsiveInterface,
+        Omit<React.HTMLAttributes<HTMLDivElement>, 'onClick'> {
     iconProps?: IconProps | { style: any };
     headingProps?: HeadingProps;
+    onNavigate?: ( label?: string, event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
 }
 
 export const NavigationItem: React.FC<INavigationItemProps> = ({
     icon,
     label,
-    selectedItem,
+    isSelected,
     iconProps,
     headingProps,
+    onNavigate = ()=> console.log('nav'),
     ...props
 }): React.ReactElement => (
-    <Wrapper selectedItem={selectedItem} label={label} {...props}>
+    <Wrapper isSelected={isSelected} label={label} onClick={(event:React.MouseEvent<HTMLDivElement, MouseEvent>)=> onNavigate(label, event)} {...props}>
         <Icon as={icon} {...iconProps} />
         <Heading type="h6" {...headingProps}>
             {label}
@@ -33,15 +39,13 @@ export const NavigationItem: React.FC<INavigationItemProps> = ({
     </Wrapper>
 );
 
-const Wrapper = styled.div<
-    Pick<INavigationItemProps, 'selectedItem' | 'label'>
->`
+const Wrapper = styled.div<IWrapperProps>`
     ${flex('row')};
-    ${({ theme, selectedItem, label }): string | false =>
-        selectedItem === label &&
-        `
-        border-bottom: solid 3px ${theme.colors.primary};
-    `};
+    ${({ theme, isSelected }): string =>
+        isSelected ?
+            `
+        border-bottom: solid 2px ${theme.colors.text};
+    `: ''};
 `;
 
 const Icon = styled.svg`

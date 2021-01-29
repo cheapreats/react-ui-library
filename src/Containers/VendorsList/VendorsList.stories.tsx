@@ -9,6 +9,7 @@ import {
 } from 'react-table';
 import { Datepicker } from '@Inputs/Datepicker';
 import moment from 'moment';
+import { TagFilterSelect } from '@Containers/CollapsibleHeading/TagFilterSelect';
 import { DefaultFilter } from './DefaultFilter';
 import { Profile } from './Profile'; 
 import { TagContainer } from './TagContainer';
@@ -21,13 +22,24 @@ export default {
     component: VendorsList,
 } as Meta;
 
-interface IOriginalValues {email: string, name: string, tags: string[], created_at: string};
+
+interface IGroups {
+    name : string;
+}
+
+interface IOriginalValues {email: string, name: string, groups: IGroups[], created_at: string};
 const tabFilterMethod =  (rows: Row<object>[], theColumns: string[], filterValue: any) => {
-    const stringRegexMatch = new RegExp(filterValue, 'gi')
+    console.log(filterValue, 'filter value')
     const filteredRows = rows.filter((row) => {
-        const {tags } : IOriginalValues = row.original as IOriginalValues;
-        const tagsMatch = stringRegexMatch.test(tags.join(''));
-        if(tagsMatch) {
+        let groupContainsCount = 0;
+        const {groups} : IOriginalValues = row.original as IOriginalValues;
+        groups.map(({name}) => {
+            if (filterValue.includes(name)) {
+                groupContainsCount += 1;
+            }
+        })
+        console.log(groupContainsCount === filterValue.length, groupContainsCount, filterValue.length)
+        if(groupContainsCount === filterValue.length) {
             return true;
         }
     })
@@ -48,10 +60,10 @@ const timeFilterMethod = (rows: Row<object>[], theColumns: string[], filterValue
 const globalFilterMethod =  (rows: Row<object>[], theColumns: string[], filterValue: any) => {
     const stringRegexMatch = new RegExp(filterValue, 'gi')
     const filteredRows = rows.filter((row) => {
-        const {email, name, tags, created_at} : IOriginalValues = row.original as IOriginalValues;
+        const {email, name, groups, created_at} : IOriginalValues = row.original as IOriginalValues;
         const emailMatch = stringRegexMatch.test(email);
         const nameMatch = stringRegexMatch.test(name);
-        const tagsMatch = stringRegexMatch.test(tags.join(''));
+        const tagsMatch = stringRegexMatch.test(groups.map((group) => group.name).join(''));
         const isDateBefore = moment(created_at).isBefore(moment(filterValue));
         if(emailMatch || nameMatch || tagsMatch || isDateBefore) {
             return true;
@@ -59,37 +71,46 @@ const globalFilterMethod =  (rows: Row<object>[], theColumns: string[], filterVa
     })
     return filteredRows
 }
+const sampleGroupsMapped = [ 'VIP Client', 'Early Adopter', 'Pizza Fanatic', 'Dog Lover']
 
 const renderTimeFilter = (column: HeaderGroup<any>) => <div style={{height: '450px'}}><Datepicker value={column.filterValue} onChange={(event: any)=> column.setFilter(event.target.value)} /></div>
+const renderTagFilter = (column: HeaderGroup<any>) => <TagFilterSelect placeholder='Select Group Names' selectOptions={sampleGroupsMapped} onOptionsSelected={(selectedOptions) => column.setFilter(selectedOptions)} />
+
 const getVendorsListProps = (): IVendorsListProps => ({
     filterButtonText: 'Apply',
     filterTitleText: 'Filters',
     headerText: 'Clients',
     headerRightButtonText: 'Add Client',
+    selectedNavLabel: 'Overview',
+    groups: ['VIP Client', 'Early Adopter'],
     navigationBarItems: [
         {
             icon: TableView,
             label: 'Overview',
+            onNavigate: (label, event) => console.log(label, event?.target, 'this event')
         },
         {
             icon: List,
             label: 'List View',
+            onNavigate: (label, event) => console.log(label, event?.target, 'this event')
         },
         {
             icon: ViewGrid,
             label: 'Segment',
+            onNavigate: (label, event) => console.log(label, event?.target, 'this event')
         },
     ],    
     filterItems:  [
         {
             title: 'Name',
             selectOptions: ['Contains', 'Equals'],
-            placeholder: 'Add email'
+            placeholder: 'Add email',
         },
         {
             title: 'Tag',
             selectOptions: ['Contains', 'Equals'],
-            placeholder: 'Add tag'
+            placeholder: 'Add tag',
+            element: renderTagFilter
         },
         {
             title: 'Created',
@@ -116,7 +137,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             Header: 'Tags',
             Cell: (cell: any) => (
                 <TagContainer 
-                    tags={cell.row.original.tags} 
+                    tags={cell.row.original.groups.map((group: IGroups)=> group.name)} 
                     isHoverable={false} 
                     tagProps={{ style: { marginRight: '10px' }}}
                 />
@@ -144,7 +165,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             email: 'emy_jac@upmind.com',
             imageUrl:
                 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            tags: ['VIP Client', 'Early Adopter'],
+            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
             created_at: moment().subtract('10', 'weeks').toString(),
         },
         {
@@ -152,7 +173,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '2',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
+            groups: [{name: 'VIP Client'}],
             created_at: moment().subtract('7', 'weeks').toString(),
         },
         {
@@ -162,7 +183,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             email: 'joshbro@bros.com',
             imageUrl:
                 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            tags: ['VIP Client', 'Early Adopter', 'Pizza Fanatic'],
+            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name:'Pizza Fanatic'}],
             created_at: moment().subtract('6', 'weeks').toString(),
         },
         {
@@ -170,7 +191,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '4',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            tags: ['VIP Client', 'Dog Lover'],
+            groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}],
             created_at: moment().subtract('5', 'weeks').toString(),
         },
         {
@@ -180,7 +201,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             email: 'emy_jac@upmind.com',
             imageUrl:
                 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            tags: ['VIP Client', 'Early Adopter'],
+            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
             created_at: moment().subtract('1', 'weeks').toString(),
         },
         {
@@ -188,7 +209,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '6',
             name: 'Ruroni Kenshin',
             email: 'rurko@anime.com',
-            tags: ['VIP Client', 'Dog Lover'],
+            groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}],
             created_at: moment().subtract('4', 'weeks').toString()
         },
         {
@@ -196,7 +217,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '7',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
+            groups: [{name: 'VIP Client'}],
             created_at: '02/30/2018'
         },
         {
@@ -204,7 +225,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '8',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
+            groups: [{name: 'VIP Client'}],
             created_at: moment().subtract('1', 'weeks').toString()
         },
         {
@@ -213,7 +234,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            tags: ['VIP Client'],
+            groups: [{name: 'VIP Client'}],
             created_at: moment().subtract('2', 'weeks').toString()
         },
         {
@@ -221,7 +242,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '10',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
+            groups: [{name: 'VIP Client'}],
             created_at: moment().subtract('2', 'weeks').toString()
         },
         {
@@ -229,7 +250,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '11',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
+            groups: [{name: 'VIP Client'}],
             created_at: moment().subtract('12', 'weeks').toString()
         },
         {
@@ -238,7 +259,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            tags: ['VIP Client', 'Early Adopter'],
+            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
             created_at: moment().subtract('22', 'weeks').toString()
         },
         {
@@ -247,7 +268,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            tags: ['VIP Client', 'Early Adopter'],
+            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
             created_at: moment().subtract('21', 'weeks').toString()
         },
         {
@@ -255,7 +276,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '14',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
+            groups: [{name: 'VIP Client'}],
             created_at: moment().subtract('12', 'weeks').toString()
         },
         {
@@ -264,7 +285,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             name: 'Emy Jackson',
             email: 'emy_jac@upmind.com',
             imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            tags: ['VIP Client', 'Early Adopter'],
+            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
             created_at: moment().subtract('25', 'weeks').toString()
         },
         {
@@ -272,7 +293,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '16',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            tags: ['VIP Client'],
+            groups: [{name: 'VIP Client'}],
             created_at: moment().subtract('2', 'weeks').toString()
         }
     ],

@@ -11,18 +11,20 @@ export interface ITagContainerProps
     tags: string[];
     isHoverable?: boolean;
     tagProps?: Omit<TagProps, 'children'>;
+    onRemoveTag?: (index: number) => void;
 }
 
 export const TagContainer: React.FC<ITagContainerProps> = ({
     tags,
     isHoverable,
     tagProps,
+    onRemoveTag = () => console.log('tag clicked'),
     ...props
 }): React.ReactElement => (
     <Wrapper {...props}>
-        {tags.map((tagText) => (
-            <Tag key={tagText} isHoverable={isHoverable} {...tagProps}>
-                {tagText}
+        {tags.map((tag, index) => (
+            <Tag key={tag} isHoverable={isHoverable} {...tagProps} onClick={() => onRemoveTag(index)}>
+                {tag}
             </Tag>
         ))}
     </Wrapper>

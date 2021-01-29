@@ -11,12 +11,12 @@ export interface IPageSelectorProps extends MainInterface, ResponsiveInterface,R
     goToPreviousPage: () => void;
     goToNextPage: () => void;
     goToPage: (pageNumber: number) => void;
-    pageLength: number;
+    pageCount: number;
     buttonProps?: ButtonProps;
     pageIndex: number;
     smallTextProps?: SmallTextProps;
 };
-
+const ONLY_ONE_PAGE = 1;
 const INDEX_SHIFT = 1;
 const LEFT_TEXT = 'Page '
 const MIDDLE_TEXT = ' out of '
@@ -25,43 +25,47 @@ export const PageSelector: React.FC<IPageSelectorProps> = ({
     goToPreviousPage,
     goToNextPage,
     goToPage,
-    pageLength,
+    pageCount,
     pageIndex,
     buttonProps,
     smallTextProps,
     ...props
 }): React.ReactElement => (
     <Wrapper {...props}>
-        <Section>
-            <Button 
-                icon={LeftArrowAlt}
-                onClick={() => goToPreviousPage()}
-                primary
-                {...buttonProps}
-            />
-            {Array(pageLength).fill(0).map((fill, index) => (
-                <SButton 
-                    key={`Page${fill}`} 
-                    isActive={pageIndex === index}
-                    onClick={() => goToPage(index)}
-                    primary
-                    {...buttonProps}
-                > 
-                    {index + INDEX_SHIFT}
-                </SButton>
-            ))}
-            <Button 
-                icon={RightArrowAlt}
-                onClick={() => goToNextPage()}
-                primary
-                {...buttonProps}
-            />
-        </Section>
+        {
+            pageCount > ONLY_ONE_PAGE && (
+                <Section>
+                    <Button 
+                        icon={LeftArrowAlt}
+                        onClick={() => goToPreviousPage()}
+                        primary
+                        {...buttonProps}
+                    />
+                    {Array(pageCount).fill(0).map((fill, index) => (
+                        <SButton 
+                            key={`Page${fill}`} 
+                            isActive={pageIndex === index}
+                            onClick={() => goToPage(index)}
+                            primary
+                            {...buttonProps}
+                        > 
+                            {index + INDEX_SHIFT}
+                        </SButton>
+                    ))}
+                    <Button 
+                        icon={RightArrowAlt}
+                        onClick={() => goToNextPage()}
+                        primary
+                        {...buttonProps}
+                    />
+                </Section>
+            )
+        }
         <SmallText {...smallTextProps}>
             {LEFT_TEXT}
             {pageIndex + INDEX_SHIFT} 
             {MIDDLE_TEXT} 
-            {pageLength}
+            {pageCount}
         </SmallText>
     </Wrapper>
 );

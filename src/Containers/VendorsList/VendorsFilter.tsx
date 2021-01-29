@@ -47,7 +47,6 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
     globalFilter,
     preGlobalFilteredRows,
     setGlobalFilter,
-    ...props
 }): React.ReactElement => {
     const [isCollapsedArr, setIsCollapsedArr] = useState(Array(filterItems.length).fill(false));
     const [isGlobalCollapsed, setIsGlobalCollapsed] = useState(false);
@@ -66,11 +65,6 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                     iconProps="width: 20px; margin-right: 10px"
                     iconClick={() => alert('Icon Clicked')}
                 />
-            )}
-            footer={(
-                <ListFooter>
-                    <p>This is a list Footer</p>
-                </ListFooter>
             )}
             toggleComponent={(
                 <ListToggle

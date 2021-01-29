@@ -16,6 +16,7 @@ export interface IRowSelectorProps extends MainInterface, ResponsiveInterface,Re
 
 const LEFT_ROW_TEXT = 'Rows per page';
 const RIGHT_ROW_TEXT = 'out of ';
+const RIGHT_ROW_AFTER_TEXT = ' entries';
 
 // TODO: This out of doesn't make any sense
 export const RowSelector: React.FC<IRowSelectorProps> = ({
@@ -28,9 +29,6 @@ export const RowSelector: React.FC<IRowSelectorProps> = ({
     ...props
 }): React.ReactElement => (
     <Wrapper {...props}>
-        <SmallText {...smallTextProps}>
-            {LEFT_ROW_TEXT}
-        </SmallText>
         <Select
             onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                 setPageSize(Number(e.target.value));
@@ -46,8 +44,7 @@ export const RowSelector: React.FC<IRowSelectorProps> = ({
             ))}
         </Select>
         <SmallText {...smallTextProps}>
-            {RIGHT_ROW_TEXT} 
-            {pageOptionsLength}
+            {LEFT_ROW_TEXT}
         </SmallText>
     </Wrapper>
 );

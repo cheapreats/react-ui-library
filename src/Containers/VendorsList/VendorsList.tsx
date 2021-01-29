@@ -38,6 +38,8 @@ export interface IVendorsListProps
             listProps: ListProps;
             tableHeight?: string;
             globalFilterMethod?: (rows: Row<object>[], theColumns: string[], filterValue: any) => Row<object>[];
+            selectedNavLabel: string;
+            groups: string[];
 };
 
 export const VendorsList: React.FC<IVendorsListProps> = ({
@@ -53,6 +55,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
     listProps,
     tableHeight,
     globalFilterMethod,
+    selectedNavLabel,
     ...props
 }): React.ReactElement => {
     const defaultColumn = useMemo(()=>({ Filter: DefaultFilter}), [])
@@ -102,7 +105,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     globalFilter={globalFilter}
                     headingProps={{ style: { padding: '20px 0 0 20px' } }}
                     buttonProps={{ style: { margin: '20px 0' } }}
-                    collapsibleHeadingProps={{ style: { marginBottom: '20px' } }}
+                    collapsibleHeadingProps={{ style: { marginTop: '20px' } }}
                 />
             </WrapperRow>
             <WrapperRow>
@@ -116,6 +119,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     navigationItemProps={{ iconProps: { style: { paddingRight: '5px' } },
                         style: { margin: '0 20px', paddingBottom: '5px' } }}
                     navigationBarItems={navigationBarItems}
+                    selectedNavLabel={selectedNavLabel}
                 />
                 <ReactTable 
                     data={data}
@@ -154,6 +158,7 @@ const Wrapper = styled.div`
     display: flex;
     ${flex('row')};
     height: 100%;
+    width: 100%;
 `;
 const WrapperRow = styled.div`
     ${flex('column')};
