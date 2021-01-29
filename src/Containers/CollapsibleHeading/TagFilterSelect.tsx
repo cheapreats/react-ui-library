@@ -57,18 +57,14 @@ export const TagFilterSelect: React.FC<ITagFilterSelectProps> = ({
     }
 
     return (
-        <Wrapper {...props}>
-            <FilterSelect
-                onSelectFilter={addSelectOption}
-                placeholder={placeholder}
-                selectOptions={selectOptions}
-            />
+        <FilterSelect
+            onSelectFilter={addSelectOption}
+            placeholder={placeholder}
+            selectOptions={selectOptions}
+        >
             <TagContainer tags={optionsSelected} onRemoveTag={removeSelectedOption} {...tagProps} />
-        </Wrapper>
+
+        </FilterSelect>
     )
 };
 
-const Wrapper = styled.div`
-    ${flex('column')}
-    
-`

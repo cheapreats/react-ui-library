@@ -47,20 +47,16 @@ export const DateFilterSelect: React.FC<IDateFilterSelectProps> = ({
     }
     
     return (
-        <Wrapper {...props}>
-            <FilterSelect
-                onSelectFilter={setSelected}
-                placeholder={placeholder}
-                selectOptions={selectOptions}
-                value={selected}
-            />
+        <FilterSelect
+            onSelectFilter={setSelected}
+            placeholder={placeholder}
+            selectOptions={selectOptions}
+            value={selected}
+        >
             <Datepicker value={date} onChange={onDateChange} onClear={() => setDate(new Date)} />
-        </Wrapper>
+
+        </FilterSelect>
+            
     )
 };
 
-const Wrapper = styled.div`
-    ${flex('column')}
-    height: 450px;
-    width: 100%;
-`

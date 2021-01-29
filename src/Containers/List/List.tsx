@@ -168,6 +168,7 @@ const Container = styled.div<ColumnProps>`
 
 const Items = styled.ul`
     ${Mixins.scroll}
+    height: 100%;
     list-style-type: none;
     overflow: auto;
     padding: 0;

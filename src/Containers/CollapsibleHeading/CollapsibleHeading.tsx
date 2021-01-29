@@ -34,7 +34,9 @@ export const CollapsibleHeading: React.FC<ICollapsibleHeadingProps> = ({
                 onClick={setCollapsed}
             />
         </Row>
-        {!!isCollapsed && ChildElement}
+        <ChildContainer>
+            {!!isCollapsed && ChildElement}
+        </ChildContainer>
     </Wrapper>
 );
 
@@ -44,6 +46,10 @@ const Wrapper = styled.div`
     flex-direction: column;
     overflow-y: visible;
 `;
+const ChildContainer = styled.div`
+    flex-grow: 2;
+    flex-shrink: 0;
+`
 const Row = styled.div`
     ${flex('space-between')};
 `;
