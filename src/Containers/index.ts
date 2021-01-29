@@ -52,6 +52,7 @@ export * from './MiddleCanvas';
 export * from './WarningCard/WarningCard';
 export * from './CollapsibleHeading/CollapsibleHeading';
 export * from './MainContainer/MainContainer';
+export * from './ProfileCard/ProfileCard';
 export * from './DraggableDemoFront/DraggableDemoFront';
 export * from './FileUpload/FileUpload';
 export * from './TransactionList/TransactionList';
