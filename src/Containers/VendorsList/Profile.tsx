@@ -90,7 +90,8 @@ export const Profile: React.FC<IProfileProps> = ({
 };
 
 const Wrapper = styled.div`
-    ${flex('row', 'center')};
+    ${flex('row', 'flex-start')};
+    margin-left: 10px;
     ${media(
         'phone',
         `

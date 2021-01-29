@@ -7,20 +7,21 @@ import {
     Column,
     useGlobalFilter,
     Row,
-    ColumnWithLooseAccessor
 } from 'react-table';
 import { Import } from '@styled-icons/boxicons-regular/Import';
 import { Add } from '@styled-icons/ionicons-sharp/Add';
 import { ListProps } from '@Containers/List';
-import moment from 'moment';
 import { VendorsFilter, IFilterItems } from './VendorsFilter';
 import { VendorsHeader } from './VendorsHeader';
 import { INavigationItemProps } from './NavigationItem';
 import { NavigationBar } from './NavigationBar';
 import { DefaultFilter } from './DefaultFilter';
-import { ReactTable, IVendorsData } from '../ReactTable/ReactTable';
+import { ReactTable } from '../ReactTable/ReactTable';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
+
+const INITIAL_FIRST_PAGE = 0;
+const INITIAL_PAGE_SIZE_FIVE = 5;
 
 export interface IVendorsListProps
     extends MainInterface,
@@ -59,7 +60,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
     ...props
 }): React.ReactElement => {
     const defaultColumn = useMemo(()=>({ Filter: DefaultFilter}), [])
-    const memoColumns = useMemo(()=> columns, [])
+    const memoColumns = useMemo(()=> columns, [columns])
     const {
         getTableProps,
         getTableBodyProps,
@@ -81,8 +82,8 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
             data,
             defaultColumn,
             initialState: { 
-                pageIndex: 0, 
-                pageSize: 5
+                pageIndex: INITIAL_FIRST_PAGE, 
+                pageSize: INITIAL_PAGE_SIZE_FIVE
             },
             globalFilter: globalFilterMethod
         },
@@ -93,8 +94,8 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
 
     return (
         <Wrapper {...props}>
-            <WrapperRow>
-                <SVendorsFilter
+            <ListWrapper>
+                <VendorsFilter
                     headerGroups={headerGroups}
                     headingTitle={filterTitleText}
                     buttonText={filterButtonText}
@@ -107,8 +108,8 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     buttonProps={{ style: { margin: '20px 0' } }}
                     collapsibleHeadingProps={{ style: { marginTop: '20px' } }}
                 />
-            </WrapperRow>
-            <WrapperRow>
+            </ListWrapper>
+            <WrapperColumn columnWidth={listProps.columnWidth}>
                 <SVendorsHeader 
                     headerText={headerText}
                     rightButtonText={headerRightButtonText}
@@ -140,6 +141,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     pageSelectOptions={[5, 10, 15, 20]}
                     tableHeaderProps={{ style: { marginBottom: '10px' } }}
                     tableRowProps={{ style: { padding: '10px 0' } }}
+                    tableProps={{style: {width: '100%'}}}
                     headingProps={{ style: { margin: '0 5px' } }}
                     // @ts-ignore
                     paginationProps={{ style: { marginTop: '10px' },
@@ -149,30 +151,30 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     onSelectRow={onSelectRow}
                     tableHeight={tableHeight}
                 />
-            </WrapperRow>
+            </WrapperColumn>
         </Wrapper>
     );
 }
 
 const Wrapper = styled.div`
-    display: flex;
     ${flex('row')};
     height: 100%;
     width: 100%;
 `;
-const WrapperRow = styled.div`
+interface IWrapperColumnProps {
+    columnWidth? : string; 
+}
+const WrapperColumn = styled.div<IWrapperColumnProps>`
     ${flex('column')};
+    ${({columnWidth}) => `width: calc(100% - ${columnWidth});`}
+    ${media('tablet', 'width: 100%;')}
 `;
+const ListWrapper = styled.div`
+    display: flex;
+`
 const SVendorsHeader = styled(VendorsHeader)`
-    margin: 20px 10px;
-`;
-const SVendorsFilter = styled(VendorsFilter)`
-    padding: 20px;
-    height: 100%;
+    margin-left: 20px;
 `;
 const SNavigationBar = styled(NavigationBar)`
     margin-bottom: 15px;
-`;
-const SReactTable = styled(ReactTable)`
-    margin-top: 20px;
 `;

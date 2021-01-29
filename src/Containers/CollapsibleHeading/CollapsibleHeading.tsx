@@ -24,7 +24,7 @@ export const CollapsibleHeading: React.FC<ICollapsibleHeadingProps> = ({
     <Wrapper {...props}>
         <Row>
             <Container>
-                <Heading bold type="h2" size="1.2rem" padding="0 0 0 5px">
+                <Heading bold type="h2" size="1.2rem" margin="0 0 0 10px">
                     {title}
                 </Heading>
             </Container>
@@ -42,7 +42,7 @@ const Wrapper = styled.div`
     position: relative;
     display: flex;
     flex-direction: column;
-    height: auto;
+    overflow-y: visible;
 `;
 const Row = styled.div`
     ${flex('space-between')};

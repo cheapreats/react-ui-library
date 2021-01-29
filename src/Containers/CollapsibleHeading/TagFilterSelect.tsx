@@ -10,6 +10,13 @@ import { Select, SelectProps } from '../../Inputs/Select/Select';
 
 const DELETE_ONE_OPTION = 1;
 
+const checkIfOptionIsSelected = (currentOptions: string[], selectOptionToAdd: string) => {
+    if (!currentOptions.includes(selectOptionToAdd)) {
+        return [...currentOptions, selectOptionToAdd]
+    } 
+    return currentOptions
+}
+
 export interface ITagFilterSelectProps extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement>{
@@ -17,6 +24,7 @@ export interface ITagFilterSelectProps extends MainInterface,
     selectOptions: string[];
     selectProps?: SelectProps;
     tagProps?: Omit<TagProps, 'children'>;
+    filterValue?: string[];
     onOptionsSelected?: (selectedOptions: string[]) => void;
 }
 
@@ -25,20 +33,21 @@ export const TagFilterSelect: React.FC<ITagFilterSelectProps> = ({
     selectOptions,
     selectProps,
     tagProps,
+    filterValue,
     onOptionsSelected = ()=> console.log('selected'),
     ...props
 }): React.ReactElement => {
     const isMounted = useMounted()
-    const [optionsSelected, setOptionsSelected] = useState<string[]>([]);
+    const [optionsSelected, setOptionsSelected] = useState<string[]>(filterValue || []);
 
     useEffect(() => {
         if (isMounted.current) {
             onOptionsSelected(optionsSelected)
         }
     }, [optionsSelected.length]);
-
+    
     const addSelectOption = (selectOptionToAdd: string) => {
-        setOptionsSelected((currentOptions) => [...currentOptions, selectOptionToAdd]);
+        setOptionsSelected((current) => checkIfOptionIsSelected(current, selectOptionToAdd));
     }
 
     const removeSelectedOption = (index: number) => {
@@ -53,14 +62,13 @@ export const TagFilterSelect: React.FC<ITagFilterSelectProps> = ({
                 onSelectFilter={addSelectOption}
                 placeholder={placeholder}
                 selectOptions={selectOptions}
-            >
-                <TagContainer tags={optionsSelected} onRemoveTag={removeSelectedOption} style={{marginTop: '10px'}} {...tagProps} />
-            </FilterSelect>
+            />
+            <TagContainer tags={optionsSelected} onRemoveTag={removeSelectedOption} {...tagProps} />
         </Wrapper>
     )
 };
 
 const Wrapper = styled.div`
     ${flex('column')}
-    height: auto;
+    
 `

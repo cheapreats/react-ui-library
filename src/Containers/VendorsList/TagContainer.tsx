@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Tag, TagProps } from '../Tag/Tag';
+import { Tag as T, TagProps } from '../Tag/Tag';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
 
@@ -41,3 +41,6 @@ const Wrapper = styled.div`
     `,
     )}
 `;
+const Tag = styled(T)`
+    margin:2px;
+` 

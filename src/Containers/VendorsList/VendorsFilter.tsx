@@ -2,18 +2,15 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Cog } from '@styled-icons/fa-solid/Cog';
 import { HeaderGroup, Row } from "react-table";
-import { List, ListHeader, ListProps, ListFooter, ListToggle } from '../List';
+import { List, ListHeader, ListHeaderProps, ListProps, ListFooter, ListToggle } from '../List';
 import { CollapsibleHeading, ICollapsibleHeadingProps } from '../CollapsibleHeading/CollapsibleHeading';
 import { DefaultFilter} from './DefaultFilter';
 import { GlobalFilter } from './GlobalFilter';
-import { Heading, HeadingProps } from '../../Text/Heading';
 import { ButtonProps } from '../../Inputs/Button/Button';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 export interface IFilterItems {
     title: string;
-    selectOptions: string[];
-    placeholder: string;
     element?: (column: HeaderGroup<any>) => JSX.Element;
 };
 
@@ -24,7 +21,7 @@ export interface IVendorsFilterProps
     headingTitle: string;
     buttonText: string;
     filterItems: IFilterItems[];
-    headingProps?: HeadingProps;
+    headingProps?: ListHeaderProps;
     buttonProps?: ButtonProps;
     listProps: ListProps;
     collapsibleHeadingProps?: ICollapsibleHeadingProps;
@@ -59,7 +56,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
             backgroundColor={BACKGROUND_COLOR}
             header={(
                 <ListHeader
-                    label="Filters"
+                    label={headingTitle}
                     headerFlex="space-between"
                     icon={COG_WHEEL_ICON}
                     iconProps="width: 20px; margin-right: 10px"

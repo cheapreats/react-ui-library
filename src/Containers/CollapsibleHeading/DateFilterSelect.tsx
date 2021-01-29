@@ -17,8 +17,8 @@ export interface IDateFilterSelectProps extends MainInterface,
     selectOptions: string[];
     selectProps?: SelectProps;
     tagProps?: Omit<TagProps, 'children'>;
-    onOptionsSelected?: (selectedDate: string, selectedOption: string) => void;
-    filterValue: Date;
+    onOptionsSelected?: (filterValue: {date: Date, selectedOption: string}) => void;
+    filterValue: {date: Date, selectedOption: string};
 }
 
 export const DateFilterSelect: React.FC<IDateFilterSelectProps> = ({
@@ -31,24 +31,30 @@ export const DateFilterSelect: React.FC<IDateFilterSelectProps> = ({
     ...props
 }): React.ReactElement => {
     const isMounted = useMounted()
-    const [optionSelected, setOptionSelected] = useState(selectOptions[FIRST_SELECT_OPTION]);
-    const onSelectChange = (value: string) => {
-        setOptionSelected(value)
-    }
-    const onDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const [selected, setSelected] = useState(filterValue?.selectedOption || selectOptions[FIRST_SELECT_OPTION]);
+    const [date, setDate] = useState(filterValue?.date || new Date());
+
+    useEffect(() => {
+        const newFilterValue = {date, selectedOption: selected};
         if (isMounted.current) {
-            onOptionsSelected(event.target.value, optionSelected)
+            onOptionsSelected(newFilterValue)
         }
+    }, [selected, date]);
+
+    const onDateChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const valueToDate = new Date(event.target.value);
+        setDate(valueToDate);
     }
+    
     return (
         <Wrapper {...props}>
             <FilterSelect
-                onSelectFilter={onSelectChange}
+                onSelectFilter={setSelected}
                 placeholder={placeholder}
                 selectOptions={selectOptions}
-            >
-                <Datepicker value={filterValue} onChange={onDateChange} margin='10px auto' />
-            </FilterSelect>
+                value={selected}
+            />
+            <Datepicker value={date} onChange={onDateChange} onClear={() => setDate(new Date)} />
         </Wrapper>
     )
 };
@@ -56,4 +62,5 @@ export const DateFilterSelect: React.FC<IDateFilterSelectProps> = ({
 const Wrapper = styled.div`
     ${flex('column')}
     height: 450px;
+    width: 100%;
 `

@@ -10,6 +10,7 @@ import {
 import { Datepicker } from '@Inputs/Datepicker';
 import moment from 'moment';
 import { TagFilterSelect } from '@Containers/CollapsibleHeading/TagFilterSelect';
+import { DateFilterSelect } from '@Containers/CollapsibleHeading/DateFilterSelect';
 import { DefaultFilter } from './DefaultFilter';
 import { Profile } from './Profile'; 
 import { TagContainer } from './TagContainer';
@@ -27,18 +28,20 @@ interface IGroups {
     name : string;
 }
 
+const TIME_FRAME_DAYS = 'days';
+const INITIAL_GROUP_COUNT = 0;
+const INCREMENT_GROUP_COUNT_ONE = 1;
+
 interface IOriginalValues {email: string, name: string, groups: IGroups[], created_at: string};
 const tabFilterMethod =  (rows: Row<object>[], theColumns: string[], filterValue: any) => {
-    console.log(filterValue, 'filter value')
     const filteredRows = rows.filter((row) => {
-        let groupContainsCount = 0;
+        let groupContainsCount = INITIAL_GROUP_COUNT;
         const {groups} : IOriginalValues = row.original as IOriginalValues;
         groups.map(({name}) => {
             if (filterValue.includes(name)) {
-                groupContainsCount += 1;
+                groupContainsCount += INCREMENT_GROUP_COUNT_ONE;
             }
         })
-        console.log(groupContainsCount === filterValue.length, groupContainsCount, filterValue.length)
         if(groupContainsCount === filterValue.length) {
             return true;
         }
@@ -46,12 +49,15 @@ const tabFilterMethod =  (rows: Row<object>[], theColumns: string[], filterValue
     return filteredRows
 }
 
-const timeFilterMethod = (rows: Row<object>[], theColumns: string[], filterValue: any) => {
+const timeFilterMethod = (rows: Row<object>[], theColumns: string[], filterValue: {date: Date, selectedOption: string}) => {
+    const {date, selectedOption} = filterValue;
     const filteredRows = rows.filter((row) => {
         const {created_at} : IOriginalValues = row.original as IOriginalValues;
-        const isDateBefore = moment(created_at).isBefore(filterValue);
-        if(isDateBefore) {
-            return true;
+        if (selectedOption === 'Before') {
+            return moment(created_at).isBefore(moment(date), TIME_FRAME_DAYS);
+        } 
+        if (selectedOption === 'After') {
+            return moment(created_at).isAfter(moment(date), TIME_FRAME_DAYS);
         }
     })
     return filteredRows
@@ -71,10 +77,11 @@ const globalFilterMethod =  (rows: Row<object>[], theColumns: string[], filterVa
     })
     return filteredRows
 }
-const sampleGroupsMapped = [ 'VIP Client', 'Early Adopter', 'Pizza Fanatic', 'Dog Lover']
+const sampleGroupsMapped = [ 'VIP Client', 'Early Adopter', 'Pizza Fanatic', 'Dog Lover', 'Frogger', 'Jogger', 'Dogger']
+const sampleDateOptions = ['Before', 'After'];
 
-const renderTimeFilter = (column: HeaderGroup<any>) => <div style={{height: '450px'}}><Datepicker value={column.filterValue} onChange={(event: any)=> column.setFilter(event.target.value)} /></div>
-const renderTagFilter = (column: HeaderGroup<any>) => <TagFilterSelect placeholder='Select Group Names' selectOptions={sampleGroupsMapped} onOptionsSelected={(selectedOptions) => column.setFilter(selectedOptions)} />
+const renderTimeFilter = (column: HeaderGroup<any>) => <DateFilterSelect placeholder='Select Date' filterValue={column.filterValue} selectOptions={sampleDateOptions} selectProps={{margin: '10px 0'}} onOptionsSelected={(value)=> column.setFilter(value)} />
+const renderTagFilter = (column: HeaderGroup<any>) => <TagFilterSelect placeholder='Select Group Names' filterValue={column.filterValue} tagProps={{style: {marginTop: '8px'}}} selectOptions={sampleGroupsMapped} selectProps={{margin: '10px 0'}} onOptionsSelected={(selectedOptions) => column.setFilter(selectedOptions)} />
 
 const getVendorsListProps = (): IVendorsListProps => ({
     filterButtonText: 'Apply',
@@ -82,7 +89,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
     headerText: 'Clients',
     headerRightButtonText: 'Add Client',
     selectedNavLabel: 'Overview',
-    groups: ['VIP Client', 'Early Adopter'],
+    groups: sampleGroupsMapped,
     navigationBarItems: [
         {
             icon: TableView,
@@ -103,19 +110,13 @@ const getVendorsListProps = (): IVendorsListProps => ({
     filterItems:  [
         {
             title: 'Name',
-            selectOptions: ['Contains', 'Equals'],
-            placeholder: 'Add email',
         },
         {
             title: 'Tag',
-            selectOptions: ['Contains', 'Equals'],
-            placeholder: 'Add tag',
             element: renderTagFilter
         },
         {
             title: 'Created',
-            selectOptions: ['Created earlier than', 'Created on', 'Created later than'],
-            placeholder: 'Select date',
             element: renderTimeFilter
         }
     ],
@@ -173,7 +174,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '2',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}],
+            groups: [{name: 'VIP Client'}, {name: 'Dogger'}],
             created_at: moment().subtract('7', 'weeks').toString(),
         },
         {
@@ -191,7 +192,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '4',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}],
+            groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}, {name: 'Dogger'}],
             created_at: moment().subtract('5', 'weeks').toString(),
         },
         {
@@ -201,7 +202,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             email: 'emy_jac@upmind.com',
             imageUrl:
                 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
+            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name: 'Frogger'}],
             created_at: moment().subtract('1', 'weeks').toString(),
         },
         {
@@ -217,7 +218,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             id: '7',
             name: 'Amy Jackson',
             email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}],
+            groups: [{name: 'VIP Client'}, {name: 'Jogger'}],
             created_at: '02/30/2018'
         },
         {
@@ -300,7 +301,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
     onSelectRow: (original) => console.log(original, 'contact clicked'),
     listProps: {
         id: 'vendor_list',
-        columnWidth: '300px',
+        columnWidth: '315px',
         loading: false,
         cssPosition: 'relative',
         margin: '0',
@@ -315,7 +316,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
         zIndex: 3
     },
     globalFilterMethod,
-    tableHeight: '50vh'
+    tableHeight: '51vh'
 });
 
 const Template: Story<IVendorsListProps> = (args) => (

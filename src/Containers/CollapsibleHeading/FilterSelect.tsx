@@ -1,10 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import {useMounted} from '@Utils/Hooks'
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins/flex';
-import { TagContainer } from '@Containers/VendorsList/TagContainer';
-import { TagProps } from '../Tag/Tag';
 import { Select, SelectProps } from '../../Inputs/Select/Select';
 
 
@@ -15,6 +12,7 @@ export interface IFilterSelectProps extends MainInterface,
     selectOptions: string[];
     selectProps?: SelectProps;
     onSelectFilter?: (selectedFilter: string) => void;
+    value?: string;
 }
 
 export const FilterSelect: React.FC<IFilterSelectProps> = ({
@@ -22,6 +20,7 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
     selectOptions,
     selectProps,
     onSelectFilter = ()=> console.log('selected'),
+    value,
     children,
     ...props
 }): React.ReactElement => (
@@ -30,6 +29,7 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
             onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                 onSelectFilter(e.target.value);
             }}
+            value={value}
             placeholder={placeholder}
             limit={selectOptions.length}
             {...selectProps}
@@ -46,5 +46,5 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
 
 const Wrapper = styled.div`
     ${flex('column')}
-    height: auto;
+    
 `

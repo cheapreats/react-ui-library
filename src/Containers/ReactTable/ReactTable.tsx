@@ -73,14 +73,12 @@ export const ReactTable: React.FC<IReactTableProps> = ({
                     {...headerGroup.getHeaderGroupProps()}
                 >
                     {headerGroup.headers.map((column) => (
-                        <>
-                            <STableHeader
-                                {...tableHeaderProps}
-                                {...column.getHeaderProps()}
-                            >
-                                {column.render('Header')}
-                            </STableHeader>
-                        </>
+                        <STableHeader
+                            {...tableHeaderProps}
+                            {...column.getHeaderProps()}
+                        >
+                            {column.render('Header')}
+                        </STableHeader>
                     ))}
                 </SHeadTableRow>
             )),
@@ -108,11 +106,11 @@ export const ReactTable: React.FC<IReactTableProps> = ({
                 <STableHead>
                     {getHeaderGroup()}
                 </STableHead>
-                <Scrollable height={tableHeight}>
-                    <tbody {...getTableBodyProps()}>
+                <tbody {...getTableBodyProps()}>
+                    <Scrollable height={tableHeight}>
                         {getRowComponent()}
-                    </tbody>
-                </Scrollable>
+                    </Scrollable>
+                </tbody>
             </table>
             {isPaginated && (
                 <Pagination 
@@ -145,10 +143,8 @@ const Scrollable = styled.div<IScrollable>`
     ${scroll}
 `
  
-const Wrapper = styled.div`
-    width: 100%;
-   
-`;
+const Wrapper = styled.div``;
+
 const STableHead = styled.thead`
     display: block;
 `;
@@ -164,6 +160,7 @@ const STableData = styled.td`
 `;
 const STableHeader = styled.th`
     text-align: left;
+    margin-left: 10px;
     ${({ theme }): string => `
         ${media(
         'phone',
@@ -175,7 +172,7 @@ const STableHeader = styled.th`
 `;
 const SHeadTableRow = styled.tr`
     display: grid;
-    grid-template-columns: 3fr 3fr 1fr;
+    grid-template-columns: 2fr 2fr 1fr;
     ${({ theme }): string => `
         border-bottom: 1.5px solid ${theme.colors.border};
     `};
@@ -185,12 +182,11 @@ const SHeadTableRow = styled.tr`
        grid-template-columns: 2fr 1fr 1fr; 
     `,
     )}
-    ${scroll}
 `;
 const STableRow = styled(SHeadTableRow)`
     align-items: center;
+    justify-content: left;
     ${({ theme }): string => `
-        align-items: center;
         :hover {
             transform: scale(1.01);
             box-shadow: ${theme.depth[2]}
