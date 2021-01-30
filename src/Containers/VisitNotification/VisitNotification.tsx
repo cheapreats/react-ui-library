@@ -43,7 +43,7 @@ const NotificationContainer = styled.div<INotificationContainerProps>`
     display: grid;
     grid-template-columns: 1fr 2fr;
     padding-right: 19px;
-    border-radius: 80px!important;
+    border-radius: 80px;
     box-shadow: ${({ theme }): string => theme.depth[1]};
     grid-column-gap: 15px;
     width: 100%;
