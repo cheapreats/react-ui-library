@@ -14,6 +14,7 @@ interface INotificationContainerProps extends MainInterface,React.HTMLAttributes
 maxWidth: number
 }
 
+const CONTAINER_HEIGHT = 90;
 
 export const VisitNotification: React.FC<IVisitNotificationProps> = ({
     maxWidth,
@@ -49,7 +50,7 @@ const NotificationContainer = styled.div<INotificationContainerProps>`
     box-shadow: ${({ theme }): string => theme.depth[1]};
     grid-column-gap: 15px;
     width: 100%;
-    height: 90px;
+    height: ${CONTAINER_HEIGHT}px;
     background-color: white;
 `;
 
