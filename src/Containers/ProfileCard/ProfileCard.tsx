@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Paragraph } from '@Text';
-import { Button } from '@Inputs';
+import { Button } from '@Inputs/Button/Button';
 import { PhoneCall } from '@styled-icons/boxicons-solid/PhoneCall';
 import {Heart} from '@styled-icons/boxicons-solid/Heart';
 
@@ -26,7 +26,6 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
     isFavoriteStore,
     ...props
 }): React.ReactElement => {
-
     /**
      * A function that as the number of visits increase dynamically resizes the
      * visit count text perfectly until value 9999, at 10000 it breaks.
