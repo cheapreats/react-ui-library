@@ -11,7 +11,7 @@ export interface IVisitNotificationProps {
 }
 
 interface INotificationContainerProps extends MainInterface,React.HTMLAttributes<HTMLDivElement> {
-maxWidth: number
+maxWidth?: number
 }
 
 const CONTAINER_HEIGHT = 90;
@@ -22,19 +22,16 @@ export const VisitNotification: React.FC<IVisitNotificationProps> = ({
     header,
     body,
     footer
-}): React.ReactElement => {
-
-    return (
-        <NotificationContainer maxWidth={maxWidth}>
-            <Img src={imgSrc} />
-            <ContentContainer>
-                {header}
-                {body}
-                {footer}
-            </ContentContainer>
-        </NotificationContainer>
-    )
-};
+}): React.ReactElement => (
+    <NotificationContainer maxWidth={maxWidth}>
+        <Img src={imgSrc} />
+        <ContentContainer>
+            {header}
+            {body}
+            {footer}
+        </ContentContainer>
+    </NotificationContainer>
+);
 
 const NotificationContainer = styled.div<INotificationContainerProps>`
     ${({ theme }): string => `
