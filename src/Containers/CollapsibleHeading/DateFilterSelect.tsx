@@ -44,7 +44,7 @@ export const DateFilterSelect: React.FC<IDateFilterSelectProps> = ({
         setDate(new Date)
         setSelected(selectOptions[FIRST_SELECT_OPTION]);
     }
-    
+
     return (
         <FilterSelect
             onSelectFilter={setSelected}
