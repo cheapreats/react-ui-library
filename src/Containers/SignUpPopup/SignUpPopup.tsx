@@ -89,8 +89,8 @@ export const SignUpPopup = ({ heading, subHeading, inputPlaceholder, handleSubmi
         }
     };
 
-    //Modal OnClose function gets called when modal mounts,
-    //but it should only get called when it unmounts
+    // Modal OnClose function gets called when modal mounts,
+    // but it should only get called when it unmounts
     const handleModalOnClose = () => {        
         if (isOnCloseReady) {
             cookies.set(SIGN_UP_COOKIE, true, { expires: monthFromNow })
