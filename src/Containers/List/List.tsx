@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import styled, {css} from 'styled-components';
+import styled from 'styled-components';
 import { Mixins } from '../../Utils';
 import { Responsive, Main } from '../../Utils/BaseStyles';
 import { Loading } from '../Loading/Loading';

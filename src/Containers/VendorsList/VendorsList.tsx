@@ -33,8 +33,7 @@ export interface IVendorsListProps
             navigationBarItems?: INavigationItemProps[];
             headerRightButtonText: string;
             headerText: string;
-            filterButtonText: string;
-            filterTitleText: string;
+            filterHeader: React.ReactElement;
             onSelectRow: (original: any) => void;
             listProps: ListProps;
             tableHeight?: string;
@@ -52,8 +51,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
     navigationBarItems,
     headerRightButtonText,
     headerText,
-    filterButtonText,
-    filterTitleText,
+    filterHeader,
     onSelectRow,
     listProps,
     tableHeight,
@@ -101,8 +99,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
             <ListWrapper>
                 <VendorsFilter
                     headerGroups={headerGroups}
-                    headingTitle={filterTitleText}
-                    buttonText={filterButtonText}
+                    header={filterHeader}
                     filterItems={filterItems}
                     listProps={listProps}
                     preGlobalFilteredRows={preGlobalFilteredRows}

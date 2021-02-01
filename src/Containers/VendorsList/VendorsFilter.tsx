@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
-import styled from 'styled-components';
-import { Cog } from '@styled-icons/fa-solid/Cog';
 import { HeaderGroup, Row } from "react-table";
-import { List, ListHeader, ListHeaderProps, ListProps, ListFooter, ListToggle } from '../List';
+import { List, ListHeaderProps, ListProps, ListToggle } from '../List';
 import { CollapsibleHeading, ICollapsibleHeadingProps } from '../CollapsibleHeading/CollapsibleHeading';
 import { DefaultFilter} from './DefaultFilter';
 import { GlobalFilter } from './GlobalFilter';
@@ -18,8 +16,7 @@ export interface IVendorsFilterProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    headingTitle: string;
-    buttonText: string;
+    header?: React.ReactElement;
     filterItems: IFilterItems[];
     headingProps?: ListHeaderProps;
     buttonProps?: ButtonProps;
@@ -30,14 +27,12 @@ export interface IVendorsFilterProps
     setGlobalFilter?:(filterValue: any) => void;
     headerGroups: HeaderGroup<any>[];
 }
-const COG_WHEEL_ICON = Cog;
 const BACKGROUND_COLOR = '#FFFFFF';
 const FIRST_OPTION = 0
 
 export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
-    headingTitle,
+    header,
     filterItems,
-    headingProps,
     listProps,
     collapsibleHeadingProps,
     headerGroups,
@@ -54,16 +49,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             backgroundColor={BACKGROUND_COLOR}
-            header={(
-                <ListHeader
-                    label={headingTitle}
-                    headerFlex="space-between"
-                    icon={COG_WHEEL_ICON}
-                    iconProps="width: 20px; margin-right: 10px"
-                    iconClick={() => alert('Icon Clicked')}
-                    {...headingProps}
-                />
-            )}
+            header={header}
             toggleComponent={(
                 <ListToggle
                     isOpen={isOpen}

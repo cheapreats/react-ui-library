@@ -8,8 +8,10 @@ import {
     HeaderGroup,
 } from 'react-table';
 import moment from 'moment';
+import { ListHeader } from '@Containers/List';
 import { TagFilterSelect } from '@Containers/CollapsibleHeading/TagFilterSelect';
 import { DateFilterSelect } from '@Containers/CollapsibleHeading/DateFilterSelect';
+import { Cog } from '@styled-icons/fa-solid/Cog';
 import { DefaultFilter } from './DefaultFilter';
 import { Profile } from './Profile'; 
 import { TagContainer } from './TagContainer';
@@ -85,9 +87,20 @@ const sampleDateOptions = ['Before', 'After'];
 const renderTimeFilter = (column: HeaderGroup<any>) => <DateFilterSelect placeholder='Select Date' filterValue={column.filterValue} selectOptions={sampleDateOptions} selectProps={{margin: '10px 0'}} onOptionsSelected={(value)=> column.setFilter(value)} />
 const renderTagFilter = (column: HeaderGroup<any>) => <TagFilterSelect placeholder='Select Group Names' filterValue={column.filterValue} tagProps={{style: {marginTop: '8px'}}} selectOptions={sampleGroupsMapped} selectProps={{margin: '10px 0'}} onOptionsSelected={(selectedOptions) => column.setFilter(selectedOptions)} />
 
+const COG_WHEEL_ICON = Cog;
+
+const filterHeader = (
+    <ListHeader
+        label='Filters'
+        headerFlex="space-between"
+        icon={COG_WHEEL_ICON}
+        iconProps="width: 20px; margin-right: 10px"
+        iconClick={() => alert('Icon Clicked')}
+    />
+)
+
 const getVendorsListProps = (): IVendorsListProps => ({
-    filterButtonText: 'Apply',
-    filterTitleText: 'Filters',
+    filterHeader,
     headerText: 'Clients',
     headerRightButtonText: 'Add Client',
     selectedNavLabel: 'Overview',
