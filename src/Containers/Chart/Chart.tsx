@@ -166,7 +166,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
     payload,
     ...props
 }): React.ReactElement => {
-    const getFormattedHoverValue = () => {
+    const getFormattedHoverValue = ():string => {
         if(payload)
             return payload[0]?.value?.toFixed(2);
         return ''
