@@ -37,6 +37,8 @@ export interface IReactTableProps
     pageSize: number;
     onSelectRow: (original: any) => void;
     tableHeight?: string;
+    mediaMixin?: string;
+    mediaHeight?: string;
     filteredRows: any[];
 };
 
@@ -63,6 +65,8 @@ export const ReactTable: React.FC<IReactTableProps> = ({
     onSelectRow,
     filteredRows,
     tableHeight,
+    mediaMixin,
+    mediaHeight,
     ...props
 }: IReactTableProps): React.ReactElement => {
     const pageOptionsLength = filteredRows.length;
@@ -102,16 +106,18 @@ export const ReactTable: React.FC<IReactTableProps> = ({
 
     return (
         <Wrapper {...props}>
-            <table {...getTableProps()} {...tableProps}>
-                <STableHead>
-                    {getHeaderGroup()}
-                </STableHead>
-                <tbody {...getTableBodyProps()}>
-                    <Scrollable height={tableHeight}>
-                        {getRowComponent()}
-                    </Scrollable>
-                </tbody>
-            </table>
+            <TableWrapper>
+                <table {...getTableProps()} {...tableProps}>
+                    <STableHead>
+                        {getHeaderGroup()}
+                    </STableHead>
+                    <tbody {...getTableBodyProps()}>
+                        <Scrollable height={tableHeight} mediaMixin={mediaMixin} mediaHeight={mediaHeight}>
+                            {getRowComponent()}
+                        </Scrollable>
+                    </tbody>
+                </table>
+            </TableWrapper>
             {isPaginated && (
                 <Pagination 
                     goToPreviousPage={previousPage}
@@ -130,15 +136,25 @@ export const ReactTable: React.FC<IReactTableProps> = ({
     );
 };
 
+const TableWrapper = styled.div`
+    overflow-x: auto;
+    ${scroll}
+`
+
 interface IScrollable {
     height?: string
+    mediaMixin?: string;
+    mediaHeight?: string;
 }
 
 const Scrollable = styled.div<IScrollable>`
-    ${({height})=> height && `
+    ${({theme, height, mediaMixin, mediaHeight})=> `
         overflow-y: auto;
         overflow-x: hidden;
-        height: ${height}
+        height: ${height};
+        ${mediaMixin && `@media (max-width: ${theme.media[mediaMixin] || mediaMixin}px) {
+            height: ${mediaHeight}
+        }`}
     `};
     ${scroll}
 `

@@ -9,7 +9,7 @@ import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
 export interface IFilterItems {
     title: string;
-    element?: (column: HeaderGroup<any>) => JSX.Element;
+    element?: (column: HeaderGroup<any>, additionalFunction?: (value: any)=> void) => JSX.Element;
 };
 
 export interface IVendorsFilterProps
@@ -43,6 +43,8 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
     const [isCollapsedArr, setIsCollapsedArr] = useState(Array(filterItems.length).fill(false));
     const [isGlobalCollapsed, setIsGlobalCollapsed] = useState(false);
     const [isOpen, setIsOpen] = useState(false);
+    const toggleOpen = (value: boolean) => setIsOpen(value);
+
     return (
         <List
             {...listProps}
@@ -58,7 +60,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                     isToggleHiddenDesktop
                 />
             )}
-        >
+        >   
             <CollapsibleHeading 
                 key='Global'
                 title='Filter All'
@@ -69,7 +71,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
             />
             {filterItems.map((filterItem, index) => {
                 const column = headerGroups[FIRST_OPTION].headers[index];
-                const childElement = filterItem.element ? filterItem.element(column) : <DefaultFilter column={column} />
+                const childElement = filterItem.element ? filterItem.element(column, toggleOpen) : <DefaultFilter column={column} />
                 return (
                     <CollapsibleHeading 
                         key={filterItem.title}

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { NavigationItem, INavigationItemProps } from './NavigationItem';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { flex } from '../../Utils/Mixins';
+import { flex, media } from '../../Utils/Mixins';
 
 export interface INavigationBarProps
     extends MainInterface,
@@ -36,4 +36,5 @@ export const NavigationBar: React.FC<INavigationBarProps> = ({
 const Wrapper = styled.div`
     ${flex('row')};
     padding: 10px 0;
+    ${media('phone', flex('column', 'center'))}
 `;

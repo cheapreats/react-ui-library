@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Tag as T, TagProps } from '../Tag/Tag';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { flex, media } from '../../Utils/Mixins';
+import { flex } from '../../Utils/Mixins';
 
 export interface ITagContainerProps
     extends MainInterface,
@@ -34,12 +34,6 @@ const Wrapper = styled.div`
     position: relative;
     flex-wrap: wrap;
     ${flex('start')};
-    ${media(
-        'phone',
-        `
-       ${flex('column', 'center')};
-    `,
-    )}
 `;
 const Tag = styled(T)`
     margin:2px;

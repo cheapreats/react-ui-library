@@ -18,7 +18,7 @@ import { NavigationBar } from './NavigationBar';
 import { DefaultFilter } from './DefaultFilter';
 import { ReactTable } from '../ReactTable/ReactTable';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { flex, media } from '../../Utils/Mixins';
+import { flex, media, scroll } from '../../Utils/Mixins';
 
 const INITIAL_FIRST_PAGE = 0;
 const INITIAL_PAGE_SIZE_FIVE = 5;
@@ -42,6 +42,8 @@ export interface IVendorsListProps
             groups: string[];
             onImportButtonClick: () => void;
             onAddButtonClick: () => void;
+            tableMediaMixin?: string;
+            tableMediaHeight?: string;
 };
 
 export const VendorsList: React.FC<IVendorsListProps> = ({
@@ -59,6 +61,8 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
     selectedNavLabel,
     onImportButtonClick,
     onAddButtonClick,
+    tableMediaMixin,
+    tableMediaHeight,
     ...props
 }): React.ReactElement => {
     const defaultColumn = useMemo(()=>({ Filter: DefaultFilter}), [])
@@ -146,11 +150,13 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     tableRowProps={{ style: { margin: '10px 0' } }}
                     tableProps={{style: {width: '100%'}}}
                     paginationProps={{ style: { marginTop: '10px' },
-                        pageSelectorProps: { buttonProps: { style: { margin: '0 5px' } }, style: { margin: '10px 0' }, smallTextProps: {margin: '10px 0'} }, 
+                        pageSelectorProps: { buttonProps: { style: { margin: '5px' } }, style: { margin: '10px 0' }, smallTextProps: {margin: '10px 0'} }, 
                         rowSelectorProps: { style: { margin: '10px 0' }, smallTextProps: { style: { margin: 'auto 5px' } },
                             selectProps: { iconProps: { style: { marginLeft: '10px' } } } } }}
                     onSelectRow={onSelectRow}
                     tableHeight={tableHeight}
+                    mediaMixin={tableMediaMixin}
+                    mediaHeight={tableMediaHeight}
                 />
             </WrapperColumn>
         </Wrapper>
@@ -159,8 +165,10 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
 
 const Wrapper = styled.div`
     ${flex('row')};
+    overflow-y: auto;
     height: 100%;
     width: 100%;
+    ${scroll}
 `;
 interface IWrapperColumnProps {
     columnWidth? : string; 
@@ -172,11 +180,14 @@ const WrapperColumn = styled.div<IWrapperColumnProps>`
 `;
 const ListWrapper = styled.div`
     display: flex;
+    margin-top: 10px;
 `
 const SVendorsHeader = styled(VendorsHeader)`
-    margin-left: 20px;
+    margin-left: 30px;
+    margin-bottom: 10px;    
+    ${media('phone', 'margin-left: 0')}  
 `;
 const SNavigationBar = styled(NavigationBar)`
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     margin-left: 10px;
 `;

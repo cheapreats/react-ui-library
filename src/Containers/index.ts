@@ -50,7 +50,7 @@ export * from './ReportIssue/ReportIssue';
 export * from './WaitTimeDisplay/WaitTimeDisplay';
 export * from './MiddleCanvas';
 export * from './WarningCard/WarningCard';
-export * from './CollapsibleHeading/CollapsibleHeading';
+export * from './CollapsibleHeading';
 export * from './MainContainer/MainContainer';
 export * from './ProfileCard/ProfileCard';
 export * from './DraggableDemoFront/DraggableDemoFront';

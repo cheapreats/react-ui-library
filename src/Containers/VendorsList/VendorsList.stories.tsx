@@ -84,7 +84,7 @@ const globalFilterMethod =  (rows: Row<object>[], theColumns: string[], filterVa
 const sampleGroupsMapped = [ 'VIP Client', 'Early Adopter', 'Pizza Fanatic', 'Dog Lover', 'Frogger', 'Jogger', 'Dogger']
 const sampleDateOptions = ['Before', 'After'];
 
-const renderTimeFilter = (column: HeaderGroup<any>) => <DateFilterSelect placeholder='Select Date' filterValue={column.filterValue} selectOptions={sampleDateOptions} selectProps={{margin: '10px 0'}} onOptionsSelected={(value)=> column.setFilter(value)} />
+const renderTimeFilter = (column: HeaderGroup<any>, toggleIsOpen?: (value: any) => void) => <DateFilterSelect placeholder='Select Date' filterValue={column.filterValue} selectOptions={sampleDateOptions} selectProps={{margin: '10px 0'}} toggleIsOpen={toggleIsOpen} onOptionsSelected={(value)=> column.setFilter(value)} />
 const renderTagFilter = (column: HeaderGroup<any>) => <TagFilterSelect placeholder='Select Group Names' filterValue={column.filterValue} tagProps={{style: {marginTop: '8px'}}} selectOptions={sampleGroupsMapped} selectProps={{margin: '10px 0'}} onOptionsSelected={(selectedOptions) => column.setFilter(selectedOptions)} />
 
 const COG_WHEEL_ICON = Cog;
@@ -311,12 +311,91 @@ const getVendorsListProps = (): IVendorsListProps => ({
             email: 'amy_jac@upmind.com',
             groups: [{name: 'VIP Client'}],
             created_at: moment().subtract('2', 'weeks').toString()
-        }
+        },
+        {
+            key: 21,
+            id: '21',
+            name: 'Emy Jackson',
+            email: 'emy_jac@upmind.com',
+            imageUrl:
+                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
+            created_at: moment().subtract('10', 'weeks').toString(),
+        },
+        {
+            key: 22,
+            id: '22',
+            name: 'Amy Jackson',
+            email: 'amy_jac@upmind.com',
+            groups: [{name: 'VIP Client'}, {name: 'Dogger'}],
+            created_at: moment().subtract('7', 'weeks').toString(),
+        },
+        {
+            key: 23,
+            id: '23',
+            name: 'Josh Bro',
+            email: 'joshbro@bros.com',
+            imageUrl:
+                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name:'Pizza Fanatic'}],
+            created_at: moment().subtract('6', 'weeks').toString(),
+        },
+        {
+            key: 24,
+            id: '24',
+            name: 'Amy Jackson',
+            email: 'amy_jac@upmind.com',
+            groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}, {name: 'Dogger'}],
+            created_at: moment().subtract('5', 'weeks').toString(),
+        },
+        {
+            key: 25,
+            id: '25',
+            name: 'Emy Jackson',
+            email: 'emy_jac@upmind.com',
+            imageUrl:
+                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name: 'Frogger'}],
+            created_at: moment().subtract('1', 'weeks').toString(),
+        },
+        {
+            key: 26,
+            id: '26',
+            name: 'Ruroni Kenshin',
+            email: 'rurko@anime.com',
+            groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}],
+            created_at: moment().subtract('4', 'weeks').toString()
+        },
+        {
+            key: 26,
+            id: '27',
+            name: 'Amy Jackson',
+            email: 'amy_jac@upmind.com',
+            groups: [{name: 'VIP Client'}, {name: 'Jogger'}],
+            created_at: '02/30/2018'
+        },
+        {
+            key: 28,
+            id: '28',
+            name: 'Amy Jackson',
+            email: 'amy_jac@upmind.com',
+            groups: [{name: 'VIP Client'}],
+            created_at: moment().subtract('1', 'weeks').toString()
+        },
+        {
+            key: 29,
+            id: '29',
+            name: 'Amy Jackson',
+            email: 'amy_jac@upmind.com',
+            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+            groups: [{name: 'VIP Client'}],
+            created_at: moment().subtract('2', 'weeks').toString()
+        },
     ],
     onSelectRow: (original) => console.log(original, 'contact clicked'),
     listProps: {
         id: 'vendor_list',
-        columnWidth: '315px',
+        columnWidth: '275px',
         loading: false,
         cssPosition: 'relative',
         margin: '0',
@@ -328,12 +407,14 @@ const getVendorsListProps = (): IVendorsListProps => ({
         mediaRight: 'auto',
         mediaMargin: 'auto',
         mediaOnCloseTranslateXAxis: '-100%',
-        zIndex: 3
+        zIndex: 1
     },
     globalFilterMethod,
     onImportButtonClick: () => console.log('import clicked'),
     onAddButtonClick: () => console.log('add button clicked'),
-    tableHeight: '51vh'
+    tableHeight: '51vh',
+    tableMediaHeight: '40vh',
+    tableMediaMixin: 'tablet'
 });
 
 const Template: Story<IVendorsListProps> = (args) => (

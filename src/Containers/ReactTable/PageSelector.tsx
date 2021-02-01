@@ -5,7 +5,7 @@ import { RightArrowAlt } from '@styled-icons/boxicons-regular/RightArrowAlt';
 import { Button, ButtonProps } from '../../Inputs/Button/Button';
 import { SmallText, SmallTextProps } from '../../Text/SmallText';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { flex } from '../../Utils/Mixins';
+import { flex, media } from '../../Utils/Mixins';
 
 export interface IPageSelectorProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
     goToPreviousPage: () => void;
@@ -35,24 +35,26 @@ export const PageSelector: React.FC<IPageSelectorProps> = ({
         {
             pageCount > ONLY_ONE_PAGE && (
                 <Section>
-                    <Button 
+                    <PageChangeButton 
                         icon={LeftArrowAlt}
                         onClick={() => goToPreviousPage()}
                         primary
                         {...buttonProps}
                     />
-                    {Array(pageCount).fill(0).map((fill, index) => (
-                        <SButton 
-                            key={`Page${fill}`} 
-                            isActive={pageIndex === index}
-                            onClick={() => goToPage(index)}
-                            primary
-                            {...buttonProps}
-                        > 
-                            {index + INDEX_SHIFT}
-                        </SButton>
-                    ))}
-                    <Button 
+                    <ResponsiveButtonsContainer repeatAmount={Math.floor(pageCount/2)}>
+                        {Array(pageCount).fill(0).map((fill, index) => (
+                            <SButton 
+                                key={`Page${fill}`} 
+                                isActive={pageIndex === index}
+                                onClick={() => goToPage(index)}
+                                primary
+                                {...buttonProps}
+                            > 
+                                {index + INDEX_SHIFT}
+                            </SButton>
+                        ))}
+                    </ResponsiveButtonsContainer>
+                    <PageChangeButton 
                         icon={RightArrowAlt}
                         onClick={() => goToNextPage()}
                         primary
@@ -70,12 +72,34 @@ export const PageSelector: React.FC<IPageSelectorProps> = ({
     </Wrapper>
 );
 
+interface IResponsiveButtonsProps {
+    repeatAmount? : number 
+}
+
+const ResponsiveButtonsContainer = styled.div<IResponsiveButtonsProps>`
+    ${flex('row')}
+    ${media('phone', `
+        display: grid;
+    `)}
+    ${({repeatAmount}) => `
+        grid-template-columns: repeat(${repeatAmount}, 1fr);
+        grid-template-rows: repeat(${repeatAmount}, 1fr);
+    `}
+`
+
 const Section = styled.div`
-    ${flex('row')};
+    ${flex('row', 'center')};
 `;
 const Wrapper = styled.div`
     ${flex('column', 'center')};
 `;
+
+const PageChangeButton = styled(Button)`
+    ${media('phone', `
+        padding: 20px 10px;
+    `)}
+`
+
 interface ISButtonProps {
     isActive?: boolean;
 }

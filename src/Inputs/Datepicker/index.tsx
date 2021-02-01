@@ -32,6 +32,7 @@ export interface DatepickerProps extends LabelLayoutProps {
     onChange?: Function;
     onClear?: Function;
     value?: Date;
+    initialShow?: boolean;
 }
 
 export const Datepicker: React.FC<DatepickerProps> = ({
@@ -39,6 +40,7 @@ export const Datepicker: React.FC<DatepickerProps> = ({
     onChange = (): void => undefined,
     onClear = (): void => undefined,
     placeholder = 'MM-DD-YYYY',
+    initialShow,
     ...props
 }): React.ReactElement => {
     const theme = useTheme();
@@ -48,7 +50,7 @@ export const Datepicker: React.FC<DatepickerProps> = ({
         (): string => (printDate(value) ? printDate(value) : placeholder),
         [value],
     );
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(initialShow || false);
     const [text, setText] = useState(dateText);
     const [, mount, animate] = useTransition(show, {
         end: theme.speed.normal,

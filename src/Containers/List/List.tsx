@@ -107,7 +107,6 @@ const Wrapper = styled.div<WrapperProps>`
     ${Mixins.flex()}
     ${Mixins.transition(['transform'])} 
     height: 100%;
-    background-color: red;
     ${({
         isOpen,
         onCloseTranslateXAxis,
