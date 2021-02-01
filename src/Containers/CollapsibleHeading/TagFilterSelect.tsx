@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import {useMounted} from '@Utils/Hooks'
-import styled from 'styled-components';
-import { flex } from '@Utils/Mixins/flex';
 import { TagContainer } from '@Containers/VendorsList/TagContainer';
-import { FilterSelect } from '@Containers/CollapsibleHeading/FilterSelect';
+import { FilterSelect, IFilterSelectProps } from '@Containers/CollapsibleHeading/FilterSelect';
 import { TagProps } from '../Tag/Tag';
-import { Select, SelectProps } from '../../Inputs/Select/Select';
 
 const DELETE_ONE_OPTION = 1;
 
@@ -22,7 +19,7 @@ export interface ITagFilterSelectProps extends MainInterface,
         React.HTMLAttributes<HTMLDivElement>{
     placeholder: string;
     selectOptions: string[];
-    selectProps?: SelectProps;
+    selectProps?: Partial<IFilterSelectProps>;
     tagProps?: Omit<TagProps, 'children'>;
     filterValue?: string[];
     onOptionsSelected?: (selectedOptions: string[]) => void;
@@ -35,7 +32,6 @@ export const TagFilterSelect: React.FC<ITagFilterSelectProps> = ({
     tagProps,
     filterValue,
     onOptionsSelected = ()=> console.log('selected'),
-    ...props
 }): React.ReactElement => {
     const isMounted = useMounted()
     const [optionsSelected, setOptionsSelected] = useState<string[]>(filterValue || []);
@@ -61,9 +57,9 @@ export const TagFilterSelect: React.FC<ITagFilterSelectProps> = ({
             onSelectFilter={addSelectOption}
             placeholder={placeholder}
             selectOptions={selectOptions}
+            {...selectProps}
         >
             <TagContainer tags={optionsSelected} onRemoveTag={removeSelectedOption} {...tagProps} />
-
         </FilterSelect>
     )
 };

@@ -7,7 +7,6 @@ import {
     Row,
     HeaderGroup,
 } from 'react-table';
-import { Datepicker } from '@Inputs/Datepicker';
 import moment from 'moment';
 import { TagFilterSelect } from '@Containers/CollapsibleHeading/TagFilterSelect';
 import { DateFilterSelect } from '@Containers/CollapsibleHeading/DateFilterSelect';
@@ -45,6 +44,7 @@ const tabFilterMethod =  (rows: Row<object>[], theColumns: string[], filterValue
         if(groupContainsCount === filterValue.length) {
             return true;
         }
+        return false;
     })
     return filteredRows
 }
@@ -59,6 +59,7 @@ const timeFilterMethod = (rows: Row<object>[], theColumns: string[], filterValue
         if (selectedOption === 'After') {
             return moment(created_at).isAfter(moment(date), TIME_FRAME_DAYS);
         }
+        return false;
     })
     return filteredRows
 }
@@ -74,6 +75,7 @@ const globalFilterMethod =  (rows: Row<object>[], theColumns: string[], filterVa
         if(emailMatch || nameMatch || tagsMatch || isDateBefore) {
             return true;
         }
+        return false;
     })
     return filteredRows
 }
@@ -98,7 +100,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
         },
         {
             icon: List,
-            label: 'List View',
+            label: 'ListView',
             onNavigate: (label, event) => console.log(label, event?.target, 'this event')
         },
         {
@@ -112,7 +114,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             title: 'Name',
         },
         {
-            title: 'Tag',
+            title: 'Groups',
             element: renderTagFilter
         },
         {
@@ -135,7 +137,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             Filter: DefaultFilter
         },
         {
-            Header: 'Tags',
+            Header: 'Groups',
             Cell: (cell: any) => (
                 <TagContainer 
                     tags={cell.row.original.groups.map((group: IGroups)=> group.name)} 
@@ -316,6 +318,8 @@ const getVendorsListProps = (): IVendorsListProps => ({
         zIndex: 3
     },
     globalFilterMethod,
+    onImportButtonClick: () => console.log('import clicked'),
+    onAddButtonClick: () => console.log('add button clicked'),
     tableHeight: '51vh'
 });
 

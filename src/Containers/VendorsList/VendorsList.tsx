@@ -30,7 +30,7 @@ export interface IVendorsListProps
             filterItems: IFilterItems[];
             data: any[];
             columns: Column<any>[];
-            navigationBarItems: INavigationItemProps[];
+            navigationBarItems?: INavigationItemProps[];
             headerRightButtonText: string;
             headerText: string;
             filterButtonText: string;
@@ -41,6 +41,8 @@ export interface IVendorsListProps
             globalFilterMethod?: (rows: Row<object>[], theColumns: string[], filterValue: any) => Row<object>[];
             selectedNavLabel: string;
             groups: string[];
+            onImportButtonClick: () => void;
+            onAddButtonClick: () => void;
 };
 
 export const VendorsList: React.FC<IVendorsListProps> = ({
@@ -57,6 +59,8 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
     tableHeight,
     globalFilterMethod,
     selectedNavLabel,
+    onImportButtonClick,
+    onAddButtonClick,
     ...props
 }): React.ReactElement => {
     const defaultColumn = useMemo(()=>({ Filter: DefaultFilter}), [])
@@ -104,7 +108,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     preGlobalFilteredRows={preGlobalFilteredRows}
                     setGlobalFilter={setGlobalFilter}
                     globalFilter={globalFilter}
-                    headingProps={{ style: { padding: '20px 0 0 20px' } }}
+                    headingProps={{ style: { padding: '20px 0 0 20px' }}}
                     buttonProps={{ style: { margin: '20px 0' } }}
                     collapsibleHeadingProps={{ style: { marginTop: '20px' } }}
                 />
@@ -113,15 +117,17 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                 <SVendorsHeader 
                     headerText={headerText}
                     rightButtonText={headerRightButtonText}
-                    leftButtonProps={{ icon: Import, style: { margin: '0 20px' } }}
-                    rightButtonProps={{ icon: Add, primary: true }}
+                    leftButtonProps={{ icon: Import, onClick: onImportButtonClick, style: { margin: '0 20px' } }}
+                    rightButtonProps={{ icon: Add, onClick: onAddButtonClick, primary: true }}
                 />
-                <SNavigationBar
-                    navigationItemProps={{ iconProps: { style: { paddingRight: '5px' } },
-                        style: { margin: '0 20px', paddingBottom: '5px' } }}
-                    navigationBarItems={navigationBarItems}
-                    selectedNavLabel={selectedNavLabel}
-                />
+                {navigationBarItems && (
+                    <SNavigationBar
+                        navigationItemProps={{ iconProps: { style: { marginRight: '5px' } },
+                            style: { marginRight: '10px' } }}
+                        navigationBarItems={navigationBarItems}
+                        selectedNavLabel={selectedNavLabel}
+                    />
+                )}
                 <ReactTable 
                     data={data}
                     columns={columns}
@@ -139,11 +145,9 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     pageSize={pageSize}
                     filteredRows={filteredRows}
                     pageSelectOptions={[5, 10, 15, 20]}
-                    tableHeaderProps={{ style: { marginBottom: '10px' } }}
-                    tableRowProps={{ style: { padding: '10px 0' } }}
+                    tableHeaderProps={{ style: { margin: '10px' } }}
+                    tableRowProps={{ style: { margin: '10px 0' } }}
                     tableProps={{style: {width: '100%'}}}
-                    headingProps={{ style: { margin: '0 5px' } }}
-                    // @ts-ignore
                     paginationProps={{ style: { marginTop: '10px' },
                         pageSelectorProps: { buttonProps: { style: { margin: '0 5px' } }, style: { margin: '10px 0' }, smallTextProps: {margin: '10px 0'} }, 
                         rowSelectorProps: { style: { margin: '10px 0' }, smallTextProps: { style: { margin: 'auto 5px' } },
@@ -177,4 +181,5 @@ const SVendorsHeader = styled(VendorsHeader)`
 `;
 const SNavigationBar = styled(NavigationBar)`
     margin-bottom: 15px;
+    margin-left: 10px;
 `;

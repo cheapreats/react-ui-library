@@ -1,10 +1,10 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { Row, Column, ColumnWithLooseAccessor, Cell, HeaderGroup, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
+import { Row, Column, Cell, HeaderGroup, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
 import { Pagination, IPaginationProps } from './Pagination';
 import { IProfileProps } from '../VendorsList/Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { media, scroll, flex } from '../../Utils/Mixins';
+import { media, scroll } from '../../Utils/Mixins';
 
 export interface IVendorsData extends IProfileProps {
     tags?: string[];
@@ -20,7 +20,7 @@ export interface IReactTableProps
     tableProps?: TableProps;
     tableHeaderProps?: Omit<TableHeaderProps, 'key'>;
     tableRowProps?: Omit<TableRowProps, 'key'>;
-    paginationProps?: IPaginationProps;
+    paginationProps?: Partial<IPaginationProps>;
     pageSelectOptions: number[];
     isPaginated?: boolean;
     getTableProps: Function;
@@ -143,7 +143,11 @@ const Scrollable = styled.div<IScrollable>`
     ${scroll}
 `
  
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+${({ theme }): string => `
+        border-top: 2px solid ${theme.colors.input.default};
+    `};
+`;
 
 const STableHead = styled.thead`
     display: block;

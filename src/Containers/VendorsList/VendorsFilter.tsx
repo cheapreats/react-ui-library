@@ -61,6 +61,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                     icon={COG_WHEEL_ICON}
                     iconProps="width: 20px; margin-right: 10px"
                     iconClick={() => alert('Icon Clicked')}
+                    {...headingProps}
                 />
             )}
             toggleComponent={(
