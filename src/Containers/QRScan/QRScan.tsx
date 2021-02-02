@@ -13,11 +13,11 @@ export interface QRScanProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    footerItems: React.ReactNode[];
-    middleItems: React.ReactNode[];
-    title: string;
-    qrDisplay: React.ReactNode;
-    qrRightContent: React.ReactNode;
+    footerItems?: React.ReactNode[] | React.ReactNode;
+    middleItems?: React.ReactNode[] | React.ReactNode;
+    title?: string;
+    qrDisplay?: React.ReactNode;
+    qrRightContent?: React.ReactNode;
 }
 
 export const QRScan: React.FC<QRScanProps> = ({
@@ -30,7 +30,7 @@ export const QRScan: React.FC<QRScanProps> = ({
 }): React.ReactElement => (
     <QRScanBox {...props}>
         <Title>
-            <Heading type='h4'>{title}</Heading>
+            <Heading type='h4' bold>{title}</Heading>
         </Title>
         <Middle>
             <ScanContainer>
@@ -38,11 +38,11 @@ export const QRScan: React.FC<QRScanProps> = ({
                 {qrRightContent}
             </ScanContainer>
             <RowContainer>
-            {...middleItems}
+                {middleItems}
             </RowContainer>
         </Middle>
         <RowContainer>
-            {...footerItems}
+            {footerItems}
         </RowContainer>
     </QRScanBox>
 );

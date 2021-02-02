@@ -28,7 +28,7 @@ export * from './StoreHoursList';
 export * from './SelectBox/SelectBox';
 export * from './DisplayItem/DisplayItem';
 export * from './ScrollableListContent/ScrollableListContent';
-export * from './QRScan/QRScan';
+export * from './QRScan';
 export * from './Coupon/Coupon';
 export * from './Chart/Chart';
 export * from './CircleTable/CircleTable';

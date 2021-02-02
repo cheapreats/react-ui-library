@@ -248,4 +248,3 @@ export const DinosaurIconComp: React.FC<IconCompProps> = ({
         <g />
     </StyledSVG>
 );
-
