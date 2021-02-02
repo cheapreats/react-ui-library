@@ -122,7 +122,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
         const mergedHoursByDay = deepCopy(initialMergeState);
 
         DAYS_OF_THE_WEEK.map(day => {
-            const hoursForDayOfWeek: IToFromHours[] = category.hoursByDay[day];
+            const hoursForDayOfWeek: IToFromHours[] = category.open_hours[day];
             const storeHoursToMerge = {...values.storeHours};
             // check if current day is selected to update store hours
             if (values.checkboxes[day]) {
@@ -275,16 +275,16 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     ): void => {
                         setAddStoreHoursCategory(parseFloat(e.target.value));
                     }}
-                    placeholder={allCategories[addStoreHoursCategory].category}
-                    value={allCategories[addStoreHoursCategory].category}
+                    placeholder={allCategories[addStoreHoursCategory].name}
+                    value={allCategories[addStoreHoursCategory].name}
                 >
                     {Object.values(allCategories).map(
-                        ({category}, index): React.ReactElement => (
+                        ({name}, index): React.ReactElement => (
                             <option
-                                key={category}
+                                key={name}
                                 value={index}
                             >
-                                {category}
+                                {name}
                             </option>
                         ),
                     )}

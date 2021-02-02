@@ -5,8 +5,8 @@ import { createStoryTitle } from '../../Constants';
 
 const defaultCategories = [
     {
-        category: 'Winter',
-        hoursByDay: {
+        name: 'Winter',
+        open_hours: {
             monday: [
                 {
                     from: '5:00',
@@ -38,8 +38,8 @@ const defaultCategories = [
             sunday: [],
         },
     },{
-        category: 'Summer',
-        hoursByDay: {
+        name: 'Summer',
+        open_hours: {
             monday: [
                 {
                     from: '12:00',
@@ -60,8 +60,8 @@ const defaultCategories = [
         },
     },
     {
-        category: 'Holidays',
-        hoursByDay: {
+        name: 'Holidays',
+        open_hours: {
             monday: [
                 {
                     from: '12:00',
@@ -90,15 +90,15 @@ const textHeaders = {
         SECOND_MODAL_HEADER: 'Add Store Hours',
         THIRD_MODAL_HEADER: 'Add Categories',
         OPERATIONS: 'Current Hours of Operations for ',
-        CHANGE_ACTIVE: 'Change the active category',
+        CHANGE_ACTIVE: 'Change the active name',
         CHANGE_ACTIVE_SUBTILTE:
-            'This will be the category of times shown to the customers',
+            'This will be the name of times shown to the customers',
         SELECT_A_DAY: 'Select days to add hours',
-        SELECT_A_CATEGORY: 'Select a category',
+        SELECT_A_CATEGORY: 'Select a name',
         ALL_CATEGORIES: 'Current Categories',
         ALL_CATEGORIES_SUBTITLE:
             'Hover over and click the categories to delete them.',
-        CONFIRM_DELETE: 'Are you sure you want to delete this category?',
+        CONFIRM_DELETE: 'Are you sure you want to delete this name?',
         CHANGE_ACTIVE_SUBTITLE: 'Change Active',
         RESET_FORM: 'Are you sure you want to reset'
     },
@@ -115,12 +115,12 @@ const textHeaders = {
         SAVE: 'Save'
     },
     ERRORS: {
-        CANNOT_DELETE_ACTIVE_CATEGORY: 'You cannot delete an active category',
+        CANNOT_DELETE_ACTIVE_CATEGORY: 'You cannot delete an active name',
         ONLY_ONE_TIME: 'You cannot add more than one time per day',
         FROM_TIME_TOO_BIG: 'The from time has to be earlier',
         TO_TIME_TOO_SMALL: 'Please choose another time',
-        CANNOT_ADD_EMPTY: 'You cannot create an empty category',
-        CATEGORY_EXISTS: 'This category already exists',
+        CANNOT_ADD_EMPTY: 'You cannot create an empty name',
+        CATEGORY_EXISTS: 'This name already exists',
     },
 };
 

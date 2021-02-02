@@ -2,9 +2,7 @@ import { useGlobals } from '@storybook/addons';
 
 export const COMPONENTS_TITLE = 'Components';
 
-type createStoryTitleType = (componentName: string) => string;
-
-export const createStoryTitle: createStoryTitleType = (componentName) =>
+export const createStoryTitle = (componentName: string): string =>
     `${COMPONENTS_TITLE}/${componentName}`;
 
 export const getCaptionForLocale = (children?: string): string => {

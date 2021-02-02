@@ -49,6 +49,7 @@ export interface SelectProps extends LabelLayoutProps {
     value?: string | number | HTMLOptionElement;
     onChange?: Function;
     limit?: number;
+    iconProps?: { style: any };
 }
 
 export const Select: React.FC<SelectProps> = ({
@@ -59,6 +60,7 @@ export const Select: React.FC<SelectProps> = ({
     placeholder = '',
     onChange = (): void => undefined,
     name,
+    iconProps,
     ...props
 }): React.ReactElement => {
     const theme = useTheme();
@@ -125,7 +127,7 @@ export const Select: React.FC<SelectProps> = ({
                             ? (selected as React.ReactElement).props.children
                             : placeholder}
                     </SelectText>
-                    <Icon />
+                    <Icon {...iconProps} />
                 </SelectDisplay>
                 {mount && (
                     <SelectList
@@ -143,6 +145,7 @@ export const Select: React.FC<SelectProps> = ({
 const Container = styled.div`
     ${flex('column')}
     position: relative;
+    height: auto;
 `;
 
 const SelectDisplay = styled.p<SelectProps>`

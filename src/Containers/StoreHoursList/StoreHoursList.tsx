@@ -70,7 +70,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const handleRemoveHours = (day: string, hoursIndex: number) => {
         const allCategoriesWithHoursCopy = deepCopy(categories);
         // Should remove the hours index of the array
-        allCategoriesWithHoursCopy[activeCategory].hoursByDay[day].splice(hoursIndex, 1);
+        allCategoriesWithHoursCopy[activeCategory].open_hours[day].splice(hoursIndex, 1);
         setFieldValue(CATEGORY_FIELD, allCategoriesWithHoursCopy)
     }
 
@@ -86,7 +86,7 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     * */
     const handleStoreHoursUpdate = ( updateHoursByDay: IHoursByDay, categoryIndex: number,) => {
         const updatedAllCategories = deepCopy(categories);
-        updatedAllCategories[categoryIndex].hoursByDay = updateHoursByDay;
+        updatedAllCategories[categoryIndex].open_hours = updateHoursByDay;
         setFieldValue(CATEGORY_FIELD, updatedAllCategories)
     }
 
@@ -132,10 +132,10 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     </ButtonsContainer>
                     <StyledHeading type="h6">
                         {textHeaders.TITLES.OPERATIONS}
-                        {categories[activeCategory].category}
+                        {categories[activeCategory].name}
                     </StyledHeading>
                     <TimeDisplay
-                        allCategoriesWithHours={categories[activeCategory].hoursByDay}
+                        allCategoriesWithHours={categories[activeCategory].open_hours}
                         handleRemoveHours={handleRemoveHours}
                         is24={is24}
                     />

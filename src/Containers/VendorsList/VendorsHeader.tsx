@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Button, ButtonProps } from '../../Inputs/Button/Button';
-import { Heading } from '../../Text/Heading';
+import { Heading, HeadingProps } from '../../Text/Heading';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex, media } from '../../Utils/Mixins';
 
@@ -13,6 +13,7 @@ export interface IVendorsHeaderProps
     rightButtonText: string;
     leftButtonProps?: ButtonProps;
     rightButtonProps?: ButtonProps;
+    headingProps?: HeadingProps
 }
 
 export const VendorsHeader: React.FC<IVendorsHeaderProps> = ({
@@ -20,10 +21,11 @@ export const VendorsHeader: React.FC<IVendorsHeaderProps> = ({
     rightButtonText,
     leftButtonProps,
     rightButtonProps,
+    headingProps,
     ...props
 }): React.ReactElement => (
     <Wrapper {...props}>
-        <Heading type="h1" bold>
+        <Heading type="h1" bold {...headingProps}>
             {headerText}
         </Heading>
         <Row>
@@ -35,6 +37,7 @@ export const VendorsHeader: React.FC<IVendorsHeaderProps> = ({
 
 const Wrapper = styled.div`
     ${flex('row', 'space-between')};
+    padding: 10px;
     ${media(
         'phone',
         `

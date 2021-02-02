@@ -102,19 +102,19 @@ export const EditModal: React.FC<EditTimeProps> = ({
                 as={Select}
                 label={CHANGE_ACTIVE}
                 description={CHANGE_ACTIVE_SUBTITLE}
-                placeholder={allCategories[selectActiveCategory].category}
+                placeholder={allCategories[selectActiveCategory].name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                     setSelectActiveCategory(parseFloat(e.target.value));
                 }}
-                value={allCategories[selectActiveCategory].category}
+                value={allCategories[selectActiveCategory].name}
             >
                 {Object.values(allCategories).map(
-                    ({category}, index): React.ReactElement => (
+                    ({name}, index): React.ReactElement => (
                         <option
-                            key={category}
+                            key={name}
                             value={index}
                         >
-                            {category}
+                            {name}
                         </option>
                     ),
                 )}

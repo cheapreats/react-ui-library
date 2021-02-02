@@ -1,6 +1,6 @@
 export interface ICategoryWithHoursTypes {
-    category: string;
-    hoursByDay: IHoursByDay;
+    name: string;
+    open_hours: IHoursByDay;
 }
 
 export interface IErrors {

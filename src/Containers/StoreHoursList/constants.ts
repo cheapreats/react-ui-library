@@ -25,7 +25,7 @@ export const upperCaseFirstLetter = (day: string): string => day.charAt(FIRST_LE
 
 export const validateCreateCategory = (values: {createCategory: string}, categories: ICategoryWithHoursTypes[], duplicateErrorMessage: string, emptyErrorMessage: string): IErrors => {
     const errors: IErrors = {};
-    const categoryNames = categories.map(({category}) => category)
+    const categoryNames = categories.map(({name}) => name)
     const isCategoryDuplicate = categoryNames.find(name => name === values.createCategory);
     if (isCategoryDuplicate) {
         errors.createCategory = duplicateErrorMessage
@@ -55,8 +55,8 @@ export const createCategoryWithHours = (
     categoryName: string,
 ): ICategoryWithHoursTypes => {
     const oneCategoryWithHours: ICategoryWithHoursTypes = {
-        category: categoryName,
-        hoursByDay: {
+        name: categoryName,
+        open_hours: {
             monday: [],
             tuesday: [],
             wednesday: [],
@@ -71,12 +71,13 @@ export const createCategoryWithHours = (
 
 /**
  * Toggles between 24 hours and 12 hour time (AM/PM)
- * @param {boolean} categoryName - Name of category user creates
+ * @param {string} date - date to be converted
+ * @param {is24Hours} boolean
  * @returns {React.ReactElement | null} -
  */
-export const convertTime = (date: string, toggle: boolean): string => {
+export const convertTime = (date: string, is24Hours: boolean): string => {
     let convertedDate = moment(date, MOMENT_24_HOUR_FORMAT).format(MOMENT_12_HOUR_FORMAT);
-    if (toggle) {
+    if (is24Hours) {
         convertedDate = moment(date, MOMENT_24_HOUR_FORMAT).format(MOMENT_24_HOUR_FORMAT)
     }
     return convertedDate;

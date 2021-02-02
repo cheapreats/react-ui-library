@@ -90,12 +90,12 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
 
     const handleDeleteCategory = (): void => {
         // get category name to find new index;
-        const activeCategoryName = allCategories[activeCategory].category;
+        const activeCategoryName = allCategories[activeCategory].name;
         const categoriesCopy = deepCopy(allCategories);
         // remove category to delete
         categoriesCopy.splice(deletedCategory, DELETE_SINGLE_CATEGORY)
         // find new index of active category by categoryName
-        const activeCategoryIndexAfterDelete = categoriesCopy.findIndex(categoryWithHours => categoryWithHours.category === activeCategoryName);
+        const activeCategoryIndexAfterDelete = categoriesCopy.findIndex(categoryWithHours => categoryWithHours.name === activeCategoryName);
         if (isMounted.current) {
             setActiveCategory(activeCategoryIndexAfterDelete);
             setFieldValue(CATEGORY_FIELD, categoriesCopy);
@@ -108,13 +108,13 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
     };
 
     const renderCategories = () => allCategories.map(
-        ({category}, index): React.ReactElement => (
+        ({name}, index): React.ReactElement => (
             <Section
                 as={Tag}
                 onClick={(): void => removeCategory(index)}
             >
                 {
-                    category
+                    name
                 }
             </Section>
         ),

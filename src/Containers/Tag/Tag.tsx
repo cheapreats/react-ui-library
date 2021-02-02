@@ -4,9 +4,12 @@ import { Times } from '@styled-icons/fa-solid/Times';
 import { flex, darken, transition, clickable } from '@Utils/Mixins';
 import { Main } from '@Utils/BaseStyles';
 
-export interface TagProps extends React.HTMLAttributes<HTMLSpanElement> {
+interface ITagDiv extends  React.HTMLAttributes<HTMLSpanElement>  {
+    isHoverable? : boolean;
+}
+
+export interface TagProps extends ITagDiv {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
-    isHoverable?: boolean;
     children: React.ReactNode;
 }
 
@@ -16,7 +19,7 @@ export const Tag: React.FC<TagProps> = ({
     isHoverable = true,
     ...props
 }): React.ReactElement => (
-    <TagDiv {...props}>
+    <TagDiv {...props} isHoverable={isHoverable}>
         {children}
         {!!isHoverable && <Icon as={icon} />}
     </TagDiv>
@@ -24,12 +27,18 @@ export const Tag: React.FC<TagProps> = ({
 
 export default Tag;
 
-const TagDiv = styled.span`
+
+
+const TagDiv = styled.span<ITagDiv>`
     ${transition(['background-color', 'border-color', 'color'])}
     ${flex('center')}
 
-    ${({ theme, ...props }): string => {
+    ${({ theme, isHoverable, ...props }): string => {
         const color = darken(theme.colors.input.default, 0.2);
+        const hoverClickable = clickable(theme.colors.primary, 0.1, [
+            'background-color',
+            'border-color',
+        ])
         return `
             ${Main({
         padding: theme.dimensions.tag.padding,
@@ -37,18 +46,17 @@ const TagDiv = styled.span`
     })}
             font-size: ${theme.dimensions.tag.fontSize};
             border: 1.5px solid ${color};
-            color: ${color};
+            color: ${theme.colors.text};
 
-            &:hover {
+            ${isHoverable ? `&:hover {
                 background-color: ${theme.colors.primary};
                 border-color: ${theme.colors.primary};
                 color: white;
             }
+            ${hoverClickable}
+            ` : ''}
 
-            ${clickable(theme.colors.primary, 0.1, [
-        'background-color',
-        'border-color',
-    ])}
+            
         `;
     }}
 
