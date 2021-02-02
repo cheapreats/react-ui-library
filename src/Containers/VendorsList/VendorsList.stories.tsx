@@ -84,7 +84,7 @@ const globalFilterMethod =  (rows: Row<object>[], theColumns: string[], filterVa
 const sampleGroupsMapped = [ 'VIP Client', 'Early Adopter', 'Pizza Fanatic', 'Dog Lover', 'Frogger', 'Jogger', 'Dogger']
 const sampleDateOptions = ['Before', 'After'];
 
-const renderTimeFilter = (column: HeaderGroup<any>, toggleIsOpen?: (value: any) => void) => <DateFilterSelect placeholder='Select Date' filterValue={column.filterValue} selectOptions={sampleDateOptions} selectProps={{margin: '10px 0'}} toggleIsOpen={toggleIsOpen} onOptionsSelected={(value)=> column.setFilter(value)} />
+const renderTimeFilter = (column: HeaderGroup<any>) => <DateFilterSelect placeholder='Select Date' filterValue={column.filterValue} selectOptions={sampleDateOptions} selectProps={{margin: '10px 0'}} onOptionsSelected={(value)=> column.setFilter(value)} />
 const renderTagFilter = (column: HeaderGroup<any>) => <TagFilterSelect placeholder='Select Group Names' filterValue={column.filterValue} tagProps={{style: {marginTop: '8px'}}} selectOptions={sampleGroupsMapped} selectProps={{margin: '10px 0'}} onOptionsSelected={(selectedOptions) => column.setFilter(selectedOptions)} />
 
 const COG_WHEEL_ICON = Cog;
@@ -410,7 +410,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
         zIndex: 1
     },
     globalFilterMethod,
-    onImportButtonClick: () => console.log('import clicked'),
+    onExportButtonClick: (rows) => console.log(rows, 'import clicked'),
     onAddButtonClick: () => console.log('add button clicked'),
     tableHeight: '51vh',
     tableMediaHeight: '40vh',

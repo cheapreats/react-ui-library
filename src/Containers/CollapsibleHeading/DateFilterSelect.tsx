@@ -9,6 +9,7 @@ import { Close } from '@styled-icons/evaicons-solid/Close';
 import { clickable, flex } from '@Utils/Mixins';
 import moment from 'moment';
 import styled from 'styled-components';
+import { Heading } from '@Text/Heading';
 
 const FIRST_SELECT_OPTION = 0;
 
@@ -19,7 +20,6 @@ export interface IDateFilterSelectProps extends MainInterface,
     selectOptions: string[];
     selectProps?: Partial<IFilterSelectProps>;
     onOptionsSelected?: (filterValue: {date: Date, selectedOption: string}) => void;
-    toggleIsOpen?: (value: any)=> void;
     filterValue: {date: Date, selectedOption: string};
 }
 
@@ -28,7 +28,6 @@ export const DateFilterSelect: React.FC<IDateFilterSelectProps> = ({
     selectOptions,
     selectProps,
     onOptionsSelected = ()=> console.log('selected'),
-    toggleIsOpen = ()=> console.log('toggle'),
     filterValue,
 }): React.ReactElement => {
     const isMounted = useMounted();
@@ -54,11 +53,6 @@ export const DateFilterSelect: React.FC<IDateFilterSelectProps> = ({
         setSelected(selectOptions[FIRST_SELECT_OPTION]);
     }
 
-    const onFocusHideListOpenModal = () => {
-        toggleIsOpen(false);
-        setIsModalOpen(true);
-    }
-
     return (
         <>
             <FilterSelect
@@ -68,14 +62,14 @@ export const DateFilterSelect: React.FC<IDateFilterSelectProps> = ({
                 value={selected}
                 {...selectProps}
             />
-            <Input value={moment(date).format('LL')} onClick={onFocusHideListOpenModal} width='100%' />
+            <Input value={moment(date).format('LL')} onClick={()=> setIsModalOpen(true)} width='100%' />
             <Modal
                 state={[isModalOpen, setIsModalOpen]}
-                padding='10px 0'
-                onClose={() => toggleIsOpen(true)}
+                padding='10px'
                 maxWidth='100%'
             >
                 <CloseIconRow>
+                    <Heading type="h3">Select a Date</Heading>
                     <Icon as={Close} onClick={()=> setIsModalOpen(false)} />
                 </CloseIconRow>
                 
@@ -87,12 +81,12 @@ export const DateFilterSelect: React.FC<IDateFilterSelectProps> = ({
 };
 
 const Modal = styled(M)`
-    height: 420px;
-    width: 310px;
+    height: 440px;
+    width: 300px;
 `
 
 const CloseIconRow = styled.div`
-    ${flex('row', 'flex-end')}
+    ${flex('row', 'space-between')}
 `
 
 const Icon = styled.svg`

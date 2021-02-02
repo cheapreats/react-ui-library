@@ -46,5 +46,4 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
 
 const Wrapper = styled.div`
     ${flex('column')}
-    
 `

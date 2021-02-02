@@ -40,7 +40,7 @@ export interface IVendorsListProps
             globalFilterMethod?: (rows: Row<object>[], theColumns: string[], filterValue: any) => Row<object>[];
             selectedNavLabel: string;
             groups: string[];
-            onImportButtonClick: () => void;
+            onExportButtonClick: (exportRows: object[]) => void;
             onAddButtonClick: () => void;
             tableMediaMixin?: string;
             tableMediaHeight?: string;
@@ -59,7 +59,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
     tableHeight,
     globalFilterMethod,
     selectedNavLabel,
-    onImportButtonClick,
+    onExportButtonClick,
     onAddButtonClick,
     tableMediaMixin,
     tableMediaHeight,
@@ -98,6 +98,10 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
         usePagination
     );
 
+    const exportCurrentRows = () => {
+        onExportButtonClick(filteredRows)
+    }
+
     return (
         <Wrapper {...props}>
             <ListWrapper>
@@ -118,7 +122,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                 <SVendorsHeader 
                     headerText={headerText}
                     rightButtonText={headerRightButtonText}
-                    leftButtonProps={{ icon: Import, onClick: onImportButtonClick, style: { margin: '0 20px' } }}
+                    leftButtonProps={{ icon: Import, onClick: exportCurrentRows, style: { margin: '0 20px' } }}
                     rightButtonProps={{ icon: Add, onClick: onAddButtonClick, primary: true }}
                 />
                 {navigationBarItems && (
