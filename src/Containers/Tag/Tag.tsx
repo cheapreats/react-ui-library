@@ -32,9 +32,9 @@ const TagDiv = styled.span`
         const color = darken(theme.colors.input.default, 0.2);
         return `
             ${Main({
-        padding: theme.dimensions.tag.padding,
-        ...props,
-    })}
+                padding: theme.dimensions.tag.padding,
+                ...props,
+            })}
             font-size: ${theme.dimensions.tag.fontSize};
             border: 1.5px solid ${color};
             color: ${color};
@@ -46,9 +46,9 @@ const TagDiv = styled.span`
             }
 
             ${clickable(theme.colors.primary, 0.1, [
-        'background-color',
-        'border-color',
-    ])}
+                'background-color',
+                'border-color',
+            ])}
         `;
     }}
 

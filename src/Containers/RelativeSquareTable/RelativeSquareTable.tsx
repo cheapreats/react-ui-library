@@ -5,7 +5,7 @@
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
 import { IChair } from '../Chair/Chair';
-import { ChairRow } from './_ChairRow';
+import { RelativeChairRow } from './_RelativeChairRow';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
@@ -28,7 +28,7 @@ type fillArrayType = (
     position: Position,
 ) => void;
 
-export interface ISquareTable {
+export interface IRelativeSquareTable {
     /**
      * The unique identifier for the table
      */
@@ -59,7 +59,7 @@ export interface ISquareTable {
  * Primary UI component for user interaction
  * Square Table
  */
-export const SquareTable: React.FC<ISquareTable> = ({
+export const RelativeSquareTable: React.FC<IRelativeSquareTable> = ({
     tableID = 'T1',
     partyName = 'Null',
     occupancyStatus = 'Vacant',
@@ -169,7 +169,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     return (
         <div {...props}>
             {/** chairs top */}
-            <ChairRow
+            <RelativeChairRow
                 position="top"
                 chairs={topArray}
                 relativeSize={relativeSize}
@@ -179,7 +179,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
             <div>
                 <Row relativeSize={relativeSize}>
                     {/** chairs left */}
-                    <ChairRow
+                    <RelativeChairRow
                         relativeSize={relativeSize}
                         position="left"
                         chairs={leftArray}
@@ -216,7 +216,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                     </TableBody>
 
                     {/** chairs right */}
-                    <ChairRow
+                    <RelativeChairRow
                         relativeSize={relativeSize}
                         position="right"
                         chairs={rightArray}
@@ -225,7 +225,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
             </div>
 
             {/** chairs bottom */}
-            <ChairRow
+            <RelativeChairRow
                 relativeSize={relativeSize}
                 position="bottom"
                 chairs={bottomArray}
@@ -341,6 +341,6 @@ const TableInfo = styled.div<ITableInfo>`
     }}
 `;
 
-const Status = styled.div<Pick<ISquareTable, 'occupancyStatus'>>`
+const Status = styled.div<Pick<IRelativeSquareTable, 'occupancyStatus'>>`
     color: ${({ occupancyStatus }) => getOccupancyColor(occupancyStatus)};
 `;

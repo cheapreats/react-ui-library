@@ -1,8 +1,7 @@
 import React from 'react';
-import { Meta, Story } from "@storybook/react";
-import { Paragraph, ParagraphProps } from "../index";
+import { Meta, Story } from '@storybook/react';
+import { Paragraph, ParagraphProps } from '../index';
 import { createStoryTitle } from '../Constants';
-
 
 export default {
     title: createStoryTitle('Paragraph'),
@@ -10,7 +9,7 @@ export default {
     args: {
         children: 'Hello World',
         bold: true,
-        color: 'black'
+        color: 'black',
     },
 } as Meta;
 

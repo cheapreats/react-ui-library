@@ -54,4 +54,6 @@ export * from './MainContainer/MainContainer';
 export * from './DraggableDemoFront/DraggableDemoFront';
 export * from './FileUpload/FileUpload';
 export * from './TransactionList/TransactionList';
-export * from './SoldOutCardNotification/SoldOutCardNotification'
+export * from './SoldOutCardNotification/SoldOutCardNotification';
+export * from './RelativeSquareTable/RelativeSquareTable';
+export * from './RelativeSquareTable/_RelativeChairRow';

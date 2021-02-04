@@ -1,14 +1,16 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { SquareTable, ISquareTable } from '@Containers';
+import { RelativeSquareTable, IRelativeSquareTable } from '@Containers';
 import { createStoryTitle } from '../../Constants';
 
 export default {
-    title: createStoryTitle('SquareTable'),
-    component: SquareTable,
+    title: createStoryTitle('RelativeSquareTable'),
+    component: RelativeSquareTable,
 } as Meta;
 
-const Template: Story<ISquareTable> = (args) => <SquareTable {...args} />;
+const Template: Story<IRelativeSquareTable> = (args) => (
+    <RelativeSquareTable {...args} />
+);
 
 /**
  *Creates a square table with 7 chairs

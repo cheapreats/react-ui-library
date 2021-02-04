@@ -203,9 +203,7 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
                     {Object.entries(allCategories).map(
                         (listAllCategories): React.ReactElement => (
                             <option
-                                key={
-                                    listAllCategories[ALL_CATEGORIES_INDEX]
-                                }
+                                key={listAllCategories[ALL_CATEGORIES_INDEX]}
                                 value={
                                     listAllCategories[ALL_CATEGORIES_TIMES]
                                         .category

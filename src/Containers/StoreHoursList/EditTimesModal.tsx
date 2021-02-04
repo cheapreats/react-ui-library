@@ -125,8 +125,7 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
                         <option
                             key={listAllCategories[CATEGORY_INDEX]}
                             value={
-                                listAllCategories[CATEGORY_SCHEDULE]
-                                    .category
+                                listAllCategories[CATEGORY_SCHEDULE].category
                             }
                         >
                             {listAllCategories[CATEGORY_SCHEDULE].category}

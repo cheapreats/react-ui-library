@@ -14,5 +14,7 @@ export default {
 } as Meta;
 
 export const Basic: Story<SelectBoxProps> = (args) => (
-    <SelectBox {...args}>{getCaptionForLocale(args.children as string)}</SelectBox>
+    <SelectBox {...args}>
+        {getCaptionForLocale(args.children as string)}
+    </SelectBox>
 );

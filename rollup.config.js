@@ -1,12 +1,12 @@
 import tsPlugin from 'rollup-plugin-typescript2';
-import ttypescript from 'ttypescript'
-import babel from "rollup-plugin-babel";
-import commonjs from "@rollup/plugin-commonjs";
+import ttypescript from 'ttypescript';
+import babel from 'rollup-plugin-babel';
+import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import css from 'rollup-plugin-css-only';
 import json from '@rollup/plugin-json';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
-import pkg from './package.json'
+import pkg from './package.json';
 
 export default {
     input: 'src/index.ts',
@@ -15,32 +15,45 @@ export default {
             name: '@cheapreats/react-ui',
             file: pkg.main,
             format: 'cjs',
-            sourcemap: true
+            sourcemap: true,
         },
         {
             file: pkg.module,
-            format: 'es'
-        }
+            format: 'es',
+        },
     ],
     plugins: [
         commonjs(),
         json(),
-        tsPlugin({ typescript: ttypescript, tsconfig: './tsconfig.json', include: [ "*.ts+(|x)", "**/*.ts+(|x)" ], tsconfigOverride: { compilerOptions : { module: "es2015" } }, tsconfigDefaults: {
-            compilerOptions: {
-                plugins: [
-                    { "transform": "@zerollup/ts-transform-paths" }
-                ]
-            }
-        } }),
-        nodeResolve({preferBuiltins: true}),
+        tsPlugin({
+            typescript: ttypescript,
+            tsconfig: './tsconfig.json',
+            include: ['*.ts+(|x)', '**/*.ts+(|x)'],
+            tsconfigOverride: { compilerOptions: { module: 'es2015' } },
+            tsconfigDefaults: {
+                compilerOptions: {
+                    plugins: [{ transform: '@zerollup/ts-transform-paths' }],
+                },
+            },
+        }),
+        nodeResolve({ preferBuiltins: true }),
         babel({
             exclude: ['node_modules'],
             extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
-            plugins: ['babel-plugin-styled-components', 'babel-plugin-transform-class-properties'],
-            presets: ['@babel/preset-env', '@babel/preset-react','@babel/preset-typescript']
+            plugins: [
+                'babel-plugin-styled-components',
+                'babel-plugin-transform-class-properties',
+            ],
+            presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+                '@babel/preset-typescript',
+            ],
         }),
-        css()
-        
+        css(),
     ],
-    external: [...Object.keys(pkg.dependencies|| {}), ...Object.keys(pkg.peerDependencies|| {})]
-}
+    external: [
+        ...Object.keys(pkg.dependencies || {}),
+        ...Object.keys(pkg.peerDependencies || {}),
+    ],
+};

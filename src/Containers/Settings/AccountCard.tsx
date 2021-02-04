@@ -33,8 +33,7 @@ export const AccountCard: React.FC<AccountProps> = ({
         <DisplayItem
             label={role}
             value={
-                employee.role.charAt(0).toUpperCase() +
-                    employee.role.slice(1)
+                employee.role.charAt(0).toUpperCase() + employee.role.slice(1)
             }
         />
         <DisplayItem

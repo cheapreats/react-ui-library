@@ -48,9 +48,8 @@ export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
                         name={time[INITIAL_TIME_INDEX]}
                         label={time[
                             INITIAL_TIME_INDEX
-                        ].replace(
-                            MATCH_FIRST_LETTER_PATTERN,
-                            (char): string => char.toUpperCase(),
+                        ].replace(MATCH_FIRST_LETTER_PATTERN, (char): string =>
+                            char.toUpperCase(),
                         )}
                         value={time[INITIAL_DATE_INDEX]}
                         onChange={(
@@ -59,12 +58,13 @@ export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
                             setStoreHours({
                                 ...storeHours,
                                 [time[INITIAL_TIME_INDEX]]: e.target.value,
-                            })}
+                            })
+                        }
                         error={
                             (time[INITIAL_TIME_INDEX] === FROM &&
-                                    errors.fromTooBig) ||
-                                (time[INITIAL_TIME_INDEX] === TO &&
-                                    errors.anotherTime)
+                                errors.fromTooBig) ||
+                            (time[INITIAL_TIME_INDEX] === TO &&
+                                errors.anotherTime)
                         }
                     />
                 ),

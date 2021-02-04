@@ -38,12 +38,12 @@ const Container = styled.div<ContainerProps>`
     ${({ withList }): string | InterpolationFunction<{ theme: DefaultTheme }> =>
         withList
             ? media(
-                'tablet',
-                `
+                  'tablet',
+                  `
                 padding: 20px 20px 20px;
                 padding-right: 20px;
                 padding-left: 40px;
             `,
-            )
+              )
             : ''}
 `;

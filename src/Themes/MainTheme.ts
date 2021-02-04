@@ -23,10 +23,10 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
         };
 
         PieChartColors: {
-            Red: string,
-            Green: string,
-            Yellow: string,
-        }
+            Red: string;
+            Green: string;
+            Yellow: string;
+        };
 
         chairTableBackground: string;
         chairOccupiedBackground: string;

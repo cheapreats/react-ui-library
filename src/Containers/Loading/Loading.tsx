@@ -14,13 +14,13 @@ export interface LoadingProps
         ResponsiveInterface,
         MainInterface {
     loading?: boolean;
-    message?:string;
+    message?: string;
 }
 
 export const Loading: React.FC<LoadingProps> = ({
     children,
     loading = false,
-    message='Loading...',
+    message = 'Loading...',
     ...props
 }): React.ReactElement => {
     const theme = useTheme();

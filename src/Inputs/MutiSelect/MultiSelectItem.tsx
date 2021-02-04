@@ -38,8 +38,8 @@ const Container = styled(Button)<ContainerProps>`
 
     ${({ theme, columns }): string => `
         max-width: calc(${100 / parseInt(columns.toString(), 10)}% - ${
-    theme.dimensions.multiSelect.spacing * 2
-}px);
+        theme.dimensions.multiSelect.spacing * 2
+    }px);
     `}
     border: none;
     width: 100%;

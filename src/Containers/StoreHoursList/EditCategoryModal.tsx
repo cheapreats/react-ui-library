@@ -106,14 +106,11 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
                                     ) {
                                         // prevent deleting active category as it would throw errors
                                         setError(CANNOT_DELETE_ACTIVE);
-                                        setErrorModalState(
-                                            !errorModalState,
-                                        );
+                                        setErrorModalState(!errorModalState);
                                     } else if (allCategories.length !== 1) {
                                         setDeletedCategory(
-                                            listAllCategories[
-                                                CATEGORY_SCHEDULE
-                                            ].category,
+                                            listAllCategories[CATEGORY_SCHEDULE]
+                                                .category,
                                         );
                                         setConfirmModalState(
                                             !confirmModalState,
@@ -121,10 +118,7 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
                                     }
                                 }}
                             >
-                                {
-                                    listAllCategories[CATEGORY_SCHEDULE]
-                                        .category
-                                }
+                                {listAllCategories[CATEGORY_SCHEDULE].category}
                             </Section>
                         ),
                     )}

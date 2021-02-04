@@ -1,6 +1,6 @@
 import React from 'react';
 import { NavLink as L, useParams } from 'react-router-dom';
-import styled, { useTheme} from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
 import { Paragraph as P } from '../../Text';
 import { Mixins } from '../../Utils';

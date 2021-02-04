@@ -52,7 +52,7 @@ export default {
         width: '150px',
         height: '150px',
         animationTime: 2,
-        animationDelay: 0
+        animationDelay: 0,
     },
 } as Meta;
 

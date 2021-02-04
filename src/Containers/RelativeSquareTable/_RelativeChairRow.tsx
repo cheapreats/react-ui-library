@@ -12,7 +12,7 @@ type generateChairRowKeyType = (pre: string) => string;
 
 type chairRowSwitchType = () => JSX.Element;
 
-interface IChairRow {
+interface IRelativeChairRow {
     /**
      * The position of the chair relative to the table (top/bottom/left/right)
      */
@@ -30,7 +30,7 @@ interface IChairRow {
 /**
  * ChairRow component for chair placement around tables
  */
-export const ChairRow: React.FC<IChairRow> = ({
+export const RelativeChairRow: React.FC<IRelativeChairRow> = ({
     position = 'top',
     chairs = [],
     relativeSize = 1.0,

@@ -1,7 +1,14 @@
 // @ts-nocheck
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { useTable, usePagination, Column, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
+import {
+    useTable,
+    usePagination,
+    Column,
+    TableProps,
+    TableHeaderProps,
+    TableRowProps,
+} from 'react-table';
 import { Pagination, IPaginationProps } from './Pagination';
 import { IProfileProps } from '../VendorsList/Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -24,7 +31,7 @@ export interface IReactTableProps<T extends IVendorsData>
     paginationProps?: IPaginationProps;
     pageSelectOptions: number[];
     isPaginated?: boolean;
-};
+}
 
 const INITIAL_OPTION = 0;
 
@@ -50,14 +57,17 @@ export const ReactTable = <T extends IVendorsData>({
         nextPage,
         previousPage,
         setPageSize,
-        state: { pageIndex, pageSize }
+        state: { pageIndex, pageSize },
     } = useTable(
         {
-            columns, 
+            columns,
             data,
-            initialState: { pageIndex: 0, pageSize: pageSelectOptions[INITIAL_OPTION] }
+            initialState: {
+                pageIndex: 0,
+                pageSize: pageSelectOptions[INITIAL_OPTION],
+            },
         },
-        usePagination
+        usePagination,
     );
 
     const pageOptionsLength = data.length;
@@ -84,32 +94,34 @@ export const ReactTable = <T extends IVendorsData>({
     );
 
     const getRowComponent = useCallback(
-        () => page.map((row: any) => {
-            prepareRow(row);
-            return (
-                <STableRow {...row.getRowProps()} key={row.original.id} {...tableRowProps}>
-                    {row.cells.map((cell: any) => (
-                        <STableData {...cell.getCellProps()}>
-                            {cell.render('Cell')}
-                        </STableData>
-                    ))}
-                </STableRow>
-            );
-        }), [page]
+        () =>
+            page.map((row: any) => {
+                prepareRow(row);
+                return (
+                    <STableRow
+                        {...row.getRowProps()}
+                        key={row.original.id}
+                        {...tableRowProps}
+                    >
+                        {row.cells.map((cell: any) => (
+                            <STableData {...cell.getCellProps()}>
+                                {cell.render('Cell')}
+                            </STableData>
+                        ))}
+                    </STableRow>
+                );
+            }),
+        [page],
     );
 
     return (
         <Wrapper {...props}>
             <table {...getTableProps()} {...tableProps}>
-                <STableHead>
-                    {getHeaderGroup()}
-                </STableHead>
-                <tbody {...getTableBodyProps()}>
-                    {getRowComponent()}
-                </tbody>
+                <STableHead>{getHeaderGroup()}</STableHead>
+                <tbody {...getTableBodyProps()}>{getRowComponent()}</tbody>
             </table>
             {!!isPaginated && (
-                <Pagination 
+                <Pagination
                     goToPreviousPage={previousPage}
                     goToNextPage={nextPage}
                     goToPage={gotoPage}
@@ -125,7 +137,7 @@ export const ReactTable = <T extends IVendorsData>({
         </Wrapper>
     );
 };
- 
+
 const Wrapper = styled.div`
     width: 60%;
     ${media(
@@ -142,22 +154,22 @@ const STableHead = styled.thead`
 const STableData = styled.td`
     ${({ theme }): string => `
         ${media(
-        'phone',
-        `
+            'phone',
+            `
         font-size: ${theme.font.size.small};
         `,
-    )}
+        )}
     `};
 `;
 const STableHeader = styled.th`
     text-align: left;
     ${({ theme }): string => `
         ${media(
-        'phone',
-        `
+            'phone',
+            `
         font-size: ${theme.font.size.small};
         `,
-    )}
+        )}
     `};
 `;
 const SHeadTableRow = styled.tr`

@@ -33,9 +33,8 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
             (day): React.ReactElement | null => {
                 const capitalDay = day[
                     CHECKBOX_DAY
-                ].replace(
-                    MATCH_FIRST_LETTER_PATTERN,
-                    (chr: string): string => chr.toUpperCase(),
+                ].replace(MATCH_FIRST_LETTER_PATTERN, (chr: string): string =>
+                    chr.toUpperCase(),
                 );
                 return day[CHECKBOX_TIME].length > 0 ? (
                     <div>
@@ -47,9 +46,9 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
                             key={day[CHECKBOX_DAY]}
                             onClick={(): void => {
                                 const firstTime =
-                                        activeCategorySchedule.hoursByDay[
-                                            day[CHECKBOX_DAY]
-                                        ];
+                                    activeCategorySchedule.hoursByDay[
+                                        day[CHECKBOX_DAY]
+                                    ];
                                 firstTime.pop(); // only works with one time tag
                                 setActiveCategorySchedule({
                                     ...activeCategorySchedule,

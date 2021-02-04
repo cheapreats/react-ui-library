@@ -4,9 +4,10 @@ import { Tag, TagProps } from '../Tag/Tag';
 import { Input, InputProps } from '../../Inputs/Input/Input';
 import { Select, SelectProps } from '../../Inputs/Select/Select';
 
-export interface IFilterSelectProps extends MainInterface,
+export interface IFilterSelectProps
+    extends MainInterface,
         ResponsiveInterface,
-        React.HTMLAttributes<HTMLDivElement>{
+        React.HTMLAttributes<HTMLDivElement> {
     selectedValue: string;
     placeholder: string;
     selectOptions: string[];
@@ -14,11 +15,11 @@ export interface IFilterSelectProps extends MainInterface,
     inputProps?: InputProps;
     tagProps?: Omit<TagProps, 'children'>;
     filterApplied: boolean;
-    setFilterApplied: React.Dispatch<React.SetStateAction<boolean>>
+    setFilterApplied: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const FIRST_OPTION = 0;
-const SEPARATOR_TEXT = ': '
+const SEPARATOR_TEXT = ': ';
 
 export const FilterSelect: React.FC<IFilterSelectProps> = ({
     placeholder,
@@ -35,10 +36,7 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
     return (
         <div {...props}>
             {filterApplied ? (
-                <Tag 
-                    onClick={() => setFilterApplied(false)}
-                    {...tagProps}
-                >
+                <Tag onClick={() => setFilterApplied(false)} {...tagProps}>
                     {selectValue}
                     {SEPARATOR_TEXT}
                     {inputValue}
@@ -46,22 +44,28 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
             ) : (
                 <>
                     <Select
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                        onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>,
+                        ): void => {
                             setSelectValue(e.target.value);
                         }}
                         value={selectValue}
                         placeholder={selectValue}
                         {...selectProps}
                     >
-                        {selectOptions.map((selectOption): React.ReactElement => (
-                            <option key={selectOption} value={selectOption}>
-                                {selectOption}
-                            </option>
-                        ))}
+                        {selectOptions.map(
+                            (selectOption): React.ReactElement => (
+                                <option key={selectOption} value={selectOption}>
+                                    {selectOption}
+                                </option>
+                            ),
+                        )}
                     </Select>
-                    <Input 
+                    <Input
                         placeholder={inputValue}
-                        onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
+                        onChange={(
+                            e: React.ChangeEvent<HTMLInputElement>,
+                        ): void => {
                             setInputValue(e.target.value);
                         }}
                         {...inputProps}
@@ -69,5 +73,5 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
                 </>
             )}
         </div>
-    )
+    );
 };

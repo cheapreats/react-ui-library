@@ -7,7 +7,10 @@ import { SmallText, SmallTextProps } from '../../Text/SmallText';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex } from '../../Utils/Mixins';
 
-export interface IPageSelectorProps extends MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
+export interface IPageSelectorProps
+    extends MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     goToPreviousPage: () => void;
     goToNextPage: () => void;
     goToPage: (pageNumber: number) => void;
@@ -15,11 +18,11 @@ export interface IPageSelectorProps extends MainInterface, ResponsiveInterface,R
     buttonProps?: ButtonProps;
     pageIndex: number;
     smallTextProps?: SmallTextProps;
-};
+}
 
 const INDEX_SHIFT = 1;
-const LEFT_TEXT = 'Page '
-const MIDDLE_TEXT = ' out of '
+const LEFT_TEXT = 'Page ';
+const MIDDLE_TEXT = ' out of ';
 
 export const PageSelector: React.FC<IPageSelectorProps> = ({
     goToPreviousPage,
@@ -33,33 +36,33 @@ export const PageSelector: React.FC<IPageSelectorProps> = ({
 }): React.ReactElement => (
     <Wrapper {...props}>
         <Section>
-            <Button 
+            <Button
                 icon={LeftArrowAlt}
                 onClick={() => goToPreviousPage()}
                 primary
-                {...buttonProps} 
+                {...buttonProps}
             />
             {[...Array(pageLength)].map((pageNumber, index) => (
-                <Button 
-                    key={pageNumber} 
+                <Button
+                    key={pageNumber}
                     onClick={() => goToPage(index)}
                     {...buttonProps}
-                > 
+                >
                     {index + INDEX_SHIFT}
                 </Button>
             ))}
-            <Button 
+            <Button
                 icon={RightArrowAlt}
                 onClick={() => goToNextPage()}
                 primary
-                {...buttonProps} 
+                {...buttonProps}
             />
         </Section>
         <Section>
             <SmallText {...smallTextProps}>
                 {LEFT_TEXT}
-                {pageIndex + INDEX_SHIFT} 
-                {MIDDLE_TEXT} 
+                {pageIndex + INDEX_SHIFT}
+                {MIDDLE_TEXT}
                 {pageLength}
             </SmallText>
         </Section>

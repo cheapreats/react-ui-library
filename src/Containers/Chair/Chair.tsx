@@ -128,38 +128,38 @@ const getRectangleChairStyles: getRectangleChairStyles = (
     const BASE_BORDER_RADIUS = 3;
     const BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS = 0.25;
     switch (position) {
-    case 'top':
-        return `border-top-left-radius:  ${
-            relativeSize * BASE_BORDER_RADIUS
-        }rem;
+        case 'top':
+            return `border-top-left-radius:  ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
             border-top-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
             margin-bottom: ${
-    relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
-}rem;
+                relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
+            }rem;
         `;
-    case 'left':
-        return `border-top-left-radius: ${
-            relativeSize * BASE_BORDER_RADIUS
-        }rem;
+        case 'left':
+            return `border-top-left-radius: ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
             border-bottom-left-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
         `;
-    case 'right':
-        return `border-top-right-radius: ${
-            relativeSize * BASE_BORDER_RADIUS
-        }rem;
+        case 'right':
+            return `border-top-right-radius: ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
             border-bottom-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
         `;
-    case 'bottom':
-        return `border-bottom-left-radius: ${
-            relativeSize * BASE_BORDER_RADIUS
-        }rem;
+        case 'bottom':
+            return `border-bottom-left-radius: ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
             border-bottom-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
             margin-top: ${
-    relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
-}rem;
+                relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
+            }rem;
         `;
-    default:
-        return '';
+        default:
+            return '';
     }
 };
 
@@ -213,8 +213,8 @@ const textHorizontalChairStyle = css<Pick<IChair, 'relativeSize'>>`
         return `width: ${relativeSize * HORIZONTAL_CHAIR_BASE_WIDTH}rem;
             margin-left: ${relativeSize * HORIZONTAL_CHAIR_BASE_MARGIN_LEFT}rem;
             padding-top: ${
-    relativeSize * HORIZONTAL_CHAIR_BASE_PADDING_TOP
-}rem;`;
+                relativeSize * HORIZONTAL_CHAIR_BASE_PADDING_TOP
+            }rem;`;
     }}
 `;
 
@@ -228,8 +228,8 @@ const textVerticalChairStyle = css<Pick<IChair, 'relativeSize'>>`
             relativeSize * VERTICAL_CHAIR_TEXT_BASE_PADDING_TOP
         }rem;
             margin-left: ${
-    relativeSize * VERTICAL_CHAIR_TEXT_BASE_MARGIN_LEFT
-}rem;
+                relativeSize * VERTICAL_CHAIR_TEXT_BASE_MARGIN_LEFT
+            }rem;
             writing-mode: vertical-rl;`;
     }}
 `;
@@ -237,9 +237,9 @@ const textVerticalChairStyle = css<Pick<IChair, 'relativeSize'>>`
 const textRoundStyle = css<Pick<IChair, 'relativeSize'>>`
     ${textBaseStyle};
     padding: ${({ relativeSize }) => {
-        const BASE_PADDING_FOR_TEXT_ROUND_STYLE = 2.0;
-        return relativeSize * BASE_PADDING_FOR_TEXT_ROUND_STYLE;
-    }}em
+            const BASE_PADDING_FOR_TEXT_ROUND_STYLE = 2.0;
+            return relativeSize * BASE_PADDING_FOR_TEXT_ROUND_STYLE;
+        }}em
         0;
 `;
 
@@ -258,14 +258,14 @@ const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
         }rem;
             height: ${relativeSize * BASE_WIDTH_AND_HEIGHT_FOR_ROUND_CHAIR}rem;
             border: ${
-    relativeSize * BASE_BORDER_WIDTH_FOR_ROUND_CHAIR
-}px solid black;`;
+                relativeSize * BASE_BORDER_WIDTH_FOR_ROUND_CHAIR
+            }px solid black;`;
     }}
 `;
 
 const RectangleChair = styled(BaseChair)<
     Pick<IChair, 'position' | 'relativeSize'>
-    >`
+>`
     ${({ position }) =>
         ({
             top: HorizontalChairStyle,
@@ -277,7 +277,7 @@ const RectangleChair = styled(BaseChair)<
 
 const RectangleChairText = styled.div<
     Pick<IChair, 'position' | 'relativeSize'>
-    >`
+>`
     ${({ position }) =>
         ({
             top: textHorizontalChairStyle,

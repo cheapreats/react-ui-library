@@ -44,9 +44,10 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const [activeCategory, setActiveCategory] = useState(
         findActive(allCategoriesWithHours).category,
     );
-    const [activeCategorySchedule, setActiveCategorySchedule] = useState<
-        ICategoryWithHoursTypes
-    >(findActive(allCategoriesWithHours));
+    const [
+        activeCategorySchedule,
+        setActiveCategorySchedule,
+    ] = useState<ICategoryWithHoursTypes>(findActive(allCategoriesWithHours));
 
     const [error] = useState('');
 

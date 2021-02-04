@@ -9,7 +9,7 @@ import React, { ReactElement, useState } from 'react';
 import Draggable from 'react-draggable';
 import styled from 'styled-components';
 import { CircleTable } from '../CircleTable/CircleTable';
-import {CapacityDisplay} from '../CapacityDisplay/CapacityDisplay';
+import { CapacityDisplay } from '../CapacityDisplay/CapacityDisplay';
 import { SquareTable } from '../SquareTable/SquareTable';
 
 /**
@@ -23,7 +23,7 @@ export const DraggableCanvas = (): ReactElement => {
         y: 0,
     });
 
-    const handleDrag = (e: Event, ui: { deltaX: number, deltaY: number }) => {
+    const handleDrag = (e: Event, ui: { deltaX: number; deltaY: number }) => {
         const { x, y } = deltaPosition;
         setDeltaPosition({
             x: x + ui.deltaX,
@@ -291,12 +291,10 @@ export const DraggableCanvas = (): ReactElement => {
                                 ]}
                             />
                         </CircleTableWidth>
-                    </Draggable>
-                    {' '}
+                    </Draggable>{' '}
                     {/* End draggable table 2 */}
                 </StylesForCanvas>
-            </StylesForDraggableDemo>
-            {' '}
+            </StylesForDraggableDemo>{' '}
             {/* End Draggable Canvas */}
         </SpacingForBottom>
     );

@@ -27,12 +27,13 @@ export interface ExcelOptionsProps
 
 const FROM_TO = ['from', 'to'];
 
-const keyToHeader = (data: string): string => data
-    .replace(/[^a-zA-Z0-9 ]/g, ' ')
-    .replace(/(^\w{1})|(\s{1}\w{1})/g, (matchedLetter): string =>
-        matchedLetter.toUpperCase(),
-    )
-    .trim();
+const keyToHeader = (data: string): string =>
+    data
+        .replace(/[^a-zA-Z0-9 ]/g, ' ')
+        .replace(/(^\w{1})|(\s{1}\w{1})/g, (matchedLetter): string =>
+            matchedLetter.toUpperCase(),
+        )
+        .trim();
 
 const DATA_TYPE = {
     NONE: 'None',
@@ -116,14 +117,8 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                     <ShownHeadersDiv>
                         <Heading type="h3">Headers</Heading>
                         <Paragraph>
-                            You can 
-                            {' '}
-                            <b>Add/Remove</b>
-                            {' '}
-                            desired headers and
-                            <b> Rearrange The Order</b>
-                            {' '}
-                            by dragging them
+                            You can <b>Add/Remove</b> desired headers and
+                            <b> Rearrange The Order</b> by dragging them
                         </Paragraph>
                         <Droppable droppableId="labels" direction="horizontal">
                             {(provided): React.ReactElement => (
@@ -156,7 +151,8 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                                             onClick={(): void =>
                                                                 removeHeader(
                                                                     index,
-                                                                )}
+                                                                )
+                                                            }
                                                         >
                                                             {keyToHeader(
                                                                 header,
@@ -223,9 +219,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                 }
                                 onChange={({
                                     target,
-                                }: React.ChangeEvent<
-                                    HTMLInputElement
-                                >): void => {
+                                }: React.ChangeEvent<HTMLInputElement>): void => {
                                     setResultObject(
                                         (prevState): ResultObjectType => ({
                                             ...prevState,

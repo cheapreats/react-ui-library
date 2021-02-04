@@ -14,7 +14,7 @@ export interface CardProps
         React.HTMLAttributes<HTMLDivElement> {
     animated?: boolean;
     flat?: boolean;
-    widthFitContent?:boolean;
+    widthFitContent?: boolean;
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -53,8 +53,8 @@ const CardBox = styled.div<CardProps & MainInterface & ResponsiveInterface>`
     // Base Styles
     ${Responsive}
 
-    ${({widthFitContent}):string=>`
-    ${widthFitContent?'width:fit-content;':''}
+    ${({ widthFitContent }): string => `
+    ${widthFitContent ? 'width:fit-content;' : ''}
     `}
 `;
 
