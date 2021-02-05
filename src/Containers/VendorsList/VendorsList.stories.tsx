@@ -83,6 +83,223 @@ const globalFilterMethod =  (rows: Row<object>[], theColumns: string[], filterVa
 }
 const sampleGroupsMapped = [ 'VIP Client', 'Early Adopter', 'Pizza Fanatic', 'Dog Lover', 'Frogger', 'Jogger', 'Dogger']
 const sampleDateOptions = ['Before', 'After'];
+const sampleData = [{
+    key: 1,
+    id: '1',
+    name: 'Emy Jackson',
+    email: 'emy_jac@upmind.com',
+    imageUrl:
+        'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+    groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
+    created_at: moment().subtract('10', 'weeks').toString(),
+},
+{
+    key: 2,
+    id: '2',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}, {name: 'Dogger'}],
+    created_at: moment().subtract('7', 'weeks').toString(),
+},
+{
+    key: 3,
+    id: '3',
+    name: 'Josh Bro',
+    email: 'joshbro@bros.com',
+    imageUrl:
+        'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+    groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name:'Pizza Fanatic'}],
+    created_at: moment().subtract('6', 'weeks').toString(),
+},
+{
+    key: 4,
+    id: '4',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}, {name: 'Dogger'}],
+    created_at: moment().subtract('5', 'weeks').toString(),
+},
+{
+    key: 5,
+    id: '5',
+    name: 'Emy Jackson',
+    email: 'emy_jac@upmind.com',
+    imageUrl:
+        'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+    groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name: 'Frogger'}],
+    created_at: moment().subtract('1', 'weeks').toString(),
+},
+{
+    key: 6,
+    id: '6',
+    name: 'Ruroni Kenshin',
+    email: 'rurko@anime.com',
+    groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}],
+    created_at: moment().subtract('4', 'weeks').toString()
+},
+{
+    key: 6,
+    id: '7',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}, {name: 'Jogger'}],
+    created_at: '02/30/2018'
+},
+{
+    key: 8,
+    id: '8',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}],
+    created_at: moment().subtract('1', 'weeks').toString()
+},
+{
+    key: 9,
+    id: '9',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+    groups: [{name: 'VIP Client'}],
+    created_at: moment().subtract('2', 'weeks').toString()
+},
+{
+    key: 10,
+    id: '10',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}],
+    created_at: moment().subtract('2', 'weeks').toString()
+},
+{
+    key: 11,
+    id: '11',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}],
+    created_at: moment().subtract('12', 'weeks').toString()
+},
+{
+    key: 12,
+    id: '12',
+    name: 'Emy Jackson',
+    email: 'emy_jac@upmind.com',
+    imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+    groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
+    created_at: moment().subtract('22', 'weeks').toString()
+},
+{
+    key: 13,
+    id: '13',
+    name: 'Emy Jackson',
+    email: 'emy_jac@upmind.com',
+    imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+    groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
+    created_at: moment().subtract('21', 'weeks').toString()
+},
+{
+    key: 14,
+    id: '14',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}],
+    created_at: moment().subtract('12', 'weeks').toString()
+},
+{
+    key: 15,
+    id: '15',
+    name: 'Emy Jackson',
+    email: 'emy_jac@upmind.com',
+    imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+    groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
+    created_at: moment().subtract('25', 'weeks').toString()
+},
+{
+    key: 16,
+    id: '16',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}],
+    created_at: moment().subtract('2', 'weeks').toString()
+},
+{
+    key: 21,
+    id: '21',
+    name: 'Emy Jackson',
+    email: 'emy_jac@upmind.com',
+    imageUrl:
+        'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+    groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
+    created_at: moment().subtract('10', 'weeks').toString(),
+},
+{
+    key: 22,
+    id: '22',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}, {name: 'Dogger'}],
+    created_at: moment().subtract('7', 'weeks').toString(),
+},
+{
+    key: 23,
+    id: '23',
+    name: 'Josh Bro',
+    email: 'joshbro@bros.com',
+    imageUrl:
+        'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+    groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name:'Pizza Fanatic'}],
+    created_at: moment().subtract('6', 'weeks').toString(),
+},
+{
+    key: 24,
+    id: '24',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}, {name: 'Dogger'}],
+    created_at: moment().subtract('5', 'weeks').toString(),
+},
+{
+    key: 25,
+    id: '25',
+    name: 'Emy Jackson',
+    email: 'emy_jac@upmind.com',
+    imageUrl:
+        'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+    groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name: 'Frogger'}],
+    created_at: moment().subtract('1', 'weeks').toString(),
+},
+{
+    key: 26,
+    id: '26',
+    name: 'Ruroni Kenshin',
+    email: 'rurko@anime.com',
+    groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}],
+    created_at: moment().subtract('4', 'weeks').toString()
+},
+{
+    key: 26,
+    id: '27',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}, {name: 'Jogger'}],
+    created_at: '02/30/2018'
+},
+{
+    key: 28,
+    id: '28',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    groups: [{name: 'VIP Client'}],
+    created_at: moment().subtract('1', 'weeks').toString()
+},
+{
+    key: 29,
+    id: '29',
+    name: 'Amy Jackson',
+    email: 'amy_jac@upmind.com',
+    imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
+    groups: [{name: 'VIP Client'}],
+    created_at: moment().subtract('2', 'weeks').toString()
+}]
 
 const renderTimeFilter = (column: HeaderGroup<any>) => <DateFilterSelect placeholder='Select Date' filterValue={column.filterValue} selectOptions={sampleDateOptions} selectProps={{margin: '10px 0'}} onOptionsSelected={(value)=> column.setFilter(value)} />
 const renderTagFilter = (column: HeaderGroup<any>) => <TagFilterSelect placeholder='Select Group Names' filterValue={column.filterValue} tagProps={{style: {marginTop: '8px'}}} selectOptions={sampleGroupsMapped} selectProps={{margin: '10px 0'}} onOptionsSelected={(selectedOptions) => column.setFilter(selectedOptions)} />
@@ -173,225 +390,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
             filter: timeFilterMethod
         },
     ],    
-    data: [
-        {
-            key: 1,
-            id: '1',
-            name: 'Emy Jackson',
-            email: 'emy_jac@upmind.com',
-            imageUrl:
-                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
-            created_at: moment().subtract('10', 'weeks').toString(),
-        },
-        {
-            key: 2,
-            id: '2',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}, {name: 'Dogger'}],
-            created_at: moment().subtract('7', 'weeks').toString(),
-        },
-        {
-            key: 3,
-            id: '3',
-            name: 'Josh Bro',
-            email: 'joshbro@bros.com',
-            imageUrl:
-                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name:'Pizza Fanatic'}],
-            created_at: moment().subtract('6', 'weeks').toString(),
-        },
-        {
-            key: 4,
-            id: '4',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}, {name: 'Dogger'}],
-            created_at: moment().subtract('5', 'weeks').toString(),
-        },
-        {
-            key: 5,
-            id: '5',
-            name: 'Emy Jackson',
-            email: 'emy_jac@upmind.com',
-            imageUrl:
-                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name: 'Frogger'}],
-            created_at: moment().subtract('1', 'weeks').toString(),
-        },
-        {
-            key: 6,
-            id: '6',
-            name: 'Ruroni Kenshin',
-            email: 'rurko@anime.com',
-            groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}],
-            created_at: moment().subtract('4', 'weeks').toString()
-        },
-        {
-            key: 6,
-            id: '7',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}, {name: 'Jogger'}],
-            created_at: '02/30/2018'
-        },
-        {
-            key: 8,
-            id: '8',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}],
-            created_at: moment().subtract('1', 'weeks').toString()
-        },
-        {
-            key: 9,
-            id: '9',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}],
-            created_at: moment().subtract('2', 'weeks').toString()
-        },
-        {
-            key: 10,
-            id: '10',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}],
-            created_at: moment().subtract('2', 'weeks').toString()
-        },
-        {
-            key: 11,
-            id: '11',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}],
-            created_at: moment().subtract('12', 'weeks').toString()
-        },
-        {
-            key: 12,
-            id: '12',
-            name: 'Emy Jackson',
-            email: 'emy_jac@upmind.com',
-            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
-            created_at: moment().subtract('22', 'weeks').toString()
-        },
-        {
-            key: 13,
-            id: '13',
-            name: 'Emy Jackson',
-            email: 'emy_jac@upmind.com',
-            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
-            created_at: moment().subtract('21', 'weeks').toString()
-        },
-        {
-            key: 14,
-            id: '14',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}],
-            created_at: moment().subtract('12', 'weeks').toString()
-        },
-        {
-            key: 15,
-            id: '15',
-            name: 'Emy Jackson',
-            email: 'emy_jac@upmind.com',
-            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
-            created_at: moment().subtract('25', 'weeks').toString()
-        },
-        {
-            key: 16,
-            id: '16',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}],
-            created_at: moment().subtract('2', 'weeks').toString()
-        },
-        {
-            key: 21,
-            id: '21',
-            name: 'Emy Jackson',
-            email: 'emy_jac@upmind.com',
-            imageUrl:
-                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}],
-            created_at: moment().subtract('10', 'weeks').toString(),
-        },
-        {
-            key: 22,
-            id: '22',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}, {name: 'Dogger'}],
-            created_at: moment().subtract('7', 'weeks').toString(),
-        },
-        {
-            key: 23,
-            id: '23',
-            name: 'Josh Bro',
-            email: 'joshbro@bros.com',
-            imageUrl:
-                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name:'Pizza Fanatic'}],
-            created_at: moment().subtract('6', 'weeks').toString(),
-        },
-        {
-            key: 24,
-            id: '24',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}, {name: 'Dogger'}],
-            created_at: moment().subtract('5', 'weeks').toString(),
-        },
-        {
-            key: 25,
-            id: '25',
-            name: 'Emy Jackson',
-            email: 'emy_jac@upmind.com',
-            imageUrl:
-                'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}, {name: 'Early Adopter'}, {name: 'Frogger'}],
-            created_at: moment().subtract('1', 'weeks').toString(),
-        },
-        {
-            key: 26,
-            id: '26',
-            name: 'Ruroni Kenshin',
-            email: 'rurko@anime.com',
-            groups: [{name: 'VIP Client'}, {name: 'Dog Lover'}],
-            created_at: moment().subtract('4', 'weeks').toString()
-        },
-        {
-            key: 26,
-            id: '27',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}, {name: 'Jogger'}],
-            created_at: '02/30/2018'
-        },
-        {
-            key: 28,
-            id: '28',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            groups: [{name: 'VIP Client'}],
-            created_at: moment().subtract('1', 'weeks').toString()
-        },
-        {
-            key: 29,
-            id: '29',
-            name: 'Amy Jackson',
-            email: 'amy_jac@upmind.com',
-            imageUrl: 'https://images.pexels.com/photos/415829/pexels-photo-415829.jpeg?cs=srgb&dl=pexels-pixabay-415829.jpg&fm=jpg',
-            groups: [{name: 'VIP Client'}],
-            created_at: moment().subtract('2', 'weeks').toString()
-        },
-    ],
+    data: sampleData,
     onSelectRow: (original) => console.log(original, 'contact clicked'),
     listProps: {
         id: 'vendor_list',
