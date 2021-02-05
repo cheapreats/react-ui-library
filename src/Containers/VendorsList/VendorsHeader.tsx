@@ -11,6 +11,7 @@ export interface IVendorsHeaderProps
         React.HTMLAttributes<HTMLDivElement> {
     headerText: string;
     rightButtonText: string;
+    leftButtonText?: string;
     leftButtonProps?: ButtonProps;
     rightButtonProps?: ButtonProps;
     headingProps?: HeadingProps
@@ -19,6 +20,7 @@ export interface IVendorsHeaderProps
 export const VendorsHeader: React.FC<IVendorsHeaderProps> = ({
     headerText,
     rightButtonText,
+    leftButtonText,
     leftButtonProps,
     rightButtonProps,
     headingProps,
@@ -29,7 +31,7 @@ export const VendorsHeader: React.FC<IVendorsHeaderProps> = ({
             {headerText}
         </Heading>
         <Row>
-            <Button {...leftButtonProps} />
+            <Button {...leftButtonProps}>{leftButtonText}</Button>
             <Button {...rightButtonProps}>{rightButtonText}</Button>
         </Row>
     </Wrapper>

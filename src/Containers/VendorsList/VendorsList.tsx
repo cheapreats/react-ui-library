@@ -32,6 +32,7 @@ export interface IVendorsListProps
             columns: Column<any>[];
             navigationBarItems?: INavigationItemProps[];
             headerRightButtonText: string;
+            headerLeftButtonText?: string;
             headerText: string;
             filterHeader: React.ReactElement;
             onSelectRow: (original: any) => void;
@@ -52,6 +53,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
     filterItems,
     navigationBarItems,
     headerRightButtonText,
+    headerLeftButtonText,
     headerText,
     filterHeader,
     onSelectRow,
@@ -122,6 +124,7 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                 <SVendorsHeader 
                     headerText={headerText}
                     rightButtonText={headerRightButtonText}
+                    leftButtonText={headerLeftButtonText}
                     leftButtonProps={{ icon: Import, onClick: exportCurrentRows, style: { margin: '0 20px' } }}
                     rightButtonProps={{ icon: Add, onClick: onAddButtonClick, primary: true }}
                 />
