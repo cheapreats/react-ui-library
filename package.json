@@ -11,7 +11,7 @@
     "sideEffects": false,
     "scripts": {
         "start": "start-storybook -p 6006",
-        "deploy": "npm run build && build-storybook -s dist -o .deploy",
+        "deploy": "npm run build && build-storybook -s dist -o deploy",
         "build": "rm -rf dist && rollup -c",
         "build:watch": "rollup -c -w",
         "test": "tsc && npm run eslint:fix",
