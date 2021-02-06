@@ -21,11 +21,15 @@ type DropdownComponent<P = {}> = React.NamedExoticComponent<P> & {
 export interface IDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
     dropdownButton: Element;
     dropdownWidth?: number;
+    right?: boolean;
 };
 
 interface IDropdownContentProps {
     dropdownWidth?: number;
     contentLength: number | undefined;
+    placement: boolean | undefined;
+    targetPositionConfig: ClientRect | {};
+    sourceWidth: ClientRect | {};
     ref: React.RefObject<HTMLUListElement>;
 }
 
@@ -63,11 +67,14 @@ const Dropdown: React.FC<IDropdownProps> = ({
     dropdownButton,
     dropdownWidth,
     children,
+    right,
     ...props
 }): ReactElement => {
     const [isActive, setIsActive] = useState(false);
     const [height, setHeight] = useState(0);
     const buttonRef = useRef<HTMLDivElement>(null);
+    const [buttonPositionConfig, setButtonPositionConfig] = useState({});
+    const [dropDownPositionConfig, setDropDownPositionConfig] = useState({});
     const bodyRef = useRef<HTMLUListElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
     
@@ -101,19 +108,28 @@ const Dropdown: React.FC<IDropdownProps> = ({
         }
     }, [isActive]);
 
+    const setMenuButtonPosition = () => {
+        setButtonPositionConfig(buttonRef?.current?.getBoundingClientRect() ?? {});
+        setDropDownPositionConfig(bodyRef?.current?.getBoundingClientRect() ?? {});
+    }
+    useEffect(() => {
+        setMenuButtonPosition()
+    }, [])
     const stopPropagation = (event: React.MouseEvent<HTMLElement>) => {
         event.stopPropagation()
         event.nativeEvent.stopImmediatePropagation()
     }
-
     return (
-        <DropdownContainer width={dropdownWidth} ref={containerRef} height={height} onClick={stopPropagation} {...props}>
+        <DropdownContainer ref={containerRef} height={height} onClick={stopPropagation} {...props}>
             <ToggleContainer ref={buttonRef} onClick={toggleIsActive}>
                 {dropdownButton}
             </ToggleContainer>
             <DropdownContent
                 dropdownWidth={dropdownWidth}
                 contentLength={itemChildren?.length}
+                placement={right}
+                targetPositionConfig={buttonPositionConfig}
+                sourceWidth={dropDownPositionConfig}
                 ref={bodyRef}
             >
                 {itemChildren}
@@ -121,6 +137,20 @@ const Dropdown: React.FC<IDropdownProps> = ({
         </DropdownContainer>
     );
 };
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+const placeStyles = (placement: any, targetPosition: any, sourcePosition: any) => {
+    switch (placement) {
+    case true:
+        return `
+            left: ${targetPosition.right - sourcePosition.width + window.pageXOffset}px;
+            `;
+    default:
+        return `
+            left: ${targetPosition.left + window.pageXOffset}px;
+            `;
+    }
+}
 
 const DropdownContainer = styled.div<IDropdownContainerProps>`
     overflow: hidden;
@@ -140,6 +170,7 @@ const ToggleContainer = styled.div`
 `;
 
 const DropdownContent = styled.ul<IDropdownContentProps>`
+    ${({ placement,targetPositionConfig, sourceWidth }) => placeStyles(placement,targetPositionConfig,sourceWidth)};
     padding: 10px 5px;
     max-height: ${MAX_DROPDOWN_HEIGHT}px;
     margin: 0;
@@ -158,9 +189,8 @@ const DropdownContent = styled.ul<IDropdownContentProps>`
     border-radius: ${theme.dimensions.radius};
 `}
     position: absolute;
-    right: 0;
-    z-index: 9999;
-    left: 0;
+    z-index: 2147483647;
+    
 `;
 
 export default Dropdown as DropdownComponent;

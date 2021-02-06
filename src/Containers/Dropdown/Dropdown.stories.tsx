@@ -1,7 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Button } from '@Inputs/Button/Button';
-import { Heading } from '@Text';
 import { createStoryTitle } from '../../Constants';
 import Dropdown, { IDropdownProps } from './index';
 
@@ -11,6 +10,7 @@ export default {
     component: Dropdown,
     args: {
         dropdownWidth: 300,
+        right: true,
         dropdownButton: <Button>Click me</Button>,
     }
 } as Meta;
@@ -36,15 +36,6 @@ export const Scrolling: Story<IDropdownProps> = (args) => (
         <Dropdown.Item>Testing</Dropdown.Item>
         <Dropdown.Item>Testing</Dropdown.Item>
         <Dropdown.Item>Testing</Dropdown.Item>
-        <Dropdown.Item>Testing</Dropdown.Item>
-        <Dropdown.Item>Testing</Dropdown.Item>
-    </Dropdown>
-);
-export const DifferentButton: Story<IDropdownProps> = (args) => (
-    <Dropdown {...args} dropdownButton={<Heading>Click me</Heading>}>
-        <Dropdown.Item>Settings</Dropdown.Item>
-        <Dropdown.Item>Help Center</Dropdown.Item>
-        <Dropdown.Item>Logout</Dropdown.Item>
         <Dropdown.Item>Testing</Dropdown.Item>
         <Dropdown.Item>Testing</Dropdown.Item>
     </Dropdown>
