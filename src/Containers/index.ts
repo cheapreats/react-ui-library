@@ -58,3 +58,4 @@ export * from './FileUpload/FileUpload';
 export * from './TransactionList/TransactionList';
 export * from './SoldOutCardNotification/SoldOutCardNotification';
 export * from './VisitNotification/VisitNotification';
+export * from './BoxComposition/BoxComposition'
