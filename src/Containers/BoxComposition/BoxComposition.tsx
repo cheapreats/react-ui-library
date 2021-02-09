@@ -1,12 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-interface IBoxProps{
+interface IBoxProps extends IImgProps{
     imgSource:string;
-    top:number;
-    left:number;
-    width:number;
-    height:number;
 }
 
 const Box:React.FC<IBoxProps>=({imgSource,top,left,width,height}):React.ReactElement=>
@@ -38,6 +34,6 @@ export interface IBoxCompositionProps{
 export const BoxComposition:React.FC<IBoxCompositionProps>=({data}):React.ReactElement=>
     (
         <div>
-            {data.map(stripeProps=><Box {...stripeProps} />) }
+            {data.map(boxProps=><Box {...boxProps} />) }
         </div>
     )
