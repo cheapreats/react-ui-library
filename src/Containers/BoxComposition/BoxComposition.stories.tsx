@@ -14,20 +14,27 @@ export default {
                 left:75,
                 width:100,
                 height:200,
+                withText:true,
+                text:'bla bla bla',
+                id:'0'
             },
             {
                 imgSource:'https://pyxis.nymag.com/v1/imgs/427/8e3/50af665d01b7c7d4339dddc48682d37585-amanda-gorman.rsquare.w700.jpg',
-                top:150,
-                left:0,
-                width:100,
-                height:100,
+                top:100,
+                left:25,
+                width:75,
+                height:75,
+                withText:false,
+                id:'1'
             },
             {
                 imgSource:'https://s.abcnews.com/images/Sports/super-bowl-lv-amanda-gorman-01-gty-iwb-210207_1612747303779_hpMain_16x9_992.jpg',
                 top:25,
                 left:150,
-                width:100,
-                height:100,
+                width:75,
+                height:75,
+                withText:false,
+                id:'2'
             },
         ],
     }
