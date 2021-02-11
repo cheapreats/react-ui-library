@@ -1,24 +1,50 @@
-import React from 'react'
+import React,{useEffect,useState} from 'react'
 import styled from 'styled-components'
 import {SmallText} from '@Text'
 import {Mixins} from '@Utils'
 
-const ANIMATION_DURATION=7
+const ANIMATION_DURATION=2
+const INITIAL_COUNTER=0
+
+interface IBoxElementProps extends IImgProps,IDivProps{
+    imgSource:string;
+    text:string;
+}
+
+const BoxElement:React.FC<IBoxElementProps>=({top,left,imgSource,width,height,text}):React.ReactElement=>
+    (
+        <Div top={top} left={left}>
+            <Img key={imgSource} src={imgSource} width={width} height={height} />
+            {!!text&& <AnimatedSmallText textAlign='center'>{text}</AnimatedSmallText>}
+        </Div>
+    )
 
 interface IBoxProps extends IImgProps,IDivProps{
-    imgSource:string;
-    withText:boolean;
+    imgSources:string[];
     text:string;
     id:string;
 }
 
-const Box:React.FC<IBoxProps>=({imgSource,top,left,width,height,withText,text}):React.ReactElement=>
-    (
-        <Div top={top} left={left}>
-            <Img src={imgSource} width={width} height={height} />
-            {withText&& <AnimatedSmallText textAlign='center'>{text}</AnimatedSmallText>}
-        </Div>
+const Box:React.FC<IBoxProps>=({imgSources,...props}):React.ReactElement=>{
+    const [counter,setCounter]=useState(INITIAL_COUNTER)
+    const [imgSource,setImgSource]=useState(imgSources[counter])
+
+    useEffect(()=>{
+        const interval=setInterval(()=>{
+            setImgSource(imgSources[counter])
+            if(counter===imgSources.length-1){
+                setCounter(INITIAL_COUNTER)
+            }else setCounter(prev=>prev+1)
+        },ANIMATION_DURATION*1000)
+        return ()=>{
+            clearInterval(interval)
+        }
+    },[counter,setImgSource,imgSources])
+
+    return    (
+        <BoxElement imgSource={imgSource} {...props} />
     )
+}
 
 interface IDivProps{
     top:number;
