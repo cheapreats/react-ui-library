@@ -20,31 +20,16 @@ const BoxElement:React.FC<IBoxElementProps>=({top,left,imgSource,width,height,te
     )
 
 interface IBoxProps extends IImgProps,IDivProps{
-    imgSources:string[];
+    imgSource:string;
     text:string;
     id:string;
 }
 
-const Box:React.FC<IBoxProps>=({imgSources,...props}):React.ReactElement=>{
-    const [counter,setCounter]=useState(INITIAL_COUNTER)
-    const [imgSource,setImgSource]=useState(imgSources[counter])
-
-    useEffect(()=>{
-        const interval=setInterval(()=>{
-            setImgSource(imgSources[counter])
-            if(counter===imgSources.length-1){
-                setCounter(INITIAL_COUNTER)
-            }else setCounter(prev=>prev+1)
-        },ANIMATION_DURATION*1000)
-        return ()=>{
-            clearInterval(interval)
-        }
-    },[counter,setImgSource,imgSources])
-
-    return    (
+const Box:React.FC<IBoxProps>=({imgSource,...props}):React.ReactElement=>
+    (
         <BoxElement imgSource={imgSource} {...props} />
     )
-}
+
 
 interface IDivProps{
     top:number;
@@ -96,12 +81,27 @@ const Img=styled.img<IImgProps>`
 `
 
 export interface IBoxCompositionProps{
-    data:IBoxProps[];
+    data:IBoxProps[][];
 }
 
-export const BoxComposition:React.FC<IBoxCompositionProps>=({data}):React.ReactElement=>
-    (
+export const BoxComposition:React.FC<IBoxCompositionProps>=({data}):React.ReactElement=>{
+    const [counter,setCounter]=useState(INITIAL_COUNTER)
+
+    useEffect(()=>{
+        const interval=setInterval(()=>{
+            if(counter===data.length-1){
+                setCounter(INITIAL_COUNTER)
+            }else setCounter(prev=>prev+1)
+        },ANIMATION_DURATION*1000)
+        return ()=>{
+            clearInterval(interval)
+        }
+    },[counter,data])
+
+    return  (
         <div>
-            {data.map(boxProps=><Box key={boxProps.id} {...boxProps} />) }
+            {data[counter].map(boxProps=><Box key={boxProps.id} {...boxProps} />) }
         </div>
     )
+}
+   
