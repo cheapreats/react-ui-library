@@ -80,8 +80,14 @@ const Img=styled.img<IImgProps>`
     box-shadow:0 0 1px 0 black;
 `
 
+interface ISet{
+    main:IBoxProps;
+    left:IBoxProps;
+    right:IBoxProps;
+}
+
 export interface IBoxCompositionProps{
-    data:IBoxProps[][];
+    data:ISet[];
 }
 
 export const BoxComposition:React.FC<IBoxCompositionProps>=({data}):React.ReactElement=>{
@@ -100,7 +106,7 @@ export const BoxComposition:React.FC<IBoxCompositionProps>=({data}):React.ReactE
 
     return  (
         <div>
-            {data[counter].map(boxProps=><Box key={boxProps.id} {...boxProps} />) }
+            {Object.values(data[counter]).map(boxProps=><Box key={boxProps.id} {...boxProps} />) }
         </div>
     )
 }
