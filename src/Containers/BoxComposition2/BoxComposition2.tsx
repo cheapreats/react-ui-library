@@ -11,7 +11,7 @@ export interface IBoxComposition2Props{
     notificationBox:IBoxProps;
 }
 
-export const BoxComposition2:React.FC<IBoxComposition2Props>=({desktopBox,mobileBox,notificationBox}):React.ReactElement=>{
+export const BoxComposition2:React.FC<IBoxComposition2Props>=({desktopBox,mobileBox,notificationBox,...props}):React.ReactElement=>{
     const [showBox2,setShowBox2]=useState(false)
     const [showBox3,setShowBox3]=useState(false)
     useEffect(()=>{
@@ -23,7 +23,7 @@ export const BoxComposition2:React.FC<IBoxComposition2Props>=({desktopBox,mobile
         },2000)
     },[])
     return     (
-        <div>
+        <div {...props}>
             <DesktopBox {...desktopBox} />
             {showBox2&&<MobileBox {...mobileBox} />}
             {showBox3&&<NotificationBox {...notificationBox} />}
