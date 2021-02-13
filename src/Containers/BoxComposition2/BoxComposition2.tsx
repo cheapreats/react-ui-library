@@ -5,7 +5,7 @@ interface IBoxProps extends IDivProps,IImgProps{
     imgSrc:string;
 }
 
-export interface IBoxComposition2Props{
+export interface IBoxComposition2Props extends React.HTMLAttributes<HTMLDivElement>{
     desktopBox:IBoxProps;
     mobileBox:IBoxProps;
     notificationBox:IBoxProps;
