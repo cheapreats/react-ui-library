@@ -1,22 +1,17 @@
 import React,{useState,useEffect} from 'react'
 import styled from 'styled-components'
 
-interface IBoxProps{
+interface IBoxProps extends IDivProps,IImgProps{
     imgSrc:string;
-    top:number;
-    left:number;
-    width:number;
-    height:number;
-    borderRadius:number;
 }
 
 export interface IBoxComposition2Props{
-    box1:IBoxProps;
-    box2:IBoxProps;
-    box3:IBoxProps;
+    desktopBox:IBoxProps;
+    mobileBox:IBoxProps;
+    notificationBox:IBoxProps;
 }
 
-export const BoxComposition2:React.FC<IBoxComposition2Props>=({box1,box2,box3}):React.ReactElement=>{
+export const BoxComposition2:React.FC<IBoxComposition2Props>=({desktopBox,mobileBox,notificationBox}):React.ReactElement=>{
     const [showBox2,setShowBox2]=useState(false)
     const [showBox3,setShowBox3]=useState(false)
     useEffect(()=>{
@@ -29,32 +24,32 @@ export const BoxComposition2:React.FC<IBoxComposition2Props>=({box1,box2,box3}):
     },[])
     return     (
         <div>
-            <Box1 {...box1} />
-            {showBox2&&<Box2 {...box2} />}
-            {showBox3&&<Box3 {...box3} />}
+            <DesktopBox {...desktopBox} />
+            {showBox2&&<MobileBox {...mobileBox} />}
+            {showBox3&&<NotificationBox {...notificationBox} />}
         </div>
     )
 }
 
-const Box3:React.FC<IBoxProps>=({imgSrc,top,left,width,height,borderRadius}):React.ReactElement=>
+const NotificationBox:React.FC<IBoxProps>=({imgSrc,top,left,...props}):React.ReactElement=>
     (
-        <AnimatedDiv3 top={top} left={left}>
-            <Img src={imgSrc} width={width} height={height} borderRadius={borderRadius} />
-        </AnimatedDiv3>
+        <AnimatedNotificationDiv top={top} left={left}>
+            <Img src={imgSrc} {...props} />
+        </AnimatedNotificationDiv>
     )
 
-const Box2:React.FC<IBoxProps>=({imgSrc,top,left,width,height,borderRadius}):React.ReactElement=>
+const MobileBox:React.FC<IBoxProps>=({imgSrc,top,left,...props}):React.ReactElement=>
     (
-        <AnimatedDiv2 top={top} left={left}>
-            <Img src={imgSrc} width={width} height={height} borderRadius={borderRadius} />
-        </AnimatedDiv2>
+        <AnimatedMobileDiv top={top} left={left}>
+            <Img src={imgSrc} {...props} />
+        </AnimatedMobileDiv>
     )
 
-const Box1:React.FC<IBoxProps>=({imgSrc,top,left,width,height,borderRadius}):React.ReactElement=>
+const DesktopBox:React.FC<IBoxProps>=({imgSrc,top,left,...props}):React.ReactElement=>
     (
-        <AnimatedDiv1 top={top} left={left}>
-            <Img src={imgSrc} width={width} height={height} borderRadius={borderRadius} />
-        </AnimatedDiv1>
+        <AnimatedDesktopDiv top={top} left={left}>
+            <Img src={imgSrc} {...props} />
+        </AnimatedDesktopDiv>
     )
 
 interface IDivProps{
@@ -62,7 +57,7 @@ interface IDivProps{
     left:number;
 }
 
-const AnimatedDiv1=styled.div<IDivProps>`
+const AnimatedDesktopDiv=styled.div<IDivProps>`
 position:absolute;
 ${({top,left}):string=>`
 top:${top}px;
@@ -74,7 +69,7 @@ animation:anim1 1s forwards;
 `}
 `
 
-const AnimatedDiv2=styled.div<IDivProps>`
+const AnimatedMobileDiv=styled.div<IDivProps>`
 position:absolute;
 ${({top,left}):string=>`
 left:${left}px;
@@ -86,7 +81,7 @@ animation:anim2 1s forwards;
 `}
 `
 
-const AnimatedDiv3=styled.div<IDivProps>`
+const AnimatedNotificationDiv=styled.div<IDivProps>`
 position:absolute;
 ${({top,left}):string=>`
 top:${top}px;
