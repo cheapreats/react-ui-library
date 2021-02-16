@@ -26,6 +26,7 @@ FourTopTable.args = {
             isVisible: true,
             isRound: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'top',
@@ -34,6 +35,7 @@ FourTopTable.args = {
             isVisible: true,
             isRound: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'top',
@@ -42,6 +44,7 @@ FourTopTable.args = {
             isVisible: true,
             isRound: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'top',
@@ -50,6 +53,7 @@ FourTopTable.args = {
             isVisible: true,
             isRound: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'top',
@@ -58,6 +62,7 @@ FourTopTable.args = {
             isVisible: true,
             isRound: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'top',
@@ -66,6 +71,7 @@ FourTopTable.args = {
             isVisible: true,
             isRound: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'top',
@@ -74,6 +80,7 @@ FourTopTable.args = {
             isVisible: true,
             isRound: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'top',
@@ -82,6 +89,7 @@ FourTopTable.args = {
             isVisible: true,
             isRound: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'top',
@@ -90,7 +98,9 @@ FourTopTable.args = {
             isVisible: true,
             isRound: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
     ],
     relativeSize: 0.5,
+    tableUse: 'TableForManagement',
 };

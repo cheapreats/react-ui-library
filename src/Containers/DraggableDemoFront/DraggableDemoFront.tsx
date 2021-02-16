@@ -67,6 +67,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: '',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'bottom',
@@ -74,8 +75,10 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: '',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                 ]}
+                                tableUse='TableForManagement'
                             />
                         </RectangleTwoTopWidth>
                     </Draggable>
@@ -98,6 +101,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: 'Suzy',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'bottom',
@@ -105,8 +109,10 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: 'Tina',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                 ]}
+                                tableUse='TableForManagement'
                             />
                         </RectangleTwoTopWidth>
                     </Draggable>
@@ -128,6 +134,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: 'Scott',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'top',
@@ -135,6 +142,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: '',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'left',
@@ -142,6 +150,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: '',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'left',
@@ -149,6 +158,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: 'Jessica',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'right',
@@ -156,6 +166,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: '',
                                         isVisible: false,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'right',
@@ -163,6 +174,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: 'Jack',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'bottom',
@@ -170,6 +182,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: '',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'bottom',
@@ -177,9 +190,11 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: 'Tara',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                 ]}
                                 relativeSize={0.4}
+                                tableUse='TableForManagement'
                             />
                         </SquareEightTopWidth>
                     </Draggable>
@@ -202,6 +217,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: '',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'bottom',
@@ -209,6 +225,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: '',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'top',
@@ -216,6 +233,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: '',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'bottom',
@@ -223,8 +241,10 @@ export const DraggableCanvas = (): ReactElement => {
                                         occupiedBy: '',
                                         isVisible: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                 ]}
+                                tableUse='TableForManagement'
                             />
                         </RectangleFourTopWidth>
                     </Draggable>
@@ -247,6 +267,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         isRound: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'top',
@@ -255,6 +276,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         isRound: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'top',
@@ -263,6 +285,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         isRound: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'top',
@@ -271,6 +294,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         isRound: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'top',
@@ -279,6 +303,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         isRound: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                     {
                                         position: 'top',
@@ -287,14 +312,18 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         isRound: true,
                                         relativeSize: 1,
+                                        tableUse: 'TableForManagement'
                                     },
                                 ]}
+                                tableUse='TableForManagement'
                             />
                         </CircleTableWidth>
-                    </Draggable>{' '}
+                    </Draggable>
+                    {' '}
                     {/* End draggable table 2 */}
                 </StylesForCanvas>
-            </StylesForDraggableDemo>{' '}
+            </StylesForDraggableDemo>
+            {' '}
             {/* End Draggable Canvas */}
         </SpacingForBottom>
     );

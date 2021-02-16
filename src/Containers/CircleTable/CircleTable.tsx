@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Chair, IChair } from '@Containers/Chair/Chair';
+import { Plus } from '@styled-icons/boxicons-regular';
 
 type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
@@ -8,6 +9,13 @@ type getChairsType = (
     array: Array<IChair>,
     relativeSize: number,
 ) => JSX.Element[];
+
+type tableUseTypes =
+    | 'AddTableButton'
+    | 'TableForEditCanvas'
+    | 'TableForManagement';
+
+type getTableInfoContentType = (tableUse: tableUseTypes) => JSX.Element;
 
 type generateChairKeyType = (pre: string) => string;
 
@@ -32,6 +40,10 @@ export interface ICircleTable {
      * The size for the component relative to the parent
      */
     relativeSize: number;
+    /**
+     * The use type for the table component (how it will be used in the app)
+     */
+    tableUse: tableUseTypes;
 }
 
 /**
@@ -43,6 +55,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
     partyName = 'Null',
     occupancyStatus = 'Vacant',
     relativeSize = 1.0,
+    tableUse = 'TableForManagement',
     ...props
 }) => {
     /**
@@ -66,6 +79,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                     isSeated={item.isSeated}
                     isVisible={item.isVisible}
                     isRound={item.isRound}
+                    tableUse={tableUse}
                 />
             </ChairWrapper>
         ));
@@ -81,6 +95,42 @@ export const CircleTable: React.FC<ICircleTable> = ({
     // Calculate the tangent based on the number of chairs in the array
     const tangent = Math.tan(Math.PI / chairs.length);
 
+    /**
+     * Returns a JSX element for the TableBody Content with the correct styles
+     * and content based on whether the table is used in the management screen,
+     * the add table toolbar, or the create/edit layout screen
+     * @returns {JSX.Element} the correct JSX.Element for the TableBody
+     */
+    const getTableInfoContent: getTableInfoContentType = () => {
+        switch (tableUse) {
+        case 'AddTableButton':
+            return (
+                <StyledPlus />
+            );
+        case 'TableForManagement':
+            return (
+                <div>
+                    {tableID}
+                    <br />
+                    {partyName}
+                    <br />
+                    <Status occupancyStatus={occupancyStatus}>
+                        {occupancyStatus}
+                    </Status>
+                    <br />
+                </div>
+            );
+        case 'TableForEditCanvas':
+            return (
+                <TableNumForEditScreen relativeSize={relativeSize}>
+                    {tableID}
+                </TableNumForEditScreen>
+            );
+        default:
+            return <div />;
+        }
+    };
+
     return (
         <div {...props}>
             <TableBody
@@ -88,20 +138,12 @@ export const CircleTable: React.FC<ICircleTable> = ({
                 numOfChairs={chairs.length}
                 tangentValue={tangent}
                 occupancyStatus={occupancyStatus}
+                tableUse={tableUse}
             >
                 {getChairs(chairs, relativeSize)}
 
                 <TableInfo>
-                    <div>
-                        {tableID}
-                        <br />
-                        {partyName}
-                        <br />
-                        <Status occupancyStatus={occupancyStatus}>
-                            {occupancyStatus}
-                        </Status>
-                        <br />
-                    </div>
+                    {getTableInfoContent(tableUse)}
                 </TableInfo>
             </TableBody>
         </div>
@@ -134,14 +176,14 @@ const MIN_CHAIRS_BEFORE_SET_TANGENT_VALUE = 3;
  */
 const getPositionValue: getPositionValueType = (position) => {
     switch (position) {
-        case 'top':
-            return 0.75;
-        case 'bottom':
-            return 0.25;
-        case 'left':
-            return 0.5;
-        default:
-            return 1;
+    case 'top':
+        return 0.75;
+    case 'bottom':
+        return 0.25;
+    case 'left':
+        return 0.5;
+    default:
+        return 1;
     }
 };
 
@@ -169,14 +211,14 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, position) => {
  */
 const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
-        case 'Vacant':
-            return useTheme().colors.occupancyStatusColors.Vacant;
-        case 'Reserved':
-            return useTheme().colors.occupancyStatusColors.Reserved;
-        case 'Occupied':
-            return useTheme().colors.occupancyStatusColors.Occupied;
-        default:
-            return '';
+    case 'Vacant':
+        return useTheme().colors.occupancyStatusColors.Vacant;
+    case 'Reserved':
+        return useTheme().colors.occupancyStatusColors.Reserved;
+    case 'Occupied':
+        return useTheme().colors.occupancyStatusColors.Occupied;
+    default:
+        return '';
     }
 };
 
@@ -189,6 +231,7 @@ interface ITableBody {
     tangentValue: number;
     occupancyStatus: occupancyStatusTypes;
     relativeSize: number;
+    tableUse: string;
 }
 
 const TableBody = styled.div<ITableBody>`
@@ -217,9 +260,13 @@ const TableBody = styled.div<ITableBody>`
     position: relative;
     width: var(--containerSize);
     height: var(--containerSize);
-    background: ${({ theme }) => theme.colors.chairTableBackground};
+    background-color: ${({ theme, tableUse }) =>
+        (tableUse === "AddTableButton" || tableUse === "TableForEditCanvas") ?
+            theme.colors.chairTableEditBackground : theme.colors.chairTableBackground};
     border-radius: 50%;
-    border-style: solid;
+    border-style: ${({ tableUse }) =>
+        (tableUse === "AddTableButton" || tableUse === "TableForEditCanvas") ?
+            "none" : "solid"};
     border-color: ${({ occupancyStatus }) =>
         getOccupancyColor(occupancyStatus)};
 `;
@@ -239,7 +286,7 @@ const ChairWrapper = styled.div<IChairWrapper>`
     --relativeSpaceBetweenChairs: 1; /* how much extra space we want between chairs, 1 = one chair size */
     --circleRadius: calc(
         ${({ numOfChairs }) =>
-                numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
+        numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
             (1 + var(--relativeSpaceBetweenChairs)) * var(--chairDiameter) /
             var(--tangent)
     ); /* circle radius */
@@ -251,7 +298,7 @@ const ChairWrapper = styled.div<IChairWrapper>`
     height: var(--chairDiameter);
     --perimeterPlacementValue: calc(
         ${({ counter, position, numOfChairs }) =>
-            getTurnValue(counter, numOfChairs, position)}
+        getTurnValue(counter, numOfChairs, position)}
     );
     transform: rotate(var(--perimeterPlacementValue))
         translate(var(--circleRadius))
@@ -271,4 +318,32 @@ const TableInfo = styled.div`
 
 const Status = styled.div<Pick<ICircleTable, 'occupancyStatus'>>`
     color: ${({ occupancyStatus }) => getOccupancyColor(occupancyStatus)};
+`;
+
+const StyledPlus = styled(Plus)`
+    color: black;
+    width: 75%;
+    height: 100%;
+    margin: auto;
+    display: block;
+    
+`;
+
+interface ITableNumForEditScreen {
+    relativeSize: number;
+}
+
+const TableNumForEditScreen = styled.div<ITableNumForEditScreen>`
+  color: black;
+  ${({ relativeSize }) => {
+        const BASE_TABLE_NUM_FONT_SIZE = 5;
+        return `font-size: ${BASE_TABLE_NUM_FONT_SIZE * relativeSize}em;`;
+    }}
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
 `;
