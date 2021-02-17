@@ -6,7 +6,7 @@ import React, {
     useMemo,
 } from 'react';
 import { CalendarAlt } from '@styled-icons/fa-solid/CalendarAlt';
-import styled, { withTheme, DefaultTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { position, flex } from '../../Utils/Mixins';
 import { useTransition } from '../../Utils/Hooks';
 import {
@@ -31,25 +31,26 @@ export interface DatepickerProps extends LabelLayoutProps {
     placeholder?: string;
     onChange?: Function;
     onClear?: Function;
-    theme: DefaultTheme;
     value?: Date;
+    initialShow?: boolean;
 }
 
-const _Datepicker: React.FC<DatepickerProps> = ({
+export const Datepicker: React.FC<DatepickerProps> = ({
     value,
     onChange = (): void => undefined,
     onClear = (): void => undefined,
     placeholder = 'MM-DD-YYYY',
-    theme,
+    initialShow,
     ...props
 }): React.ReactElement => {
+    const theme = useTheme();
     const [selectedDate, setDate] = useState(value);
     const ref = useRef<HTMLDivElement>(null);
     const dateText = useMemo(
         (): string => (printDate(value) ? printDate(value) : placeholder),
         [value],
     );
-    const [show, setShow] = useState(false);
+    const [show, setShow] = useState(initialShow || false);
     const [text, setText] = useState(dateText);
     const [, mount, animate] = useTransition(show, {
         end: theme.speed.normal,
@@ -165,8 +166,6 @@ const _Datepicker: React.FC<DatepickerProps> = ({
         </LabelLayout>
     );
 };
-
-export const Datepicker = withTheme(_Datepicker);
 
 const LabelLayout = styled(LL)<{ ref: React.RefObject<HTMLDivElement> }>`
     position: relative;

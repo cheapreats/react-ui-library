@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MainTheme } from '@Themes/MainTheme';
 import { Modal } from '../Modal/Modal';
 import { Input, Datepicker, Timepicker, Button } from '../../index';
 
@@ -23,7 +22,7 @@ export const DiningReservation: React.FC<DiningReservationProps> = ({
             />
             <Datepicker name="date" label="Pick a date" />
 
-            <Timepicker name="time" label="Pick a time" theme={MainTheme} />
+            <Timepicker name="time" label="Pick a time" />
             <Input
                 name="phone"
                 label="Phone Number"

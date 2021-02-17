@@ -27,8 +27,9 @@ export const Switch: React.FC<SwitchProps> = ({
     label,
     description,
     disabled,
+    ...props
 }): React.ReactElement => (
-    <Container>
+    <Container {...props}>
         <Layout>
             <Label>{label}</Label>
             <Info>{description}</Info>

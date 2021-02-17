@@ -5,7 +5,7 @@ import { Heading } from '../../Text/Heading';
 import { TextLayoutProps } from '../../__Layouts';
 import { Mixins } from '../../Utils';
 
-interface ListHeaderProps extends TextLayoutProps {
+export interface ListHeaderProps extends TextLayoutProps {
     label?: string;
     headerFlex?: string;
     icon?: StyledIcon;

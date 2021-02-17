@@ -28,12 +28,8 @@ const Template: Story<ICollapsibleHeadingProps> = (args) => {
                 ChildElement={(
                     <FilterSelect 
                         selectOptions={['Contains', 'Equals']}
-                        selectedValue='Contains'
+                        value='Contains'
                         placeholder='Add email'
-                        filterApplied={filterApplied}
-                        setFilterApplied={setFilterApplied}
-                        inputProps={{ style: { margin: '10px 0' } }}
-                        tagProps={{ style: { margin: '10px 0' }}}
                     />
                 )}
                 {...args} 

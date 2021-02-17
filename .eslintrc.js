@@ -57,6 +57,7 @@ module.exports = {
         'camelcase': 'off',
         'no-shadow': 'off',
         'no-use-before-define': [0],
+        'array-callback-return': 'off',
         'no-underscore-dangle': 'off',
         'no-param-reassign': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
-import styled, { withTheme, DefaultTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { position, flex, scroll, transition } from '@Utils/Mixins';
 import {
     Main,
@@ -14,20 +14,25 @@ export interface ModalProps
     extends ResponsiveInterface,
         MainInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    theme: DefaultTheme;
     onClose?: Function;
+    height?: string;
     width?: string | number;
     state: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+    maxWidth?: string;
+    maxHeight?: string;
 }
 
-const _Modal: React.FC<ModalProps> = ({
+export const Modal: React.FC<ModalProps> = ({
     onClose = (): void => undefined,
+    height = 'auto',
     width = 'default',
     children,
-    theme,
     state,
+    maxWidth = '90%',
+    maxHeight = '90%',
     ...props
 }): React.ReactElement => {
+    const theme = useTheme();
     const [show, setShow] = state;
     const [, mount, animation] = useTransition(show, {
         end: theme.speed.normal,
@@ -39,7 +44,7 @@ const _Modal: React.FC<ModalProps> = ({
     return createPortal(
         mount && (
             <Container>
-                <Box show={animation} width={width} {...props}>
+                <Box show={animation} width={width} height={height} maxHeight={maxHeight} maxWidth={maxWidth} {...props}>
                     {children}
                 </Box>
                 <Drop show={animation} onClick={(): void => setShow(false)} />
@@ -49,25 +54,24 @@ const _Modal: React.FC<ModalProps> = ({
     );
 };
 
-export const Modal = withTheme(_Modal);
-
 const Container = styled.div`
     ${position('fixed')}
     ${flex('center')}
 `;
 
-const Box = styled.div<
-    {
-        show: boolean;
-        width: string | number;
-    } & ResponsiveInterface &
-        MainInterface
->`
+interface IBoxProps extends MainInterface, ResponsiveInterface {
+    show : boolean;
+    width: string | number;
+    height?: string;
+    maxWidth?: string;
+    maxHeight?: string;
+}
+
+const Box = styled.div<IBoxProps>`
     ${transition(['transform', 'opacity'])}
     background-color: white;
     overflow: auto;
-    max-width: 90%;
-    max-height: 90%;
+    
     z-index: 1;
 
     ${Container}:not(:last-child) & {
@@ -75,9 +79,12 @@ const Box = styled.div<
     }
 
     ${({ theme, ...props }): string => `
+        max-width: ${props.maxWidth};
+        max-height: ${props.maxHeight};
         border-radius: ${theme.dimensions.radius};
         box-shadow: ${theme.depth[1]};
         width: ${theme.dimensions.modal.width[props.width] || props.width};
+        height: ${props.height};
         ${Main({
         padding: theme.dimensions.padding.container,
         ...props,

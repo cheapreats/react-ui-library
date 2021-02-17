@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { withTheme, DefaultTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { useTransition } from '../../Utils/Hooks';
 import { flex } from '../../Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '../../Fragments';
@@ -11,20 +11,20 @@ export interface TimepickerProps
         Omit<React.HTMLAttributes<HTMLElement>, 'onChange'> {
     value?: Date;
     period?: boolean;
-    theme?: DefaultTheme;
     onChange?: Function;
     disabled?: boolean;
+    name: string;
 }
 
-export const Timepicker: React.FC<TimepickerProps> = withTheme(
+export const Timepicker: React.FC<TimepickerProps> = 
     ({
         value = new Date(),
         onChange = (): void => undefined,
         disabled,
-        theme,
         name,
         ...props
     }): React.ReactElement => {
+        const theme = useTheme();
         value = new Date(value);
         const [show, setShow] = useState<boolean>(false);
         const [, mount, animate] = useTransition(show, {
@@ -55,8 +55,7 @@ export const Timepicker: React.FC<TimepickerProps> = withTheme(
                 </Wrapper>
             </LabelLayout>
         );
-    },
-);
+    }
 
 const Wrapper = styled.div`
     ${flex('column')}

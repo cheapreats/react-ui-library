@@ -1,5 +1,5 @@
-import React, {useCallback} from 'react';
-import styled, { css, FlattenInterpolation, ThemeProps, DefaultTheme  } from 'styled-components';
+import React, { useCallback } from 'react';
+import styled, { css, DefaultTheme, FlattenInterpolation, ThemeProps } from 'styled-components';
 import { flex, transition } from '@Utils/Mixins';
 import { Paragraph } from '@Text/Paragraph';
 
@@ -11,10 +11,6 @@ export interface ICardDataProps {
 }
 
 export interface ITransactionProps {
-    pointer: boolean;
-    onClick: Function;
-    width?: number;
-    height?: number;
     cardData: [ICardDataProps];
     animationDelay: number;
     animationTime: number;
@@ -22,10 +18,6 @@ export interface ITransactionProps {
 
 export const TransactionList: React.FC<ITransactionProps> = ({
     cardData,
-    pointer,
-    onClick,
-    width,
-    height,
     animationDelay = 3,
     animationTime = 2,
     ...props
@@ -33,7 +25,7 @@ export const TransactionList: React.FC<ITransactionProps> = ({
 
     const renderTransactionItems = useCallback(() => {
         let initialTime = 0;
-        const transactionItems = cardData.map(({id, icon, title, time}, index) => {
+        return cardData.map(({ id, icon, title, time }, index) => {
             const animationName = `transactionAnimation${index}`;
             const animationDelayAmount = initialTime + animationDelay + animationTime;
             const animationCss = css`
@@ -43,7 +35,7 @@ export const TransactionList: React.FC<ITransactionProps> = ({
             opacity: 0;
             @keyframes ${animationName} {
                 0% {
-                    transform: transform: scale(1);
+                    transform: scale(1);
                     ${({ theme }): string => `
                         box-shadow: ${theme.depth[2]};
                     `} 
@@ -75,14 +67,13 @@ export const TransactionList: React.FC<ITransactionProps> = ({
                     </div>
                 </Item>
             )
-        })
-        return transactionItems;
+        });
         
     }, [animationDelay, animationTime, cardData]);
 
 
     return (
-        <Items>
+        <Items {...props}>
             {renderTransactionItems()}
         </Items>
     )

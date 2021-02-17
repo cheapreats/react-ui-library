@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { DefaultTheme, withTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import {
     Main,
     MainInterface,
@@ -14,17 +14,16 @@ export interface FootnoteProps
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     show?: boolean;
-    theme: DefaultTheme;
-    position?: 'absolute' | 'fixed';
+    position?: 'absolute' | 'fixed' | 'relative';
 }
 
-const _Footnote: React.FC<FootnoteProps> = ({
+export const Footnote: React.FC<FootnoteProps> = ({
     children,
     position = 'fixed',
-    theme,
     show,
     ...props
 }): React.ReactElement | null => {
+    const theme = useTheme();
     const [, mount, animation] = useTransition(show, {
         end: theme.speed.normal,
     });
@@ -34,8 +33,6 @@ const _Footnote: React.FC<FootnoteProps> = ({
         </Container>
     ) : null;
 };
-
-export const Footnote = withTheme(_Footnote);
 
 const Container = styled.div<FootnoteProps>`
     ${(props): string => pos(props.position, 'auto 0 0', 'auto', 0, 0, 0)}

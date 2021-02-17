@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { withTheme, DefaultTheme } from 'styled-components';
+import styled, { useTheme } from 'styled-components';
 import { position, flex, transition } from '@Utils/Mixins';
 import {
     Main,
@@ -14,17 +14,16 @@ export interface LoadingProps
         ResponsiveInterface,
         MainInterface {
     loading?: boolean;
-    theme: DefaultTheme;
     message?:string;
 }
 
-const _Loading: React.FC<LoadingProps> = ({
+export const Loading: React.FC<LoadingProps> = ({
     children,
     loading = false,
     message='Loading...',
-    theme,
     ...props
 }): React.ReactElement => {
+    const theme = useTheme();
     const [, mount, animate] = useTransition(loading, {
         end: theme.speed.normal,
     });
@@ -41,8 +40,6 @@ const _Loading: React.FC<LoadingProps> = ({
         </Container>
     );
 };
-
-export const Loading = withTheme(_Loading);
 
 const Container = styled.div<
     {

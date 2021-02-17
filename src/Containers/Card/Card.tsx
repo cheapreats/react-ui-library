@@ -14,6 +14,7 @@ export interface CardProps
         React.HTMLAttributes<HTMLDivElement> {
     animated?: boolean;
     flat?: boolean;
+    widthFitContent?:boolean;
 }
 
 export const Card: React.FC<CardProps> = ({
@@ -23,7 +24,6 @@ export const Card: React.FC<CardProps> = ({
 
 const CardBox = styled.div<CardProps & MainInterface & ResponsiveInterface>`
     background-color: white;
-
     // Theme Stuff
     ${({ theme, ...props }): string => `
     border-radius: ${theme.dimensions.radius};
@@ -51,6 +51,10 @@ const CardBox = styled.div<CardProps & MainInterface & ResponsiveInterface>`
 
     // Base Styles
     ${Responsive}
+
+    ${({widthFitContent}):string=>`
+    ${widthFitContent?'width:fit-content;':''}
+    `}
 `;
 
 export default Card;
