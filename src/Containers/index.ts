@@ -54,3 +54,5 @@ export * from './MainContainer/MainContainer';
 export * from './DraggableDemoFront/DraggableDemoFront';
 export * from './FileUpload/FileUpload';
 export * from './TransactionList/TransactionList';
+export * from './EditControlPanel/EditControlPanel';
+export * from './EditDraggableCanvas/EditDraggableCanvas'
