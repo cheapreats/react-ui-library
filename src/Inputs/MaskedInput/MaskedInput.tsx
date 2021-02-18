@@ -47,6 +47,8 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     useEffect(() => {
         if (error) {
             setIsError(error);
+        } else {
+            setIsError(false);
         }
     }, [error]);
 

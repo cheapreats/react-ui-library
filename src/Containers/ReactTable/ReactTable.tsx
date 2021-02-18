@@ -1,10 +1,10 @@
-// @ts-nocheck
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import {
-    useTable,
-    usePagination,
+    Row,
     Column,
+    Cell,
+    HeaderGroup,
     TableProps,
     TableHeaderProps,
     TableRowProps,
@@ -12,78 +12,80 @@ import {
 import { Pagination, IPaginationProps } from './Pagination';
 import { IProfileProps } from '../VendorsList/Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { media, scroll, flex } from '../../Utils/Mixins';
+import { media, scroll } from '../../Utils/Mixins';
 
 export interface IVendorsData extends IProfileProps {
     tags?: string[];
     createdAt?: string;
 }
 
-export interface IReactTableProps<T extends IVendorsData>
+export interface IReactTableProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    data: T[];
-    columns: Column<T>[];
+    data: any[];
+    columns: Column<any>[];
     tableProps?: TableProps;
-    tableHeaderProps?: TableHeaderProps;
-    tableRowProps?: TableRowProps;
-    paginationProps?: IPaginationProps;
+    tableHeaderProps?: Omit<TableHeaderProps, 'key'>;
+    tableRowProps?: Omit<TableRowProps, 'key'>;
+    paginationProps?: Partial<IPaginationProps>;
     pageSelectOptions: number[];
     isPaginated?: boolean;
+    getTableProps: Function;
+    getTableBodyProps: Function;
+    headerGroups: HeaderGroup<any>[];
+    prepareRow: (row: Row<any>) => void;
+    page: any;
+    pageCount: number;
+    gotoPage: (updater: number | ((pageIndex: number) => number)) => void;
+    nextPage: () => void;
+    previousPage: () => void;
+    setPageSize: (pageSize: number) => void;
+    pageIndex: number;
+    pageSize: number;
+    onSelectRow: (original: any) => void;
+    tableHeight?: string;
+    mediaMixin?: string;
+    mediaHeight?: string;
+    filteredRows: any[];
 }
 
-const INITIAL_OPTION = 0;
-
-export const ReactTable = <T extends IVendorsData>({
+export const ReactTable: React.FC<IReactTableProps> = ({
     data,
-    columns,
     tableProps,
     tableHeaderProps,
     tableRowProps,
     paginationProps,
     pageSelectOptions,
     isPaginated = true,
+    getTableProps,
+    getTableBodyProps,
+    headerGroups,
+    prepareRow,
+    page,
+    pageCount,
+    gotoPage,
+    nextPage,
+    previousPage,
+    setPageSize,
+    pageIndex,
+    pageSize,
+    onSelectRow,
+    filteredRows,
+    tableHeight,
+    mediaMixin,
+    mediaHeight,
     ...props
-}: IReactTableProps<T>): React.ReactElement => {
-    const {
-        getTableProps,
-        getTableBodyProps,
-        headerGroups,
-        prepareRow,
-        page,
-        pageCount,
-        gotoPage,
-        nextPage,
-        previousPage,
-        setPageSize,
-        state: { pageIndex, pageSize },
-    } = useTable(
-        {
-            columns,
-            data,
-            initialState: {
-                pageIndex: 0,
-                pageSize: pageSelectOptions[INITIAL_OPTION],
-            },
-        },
-        usePagination,
-    );
-
-    const pageOptionsLength = data.length;
-
+}: IReactTableProps): React.ReactElement => {
+    const pageOptionsLength = filteredRows.length;
     const getHeaderGroup = useCallback(
         () =>
-            headerGroups.map((headerGroup, index) => (
-                <SHeadTableRow
-                    {...headerGroup.getHeaderGroupProps()}
-                    key={headerGroup.headers[index].Header?.toString()}
-                >
+            headerGroups.map((headerGroup) => (
+                <SHeadTableRow {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column) => (
                         <STableHeader
-                            {...column.getHeaderProps()}
-                            key={column.Header?.toString()}
                             {...tableHeaderProps}
+                            {...column.getHeaderProps()}
                         >
                             {column.render('Header')}
                         </STableHeader>
@@ -95,15 +97,15 @@ export const ReactTable = <T extends IVendorsData>({
 
     const getRowComponent = useCallback(
         () =>
-            page.map((row: any) => {
+            page.map((row: Row<any>) => {
                 prepareRow(row);
                 return (
                     <STableRow
                         {...row.getRowProps()}
-                        key={row.original.id}
+                        onClick={() => onSelectRow(row.original)}
                         {...tableRowProps}
                     >
-                        {row.cells.map((cell: any) => (
+                        {row.cells.map((cell: Cell<any>) => (
                             <STableData {...cell.getCellProps()}>
                                 {cell.render('Cell')}
                             </STableData>
@@ -116,16 +118,26 @@ export const ReactTable = <T extends IVendorsData>({
 
     return (
         <Wrapper {...props}>
-            <table {...getTableProps()} {...tableProps}>
-                <STableHead>{getHeaderGroup()}</STableHead>
-                <tbody {...getTableBodyProps()}>{getRowComponent()}</tbody>
-            </table>
-            {!!isPaginated && (
+            <TableWrapper>
+                <table {...getTableProps()} {...tableProps}>
+                    <STableHead>{getHeaderGroup()}</STableHead>
+                    <tbody {...getTableBodyProps()}>
+                        <Scrollable
+                            height={tableHeight}
+                            mediaMixin={mediaMixin}
+                            mediaHeight={mediaHeight}
+                        >
+                            {getRowComponent()}
+                        </Scrollable>
+                    </tbody>
+                </table>
+            </TableWrapper>
+            {isPaginated && (
                 <Pagination
                     goToPreviousPage={previousPage}
                     goToNextPage={nextPage}
                     goToPage={gotoPage}
-                    pageLength={pageCount}
+                    pageCount={pageCount}
                     pageOptionsLength={pageOptionsLength}
                     pageSelectOptions={pageSelectOptions}
                     pageSize={pageSize}
@@ -138,16 +150,38 @@ export const ReactTable = <T extends IVendorsData>({
     );
 };
 
-const Wrapper = styled.div`
-    width: 60%;
-    ${media(
-        'tabletLarge',
-        `
-        width: 95%;
-        ${flex('column', 'center')};
-        `,
-    )}
+const TableWrapper = styled.div`
+    overflow-x: auto;
+    ${scroll}
 `;
+
+interface IScrollable {
+    height?: string;
+    mediaMixin?: string;
+    mediaHeight?: string;
+}
+
+const Scrollable = styled.div<IScrollable>`
+    ${({ theme, height, mediaMixin, mediaHeight }) => `
+        overflow-y: auto;
+        overflow-x: hidden;
+        height: ${height};
+        ${
+            mediaMixin &&
+            `@media (max-width: ${theme.media[mediaMixin] || mediaMixin}px) {
+            height: ${mediaHeight}
+        }`
+        }
+    `};
+    ${scroll}
+`;
+
+const Wrapper = styled.div`
+    ${({ theme }): string => `
+        border-top: 2px solid ${theme.colors.input.default};
+    `};
+`;
+
 const STableHead = styled.thead`
     display: block;
 `;
@@ -163,6 +197,7 @@ const STableData = styled.td`
 `;
 const STableHeader = styled.th`
     text-align: left;
+    margin-left: 10px;
     ${({ theme }): string => `
         ${media(
             'phone',
@@ -174,7 +209,7 @@ const STableHeader = styled.th`
 `;
 const SHeadTableRow = styled.tr`
     display: grid;
-    grid-template-columns: 3fr 3fr 1fr;
+    grid-template-columns: 2fr 2fr 1fr;
     ${({ theme }): string => `
         border-bottom: 1.5px solid ${theme.colors.border};
     `};
@@ -184,9 +219,10 @@ const SHeadTableRow = styled.tr`
        grid-template-columns: 2fr 1fr 1fr; 
     `,
     )}
-    ${scroll}
 `;
 const STableRow = styled(SHeadTableRow)`
+    align-items: center;
+    justify-content: left;
     ${({ theme }): string => `
         :hover {
             transform: scale(1.01);

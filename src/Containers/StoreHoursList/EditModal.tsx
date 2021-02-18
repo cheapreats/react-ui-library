@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { Edit } from '@styled-icons/boxicons-regular/Edit';
-import { ICategoryWithHoursTypes } from './types';
-import { findActive } from './CategoryScheduleFunctions';
+import { ICategoryWithHoursTypes } from './interfaces';
 import { Modal } from '../Modal/Modal';
+import { ConfirmModal } from './ConfirmModal';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button/Button';
 import { Select } from '../../Inputs/Select/Select';
@@ -25,21 +25,14 @@ interface EditTimeProps
     CHANGE_ACTIVE_SUBTITLE: string;
     SET_ACTIVE_BUTTON: string;
     allCategories: ICategoryWithHoursTypes[];
-    setAllCategories: React.Dispatch<
-        React.SetStateAction<ICategoryWithHoursTypes[]>
-    >;
-    activeCategory: string;
-    setActiveCategory: React.Dispatch<React.SetStateAction<string>>;
-    activeCategorySchedule: ICategoryWithHoursTypes;
-    setActiveCategorySchedule: React.Dispatch<
-        React.SetStateAction<ICategoryWithHoursTypes>
-    >;
+    activeCategory: number;
+    setActiveCategory: React.Dispatch<React.SetStateAction<number>>;
+    saveStoreHours: () => void;
+    resetForm: () => void;
+    isDirty: boolean;
 }
 
-const CATEGORY_INDEX = 0;
-const CATEGORY_SCHEDULE = 1;
-
-export const EditTimesModal: React.FC<EditTimeProps> = ({
+export const EditModal: React.FC<EditTimeProps> = ({
     isVisible,
     addModal,
     editCategoryModal,
@@ -51,40 +44,37 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
     SET_ACTIVE_BUTTON,
     activeCategory,
     setActiveCategory,
-    activeCategorySchedule,
-    setActiveCategorySchedule,
     allCategories,
+    saveStoreHours,
+    resetForm,
+    isDirty,
     ...props
 }): React.ReactElement => {
     const [addModalState, setAddModalState] = addModal;
+    const [confirmModalState, setConfirmModalState] = useState(false);
     const [
         editCategoryModalState,
         setEditCategoryModalState,
     ] = editCategoryModal;
-
     const [selectActiveCategory, setSelectActiveCategory] = useState(
-        findActive(allCategories).category,
+        activeCategory,
     );
+    const confirm = () => {
+        saveStoreHours();
+        setActiveCategory(selectActiveCategory);
+    };
 
-    /**
-     * Gets the active schedule
-     * @param {string} categoryName - Name of category user creates
-     * @returns {ICategoryWithHoursTypes}
-     */
-    const getActiveSchedule = (
-        categoryName: string,
-    ): ICategoryWithHoursTypes => {
-        findActive(allCategories).isActive = false;
-        setActiveCategory(categoryName);
-        const activeSchedule = allCategories.find(
-            (el): ICategoryWithHoursTypes | null | boolean =>
-                categoryName === el.category,
-        );
-        if (activeSchedule) {
-            activeSchedule.isActive = true;
-            return activeSchedule;
+    const reject = () => {
+        resetForm();
+        setActiveCategory(selectActiveCategory);
+    };
+
+    const onSetNewActive = () => {
+        if (isDirty) {
+            setConfirmModalState(true);
+        } else {
+            setActiveCategory(selectActiveCategory);
         }
-        return activeCategorySchedule;
     };
 
     return (
@@ -114,21 +104,16 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
                 as={Select}
                 label={CHANGE_ACTIVE}
                 description={CHANGE_ACTIVE_SUBTITLE}
-                placeholder={activeCategory}
+                placeholder={allCategories[selectActiveCategory].name}
                 onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
-                    setSelectActiveCategory(e.target.value);
+                    setSelectActiveCategory(parseFloat(e.target.value));
                 }}
-                value={selectActiveCategory}
+                value={allCategories[selectActiveCategory].name}
             >
-                {Object.entries(allCategories).map(
-                    (listAllCategories): React.ReactElement => (
-                        <option
-                            key={listAllCategories[CATEGORY_INDEX]}
-                            value={
-                                listAllCategories[CATEGORY_SCHEDULE].category
-                            }
-                        >
-                            {listAllCategories[CATEGORY_SCHEDULE].category}
+                {Object.values(allCategories).map(
+                    ({ name }, index): React.ReactElement => (
+                        <option key={name} value={index}>
+                            {name}
                         </option>
                     ),
                 )}
@@ -136,15 +121,20 @@ export const EditTimesModal: React.FC<EditTimeProps> = ({
             <ButtonsContainer>
                 <Section
                     as={Button}
-                    onClick={(): void => {
-                        setActiveCategorySchedule(
-                            getActiveSchedule(selectActiveCategory),
-                        );
-                    }}
+                    onClick={onSetNewActive}
+                    disabled={activeCategory === selectActiveCategory}
                 >
                     {SET_ACTIVE_BUTTON}
                 </Section>
             </ButtonsContainer>
+            <ConfirmModal
+                isVisible={[confirmModalState, setConfirmModalState]}
+                confirmDelete="Save or Discard current changes"
+                yesButtonLabel="Save"
+                noButtonLabel="Discard"
+                onConfirm={confirm}
+                onReject={reject}
+            />
         </StyledModal>
     );
 };

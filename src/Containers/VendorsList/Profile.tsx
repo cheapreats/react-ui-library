@@ -21,8 +21,12 @@ export interface IProfileProps
 }
 
 const MATCH_FIRST_LETTER = /\b\w/g;
-const PROFILE_WIDTH = 50;
-const PROFILE_HEIGHT = 50;
+const EMPTY_STRING = '';
+const EMPTY_ARRAY: any[] = [];
+const NO_BACKGROUND_IMAGE = 'none';
+const NO_INITIALS = '';
+const PROFILE_WIDTH = 60;
+const PROFILE_HEIGHT = 60;
 
 export const Profile: React.FC<IProfileProps> = ({
     key,
@@ -40,9 +44,10 @@ export const Profile: React.FC<IProfileProps> = ({
      * @param inputName{string} - person's name
      */
     const getInitials = (inputName: string) => {
-        const initials = inputName.match(MATCH_FIRST_LETTER) || [];
+        const initials = inputName.match(MATCH_FIRST_LETTER) || EMPTY_ARRAY;
         const profileInitials = (
-            (initials.shift() || '') + (initials.pop() || '')
+            (initials.shift() || EMPTY_STRING) +
+            (initials.pop() || EMPTY_STRING)
         ).toUpperCase();
         return profileInitials;
     };
@@ -59,8 +64,8 @@ export const Profile: React.FC<IProfileProps> = ({
             key: id,
             width: PROFILE_WIDTH,
             height: PROFILE_HEIGHT,
-            background: image ? 'none' : theme.colors.primary,
-            initials: image ? '' : profileInitials,
+            background: image ? NO_BACKGROUND_IMAGE : theme.colors.primary,
+            initials: image ? NO_INITIALS : profileInitials,
         };
 
         return (
@@ -90,7 +95,8 @@ export const Profile: React.FC<IProfileProps> = ({
 };
 
 const Wrapper = styled.div`
-    ${flex('row')};
+    ${flex('row', 'flex-start')};
+    margin-left: 10px;
     ${media(
         'phone',
         `

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Select } from '../../Inputs/Select/Select';
+import { Select, SelectProps } from '../../Inputs/Select/Select';
 import { SmallText, SmallTextProps } from '../../Text/SmallText';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex } from '../../Utils/Mixins';
@@ -10,14 +10,14 @@ export interface IRowSelectorProps
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     setPageSize: (pageSize: number) => void;
-    pageSize: string;
+    pageSize: string | number;
     pageSelectOptions: number[];
     pageOptionsLength: number;
     smallTextProps?: SmallTextProps;
+    selectProps?: SelectProps;
 }
 
-const LEFT_ROW_TEXT = 'Rows per page';
-const RIGHT_ROW_TEXT = 'out of ';
+const LEFT_ROW_TEXT = 'Clients per page';
 
 export const RowSelector: React.FC<IRowSelectorProps> = ({
     pageSize,
@@ -25,16 +25,17 @@ export const RowSelector: React.FC<IRowSelectorProps> = ({
     pageOptionsLength,
     pageSelectOptions,
     smallTextProps,
+    selectProps,
     ...props
 }): React.ReactElement => (
     <Wrapper {...props}>
-        <SmallText {...smallTextProps}>{LEFT_ROW_TEXT}</SmallText>
         <Select
             onChange={(e: React.ChangeEvent<HTMLInputElement>): void => {
                 setPageSize(Number(e.target.value));
             }}
             value={pageSize}
-            placeholder={pageSize}
+            placeholder={pageSize.toString()}
+            {...selectProps}
         >
             {pageSelectOptions.map(
                 (selectOption): React.ReactElement => (
@@ -44,13 +45,10 @@ export const RowSelector: React.FC<IRowSelectorProps> = ({
                 ),
             )}
         </Select>
-        <SmallText {...smallTextProps}>
-            {RIGHT_ROW_TEXT}
-            {pageOptionsLength}
-        </SmallText>
+        <SmallText {...smallTextProps}>{LEFT_ROW_TEXT}</SmallText>
     </Wrapper>
 );
 
 const Wrapper = styled.div`
-    ${flex('row')};
+    ${flex('row', 'center')};
 `;

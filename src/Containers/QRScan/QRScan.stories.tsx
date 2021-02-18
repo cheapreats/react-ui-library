@@ -1,41 +1,69 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { QRScan, QRScanProps, PhoneBox, qrImgURL1 } from '../../index';
+import styled from 'styled-components';
+import { PhoneFill } from '@styled-icons/bootstrap/PhoneFill';
+import { SmallText } from '@Text/SmallText';
+import { QRScan, QRScanProps } from '../../index';
+import { QRIconWithText } from './QRIconWithText';
 import { createStoryTitle } from '../../Constants';
+
+const qrImgURL1 =
+    'https://storage.googleapis.com/support-forums-api/attachment/thread-13090132-506909745012483037.png';
+const QRImg = styled.img`
+    width: 150px;
+`;
+
+const footerItems = [
+    <QRIconWithText
+        subTextSize="0.4rem"
+        headingTextSize="0.6rem"
+        textWidth="50px"
+        margin="5px 5px 5px 5px"
+        iconSize="30px"
+        headingText="QR code with"
+        subText="your phones camera"
+        icon={PhoneFill}
+    />,
+    <QRIconWithText
+        subTextSize="0.4rem"
+        headingTextSize="0.6rem"
+        textWidth="50px"
+        margin="5px 5px 5px 0"
+        iconSize="30px"
+        headingText="Pick up"
+        subText="or ..."
+        icon={PhoneFill}
+    />,
+    <QRIconWithText
+        subTextSize="0.4rem"
+        headingTextSize="0.6rem"
+        textWidth="50px"
+        margin="5px 5px 5px 0"
+        iconSize="30px"
+        headingText="Order and Pay"
+        subText="in your browser"
+        icon={PhoneFill}
+    />,
+];
 
 export default {
     title: createStoryTitle('QRScan'),
     component: QRScan,
     args: {
-        title: 'ORDER HERE',
-        qrImgURL: qrImgURL1,
-        contentRightTitle: 'TABLE',
-        contentRightBig: 32,
-        middleFooterText: 'Snackpass',
-        MiddleFooterIcon: <PhoneBox inverted />,
-        middleFooterIconWidth: 10,
-        FooterIcon1: <PhoneBox />,
-        footerIcon1width: 10,
-        FooterIcon2: <PhoneBox />,
-        footerIcon2width: 10,
-        FooterIcon3: <PhoneBox />,
-        footerIcon3width: 10,
-        footer1header: 'QR code with',
-        footer1body: "your phone's camera",
-        footer2header: 'Order & Pay',
-        footer2body: 'in your browser',
-        footer3header: 'Pick up',
-        footer3body: 'or ...',
+        title: 'COVID Contact Tracing',
+        qrDisplay: <QRImg src={qrImgURL1} />,
+        footerItems,
+        middleItems: (
+            <SmallText color="white" margin="10px auto">
+                Get Updates from the store
+            </SmallText>
+        ),
+        qrRightContent: (
+            <SmallText color="black" margin="10px auto">
+                Get Updates from the store
+            </SmallText>
+        ),
     },
 } as Meta;
 
 export const Basic: Story<QRScanProps> = (args) => <QRScan {...args} />;
-
-export const NotIconInMiddleFooter = Basic.bind({});
-
-NotIconInMiddleFooter.args = {
-    ...NotIconInMiddleFooter.args,
-    contentRightBig: 31,
-    MiddleFooterIcon: undefined,
-    middleFooterIconWidth: 0,
-};

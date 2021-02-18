@@ -3,7 +3,7 @@ import styled, { useTheme } from 'styled-components';
 import { Chair, IChair } from '@Containers/Chair/Chair';
 import { Plus } from '@styled-icons/boxicons-regular';
 
-type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
+export type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
 type getChairsType = (
     array: Array<IChair>,

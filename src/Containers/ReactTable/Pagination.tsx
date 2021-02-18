@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { RowSelector, IRowSelectorProps } from './RowSelector';
 import { PageSelector, IPageSelectorProps } from './PageSelector';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { flex, media } from '../../Utils/Mixins';
+import { flex } from '../../Utils/Mixins';
 
 export interface IPaginationProps
     extends IRowSelectorProps,
@@ -11,8 +11,18 @@ export interface IPaginationProps
         MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    rowSelectorProps?: IRowSelectorProps;
-    pageSelectorProps?: IPageSelectorProps;
+    rowSelectorProps?: Omit<
+        IRowSelectorProps,
+        'setPageSize' | 'pageSize' | 'pageSelectOptions' | 'pageOptionsLength'
+    >;
+    pageSelectorProps?: Omit<
+        IPageSelectorProps,
+        | 'goToPreviousPage'
+        | 'goToNextPage'
+        | 'goToPage'
+        | 'pageCount'
+        | 'pageIndex'
+    >;
 }
 
 export const Pagination: React.FC<IPaginationProps> = ({
@@ -23,7 +33,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
     goToPreviousPage,
     goToNextPage,
     goToPage,
-    pageLength,
+    pageCount,
     pageIndex,
     rowSelectorProps,
     pageSelectorProps,
@@ -41,7 +51,7 @@ export const Pagination: React.FC<IPaginationProps> = ({
             goToPreviousPage={goToPreviousPage}
             goToNextPage={goToNextPage}
             goToPage={goToPage}
-            pageLength={pageLength}
+            pageCount={pageCount}
             pageIndex={pageIndex}
             {...pageSelectorProps}
         />
@@ -49,11 +59,5 @@ export const Pagination: React.FC<IPaginationProps> = ({
 );
 
 const Wrapper = styled.div`
-    ${flex('space-between')};
-    ${media(
-        'tabletLarge',
-        `
-        ${flex('column', 'center')};
-    `,
-    )};
+    ${flex('column', 'center')};
 `;

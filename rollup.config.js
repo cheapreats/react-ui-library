@@ -3,7 +3,7 @@ import ttypescript from 'ttypescript';
 import babel from 'rollup-plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
-import css from 'rollup-plugin-css-only';
+import postcss from 'rollup-plugin-postcss';
 import json from '@rollup/plugin-json';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
 import pkg from './package.json';
@@ -50,7 +50,9 @@ export default {
                 '@babel/preset-typescript',
             ],
         }),
-        css(),
+        postcss({
+            extensions: ['.css'],
+        }),
     ],
     external: [
         ...Object.keys(pkg.dependencies || {}),

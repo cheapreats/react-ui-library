@@ -25,7 +25,7 @@ export const CollapsibleHeading: React.FC<ICollapsibleHeadingProps> = ({
     <Wrapper {...props}>
         <Row>
             <Container>
-                <Heading bold type="h2" size="1.2rem" padding="0 0 0 5px">
+                <Heading bold type="h2" size="1.2rem" margin="0 0 0 10px">
                     {title}
                 </Heading>
             </Container>
@@ -35,11 +35,20 @@ export const CollapsibleHeading: React.FC<ICollapsibleHeadingProps> = ({
                 onClick={setCollapsed}
             />
         </Row>
-        {!!isCollapsed && ChildElement}
+        <ChildContainer>{!!isCollapsed && ChildElement}</ChildContainer>
     </Wrapper>
 );
 
-const Wrapper = styled.div``;
+const Wrapper = styled.div`
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow-y: visible;
+`;
+const ChildContainer = styled.div`
+    flex-grow: 2;
+    flex-shrink: 0;
+`;
 const Row = styled.div`
     ${flex('space-between')};
 `;
