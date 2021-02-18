@@ -103,31 +103,29 @@ export const CircleTable: React.FC<ICircleTable> = ({
      */
     const getTableInfoContent: getTableInfoContentType = () => {
         switch (tableUse) {
-        case 'AddTableButton':
-            return (
-                <StyledPlus />
-            );
-        case 'TableForManagement':
-            return (
-                <div>
-                    {tableID}
-                    <br />
-                    {partyName}
-                    <br />
-                    <Status occupancyStatus={occupancyStatus}>
-                        {occupancyStatus}
-                    </Status>
-                    <br />
-                </div>
-            );
-        case 'TableForEditCanvas':
-            return (
-                <TableNumForEditScreen relativeSize={relativeSize}>
-                    {tableID}
-                </TableNumForEditScreen>
-            );
-        default:
-            return <div />;
+            case 'AddTableButton':
+                return <StyledPlus />;
+            case 'TableForManagement':
+                return (
+                    <div>
+                        {tableID}
+                        <br />
+                        {partyName}
+                        <br />
+                        <Status occupancyStatus={occupancyStatus}>
+                            {occupancyStatus}
+                        </Status>
+                        <br />
+                    </div>
+                );
+            case 'TableForEditCanvas':
+                return (
+                    <TableNumForEditScreen relativeSize={relativeSize}>
+                        {tableID}
+                    </TableNumForEditScreen>
+                );
+            default:
+                return <div />;
         }
     };
 
@@ -142,9 +140,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
             >
                 {getChairs(chairs, relativeSize)}
 
-                <TableInfo>
-                    {getTableInfoContent(tableUse)}
-                </TableInfo>
+                <TableInfo>{getTableInfoContent(tableUse)}</TableInfo>
             </TableBody>
         </div>
     );
@@ -176,14 +172,14 @@ const MIN_CHAIRS_BEFORE_SET_TANGENT_VALUE = 3;
  */
 const getPositionValue: getPositionValueType = (position) => {
     switch (position) {
-    case 'top':
-        return 0.75;
-    case 'bottom':
-        return 0.25;
-    case 'left':
-        return 0.5;
-    default:
-        return 1;
+        case 'top':
+            return 0.75;
+        case 'bottom':
+            return 0.25;
+        case 'left':
+            return 0.5;
+        default:
+            return 1;
     }
 };
 
@@ -211,14 +207,14 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, position) => {
  */
 const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
-    case 'Vacant':
-        return useTheme().colors.occupancyStatusColors.Vacant;
-    case 'Reserved':
-        return useTheme().colors.occupancyStatusColors.Reserved;
-    case 'Occupied':
-        return useTheme().colors.occupancyStatusColors.Occupied;
-    default:
-        return '';
+        case 'Vacant':
+            return useTheme().colors.occupancyStatusColors.Vacant;
+        case 'Reserved':
+            return useTheme().colors.occupancyStatusColors.Reserved;
+        case 'Occupied':
+            return useTheme().colors.occupancyStatusColors.Occupied;
+        default:
+            return '';
     }
 };
 
@@ -261,12 +257,14 @@ const TableBody = styled.div<ITableBody>`
     width: var(--containerSize);
     height: var(--containerSize);
     background-color: ${({ theme, tableUse }) =>
-        (tableUse === "AddTableButton" || tableUse === "TableForEditCanvas") ?
-            theme.colors.chairTableEditBackground : theme.colors.chairTableBackground};
+        tableUse === 'AddTableButton' || tableUse === 'TableForEditCanvas'
+            ? theme.colors.chairTableEditBackground
+            : theme.colors.chairTableBackground};
     border-radius: 50%;
     border-style: ${({ tableUse }) =>
-        (tableUse === "AddTableButton" || tableUse === "TableForEditCanvas") ?
-            "none" : "solid"};
+        tableUse === 'AddTableButton' || tableUse === 'TableForEditCanvas'
+            ? 'none'
+            : 'solid'};
     border-color: ${({ occupancyStatus }) =>
         getOccupancyColor(occupancyStatus)};
 `;
@@ -286,7 +284,7 @@ const ChairWrapper = styled.div<IChairWrapper>`
     --relativeSpaceBetweenChairs: 1; /* how much extra space we want between chairs, 1 = one chair size */
     --circleRadius: calc(
         ${({ numOfChairs }) =>
-        numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
+                numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
             (1 + var(--relativeSpaceBetweenChairs)) * var(--chairDiameter) /
             var(--tangent)
     ); /* circle radius */
@@ -298,7 +296,7 @@ const ChairWrapper = styled.div<IChairWrapper>`
     height: var(--chairDiameter);
     --perimeterPlacementValue: calc(
         ${({ counter, position, numOfChairs }) =>
-        getTurnValue(counter, numOfChairs, position)}
+            getTurnValue(counter, numOfChairs, position)}
     );
     transform: rotate(var(--perimeterPlacementValue))
         translate(var(--circleRadius))
@@ -326,7 +324,6 @@ const StyledPlus = styled(Plus)`
     height: 100%;
     margin: auto;
     display: block;
-    
 `;
 
 interface ITableNumForEditScreen {
@@ -334,16 +331,16 @@ interface ITableNumForEditScreen {
 }
 
 const TableNumForEditScreen = styled.div<ITableNumForEditScreen>`
-  color: black;
-  ${({ relativeSize }) => {
+    color: black;
+    ${({ relativeSize }) => {
         const BASE_TABLE_NUM_FONT_SIZE = 5;
         return `font-size: ${BASE_TABLE_NUM_FONT_SIZE * relativeSize}em;`;
     }}
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-weight: bold;
+    text-align: center;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
 `;
