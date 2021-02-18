@@ -76,7 +76,7 @@ const HeartIcon = styled(Heart)`
   stroke: white;
   stroke-width: 2;
   top: 115px;
-  left: 125px;
+  left: 92px;
   z-index: 11;
 `;
 
@@ -86,6 +86,7 @@ const Container = styled.div`
   background-color: white;
   border-radius: 10px;
   box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+  position:relative;
 `;
 
 const LeftContainer = styled.div`
@@ -124,7 +125,7 @@ const VisitCountContainer = styled.div`
   position: absolute;
   // Height of Photo + Half Height of Self
   top: 115px;
-  left: 40px;
+  left: 33px;
   z-index: 11;
   display: flex;
   align-items: center;
