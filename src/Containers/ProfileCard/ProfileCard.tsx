@@ -4,6 +4,7 @@ import { Paragraph } from '@Text';
 import { Button } from '@Inputs/Button/Button';
 import { PhoneCall } from '@styled-icons/boxicons-solid/PhoneCall';
 import {Heart} from '@styled-icons/boxicons-solid/Heart';
+import {User} from '@styled-icons/fa-solid/User';
 
 export interface ProfileCardProps extends React.HTMLAttributes<HTMLDivElement> {
     visitCount: string,
@@ -45,7 +46,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
     return (
         <Container {...props}>
             <LeftContainer>
-                <ProfilePhoto customerLoyaltyType={customerLoyaltyType} src={profileImage} alt="Profile Image" />
+                {profileImage?.length?<ProfilePhoto customerLoyaltyType={customerLoyaltyType} src={profileImage} alt="Profile Image" />:<DefaultProfilePhoto customerLoyaltyType={customerLoyaltyType} as={User} />}
                 <VisitCountContainer>
                     <VisitCountText fontSize={dynamicFontSizeByVisitCountLength}>{visitCount}</VisitCountText>
                 </VisitCountContainer>
@@ -114,6 +115,20 @@ const ProfilePhoto = styled.img<Pick<ProfileCardProps, 'customerLoyaltyType'>>`
   z-index: 10;
   background-color: grey;
 `;
+
+const DefaultProfilePhoto=styled.svg<Pick<ProfileCardProps, 'customerLoyaltyType'>>`
+${({customerLoyaltyType}) => ({
+        'FIRST_TIME': 'border: 5px solid rgba(169, 113, 66, 1);',
+        'CASUAL': 'border: 5px solid rgba(190, 194, 203, 1);',
+        'REGULAR': 'border: 5px solid rgba(255, 215, 112, 1);',
+    }[customerLoyaltyType])};
+box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
+width: 110px;
+height: 110px;
+border-radius: 999px;
+z-index: 10;
+background-color: grey;
+`
 
 const VisitCountContainer = styled.div`
   width: 25px;
