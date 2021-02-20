@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
-import styled from "styled-components";
+import styled,{ useTheme } from "styled-components";
+import Card from "@Containers/Card/Card";
 import Button from "../../Inputs/Button/Button"
 
 export interface IEditControlPanel {
@@ -23,40 +24,58 @@ export const EditControlPanel: React.FC<IEditControlPanel> = ({
     ...props
 }) => {
 
-    const [seats, setSeat] = useState(NumberOfSeats);
+    const [seat, setSeat] = useState(NumberOfSeats);
+
+    /**
+     * Functions for Delete, Rotate, and Click buttons
+     */
+    function onDeleteClick(){
+        console.log("Delete Button has been clicked");
+    }
+
+    function onRotateClick(){
+        console.log("Rotate Button has been clicked");
+    }
+
+    function onCloneClick(){
+        console.log("Clone Button has been clicked");
+    }
+
     return (
         <BorderForControlPanel {...props}>
-            <CenteredText>
-                <FontStylesAndColor>Table Number</FontStylesAndColor>
-                <InputStyles placeholder={TableNumber} />
-            </CenteredText>
-            <CenteredText>
-                <FontStylesAndColor>Number Of Seats</FontStylesAndColor>
-                <Border>
-                    <Container>
-                        <Row>
-                            <Col1>
-                                <StylesForLeftButton onClick={() => setSeat(seats - 1)}>-</StylesForLeftButton>
-                            </Col1>
-                            <Col10>
-                                {seats}
-                            </Col10>
-                            <Col2>
-                                <StylesForRightButton onClick={() => setSeat(seats + 1)}>+</StylesForRightButton>
-                            </Col2>
-                        </Row>
-                    </Container>
-                </Border>
-            </CenteredText>
-            <PaddingForButtons>
-                <Button primary style={{marginRight: 'auto', marginLeft: "auto", width: '80%'}}>Rotate</Button>
-            </PaddingForButtons>
-            <PaddingForButtons>
-                <Button primary style={{marginRight: 'auto', marginLeft: "auto", width: '80%'}}>Clone</Button>
-            </PaddingForButtons>
-            <PaddingForButtons>
-                <Button primary style={{marginRight: 'auto', marginLeft: "auto", width: '80%'}}>Delete</Button>
-            </PaddingForButtons>
+            <Card>
+                <CenteredText>
+                    <div style={{ color: useTheme().colors.editControlPanelColor, fontWeight: 'bold' }}>Table Number</div>
+                    <InputStyles placeholder={TableNumber} />
+                </CenteredText>
+                <CenteredText>
+                    <div style={{ color: useTheme().colors.editControlPanelColor, fontWeight: 'bold' }}>Number Of Seats</div>
+                    <Border>
+                        <Container>
+                            <Row>
+                                <Col1>
+                                    <StylesForLeftButton onClick={() => setSeat(prevSeat => prevSeat - 1)}>-</StylesForLeftButton>
+                                </Col1>
+                                <Col10>
+                                    {seat}
+                                </Col10>
+                                <Col2>
+                                    <StylesForRightButton onClick={() => setSeat(prevSeat => prevSeat + 1)}>+</StylesForRightButton>
+                                </Col2>
+                            </Row>
+                        </Container>
+                    </Border>
+                </CenteredText>
+                <PaddingForButtons>
+                    <Button primary onClick={() => onRotateClick()} style={{marginRight: 'auto', marginLeft: "auto", width: '80%'}}>Rotate</Button>
+                </PaddingForButtons>
+                <PaddingForButtons>
+                    <Button primary onClick={() => onCloneClick()} style={{marginRight: 'auto', marginLeft: "auto", width: '80%'}}>Clone</Button>
+                </PaddingForButtons>
+                <PaddingForButtons>
+                    <Button primary onClick={() => onDeleteClick()} style={{marginRight: 'auto', marginLeft: "auto", width: '80%'}}>Delete</Button>
+                </PaddingForButtons>
+            </Card>
         </BorderForControlPanel>
     );
 };
@@ -78,11 +97,6 @@ const StylesForRightButton = styled(Button)`
     border: none;
     background: transparent;
     outline: none;
-`;
-
-const FontStylesAndColor = styled.div`
-    color: #000000;
-    font-weight: bold;
 `;
 
 const Container = styled.div`
@@ -133,15 +147,13 @@ const Col2 = styled.div`
 const BorderForControlPanel = styled.div`
     width: 240px;
     height: 350px;
-    border: 1px solid #000000;
-    border-radius: 21px;
 `;
 
 const Border = styled.div`
     width: 80%;
     margin-left: auto;
     margin-right: auto;
-    border: 1px solid #000000;
+    border: 1px solid ${({ theme }) => theme.colors.editControlPanelColor};
     border-radius: 21px;
     margin-top: .5rem;
 `;

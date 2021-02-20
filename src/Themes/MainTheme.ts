@@ -23,11 +23,11 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
         };
 
         PieChartColors: {
-            Red: string,
-            Green: string,
-            Yellow: string,
-        }
-
+            Red: string;
+            Green: string;
+            Yellow: string;
+        };
+        editControlPanelColor: string;
         chairTableBackground: string;
         chairOccupiedBackground: string;
     };
@@ -55,7 +55,7 @@ export const MainTheme: MainThemeInterface = {
             Reserved: '#ffc107',
             Occupied: '#17a2b8',
         },
-
+        editControlPanelColor: '#000000',
         chairTableBackground: '#6c757d',
         chairOccupiedBackground: '#EE2434',
         PieChartColors: {
