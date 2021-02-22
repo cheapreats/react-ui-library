@@ -53,14 +53,19 @@ export default {
                 <p>This is a list Footer</p>
             </ListFooter>
         ),
-        columnWidth: '240px',
+        columnWidth: '300px',
         loading: false,
         cssPosition: 'absolute',
         margin: '0',
         left: '0',
         right: 'auto',
-        onCloseTranslateXAxis: '-100%',
         id: '1',
+        mediaMixin: 'tablet',
+        mediaCssPosition: 'absolute',
+        mediaLeft: '0',
+        mediaRight: 'auto',
+        mediaMargin: 'auto',
+        mediaOnCloseTranslateXAxis: '-100%',
     },
 } as Meta;
 

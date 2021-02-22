@@ -44,12 +44,11 @@ export default {
     title: createStoryTitle('TransactionList'),
     component: TransactionList,
     argTypes: {
-        action: { action: 'Clicked!' },
+        action: { onClick: 'Clicked!' },
     },
     args: {
         cardData: sampleData,
         pointer: true,
-        onClick: () => {console.log('you clicked wow')},
         width: '150px',
         height: '150px',
         animationTime: 2,

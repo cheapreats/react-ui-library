@@ -6,10 +6,10 @@ import { Image, ImageProps } from '../../index';
 export default {
     title: createStoryTitle('Image'),
     component: Image,
+    argTypes: { onImageReturn: { action: 'Image Uploaded' } },
     args: {
         accept: '',
         aspect: 0,
-        onImageReturn: (image: any) => console.log(image),
     },
 } as Meta;
 

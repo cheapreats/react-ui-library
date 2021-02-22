@@ -7,7 +7,7 @@ const defaultActiveStyle = (): string => `
 `;
 
 export interface AccordionProps {
-    activeStyle: Function;
+    activeStyle?: Function;
 }
 
 export const Accordion: React.FC<AccordionProps> = ({

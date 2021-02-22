@@ -15,46 +15,44 @@ export interface IMainContainer {
 
 }
 
-export const MainContainer: React.FC<IMainContainer> = () => {
-    return (
-        <TextCenterWithGreyBackground>
-            <SpacingTopForHeader3WithH1>Table Management Coming Soon!</SpacingTopForHeader3WithH1>
-            <hr />
-            <PaddingTopAndBottomForH4>
-                Comprehensive restaurant management made easy.
-            </PaddingTopAndBottomForH4>
-            <PaddingOnBottom>
-                Seat customers, make reservations, track orders, and get a
-                bird's-eye view of your dining areas from one simple interface!
-            </PaddingOnBottom>
-            <PaddingOnBottom>Design dining areas and customize your tables with ease. </PaddingOnBottom>
-            <PaddingOnBottom>
-                Track customer interactions from end to end, so you can access
-                all your business data in a single location.
-            </PaddingOnBottom>
-            <hr />
-            <SpaceForHeaderWithH5TextCenter>
-                Table Management Features:
-            </SpaceForHeaderWithH5TextCenter>
-            <StylesForUnstyledList>
-                <ListStyles>
-                    Colors make it easy to see which tables are occupied,
-                    vacant, and reserved.
-                </ListStyles>
-                <ListStyles>
-                    See guest names for the occupied chairs at each table.
-                </ListStyles>
-                <ListStyles>
-                    Get up-to-date occupancy information for your entire
-                    restaurant.
-                </ListStyles>
-            </StylesForUnstyledList>
-            <ButtonDangerLightBorderRounded href="#demo">
-                Try the Demo!
-            </ButtonDangerLightBorderRounded>
-        </TextCenterWithGreyBackground>
-    );
-};
+export const MainContainer: React.FC<IMainContainer> = () => (
+    <TextCenterWithGreyBackground>
+        <SpacingTopForHeader3WithH1>Table Management Coming Soon!</SpacingTopForHeader3WithH1>
+        <hr />
+        <PaddingTopAndBottomForH4>
+            Comprehensive restaurant management made easy.
+        </PaddingTopAndBottomForH4>
+        <PaddingOnBottom>
+            Seat customers, make reservations, track orders, and get a
+            bird&apos;s-eye view of your dining areas from one simple interface!
+        </PaddingOnBottom>
+        <PaddingOnBottom>Design dining areas and customize your tables with ease. </PaddingOnBottom>
+        <PaddingOnBottom>
+            Track customer interactions from end to end, so you can access
+            all your business data in a single location.
+        </PaddingOnBottom>
+        <hr />
+        <SpaceForHeaderWithH5TextCenter>
+            Table Management Features:
+        </SpaceForHeaderWithH5TextCenter>
+        <StylesForUnstyledList>
+            <ListStyles>
+                Colors make it easy to see which tables are occupied,
+                vacant, and reserved.
+            </ListStyles>
+            <ListStyles>
+                See guest names for the occupied chairs at each table.
+            </ListStyles>
+            <ListStyles>
+                Get up-to-date occupancy information for your entire
+                restaurant.
+            </ListStyles>
+        </StylesForUnstyledList>
+        <ButtonDangerLightBorderRounded href="#demo">
+            Try the Demo!
+        </ButtonDangerLightBorderRounded>
+    </TextCenterWithGreyBackground>
+);
 
 /**
  * Styled component variables

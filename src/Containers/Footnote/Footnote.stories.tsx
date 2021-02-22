@@ -15,6 +15,6 @@ export default {
 
 export const Basic: Story<FootnoteProps> = (args) => (
     <Footnote {...args}>
-        <SmallText {...args}>{getCaptionForLocale(args.children)}</SmallText>
+        <SmallText {...args}>{getCaptionForLocale(args.children as string)}</SmallText>
     </Footnote>
 );

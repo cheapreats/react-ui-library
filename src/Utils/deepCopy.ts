@@ -8,7 +8,8 @@ export const deepCopy = <T>(original: T): T => {
         return new Date(original) as any;
     }
     if (Array.isArray(original)) {
-        return original.map((item: any) => deepCopy<any>(item)) as any;
+        const copyArray: any[] = original as any[];
+        return copyArray.map((item: any) => deepCopy<any>(item)) as any;
     }
     if (typeof original === 'object') {
         return Object.entries(original).reduce(

@@ -146,12 +146,20 @@ const types = [
     'p', 'P'
 ]; */
 
+type msToTime = (
+    duration: number
+) => {
+    hours: number,
+    minutes: number,
+    seconds: number
+}
+
 /**
  * This function converts from milliseconds to hours, minutes and seconds
- * @param duration {numer} - The number of milliseconds
- * @returns {{hours:number;minutes:number;seconds:number;}} The hours, minutes and seconds
+ * @param duration {number} - The number of milliseconds
+ * @returns {{hours: number, minutes: number, seconds: number,}} The hours, minutes and seconds
  */
-export const msToTime = (duration: number) => {
+export const msToTime: msToTime = (duration)  => {
     const seconds = Math.floor((duration / 1000) % 60);
     const minutes = Math.floor((duration / (1000 * 60)) % 60);
     const hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
