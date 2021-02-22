@@ -25,6 +25,7 @@ SevenTopSquareTable.args = {
             occupiedBy: 'Scott',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'top',
@@ -32,6 +33,7 @@ SevenTopSquareTable.args = {
             occupiedBy: '',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'left',
@@ -39,6 +41,7 @@ SevenTopSquareTable.args = {
             occupiedBy: '',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'left',
@@ -46,6 +49,7 @@ SevenTopSquareTable.args = {
             occupiedBy: 'Corey',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'right',
@@ -53,6 +57,7 @@ SevenTopSquareTable.args = {
             occupiedBy: '',
             isVisible: false,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'right',
@@ -60,6 +65,7 @@ SevenTopSquareTable.args = {
             occupiedBy: 'Jack',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'bottom',
@@ -67,6 +73,7 @@ SevenTopSquareTable.args = {
             occupiedBy: '',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'bottom',
@@ -74,9 +81,11 @@ SevenTopSquareTable.args = {
             occupiedBy: 'Sam',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
     ],
     isSquare: true,
+    tableUse: 'TableForManagement',
 };
 
 /**
@@ -94,6 +103,7 @@ EightTopVertRectangleTable.args = {
             occupiedBy: 'Scott',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'left',
@@ -101,6 +111,7 @@ EightTopVertRectangleTable.args = {
             occupiedBy: '',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'left',
@@ -108,6 +119,7 @@ EightTopVertRectangleTable.args = {
             occupiedBy: '',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'left',
@@ -115,6 +127,7 @@ EightTopVertRectangleTable.args = {
             occupiedBy: 'Corey',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'right',
@@ -122,6 +135,7 @@ EightTopVertRectangleTable.args = {
             occupiedBy: '',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'right',
@@ -129,6 +143,7 @@ EightTopVertRectangleTable.args = {
             occupiedBy: '',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'right',
@@ -136,6 +151,7 @@ EightTopVertRectangleTable.args = {
             occupiedBy: 'Jack',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'bottom',
@@ -143,9 +159,11 @@ EightTopVertRectangleTable.args = {
             occupiedBy: 'Sam',
             isVisible: true,
             relativeSize: 1,
+            tableUse: 'TableForManagement',
         },
     ],
     isSquare: false,
+    tableUse: 'TableForManagement',
 };
 
 /**
@@ -163,6 +181,7 @@ SixTopHorizontalRectangleTable.args = {
             occupiedBy: 'Scott',
             isVisible: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'left',
@@ -170,6 +189,7 @@ SixTopHorizontalRectangleTable.args = {
             occupiedBy: '',
             isVisible: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'top',
@@ -177,6 +197,7 @@ SixTopHorizontalRectangleTable.args = {
             occupiedBy: 'Corey',
             isVisible: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'right',
@@ -184,6 +205,7 @@ SixTopHorizontalRectangleTable.args = {
             occupiedBy: '',
             isVisible: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'bottom',
@@ -191,6 +213,7 @@ SixTopHorizontalRectangleTable.args = {
             occupiedBy: 'Jack',
             isVisible: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
         {
             position: 'bottom',
@@ -198,8 +221,10 @@ SixTopHorizontalRectangleTable.args = {
             occupiedBy: 'Sam',
             isVisible: true,
             relativeSize: 0.5,
+            tableUse: 'TableForManagement',
         },
     ],
     isSquare: false,
     relativeSize: 0.5,
+    tableUse: 'TableForManagement',
 };

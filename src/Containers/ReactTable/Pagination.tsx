@@ -5,10 +5,25 @@ import { PageSelector, IPageSelectorProps } from './PageSelector';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 import { flex } from '../../Utils/Mixins';
 
-export interface IPaginationProps extends IRowSelectorProps, IPageSelectorProps, MainInterface, ResponsiveInterface,React.HTMLAttributes<HTMLDivElement> {
-    rowSelectorProps?: Omit<IRowSelectorProps, 'setPageSize' | 'pageSize' | 'pageSelectOptions' | 'pageOptionsLength'>;
-    pageSelectorProps?: Omit<IPageSelectorProps, 'goToPreviousPage' | 'goToNextPage' | 'goToPage' | 'pageCount' | 'pageIndex'>;
-};
+export interface IPaginationProps
+    extends IRowSelectorProps,
+        IPageSelectorProps,
+        MainInterface,
+        ResponsiveInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    rowSelectorProps?: Omit<
+        IRowSelectorProps,
+        'setPageSize' | 'pageSize' | 'pageSelectOptions' | 'pageOptionsLength'
+    >;
+    pageSelectorProps?: Omit<
+        IPageSelectorProps,
+        | 'goToPreviousPage'
+        | 'goToNextPage'
+        | 'goToPage'
+        | 'pageCount'
+        | 'pageIndex'
+    >;
+}
 
 export const Pagination: React.FC<IPaginationProps> = ({
     pageSize,
@@ -25,14 +40,14 @@ export const Pagination: React.FC<IPaginationProps> = ({
     ...props
 }): React.ReactElement => (
     <Wrapper {...props}>
-        <RowSelector 
+        <RowSelector
             pageSize={pageSize}
             setPageSize={setPageSize}
             pageOptionsLength={pageOptionsLength}
             pageSelectOptions={pageSelectOptions}
             {...rowSelectorProps}
         />
-        <PageSelector 
+        <PageSelector
             goToPreviousPage={goToPreviousPage}
             goToNextPage={goToNextPage}
             goToPage={goToPage}

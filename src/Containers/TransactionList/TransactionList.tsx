@@ -1,5 +1,10 @@
 import React, { useCallback } from 'react';
-import styled, { css, DefaultTheme, FlattenInterpolation, ThemeProps } from 'styled-components';
+import styled, {
+    css,
+    DefaultTheme,
+    FlattenInterpolation,
+    ThemeProps,
+} from 'styled-components';
 import { flex, transition } from '@Utils/Mixins';
 import { Paragraph } from '@Text/Paragraph';
 
@@ -22,39 +27,39 @@ export const TransactionList: React.FC<ITransactionProps> = ({
     animationTime = 2,
     ...props
 }): React.ReactElement => {
-
     const renderTransactionItems = useCallback(() => {
         let initialTime = 0;
         return cardData.map(({ id, icon, title, time }, index) => {
             const animationName = `transactionAnimation${index}`;
-            const animationDelayAmount = initialTime + animationDelay + animationTime;
+            const animationDelayAmount =
+                initialTime + animationDelay + animationTime;
             const animationCss = css`
-            z-index: 4;
-            animation: ${animationName} ${animationTime}s ;
-            animation-delay: ${animationDelayAmount}s;
-            opacity: 0;
-            @keyframes ${animationName} {
-                0% {
-                    transform: scale(1);
-                    ${({ theme }): string => `
+                z-index: 4;
+                animation: ${animationName} ${animationTime}s;
+                animation-delay: ${animationDelayAmount}s;
+                opacity: 0;
+                @keyframes ${animationName} {
+                    0% {
+                        transform: scale(1);
+                        ${({ theme }): string => `
                         box-shadow: ${theme.depth[2]};
-                    `} 
-                    opacity: 1;
+                    `}
+                        opacity: 1;
+                    }
+                    50% {
+                        transform: scale(1.1);
+                        opacity: 1;
+                    }
+                    95% {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
+                    100% {
+                        transform: scale(1);
+                        opacity: 1;
+                    }
                 }
-                50% {
-                    transform: scale(1.1);
-                    opacity: 1;
-                }
-                95% {
-                    transform: scale(1);
-                    opacity: 1;
-                }
-                100% {
-                    transform: scale(1);
-                    opacity: 1;
-                }
-            }
-        `
+            `;
             initialTime += animationTime;
 
             return (
@@ -66,17 +71,11 @@ export const TransactionList: React.FC<ITransactionProps> = ({
                         <Paragraph>{time}</Paragraph>
                     </div>
                 </Item>
-            )
+            );
         });
-        
     }, [animationDelay, animationTime, cardData]);
 
-
-    return (
-        <Items {...props}>
-            {renderTransactionItems()}
-        </Items>
-    )
+    return <Items {...props}>{renderTransactionItems()}</Items>;
 };
 
 interface StyledCardProp {

@@ -173,25 +173,25 @@ const SelectDisplay = styled.p<SelectProps>`
         border-radius: ${theme.dimensions.radius};
         font-family: ${theme.font.family};
         ${
-    !disabled
-        ? `
+            !disabled
+                ? `
             &:hover:not(:disabled) {
                 box-shadow: ${theme.depth[1]};
             }
         `
-        : ''
-}
+                : ''
+        }
     `}
 
     // Background color
     ${({ theme, error = false, success = false }): string => `
         background-color: ${styledCondition(
-        error,
-        theme.colors.input.error,
-        success,
-        theme.colors.input.success,
-        theme.colors.input.default,
-    )};
+            error,
+            theme.colors.input.error,
+            success,
+            theme.colors.input.success,
+            theme.colors.input.default,
+        )};
     `}
 `;
 
@@ -225,15 +225,15 @@ const SelectList = styled.div<{
     // Theme Stuff
     ${({ theme }): string => `
         ${transition(
-        [
-            'height',
-            {
-                prop: 'opacity',
-                duration: theme.speed.normal,
-            },
-        ],
-        theme.speed[SPEED],
-    )}
+            [
+                'height',
+                {
+                    prop: 'opacity',
+                    duration: theme.speed.normal,
+                },
+            ],
+            theme.speed[SPEED],
+        )}
         border-radius: ${theme.dimensions.radius};
         box-shadow: ${theme.depth[1]};
     `}
@@ -262,12 +262,12 @@ const SelectItem = styled.p<{ active: boolean }>`
     ${({ theme, active }): string => `
         padding: ${theme.dimensions.padding.default};
         ${
-    active
-        ? `
+            active
+                ? `
             background-color: ${darken('#ffffff', 0.05)}
         `
-        : clickable('#ffffff', 0.03)
-}
+                : clickable('#ffffff', 0.03)
+        }
     `}
 `;
 

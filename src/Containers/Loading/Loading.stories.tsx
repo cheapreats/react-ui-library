@@ -22,4 +22,3 @@ Uploading.args = {
     ...Uploading.args,
     message: 'Uploading...',
 };
-

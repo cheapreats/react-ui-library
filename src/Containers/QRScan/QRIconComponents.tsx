@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    MainInterface,
-    ResponsiveInterface,
-} from '@Utils/BaseStyles';
+import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 
 interface StyleSVGProps {
     height?: string;

@@ -16,7 +16,11 @@ import { SettingsCard } from '../SettingsCard/SettingsCard';
 import { Heading } from '../../Text';
 import { Button } from '../../Inputs/Button/Button';
 import { Mixins } from '../../Utils';
-import { ITextHeaders, ICategoryWithHoursTypes, IHoursByDay } from './interfaces';
+import {
+    ITextHeaders,
+    ICategoryWithHoursTypes,
+    IHoursByDay,
+} from './interfaces';
 import { createCategoryWithHours, CATEGORY_FIELD } from './constants';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
 
@@ -41,72 +45,77 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     textHeaders,
     width,
     onSave,
-    isLoading
+    isLoading,
 }): React.ReactElement => {
     const editModal = useState(false);
     const [editModalState, setEditModalState] = editModal;
     const addModal = useState(false);
     const editCategoryModal = useState(false);
     const [confirmModal, setConfirmModalState] = useState(false);
-    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<ICategoryWithHoursTypes[]>(allCategories);
+    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<
+        ICategoryWithHoursTypes[]
+    >(allCategories);
     const [activeCategory, setActiveCategory] = useState(0);
-    const {
-        values,
-        dirty,
-        resetForm,
-        setFieldValue
-    } = useFormik({
-        initialValues: {categories: allCategoriesWithHours},
-        onSubmit: ()=> undefined,
+    const { values, dirty, resetForm, setFieldValue } = useFormik({
+        initialValues: { categories: allCategoriesWithHours },
+        onSubmit: () => undefined,
         enableReinitialize: true,
     });
-    const {categories} = values;
+    const { categories } = values;
     const [is24, setIs24] = useState(false);
 
     /**
-    *@param {day} - Day of the week to update hours
-    *@param {hoursIndex} - location in array of the hours in the day array to update 
-    * */
+     *@param {day} - Day of the week to update hours
+     *@param {hoursIndex} - location in array of the hours in the day array to update
+     * */
     const handleRemoveHours = (day: string, hoursIndex: number) => {
         const allCategoriesWithHoursCopy = deepCopy(categories);
         // Should remove the hours index of the array
-        allCategoriesWithHoursCopy[activeCategory].open_hours[day].splice(hoursIndex, 1);
-        setFieldValue(CATEGORY_FIELD, allCategoriesWithHoursCopy)
-    }
+        allCategoriesWithHoursCopy[activeCategory].open_hours[day].splice(
+            hoursIndex,
+            1,
+        );
+        setFieldValue(CATEGORY_FIELD, allCategoriesWithHoursCopy);
+    };
 
     // saves store hours and resets the initial form state to current values
     const saveStoreHours = () => {
-        onSave(categories)
+        onSave(categories);
         setAllCategoriesWithHours(categories);
-    }
+    };
 
     /**
-    *@param {updateHoursByDay} - complete week of hours to be updated in the store
-    *@param {categoryIndex} - the category to be updated with new week of hours
-    * */
-    const handleStoreHoursUpdate = ( updateHoursByDay: IHoursByDay, categoryIndex: number,) => {
+     *@param {updateHoursByDay} - complete week of hours to be updated in the store
+     *@param {categoryIndex} - the category to be updated with new week of hours
+     * */
+    const handleStoreHoursUpdate = (
+        updateHoursByDay: IHoursByDay,
+        categoryIndex: number,
+    ) => {
         const updatedAllCategories = deepCopy(categories);
         updatedAllCategories[categoryIndex].open_hours = updateHoursByDay;
-        setFieldValue(CATEGORY_FIELD, updatedAllCategories)
-    }
+        setFieldValue(CATEGORY_FIELD, updatedAllCategories);
+    };
 
     const resetFormToInitial = () => {
-        resetForm({values: {categories: allCategoriesWithHours}});
-    }
+        resetForm({ values: { categories: allCategoriesWithHours } });
+    };
 
     const confirmFormReset = () => {
-        setActiveCategory(INITIAL_ACTIVE_CATEGORY)
+        setActiveCategory(INITIAL_ACTIVE_CATEGORY);
         resetFormToInitial();
-    }
+    };
 
-    useEffect(()=> {
-        if(allCategories.length === NO_STORE_HOURS){
-            const newStoreHours = [createCategoryWithHours(CATEGORY_DEFAULT_NAME)]
+    useEffect(() => {
+        if (allCategories.length === NO_STORE_HOURS) {
+            const newStoreHours = [
+                createCategoryWithHours(CATEGORY_DEFAULT_NAME),
+            ];
             setAllCategoriesWithHours(newStoreHours);
         } else {
             setAllCategoriesWithHours(allCategoriesWithHours);
         }
-    }, [allCategories])
+    }, [allCategories]);
 
     return (
         <SettingsCard
@@ -126,7 +135,10 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         >
                             {textHeaders.BUTTONS.EDIT}
                         </Section>
-                        <Section as={Button} onClick={(): void => setIs24(!is24)}>
+                        <Section
+                            as={Button}
+                            onClick={(): void => setIs24(!is24)}
+                        >
                             {textHeaders.BUTTONS.TOGGLE}
                         </Section>
                     </ButtonsContainer>
@@ -135,11 +147,13 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                         {categories[activeCategory].name}
                     </StyledHeading>
                     <TimeDisplay
-                        allCategoriesWithHours={categories[activeCategory].open_hours}
+                        allCategoriesWithHours={
+                            categories[activeCategory].open_hours
+                        }
                         handleRemoveHours={handleRemoveHours}
                         is24={is24}
                     />
-                    <Footnote show={dirty} position='relative'>
+                    <Footnote show={dirty} position="relative">
                         <Button
                             icon={Revision}
                             onClick={() => setConfirmModalState(true)}
@@ -158,12 +172,16 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
                     </Footnote>
                     <EditModal
                         isVisible={editModal}
-                        FIRST_MODAL_HEADER={textHeaders.TITLES.FIRST_MODAL_HEADER}
+                        FIRST_MODAL_HEADER={
+                            textHeaders.TITLES.FIRST_MODAL_HEADER
+                        }
                         allCategories={categories}
                         addModal={addModal}
                         editCategoryModal={editCategoryModal}
                         ADD_HOURS_BUTTON={textHeaders.BUTTONS.ADD_HOURS}
-                        EDIT_CATEGORY_BUTTON={textHeaders.BUTTONS.EDIT_CATEGORIES}
+                        EDIT_CATEGORY_BUTTON={
+                            textHeaders.BUTTONS.EDIT_CATEGORIES
+                        }
                         CHANGE_ACTIVE={textHeaders.TITLES.CHANGE_ACTIVE}
                         CHANGE_ACTIVE_SUBTITLE={
                             textHeaders.TITLES.CHANGE_ACTIVE_SUBTITLE
@@ -240,7 +258,7 @@ const Footnote = styled(F)`
     margin-bottom; 10px;
     margin-top: 10px;
     ${Mixins.flex('space-between')}
-`
+`;
 const StyledHeading = styled(Heading)`
     font-weight: bold;
     flex-wrap: wrap;

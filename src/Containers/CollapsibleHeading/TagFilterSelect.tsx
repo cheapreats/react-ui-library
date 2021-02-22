@@ -1,22 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import {useMounted} from '@Utils/Hooks'
+import { useMounted } from '@Utils/Hooks';
 import { TagContainer } from '@Containers/VendorsList/TagContainer';
-import { FilterSelect, IFilterSelectProps } from '@Containers/CollapsibleHeading/FilterSelect';
+import {
+    FilterSelect,
+    IFilterSelectProps,
+} from '@Containers/CollapsibleHeading/FilterSelect';
 import { TagProps } from '../Tag/Tag';
 
 const DELETE_ONE_OPTION = 1;
 
-const checkIfOptionIsSelected = (currentOptions: string[], selectOptionToAdd: string) => {
+const checkIfOptionIsSelected = (
+    currentOptions: string[],
+    selectOptionToAdd: string,
+) => {
     if (!currentOptions.includes(selectOptionToAdd)) {
-        return [...currentOptions, selectOptionToAdd]
-    } 
-    return currentOptions
-}
+        return [...currentOptions, selectOptionToAdd];
+    }
+    return currentOptions;
+};
 
-export interface ITagFilterSelectProps extends MainInterface,
+export interface ITagFilterSelectProps
+    extends MainInterface,
         ResponsiveInterface,
-        React.HTMLAttributes<HTMLDivElement>{
+        React.HTMLAttributes<HTMLDivElement> {
     placeholder: string;
     selectOptions: string[];
     selectProps?: Partial<IFilterSelectProps>;
@@ -31,26 +38,30 @@ export const TagFilterSelect: React.FC<ITagFilterSelectProps> = ({
     selectProps,
     tagProps,
     filterValue,
-    onOptionsSelected = ()=> console.log('selected'),
+    onOptionsSelected = () => console.log('selected'),
 }): React.ReactElement => {
-    const isMounted = useMounted()
-    const [optionsSelected, setOptionsSelected] = useState<string[]>(filterValue || []);
+    const isMounted = useMounted();
+    const [optionsSelected, setOptionsSelected] = useState<string[]>(
+        filterValue || [],
+    );
 
     useEffect(() => {
         if (isMounted.current) {
-            onOptionsSelected(optionsSelected)
+            onOptionsSelected(optionsSelected);
         }
     }, [optionsSelected.length]);
-    
+
     const addSelectOption = (selectOptionToAdd: string) => {
-        setOptionsSelected((current) => checkIfOptionIsSelected(current, selectOptionToAdd));
-    }
+        setOptionsSelected((current) =>
+            checkIfOptionIsSelected(current, selectOptionToAdd),
+        );
+    };
 
     const removeSelectedOption = (index: number) => {
         const optionsSelectedCopy = [...optionsSelected];
         optionsSelectedCopy.splice(index, DELETE_ONE_OPTION);
-        setOptionsSelected(optionsSelectedCopy)
-    }
+        setOptionsSelected(optionsSelectedCopy);
+    };
 
     return (
         <FilterSelect
@@ -59,8 +70,11 @@ export const TagFilterSelect: React.FC<ITagFilterSelectProps> = ({
             selectOptions={selectOptions}
             {...selectProps}
         >
-            <TagContainer tags={optionsSelected} onRemoveTag={removeSelectedOption} {...tagProps} />
+            <TagContainer
+                tags={optionsSelected}
+                onRemoveTag={removeSelectedOption}
+                {...tagProps}
+            />
         </FilterSelect>
-    )
+    );
 };
-

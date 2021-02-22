@@ -11,11 +11,7 @@ export default {
         customerLoyaltyType: {
             control: {
                 type: 'select',
-                options: [
-                    'REGULAR',
-                    'CASUAL',
-                    'FIRST_TIME'
-                ],
+                options: ['REGULAR', 'CASUAL', 'FIRST_TIME'],
             },
         },
     },
@@ -24,7 +20,7 @@ export default {
         visitCount: 4,
         profileName: 'Ashley Tisdale The Third',
         lastVisitedDate: '23 Days Ago',
-        isFavoriteStore: true
+        isFavoriteStore: true,
     },
 } as Meta;
 

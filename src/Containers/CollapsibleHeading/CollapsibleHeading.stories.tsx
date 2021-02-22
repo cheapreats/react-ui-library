@@ -13,8 +13,8 @@ export default {
 const getCollapsibleHeadingProps = (): ICollapsibleHeadingProps => ({
     title: 'Email',
     style: {
-        width: '20%'
-    }
+        width: '20%',
+    },
 });
 
 const Template: Story<ICollapsibleHeadingProps> = (args) => {
@@ -22,17 +22,17 @@ const Template: Story<ICollapsibleHeadingProps> = (args) => {
     const [filterApplied, setFilterApplied] = useState(false);
     return (
         <>
-            <CollapsibleHeading 
-                isCollapsed={isCollapsible} 
+            <CollapsibleHeading
+                isCollapsed={isCollapsible}
                 setCollapsed={() => setIsCollapsible(!isCollapsible)}
-                ChildElement={(
-                    <FilterSelect 
+                ChildElement={
+                    <FilterSelect
                         selectOptions={['Contains', 'Equals']}
-                        value='Contains'
-                        placeholder='Add email'
+                        value="Contains"
+                        placeholder="Add email"
                     />
-                )}
-                {...args} 
+                }
+                {...args}
             />
             <Button primary onClick={() => setFilterApplied(!filterApplied)}>
                 Apply

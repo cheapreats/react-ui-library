@@ -30,20 +30,18 @@ export const QRScan: React.FC<QRScanProps> = ({
 }): React.ReactElement => (
     <QRScanBox {...props}>
         <Title>
-            <Heading type='h4' bold>{title}</Heading>
+            <Heading type="h4" bold>
+                {title}
+            </Heading>
         </Title>
         <Middle>
             <ScanContainer>
                 {qrDisplay}
                 {qrRightContent}
             </ScanContainer>
-            <RowContainer>
-                {middleItems}
-            </RowContainer>
+            <RowContainer>{middleItems}</RowContainer>
         </Middle>
-        <RowContainer>
-            {footerItems}
-        </RowContainer>
+        <RowContainer>{footerItems}</RowContainer>
     </QRScanBox>
 );
 
@@ -65,7 +63,7 @@ const Middle = styled.div`
     ${({ theme }): string => `
     background-color:${theme.colors.text};
     `}
-    ${flex('column', 'center' )}
+    ${flex('column', 'center')}
 `;
 
 const Title = styled.div`

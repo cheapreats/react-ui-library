@@ -4,8 +4,8 @@ import { Times } from '@styled-icons/fa-solid/Times';
 import { flex, darken, transition, clickable } from '@Utils/Mixins';
 import { Main } from '@Utils/BaseStyles';
 
-interface ITagDiv extends  React.HTMLAttributes<HTMLSpanElement>  {
-    isHoverable? : boolean;
+interface ITagDiv extends React.HTMLAttributes<HTMLSpanElement> {
+    isHoverable?: boolean;
 }
 
 export interface TagProps extends ITagDiv {
@@ -27,51 +27,47 @@ export const Tag: React.FC<TagProps> = ({
 
 export default Tag;
 
-
-
 const TagDiv = styled.span<ITagDiv>`
     ${transition(['background-color', 'border-color', 'color'])}
     ${flex('center')}
-
-    ${({ theme, isHoverable, ...props }): string => {
+  ${({ theme, isHoverable, ...props }): string => {
         const color = darken(theme.colors.input.default, 0.2);
         const hoverClickable = clickable(theme.colors.primary, 0.1, [
             'background-color',
             'border-color',
-        ])
+        ]);
         return `
             ${Main({
-        padding: theme.dimensions.tag.padding,
-        ...props,
-    })}
+                padding: theme.dimensions.tag.padding,
+                ...props,
+            })}
             font-size: ${theme.dimensions.tag.fontSize};
             border: 1.5px solid ${color};
             color: ${theme.colors.text};
-
-            ${isHoverable ? `&:hover {
+            ${
+                isHoverable
+                    ? `&:hover {
                 background-color: ${theme.colors.primary};
                 border-color: ${theme.colors.primary};
                 color: white;
             }
             ${hoverClickable}
-            ` : ''}
-
+            `
+                    : ''
+            }
             
         `;
     }}
-
-    display: inline-flex;
+  display: inline-flex;
     border-radius: 999px;
     font-weight: bold;
 `;
 
 const Icon = styled.svg`
     ${transition(['width', 'margin-left'])}
-
     height: auto;
     width: 0;
     margin-left: 0;
-
     ${TagDiv}:hover & {
         width: 10px;
         margin-left: 10px;

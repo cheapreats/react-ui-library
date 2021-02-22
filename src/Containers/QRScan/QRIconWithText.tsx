@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {StyledIcon} from '@styled-icons/styled-icon'
+import { StyledIcon } from '@styled-icons/styled-icon';
 import { flex } from '@Utils/Mixins';
 import { SmallText, SmallTextProps } from '@Text/SmallText';
 
@@ -16,32 +16,34 @@ interface IQRIconWithTextProps extends IContainerProps {
     textProps?: SmallTextProps;
 }
 
-export const QRIconWithText : React.FC<IQRIconWithTextProps> = ({
+export const QRIconWithText: React.FC<IQRIconWithTextProps> = ({
     icon,
     iconSize = '30px',
     textWidth,
-    height= '50px',
+    height = '50px',
     margin,
     headingText,
     headingTextSize = 'small',
     subText,
     subTextSize = 'small',
-    textProps
+    textProps,
 }): React.ReactElement => (
     <Container margin={margin} height={height}>
-        {icon && (
-            <Icon as={icon} iconSize={iconSize} />
-        )}
+        {icon && <Icon as={icon} iconSize={iconSize} />}
         <TextColumn textWidth={textWidth}>
             {headingText && (
                 <SmallText size={headingTextSize} bold {...textProps}>
                     {headingText}
                 </SmallText>
             )}
-            {subText && <SmallText size={subTextSize} {...textProps}>{subText}</SmallText>}
+            {subText && (
+                <SmallText size={subTextSize} {...textProps}>
+                    {subText}
+                </SmallText>
+            )}
         </TextColumn>
     </Container>
-)
+);
 
 interface IContainerProps {
     margin?: string;
@@ -50,28 +52,28 @@ interface IContainerProps {
 
 const Container = styled.div<IContainerProps>`
     ${flex('row', 'start')}
-    ${({margin, height}) => `
+    ${({ margin, height }) => `
         margin: ${margin};
         height: ${height};
     `}
 `;
 
 interface ITextColumn {
-    textWidth?: string; 
+    textWidth?: string;
 }
 const TextColumn = styled.div<ITextColumn>`
-    ${flex('column', 'start' )}
-    ${({textWidth}) => `
+    ${flex('column', 'start')}
+    ${({ textWidth }) => `
         width: ${textWidth};
     `}
     height: 100%;
 `;
 
 interface IIconProps {
-    iconSize : string;
+    iconSize: string;
 }
 
 const Icon = styled.svg<IIconProps>`
-    ${({iconSize}) => `height: ${iconSize};`}
+    ${({ iconSize }) => `height: ${iconSize};`}
     margin: auto 2px;
 `;

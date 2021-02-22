@@ -45,14 +45,14 @@ export const List: React.FC<ListProps> = ({
         const handler = ({ type }: { type: string }): void => {
             if (setIsOpen) {
                 switch (type) {
-                case 'swipeRight':
-                    setIsOpen(true);
-                    break;
-                case 'swipeLeft':
-                    setIsOpen(false);
-                    break;
-                default:
-                    break;
+                    case 'swipeRight':
+                        setIsOpen(true);
+                        break;
+                    case 'swipeLeft':
+                        setIsOpen(false);
+                        break;
+                    default:
+                        break;
                 }
             }
         };
@@ -63,7 +63,6 @@ export const List: React.FC<ListProps> = ({
             window.removeEventListener('swipeLeft', handler);
         };
     }, []);
-    
 
     return (
         <Wrapper isOpen={isOpen} {...props}>
@@ -122,11 +121,14 @@ const Wrapper = styled.div<WrapperProps>`
         mediaRight,
         mediaLeft,
         mediaCssPosition,
-        mediaOnCloseTranslateXAxis
+        mediaOnCloseTranslateXAxis,
     }): string => {
-        const media = mediaMixin ? `
+        const media = mediaMixin
+            ? `
                 @media (max-width: ${theme.media[mediaMixin] || mediaMixin}px) {
-                    transform: translateX(${isOpen ? '0' : mediaOnCloseTranslateXAxis});
+                    transform: translateX(${
+                        isOpen ? '0' : mediaOnCloseTranslateXAxis
+                    });
                     position: ${mediaCssPosition};
                     margin: ${mediaMargin};
                     top: 0;
@@ -134,18 +136,21 @@ const Wrapper = styled.div<WrapperProps>`
                     bottom: 0;
                     left: ${mediaLeft};
                 }
-            `: `position: ${cssPosition};
+            `
+            : `position: ${cssPosition};
                 margin: ${margin};
                 top: 0;
                 right: ${right};
                 bottom: 0;
-                left: ${left};`
-        const onClose = onCloseTranslateXAxis ? `transform: translateX(${isOpen ? '0' : onCloseTranslateXAxis});`: ''
+                left: ${left};`;
+        const onClose = onCloseTranslateXAxis
+            ? `transform: translateX(${isOpen ? '0' : onCloseTranslateXAxis});`
+            : '';
         return `
         width: ${columnWidth};
         z-index: ${zIndex};
         ${onClose}
-        ${media}`
+        ${media}`;
     }}
 `;
 

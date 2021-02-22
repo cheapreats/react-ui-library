@@ -74,14 +74,13 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
     };
 
     // Rounding up/down to steps
-    const roundToSteps = (theValue: number): number => (
+    const roundToSteps = (theValue: number): number =>
         Math.round(
             ((theValue * maxAndMinDifference) /
-                    (barRef.current?.clientWidth as number) +
-                    min) /
-                    step,
-        ) * step
-    );
+                (barRef.current?.clientWidth as number) +
+                min) /
+                step,
+        ) * step;
 
     useLayoutEffect((): void => {
         onChange({

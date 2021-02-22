@@ -21,16 +21,16 @@ export const ErrorModal: React.FC<ErrorModalProps> = ({
     children,
     ...props
 }): React.ReactElement => {
-    const [, setErrorModalState] = modalState
+    const [, setErrorModalState] = modalState;
     return (
         <StyledModal state={modalState} {...props}>
-            <StyledHeading type="h6" onClick={()=> setErrorModalState(false)}>
+            <StyledHeading type="h6" onClick={() => setErrorModalState(false)}>
                 <Icon as={icon} />
                 {errorMessage}
             </StyledHeading>
             {children}
         </StyledModal>
-    )
+    );
 };
 
 const StyledModal = styled(Modal)`

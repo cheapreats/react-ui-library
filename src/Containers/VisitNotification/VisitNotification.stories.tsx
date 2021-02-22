@@ -8,8 +8,13 @@ export default {
     title: createStoryTitle('VisitNotification'),
     component: VisitNotification,
     args: {
-        imgSrc: 'https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI',
-        header: <Paragraph bold color="black">79 People</Paragraph>,
+        imgSrc:
+            'https://i.picsum.photos/id/866/200/300.jpg?hmac=rcadCENKh4rD6MAp6V_ma-AyWv641M4iiOpe1RyFHeI',
+        header: (
+            <Paragraph bold color="black">
+                79 People
+            </Paragraph>
+        ),
         body: (
             <Paragraph color="gray" bold>
                 Are viewing this page
@@ -20,7 +25,9 @@ export default {
                 Verified by Nudgify
             </SmallText>
         ),
-    }
+    },
 } as Meta;
 
-export const Basic: Story<IVisitNotificationProps> = (args) => <VisitNotification {...args} />;
+export const Basic: Story<IVisitNotificationProps> = (args) => (
+    <VisitNotification {...args} />
+);

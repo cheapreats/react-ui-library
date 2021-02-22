@@ -10,8 +10,10 @@ export interface IVisitNotificationProps {
     footer: React.ReactElement;
 }
 
-interface INotificationContainerProps extends MainInterface,React.HTMLAttributes<HTMLDivElement> {
-maxWidth?: number
+interface INotificationContainerProps
+    extends MainInterface,
+        React.HTMLAttributes<HTMLDivElement> {
+    maxWidth?: number;
 }
 
 const CONTAINER_HEIGHT = 90;
@@ -21,7 +23,7 @@ export const VisitNotification: React.FC<IVisitNotificationProps> = ({
     imgSrc,
     header,
     body,
-    footer
+    footer,
 }): React.ReactElement => (
     <NotificationContainer maxWidth={maxWidth}>
         <Img src={imgSrc} />
@@ -39,7 +41,8 @@ const NotificationContainer = styled.div<INotificationContainerProps>`
     font-family: ${theme.font.family};
     padding: ${theme.dimensions.padding.container};
     `};
-    max-width: ${({ maxWidth }) => maxWidth ? `${maxWidth}px` : "fit-content"};
+    max-width: ${({ maxWidth }) =>
+        maxWidth ? `${maxWidth}px` : 'fit-content'};
     display: grid;
     grid-template-columns: 1fr 2fr;
     padding-right: 19px;
@@ -52,16 +55,16 @@ const NotificationContainer = styled.div<INotificationContainerProps>`
 `;
 
 const ContentContainer = styled.div`
-display: flex;
-flex-direction: column;
-justify-content: space-evenly;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 `;
 
 const Img = styled.img`
-border-radius: 50px;
-justify-self: center;
-align-self: center;
-height: 80px;
-width: 80px;
-overflow: hidden;
+    border-radius: 50px;
+    justify-self: center;
+    align-self: center;
+    height: 80px;
+    width: 80px;
+    overflow: hidden;
 `;

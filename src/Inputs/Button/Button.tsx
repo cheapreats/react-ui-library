@@ -77,9 +77,9 @@ const StyledButton = styled.button<ButtonProps>`
         color: ${theme.colors.text};
         ${clickable('#ffffff', 0.05)}
         ${Main({
-        padding: theme.dimensions.padding.withBorder,
-        ...props,
-    })}
+            padding: theme.dimensions.padding.withBorder,
+            ...props,
+        })}
     `}
 
     // Primary button

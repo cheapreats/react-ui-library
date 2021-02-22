@@ -58,5 +58,5 @@ export * from './FileUpload/FileUpload';
 export * from './TransactionList/TransactionList';
 export * from './SoldOutCardNotification/SoldOutCardNotification';
 export * from './VisitNotification/VisitNotification';
-export * from './BoxComposition/BoxComposition'
-export * from './BoxComposition2/BoxComposition2'
+export * from './BoxComposition/BoxComposition';
+export * from './BoxComposition2/BoxComposition2';

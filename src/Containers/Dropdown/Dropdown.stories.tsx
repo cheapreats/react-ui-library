@@ -4,7 +4,6 @@ import { Button } from '@Inputs/Button/Button';
 import { createStoryTitle } from '../../Constants';
 import Dropdown, { IDropdownProps } from './index';
 
-
 export default {
     title: createStoryTitle('Dropdown'),
     component: Dropdown,
@@ -12,7 +11,7 @@ export default {
         dropdownWidth: 300,
         right: true,
         dropdownButton: <Button>Click me</Button>,
-    }
+    },
 } as Meta;
 
 export const Basic: Story<IDropdownProps> = (args) => (
@@ -40,4 +39,3 @@ export const Scrolling: Story<IDropdownProps> = (args) => (
         <Dropdown.Item>Testing</Dropdown.Item>
     </Dropdown>
 );
-

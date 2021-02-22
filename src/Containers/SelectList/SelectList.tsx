@@ -106,7 +106,10 @@ export const SelectList: React.FC<SelectSearchBarProps> = ({
         [name],
     );
 
-    const options = useMemo((): React.ReactNode[] => Children.toArray(children), [expanded]);
+    const options = useMemo(
+        (): React.ReactNode[] => Children.toArray(children),
+        [expanded],
+    );
 
     return (
         <List
@@ -170,10 +173,10 @@ const SelectItem = styled.p<SelectItemProps>`
     ${({ theme, active }): string => `
         padding: ${theme.dimensions.padding.default};
         ${
-    active
-        ? ` background-color: ${darken('#ffffff', 0.05)} `
-        : clickable('#ffffff', 0.03)
-}
+            active
+                ? ` background-color: ${darken('#ffffff', 0.05)} `
+                : clickable('#ffffff', 0.03)
+        }
     `}
 `;
 

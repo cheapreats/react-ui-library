@@ -44,7 +44,14 @@ export const Modal: React.FC<ModalProps> = ({
     return createPortal(
         mount && (
             <Container>
-                <Box show={animation} width={width} height={height} maxHeight={maxHeight} maxWidth={maxWidth} {...props}>
+                <Box
+                    show={animation}
+                    width={width}
+                    height={height}
+                    maxHeight={maxHeight}
+                    maxWidth={maxWidth}
+                    {...props}
+                >
                     {children}
                 </Box>
                 <Drop show={animation} onClick={(): void => setShow(false)} />
@@ -60,7 +67,7 @@ const Container = styled.div`
 `;
 
 interface IBoxProps extends MainInterface, ResponsiveInterface {
-    show : boolean;
+    show: boolean;
     width: string | number;
     height?: string;
     maxWidth?: string;
@@ -71,7 +78,7 @@ const Box = styled.div<IBoxProps>`
     ${transition(['transform', 'opacity'])}
     background-color: white;
     overflow: auto;
-    
+
     z-index: 1;
 
     ${Container}:not(:last-child) & {
@@ -86,9 +93,9 @@ const Box = styled.div<IBoxProps>`
         width: ${theme.dimensions.modal.width[props.width] || props.width};
         height: ${props.height};
         ${Main({
-        padding: theme.dimensions.padding.container,
-        ...props,
-    })}
+            padding: theme.dimensions.padding.container,
+            ...props,
+        })}
     `}
 
     ${({ show }): string =>

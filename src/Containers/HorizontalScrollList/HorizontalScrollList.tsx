@@ -61,7 +61,9 @@ export const HorizontalScrollList: React.FC<ScrollListProps> = ({
                         value={displaySelected ? selectedLabel : menuName}
                     >
                         {labelArray.map(
-                            (label): React.ReactElement => <option value={label}>{label}</option>,
+                            (label): React.ReactElement => (
+                                <option value={label}>{label}</option>
+                            ),
                         )}
                     </Select>
                 </DropDownDiv>
@@ -111,7 +113,7 @@ const HorizontalListItem = styled.li<ListItemProps>`
     padding: 10px;
     &:hover {
         ${({ hoveredStyle, isSelected }): string =>
-        isSelected ? `` : `${hoveredStyle()}`}
+            isSelected ? `` : `${hoveredStyle()}`}
     }
 
     ${({ isSelected, selectedStyle }): string =>

@@ -31,28 +31,27 @@ export const ConfirmModal: React.FC<ConfirmModalProps> = ({
 }): React.ReactElement => {
     const [confirmModalState, setConfirmModalState] = isVisible;
     const confirm = () => {
-        onConfirm()
+        onConfirm();
         setConfirmModalState(false);
-    }
+    };
     const reject = () => {
-        if(onReject) {
+        if (onReject) {
             onReject();
         }
         setConfirmModalState(false);
-    }
+    };
 
     return (
-        <StyledModal state={[confirmModalState, setConfirmModalState]} {...props}>
+        <StyledModal
+            state={[confirmModalState, setConfirmModalState]}
+            {...props}
+        >
             <StyledHeading type="h6">{confirmDelete}</StyledHeading>
             <ButtonsContainer>
                 <Section as={Button} icon={Check} onClick={confirm}>
                     {yesButtonLabel}
                 </Section>
-                <Section
-                    as={Button}
-                    icon={Cross}
-                    onClick={reject}
-                >
+                <Section as={Button} icon={Cross} onClick={reject}>
                     {noButtonLabel}
                 </Section>
             </ButtonsContainer>
