@@ -116,25 +116,25 @@ export const Datepicker: React.FC<DatepickerProps> = ({
         (el): void => {
             const d = new Date(el.target.value);
             switch (el.key) {
-            case 'Tab':
-                setShow(false);
-                break;
-            case 'Enter':
-                el.target = {
-                    ...el.target,
-                    name: props.name,
-                    value: d,
-                };
+                case 'Tab':
+                    setShow(false);
+                    break;
+                case 'Enter':
+                    el.target = {
+                        ...el.target,
+                        name: props.name,
+                        value: d,
+                    };
 
-                if (d.toDateString() === value?.toDateString()) {
-                    setShow((v): boolean => !v);
-                } else if (!Number.isNaN(d.getTime())) {
-                    setText(printDate(d));
-                    onChange(el);
-                }
-                break;
-            default:
-                break;
+                    if (d.toDateString() === value?.toDateString()) {
+                        setShow((v): boolean => !v);
+                    } else if (!Number.isNaN(d.getTime())) {
+                        setText(printDate(d));
+                        onChange(el);
+                    }
+                    break;
+                default:
+                    break;
             }
         },
         [value],

@@ -16,46 +16,45 @@ export interface TimepickerProps
     name: string;
 }
 
-export const Timepicker: React.FC<TimepickerProps> = 
-    ({
-        value = new Date(),
-        onChange = (): void => undefined,
-        disabled,
-        name,
-        ...props
-    }): React.ReactElement => {
-        const theme = useTheme();
-        value = new Date(value);
-        const [show, setShow] = useState<boolean>(false);
-        const [, mount, animate] = useTransition(show, {
-            end: theme.speed.normal || 250,
-        });
-        return (
-            <LabelLayout name={name} {...props}>
-                <Wrapper>
-                    <TimeDisplay
+export const Timepicker: React.FC<TimepickerProps> = ({
+    value = new Date(),
+    onChange = (): void => undefined,
+    disabled,
+    name,
+    ...props
+}): React.ReactElement => {
+    const theme = useTheme();
+    value = new Date(value);
+    const [show, setShow] = useState<boolean>(false);
+    const [, mount, animate] = useTransition(show, {
+        end: theme.speed.normal || 250,
+    });
+    return (
+        <LabelLayout name={name} {...props}>
+            <Wrapper>
+                <TimeDisplay
+                    name={name}
+                    value={value}
+                    setShow={setShow}
+                    show={animate}
+                    onChange={onChange}
+                    disabled={disabled}
+                />
+                {mount && (
+                    <Timebox
                         name={name}
-                        value={value}
-                        setShow={setShow}
                         show={animate}
+                        value={value}
                         onChange={onChange}
+                        mount={mount}
+                        setShow={setShow}
                         disabled={disabled}
                     />
-                    {mount && (
-                        <Timebox
-                            name={name}
-                            show={animate}
-                            value={value}
-                            onChange={onChange}
-                            mount={mount}
-                            setShow={setShow}
-                            disabled={disabled}
-                        />
-                    )}
-                </Wrapper>
-            </LabelLayout>
-        );
-    }
+                )}
+            </Wrapper>
+        </LabelLayout>
+    );
+};
 
 const Wrapper = styled.div`
     ${flex('column')}

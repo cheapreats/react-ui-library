@@ -1,6 +1,6 @@
 import React from 'react';
-import { Meta, Story } from "@storybook/react";
-import { RankingTable, RankingTableProps } from "../../index";
+import { Meta, Story } from '@storybook/react';
+import { RankingTable, RankingTableProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
 const data = [
@@ -76,15 +76,14 @@ const data = [
     },
 ];
 
-
 export default {
     title: createStoryTitle('Ranking Table'),
     component: RankingTable,
     args: {
-        title: "Top 3 Products",
+        title: 'Top 3 Products',
         IsTimeIntervalFilterVisible: false,
         data,
-        rowsVisible: 3
+        rowsVisible: 3,
     },
 } as Meta;
 

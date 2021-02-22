@@ -14,7 +14,7 @@ export interface IVendorsHeaderProps
     leftButtonText?: string;
     leftButtonProps?: ButtonProps;
     rightButtonProps?: ButtonProps;
-    headingProps?: HeadingProps
+    headingProps?: HeadingProps;
 }
 
 export const VendorsHeader: React.FC<IVendorsHeaderProps> = ({

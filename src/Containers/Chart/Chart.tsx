@@ -166,18 +166,16 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
     payload,
     ...props
 }): React.ReactElement => {
-    const getFormattedHoverValue = ():string => {
-        if(payload)
-            return payload[0]?.value?.toFixed(2);
-        return ''
-    }
+    const getFormattedHoverValue = (): string => {
+        if (payload) return payload[0]?.value?.toFixed(2);
+        return '';
+    };
 
     if (active) {
         return (
             <CustomTooltipBox active={active} payload={payload} {...props}>
                 <strong>
-                    $
-                    <Big>{`${getFormattedHoverValue()}`}</Big>
+                    $<Big>{`${getFormattedHoverValue()}`}</Big>
                 </strong>
             </CustomTooltipBox>
         );

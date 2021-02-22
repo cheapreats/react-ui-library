@@ -1,6 +1,14 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { Row, Column, Cell, HeaderGroup, TableProps, TableHeaderProps, TableRowProps } from 'react-table';
+import {
+    Row,
+    Column,
+    Cell,
+    HeaderGroup,
+    TableProps,
+    TableHeaderProps,
+    TableRowProps,
+} from 'react-table';
 import { Pagination, IPaginationProps } from './Pagination';
 import { IProfileProps } from '../VendorsList/Profile';
 import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
@@ -26,7 +34,7 @@ export interface IReactTableProps
     getTableProps: Function;
     getTableBodyProps: Function;
     headerGroups: HeaderGroup<any>[];
-    prepareRow: (row: Row<any>) => void
+    prepareRow: (row: Row<any>) => void;
     page: any;
     pageCount: number;
     gotoPage: (updater: number | ((pageIndex: number) => number)) => void;
@@ -40,7 +48,7 @@ export interface IReactTableProps
     mediaMixin?: string;
     mediaHeight?: string;
     filteredRows: any[];
-};
+}
 
 export const ReactTable: React.FC<IReactTableProps> = ({
     data,
@@ -72,10 +80,8 @@ export const ReactTable: React.FC<IReactTableProps> = ({
     const pageOptionsLength = filteredRows.length;
     const getHeaderGroup = useCallback(
         () =>
-            headerGroups.map(headerGroup => (
-                <SHeadTableRow
-                    {...headerGroup.getHeaderGroupProps()}
-                >
+            headerGroups.map((headerGroup) => (
+                <SHeadTableRow {...headerGroup.getHeaderGroupProps()}>
                     {headerGroup.headers.map((column) => (
                         <STableHeader
                             {...tableHeaderProps}
@@ -90,36 +96,44 @@ export const ReactTable: React.FC<IReactTableProps> = ({
     );
 
     const getRowComponent = useCallback(
-        () => page.map((row: Row<any>) => {
-            prepareRow(row);
-            return (
-                <STableRow {...row.getRowProps()} onClick={() => onSelectRow(row.original)} {...tableRowProps}>
-                    {row.cells.map((cell: Cell<any>) => (
-                        <STableData {...cell.getCellProps()}>
-                            {cell.render('Cell')}
-                        </STableData>
-                    ))}
-                </STableRow>
-            );
-        }), [page]
+        () =>
+            page.map((row: Row<any>) => {
+                prepareRow(row);
+                return (
+                    <STableRow
+                        {...row.getRowProps()}
+                        onClick={() => onSelectRow(row.original)}
+                        {...tableRowProps}
+                    >
+                        {row.cells.map((cell: Cell<any>) => (
+                            <STableData {...cell.getCellProps()}>
+                                {cell.render('Cell')}
+                            </STableData>
+                        ))}
+                    </STableRow>
+                );
+            }),
+        [page],
     );
 
     return (
         <Wrapper {...props}>
             <TableWrapper>
                 <table {...getTableProps()} {...tableProps}>
-                    <STableHead>
-                        {getHeaderGroup()}
-                    </STableHead>
+                    <STableHead>{getHeaderGroup()}</STableHead>
                     <tbody {...getTableBodyProps()}>
-                        <Scrollable height={tableHeight} mediaMixin={mediaMixin} mediaHeight={mediaHeight}>
+                        <Scrollable
+                            height={tableHeight}
+                            mediaMixin={mediaMixin}
+                            mediaHeight={mediaHeight}
+                        >
                             {getRowComponent()}
                         </Scrollable>
                     </tbody>
                 </table>
             </TableWrapper>
             {isPaginated && (
-                <Pagination 
+                <Pagination
                     goToPreviousPage={previousPage}
                     goToNextPage={nextPage}
                     goToPage={gotoPage}
@@ -139,28 +153,31 @@ export const ReactTable: React.FC<IReactTableProps> = ({
 const TableWrapper = styled.div`
     overflow-x: auto;
     ${scroll}
-`
+`;
 
 interface IScrollable {
-    height?: string
+    height?: string;
     mediaMixin?: string;
     mediaHeight?: string;
 }
 
 const Scrollable = styled.div<IScrollable>`
-    ${({theme, height, mediaMixin, mediaHeight})=> `
+    ${({ theme, height, mediaMixin, mediaHeight }) => `
         overflow-y: auto;
         overflow-x: hidden;
         height: ${height};
-        ${mediaMixin && `@media (max-width: ${theme.media[mediaMixin] || mediaMixin}px) {
+        ${
+            mediaMixin &&
+            `@media (max-width: ${theme.media[mediaMixin] || mediaMixin}px) {
             height: ${mediaHeight}
-        }`}
+        }`
+        }
     `};
     ${scroll}
-`
- 
+`;
+
 const Wrapper = styled.div`
-${({ theme }): string => `
+    ${({ theme }): string => `
         border-top: 2px solid ${theme.colors.input.default};
     `};
 `;
@@ -171,11 +188,11 @@ const STableHead = styled.thead`
 const STableData = styled.td`
     ${({ theme }): string => `
         ${media(
-        'phone',
-        `
+            'phone',
+            `
         font-size: ${theme.font.size.small};
         `,
-    )}
+        )}
     `};
 `;
 const STableHeader = styled.th`
@@ -183,11 +200,11 @@ const STableHeader = styled.th`
     margin-left: 10px;
     ${({ theme }): string => `
         ${media(
-        'phone',
-        `
+            'phone',
+            `
         font-size: ${theme.font.size.small};
         `,
-    )}
+        )}
     `};
 `;
 const SHeadTableRow = styled.tr`

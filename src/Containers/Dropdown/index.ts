@@ -1,4 +1,4 @@
-import Dropdown, {IDropdownProps} from './Dropdown';
+import Dropdown, { IDropdownProps } from './Dropdown';
 import DropdownItem from './DropdownItem';
 
 Dropdown.Item = DropdownItem;

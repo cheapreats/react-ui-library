@@ -38,9 +38,7 @@ export const FeaturedProfile: React.FC<IFeaturedProfileProps> = ({
         key={key}
         {...props}
     >
-        {!!image && (
-            <img src={image} alt={alt} width={width} height={height} />
-        )}
+        {!!image && <img src={image} alt={alt} width={width} height={height} />}
         {!!initials && <CircleContent>{initials}</CircleContent>}
         {!!remainingProfiles && (
             <CircleContent>{remainingProfiles}</CircleContent>

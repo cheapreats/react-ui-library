@@ -7,7 +7,8 @@ import { Heading } from '@Text';
 import { Card as C, CardProps } from '../Card/Card';
 
 export interface SettingsCardProps
-    extends CardProps, MainInterface,
+    extends CardProps,
+        MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     heading: string;
@@ -36,7 +37,7 @@ interface HeadingIconProps {
     onClick?: (event: React.MouseEvent<Element, MouseEvent>) => void;
 }
 interface ICardProps extends CardProps {
-    width : string
+    width: string;
 }
 const CardHeading = styled(Heading)`
     ${Mixins.flex('center')}
@@ -56,7 +57,7 @@ const HeadingIcon = styled.svg<HeadingIconProps>`
 const Card = styled(C)<ICardProps>`
     ${Mixins.flex('column')}
     padding: 20px 25px;
-    width: ${({width}) => width};
+    width: ${({ width }) => width};
     box-sizing: border-box;
     margin: 10px;
     ${Mixins.media(

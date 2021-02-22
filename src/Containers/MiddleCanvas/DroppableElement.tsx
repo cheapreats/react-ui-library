@@ -114,10 +114,10 @@ const DroppableContainer = styled.div<DroppableContainerProps>`
     )};
     ${({ theme, isDragging }): string => `
         border: ${
-    isDragging
-        ? `solid 1px ${theme.colors.text}`
-        : theme.colors.background
-};
+            isDragging
+                ? `solid 1px ${theme.colors.text}`
+                : theme.colors.background
+        };
         background-color: ${theme.colors.input.default};
         color: ${theme.colors.text}
     `};

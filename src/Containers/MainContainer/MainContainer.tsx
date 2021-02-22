@@ -11,13 +11,13 @@ import styled from 'styled-components';
  * @returns {JSX.Element} Main container for the Demo page That contains
  * the text and Button for the Table Management homepage.
  */
-export interface IMainContainer {
-
-}
+export interface IMainContainer {}
 
 export const MainContainer: React.FC<IMainContainer> = () => (
     <TextCenterWithGreyBackground>
-        <SpacingTopForHeader3WithH1>Table Management Coming Soon!</SpacingTopForHeader3WithH1>
+        <SpacingTopForHeader3WithH1>
+            Table Management Coming Soon!
+        </SpacingTopForHeader3WithH1>
         <hr />
         <PaddingTopAndBottomForH4>
             Comprehensive restaurant management made easy.
@@ -26,10 +26,12 @@ export const MainContainer: React.FC<IMainContainer> = () => (
             Seat customers, make reservations, track orders, and get a
             bird&apos;s-eye view of your dining areas from one simple interface!
         </PaddingOnBottom>
-        <PaddingOnBottom>Design dining areas and customize your tables with ease. </PaddingOnBottom>
         <PaddingOnBottom>
-            Track customer interactions from end to end, so you can access
-            all your business data in a single location.
+            Design dining areas and customize your tables with ease.{' '}
+        </PaddingOnBottom>
+        <PaddingOnBottom>
+            Track customer interactions from end to end, so you can access all
+            your business data in a single location.
         </PaddingOnBottom>
         <hr />
         <SpaceForHeaderWithH5TextCenter>
@@ -37,15 +39,14 @@ export const MainContainer: React.FC<IMainContainer> = () => (
         </SpaceForHeaderWithH5TextCenter>
         <StylesForUnstyledList>
             <ListStyles>
-                Colors make it easy to see which tables are occupied,
-                vacant, and reserved.
+                Colors make it easy to see which tables are occupied, vacant,
+                and reserved.
             </ListStyles>
             <ListStyles>
                 See guest names for the occupied chairs at each table.
             </ListStyles>
             <ListStyles>
-                Get up-to-date occupancy information for your entire
-                restaurant.
+                Get up-to-date occupancy information for your entire restaurant.
             </ListStyles>
         </StylesForUnstyledList>
         <ButtonDangerLightBorderRounded href="#demo">

@@ -5,14 +5,15 @@ import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { flex, transition } from '@Utils/Mixins';
 import { Heading } from '@Text/Heading';
 
-export interface ICollapsibleHeadingProps extends MainInterface,
+export interface ICollapsibleHeadingProps
+    extends MainInterface,
         ResponsiveInterface,
-        React.HTMLAttributes<HTMLDivElement>{
+        React.HTMLAttributes<HTMLDivElement> {
     title?: string;
     ChildElement?: React.ReactElement;
     isCollapsed?: boolean;
     setCollapsed?: () => void;
-};
+}
 
 export const CollapsibleHeading: React.FC<ICollapsibleHeadingProps> = ({
     title,
@@ -34,9 +35,7 @@ export const CollapsibleHeading: React.FC<ICollapsibleHeadingProps> = ({
                 onClick={setCollapsed}
             />
         </Row>
-        <ChildContainer>
-            {!!isCollapsed && ChildElement}
-        </ChildContainer>
+        <ChildContainer>{!!isCollapsed && ChildElement}</ChildContainer>
     </Wrapper>
 );
 
@@ -49,7 +48,7 @@ const Wrapper = styled.div`
 const ChildContainer = styled.div`
     flex-grow: 2;
     flex-shrink: 0;
-`
+`;
 const Row = styled.div`
     ${flex('space-between')};
 `;
@@ -58,7 +57,7 @@ const Container = styled.div`
 `;
 interface IconProps {
     isCollapsed?: boolean;
-};
+}
 const Icon = styled.svg<IconProps>`
     ${transition(['transform'])}
     transform: rotate(${({ isCollapsed }): string =>

@@ -5,10 +5,11 @@ interface IDropdownItemProps {
     children: ReactNode;
 }
 
-const DropdownItem = ({ children, ...props }: IDropdownItemProps): ReactElement => (
-    <StyledListItem {...props}>
-        {children}
-    </StyledListItem>
+const DropdownItem = ({
+    children,
+    ...props
+}: IDropdownItemProps): ReactElement => (
+    <StyledListItem {...props}>{children}</StyledListItem>
 );
 
 const StyledListItem = styled.li`

@@ -4,10 +4,10 @@ import styled from 'styled-components';
 import { flex } from '@Utils/Mixins/flex';
 import { Select, SelectProps } from '../../Inputs/Select/Select';
 
-
-export interface IFilterSelectProps extends MainInterface,
+export interface IFilterSelectProps
+    extends MainInterface,
         ResponsiveInterface,
-        React.HTMLAttributes<HTMLDivElement>{
+        React.HTMLAttributes<HTMLDivElement> {
     placeholder: string;
     selectOptions: string[];
     selectProps?: SelectProps;
@@ -19,7 +19,7 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
     placeholder,
     selectOptions,
     selectProps,
-    onSelectFilter = ()=> console.log('selected'),
+    onSelectFilter = () => console.log('selected'),
     value,
     children,
     ...props
@@ -34,11 +34,13 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
             limit={selectOptions.length}
             {...selectProps}
         >
-            {selectOptions.map((selectOption): React.ReactElement => (
-                <option key={selectOption} value={selectOption}>
-                    {selectOption}
-                </option>
-            ))}
+            {selectOptions.map(
+                (selectOption): React.ReactElement => (
+                    <option key={selectOption} value={selectOption}>
+                        {selectOption}
+                    </option>
+                ),
+            )}
         </Select>
         {children}
     </Wrapper>
@@ -46,4 +48,4 @@ export const FilterSelect: React.FC<IFilterSelectProps> = ({
 
 const Wrapper = styled.div`
     ${flex('column')}
-`
+`;

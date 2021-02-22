@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Add } from '@styled-icons/ionicons-outline/Add';
 import { useFormik } from 'formik';
@@ -6,7 +6,11 @@ import { ConfirmModal } from '@Containers/StoreHoursList/ConfirmModal';
 import { ErrorModal } from '@Containers/StoreHoursList/ErrorModal';
 import { deepCopy } from '@Utils/deepCopy';
 import { useMounted } from '@Utils/Hooks/useMounted';
-import { createCategoryWithHours, validateCreateCategory, CATEGORY_FIELD } from './constants';
+import {
+    createCategoryWithHours,
+    validateCreateCategory,
+    CATEGORY_FIELD,
+} from './constants';
 import { ICategoryWithHoursTypes } from './interfaces';
 import { Heading, SmallText } from '../../Text';
 import { Modal } from '../Modal/Modal';
@@ -33,7 +37,11 @@ interface EditCategoryProps
     yesButtonLabel: string;
     noButtonLabel: string;
     allCategories: ICategoryWithHoursTypes[];
-    setFieldValue: (field: string, value: any, shouldValidate?: boolean | undefined) => void;
+    setFieldValue: (
+        field: string,
+        value: any,
+        shouldValidate?: boolean | undefined,
+    ) => void;
     setActiveCategory: React.Dispatch<React.SetStateAction<number>>;
     activeCategory: number;
 }
@@ -66,36 +74,41 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
         isValid,
         handleChange,
     } = useFormik({
-        initialValues: {createCategory: ''},
-        validate: (validationValues: {createCategory: string} )=> validateCreateCategory(validationValues, allCategories, CATEGORY_EXISTS, CANNOT_ADD_EMPTY),
+        initialValues: { createCategory: '' },
+        validate: (validationValues: { createCategory: string }) =>
+            validateCreateCategory(
+                validationValues,
+                allCategories,
+                CATEGORY_EXISTS,
+                CANNOT_ADD_EMPTY,
+            ),
         validateOnChange: true,
         validateOnMount: true,
-        onSubmit: ()=>undefined,
+        onSubmit: () => undefined,
         enableReinitialize: true,
-    }); 
+    });
 
     const removeCategory = (index: number) => {
-        if (
-            index === activeCategory
-        ) {
+        if (index === activeCategory) {
             // prevent deleting active category as it would throw errors
-            setErrorModalState(true)
+            setErrorModalState(true);
         } else if (allCategories.length !== 1) {
             setDeletedCategory(index);
-            setConfirmModalState(
-                !confirmModalState,
-            );
+            setConfirmModalState(!confirmModalState);
         }
-    }
+    };
 
     const handleDeleteCategory = (): void => {
         // get category name to find new index;
         const activeCategoryName = allCategories[activeCategory].name;
         const categoriesCopy = deepCopy(allCategories);
         // remove category to delete
-        categoriesCopy.splice(deletedCategory, DELETE_SINGLE_CATEGORY)
+        categoriesCopy.splice(deletedCategory, DELETE_SINGLE_CATEGORY);
         // find new index of active category by categoryName
-        const activeCategoryIndexAfterDelete = categoriesCopy.findIndex(categoryWithHours => categoryWithHours.name === activeCategoryName);
+        const activeCategoryIndexAfterDelete = categoriesCopy.findIndex(
+            (categoryWithHours) =>
+                categoryWithHours.name === activeCategoryName,
+        );
         if (isMounted.current) {
             setActiveCategory(activeCategoryIndexAfterDelete);
             setFieldValue(CATEGORY_FIELD, categoriesCopy);
@@ -107,25 +120,21 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
         setFieldValue(CATEGORY_FIELD, [...allCategories, newCategory]);
     };
 
-    const renderCategories = () => allCategories.map(
-        ({name}, index): React.ReactElement => (
-            <Section
-                as={Tag}
-                onClick={(): void => removeCategory(index)}
-            >
-                {
-                    name
-                }
-            </Section>
-        ),
-    );
+    const renderCategories = () =>
+        allCategories.map(
+            ({ name }, index): React.ReactElement => (
+                <Section as={Tag} onClick={(): void => removeCategory(index)}>
+                    {name}
+                </Section>
+            ),
+        );
 
     return (
         <>
             <StyledModal state={isVisible} {...props}>
                 <StyledHeading type="h3">{thirdModalHeader}</StyledHeading>
                 <Input
-                    name='createCategory'
+                    name="createCategory"
                     onChange={handleChange}
                     error={formErrors.createCategory}
                     value={values.createCategory}
@@ -134,9 +143,7 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
                     <StyledHeading type="h6">{ALL_CATEGORIES}</StyledHeading>
                     <SmallText>{ADD_CATEGORIES_SUBTITLE}</SmallText>
                 </TextContainer>
-                <Container>
-                    {renderCategories()}
-                </Container>
+                <Container>{renderCategories()}</Container>
                 <CenteredButton
                     icon={Add}
                     onClick={() => handleCreateCategory()}
@@ -145,8 +152,17 @@ export const EditCategoryModal: React.FC<EditCategoryProps> = ({
                     {ADD_CATEGORY_BUTTON}
                 </CenteredButton>
             </StyledModal>
-            <ConfirmModal confirmDelete='Are you sure you want to delete this category' yesButtonLabel={yesButtonLabel} noButtonLabel={noButtonLabel} isVisible={[confirmModalState, setConfirmModalState]} onConfirm={()=> handleDeleteCategory()} />
-            <ErrorModal modalState={[errorModalState, setErrorModalState]} errorMessage={CANNOT_DELETE_ACTIVE} />
+            <ConfirmModal
+                confirmDelete="Are you sure you want to delete this category"
+                yesButtonLabel={yesButtonLabel}
+                noButtonLabel={noButtonLabel}
+                isVisible={[confirmModalState, setConfirmModalState]}
+                onConfirm={() => handleDeleteCategory()}
+            />
+            <ErrorModal
+                modalState={[errorModalState, setErrorModalState]}
+                errorMessage={CANNOT_DELETE_ACTIVE}
+            />
         </>
     );
 };

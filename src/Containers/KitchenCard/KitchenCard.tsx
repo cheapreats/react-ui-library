@@ -45,7 +45,10 @@ export const KitchenCard: React.FC<KitchenCardProps> = ({
     TimeComponent,
     StatusModifierComponent,
 }): React.ReactElement => {
-    const statusFormat = useCallback(() => status.charAt(0) + status.slice(1).toLowerCase(), [status]);
+    const statusFormat = useCallback(
+        () => status.charAt(0) + status.slice(1).toLowerCase(),
+        [status],
+    );
 
     return (
         <Card

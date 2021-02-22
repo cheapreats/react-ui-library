@@ -10,11 +10,11 @@ const defaultCategories = [
             monday: [
                 {
                     from: '5:00',
-                    to: '6:00'
+                    to: '6:00',
                 },
                 {
                     from: '9:00',
-                    to: '10:00'
+                    to: '10:00',
                 },
                 {
                     from: '12:00',
@@ -26,7 +26,7 @@ const defaultCategories = [
             thursday: [
                 {
                     from: '9:00',
-                    to: '11:00'
+                    to: '11:00',
                 },
                 {
                     from: '12:00',
@@ -37,7 +37,8 @@ const defaultCategories = [
             saturday: [],
             sunday: [],
         },
-    },{
+    },
+    {
         name: 'Summer',
         open_hours: {
             monday: [
@@ -79,8 +80,8 @@ const defaultCategories = [
             friday: [],
             saturday: [],
             sunday: [],
-        }
-    }
+        },
+    },
 ];
 
 const textHeaders = {
@@ -100,7 +101,7 @@ const textHeaders = {
             'Hover over and click the categories to delete them.',
         CONFIRM_DELETE: 'Are you sure you want to delete this name?',
         CHANGE_ACTIVE_SUBTITLE: 'Change Active',
-        RESET_FORM: 'Are you sure you want to reset'
+        RESET_FORM: 'Are you sure you want to reset',
     },
     BUTTONS: {
         EDIT: 'Edit',
@@ -112,7 +113,7 @@ const textHeaders = {
         YES: 'Yes',
         NO: 'No',
         RESET: 'Reset',
-        SAVE: 'Save'
+        SAVE: 'Save',
     },
     ERRORS: {
         CANNOT_DELETE_ACTIVE_CATEGORY: 'You cannot delete an active name',
@@ -131,19 +132,17 @@ export default {
     component: StoreHoursList,
     args: {
         allCategories: defaultCategories,
-        onSave
+        onSave,
     },
 } as Meta;
-
-
-
-
 
 export const Basic: Story<StoreHoursListProps> = (args) => (
     <StoreHoursList {...args} textHeaders={textHeaders} />
 );
 
-export const NoCategories = Basic.bind({title: createStoryTitle('StoreHoursList Empty Categories')});
+export const NoCategories = Basic.bind({
+    title: createStoryTitle('StoreHoursList Empty Categories'),
+});
 NoCategories.args = {
-    allCategories: []
+    allCategories: [],
 };

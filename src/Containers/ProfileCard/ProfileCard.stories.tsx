@@ -11,11 +11,7 @@ export default {
         customerLoyaltyType: {
             control: {
                 type: 'select',
-                options: [
-                    'REGULAR',
-                    'CASUAL',
-                    'FIRST_TIME'
-                ],
+                options: ['REGULAR', 'CASUAL', 'FIRST_TIME'],
             },
         },
     },
@@ -24,8 +20,22 @@ export default {
         visitCount: 4,
         profileName: 'Ashley Tisdale The Third',
         lastVisitedDate: '23 Days Ago',
-        isFavoriteStore: true
+        isFavoriteStore: true,
     },
 } as Meta;
 
 export const Basic: Story<ProfileCardProps> = (args) => <ProfileCard {...args} />;
+
+export const DefaultPhoto = Basic.bind({})
+
+DefaultPhoto.args = {
+    ...DefaultPhoto.args,
+    profileImage: '',
+}
+
+export const DefaultPhotoNull = Basic.bind({})
+
+DefaultPhotoNull.args = {
+    ...DefaultPhoto.args,
+    profileImage: undefined,
+}

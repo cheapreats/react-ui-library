@@ -60,5 +60,5 @@ export * from './EditControlPanel/EditControlPanel';
 export * from './EditDraggableCanvas/EditDraggableCanvas'
 export * from './SoldOutCardNotification/SoldOutCardNotification';
 export * from './VisitNotification/VisitNotification';
-export * from './BoxComposition/BoxComposition'
-export * from './BoxComposition2/BoxComposition2'
+export * from './BoxComposition/BoxComposition';
+export * from './BoxComposition2/BoxComposition2';

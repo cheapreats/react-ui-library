@@ -23,7 +23,12 @@ export const TagContainer: React.FC<ITagContainerProps> = ({
 }): React.ReactElement => (
     <Wrapper {...props}>
         {tags.map((tag, index) => (
-            <Tag key={tag} isHoverable={isHoverable} {...tagProps} onClick={() => onRemoveTag(index)}>
+            <Tag
+                key={tag}
+                isHoverable={isHoverable}
+                {...tagProps}
+                onClick={() => onRemoveTag(index)}
+            >
                 {tag}
             </Tag>
         ))}
@@ -36,5 +41,5 @@ const Wrapper = styled.div`
     ${flex('start')};
 `;
 const Tag = styled(T)`
-    margin:2px;
-` 
+    margin: 2px;
+`;

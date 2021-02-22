@@ -8,18 +8,22 @@ import { flex } from '../../Utils/Mixins';
 
 export interface IWrapperProps {
     label?: string;
-    selectedItem?: string; 
+    selectedItem?: string;
     icon?: StyledIcon;
     isSelected?: boolean;
 }
 
 export interface INavigationItemProps
-    extends IWrapperProps, MainInterface,
+    extends IWrapperProps,
+        MainInterface,
         ResponsiveInterface,
         Omit<React.HTMLAttributes<HTMLDivElement>, 'onClick'> {
     iconProps?: IconProps | { style: any };
     headingProps?: HeadingProps;
-    onNavigate?: ( label?: string, event?: React.MouseEvent<HTMLDivElement, MouseEvent>) => void;
+    onNavigate?: (
+        label?: string,
+        event?: React.MouseEvent<HTMLDivElement, MouseEvent>,
+    ) => void;
 }
 
 export const NavigationItem: React.FC<INavigationItemProps> = ({
@@ -28,10 +32,16 @@ export const NavigationItem: React.FC<INavigationItemProps> = ({
     isSelected,
     iconProps,
     headingProps,
-    onNavigate = ()=> console.log('nav'),
+    onNavigate = () => console.log('nav'),
     ...props
 }): React.ReactElement => (
-    <Wrapper label={label} onClick={(event:React.MouseEvent<HTMLDivElement, MouseEvent>)=> onNavigate(label, event)} {...props}>
+    <Wrapper
+        label={label}
+        onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
+            onNavigate(label, event)
+        }
+        {...props}
+    >
         <Icon as={icon} {...iconProps} />
         <SelectHeading isSelected={isSelected} type="h6" {...headingProps}>
             {label}
@@ -40,16 +50,17 @@ export const NavigationItem: React.FC<INavigationItemProps> = ({
 );
 
 interface ISelectHeadingProps {
-    isSelected? : boolean;
+    isSelected?: boolean;
 }
 
 const SelectHeading = styled(H)<ISelectHeadingProps>`
-${({ theme, isSelected }): string =>
-        isSelected ?
-            `
+    ${({ theme, isSelected }): string =>
+        isSelected
+            ? `
     border-bottom: solid 2px ${theme.colors.text};
-    `: ''};
-`   
+    `
+            : ''};
+`;
 
 const Wrapper = styled.div<IWrapperProps>`
     ${flex('row')};

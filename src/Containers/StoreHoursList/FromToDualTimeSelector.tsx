@@ -18,7 +18,7 @@ interface FromToDualTimeSelectorProps
         React.HTMLAttributes<HTMLDivElement> {
     storeHours: IToFromHours;
     setStoreHours: (hours: IToFromHours) => void;
-    errors?: IErrors | FormikErrors<IToFromHours>
+    errors?: IErrors | FormikErrors<IToFromHours>;
 }
 
 const MATCH_FIRST_LETTER_PATTERN = /^\w/;
@@ -40,16 +40,16 @@ export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
                         MATCH_FIRST_LETTER_PATTERN,
                         (char): string => char.toUpperCase(),
                     )}
-                    value={moment(time, MOMENT_24_HOUR_FORMAT ).toDate()}
+                    value={moment(time, MOMENT_24_HOUR_FORMAT).toDate()}
                     error={errors ? errors[key] : false}
-                    onChange={(
-                        e: React.ChangeEvent<HTMLInputElement>,
-                    ): void =>
+                    onChange={(e: React.ChangeEvent<HTMLInputElement>): void =>
                         setStoreHours({
                             ...storeHours,
-                            [key]: moment(e.target.value).format(MOMENT_24_HOUR_FORMAT ),
-                        })}
-                    
+                            [key]: moment(e.target.value).format(
+                                MOMENT_24_HOUR_FORMAT,
+                            ),
+                        })
+                    }
                 />
             ),
         )}
@@ -60,7 +60,6 @@ const TimeRow = styled.div`
     ${Mixins.flex()}
     width: 100%;
     ${Main};
-
     & > * {
         width: calc(50% - 5px);
         box-sizing: border-box;

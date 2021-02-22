@@ -31,7 +31,7 @@ export const NavigationBar: React.FC<INavigationBarProps> = ({
             />
         ))}
     </Wrapper>
-)
+);
 
 const Wrapper = styled.div`
     ${flex('row')};

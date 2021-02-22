@@ -27,7 +27,7 @@ interface EditTimeProps
     allCategories: ICategoryWithHoursTypes[];
     activeCategory: number;
     setActiveCategory: React.Dispatch<React.SetStateAction<number>>;
-    saveStoreHours:  () => void;
+    saveStoreHours: () => void;
     resetForm: () => void;
     isDirty: boolean;
 }
@@ -56,22 +56,24 @@ export const EditModal: React.FC<EditTimeProps> = ({
         editCategoryModalState,
         setEditCategoryModalState,
     ] = editCategoryModal;
-    const [selectActiveCategory, setSelectActiveCategory] = useState(activeCategory);
+    const [selectActiveCategory, setSelectActiveCategory] = useState(
+        activeCategory,
+    );
     const confirm = () => {
-        saveStoreHours()
-        setActiveCategory(selectActiveCategory)
+        saveStoreHours();
+        setActiveCategory(selectActiveCategory);
     };
 
     const reject = () => {
-        resetForm()
-        setActiveCategory(selectActiveCategory)
+        resetForm();
+        setActiveCategory(selectActiveCategory);
     };
 
     const onSetNewActive = () => {
         if (isDirty) {
             setConfirmModalState(true);
         } else {
-            setActiveCategory(selectActiveCategory)
+            setActiveCategory(selectActiveCategory);
         }
     };
 
@@ -109,11 +111,8 @@ export const EditModal: React.FC<EditTimeProps> = ({
                 value={allCategories[selectActiveCategory].name}
             >
                 {Object.values(allCategories).map(
-                    ({name}, index): React.ReactElement => (
-                        <option
-                            key={name}
-                            value={index}
-                        >
+                    ({ name }, index): React.ReactElement => (
+                        <option key={name} value={index}>
                             {name}
                         </option>
                     ),
@@ -130,9 +129,9 @@ export const EditModal: React.FC<EditTimeProps> = ({
             </ButtonsContainer>
             <ConfirmModal
                 isVisible={[confirmModalState, setConfirmModalState]}
-                confirmDelete='Save or Discard current changes'
-                yesButtonLabel='Save'
-                noButtonLabel='Discard'
+                confirmDelete="Save or Discard current changes"
+                yesButtonLabel="Save"
+                noButtonLabel="Discard"
                 onConfirm={confirm}
                 onReject={reject}
             />

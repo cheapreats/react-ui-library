@@ -17,7 +17,7 @@ export const NavigationHeader: React.FC<_NavigationHeaderProps> = ({
     label,
     logo,
     ...props
-}): React.ReactElement =>{
+}): React.ReactElement => {
     const theme = useTheme();
     return (
         <Header>
@@ -35,7 +35,7 @@ export const NavigationHeader: React.FC<_NavigationHeaderProps> = ({
             </Heading>
         </Header>
     );
-} 
+};
 
 const Header = styled.div`
     ${Mixins.flex('center')}

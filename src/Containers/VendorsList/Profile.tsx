@@ -46,7 +46,8 @@ export const Profile: React.FC<IProfileProps> = ({
     const getInitials = (inputName: string) => {
         const initials = inputName.match(MATCH_FIRST_LETTER) || EMPTY_ARRAY;
         const profileInitials = (
-            (initials.shift() || EMPTY_STRING) + (initials.pop() || EMPTY_STRING)
+            (initials.shift() || EMPTY_STRING) +
+            (initials.pop() || EMPTY_STRING)
         ).toUpperCase();
         return profileInitials;
     };
