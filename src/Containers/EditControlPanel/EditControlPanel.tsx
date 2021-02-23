@@ -1,7 +1,7 @@
-import React, {useState} from 'react';
-import styled,{ useTheme } from "styled-components";
-import Card from "@Containers/Card/Card";
-import Button from "../../Inputs/Button/Button"
+import React, { useState } from 'react';
+import styled, { useTheme } from 'styled-components';
+import Card from '@Containers/Card/Card';
+import Button from '../../Inputs/Button/Button';
 
 export interface IEditControlPanel {
     /**
@@ -19,61 +19,114 @@ export interface IEditControlPanel {
  * Edit control panel for the right side of the edit page
  */
 export const EditControlPanel: React.FC<IEditControlPanel> = ({
-    TableNumber= 'T1',
+    TableNumber = 'T1',
     NumberOfSeats = 1,
     ...props
 }) => {
-
     const [seat, setSeat] = useState(NumberOfSeats);
 
     /**
      * Functions for Delete, Rotate, and Click buttons
      */
-    function onDeleteClick(){
-        console.log("Delete Button has been clicked");
+    function onDeleteClick() {
+        console.log('Delete Button has been clicked');
     }
 
-    function onRotateClick(){
-        console.log("Rotate Button has been clicked");
+    function onRotateClick() {
+        console.log('Rotate Button has been clicked');
     }
 
-    function onCloneClick(){
-        console.log("Clone Button has been clicked");
+    function onCloneClick() {
+        console.log('Clone Button has been clicked');
     }
 
     return (
         <BorderForControlPanel {...props}>
             <Card>
                 <CenteredText>
-                    <div style={{ color: useTheme().colors.editControlPanelColor, fontWeight: 'bold' }}>Table Number</div>
+                    <div
+                        style={{
+                            color: useTheme().colors.editControlPanelColor,
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        Table Number
+                    </div>
                     <InputStyles placeholder={TableNumber} />
                 </CenteredText>
                 <CenteredText>
-                    <div style={{ color: useTheme().colors.editControlPanelColor, fontWeight: 'bold' }}>Number Of Seats</div>
+                    <div
+                        style={{
+                            color: useTheme().colors.editControlPanelColor,
+                            fontWeight: 'bold',
+                        }}
+                    >
+                        Number Of Seats
+                    </div>
                     <Border>
                         <Container>
                             <Row>
                                 <Col1>
-                                    <StylesForLeftButton onClick={() => setSeat(prevSeat => prevSeat - 1)}>-</StylesForLeftButton>
+                                    <StylesForLeftButton
+                                        onClick={() =>
+                                            setSeat((prevSeat) => prevSeat - 1)
+                                        }
+                                    >
+                                        -
+                                    </StylesForLeftButton>
                                 </Col1>
-                                <Col10>
-                                    {seat}
-                                </Col10>
+                                <Col10>{seat}</Col10>
                                 <Col2>
-                                    <StylesForRightButton onClick={() => setSeat(prevSeat => prevSeat + 1)}>+</StylesForRightButton>
+                                    <StylesForRightButton
+                                        onClick={() =>
+                                            setSeat((prevSeat) => prevSeat + 1)
+                                        }
+                                    >
+                                        +
+                                    </StylesForRightButton>
                                 </Col2>
                             </Row>
                         </Container>
                     </Border>
                 </CenteredText>
                 <PaddingForButtons>
-                    <Button primary onClick={() => onRotateClick()} style={{marginRight: 'auto', marginLeft: "auto", width: '80%'}}>Rotate</Button>
+                    <Button
+                        primary
+                        onClick={() => onRotateClick()}
+                        style={{
+                            marginRight: 'auto',
+                            marginLeft: 'auto',
+                            width: '80%',
+                        }}
+                    >
+                        Rotate
+                    </Button>
                 </PaddingForButtons>
                 <PaddingForButtons>
-                    <Button primary onClick={() => onCloneClick()} style={{marginRight: 'auto', marginLeft: "auto", width: '80%'}}>Clone</Button>
+                    <Button
+                        primary
+                        onClick={() => onCloneClick()}
+                        style={{
+                            marginRight: 'auto',
+                            marginLeft: 'auto',
+                            width: '80%',
+                        }}
+                    >
+                        Clone
+                    </Button>
                 </PaddingForButtons>
                 <PaddingForButtons>
-                    <Button primary onClick={() => onDeleteClick()} style={{marginRight: 'auto', marginLeft: "auto", width: '80%'}}>Delete</Button>
+                    <Button
+                        primary
+                        onClick={() => onDeleteClick()}
+                        style={{
+                            marginRight: 'auto',
+                            marginLeft: 'auto',
+                            width: '80%',
+                        }}
+                    >
+                        Delete
+                    </Button>
                 </PaddingForButtons>
             </Card>
         </BorderForControlPanel>
@@ -81,19 +134,19 @@ export const EditControlPanel: React.FC<IEditControlPanel> = ({
 };
 
 /**
-* variables for the styled components
-*/
+ * variables for the styled components
+ */
 const StylesForLeftButton = styled(Button)`
-    marginTop: auto;
-    marginBottom: auto;
+    margintop: auto;
+    marginbottom: auto;
     border: none;
     background: transparent;
     outline: none;
 `;
 
 const StylesForRightButton = styled(Button)`
-    marginTop: auto;
-    marginBottom: auto;
+    margintop: auto;
+    marginbottom: auto;
     border: none;
     background: transparent;
     outline: none;
@@ -116,7 +169,6 @@ const Row = styled.div`
     display: flex;
     -ms-flex-wrap: wrap;
     flex-wrap: wrap;
-   
 `;
 
 const Col10 = styled.div`
@@ -128,20 +180,19 @@ const Col10 = styled.div`
     margin-bottom: auto;
     margin-left: 3px;
     min-height: 1px;
-    margin-right: -23px
+    margin-right: -23px;
 `;
 
 const Col1 = styled.div`
-   -ms-flex: 0 0 8.333333%;
-  flex: 0 0 8.333333%;
-  max-width: 8.333333%; 
+    -ms-flex: 0 0 8.333333%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;
 `;
 
 const Col2 = styled.div`
-   -ms-flex: 0 0 8.333333%;
-  flex: 0 0 8.333333%;
-  max-width: 8.333333%;
- 
+    -ms-flex: 0 0 8.333333%;
+    flex: 0 0 8.333333%;
+    max-width: 8.333333%;
 `;
 
 const BorderForControlPanel = styled.div`
@@ -155,18 +206,18 @@ const Border = styled.div`
     margin-right: auto;
     border: 1px solid ${({ theme }) => theme.colors.editControlPanelColor};
     border-radius: 21px;
-    margin-top: .5rem;
+    margin-top: 0.5rem;
 `;
 
 const PaddingForButtons = styled.div`
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 `;
 
 const CenteredText = styled.div`
     text-align: center;
-    padding-top: .5rem;
-    padding-bottom: .5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
 `;
 
 export default EditControlPanel;
