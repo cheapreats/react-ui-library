@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import {EditControlPanel, IEditControlPanel} from "@Containers";
+import { EditControlPanel, IEditControlPanel } from '@Containers';
 import { createStoryTitle } from '../../Constants';
 
 export default {

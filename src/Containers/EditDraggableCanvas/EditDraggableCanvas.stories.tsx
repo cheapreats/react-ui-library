@@ -1,6 +1,9 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import { EditDraggableCanvas, IEditDraggableCanvas } from './EditDraggableCanvas';
+import {
+    EditDraggableCanvas,
+    IEditDraggableCanvas,
+} from './EditDraggableCanvas';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -16,4 +19,4 @@ export const MainContainerComponent = Template.bind({});
 MainContainerComponent.args = {
     CurrentNumberOfChairs: 0,
     MaxCapacity: 0,
-}
+};

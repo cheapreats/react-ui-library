@@ -24,18 +24,20 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<ProfileCardProps> = (args) => <ProfileCard {...args} />;
+export const Basic: Story<ProfileCardProps> = (args) => (
+    <ProfileCard {...args} />
+);
 
-export const DefaultPhoto = Basic.bind({})
+export const DefaultPhoto = Basic.bind({});
 
 DefaultPhoto.args = {
     ...DefaultPhoto.args,
     profileImage: '',
-}
+};
 
-export const DefaultPhotoNull = Basic.bind({})
+export const DefaultPhotoNull = Basic.bind({});
 
 DefaultPhotoNull.args = {
     ...DefaultPhoto.args,
     profileImage: undefined,
-}
+};

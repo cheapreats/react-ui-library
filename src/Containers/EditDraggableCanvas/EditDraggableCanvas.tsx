@@ -1,5 +1,5 @@
-import React from "react";
-import styled from "styled-components";
+import React from 'react';
+import styled from 'styled-components';
 
 export interface IEditDraggableCanvas {
     /**
@@ -18,7 +18,7 @@ export interface IEditDraggableCanvas {
  * EditDraggableCanvas
  */
 export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
-    CurrentNumberOfChairs= 0,
+    CurrentNumberOfChairs = 0,
     MaxCapacity = 0,
     ...props
 }) => (
@@ -68,8 +68,8 @@ const CanvasBorder = styled.div`
 const FontForCapacityDisplay = styled.div`
     font-size: 14px;
     text-align: center;
-    margin-top: .6rem;
-    margin-left: .2rem;
+    margin-top: 0.6rem;
+    margin-left: 0.2rem;
     color: black;
 `;
 
@@ -77,8 +77,8 @@ const CapacityDisplayStyles = styled.div`
     width: 10rem;
     height: 3rem;
     background: grey;
-    bottom:0;
-    right:0;
+    bottom: 0;
+    right: 0;
     position: absolute;
     border-bottom-right-radius: 11px;
     border-top-left-radius: 50px;
