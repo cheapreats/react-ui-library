@@ -1,7 +1,10 @@
-import React from 'react';
+import React,{useState} from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
+import {Search} from '@styled-icons/fa-solid/Search';
+import {Times} from '@styled-icons/fa-solid/Times';
 import { Heading } from '../../Text/Heading';
+import {Input} from '../../Inputs/Input/Input';
 import { TextLayoutProps } from '../../__Layouts';
 import { Mixins } from '../../Utils';
 
@@ -14,9 +17,10 @@ export interface ListHeaderProps extends TextLayoutProps {
     headerRowComponent?: React.ReactElement;
     type?: string;
     padding?: string;
+    onSearch?: (event:React.ChangeEvent<HTMLInputElement>)=>void;
 }
 
-export const ListHeader: React.FC<ListHeaderProps> = ({
+export const ListHeader: React.FC<ListHeaderProps>= ({
     label,
     children,
     headerFlex,
@@ -25,21 +29,55 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
     iconProps,
     headerRowComponent,
     padding = '10px 20px;',
+    onSearch,
     ...props
-}): React.ReactElement => (
-    <Header padding={padding}>
-        <Row display={headerFlex}>
-            <Heading bold type="h2" margin="0 0 5px" {...props}>
-                {label}
-            </Heading>
-            {icon && (
-                <Icon as={icon} onClick={iconClick} iconProps={iconProps} />
-            )}
-            {headerRowComponent}
-        </Row>
-        {children}
-    </Header>
-);
+}): React.ReactElement => {
+    const [showInputField,setShowInputField]=useState(false)
+    return (
+        <Header padding={padding}>
+            <Row display={headerFlex}>
+                <Heading bold type="h2" margin="0 0 5px" {...props}>
+                    {label}
+                </Heading>
+                {showInputField&&
+                (
+                    <SearchInput 
+                        type='text'  
+                        onChange={onSearch} 
+                    />
+                )}
+                <IconsContainer display={headerFlex}>
+                    {onSearch&& (
+                        showInputField?
+                            (
+                                <Icon 
+                                    as={Times} 
+                                    onClick={()=>{
+                                        setShowInputField(false)
+                                    }} 
+                                    iconProps={iconProps}
+                                />
+                            ):
+                            (
+                                <Icon 
+                                    as={Search} 
+                                    onClick={()=>{
+                                        setShowInputField(true)
+                                    }} 
+                                    iconProps={iconProps}
+                                />
+                            )
+                    )}
+                    {icon && (
+                        <Icon as={icon} onClick={iconClick} iconProps={iconProps} />
+                    )}
+                </IconsContainer>
+                {headerRowComponent}
+            </Row>
+            {children}
+        </Header>
+    )
+}
 
 interface HeaderProps {
     padding?: string;
@@ -65,4 +103,15 @@ const Row = styled.div<RowProps>`
 
 const Icon = styled.svg<IconProps>`
     ${(props): string | undefined => props.iconProps}
+    cursor:pointer;
 `;
+
+const IconsContainer=styled.div<RowProps>`
+${(props): string | undefined =>
+        props.display && Mixins.flex(props.display)};
+`
+
+const SearchInput=styled(Input)`
+flex:1;
+margin: 0 10px;
+`
