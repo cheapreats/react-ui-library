@@ -11,16 +11,12 @@ const NOT_EXPANDED_WIDTH=0
 export interface SearchBarExpandableProps extends LabelLayoutProps {
     onInput?: (value:string)=>void;
     placeholder?: string;
-    backgroundColor?: string;
-    borderRadius?: string;
     hasIcon?: boolean;
 }
 
 export const SearchBarExpandable: React.FC<SearchBarExpandableProps> = ({
     onInput=(value)=>console.log(value),
     placeholder,
-    backgroundColor = '#f5f5f5',
-    borderRadius = '8px',
     hasIcon = true,
     ...props
 }): React.ReactElement => {
@@ -35,17 +31,12 @@ export const SearchBarExpandable: React.FC<SearchBarExpandableProps> = ({
     return (
         <LabelLayout {...props}>
             <Container>
-                <SelectDisplay
-                    backgroundColor={backgroundColor}
-                    borderRadius={borderRadius}
-                >
+                <SelectDisplay>
                     <InputFragment
                         {...props}
                         value={inputValue}
                         placeholder={placeholder}
                         onChange={(e): void => handleChange(e)}
-                        backgroundColor={backgroundColor}
-                        borderRadius={borderRadius}
                         isExpanded={isExpanded}
                     />
                     {hasIcon && !isExpanded&& <Icon as={Search} onClick={()=>{setIsExpanded(true)}} />}
@@ -62,8 +53,6 @@ interface SearchBarSelectProps extends LabelLayoutProps {
     value?: string | number;
     onChange?: Function;
     limit?: number;
-    backgroundColor?: string;
-    borderRadius?: string;
 }
 const SelectDisplay = styled.p<SearchBarSelectProps>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
@@ -76,9 +65,9 @@ const SelectDisplay = styled.p<SearchBarSelectProps>`
     margin: 0px;
     width:fit-content;
     max-width:100%;
-    ${({ backgroundColor, borderRadius }): string => `
-        background-color: ${backgroundColor};
-        border-radius: ${borderRadius};
+    ${({ theme }): string => `
+        background-color: ${theme.colors.input.default};
+        border-radius: ${theme.dimensions.radius};
     `}
 `;
 
