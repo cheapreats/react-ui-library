@@ -32,7 +32,7 @@ export const ListHeader: React.FC<ListHeaderProps>= ({
     onSearch,
     ...props
 }): React.ReactElement => {
-    const stateExpanded=useState(false)
+    const [isExpanded,setIsExpanded]=useState(false)
     const [showRest,setShowRest]=useState(true)
 
     /**
@@ -40,14 +40,14 @@ export const ListHeader: React.FC<ListHeaderProps>= ({
      * due to the delay in contraction
      */
     useEffect(()=>{
-        if(!stateExpanded[0]){
+        if(!isExpanded){
             setTimeout(()=>{
                 setShowRest(true)
             },DELAY)
         }else{
             setShowRest(false)
         }
-    },[stateExpanded[0],setShowRest])
+    },[isExpanded,setShowRest])
 
     return (
         <Header padding={padding}>
@@ -58,7 +58,7 @@ export const ListHeader: React.FC<ListHeaderProps>= ({
                         {label}
                     </Heading>
                 )}
-                {onSearch&&<SearchBarExpandable onInput={onSearch} state={stateExpanded} />}
+                {onSearch&&<SearchBarExpandable onInput={onSearch} state={[isExpanded,setIsExpanded]} />}
                 {icon && showRest&&(
                     <IconContainer>
                         <Icon as={icon} onClick={iconClick} iconProps={iconProps} />
