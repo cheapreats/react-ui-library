@@ -19,3 +19,4 @@ export * from './SearchBar/SearchBar';
 export * from './CustomSearch/CustomSearch';
 export * from './SettingsSwitch/SettingsSwitch';
 export * from './SegmentedButton/SegmentedButton';
+export * from './SearchBarExpandable/SearchBarExpandable';
