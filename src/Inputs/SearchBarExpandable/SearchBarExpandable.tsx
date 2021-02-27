@@ -3,7 +3,7 @@ import { Search } from '@styled-icons/fa-solid/Search';
 import {Times} from '@styled-icons/fa-solid/Times';
 import styled from 'styled-components';
 import { flex, transition } from '@Utils/Mixins';
-import { LabelLayout, InputFragment as I, LabelLayoutProps } from '@Layouts';
+import { InputFragment as I, LabelLayoutProps } from '@Layouts';
 
 const EXPANDED_WIDTH=10000
 const NOT_EXPANDED_WIDTH=0
@@ -12,15 +12,15 @@ export interface SearchBarExpandableProps extends LabelLayoutProps {
     onInput?: (value:string)=>void;
     placeholder?: string;
     hasIcon?: boolean;
+    state:[boolean, React.Dispatch<React.SetStateAction<boolean>>];
 }
 
 export const SearchBarExpandable: React.FC<SearchBarExpandableProps> = ({
     onInput=(value)=>console.log(value),
     placeholder,
     hasIcon = true,
-    ...props
+    state,
 }): React.ReactElement => {
-    const [isExpanded,setIsExpanded]=useState(false)
     const [inputValue, setInputValue] = useState('');
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -29,21 +29,18 @@ export const SearchBarExpandable: React.FC<SearchBarExpandableProps> = ({
     };
 
     return (
-        <LabelLayout {...props}>
-            <Container>
-                <SelectDisplay>
-                    <InputFragment
-                        {...props}
-                        value={inputValue}
-                        placeholder={placeholder}
-                        onChange={(e): void => handleChange(e)}
-                        isExpanded={isExpanded}
-                    />
-                    {hasIcon && !isExpanded&& <Icon as={Search} onClick={()=>{setIsExpanded(true)}} />}
-                    {isExpanded&& <Icon as={Times} onClick={()=>{setIsExpanded(false)}} />}
-                </SelectDisplay>
-            </Container>
-        </LabelLayout>
+        <Container>
+            <SelectDisplay>
+                <InputFragment
+                    value={inputValue}
+                    placeholder={placeholder}
+                    onChange={(e): void => handleChange(e)}
+                    isExpanded={state[0]}
+                />
+                {hasIcon && !state[0]&& <Icon as={Search} onClick={()=>{state[1](true)}} />}
+                {state[0]&& <Icon as={Times} onClick={()=>{state[1](false)}} />}
+            </SelectDisplay>
+        </Container>
     );
 };
 
@@ -101,9 +98,9 @@ const InputFragment = styled(I)<IInputFragmentProps>`
 
 const Container = styled.div`
     ${flex('column')}
-    flex-direction: columns;
     width: 100%;
     align-items:flex-end;
+    justify-content:center;
 `;
 
 export default SearchBarExpandable;

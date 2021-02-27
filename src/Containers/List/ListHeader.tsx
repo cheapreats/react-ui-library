@@ -1,12 +1,12 @@
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
-import {Search} from '@styled-icons/fa-solid/Search';
-import {Times} from '@styled-icons/fa-solid/Times';
+import {SearchBarExpandable} from '../../Inputs/SearchBarExpandable/SearchBarExpandable';
 import { Heading } from '../../Text/Heading';
-import {Input} from '../../Inputs/Input/Input';
 import { TextLayoutProps } from '../../__Layouts';
 import { Mixins } from '../../Utils';
+
+const DELAY=1000
 
 export interface ListHeaderProps extends TextLayoutProps {
     label?: string;
@@ -17,7 +17,7 @@ export interface ListHeaderProps extends TextLayoutProps {
     headerRowComponent?: React.ReactElement;
     type?: string;
     padding?: string;
-    onSearch?: (event:React.ChangeEvent<HTMLInputElement>)=>void;
+    onSearch?: (value:string)=>void;
 }
 
 export const ListHeader: React.FC<ListHeaderProps>= ({
@@ -32,46 +32,38 @@ export const ListHeader: React.FC<ListHeaderProps>= ({
     onSearch,
     ...props
 }): React.ReactElement => {
-    const [showInputField,setShowInputField]=useState(false)
+    const stateExpanded=useState(false)
+    const [showRest,setShowRest]=useState(true)
+
+    /**
+     * delay the appearence of the rest of elements when the SearchBar is contracted 
+     * due to the delay in contraction
+     */
+    useEffect(()=>{
+        if(!stateExpanded[0]){
+            setTimeout(()=>{
+                setShowRest(true)
+            },DELAY)
+        }else{
+            setShowRest(false)
+        }
+    },[stateExpanded[0],setShowRest])
+
     return (
         <Header padding={padding}>
             <Row display={headerFlex}>
-                <Heading bold type="h2" margin="0 0 5px" {...props}>
-                    {label}
-                </Heading>
-                {showInputField&&
+                {showRest&&
                 (
-                    <SearchInput 
-                        type='text'  
-                        onChange={onSearch} 
-                    />
+                    <Heading bold type="h2" margin="0 0 5px" {...props}>
+                        {label}
+                    </Heading>
                 )}
-                <IconsContainer display={headerFlex}>
-                    {onSearch&& (
-                        showInputField?
-                            (
-                                <Icon 
-                                    as={Times} 
-                                    onClick={()=>{
-                                        setShowInputField(false)
-                                    }} 
-                                    iconProps={iconProps}
-                                />
-                            ):
-                            (
-                                <Icon 
-                                    as={Search} 
-                                    onClick={()=>{
-                                        setShowInputField(true)
-                                    }} 
-                                    iconProps={iconProps}
-                                />
-                            )
-                    )}
-                    {icon && (
+                {onSearch&&<SearchBarExpandable onInput={onSearch} state={stateExpanded} />}
+                {icon && showRest&&(
+                    <IconContainer>
                         <Icon as={icon} onClick={iconClick} iconProps={iconProps} />
-                    )}
-                </IconsContainer>
+                    </IconContainer>
+                )}
                 {headerRowComponent}
             </Row>
             {children}
@@ -79,14 +71,12 @@ export const ListHeader: React.FC<ListHeaderProps>= ({
     )
 }
 
+const IconContainer=styled.div`
+${Mixins.flex('center')}
+`
+
 interface HeaderProps {
     padding?: string;
-}
-interface RowProps {
-    display?: string;
-}
-interface IconProps {
-    iconProps?: string;
 }
 
 const Header = styled.div<HeaderProps>`
@@ -96,22 +86,22 @@ const Header = styled.div<HeaderProps>`
 `}
 `;
 
+interface RowProps {
+    display?: string;
+}
+
 const Row = styled.div<RowProps>`
     ${(props): string | undefined =>
         props.display && Mixins.flex(props.display)};
 `;
+
+interface IconProps {
+    iconProps?: string;
+}
 
 const Icon = styled.svg<IconProps>`
     ${(props): string | undefined => props.iconProps}
     cursor:pointer;
 `;
 
-const IconsContainer=styled.div<RowProps>`
-${(props): string | undefined =>
-        props.display && Mixins.flex(props.display)};
-`
 
-const SearchInput=styled(Input)`
-flex:1;
-margin: 0 10px;
-`

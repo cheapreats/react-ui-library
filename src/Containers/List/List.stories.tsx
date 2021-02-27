@@ -76,10 +76,10 @@ ListHeaderWithSearchBar.args = {
     label:"List Header",
     headerFlex:"space-between",
     icon:COG_WHEEL_ICON,
-    iconProps:"width: 20px; margin-right: 10px;",
+    iconProps:"width: 20px; margin: 0 10px;",
     iconClick:() => alert('Icon Clicked'),
-    onSearch:(event:React.ChangeEvent<HTMLInputElement>)=>{
-        console.log(event.target.value)
+    onSearch:(value:string)=>{
+        console.log(value)
     },
 }
 
