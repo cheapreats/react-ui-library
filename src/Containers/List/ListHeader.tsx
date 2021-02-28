@@ -18,6 +18,7 @@ export interface ListHeaderProps extends TextLayoutProps {
     type?: string;
     padding?: string;
     onSearch?: (value:string)=>void;
+    onClose?:()=>void;
 }
 
 export const ListHeader: React.FC<ListHeaderProps>= ({
@@ -30,6 +31,7 @@ export const ListHeader: React.FC<ListHeaderProps>= ({
     headerRowComponent,
     padding = '10px 20px;',
     onSearch,
+    onClose=()=>undefined,
     ...props
 }): React.ReactElement => {
     const [isExpanded,setIsExpanded]=useState(false)
@@ -58,7 +60,7 @@ export const ListHeader: React.FC<ListHeaderProps>= ({
                         {label}
                     </Heading>
                 )}
-                {onSearch&&<SearchBarExpandable onInput={onSearch} state={[isExpanded,setIsExpanded]} />}
+                {onSearch&&<SearchBarExpandable onInput={onSearch} state={[isExpanded,setIsExpanded]} onClose={onClose} />}
                 {icon && showRest&&(
                     <IconContainer>
                         <Icon as={icon} onClick={iconClick} iconProps={iconProps} />
