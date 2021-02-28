@@ -10,6 +10,7 @@ const NOT_EXPANDED_WIDTH=0
 
 export interface SearchBarExpandableProps extends LabelLayoutProps {
     onInput?: (value:string)=>void;
+    onClose?:()=>void;
     placeholder?: string;
     hasIcon?: boolean;
     state:[boolean, React.Dispatch<React.SetStateAction<boolean>>];
@@ -20,6 +21,7 @@ export const SearchBarExpandable: React.FC<SearchBarExpandableProps> = ({
     placeholder,
     hasIcon = true,
     state,
+    onClose=()=>undefined,
 }): React.ReactElement => {
     const [inputValue, setInputValue] = useState('');
 
@@ -38,7 +40,17 @@ export const SearchBarExpandable: React.FC<SearchBarExpandableProps> = ({
                     isExpanded={state[0]}
                 />
                 {hasIcon && !state[0]&& <Icon as={Search} onClick={()=>{state[1](true)}} />}
-                {state[0]&& <Icon as={Times} onClick={()=>{state[1](false)}} />}
+                {state[0]&& 
+                (
+                    <Icon 
+                        as={Times} 
+                        onClick={()=>{
+                            state[1](false)
+                            setInputValue('')
+                            onClose()
+                        }} 
+                    />
+                )}
             </SelectDisplay>
         </Container>
     );
