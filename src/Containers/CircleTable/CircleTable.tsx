@@ -140,7 +140,9 @@ export const CircleTable: React.FC<ICircleTable> = ({
             >
                 {getChairs(chairs, relativeSize)}
 
-                <TableInfo>{getTableInfoContent(tableUse)}</TableInfo>
+                <TableInfo relativeSize={relativeSize}>
+                    {getTableInfoContent(tableUse)}
+                </TableInfo>
             </TableBody>
         </div>
     );
@@ -303,7 +305,15 @@ const ChairWrapper = styled.div<IChairWrapper>`
         rotate(calc(-1 * var(--perimeterPlacementValue)));
 `;
 
-const TableInfo = styled.div`
+interface ITableInfo {
+    relativeSize: number;
+}
+
+const TableInfo = styled.div<ITableInfo>`
+    ${({ relativeSize }) => {
+        const BASE_TABLE_INFO_FONT_SIZE = 2;
+        return `font-size: ${BASE_TABLE_INFO_FONT_SIZE * relativeSize}em;`;
+    }}
     text-align: center;
     color: ${({ theme }) => theme.colors.background};
     width: 100%;

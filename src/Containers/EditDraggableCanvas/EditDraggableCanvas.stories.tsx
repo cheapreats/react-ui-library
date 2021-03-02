@@ -19,5 +19,5 @@ export const MainContainerComponent = Template.bind({});
 MainContainerComponent.args = {
     CurrentNumberOfChairs: 0,
     MaxCapacity: 0,
-    isNewUser: false,
+    canvasType: 'newUserCanvas',
 };

@@ -382,8 +382,10 @@ const TableInfo = styled.div<ITableInfo>`
     ${({ relativeSize }) => {
         const BASE_TABLE_INFO_MARGIN_TOP = 2;
         const BASE_TABLE_INFO_MARGIN_LEFT = 3;
+        const BASE_TABLE_INFO_FONT_SIZE = 2;
         return `margin-top: ${BASE_TABLE_INFO_MARGIN_TOP * relativeSize}rem;
-            margin-left: ${BASE_TABLE_INFO_MARGIN_LEFT * relativeSize}rem;`;
+            margin-left: ${BASE_TABLE_INFO_MARGIN_LEFT * relativeSize}rem;
+            font-size: ${BASE_TABLE_INFO_FONT_SIZE * relativeSize}em;`;
     }}
 `;
 

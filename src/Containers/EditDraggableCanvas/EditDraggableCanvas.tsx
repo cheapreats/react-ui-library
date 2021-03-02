@@ -6,6 +6,8 @@ import { CircleTable } from '@Containers/CircleTable/CircleTable';
 
 type getCanvasFillType = () => JSX.Element;
 
+type canvasTypes = 'newUserCanvas' | 'editCanvas' | 'managementCanvas';
+
 export interface IEditDraggableCanvas {
     /**
      * The current number of chairs being used in the layout
@@ -17,10 +19,10 @@ export interface IEditDraggableCanvas {
      */
     MaxCapacity: number;
     /**
-     * Whether the user for the component is a new user or has
-     * previously saved layouts
+     * How the canvas will be used in the application (newUserCanvas,
+     * editCanvas, or managementCanvas)
      */
-    isNewUser: boolean;
+    canvasType: canvasTypes;
 }
 
 /**
@@ -30,7 +32,7 @@ export interface IEditDraggableCanvas {
 export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     CurrentNumberOfChairs = 0,
     MaxCapacity = 0,
-    isNewUser = true,
+    canvasType = 'newUserCanvas',
     ...props
 }) => {
     const [deltaPosition, setDeltaPosition] = useState({
@@ -58,300 +60,594 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
      *
      */
     const getCanvasFill: getCanvasFillType = () => {
-        if (isNewUser) {
-            return (
-                <TextStyles>
-                    <FontTop>Get Started!</FontTop>
-                    <FontBottom>Start creating your new layout by</FontBottom>
-                    <FontBottom>
-                        dragging and dropping your tables here
-                    </FontBottom>
-                </TextStyles>
-            );
-        }
+        const tableUseType =
+            canvasType === 'editCanvas'
+                ? 'TableForEditCanvas'
+                : 'TableForManagement';
 
-        return (
-            <StylesForDraggableDemo>
-                <StylesForCanvas>
-                    <Draggable
-                        bounds="parent"
-                        {...dragHandlers}
-                        defaultPosition={{ x: 50, y: 24 }}
-                    >
-                        <RectangleTwoTopWidth>
-                            <SquareTable
-                                tableID="T1"
-                                partyName=""
-                                isSquare
-                                occupancyStatus="Vacant"
-                                relativeSize={0.25}
-                                chairs={[
-                                    {
-                                        position: 'top',
-                                        isSeated: false,
-                                        occupiedBy: '',
-                                        isVisible: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'bottom',
-                                        isSeated: false,
-                                        occupiedBy: '',
-                                        isVisible: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                ]}
-                                tableUse="TableForEditCanvas"
-                            />
-                        </RectangleTwoTopWidth>
-                    </Draggable>
-                    <Draggable
-                        bounds="parent"
-                        {...dragHandlers}
-                        defaultPosition={{ x: 375, y: 37 }}
-                    >
-                        <RectangleTwoTopWidth>
-                            <SquareTable
-                                tableID="T5"
-                                partyName="Tina"
-                                isSquare
-                                occupancyStatus="Occupied"
-                                relativeSize={0.25}
-                                chairs={[
-                                    {
-                                        position: 'top',
-                                        isSeated: true,
-                                        occupiedBy: 'Suzy',
-                                        isVisible: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'bottom',
-                                        isSeated: true,
-                                        occupiedBy: 'Tina',
-                                        isVisible: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'left',
-                                        isSeated: true,
-                                        occupiedBy: 'Tina',
-                                        isVisible: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'right',
-                                        isSeated: true,
-                                        occupiedBy: 'Tina',
-                                        isVisible: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                ]}
-                                tableUse="TableForEditCanvas"
-                            />
-                        </RectangleTwoTopWidth>
-                    </Draggable>
-                    <Draggable
-                        bounds="parent"
-                        {...dragHandlers}
-                        defaultPosition={{ x: 367, y: -199 }}
-                    >
-                        <CircleTableWidth>
-                            <CircleTable
-                                tableID="T4"
-                                partyName="Scott"
-                                occupancyStatus="Occupied"
-                                relativeSize={0.25}
-                                chairs={[
-                                    {
-                                        position: 'top',
-                                        isSeated: true,
-                                        occupiedBy: 'Sarah',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'top',
-                                        isSeated: false,
-                                        occupiedBy: '',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'top',
-                                        isSeated: true,
-                                        occupiedBy: 'Dean',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'top',
-                                        isSeated: true,
-                                        occupiedBy: 'Corey',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'top',
-                                        isSeated: true,
-                                        occupiedBy: 'Claire',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'top',
-                                        isSeated: true,
-                                        occupiedBy: 'Sam',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                ]}
-                                tableUse="TableForEditCanvas"
-                            />
-                        </CircleTableWidth>
-                    </Draggable>
-                    <Draggable
-                        bounds="parent"
-                        {...dragHandlers}
-                        defaultPosition={{ x: 210, y: -283 }}
-                    >
-                        <RectangleFourTopWidth>
-                            <SquareTable
-                                tableID="T3"
-                                partyName="Dmytro"
-                                isSquare={false}
-                                occupancyStatus="Reserved"
-                                relativeSize={0.25}
-                                chairs={[
-                                    {
-                                        position: 'left',
-                                        isSeated: false,
-                                        occupiedBy: '',
-                                        isVisible: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'right',
-                                        isSeated: false,
-                                        occupiedBy: '',
-                                        isVisible: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'left',
-                                        isSeated: false,
-                                        occupiedBy: '',
-                                        isVisible: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'right',
-                                        isSeated: false,
-                                        occupiedBy: '',
-                                        isVisible: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                ]}
-                                tableUse="TableForEditCanvas"
-                            />
-                        </RectangleFourTopWidth>
-                    </Draggable>
-                    <Draggable
-                        bounds="parent"
-                        {...dragHandlers}
-                        defaultPosition={{ x: 43, y: -363 }}
-                    >
-                        <CircleTableWidth>
-                            <CircleTable
-                                tableID="T2"
-                                partyName="Corey"
-                                occupancyStatus="Occupied"
-                                relativeSize={0.25}
-                                chairs={[
-                                    {
-                                        position: 'top',
-                                        isSeated: true,
-                                        occupiedBy: 'Sarah',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'top',
-                                        isSeated: false,
-                                        occupiedBy: '',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'top',
-                                        isSeated: true,
-                                        occupiedBy: 'Dean',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'top',
-                                        isSeated: true,
-                                        occupiedBy: 'Corey',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'top',
-                                        isSeated: true,
-                                        occupiedBy: 'Claire',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                    {
-                                        position: 'top',
-                                        isSeated: true,
-                                        occupiedBy: 'Sam',
-                                        isVisible: true,
-                                        isRound: true,
-                                        relativeSize: 1,
-                                        tableUse: 'TableForEditCanvas',
-                                    },
-                                ]}
-                                tableUse="TableForEditCanvas"
-                            />
-                        </CircleTableWidth>
-                    </Draggable>
-                </StylesForCanvas>
-            </StylesForDraggableDemo>
-        );
+        switch (canvasType) {
+            case 'newUserCanvas':
+                return (
+                    <TextStyles>
+                        <FontTop>Get Started!</FontTop>
+                        <FontBottom>
+                            Start creating your new layout by
+                        </FontBottom>
+                        <FontBottom>
+                            dragging and dropping your tables here
+                        </FontBottom>
+                    </TextStyles>
+                );
+            case 'editCanvas':
+                return (
+                    <StylesForDraggableDemo>
+                        <StylesForCanvas>
+                            <Draggable
+                                bounds="parent"
+                                {...dragHandlers}
+                                defaultPosition={{ x: 50, y: 24 }}
+                            >
+                                <RectangleTwoTopWidth>
+                                    <SquareTable
+                                        tableID="T1"
+                                        partyName=""
+                                        isSquare
+                                        occupancyStatus="Vacant"
+                                        relativeSize={0.25}
+                                        chairs={[
+                                            {
+                                                position: 'top',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'bottom',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                        ]}
+                                        tableUse={tableUseType}
+                                    />
+                                </RectangleTwoTopWidth>
+                            </Draggable>
+                            <Draggable
+                                bounds="parent"
+                                {...dragHandlers}
+                                defaultPosition={{ x: 375, y: 37 }}
+                            >
+                                <RectangleTwoTopWidth>
+                                    <SquareTable
+                                        tableID="T5"
+                                        partyName="Tina"
+                                        isSquare
+                                        occupancyStatus="Occupied"
+                                        relativeSize={0.25}
+                                        chairs={[
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Suzy',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'bottom',
+                                                isSeated: true,
+                                                occupiedBy: 'Tina',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'left',
+                                                isSeated: true,
+                                                occupiedBy: 'Tina',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'right',
+                                                isSeated: true,
+                                                occupiedBy: 'Tina',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                        ]}
+                                        tableUse={tableUseType}
+                                    />
+                                </RectangleTwoTopWidth>
+                            </Draggable>
+                            <Draggable
+                                bounds="parent"
+                                {...dragHandlers}
+                                defaultPosition={{ x: 367, y: -199 }}
+                            >
+                                <CircleTableWidth>
+                                    <CircleTable
+                                        tableID="T4"
+                                        partyName="Scott"
+                                        occupancyStatus="Occupied"
+                                        relativeSize={0.25}
+                                        chairs={[
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Sarah',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Dean',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Corey',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Claire',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Sam',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                        ]}
+                                        tableUse={tableUseType}
+                                    />
+                                </CircleTableWidth>
+                            </Draggable>
+                            <Draggable
+                                bounds="parent"
+                                {...dragHandlers}
+                                defaultPosition={{ x: 210, y: -283 }}
+                            >
+                                <RectangleFourTopWidth>
+                                    <SquareTable
+                                        tableID="T3"
+                                        partyName="Dmytro"
+                                        isSquare={false}
+                                        occupancyStatus="Reserved"
+                                        relativeSize={0.25}
+                                        chairs={[
+                                            {
+                                                position: 'left',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'right',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'left',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'right',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                        ]}
+                                        tableUse={tableUseType}
+                                    />
+                                </RectangleFourTopWidth>
+                            </Draggable>
+                            <Draggable
+                                bounds="parent"
+                                {...dragHandlers}
+                                defaultPosition={{ x: 43, y: -363 }}
+                            >
+                                <CircleTableWidth>
+                                    <CircleTable
+                                        tableID="T2"
+                                        partyName="Corey"
+                                        occupancyStatus="Occupied"
+                                        relativeSize={0.25}
+                                        chairs={[
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Sarah',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Dean',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Corey',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Claire',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Sam',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                        ]}
+                                        tableUse={tableUseType}
+                                    />
+                                </CircleTableWidth>
+                            </Draggable>
+                        </StylesForCanvas>
+                    </StylesForDraggableDemo>
+                );
+            case 'managementCanvas':
+                return (
+                    <StylesForDraggableDemo>
+                        <StylesForCanvas>
+                            <Draggable
+                                bounds="parent"
+                                {...dragHandlers}
+                                defaultPosition={{ x: 50, y: 24 }}
+                            >
+                                <RectangleTwoTopWidth>
+                                    <SquareTable
+                                        tableID="T1"
+                                        partyName=""
+                                        isSquare
+                                        occupancyStatus="Vacant"
+                                        relativeSize={0.25}
+                                        chairs={[
+                                            {
+                                                position: 'top',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'bottom',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                        ]}
+                                        tableUse={tableUseType}
+                                    />
+                                </RectangleTwoTopWidth>
+                            </Draggable>
+                            <Draggable
+                                bounds="parent"
+                                {...dragHandlers}
+                                defaultPosition={{ x: 375, y: 37 }}
+                            >
+                                <RectangleTwoTopWidth>
+                                    <SquareTable
+                                        tableID="T5"
+                                        partyName="Tina"
+                                        isSquare
+                                        occupancyStatus="Occupied"
+                                        relativeSize={0.25}
+                                        chairs={[
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Suzy',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'bottom',
+                                                isSeated: true,
+                                                occupiedBy: 'Tina',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'left',
+                                                isSeated: true,
+                                                occupiedBy: 'Tina',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'right',
+                                                isSeated: true,
+                                                occupiedBy: 'Tina',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                        ]}
+                                        tableUse={tableUseType}
+                                    />
+                                </RectangleTwoTopWidth>
+                            </Draggable>
+                            <Draggable
+                                bounds="parent"
+                                {...dragHandlers}
+                                defaultPosition={{ x: 367, y: -199 }}
+                            >
+                                <CircleTableWidth>
+                                    <CircleTable
+                                        tableID="T4"
+                                        partyName="Scott"
+                                        occupancyStatus="Occupied"
+                                        relativeSize={0.25}
+                                        chairs={[
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Sarah',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Dean',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Corey',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Claire',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Sam',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                        ]}
+                                        tableUse={tableUseType}
+                                    />
+                                </CircleTableWidth>
+                            </Draggable>
+                            <Draggable
+                                bounds="parent"
+                                {...dragHandlers}
+                                defaultPosition={{ x: 210, y: -283 }}
+                            >
+                                <RectangleFourTopWidth>
+                                    <SquareTable
+                                        tableID="T3"
+                                        partyName="Dmytro"
+                                        isSquare={false}
+                                        occupancyStatus="Reserved"
+                                        relativeSize={0.25}
+                                        chairs={[
+                                            {
+                                                position: 'left',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'right',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'left',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'right',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                        ]}
+                                        tableUse={tableUseType}
+                                    />
+                                </RectangleFourTopWidth>
+                            </Draggable>
+                            <Draggable
+                                bounds="parent"
+                                {...dragHandlers}
+                                defaultPosition={{ x: 43, y: -363 }}
+                            >
+                                <CircleTableWidth>
+                                    <CircleTable
+                                        tableID="T2"
+                                        partyName="Corey"
+                                        occupancyStatus="Occupied"
+                                        relativeSize={0.25}
+                                        chairs={[
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Sarah',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: false,
+                                                occupiedBy: '',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Dean',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Corey',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Claire',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                            {
+                                                position: 'top',
+                                                isSeated: true,
+                                                occupiedBy: 'Sam',
+                                                isVisible: true,
+                                                isRound: true,
+                                                relativeSize: 1,
+                                                tableUse: tableUseType,
+                                            },
+                                        ]}
+                                        tableUse={tableUseType}
+                                    />
+                                </CircleTableWidth>
+                            </Draggable>
+                        </StylesForCanvas>
+                    </StylesForDraggableDemo>
+                );
+
+            default:
+                return <div />;
+        }
     };
 
     return (
