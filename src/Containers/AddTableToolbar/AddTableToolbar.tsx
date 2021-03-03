@@ -1,141 +1,180 @@
 import React from 'react';
 import styled from 'styled-components';
-import {CircleTable, SquareTable} from "@Containers";
+import { CircleTable, SquareTable } from '@Containers';
 
-
-export interface IAddTableToolbar {}
+export interface IAddTableToolbar {
+    onSquareTableClick: () => void;
+    onCircleTableClick: () => void;
+    onRectTableClick: () => void;
+}
 
 /**
  * Primary UI component for user interaction
  */
-export const AddTableToolbar: React.FC<IAddTableToolbar> = () => (
+export const AddTableToolbar: React.FC<IAddTableToolbar> = ({
+    onSquareTableClick,
+    onCircleTableClick,
+    onRectTableClick,
+    ...props
+}) => (
     <BorderBox>
         <Container>
             <Title>Add New Table</Title>
             <Row>
                 <Col>
                     <Center>
-                        <TableButton>
-                            <SquareTable tableID={"T1"} partyName={""} occupancyStatus={"Vacant"} chairs={[{"position":"top","isSeated":true,"occupiedBy":"Scott","isVisible":true,"relativeSize":0.3,"tableUse":"TableForManagement"}]} isSquare={false} relativeSize={0.2} tableUse={"AddTableButton"} />
-                        </TableButton>
-                    </Center>
-
-                </Col>
-                <Col>
-                    <Center>
-                        <TableButton>
-                            <CircleTable tableID={"T2"} chairs={[
-                                {
-                                    position: 'top',
-                                    isSeated: true,
-                                    occupiedBy: 'Scott',
-                                    isVisible: true,
-                                    isRound: true,
-                                    relativeSize: 0.2,
-                                    tableUse: 'TableForManagement',
-                                },
-                                {
-                                    position: 'top',
-                                    isSeated: false,
-                                    occupiedBy: '',
-                                    isVisible: true,
-                                    isRound: true,
-                                    relativeSize: 0.2,
-                                    tableUse: 'TableForManagement',
-                                },
-                                {
-                                    position: 'top',
-                                    isSeated: true,
-                                    occupiedBy: 'Dean',
-                                    isVisible: true,
-                                    isRound: true,
-                                    relativeSize: 0.2,
-                                    tableUse: 'TableForManagement',
-                                },
-                                {
-                                    position: 'top',
-                                    isSeated: false,
-                                    occupiedBy: '',
-                                    isVisible: true,
-                                    isRound: true,
-                                    relativeSize: 0.3,
-                                    tableUse: 'TableForManagement',
-                                },
-                                {
-                                    position: 'top',
-                                    isSeated: false,
-                                    occupiedBy: '',
-                                    isVisible: true,
-                                    isRound: true,
-                                    relativeSize: 0.3,
-                                    tableUse: 'TableForManagement',
-                                },
-                                {
-                                    position: 'top',
-                                    isSeated: false,
-                                    occupiedBy: '',
-                                    isVisible: true,
-                                    isRound: true,
-                                    relativeSize: 0.3,
-                                    tableUse: 'TableForManagement',
-                                }]} partyName={""} occupancyStatus={"Vacant"} relativeSize={0.2} tableUse={"AddTableButton"} />
+                        <TableButton onClick={onSquareTableClick}>
+                            <SquareTable
+                                tableID="T1"
+                                partyName=""
+                                occupancyStatus="Vacant"
+                                chairs={[
+                                    {
+                                        position: 'top',
+                                        isSeated: true,
+                                        occupiedBy: 'Scott',
+                                        isVisible: true,
+                                        relativeSize: 0.3,
+                                        tableUse: 'TableForManagement',
+                                    },
+                                ]}
+                                isSquare={false}
+                                relativeSize={0.2}
+                                tableUse="AddTableButton"
+                            />
                         </TableButton>
                     </Center>
                 </Col>
                 <Col>
                     <Center>
-                        <TableButton>
-                            <SquareTable tableID={"T1"} partyName={""} occupancyStatus={"Vacant"} chairs={
-                                [
+                        <TableButton onClick={onCircleTableClick}>
+                            <CircleTable
+                                tableID="T2"
+                                chairs={[
                                     {
-                                        position:"top",
-                                        isSeated:true,
-                                        occupiedBy:"Scott",
-                                        isVisible:true,
-                                        relativeSize:0.3,
-                                        tableUse:"TableForManagement"
+                                        position: 'top',
+                                        isSeated: true,
+                                        occupiedBy: 'Scott',
+                                        isVisible: true,
+                                        isRound: true,
+                                        relativeSize: 0.2,
+                                        tableUse: 'TableForManagement',
                                     },
                                     {
-                                        position:"left",
-                                        isSeated:true,
-                                        occupiedBy:"Scott",
-                                        isVisible:true,
-                                        relativeSize:0.3,
-                                        tableUse:"TableForManagement"
+                                        position: 'top',
+                                        isSeated: false,
+                                        occupiedBy: '',
+                                        isVisible: true,
+                                        isRound: true,
+                                        relativeSize: 0.2,
+                                        tableUse: 'TableForManagement',
                                     },
                                     {
-                                        position:"left",
-                                        isSeated:true,
-                                        occupiedBy:"Scott",
-                                        isVisible:true,
-                                        relativeSize:0.3,
-                                        tableUse:"TableForManagement"
+                                        position: 'top',
+                                        isSeated: true,
+                                        occupiedBy: 'Dean',
+                                        isVisible: true,
+                                        isRound: true,
+                                        relativeSize: 0.2,
+                                        tableUse: 'TableForManagement',
                                     },
                                     {
-                                        position:"right",
-                                        isSeated:true,
-                                        occupiedBy:"Scott",
-                                        isVisible:true,
-                                        relativeSize:0.3,
-                                        tableUse:"TableForManagement"
+                                        position: 'top',
+                                        isSeated: false,
+                                        occupiedBy: '',
+                                        isVisible: true,
+                                        isRound: true,
+                                        relativeSize: 0.3,
+                                        tableUse: 'TableForManagement',
                                     },
                                     {
-                                        position:"right",
-                                        isSeated:true,
-                                        occupiedBy:"Scott",
-                                        isVisible:true,
-                                        relativeSize:0.3,
-                                        tableUse:"TableForManagement"
+                                        position: 'top',
+                                        isSeated: false,
+                                        occupiedBy: '',
+                                        isVisible: true,
+                                        isRound: true,
+                                        relativeSize: 0.3,
+                                        tableUse: 'TableForManagement',
                                     },
                                     {
-                                        position:"bottom",
-                                        isSeated:true,
-                                        occupiedBy:"Scott",
-                                        isVisible:true,
-                                        relativeSize:0.3,
-                                        tableUse:"TableForManagement"
-                                    }
-                                    ]} isSquare={false} relativeSize={0.2} tableUse={"AddTableButton"} />
+                                        position: 'top',
+                                        isSeated: false,
+                                        occupiedBy: '',
+                                        isVisible: true,
+                                        isRound: true,
+                                        relativeSize: 0.3,
+                                        tableUse: 'TableForManagement',
+                                    },
+                                ]}
+                                partyName=""
+                                occupancyStatus="Vacant"
+                                relativeSize={0.2}
+                                tableUse="AddTableButton"
+                            />
+                        </TableButton>
+                    </Center>
+                </Col>
+                <Col>
+                    <Center>
+                        <TableButton onClick={onRectTableClick}>
+                            <SquareTable
+                                tableID="T1"
+                                partyName=""
+                                occupancyStatus="Vacant"
+                                chairs={[
+                                    {
+                                        position: 'top',
+                                        isSeated: true,
+                                        occupiedBy: 'Scott',
+                                        isVisible: true,
+                                        relativeSize: 0.3,
+                                        tableUse: 'TableForManagement',
+                                    },
+                                    {
+                                        position: 'left',
+                                        isSeated: true,
+                                        occupiedBy: 'Scott',
+                                        isVisible: true,
+                                        relativeSize: 0.3,
+                                        tableUse: 'TableForManagement',
+                                    },
+                                    {
+                                        position: 'left',
+                                        isSeated: true,
+                                        occupiedBy: 'Scott',
+                                        isVisible: true,
+                                        relativeSize: 0.3,
+                                        tableUse: 'TableForManagement',
+                                    },
+                                    {
+                                        position: 'right',
+                                        isSeated: true,
+                                        occupiedBy: 'Scott',
+                                        isVisible: true,
+                                        relativeSize: 0.3,
+                                        tableUse: 'TableForManagement',
+                                    },
+                                    {
+                                        position: 'right',
+                                        isSeated: true,
+                                        occupiedBy: 'Scott',
+                                        isVisible: true,
+                                        relativeSize: 0.3,
+                                        tableUse: 'TableForManagement',
+                                    },
+                                    {
+                                        position: 'bottom',
+                                        isSeated: true,
+                                        occupiedBy: 'Scott',
+                                        isVisible: true,
+                                        relativeSize: 0.3,
+                                        tableUse: 'TableForManagement',
+                                    },
+                                ]}
+                                isSquare={false}
+                                relativeSize={0.2}
+                                tableUse="AddTableButton"
+                            />
                         </TableButton>
                     </Center>
                 </Col>
@@ -177,26 +216,21 @@ const Col = styled.div`
 `;
 
 const Center = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100%;
-  outline: none;
-  
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    outline: none;
 `;
 
 const Title = styled.div`
-  font-size: 1.5rem;
-  font-family: Quicksand, sans-serif;
-  
+    font-size: 1.5rem;
+    font-family: Quicksand, sans-serif;
 `;
 
 const TableButton = styled.button`
-  border: none;
-  background: transparent;
-  outline: none;
-  cursor: pointer;
+    border: none;
+    background: transparent;
+    outline: none;
+    cursor: pointer;
 `;
-
-
-
