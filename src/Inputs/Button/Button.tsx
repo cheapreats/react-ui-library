@@ -15,6 +15,8 @@ export interface ButtonProps
         ResponsiveInterface,
         React.HTMLAttributes<HTMLButtonElement> {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+    iconSize?: string;
+    contentColor?: string;
     color?: string;
     primary?: boolean;
     loading?: boolean;
@@ -35,6 +37,7 @@ export interface ButtonProps
 export const Button: React.FC<ButtonProps> = ({
     children,
     icon,
+    iconSize = '14px',
     loading,
     disabled,
     ...props
@@ -42,7 +45,7 @@ export const Button: React.FC<ButtonProps> = ({
     const [, isLoading, isAnimated] = useTransition(loading);
     return (
         <StyledButton {...props} disabled={disabled}>
-            {icon && <Icon loading={isAnimated} as={icon} hasText={children} />}
+            {icon && <Icon iconSize={iconSize} loading={isAnimated} as={icon} hasText={children} />}
             {children && <Content loading={isAnimated}>{children}</Content>}
             {isLoading && <Loader loading={isAnimated} />}
         </StyledButton>
@@ -71,10 +74,11 @@ const StyledButton = styled.button<ButtonProps>`
     }
 
     // Theme Stuff
-    ${({ theme, ...props }): string => `
+    ${({ theme, color = 'background', contentColor = 'text', ...props }): string => `
         padding: ${theme.dimensions.padding.withBorder};
         font-family: ${theme.font.family};
-        color: ${theme.colors.text};
+        background-color: ${theme.colors[color] || color};
+        color: ${theme.colors[contentColor] || contentColor};
         ${clickable('#ffffff', 0.05)}
         ${Main({
         padding: theme.dimensions.padding.withBorder,
@@ -83,12 +87,12 @@ const StyledButton = styled.button<ButtonProps>`
     `}
 
     // Primary button
-    ${({ color = 'primary', primary, theme }): string =>
+    ${({ primary, theme }): string =>
         primary
             ? `
-        background-color: ${theme.colors[color] || color};
+        background-color: ${theme.colors.primary};
         color: white;
-        ${clickable(theme.colors[color] || color)}
+        ${clickable(theme.colors.primary)}
     `
             : ''}
 
@@ -99,13 +103,16 @@ const StyledButton = styled.button<ButtonProps>`
 interface IconProps {
     hasText?: React.ReactNode;
     loading: boolean;
+    iconSize: string;
     as: ForwardRefExoticComponent<RefAttributes<SVGSVGElement>>;
 }
 
 const Icon = styled.svg<IconProps>`
     ${transition(['transform', 'opacity'])};
-    width: 14px;
-    height: 14px;
+    ${({iconSize}) => `
+        height: ${iconSize};
+        width: ${iconSize};
+    `}
     margin-right: ${({ hasText }): number => (hasText ? 8 : 0)}px;
     ${({ loading }): string =>
         loading
