@@ -32,6 +32,8 @@ export interface ButtonProps
  * @param loading
  * @param disabled
  * @param props
+ * @param color - use Hex Code or themeColor for hover functionality
+ * @param contentColor
  * @constructor
  */
 export const Button: React.FC<ButtonProps> = ({
@@ -79,7 +81,7 @@ const StyledButton = styled.button<ButtonProps>`
         font-family: ${theme.font.family};
         background-color: ${theme.colors[color] || color};
         color: ${theme.colors[contentColor] || contentColor};
-        ${clickable('#ffffff', 0.05)}
+        ${clickable(theme.colors[color] || color)}
         ${Main({
         padding: theme.dimensions.padding.withBorder,
         ...props,
