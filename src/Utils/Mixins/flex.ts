@@ -1,4 +1,4 @@
-const FLEX_DIRECTIONS = ['row', 'column', 'reverse-row', 'reverse-column'];
+const FLEX_DIRECTIONS = ['row', 'column', 'row-reverse', 'column-reverse'];
 /**
  * Flex display with common properties. Can have the following configurations
  * - Nothing => row, flex-start, flex-start
@@ -23,15 +23,15 @@ export const flex = (
         return `
             display: flex;
             ${
-                FLEX_DIRECTIONS.includes(param1)
-                    ? `
+    FLEX_DIRECTIONS.includes(param1)
+        ? `
                 flex-direction: ${param1};
             `
-                    : `
+        : `
                 justify-content: ${param1};
                 align-items: ${param1};
             `
-            }
+}
         `;
     }
 
@@ -40,17 +40,17 @@ export const flex = (
         return `
             display: flex;
             ${
-                FLEX_DIRECTIONS.includes(param1)
-                    ? `
+    FLEX_DIRECTIONS.includes(param1)
+        ? `
                 flex-direction: ${param1};
                 justify-content: ${param2};
                 align-items: ${param2};
             `
-                    : `
+        : `
                 justify-content: ${param1};
                 align-items: ${param2};
             `
-            }
+}
         `;
     }
 
