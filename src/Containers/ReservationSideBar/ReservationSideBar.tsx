@@ -3,45 +3,104 @@ import styled from "styled-components";
 import Button from '../../Inputs/Button/Button';
 
 export interface IReservationSideBar {
-    listOfTables: Array<ITableReservation>;
+    listOfReservations: Array<ITableReservation>;
+    WaitingRoomList: Array<IWaitingRoomList>;
 }
 
-type getTableInformation = (array: Array<ITableReservation>) => JSX.Element[];
+type getReservationInformation = (array: Array<ITableReservation>) => JSX.Element[];
+type getWaitingRoomInformation = (array: Array<IWaitingRoomList>) => JSX.Element[];
+type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
 export interface ITableReservation{
     tableID: string,
-    partyName : string,
-    occupancyStatus : string,
+    partyName: string,
+    occupancyStatus: occupancyStatusTypes,
     time: string,
-    tableUse : string,
+    tableUse: string,
+}
+
+export interface IWaitingRoomList{
+    tableID: string,
+    partyName: string,
+    partySize: number,
+    time: string,
 }
 
 export const ReservationSideBar: React.FC<IReservationSideBar> = ({
-    listOfTables=  [],
+    listOfReservations =  [],
+    WaitingRoomList = [],
     ...props
 }) => {
 
-    const [colors, setColors] = useState("Reservation");
+    const [activeToggleView, setActiveToggleView] = useState("Reservation");
 
-    function onClickReservationSwitch(){
-        setColors("Reservation");
+    /**
+     * This marks the ....
+     */
+    const onClickReservationSwitch = () => {
+        setActiveToggleView("Reservation");
     }
 
-    function onClickWaitingRoomSwitch(){
-        setColors("Waiting");
+    const onClickWaitingRoomSwitch = () => {
+        setActiveToggleView("Waiting");
     }
 
-    const getReservationInformation: getTableInformation = (array) =>
-        array.map((i: ITableReservation) => (
+    const toggleReservationAndWaitingRoomInfo = (displaySelected: string) => {
+        switch(displaySelected){
+        case 'Reservation':
+            return getReservationInformation(listOfReservations);
+        case 'Waiting':
+            return getWaitingRoomInformataion(WaitingRoomList);
+        default:
+            return <div />;
+        }
+    }
+    
+    const toggleButtonDisplay = (displaySelected: string) => {
+        switch(displaySelected){
+        case 'Reservation':
+            return(
+                <StylesForReservationButton primary>+ Reservation</StylesForReservationButton>
+            )
+        case 'Waiting':
+            return(
+                <StylesForReservationButton primary>+ Waiting List</StylesForReservationButton>
+            );
+        default:
+            return <div />;
+        }
+    }
+
+    const getWaitingRoomInformataion: getWaitingRoomInformation = (waitingRoomInfo) =>
+        waitingRoomInfo.map((i:IWaitingRoomList) => (
             <Container>
                 <TableBorder>
                     <TableIDFont>
-                        {i.tableID}
+                        { i.tableID }
                     </TableIDFont>
                 </TableBorder>
                 <InformationContainer>
                     <TableInformation>
-                        {`${i.occupancyStatus } ${ i.time}` }
+                        {`Party of ${i.partySize } at ${ i.time }` }
+                    </TableInformation>
+                    <TableInformation>
+                        { i.partyName }
+                    </TableInformation>
+                </InformationContainer>
+            </Container>
+        ));
+    
+    const getReservationInformation: getReservationInformation = (reservations) =>
+        reservations.map((i: ITableReservation) => (
+            <Container>
+                <TableBorder>
+                    <TableIDFont>
+                        { i.tableID }
+                    </TableIDFont>
+                </TableBorder>
+                <InformationContainer>
+                    <TableInformation>
+                        {`${i.occupancyStatus } ${ i.time }` }
                     </TableInformation>
                     <TableInformation>
                         { i.partyName }
@@ -54,12 +113,14 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
         <div {...props}>
             <SideToolBar>
                 <ReservationWaitingRoomSwitch>
-                    <ReservationSwitch colors={colors} onClick={onClickReservationSwitch}>Reservation</ReservationSwitch>
-                    <WaitingRoomButton colors={colors} onClick={onClickWaitingRoomSwitch}>Waiting</WaitingRoomButton>
+                    <ReservationSwitch colors={activeToggleView} onClick={onClickReservationSwitch}>Reservation</ReservationSwitch>
+                    <WaitingRoomButton colors={activeToggleView} onClick={onClickWaitingRoomSwitch}>Waiting</WaitingRoomButton>
                 </ReservationWaitingRoomSwitch>
-                {getReservationInformation(listOfTables)}
+                <ContainerForCustomerInfo>
+                    {toggleReservationAndWaitingRoomInfo(activeToggleView)}
+                </ContainerForCustomerInfo>
                 <ContainerForButton>
-                    <StylesForReservationButton primary>Reservation</StylesForReservationButton>
+                    {toggleButtonDisplay(activeToggleView)}
                 </ContainerForButton>
             </SideToolBar>
         </div>
@@ -69,10 +130,11 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
 export default ReservationSideBar;
 
 const Container = styled.div`
-    width: 85%;
-    margin-right: auto;
-    margin-left: auto;
-    margin-top: 5px;   
+    height: 50px;
+    padding-top: 10px;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #C4C4C4;
 `;
 
 const InformationContainer =styled.div`
@@ -88,7 +150,7 @@ const TableIDFont = styled.div`
     font-weight: bold;
     font-size: 20px;
     line-height: 25px;
-    display: flex;
+    display: flex;   
     align-items: center;
     text-align: center;
     color: #000000;
@@ -113,18 +175,17 @@ const TableInformation = styled.div`
     align-items: center;
 `;
 
-
 const ReservationWaitingRoomSwitch = styled.div`
-    width: 260px;
+    width: 298px;
     height: 50px;
     border: 1px solid black;
 `;
 
 const ContainerForButton = styled.div`
-    width: 260px;
+    width: 298px;
     align-content: center;
-    position: absolute;
-    bottom: 10%;
+    margin-top: 10px;
+    bottom: 0%;
 `;
 
 const StylesForReservationButton = styled(Button)`
@@ -132,10 +193,16 @@ const StylesForReservationButton = styled(Button)`
     margin-right: auto;
 `;
 
+const ContainerForCustomerInfo = styled.div`
+    width: 300px;
+    height: 460px;
+    overflow-y: auto ;
+`;
+
 const SideToolBar = styled.div`
-    width: 262px;
-    height: 621px;
-    background: #C4C4C4;
+    width: 299px;
+    height: 580px;
+    border: 1px solid black;
 `;
 
 interface IReservationSwitch {
@@ -143,9 +210,8 @@ interface IReservationSwitch {
 }
 
 const ReservationSwitch = styled.button<IReservationSwitch>`
-    width: 130px;
+    width: 148px;
     height: 50px;
-    font-family: Lato;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
@@ -162,10 +228,9 @@ interface IWaitingRoomButton{
 }
 
 const WaitingRoomButton = styled.button<IWaitingRoomButton>`
-    width: 130px;
+    width: 147px;
     height: 50px;
     float: right;
-    font-family: Lato;
     font-size: 14px;
     font-style: normal;
     font-weight: 700;
