@@ -6,6 +6,8 @@ import { CircleTable, ICircleTable } from '@Containers/CircleTable/CircleTable';
 
 type tableShapeTypes = 'Circle' | 'Square';
 
+type getTableComponentType = () => JSX.Element;
+
 export interface IDraggableTable {
     /**
      * The shape for the DraggableTable
@@ -123,9 +125,6 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     )
     
 }
-    
-    
-    
 
 const TableWidthWrapper = styled.div`
     width: 123px;

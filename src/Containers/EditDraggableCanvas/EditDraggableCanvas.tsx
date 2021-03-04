@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { DraggableTable, IDraggableTable } from '@Containers/EditDraggableCanvas/_DraggableTable';
 
@@ -29,7 +29,6 @@ export interface IEditDraggableCanvas {
      * Array of DraggableTables
      */
     tables?: Array<IDraggableTable>;
-
 }
 
 /**
@@ -37,12 +36,14 @@ export interface IEditDraggableCanvas {
  * EditDraggableCanvas
  */
 export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
-    CurrentNumberOfChairs = 0,
-    MaxCapacity = 0,
+    currentNumberOfChairs = 0,
+    maxCapacity = 0,
     canvasType = 'newUserCanvas',
     tables = [],
     ...props
 }) => {
+
+    /*
     const [deltaPosition, setDeltaPosition] = useState({
         x: 0,
         y: 0,
@@ -59,6 +60,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     const dragHandlers = {
         handleDrag,
     };
+    */
     
     /**
      * Generates a unique key based on a string and a random number
@@ -78,11 +80,9 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                 tableShape={item.tableShape}
                 tableInput={item.tableInput}
                 defaultXY={item.defaultXY}
-                key={generateTableKey(item.defaultXY.x + index)}
+                key={generateTableKey(item.defaultXY.x.toString() + index)}
             />
         )));
-
-
 
     /**
      * Returns a JSX.Element for the text or symbol on the chair with correct
@@ -109,7 +109,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
             return (
                 <StylesForDraggableDemo>
                     <StylesForCanvas>
-                        {getTables(tables)}
+                        {getTables()}
                     </StylesForCanvas>
                 </StylesForDraggableDemo>
             );
@@ -117,7 +117,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
             return (
                 <StylesForDraggableDemo>
                     <StylesForCanvas>
-                        {getTables(tables)}
+                        {getTables()}
                     </StylesForCanvas>
                 </StylesForDraggableDemo>
             );
@@ -133,7 +133,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
             <CapacityDisplayStyles>
                 <FontForCapacityDisplay>
                     <div>Total Seat Capacity</div>
-                    <div>{`${CurrentNumberOfChairs} / ${MaxCapacity}`}</div>
+                    <div>{`${currentNumberOfChairs} / ${maxCapacity}`}</div>
                 </FontForCapacityDisplay>
             </CapacityDisplayStyles>
         </CanvasBorder>
@@ -143,7 +143,6 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
 /**
  * Variables for styled components
  */
-
 const FontTop = styled.div`
     font-size: 24px;
     line-height: 30px;
@@ -176,7 +175,6 @@ const StylesForCanvas = styled.div`
 const StylesForDraggableDemo = styled.div`
     width: 520px;
     position: relative;
-
     padding: 0;
     margin-left: auto;
     margin-right: auto;
