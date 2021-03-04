@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState,useRef,useCallback } from 'react';
 import { Search } from '@styled-icons/fa-solid/Search';
 import {Times} from '@styled-icons/fa-solid/Times';
 import styled from 'styled-components';
@@ -30,16 +30,38 @@ export const SearchBarExpandable: React.FC<SearchBarExpandableProps> = ({
         onInput(event.currentTarget.value);
     };
 
+    const inputRef=useRef<HTMLInputElement>(null)
+
+    const expandSearchBox=useCallback(()=>{
+        state[1](true)
+        inputRef.current?.focus()
+    },[state[1],inputRef.current])
+
     return (
         <Container>
             <SelectDisplay>
+                {state[0]&& 
+                (
+                    <Icon 
+                        as={Search}
+                        left
+                    />
+                )}
                 <InputFragment
                     value={inputValue}
                     placeholder={placeholder}
                     onChange={(e): void => handleChange(e)}
                     isExpanded={state[0]}
+                    ref={inputRef}
+                    onClick={expandSearchBox} 
                 />
-                {hasIcon && !state[0]&& <Icon as={Search} onClick={()=>{state[1](true)}} />}
+                {hasIcon && !state[0]&& 
+                (
+                    <Icon 
+                        as={Search} 
+                        onClick={expandSearchBox} 
+                    />
+                )}
                 {state[0]&& 
                 (
                     <Icon 
@@ -80,12 +102,21 @@ const SelectDisplay = styled.p<SearchBarSelectProps>`
     `}
 `;
 
-const Icon = styled.svg`
+interface IIconProps{
+    left?:boolean;
+}
+
+const Icon = styled.svg<IIconProps>`
     width: 20px;
     flex-shrink: 0;
     margin-left: auto;
-    ${({ theme }): string => `
-        padding-right: ${theme.dimensions.padding.container};
+    ${({ left,theme }): string => `
+    ${left?`
+    padding-left: ${theme.dimensions.padding.container};
+    cursor:initial;
+    `:`
+    padding-right: ${theme.dimensions.padding.container};
+    `}
     `};
 `;
 
