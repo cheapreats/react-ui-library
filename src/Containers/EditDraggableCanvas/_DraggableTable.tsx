@@ -33,7 +33,6 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     tableInput = {
         tableID: "T1",
         partyName: "",
-        isSquare: true,
         occupancyStatus: "Vacant",
         relativeSize: 0.25,
         chairs: [
