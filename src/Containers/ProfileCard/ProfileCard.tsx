@@ -95,7 +95,7 @@ const HeartIcon = styled(Heart)`
     stroke-width: 2;
     top: 115px;
     left: 92px;
-    z-index: 11;
+    z-index: 0;//11
 `;
 
 const Container = styled.div`
@@ -130,7 +130,7 @@ const ProfilePhoto = styled.img<Pick<ProfileCardProps, 'customerLoyaltyType'>>`
     width: 110px;
     height: 110px;
     border-radius: 999px;
-    z-index: 10;
+    z-index: 0;//10
     background-color: grey;
 `;
 
@@ -147,7 +147,7 @@ const DefaultProfilePhoto = styled.svg<
     width: 110px;
     height: 110px;
     border-radius: 999px;
-    z-index: 10;
+    z-index: 0;//10
     background-color: grey;
 `;
 
@@ -162,7 +162,7 @@ const VisitCountContainer = styled.div`
     // Height of Photo + Half Height of Self
     top: 115px;
     left: 33px;
-    z-index: 11;
+    z-index: 0;//11
     display: flex;
     align-items: center;
     justify-content: center;
@@ -174,7 +174,7 @@ const VisitCountText = styled(Paragraph)<any>`
     color: white;
     text-align: center;
     font-size: ${({ fontSize }) => fontSize};
-    z-index: 12;
+    z-index: 0;//12
 `;
 
 const ProfileCardContainer = styled.div`
