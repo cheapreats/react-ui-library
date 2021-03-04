@@ -125,6 +125,7 @@ interface IInputFragmentProps{
 }
 
 const InputFragment = styled(I)<IInputFragmentProps>`
+    min-width:0;
     flex-grow: 1;
     ${({isExpanded}):string=>`
     width:${isExpanded?EXPANDED_WIDTH:NOT_EXPANDED_WIDTH}px;
