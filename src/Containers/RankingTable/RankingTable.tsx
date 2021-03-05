@@ -196,8 +196,7 @@ export const RankingTable: React.FC<RankingTableProps> = ({
                                                         onClick={(): void =>
                                                             setIsAscending(
                                                                 !isAscending,
-                                                            )
-                                                        }
+                                                            )}
                                                     >
                                                         {heading.toUpperCase()}
                                                     </span>

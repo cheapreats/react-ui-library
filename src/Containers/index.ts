@@ -56,6 +56,8 @@ export * from './ProfileCard/ProfileCard';
 export * from './DraggableDemoFront/DraggableDemoFront';
 export * from './FileUpload/FileUpload';
 export * from './TransactionList/TransactionList';
+export * from './EditControlPanel/EditControlPanel';
+export * from './EditDraggableCanvas/EditDraggableCanvas';
 export * from './SoldOutCardNotification/SoldOutCardNotification';
 export * from './VisitNotification/VisitNotification';
 export * from './BoxComposition/BoxComposition';
