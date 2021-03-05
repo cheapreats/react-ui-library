@@ -106,19 +106,25 @@ export const CircleTable: React.FC<ICircleTable> = ({
     const getTableInfoContent: getTableInfoContentType = () => {
         switch (tableUse) {
             case 'AddTableButton':
-                return <StyledPlus />;
+                return (
+                    <TableInfo relativeSize={relativeSize}>
+                        <StyledPlus />
+                    </TableInfo>
+                );
             case 'TableForManagement':
                 return (
-                    <div>
-                        {tableID}
-                        <br />
-                        {partyName}
-                        <br />
-                        <Status occupancyStatus={occupancyStatus}>
-                            {occupancyStatus}
-                        </Status>
-                        <br />
-                    </div>
+                    <TableInfo relativeSize={relativeSize}>
+                        <div>
+                            {tableID}
+                            <br />
+                            {partyName}
+                            <br />
+                            <Status occupancyStatus={occupancyStatus}>
+                                {occupancyStatus}
+                            </Status>
+                            <br />
+                        </div>
+                    </TableInfo>
                 );
             case 'TableForEditCanvas':
                 return (
@@ -141,10 +147,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                 tableUse={tableUse}
             >
                 {getChairs()}
-
-                <TableInfo relativeSize={relativeSize}>
-                    {getTableInfoContent(tableUse)}
-                </TableInfo>
+                {getTableInfoContent(tableUse)}
             </TableBody>
         </div>
     );
