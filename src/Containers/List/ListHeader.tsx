@@ -54,7 +54,7 @@ export const ListHeader: React.FC<ListHeaderProps>= ({
     },[isExpanded,setShowRest])
 
     return (
-        <Header padding={padding} margin={margin}>
+        <Header padding={padding} margin={margin} {...props}>
             <Row display={headerFlex}>
                 {showRest&&
                 (
