@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { DraggableTable, IDraggableTable } from '@Containers/EditDraggableCanvas/_DraggableTable';
+import {
+    DraggableTable,
+    IDraggableTable,
+} from '@Containers/EditDraggableCanvas/_DraggableTable';
 
 type getCanvasFillType = () => JSX.Element;
 
@@ -42,7 +45,6 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     tables = [],
     ...props
 }) => {
-
     /*
     const [deltaPosition, setDeltaPosition] = useState({
         x: 0,
@@ -61,7 +63,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
         handleDrag,
     };
     */
-    
+
     /**
      * Generates a unique key based on a string and a random number
      * @param prefix - a string to append to random number
@@ -74,15 +76,14 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
      * Returns a JSX element array containing the tables
      * @return {JSX.Element[]} - the DraggableTables
      */
-    const getTables: getTablesType = () => (
+    const getTables: getTablesType = () =>
         tables.map((item, index) => (
             <DraggableTable
-                tableShape={item.tableShape}
                 tableInput={item.tableInput}
                 defaultXY={item.defaultXY}
                 key={generateTableKey(item.defaultXY.x.toString() + index)}
             />
-        )));
+        ));
 
     /**
      * Returns a JSX.Element for the text or symbol on the chair with correct
@@ -93,37 +94,33 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
      */
     const getCanvasFill: getCanvasFillType = () => {
         switch (canvasType) {
-        case 'newUserCanvas':
-            return (
-                <TextStyles>
-                    <FontTop>Get Started!</FontTop>
-                    <FontBottom>
-                        Start creating your new layout by
-                    </FontBottom>
-                    <FontBottom>
-                        dragging and dropping your tables here
-                    </FontBottom>
-                </TextStyles>
-            );
-        case 'editCanvas':
-            return (
-                <StylesForDraggableDemo>
-                    <StylesForCanvas>
-                        {getTables()}
-                    </StylesForCanvas>
-                </StylesForDraggableDemo>
-            );
-        case 'managementCanvas':
-            return (
-                <StylesForDraggableDemo>
-                    <StylesForCanvas>
-                        {getTables()}
-                    </StylesForCanvas>
-                </StylesForDraggableDemo>
-            );
+            case 'newUserCanvas':
+                return (
+                    <TextStyles>
+                        <FontTop>Get Started!</FontTop>
+                        <FontBottom>
+                            Start creating your new layout by
+                        </FontBottom>
+                        <FontBottom>
+                            dragging and dropping your tables here
+                        </FontBottom>
+                    </TextStyles>
+                );
+            case 'editCanvas':
+                return (
+                    <StylesForDraggableDemo>
+                        <StylesForCanvas>{getTables()}</StylesForCanvas>
+                    </StylesForDraggableDemo>
+                );
+            case 'managementCanvas':
+                return (
+                    <StylesForDraggableDemo>
+                        <StylesForCanvas>{getTables()}</StylesForCanvas>
+                    </StylesForDraggableDemo>
+                );
 
-        default:
-            return <div />;
+            default:
+                return <div />;
         }
     };
 

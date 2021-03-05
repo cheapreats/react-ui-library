@@ -18,6 +18,11 @@ type generateChairKeyType = (pre: string) => string;
 
 export interface ICircleTable {
     /**
+     * The shape for the ICircleTable ("Circle")
+     */
+    tableShape: 'Circle';
+    /**
+    /**
      * The unique identifier for the table
      */
     tableID: string;
@@ -47,6 +52,7 @@ export interface ICircleTable {
  * Primary UI component for user interaction
  */
 export const CircleTable: React.FC<ICircleTable> = ({
+    tableShape = 'Circle',
     tableID = 'T1',
     chairs = [],
     partyName = 'Null',
@@ -99,29 +105,29 @@ export const CircleTable: React.FC<ICircleTable> = ({
      */
     const getTableInfoContent: getTableInfoContentType = () => {
         switch (tableUse) {
-        case 'AddTableButton':
-            return <StyledPlus />;
-        case 'TableForManagement':
-            return (
-                <div>
-                    {tableID}
-                    <br />
-                    {partyName}
-                    <br />
-                    <Status occupancyStatus={occupancyStatus}>
-                        {occupancyStatus}
-                    </Status>
-                    <br />
-                </div>
-            );
-        case 'TableForEditCanvas':
-            return (
-                <TableNumForEditScreen relativeSize={relativeSize}>
-                    {tableID}
-                </TableNumForEditScreen>
-            );
-        default:
-            return <div />;
+            case 'AddTableButton':
+                return <StyledPlus />;
+            case 'TableForManagement':
+                return (
+                    <div>
+                        {tableID}
+                        <br />
+                        {partyName}
+                        <br />
+                        <Status occupancyStatus={occupancyStatus}>
+                            {occupancyStatus}
+                        </Status>
+                        <br />
+                    </div>
+                );
+            case 'TableForEditCanvas':
+                return (
+                    <TableNumForEditScreen relativeSize={relativeSize}>
+                        {tableID}
+                    </TableNumForEditScreen>
+                );
+            default:
+                return <div />;
         }
     };
 
@@ -170,14 +176,14 @@ const MIN_CHAIRS_BEFORE_SET_TANGENT_VALUE = 3;
  */
 const getPositionValue: getPositionValueType = (position) => {
     switch (position) {
-    case 'top':
-        return 0.75;
-    case 'bottom':
-        return 0.25;
-    case 'left':
-        return 0.5;
-    default:
-        return 1;
+        case 'top':
+            return 0.75;
+        case 'bottom':
+            return 0.25;
+        case 'left':
+            return 0.5;
+        default:
+            return 1;
     }
 };
 
@@ -205,14 +211,14 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, position) => {
  */
 const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
-    case 'Vacant':
-        return useTheme().colors.occupancyStatusColors.Vacant;
-    case 'Reserved':
-        return useTheme().colors.occupancyStatusColors.Reserved;
-    case 'Occupied':
-        return useTheme().colors.occupancyStatusColors.Occupied;
-    default:
-        return '';
+        case 'Vacant':
+            return useTheme().colors.occupancyStatusColors.Vacant;
+        case 'Reserved':
+            return useTheme().colors.occupancyStatusColors.Reserved;
+        case 'Occupied':
+            return useTheme().colors.occupancyStatusColors.Occupied;
+        default:
+            return '';
     }
 };
 
@@ -282,7 +288,7 @@ const ChairWrapper = styled.div<IChairWrapper>`
     --relativeSpaceBetweenChairs: 1; /* how much extra space we want between chairs, 1 = one chair size */
     --circleRadius: calc(
         ${({ numOfChairs }) =>
-        numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
+                numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
             (1 + var(--relativeSpaceBetweenChairs)) * var(--chairDiameter) /
             var(--tangent)
     ); /* circle radius */
@@ -294,7 +300,7 @@ const ChairWrapper = styled.div<IChairWrapper>`
     height: var(--chairDiameter);
     --perimeterPlacementValue: calc(
         ${({ counter, position, numOfChairs }) =>
-        getTurnValue(counter, numOfChairs, position)}
+            getTurnValue(counter, numOfChairs, position)}
     );
     transform: rotate(var(--perimeterPlacementValue))
         translate(var(--circleRadius))

@@ -55,6 +55,7 @@ export const DraggableCanvas = (): ReactElement => {
                     >
                         <RectangleTwoTopWidth>
                             <SquareTable
+                                tableShape="Square"
                                 tableID="T1"
                                 partyName=""
                                 isSquare
@@ -89,6 +90,7 @@ export const DraggableCanvas = (): ReactElement => {
                     >
                         <RectangleTwoTopWidth>
                             <SquareTable
+                                tableShape="Square"
                                 tableID="T4"
                                 partyName="Tina"
                                 isSquare
@@ -123,6 +125,7 @@ export const DraggableCanvas = (): ReactElement => {
                     >
                         <SquareEightTopWidth>
                             <SquareTable
+                                tableShape="Square"
                                 tableID="T5"
                                 partyName="Scott"
                                 isSquare={false}
@@ -205,6 +208,7 @@ export const DraggableCanvas = (): ReactElement => {
                     >
                         <RectangleFourTopWidth>
                             <SquareTable
+                                tableShape="Square"
                                 tableID="T3"
                                 partyName="Dmytro"
                                 isSquare={false}
@@ -255,6 +259,7 @@ export const DraggableCanvas = (): ReactElement => {
                     >
                         <CircleTableWidth>
                             <CircleTable
+                                tableShape="Circle"
                                 tableID="T2"
                                 partyName="Corey"
                                 occupancyStatus="Occupied"
@@ -377,5 +382,3 @@ const PaddingForH52TextCenter = styled.h5`
     text-align: center;
     padding-bottom: 0.5rem;
 `;
-
-export default DraggableCanvas;

@@ -38,6 +38,10 @@ type tableUseTypes =
 
 export interface ISquareTable {
     /**
+     * The shape for the ISquareTable ("Square")
+     */
+    tableShape: 'Square';
+    /**
      * The unique identifier for the table
      */
     tableID: string;
@@ -72,6 +76,7 @@ export interface ISquareTable {
  * Square Table
  */
 export const SquareTable: React.FC<ISquareTable> = ({
+    tableShape = 'Square',
     tableID = 'T1',
     partyName = 'Null',
     occupancyStatus = 'Vacant',
