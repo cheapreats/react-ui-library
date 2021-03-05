@@ -17,6 +17,7 @@ export interface ListHeaderProps extends TextLayoutProps {
     headerRowComponent?: React.ReactElement;
     type?: string;
     padding?: string;
+    margin?: string;
     onSearch?: (value:string)=>void;
     onClose?:()=>void;
 }
@@ -30,6 +31,7 @@ export const ListHeader: React.FC<ListHeaderProps>= ({
     iconProps,
     headerRowComponent,
     padding = '10px 20px;',
+    margin='0',
     onSearch,
     onClose=()=>undefined,
     ...props
@@ -52,7 +54,7 @@ export const ListHeader: React.FC<ListHeaderProps>= ({
     },[isExpanded,setShowRest])
 
     return (
-        <Header padding={padding}>
+        <Header padding={padding} margin={margin} {...props}>
             <Row display={headerFlex}>
                 {showRest&&
                 (
@@ -79,12 +81,14 @@ ${Mixins.flex('center')}
 
 interface HeaderProps {
     padding?: string;
+    margin?: string;
 }
 
 const Header = styled.div<HeaderProps>`
-    ${({ theme, padding }): string => `
+    ${({ theme, padding,margin }): string => `
     border-bottom: 2px solid ${theme.colors.text}20;
     padding: ${padding};
+    margin:${margin};
 `}
 `;
 
