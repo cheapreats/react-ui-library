@@ -45,25 +45,6 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     tables = [],
     ...props
 }) => {
-    /*
-    const [deltaPosition, setDeltaPosition] = useState({
-        x: 0,
-        y: 0,
-    });
-
-    const handleDrag = (e: Event, ui: { deltaX: number; deltaY: number }) => {
-        const { x, y } = deltaPosition;
-        setDeltaPosition({
-            x: x + ui.deltaX,
-            y: y + ui.deltaY,
-        });
-    };
-
-    const dragHandlers = {
-        handleDrag,
-    };
-    */
-
     /**
      * Generates a unique key based on a string and a random number
      * @param prefix - a string to append to random number
@@ -125,7 +106,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     };
 
     return (
-        <CanvasBorder>
+        <CanvasBorder {...props}>
             {getCanvasFill()}
             <CapacityDisplayStyles>
                 <FontForCapacityDisplay>

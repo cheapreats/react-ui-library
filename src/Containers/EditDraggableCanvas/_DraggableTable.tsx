@@ -112,6 +112,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
             bounds="parent"
             {...dragHandlers}
             defaultPosition={{ x: defaultXY.x, y: defaultXY.y }}
+            {...props}
         >
             <TableWidthWrapper>{getTableComponent()}</TableWidthWrapper>
         </Draggable>
