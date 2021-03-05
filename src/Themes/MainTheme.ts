@@ -56,7 +56,7 @@ export const MainTheme: MainThemeInterface = {
             Reserved: '#ffc107',
             Occupied: '#17a2b8',
         },
-        editControlPanelColor: '#000000',
+        editControlPanelColor: '#6c757d',
         chairTableBackground: '#6c757d',
         chairOccupiedBackground: '#EE2434',
         chairTableEditBackground: '#C4C4C4',

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styled, { useTheme } from 'styled-components';
+import styled from 'styled-components';
 import Card from '@Containers/Card/Card';
 import Button from '../../Inputs/Button/Button';
 
@@ -44,25 +44,11 @@ export const EditControlPanel: React.FC<IEditControlPanel> = ({
         <BorderForControlPanel {...props}>
             <Card>
                 <CenteredText>
-                    <div
-                        style={{
-                            color: useTheme().colors.editControlPanelColor,
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        Table Number
-                    </div>
+                    Table Number
                     <InputStyles placeholder={TableNumber} />
                 </CenteredText>
                 <CenteredText>
-                    <div
-                        style={{
-                            color: useTheme().colors.editControlPanelColor,
-                            fontWeight: 'bold',
-                        }}
-                    >
-                        Number Of Seats
-                    </div>
+                    Number Of Seats
                     <Border>
                         <Container>
                             <Row>
@@ -90,43 +76,19 @@ export const EditControlPanel: React.FC<IEditControlPanel> = ({
                     </Border>
                 </CenteredText>
                 <PaddingForButtons>
-                    <Button
-                        primary
-                        onClick={() => onRotateClick()}
-                        style={{
-                            marginRight: 'auto',
-                            marginLeft: 'auto',
-                            width: '80%',
-                        }}
-                    >
+                    <ButtonStyles primary onClick={onRotateClick}>
                         Rotate
-                    </Button>
+                    </ButtonStyles>
                 </PaddingForButtons>
                 <PaddingForButtons>
-                    <Button
-                        primary
-                        onClick={() => onCloneClick()}
-                        style={{
-                            marginRight: 'auto',
-                            marginLeft: 'auto',
-                            width: '80%',
-                        }}
-                    >
+                    <ButtonStyles primary onClick={onCloneClick}>
                         Clone
-                    </Button>
+                    </ButtonStyles>
                 </PaddingForButtons>
                 <PaddingForButtons>
-                    <Button
-                        primary
-                        onClick={() => onDeleteClick()}
-                        style={{
-                            marginRight: 'auto',
-                            marginLeft: 'auto',
-                            width: '80%',
-                        }}
-                    >
+                    <ButtonStyles primary onClick={onDeleteClick}>
                         Delete
-                    </Button>
+                    </ButtonStyles>
                 </PaddingForButtons>
             </Card>
         </BorderForControlPanel>
@@ -137,16 +99,16 @@ export const EditControlPanel: React.FC<IEditControlPanel> = ({
  * variables for the styled components
  */
 const StylesForLeftButton = styled(Button)`
-    margintop: auto;
-    marginbottom: auto;
+    margin-top: auto;
+    margin-bottom: auto;
     border: none;
     background: transparent;
     outline: none;
 `;
 
 const StylesForRightButton = styled(Button)`
-    margintop: auto;
-    marginbottom: auto;
+    margin-top: auto;
+    margin-bottom: auto;
     border: none;
     background: transparent;
     outline: none;
@@ -156,6 +118,12 @@ const Container = styled.div`
     width: 100%;
     margin-right: auto;
     margin-left: auto;
+`;
+
+const ButtonStyles = styled(Button)`
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
 `;
 
 const InputStyles = styled.input`
@@ -219,5 +187,4 @@ const CenteredText = styled.div`
     padding-top: 0.5rem;
     padding-bottom: 0.5rem;
 `;
-
 export default EditControlPanel;

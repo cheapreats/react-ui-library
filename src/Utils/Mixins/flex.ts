@@ -1,4 +1,4 @@
-const FLEX_DIRECTIONS = ['row', 'column', 'reverse-row', 'reverse-column'];
+const FLEX_DIRECTIONS = ['row', 'column', 'row-reverse', 'column-reverse'];
 /**
  * Flex display with common properties. Can have the following configurations
  * - Nothing => row, flex-start, flex-start
