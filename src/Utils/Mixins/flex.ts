@@ -23,15 +23,15 @@ export const flex = (
         return `
             display: flex;
             ${
-    FLEX_DIRECTIONS.includes(param1)
-        ? `
+                FLEX_DIRECTIONS.includes(param1)
+                    ? `
                 flex-direction: ${param1};
             `
-        : `
+                    : `
                 justify-content: ${param1};
                 align-items: ${param1};
             `
-}
+            }
         `;
     }
 
@@ -40,17 +40,17 @@ export const flex = (
         return `
             display: flex;
             ${
-    FLEX_DIRECTIONS.includes(param1)
-        ? `
+                FLEX_DIRECTIONS.includes(param1)
+                    ? `
                 flex-direction: ${param1};
                 justify-content: ${param2};
                 align-items: ${param2};
             `
-        : `
+                    : `
                 justify-content: ${param1};
                 align-items: ${param2};
             `
-}
+            }
         `;
     }
 

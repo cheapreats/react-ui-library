@@ -100,14 +100,14 @@ export const MergeModal: React.FC<MergeModalProps> = ({
                 // render different resolution based on the day's merge action to be performed
                 const renderResolution = () => {
                     switch (values[day]) {
-                    case MergeActions.MERGE:
-                        return renderMergedTime;
-                    case MergeActions.REPLACE:
-                        return renderStoreHours;
-                    case MergeActions.KEEP:
-                        return renderOverwrittenTimes;
-                    default:
-                        return null;
+                        case MergeActions.MERGE:
+                            return renderMergedTime;
+                        case MergeActions.REPLACE:
+                            return renderStoreHours;
+                        case MergeActions.KEEP:
+                            return renderOverwrittenTimes;
+                        default:
+                            return null;
                     }
                 };
 

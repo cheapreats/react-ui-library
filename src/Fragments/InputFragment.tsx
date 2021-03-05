@@ -24,9 +24,14 @@ export interface InputFragmentProps
     type?: string;
 }
 
-export const InputFragment= React.forwardRef<HTMLInputElement,InputFragmentProps>(({
-    ...props
-},ref): React.ReactElement => <InputElement {...props} ref={ref} />);
+export const InputFragment = React.forwardRef<
+    HTMLInputElement,
+    InputFragmentProps
+>(
+    ({ ...props }, ref): React.ReactElement => (
+        <InputElement {...props} ref={ref} />
+    ),
+);
 
 const InputElement = styled.input<InputFragmentProps>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
@@ -54,12 +59,12 @@ const InputElement = styled.input<InputFragmentProps>`
     // Background color
     ${({ theme, error = false, success = false }): string => `
         background-color: ${styledCondition(
-        error,
-        theme.colors.input.error,
-        success,
-        theme.colors.input.success,
-        theme.colors.input.default,
-    )};
+            error,
+            theme.colors.input.error,
+            success,
+            theme.colors.input.success,
+            theme.colors.input.default,
+        )};
     `}
 `;
 

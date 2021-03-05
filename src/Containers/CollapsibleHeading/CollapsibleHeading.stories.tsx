@@ -25,13 +25,13 @@ const Template: Story<ICollapsibleHeadingProps> = (args) => {
             <CollapsibleHeading
                 isCollapsed={isCollapsible}
                 setCollapsed={() => setIsCollapsible(!isCollapsible)}
-                ChildElement={(
+                ChildElement={
                     <FilterSelect
                         selectOptions={['Contains', 'Equals']}
                         value="Contains"
                         placeholder="Add email"
                     />
-                )}
+                }
                 {...args}
             />
             <Button primary onClick={() => setFilterApplied(!filterApplied)}>

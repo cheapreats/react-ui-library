@@ -45,14 +45,14 @@ export const List: React.FC<ListProps> = ({
         const handler = ({ type }: { type: string }): void => {
             if (setIsOpen) {
                 switch (type) {
-                case 'swipeRight':
-                    setIsOpen(true);
-                    break;
-                case 'swipeLeft':
-                    setIsOpen(false);
-                    break;
-                default:
-                    break;
+                    case 'swipeRight':
+                        setIsOpen(true);
+                        break;
+                    case 'swipeLeft':
+                        setIsOpen(false);
+                        break;
+                    default:
+                        break;
                 }
             }
         };
@@ -127,8 +127,8 @@ const Wrapper = styled.div<WrapperProps>`
             ? `
                 @media (max-width: ${theme.media[mediaMixin] || mediaMixin}px) {
                     transform: translateX(${
-    isOpen ? '0' : mediaOnCloseTranslateXAxis
-});
+                        isOpen ? '0' : mediaOnCloseTranslateXAxis
+                    });
                     position: ${mediaCssPosition};
                     margin: ${mediaMargin};
                     top: 0;

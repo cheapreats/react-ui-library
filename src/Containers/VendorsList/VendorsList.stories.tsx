@@ -377,7 +377,8 @@ const renderTagFilter = (column: HeaderGroup<any>) => (
         selectOptions={sampleGroupsMapped}
         selectProps={{ margin: '10px 0' }}
         onOptionsSelected={(selectedOptions) =>
-            column.setFilter(selectedOptions)}
+            column.setFilter(selectedOptions)
+        }
     />
 );
 

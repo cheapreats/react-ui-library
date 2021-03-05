@@ -38,23 +38,23 @@ const TagDiv = styled.span<ITagDiv>`
         ]);
         return `
             ${Main({
-        padding: theme.dimensions.tag.padding,
-        ...props,
-    })}
+                padding: theme.dimensions.tag.padding,
+                ...props,
+            })}
             font-size: ${theme.dimensions.tag.fontSize};
             border: 1.5px solid ${color};
             color: ${theme.colors.text};
             ${
-    isHoverable
-        ? `&:hover {
+                isHoverable
+                    ? `&:hover {
                 background-color: ${theme.colors.primary};
                 border-color: ${theme.colors.primary};
                 color: white;
             }
             ${hoverClickable}
             `
-        : ''
-}
+                    : ''
+            }
             
         `;
     }}

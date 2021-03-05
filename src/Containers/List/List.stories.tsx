@@ -70,18 +70,20 @@ export default {
     },
 } as Meta;
 
-export const ListHeaderWithSearchBar:Story<ListHeaderProps> = (args)=> <ListHeader {...args} />
+export const ListHeaderWithSearchBar: Story<ListHeaderProps> = (args) => (
+    <ListHeader {...args} />
+);
 
 ListHeaderWithSearchBar.args = {
-    label:"List Header",
-    headerFlex:"space-between",
-    icon:COG_WHEEL_ICON,
-    iconProps:"width: 20px; margin: 0 10px;",
-    iconClick:() => alert('Icon Clicked'),
-    onSearch:(value:string)=>{
-        console.log(value)
+    label: 'List Header',
+    headerFlex: 'space-between',
+    icon: COG_WHEEL_ICON,
+    iconProps: 'width: 20px; margin: 0 10px;',
+    iconClick: () => alert('Icon Clicked'),
+    onSearch: (value: string) => {
+        console.log(value);
     },
-}
+};
 
 export const Basic: Story<ListProps> = (args) => {
     const [{ isOpen }, updateArgs] = useArgs();
@@ -92,14 +94,12 @@ export const Basic: Story<ListProps> = (args) => {
             isOpen={isOpen}
             setIsOpen={setIsOpen}
             toggleComponent={
-                (
-                    <ListToggle
-                        isOpen={isOpen}
-                        setIsOpen={setIsOpen}
-                        isLeftToggle
-                        isToggleHiddenDesktop
-                    />
-                )
+                <ListToggle
+                    isOpen={isOpen}
+                    setIsOpen={setIsOpen}
+                    isLeftToggle
+                    isToggleHiddenDesktop
+                />
             }
         >
             {items.map((item) => (

@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { SearchBarExpandable, SearchBarExpandableProps } from '..';
 import { createStoryTitle } from '../../Constants';
@@ -24,6 +24,6 @@ export default {
 } as Meta;
 
 export const Basic: Story<SearchBarExpandableProps> = (args) => {
-    const stateExpanded=useState(false)
-    return <SearchBarExpandable {...args} state={stateExpanded} />
-}
+    const stateExpanded = useState(false);
+    return <SearchBarExpandable {...args} state={stateExpanded} />;
+};

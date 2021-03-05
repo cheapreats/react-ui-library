@@ -93,9 +93,9 @@ const Box = styled.div<IBoxProps>`
         width: ${theme.dimensions.modal.width[props.width] || props.width};
         height: ${props.height};
         ${Main({
-        padding: theme.dimensions.padding.container,
-        ...props,
-    })}
+            padding: theme.dimensions.padding.container,
+            ...props,
+        })}
     `}
 
     ${({ show }): string =>

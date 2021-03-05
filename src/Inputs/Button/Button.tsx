@@ -47,7 +47,14 @@ export const Button: React.FC<ButtonProps> = ({
     const [, isLoading, isAnimated] = useTransition(loading);
     return (
         <StyledButton {...props} disabled={disabled}>
-            {icon && <Icon iconSize={iconSize} loading={isAnimated} as={icon} hasText={children} />}
+            {icon && (
+                <Icon
+                    iconSize={iconSize}
+                    loading={isAnimated}
+                    as={icon}
+                    hasText={children}
+                />
+            )}
             {children && <Content loading={isAnimated}>{children}</Content>}
             {isLoading && <Loader loading={isAnimated} />}
         </StyledButton>
@@ -76,16 +83,21 @@ const StyledButton = styled.button<ButtonProps>`
     }
 
     // Theme Stuff
-    ${({ theme, color = 'background', contentColor = 'text', ...props }): string => `
+    ${({
+        theme,
+        color = 'background',
+        contentColor = 'text',
+        ...props
+    }): string => `
         padding: ${theme.dimensions.padding.withBorder};
         font-family: ${theme.font.family};
         background-color: ${theme.colors[color] || color};
         color: ${theme.colors[contentColor] || contentColor};
         ${clickable(theme.colors[color] || color)}
         ${Main({
-        padding: theme.dimensions.padding.withBorder,
-        ...props,
-    })}
+            padding: theme.dimensions.padding.withBorder,
+            ...props,
+        })}
     `}
 
     // Primary button
@@ -111,7 +123,7 @@ interface IconProps {
 
 const Icon = styled.svg<IconProps>`
     ${transition(['transform', 'opacity'])};
-    ${({iconSize}) => `
+    ${({ iconSize }) => `
         height: ${iconSize};
         width: ${iconSize};
     `}
