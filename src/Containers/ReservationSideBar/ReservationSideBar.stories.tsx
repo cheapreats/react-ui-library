@@ -33,10 +33,5 @@ ReservationSideBarComponent.args = {
             occupancyStatus: 'Vacant',
         },
     ],
-    AvailableRoomsList:[
-        "Dining Room",
-        "Kitchen",
-        "Living Room",
-        "Patio"
-    ]
+    AvailableRoomsList: ['Dining Room', 'Kitchen', 'Living Room', 'Patio'],
 };

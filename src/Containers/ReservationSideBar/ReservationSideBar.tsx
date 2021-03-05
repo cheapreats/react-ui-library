@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import styled, {useTheme} from 'styled-components';
-import Select from "@Inputs/Select/Select";
+import styled, { useTheme } from 'styled-components';
+import Select from '@Inputs/Select/Select';
 import Button from '../../Inputs/Button/Button';
 
 export interface IReservationSideBar {
@@ -15,9 +15,7 @@ type getReservationInformation = (
 type getWaitingRoomInformation = (
     array: Array<IWaitingRoomList>,
 ) => JSX.Element[];
-type getAvailableRoomInformation = (
-    array: Array<string>,
-) => JSX.Element[];
+type getAvailableRoomInformation = (array: Array<string>) => JSX.Element[];
 type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 type getOccupancyColorType = (occupancyStatus: occupancyStatusTypes) => string;
 
@@ -77,9 +75,8 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
     AvailableRoomsList = [],
     ...props
 }) => {
-
     const [activeToggleView, setActiveToggleView] = useState('Reservation');
-    const [room, setRoom] = useState("");
+    const [room, setRoom] = useState('');
 
     /**
      * This uses the useState to change the activeToggleView to "Reservation"
@@ -103,15 +100,15 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
      * This is the onClick() function for the +WaitingList button
      */
     const onClickAddToWaitingRoomList = () => {
-        console.log("+ Waiting Room Button has been Hit");
-    }
+        console.log('+ Waiting Room Button has been Hit');
+    };
 
     /**
-     * This is the onClick() function fot the +Reservation button
+     * This method is the +Reservation button
      */
     const onClickAddToReservationList = () => {
-        console.log("+ Reservation Button has been Hit");
-    }
+        console.log('+ Reservation Button has been Hit');
+    };
 
     /**
      * Returns a JSX element for the content of the ReservationSideBar
@@ -122,12 +119,12 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
      * */
     const toggleReservationAndWaitingRoomInfo = (displaySelected: string) => {
         switch (displaySelected) {
-        case 'Reservation':
-            return getReservationInformation(ReservationList);
-        case 'Waiting':
-            return getWaitingRoomInformation(WaitingRoomList);
-        default:
-            return <div />;
+            case 'Reservation':
+                return getReservationInformation(ReservationList);
+            case 'Waiting':
+                return getWaitingRoomInformation(WaitingRoomList);
+            default:
+                return <div />;
         }
     };
 
@@ -140,20 +137,26 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
      * */
     const toggleButtonDisplay = (displaySelected: string) => {
         switch (displaySelected) {
-        case 'Reservation':
-            return (
-                <StylesForReservationButton primary onClick={onClickAddToReservationList}>
-                    + Reservation
-                </StylesForReservationButton>
-            );
-        case 'Waiting':
-            return (
-                <StylesForReservationButton primary onClick={onClickAddToWaitingRoomList}>
-                    + Waiting List
-                </StylesForReservationButton>
-            );
-        default:
-            return <div />;
+            case 'Reservation':
+                return (
+                    <StylesForReservationButton
+                        primary
+                        onClick={onClickAddToReservationList}
+                    >
+                        + Reservation
+                    </StylesForReservationButton>
+                );
+            case 'Waiting':
+                return (
+                    <StylesForReservationButton
+                        primary
+                        onClick={onClickAddToWaitingRoomList}
+                    >
+                        + Waiting List
+                    </StylesForReservationButton>
+                );
+            default:
+                return <div />;
         }
     };
 
@@ -196,7 +199,9 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
                 </TableBorder>
                 <InformationContainer>
                     <TableInformation>
-                        <ChangeColorToOccupancyStatus occupancyStatus={i.occupancyStatus}>
+                        <ChangeColorToOccupancyStatus
+                            occupancyStatus={i.occupancyStatus}
+                        >
                             {i.occupancyStatus}
                         </ChangeColorToOccupancyStatus>
                         {`${i.time} ${i.partyName}`}
@@ -211,14 +216,9 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
      *  @param AllRooms is the prop AvailableRoomsList.
      * @returns {JSX.Element} the correct JSX.Element for the Select component.
      * */
-    const getOptionsForSelect: getAvailableRoomInformation = (
-        AllRooms
-    ) =>
-        AllRooms.map((i: string) =>(
-            <option
-                key={i}
-                value={i}
-            >
+    const getOptionsForSelect: getAvailableRoomInformation = (AllRooms) =>
+        AllRooms.map((i: string) => (
+            <option key={i} value={i}>
                 {i}
             </option>
         ));
@@ -230,11 +230,13 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
                 <SelectStyles>
                     <Select
                         placeholder="Select Room"
-                        onChange={(e: React.ChangeEvent<any>) => setRoom(e.target.value)}
+                        onChange={(e: React.ChangeEvent<any>) =>
+                            setRoom(e.target.value)
+                        }
                         name="rooms"
                         value={room}
                     >
-                        { getOptionsForSelect(AvailableRoomsList)}
+                        {getOptionsForSelect(AvailableRoomsList)}
                     </Select>
                 </SelectStyles>
                 <ReservationWaitingRoomSwitch>
@@ -273,14 +275,14 @@ export default ReservationSideBar;
  */
 const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
-    case 'Vacant':
-        return useTheme().colors.occupancyStatusColors.Vacant;
-    case 'Reserved':
-        return useTheme().colors.occupancyStatusColors.Reserved;
-    case 'Occupied':
-        return useTheme().colors.occupancyStatusColors.Occupied;
-    default:
-        return '';
+        case 'Vacant':
+            return useTheme().colors.occupancyStatusColors.Vacant;
+        case 'Reserved':
+            return useTheme().colors.occupancyStatusColors.Reserved;
+        case 'Occupied':
+            return useTheme().colors.occupancyStatusColors.Occupied;
+        default:
+            return '';
     }
 };
 
@@ -337,22 +339,20 @@ interface ITableBorder {
 const TableBorder = styled.div<ITableBorder>`
     width: 39px;
     height: 40px;
-    background: ${({ occupancyStatus }) =>
-        getOccupancyColor(occupancyStatus)};    
-    border: 4px solid ${({ occupancyStatus }) =>
-        getOccupancyColor(occupancyStatus)}; 
+    background: ${({ occupancyStatus }) => getOccupancyColor(occupancyStatus)};
+    border: 4px solid
+        ${({ occupancyStatus }) => getOccupancyColor(occupancyStatus)};
     box-sizing: border-box;
     border-radius: 11px;
     display: inline-block;
 `;
 
-interface IChangeColorToOccupancyStatus{
+interface IChangeColorToOccupancyStatus {
     occupancyStatus: occupancyStatusTypes;
 }
 
 const ChangeColorToOccupancyStatus = styled.div<IChangeColorToOccupancyStatus>`
-    color: ${({ occupancyStatus }) =>
-        getOccupancyColor(occupancyStatus)};
+    color: ${({ occupancyStatus }) => getOccupancyColor(occupancyStatus)};
 `;
 
 const TableInformation = styled.div`
@@ -374,7 +374,6 @@ const ContainerForButton = styled.div`
     width: 298px;
     align-content: center;
     margin-top: 10px;
-
 `;
 
 const StylesForReservationButton = styled(Button)`
@@ -407,12 +406,18 @@ const ReservationSwitch = styled.button<IReservationSwitch>`
     line-height: 17px;
     letter-spacing: 0em;
     text-align: center;
-    ${({ colors, theme }) => (
-        `background-color: ${colors === 'Reservation' ? theme.colors.statusColors.red : theme.colors.background};
-             color: ${colors === 'Reservation' ? theme.colors.background : theme.colors.statusColors.red};
-            `
-    )
-}    
+    ${({ colors, theme }) =>
+        `background-color: ${
+            colors === 'Reservation'
+                ? theme.colors.statusColors.red
+                : theme.colors.background
+        };
+             color: ${
+                 colors === 'Reservation'
+                     ? theme.colors.background
+                     : theme.colors.statusColors.red
+             };
+            `}
     border: none;
 `;
 
@@ -428,13 +433,19 @@ const WaitingRoomButton = styled.button<IWaitingRoomButton>`
     font-style: normal;
     font-weight: 700;
     line-height: 17px;
-    letter-spacing: 0em;    
+    letter-spacing: 0em;
     text-align: center;
-    ${({ colors, theme }) => (
-        `background-color: ${colors === 'Waiting' ? theme.colors.statusColors.red : theme.colors.background};
-             color: ${colors === 'Waiting' ? theme.colors.background : theme.colors.statusColors.red};
-            `
-    )
-} 
+    ${({ colors, theme }) =>
+        `background-color: ${
+            colors === 'Waiting'
+                ? theme.colors.statusColors.red
+                : theme.colors.background
+        };
+             color: ${
+                 colors === 'Waiting'
+                     ? theme.colors.background
+                     : theme.colors.statusColors.red
+             };
+            `}
     border: none;
 `;

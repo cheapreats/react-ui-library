@@ -227,8 +227,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
             <ChairRow
                 position="top"
                 chairs={topArray}
-
-
                 relativeSize={relativeSize}
                 tableUse={tableUse}
             />
