@@ -6,6 +6,7 @@ import {
     List,
     ListProps,
     ListHeader,
+    ListHeaderProps,
     ListFooter,
     ListItem,
     ListToggle,
@@ -44,7 +45,7 @@ export default {
                 label="List Header"
                 headerFlex="space-between"
                 icon={COG_WHEEL_ICON}
-                iconProps="width: 20px; margin-right: 10px"
+                iconProps="width: 20px; margin-right: 10px;"
                 iconClick={() => alert('Icon Clicked')}
             />
         ),
@@ -68,6 +69,21 @@ export default {
         mediaOnCloseTranslateXAxis: '-100%',
     },
 } as Meta;
+
+export const ListHeaderWithSearchBar: Story<ListHeaderProps> = (args) => (
+    <ListHeader {...args} />
+);
+
+ListHeaderWithSearchBar.args = {
+    label: 'List Header',
+    headerFlex: 'space-between',
+    icon: COG_WHEEL_ICON,
+    iconProps: 'width: 20px; margin: 0 10px;',
+    iconClick: () => alert('Icon Clicked'),
+    onSearch: (value: string) => {
+        console.log(value);
+    },
+};
 
 export const Basic: Story<ListProps> = (args) => {
     const [{ isOpen }, updateArgs] = useArgs();
