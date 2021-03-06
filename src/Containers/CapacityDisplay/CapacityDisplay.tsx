@@ -27,18 +27,13 @@ export const CapacityDisplay: React.FC<ICapacityDisplay> = ({
     );
 
     return (
-        <BorderBox
-            textColor={colors.text}
-            borderColor={colors.border}
-            backgroundColor={colors.background}
-            {...props}
-        >
+        <ContainerForComponent {...props}>
             <Row>
                 <Col3>
                     <PieBox
                         capacityPercent={capacityPercent}
                         borderColor={colors.border}
-                        backgroundColor={colors.background}
+                        backgroundColor={colors.chairTableBackground}
                         pieFillColor={colors.primary}
                     />
                 </Col3>
@@ -47,26 +42,17 @@ export const CapacityDisplay: React.FC<ICapacityDisplay> = ({
                     <PercentDiv>{`${capacityPercent}% Full`}</PercentDiv>
                 </Col8>
             </Row>
-        </BorderBox>
+        </ContainerForComponent>
     );
 };
 
 /**
  * Styled component variables
  */
-interface IBorderBox {
-    textColor: string;
-    borderColor: string;
-    backgroundColor: string;
-}
 
-const BorderBox = styled.div<IBorderBox>`
-    border: 0.1em solid ${({ borderColor }) => borderColor};
-    border-radius: 0.5em;
-    background-color: ${({ backgroundColor }) => backgroundColor};
-    height: 11em;
-    width: 40em;
-    color: ${({ textColor }) => textColor};
+const ContainerForComponent = styled.div`
+    height: 40px;
+    width: 170px;
 `;
 
 interface IPieBox {
@@ -81,10 +67,9 @@ const PieBox = styled.div<IPieBox>`
     max-width: 100%;
     display: block;
     position: absolute;
-    width: 11em;
-    height: 10em;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
-    box-shadow: 0 0 0 0.1em ${({ borderColor }) => borderColor};
     background-image: conic-gradient(
         ${({ pieFillColor }) => pieFillColor}
             ${({ capacityPercent }) => capacityPercent * 3.6}deg,
@@ -94,25 +79,27 @@ const PieBox = styled.div<IPieBox>`
 
 const TitleDiv = styled.div`
     padding-left: 1em;
-    font-size: 1em;
+    font-size: 11px;
+    line-height: 17.5px;
 `;
 
 const PercentDiv = styled.div`
-    padding-left: 0.5em;
-    font-size: 2em;
+    padding-left: 0.6rem;
+    font-size: 14px;
+    font-weight: bold;
 `;
 
 const Row = styled.div`
     display: flex;
     flex-wrap: wrap;
     margin-right: 15px;
-    margin-left: 15px;
+    margin-left: 5px;
 `;
 
 const Col = styled.div`
     position: relative;
     width: 100%;
-    padding-top: 0.5rem;
+    padding-top: 0.2rem;
 `;
 
 const Col3 = styled(Col)`
@@ -123,6 +110,4 @@ const Col3 = styled(Col)`
 const Col8 = styled(Col)`
     flex: 0 0 66.666667%;
     max-width: 66.666667%;
-    padding-left: 15px;
-    padding-right: 15px;
 `;

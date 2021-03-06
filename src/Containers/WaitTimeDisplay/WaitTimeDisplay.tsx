@@ -1,11 +1,10 @@
 import React from 'react';
-import { flex } from '@Utils/Mixins';
-import { SmallText } from '@Text';
 import styled, { useTheme } from 'styled-components';
 
 const BUSY = 30;
 const STARTING_TO_GET_BUSY = 15;
 const MULTIPLY_DEGREE_ANGLE = 6;
+
 export interface IWaitTimeDisplay {
     /**
      * The seating/reservation length of average wait time
@@ -20,35 +19,66 @@ export interface IWaitTimeDisplay {
 export const WaitTimeDisplay: React.FC<IWaitTimeDisplay> = ({
     AverageWaitTime = BUSY,
     ...props
-}) => (
-    <Row {...props}>
-        <PieChart AverageWaitTime={AverageWaitTime} />
-        <TextPaddingLeftTop>
-            <SmallText size="3rem" bold>
-                Avg. Wait
-            </SmallText>
-            <br />
-            <SmallText size="3rem" bold>
-                {AverageWaitTime} Min
-            </SmallText>
-        </TextPaddingLeftTop>
-    </Row>
-);
+}) => {
+    const { colors } = useTheme();
+
+    return (
+        <ContainerForComponent {...props}>
+            <Row>
+                <Col3>
+                    <PieChart
+                        AverageWaitTime={AverageWaitTime}
+                        backgroundColor={colors.chairTableBackground}
+                    />
+                </Col3>
+                <Col8>
+                    <FontStyles>Average Wait</FontStyles>
+                    <FontStylesForTime>{AverageWaitTime} Min</FontStylesForTime>
+                </Col8>
+            </Row>
+        </ContainerForComponent>
+    );
+};
 
 /**
  * variables for the styled components
  */
 
-const TextPaddingLeftTop = styled.div`
-    padding-left: 12rem;
-    padding-top: 1rem;
+const ContainerForComponent = styled.div`
+    height: 40px;
+    width: 165px;
+`;
+
+const FontStyles = styled.div`
+    font-size: 14px;
+    line-height: 17.5px;
+`;
+
+const FontStylesForTime = styled(FontStyles)`
+    font-weight: bold;
 `;
 
 const Row = styled.div`
     display: flex;
-    ${flex()};
+    flex-wrap: wrap;
     margin-right: 15px;
-    margin-left: 15px;
+`;
+
+const Col = styled.div`
+    position: relative;
+    width: 100%;
+    padding-top: 0.2rem;
+`;
+
+const Col3 = styled(Col)`
+    flex: 0 0 25%;
+    max-width: 25%;
+`;
+
+const Col8 = styled(Col)`
+    flex: 0 0 66.666667%;
+    max-width: 66.666667%;
+    margin-left: 4rem;
 `;
 
 /**
@@ -67,19 +97,25 @@ function getColor(AverageWaitTime: Number) {
     return colors.PieChartColors.Green;
 }
 
-const PieChart = styled.div<Pick<IWaitTimeDisplay, 'AverageWaitTime'>>`
+interface IPieChart {
+    backgroundColor: string;
+    AverageWaitTime: number;
+}
+
+const PieChart = styled.div<IPieChart>`
     flex-basis: 0;
     max-width: 100%;
     display: block;
     position: absolute;
-    width: 10rem;
-    height: 10rem;
+    margin-left: 1rem;
+    margin-top: 0.2rem;
+    width: 2rem;
+    height: 2rem;
     border-radius: 50%;
-
     background-image: conic-gradient(
         ${({ AverageWaitTime }) => getColor(AverageWaitTime)}
             ${({ AverageWaitTime }) =>
                 AverageWaitTime * MULTIPLY_DEGREE_ANGLE}deg,
-        grey 0 235deg
+        ${({ backgroundColor }) => backgroundColor} 0 235deg
     );
 `;
