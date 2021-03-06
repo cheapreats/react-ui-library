@@ -15,6 +15,7 @@ const Template: Story<ICircleTable> = (args) => <CircleTable {...args} />;
  */
 export const FourTopTable = Template.bind({});
 FourTopTable.args = {
+    tableShape: 'Circle',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
