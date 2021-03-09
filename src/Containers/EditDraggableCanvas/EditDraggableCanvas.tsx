@@ -137,11 +137,12 @@ const TextStyles = styled.div`
 `;
 
 const CanvasBorder = styled.div`
-    height: 450px;
-    width: 500px;
+    height: 320px;
+    width: 523px;
     border: 1px solid #000000;
     box-sizing: border-box;
     border-radius: 11px;
+    position: relative;
 `;
 
 const StylesForCanvas = styled.div`
