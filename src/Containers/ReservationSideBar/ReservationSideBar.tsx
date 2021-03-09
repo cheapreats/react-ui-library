@@ -383,13 +383,13 @@ const StylesForReservationButton = styled(Button)`
 
 const ContainerForCustomerInfo = styled.div`
     width: 300px;
-    height: 335px;
+    height: 485px;
     overflow-y: auto;
 `;
 
 const SideToolBar = styled.div`
     width: 299px;
-    height: 580px;
+    height: 754px;
     border: 1px solid ${({ theme }) => theme.colors.chairTableEditBackground};
 `;
 
