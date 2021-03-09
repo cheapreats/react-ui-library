@@ -67,9 +67,9 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
         ));
 
     /**
-     * Returns a JSX.Element for the text or symbol on the chair with correct
-     * styles based on tableUse, whether the chair isRound, and whether the
-     * chair isVisible
+     * Returns the correct text for a new user canvas or the tables
+     * with the correct styles for a returning user canvas based on the
+     * canvasType
      * @returns {JSX.Element}
      *
      */
