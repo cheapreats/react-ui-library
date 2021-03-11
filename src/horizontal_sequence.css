@@ -4,58 +4,19 @@ header{
     padding: 55px;
 }
 
-.card{
-    width: 325px;
-    height: 225px; 
+
+#card1,#card2,#card3,#card4{
     color: white;
-    font-size: 19px;
   
 }
-
-
-#col1{
-    margin-left: 50px;
+.card-text{
+    font-size: 18px;;
 }
 
-#col2{
-    margin-left: -80px;
-}
-
-#col3{
-    margin-left: -80px;
-}
-
-#col4{
-  margin-left: -80px;
-  
-}
-
-#card1{
-    /* background-color: rgb(65,157,229);
-    border-radius: 5%;
-    */
-    color: white;
-}
-#card2{
-    /* background-color: rgb(45,116,222);
-    border-radius: 5%; */
-    color: white;
-    
-}
-#card3{
-    /* background-color: rgb(22,64,123);
-    border-radius: 5%; */
-    color: white;
-}
-#card4{
-    /* background-color:rgb(14,44,86);
-    border-radius: 5%; */
-    color: white;
-}
 
 .bubble1{
     background-color: rgb(65,157,229);
-    border-radius: 5px;
+    border-radius: 10px;
     /* box-shadow: 0px 0px 6px #B2B2B2; */
     height: 225px;
     margin: 20px;
@@ -72,7 +33,7 @@ header{
     left: 312px;
     /* right: 80px; */
     position: relative;
-    top: -120px;
+    top: -128px;
    
     transform:             rotate( 45deg );
         -moz-transform:    rotate( 45deg );
@@ -83,12 +44,12 @@ header{
 }
 .bubble2{
     background-color: rgb(45,116,222);
-    border-radius: 5px;
+    border-radius: 10px;
     /* box-shadow: 0px 0px 6px #B2B2B2; */
     height: 225px;
     margin: 20px;
     width:  325px;
-    margin-left: -5px;
+    margin-left: -15px;
     clip-path: polygon(
       0 0, 
       100% 0, 
@@ -106,15 +67,16 @@ header{
 }
 
 .bubble2::after {
-    background-color: rgb(45,116,222);
+    background-color:rgb(45,116,222);
     /* box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 ); */
     content: "\00a0";
     display: block;
     height: 12px;
     left: 312px;
-    z-index: -1;
+    /* z-index: -1; */
     position: relative;
-    top: -100px;
+    top: -102px;
+    z-index: -1;
     transform:             rotate( 45deg );
         -moz-transform:    rotate( 45deg );
         -ms-transform:     rotate( 45deg );
@@ -125,12 +87,12 @@ header{
 
 .bubble3{
     background-color: rgb(22,64,123);
-    border-radius: 5px;
+    border-radius: 10px;
     /* box-shadow: 0px 0px 6px #B2B2B2; */
     height: 225px;
     margin: 20px;
     width:  325px;
-    margin-left: -5px;
+    margin-left: -15px;
     clip-path: polygon(
       0 0, 
       100% 0, 
@@ -157,7 +119,7 @@ header{
     height: 12px;
     left: 312px;
     position: relative;
-    top: -120px;
+    top: -128px;
     z-index: -1;
 
     transform:             rotate( 45deg );
@@ -171,12 +133,12 @@ header{
 
 .bubble4{
     background-color: rgb(14,44,86);
-    border-radius: 5px;
+    border-radius: 10px;
     /* box-shadow: 0px 0px 6px #B2B2B2; */
     height: 225px;
     margin: 20px;
     width:  325px;
-    margin-left: -5px; 
+    margin-left: -15px; 
     clip-path: polygon(
         0 0, 
         100% 0, 
