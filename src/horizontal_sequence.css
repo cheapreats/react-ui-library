@@ -1,9 +1,8 @@
-h1{
+
+header{
+    font-weight: bolder;
     padding: 55px;
-    font-size: x-large;
-
 }
-
 
 .card{
     width: 325px;
@@ -90,28 +89,30 @@ h1{
     margin: 20px;
     width:  325px;
     margin-left: -5px;
-    /* clip-path: polygon(
-      0 0, 100% 0, 
+    clip-path: polygon(
+      0 0, 
+      100% 0, 
+      100% 12%,
+      116% 16%,
+      100% 20%,
       100% 100%, 
       0 100%, 
-      0% 30%,
-      3% 25%,
-      0% 20% 
+      0% 20%,
+      2% 16%,
+      0% 12% 
               
-    ); */
+    );
    
 }
 
 .bubble2::after {
-    background-color: rgb(32, 38, 89);
+    background-color: rgb(45,116,222);
     /* box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 ); */
     content: "\00a0";
     display: block;
     height: 12px;
     left: 312px;
-  
-  
-    
+    z-index: -1;
     position: relative;
     top: -100px;
     transform:             rotate( 45deg );
@@ -130,14 +131,20 @@ h1{
     margin: 20px;
     width:  325px;
     margin-left: -5px;
-    /* clip-path: polygon(
-      0 0, 100% 0, 
+    clip-path: polygon(
+      0 0, 
+      100% 0, 
+      100% 12%,
+      116% 16%,
+      100% 20%,
       100% 100%, 
       0 100%, 
-      0% 40%,
-      10% 30%,
-      0% 20%            
-    ); */
+      0% 20%,
+      2% 16%,
+      0% 12% 
+              
+    );
+    
 }
 
 .bubble3::after {
@@ -151,6 +158,8 @@ h1{
     left: 312px;
     position: relative;
     top: -120px;
+    z-index: -1;
+
     transform:             rotate( 45deg );
         -moz-transform:    rotate( 45deg );
         -ms-transform:     rotate( 45deg );
@@ -169,14 +178,18 @@ h1{
     width:  325px;
     margin-left: -5px; 
     clip-path: polygon(
-      0 0, 100% 0, 
-      100% 100%, 
-      0 100%, 
-      0% 30%,
-      3% 25%,
-      0% 20% 
-              
-    );
+        0 0, 
+        100% 0, 
+        100% 12%,
+        116% 16%,
+        100% 20%,
+        100% 100%, 
+        0 100%, 
+        0% 20%,
+        2% 16%,
+        0% 12% 
+                
+      );
     
 }
 
