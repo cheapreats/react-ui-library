@@ -26,12 +26,10 @@ header{
 
 .bubble1::after {
     background-color: rgb(65,157,229);
-    /* box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 ); */
     content: "\00a0";
     display: block;
     height: 12px;
-    left: 312px;
-    /* right: 80px; */
+    left: 310px;
     position: relative;
     top: -128px;
    
@@ -45,7 +43,6 @@ header{
 .bubble2{
     background-color: rgb(45,116,222);
     border-radius: 10px;
-    /* box-shadow: 0px 0px 6px #B2B2B2; */
     height: 225px;
     margin: 20px;
     width:  325px;
@@ -59,7 +56,7 @@ header{
       100% 100%, 
       0 100%, 
       0% 20%,
-      2% 16%,
+      1.8% 16%,
       0% 12% 
               
     );
@@ -68,12 +65,10 @@ header{
 
 .bubble2::after {
     background-color:rgb(45,116,222);
-    /* box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 ); */
     content: "\00a0";
     display: block;
     height: 12px;
-    left: 312px;
-    /* z-index: -1; */
+    left: 310px;
     position: relative;
     top: -102px;
     z-index: -1;
@@ -88,7 +83,6 @@ header{
 .bubble3{
     background-color: rgb(22,64,123);
     border-radius: 10px;
-    /* box-shadow: 0px 0px 6px #B2B2B2; */
     height: 225px;
     margin: 20px;
     width:  325px;
@@ -102,7 +96,7 @@ header{
       100% 100%, 
       0 100%, 
       0% 20%,
-      2% 16%,
+      1.8% 16%,
       0% 12% 
               
     );
@@ -110,18 +104,14 @@ header{
 }
 
 .bubble3::after {
-    background-color: rgb(22,64,123);
-  
+    background-color: rgb(22,64,123); 
     content: "\00a0";
     display: block;
-    /* height: 20px;
-    left: 315px; */
     height: 12px;
-    left: 312px;
+    left: 310px;
     position: relative;
     top: -128px;
     z-index: -1;
-
     transform:             rotate( 45deg );
         -moz-transform:    rotate( 45deg );
         -ms-transform:     rotate( 45deg );
@@ -134,7 +124,6 @@ header{
 .bubble4{
     background-color: rgb(14,44,86);
     border-radius: 10px;
-    /* box-shadow: 0px 0px 6px #B2B2B2; */
     height: 225px;
     margin: 20px;
     width:  325px;
@@ -148,7 +137,7 @@ header{
         100% 100%, 
         0 100%, 
         0% 20%,
-        2% 16%,
+        1.8% 16%,
         0% 12% 
                 
       );
@@ -157,11 +146,8 @@ header{
 
 .bubble4::after {
     background-color: rgb(14,44,86);
-    /* box-shadow: -2px 2px 2px 0 rgba( 178, 178, 178, .4 ); */
     content: "\00a0";
     display: block;
-    /* height: 20px;
-    left: 315px; */
     position: relative;
     top: 20px;
     transform:             rotate( 45deg );
