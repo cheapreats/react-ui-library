@@ -38,8 +38,7 @@ export const NavigationItem: React.FC<INavigationItemProps> = ({
     <Wrapper
         label={label}
         onClick={(event: React.MouseEvent<HTMLDivElement, MouseEvent>) =>
-            onNavigate(label, event)
-        }
+            onNavigate(label, event)}
         {...props}
     >
         <Icon as={icon} {...iconProps} />

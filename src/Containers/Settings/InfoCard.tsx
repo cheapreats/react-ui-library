@@ -69,8 +69,7 @@ export const InfoCard: React.FC<InfoProps> = ({
                     margin="5px"
                     icon={Book}
                     onClick={(): null | Window =>
-                        window.open(companyPrivacyURL, '_blank')
-                    }
+                        window.open(companyPrivacyURL, '_blank')}
                 >
                     {privacyPolicyButton}
                 </Button>
@@ -85,8 +84,7 @@ export const InfoCard: React.FC<InfoProps> = ({
                     margin="5px"
                     icon={QuestionCircle}
                     onClick={(): Window | null =>
-                        window.open(faqLink, '_blank')
-                    }
+                        window.open(faqLink, '_blank')}
                 >
                     {faqName}
                 </Button>
