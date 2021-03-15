@@ -62,5 +62,13 @@ export * from './SoldOutCardNotification/SoldOutCardNotification';
 export * from './VisitNotification/VisitNotification';
 export * from './BoxComposition/BoxComposition';
 export * from './BoxComposition2/BoxComposition2';
+<<<<<<< HEAD
 export * from './ReservationSideBar/ReservationSideBar';
 export * from './TableFeature';
+=======
+export * from './ReservationSideBar/ReservationSideBar'; 
+ 
+
+
+
+>>>>>>> 481adfd89b7239f7031a2ab7f30c443f5a18dbc1
