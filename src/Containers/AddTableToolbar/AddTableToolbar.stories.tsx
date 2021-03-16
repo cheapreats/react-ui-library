@@ -7,12 +7,20 @@
 
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import {AddTableToolbar,IAddTableToolbar} from '@Containers/AddTableToolbar/AddTableToolbar';
+import {
+    AddTableToolbar,
+    IAddTableToolbar,
+} from '@Containers/AddTableToolbar/AddTableToolbar';
 import { createStoryTitle } from '../../Constants';
 
 export default {
     title: createStoryTitle('AddTableToolbar'),
     component: AddTableToolbar,
+    argTypes: {
+        onSquareTableClick: { action: 'Square Table Button Click Occurred' },
+        onCircleTableClick: { action: 'Circle Table Button Click Occurred' },
+        onRectTableClick: { action: 'Rectangle Table Button Click Occurred' },
+    },
 } as Meta;
 
 const Template: Story<IAddTableToolbar> = (args) => (
@@ -24,6 +32,3 @@ const Template: Story<IAddTableToolbar> = (args) => (
  */
 
 export const TableToolbar = Template.bind({});
-
-
-

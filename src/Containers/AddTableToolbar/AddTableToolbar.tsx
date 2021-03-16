@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+
 import {SquareTable,CircleTable} from '@Containers';
 
 
@@ -22,7 +23,7 @@ export interface IAddTableToolbar {
  * Primary UI component for user interaction
  */
 export const AddTableToolbar: React.FC<IAddTableToolbar> = ({
-    onSquareTableClick, 
+    onSquareTableClick,
     onCircleTableClick,
     onRectTableClick,
     ...props
