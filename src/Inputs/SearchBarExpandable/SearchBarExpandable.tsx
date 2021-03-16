@@ -101,15 +101,15 @@ const Icon = styled.svg<IIconProps>`
     margin-left: auto;
     ${({ left, theme }): string => `
     ${
-        left
-            ? `
+    left
+        ? `
     padding-left: ${theme.dimensions.padding.container};
     cursor:initial;
     `
-            : `
+        : `
     padding-right: ${theme.dimensions.padding.container};
     `
-    }
+}
     `};
 `;
 

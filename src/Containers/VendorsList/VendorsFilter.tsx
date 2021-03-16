@@ -60,27 +60,27 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
             setIsOpen={setIsOpen}
             backgroundColor={BACKGROUND_COLOR}
             header={header}
-            toggleComponent={
+            toggleComponent={(
                 <ListToggle
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                     isLeftToggle
                     isToggleHiddenDesktop
                 />
-            }
+            )}
         >
             <CollapsibleHeading
                 key="Global"
                 title="Filter All"
                 isCollapsed={isGlobalCollapsed}
                 setCollapsed={() => setIsGlobalCollapsed(!isGlobalCollapsed)}
-                ChildElement={
+                ChildElement={(
                     <GlobalFilter
                         preGlobalFilteredRows={preGlobalFilteredRows}
                         globalFilter={globalFilter}
                         setGlobalFilter={setGlobalFilter}
                     />
-                }
+                )}
                 {...collapsibleHeadingProps}
             />
             {filterItems.map((filterItem, index) => {
@@ -101,8 +101,7 @@ export const VendorsFilter: React.FC<IVendorsFilterProps> = ({
                                     if (idx === index) return !isCollapsed;
                                     return isCollapsed;
                                 }),
-                            )
-                        }
+                            )}
                         ChildElement={childElement}
                         {...collapsibleHeadingProps}
                     />

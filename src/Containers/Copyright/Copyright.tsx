@@ -16,7 +16,12 @@ export const Copyright: React.FC<CopyrightProps> = ({
     ...props
 }): React.ReactElement => (
     <SmallText color="secondary" margin={margin} bold {...props}>
-        Copyright CheaprEats Incorporated 2018 - {new Date().getFullYear()},
-        Version {version}
+        Copyright CheaprEats Incorporated 2018 - 
+        {' '}
+        {new Date().getFullYear()}
+        ,
+        Version 
+        {' '}
+        {version}
     </SmallText>
 );
