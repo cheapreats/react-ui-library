@@ -24,9 +24,14 @@ export interface InputFragmentProps
     type?: string;
 }
 
-export const InputFragment: React.FC<InputFragmentProps> = ({
-    ...props
-}): React.ReactElement => <InputElement {...props} />;
+export const InputFragment = React.forwardRef<
+    HTMLInputElement,
+    InputFragmentProps
+>(
+    ({ ...props }, ref): React.ReactElement => (
+        <InputElement {...props} ref={ref} />
+    ),
+);
 
 const InputElement = styled.input<InputFragmentProps>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}

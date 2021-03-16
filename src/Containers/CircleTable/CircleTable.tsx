@@ -5,10 +5,7 @@ import { Plus } from '@styled-icons/boxicons-regular';
 
 export type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
-type getChairsType = (
-    array: Array<IChair>,
-    relativeSize: number,
-) => JSX.Element[];
+type getChairsType = () => JSX.Element[];
 
 type tableUseTypes =
     | 'AddTableButton'
@@ -20,6 +17,11 @@ type getTableInfoContentType = (tableUse: tableUseTypes) => JSX.Element;
 type generateChairKeyType = (pre: string) => string;
 
 export interface ICircleTable {
+    /**
+     * The shape for the ICircleTable ("Circle")
+     */
+    tableShape: 'Circle';
+    /**
     /**
      * The unique identifier for the table
      */
@@ -50,6 +52,7 @@ export interface ICircleTable {
  * Primary UI component for user interaction
  */
 export const CircleTable: React.FC<ICircleTable> = ({
+    tableShape = 'Circle',
     tableID = 'T1',
     chairs = [],
     partyName = 'Null',
@@ -60,14 +63,13 @@ export const CircleTable: React.FC<ICircleTable> = ({
 }) => {
     /**
      * Returns a JSX element array containing the Chairs and ChairWrappers
-     * @param array {Array<IChair>} - array of chairs
      * @return {JSX.Element[]} - Chairs and ChairWrappers for the table
      */
-    const getChairs: getChairsType = (array) =>
-        array.map((item, index) => (
+    const getChairs: getChairsType = () =>
+        chairs.map((item, index) => (
             <ChairWrapper
                 relativeSize={relativeSize}
-                numOfChairs={array.length}
+                numOfChairs={chairs.length}
                 counter={index + 1}
                 key={generateChairKey(item.position + index)}
                 position={item.position}
@@ -104,19 +106,25 @@ export const CircleTable: React.FC<ICircleTable> = ({
     const getTableInfoContent: getTableInfoContentType = () => {
         switch (tableUse) {
             case 'AddTableButton':
-                return <StyledPlus />;
+                return (
+                    <TableInfo relativeSize={relativeSize}>
+                        <StyledPlus />
+                    </TableInfo>
+                );
             case 'TableForManagement':
                 return (
-                    <div>
-                        {tableID}
-                        <br />
-                        {partyName}
-                        <br />
-                        <Status occupancyStatus={occupancyStatus}>
-                            {occupancyStatus}
-                        </Status>
-                        <br />
-                    </div>
+                    <TableInfo relativeSize={relativeSize}>
+                        <div>
+                            {tableID}
+                            <br />
+                            {partyName}
+                            <br />
+                            <Status occupancyStatus={occupancyStatus}>
+                                {occupancyStatus}
+                            </Status>
+                            <br />
+                        </div>
+                    </TableInfo>
                 );
             case 'TableForEditCanvas':
                 return (
@@ -138,9 +146,8 @@ export const CircleTable: React.FC<ICircleTable> = ({
                 occupancyStatus={occupancyStatus}
                 tableUse={tableUse}
             >
-                {getChairs(chairs, relativeSize)}
-
-                <TableInfo>{getTableInfoContent(tableUse)}</TableInfo>
+                {getChairs()}
+                {getTableInfoContent(tableUse)}
             </TableBody>
         </div>
     );
@@ -303,7 +310,15 @@ const ChairWrapper = styled.div<IChairWrapper>`
         rotate(calc(-1 * var(--perimeterPlacementValue)));
 `;
 
-const TableInfo = styled.div`
+interface ITableInfo {
+    relativeSize: number;
+}
+
+const TableInfo = styled.div<ITableInfo>`
+    ${({ relativeSize }) => {
+        const BASE_TABLE_INFO_FONT_SIZE = 2;
+        return `font-size: ${BASE_TABLE_INFO_FONT_SIZE * relativeSize}em;`;
+    }}
     text-align: center;
     color: ${({ theme }) => theme.colors.background};
     width: 100%;

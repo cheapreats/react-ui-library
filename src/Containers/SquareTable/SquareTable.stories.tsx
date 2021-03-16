@@ -15,6 +15,7 @@ const Template: Story<ISquareTable> = (args) => <SquareTable {...args} />;
  */
 export const SevenTopSquareTable = Template.bind({});
 SevenTopSquareTable.args = {
+    tableShape: 'Square',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
@@ -93,6 +94,7 @@ SevenTopSquareTable.args = {
  */
 export const EightTopVertRectangleTable = Template.bind({});
 EightTopVertRectangleTable.args = {
+    tableShape: 'Square',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Occupied',
@@ -171,6 +173,7 @@ EightTopVertRectangleTable.args = {
  */
 export const SixTopHorizontalRectangleTable = Template.bind({});
 SixTopHorizontalRectangleTable.args = {
+    tableShape: 'Square',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Reserved',

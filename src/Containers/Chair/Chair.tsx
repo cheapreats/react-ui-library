@@ -299,7 +299,11 @@ const VerticalChairStyle = css<Pick<IChair, 'relativeSize' | 'position'>>`
         getRectangleChairStyles(position, relativeSize)}
 `;
 
-const textBaseStyle = css`
+const textBaseStyle = css<Pick<IChair, 'relativeSize'>>`
+    ${({ relativeSize }) => {
+        const BASE_CHAIR_FONT_SIZE = 1.5;
+        return `font-size: ${BASE_CHAIR_FONT_SIZE * relativeSize}em;`;
+    }}
     color: ${({ theme }) => theme.colors.background};
     font-weight: bold;
     text-align: center;
