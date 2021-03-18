@@ -27,18 +27,22 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
     highlightTexts,
     featureFooter
 }) => {
-    const getHighlightText = () => {
-        return highlightTexts.map(
-            (highlightText: string) => (
-                <SmallText size="h7" key={highlightText}>
-                    <Tick />
-                    {' '}
-                    {highlightText}
-                    <div />
-                </SmallText>
-            )
-        );
-    }
+     /**
+     * Returns a JSX element array containing the highlightText
+     */
+    const getHighlightText = () => highlightTexts.map(
+        (highlightText: string) => (
+            <SmallText size="h7" key={highlightText}>
+                <Tick />
+                {' '}
+                {highlightText}
+                <div />
+            </SmallText>
+        )
+    )
+     /**
+     * Returns a JSX element array containing the imageTag and corresponding iconColor
+     */
     const getImageTags = () => {
         let index = 0;
         return imageTags.map(
@@ -63,7 +67,8 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
                         color="#9966ff"
                         bold
                         lineHeight="false"
-                        inlineStyle={bottomStyles}>
+                        inlineStyle={bottomStyles}
+                    >
                         {featureTitle}
                     </SmallText>
                 </Section>
@@ -71,7 +76,8 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
                     <SmallText
                         type="div"
                         size="h6"
-                        lineHeight="false">
+                        lineHeight="false"
+                    >
                         {featureSubTitle}
                     </SmallText>
                 </Section>
@@ -121,11 +127,11 @@ const Container = styled.main`
     box-sizing: border-box;
     padding: 120px 0 40px;
     ${media(
-    'tablet',
-    `
+        'tablet',
+        `
         padding: 60px 0;
     `,
-)}
+    )}
 `;
 
 const cardStyles = `
