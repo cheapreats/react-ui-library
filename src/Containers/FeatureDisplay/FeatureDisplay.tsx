@@ -1,115 +1,117 @@
 import React from 'react';
 import SmallText from '@Text/SmallText';
 import styled from 'styled-components';
-import { Card } from '../Card/Card';
 import { flex, media } from '@Utils/Mixins';
 import { Check } from '@styled-icons/boxicons-regular/Check';
 import { ShowChart } from '@styled-icons/material/ShowChart';
-import { Triangle } from '@styled-icons/bootstrap/Triangle';
+import { Card } from '../Card/Card';
 
 export interface IFeatureDisplayProps {
     featureTitle: string;
+    featureSubTitle: string;
     featureImage: string;
-    featureImageTitle: string;
+    imageTitle: string;
+    imageTags: string[];
+    imageTagColors: string[];
     highlightTexts: string[];
     featureFooter: string;
 }
 
 export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
-    featureTitle: featureTitle,
-    featureImage: featureImage,
-    featureImageTitle: featureImageTitle,
+    featureTitle,
+    featureSubTitle,
+    featureImage,
+    imageTitle,
+    imageTags,
+    imageTagColors,
     highlightTexts,
-    featureFooter: featureFooter,
-    ...cardProps
-}): React.ReactElement => (
-    <Container>
-        <Card inlineStyle={cardStyles}>
-            <Section>
-                <SmallText
-                    type="div"
-                    size="h1"
-                    color="#9966ff"
-                    bold
-                    lineHeight="false"
-                    inlineStyle={bottomStyles}
-                >
-                    {featureTitle}
+    featureFooter
+}) => {
+    const getHighlightText = () => {
+        return highlightTexts.map(
+            (highlightText: string) => (
+                <SmallText size="h7" key={highlightText}>
+                    <Tick />
+                    {' '}
+                    {highlightText}
+                    <div />
                 </SmallText>
-            </Section>
-            <Section>
-                <SmallText size="h6">
-                    Stripe Radar uses sophisticated{' '}
-                    <Link href="#">
-                        <SmallText color="#9966ff" size="h6" bold>
-                            machine learning
-                        </SmallText>
-                    </Link>{' '}
-                    trained daily on data from millions of global businesses to
-                    protect you from fraudsters.
-                </SmallText>
-            </Section>
-            <Section>
-                <Card inlineStyle={cardStyles}>
+            )
+        );
+    }
+    const getImageTags = () => {
+        let index = 0;
+        return imageTags.map(
+            (imageTag: string) => (
+                <GridItem key={imageTag}>
+                    <ChartDesc color={imageTagColors[index++]} />
+                    {' '}
+                    <SmallText>{imageTag}</SmallText>
+                </GridItem>
+            )
+        );
+    }
+
+
+    return (
+        <Container>
+            <Card inlineStyle={cardStyles}>
+                <Section>
                     <SmallText
                         type="div"
-                        size="h7"
-                        color="text"
-                        lineHeight="false"
+                        size="h1"
+                        color="#9966ff"
                         bold
-                        inlineStyle={bottomStyles}
-                    >
-                        {featureImageTitle}
+                        lineHeight="false"
+                        inlineStyle={bottomStyles}>
+                        {featureTitle}
                     </SmallText>
-                    <img src={featureImage} />
-                    <Section>
-                        <GridContainer>
-                            <GridItem>
-                                <ChartDesc color="#0073e6" />{' '}
-                                <SmallText>Blocked</SmallText>
-                            </GridItem>
-                            <GridItem>
-                                <ChartDesc color="#00d924" />{' '}
-                                <SmallText>Allowed</SmallText>
-                            </GridItem>
-                            <GridItem>
-                                <ChartDesc color="#9966ff" />{' '}
-                                <SmallText>
-                                    Requested 3D Secure authentication
-                                </SmallText>
-                            </GridItem>
-                            <GridItem>
-                                <ChartDesc color="#80e9ff" />{' '}
-                                <SmallText>Sent to manual review</SmallText>
-                            </GridItem>
-                            <GridItem>
-                                <ChartWarning color="#c2ccd9" />{' '}
-                                <SmallText>Rule changes</SmallText>
-                            </GridItem>
-                        </GridContainer>
-                    </Section>
-                </Card>
-            </Section>
-            <Section>
-                {highlightTexts.map(
-                    (highlightText): React.ReactElement => (
-                        <SmallText size="h6" key={highlightText}>
-                            <Tick /> {highlightText}
-                            <div />
+                </Section>
+                <Section>
+                    <SmallText
+                        type="div"
+                        size="h6"
+                        lineHeight="false">
+                        {featureSubTitle}
+                    </SmallText>
+                </Section>
+                <Section>
+                    <Card inlineStyle={cardStyles}>
+                        <SmallText
+                            type="div"
+                            size="h7"
+                            color="text"
+                            lineHeight="false"
+                            bold
+                            inlineStyle={bottomStyles}
+                        >
+                            {imageTitle}
                         </SmallText>
-                    ),
-                )}
-            </Section>
-            <Section>
-                <Link href="#">
-                    <SmallText color="#9966ff" size="h6" bold>
-                        {featureFooter}
-                    </SmallText>
-                </Link>
-            </Section>
-        </Card>
-    </Container>
-);
+                        <img src={featureImage} />
+                        <Section>
+                            <Grid>
+                                {getImageTags()}
+                            </Grid>
+                        </Section>
+                    </Card>
+                </Section>
+                <Section>
+                    {getHighlightText()}
+                </Section>
+                <Section>
+                    <Link href="#">
+                        <SmallText color="#9966ff" size="h7" bold>
+                            {featureFooter}
+                        </SmallText>
+                    </Link>
+                </Section>
+            </Card>
+        </Container>
+    );
+
+
+};
+
 
 const Container = styled.main`
     ${flex('column', 'flex-start', 'center')}
@@ -119,11 +121,11 @@ const Container = styled.main`
     box-sizing: border-box;
     padding: 120px 0 40px;
     ${media(
-        'tablet',
-        `
+    'tablet',
+    `
         padding: 60px 0;
     `,
-    )}
+)}
 `;
 
 const cardStyles = `
@@ -138,7 +140,7 @@ const Section = styled.div`
     margin: 10px 0px 10px 0px;
 `;
 
-const GridContainer = styled.div`
+const Grid = styled.div`
     display: grid;
     grid-template-columns: auto auto;
 `;
@@ -155,9 +157,7 @@ const Tick = styled(Check)`
 const ChartDesc = styled(ShowChart)`
     width: 15px;
 `;
-const ChartWarning = styled(Triangle)`
-    width: 15px;
-`;
+
 const Link = styled.a`
     text-decoration: none;
 `;
