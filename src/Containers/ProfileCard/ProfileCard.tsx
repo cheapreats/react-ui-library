@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { Paragraph } from '@Text';
 import { Button } from '@Inputs/Button/Button';
@@ -27,6 +27,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
     isFavoriteStore,
     ...props
 }): React.ReactElement => {
+    const [isImageError, setIsImageError] = useState(false);
     /**
      * A function that as the number of visits increase dynamically resizes the
      * visit count text perfectly until value 9999, at 10000 it breaks.
@@ -42,15 +43,19 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
         }
         return `${fontSize}rem`;
     };
+    const onImageError = () => {
+        setIsImageError(true);
+    }
 
     return (
         <Container {...props}>
             <LeftContainer>
-                {profileImage?.length ? (
+                {!isImageError ? (
                     <ProfilePhoto
                         customerLoyaltyType={customerLoyaltyType}
-                        src={profileImage}
+                        src={profileImage || ''}
                         alt="Profile Image"
+                        onError={onImageError}
                     />
                 ) : (
                     <DefaultProfilePhoto

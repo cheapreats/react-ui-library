@@ -83,15 +83,15 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                 onCloseTranslateXAxis="-100%"
                 isOpen={isOpen}
                 setIsOpen={setIsOpen}
-                toggleComponent={
+                toggleComponent={(
                     <ListToggle
                         isOpen={isOpen}
                         setIsOpen={setIsOpen}
                         isLeftToggle
                     />
-                }
+                )}
                 backgroundColor={backgroundColor}
-                header={
+                header={(
                     <>
                         <StyledSearchBar
                             placeholder="Search"
@@ -115,7 +115,7 @@ export const LeftSideBar: React.FC<LeftSideBarProps> = ({
                             )}
                         </StyledSearchBar>
                     </>
-                }
+                )}
             >
                 <DragDropContext onDragEnd={onDrag}>
                     <Droppable

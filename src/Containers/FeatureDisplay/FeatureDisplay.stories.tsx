@@ -1,6 +1,6 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import { createStoryTitle } from 'Constants';
+import { createStoryTitle } from '../../Constants';
 import { FeatureDisplay, IFeatureDisplayProps } from './FeatureDisplay';
 
 export default {
