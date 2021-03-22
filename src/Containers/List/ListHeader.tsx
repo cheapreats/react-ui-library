@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
 import { SearchBarExpandable } from '../../Inputs/SearchBarExpandable/SearchBarExpandable';
 import { Heading } from '../../Text/Heading';
 import { TextLayoutProps } from '../../__Layouts';
 import { Mixins } from '../../Utils';
-
-const DELAY = 1000;
 
 export interface ListHeaderProps extends TextLayoutProps {
     label?: string;
@@ -19,6 +17,9 @@ export interface ListHeaderProps extends TextLayoutProps {
     padding?: string;
     margin?: string;
     onSearch?: (value: string) => void;
+    searchBarWidth?: string;
+    searchBarMediaQuery?: string;
+    searchBarMediaWidth?: string;
     onClose?: () => void;
 }
 
@@ -30,6 +31,9 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
     iconClick,
     iconProps,
     headerRowComponent,
+    searchBarWidth,
+    searchBarMediaQuery,
+    searchBarMediaWidth,
     padding = '10px 20px;',
     margin = '0',
     onSearch,
@@ -37,63 +41,70 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
     ...props
 }): React.ReactElement => {
     const [isExpanded, setIsExpanded] = useState(false);
-    const [showRest, setShowRest] = useState(true);
-
-    /**
-     * delay the appearence of the rest of elements when the SearchBar is contracted
-     * due to the delay in contraction
-     */
-    useEffect(() => {
-        if (!isExpanded) {
-            setTimeout(() => {
-                setShowRest(true);
-            }, DELAY);
-        } else {
-            setShowRest(false);
-        }
-    }, [isExpanded, setShowRest]);
 
     return (
-        <Header padding={padding} margin={margin} {...props}>
+        <ListHeaderContainer padding={padding} margin={margin} {...props}>
             <Row display={headerFlex}>
-                {showRest && (
-                    <Heading bold type="h2" margin="0 0 5px" {...props}>
+                <HeadingContainer isExpanded={isExpanded}>
+                    <Heading bold type="h2" {...props}>
                         {label}
                     </Heading>
-                )}
-                {onSearch && (
-                    <SearchBarExpandable
-                        onInput={onSearch}
-                        state={[isExpanded, setIsExpanded]}
-                        onClose={onClose}
-                    />
-                )}
-                {icon && showRest && (
-                    <IconContainer>
-                        <Icon
-                            as={icon}
-                            onClick={iconClick}
-                            iconProps={iconProps}
+                </HeadingContainer>
+                <SearchContainer isExpanded={isExpanded}>
+                    {onSearch && (
+                        <SearchBarExpandable
+                            onInput={onSearch}
+                            state={[isExpanded, setIsExpanded]}
+                            onClose={onClose}
+                            expandedWidth={searchBarWidth}
+                            mediaQuery={searchBarMediaQuery}
+                            mediaWidth={searchBarMediaWidth}
                         />
-                    </IconContainer>
-                )}
+                    )}
+                    {icon && (
+                        <IconContainer isExpanded={isExpanded}>
+                            <Icon
+                                as={icon}
+                                onClick={iconClick}
+                                iconProps={iconProps}
+                            />
+                        </IconContainer>
+                    )}
+                </SearchContainer>
                 {headerRowComponent}
             </Row>
             {children}
-        </Header>
+        </ListHeaderContainer>
     );
 };
 
-const IconContainer = styled.div`
+interface IResponsiveSearchProps {
+    isExpanded: boolean; 
+}
+
+const SearchContainer = styled.div<IResponsiveSearchProps>`
+    ${Mixins.flex('row')}
+    margin-left: auto;
+`
+
+const IconContainer = styled.div<IResponsiveSearchProps>`
     ${Mixins.flex('center')}
+    margin-left: 5px;
+
 `;
+const HeadingContainer = styled.div<IResponsiveSearchProps>`
+    ${Mixins.transition(['transform', 'opacity'])}
+    ${({isExpanded}) => isExpanded ? 'transform: translateY(-200px); opacity: 0; position: fixed;' : 'opacity: 1;'}
+`
 
 interface HeaderProps {
     padding?: string;
     margin?: string;
+    
 }
 
-const Header = styled.div<HeaderProps>`
+const ListHeaderContainer = styled.div<HeaderProps>`
+    
     ${({ theme, padding, margin }): string => `
     border-bottom: 2px solid ${theme.colors.text}20;
     padding: ${padding};
@@ -103,6 +114,7 @@ const Header = styled.div<HeaderProps>`
 
 interface RowProps {
     display?: string;
+    
 }
 
 const Row = styled.div<RowProps>`
@@ -115,6 +127,6 @@ interface IconProps {
 }
 
 const Icon = styled.svg<IconProps>`
-    ${(props): string | undefined => props.iconProps}
+    ${(props): string | undefined => props.iconProps};
     cursor:pointer;
 `;

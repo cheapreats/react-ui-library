@@ -104,7 +104,7 @@ interface ColumnProps {
 
 const Wrapper = styled.div<WrapperProps>`
     ${Mixins.flex()}
-    ${Mixins.transition(['transform'])} 
+    ${Mixins.transition(['transform'])}
     height: 100%;
     ${({
         isOpen,
