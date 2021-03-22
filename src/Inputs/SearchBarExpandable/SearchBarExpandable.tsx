@@ -2,27 +2,33 @@ import React, { useState, useRef, useCallback } from 'react';
 import { Search } from '@styled-icons/fa-solid/Search';
 import { Times } from '@styled-icons/fa-solid/Times';
 import styled from 'styled-components';
-import { flex, transition } from '@Utils/Mixins';
+import { flex, transition, media } from '@Utils/Mixins';
 import { InputFragment as I, LabelLayoutProps } from '@Layouts';
 
-const EXPANDED_WIDTH = 10000;
-const NOT_EXPANDED_WIDTH = 0;
+const EXPANDED_WIDTH = '500px';
+const NOT_EXPANDED_WIDTH = '0px';
+const TIME_FOR_REF_TO_EXIST = 20;
 
-export interface SearchBarExpandableProps extends LabelLayoutProps {
+export interface SearchBarExpandableProps {
     onInput?: (value: string) => void;
     onClose?: () => void;
     placeholder?: string;
-    hasIcon?: boolean;
     state: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
+    expandedWidth?: string;
+    mediaQuery?: string;
+    mediaWidth?: string;
 }
 
 export const SearchBarExpandable: React.FC<SearchBarExpandableProps> = ({
     onInput = (value) => console.log(value),
     placeholder,
-    hasIcon = true,
     state,
+    expandedWidth = EXPANDED_WIDTH,
+    mediaQuery,
+    mediaWidth,
     onClose = () => undefined,
 }): React.ReactElement => {
+    const [isExpanded, setIsExpanded] = state;
     const [inputValue, setInputValue] = useState('');
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -33,33 +39,40 @@ export const SearchBarExpandable: React.FC<SearchBarExpandableProps> = ({
     const inputRef = useRef<HTMLInputElement>(null);
 
     const expandSearchBox = useCallback(() => {
-        state[1](true);
-        inputRef.current?.focus();
-    }, [state[1], inputRef.current]);
+        setIsExpanded(true);
+        setTimeout(()=> inputRef.current?.focus(), TIME_FOR_REF_TO_EXIST);
+    }, [setIsExpanded, inputRef.current]);
+
+    const resetSearchBox = () => {
+        setIsExpanded(false);
+        setInputValue('');
+        onClose();
+    }
 
     return (
         <Container>
             <SelectDisplay>
-                {state[0] && <Icon as={Search} left />}
-                <InputFragment
-                    value={inputValue}
-                    placeholder={placeholder}
-                    onChange={(e): void => handleChange(e)}
-                    isExpanded={state[0]}
-                    ref={inputRef}
+                <Icon as={Search} onClick={expandSearchBox} />
+                <ExpanableContainer 
+                    isExpanded={isExpanded}
                     onClick={expandSearchBox}
-                />
-                {hasIcon && !state[0] && (
-                    <Icon as={Search} onClick={expandSearchBox} />
-                )}
-                {state[0] && (
+                    expandedWidth={expandedWidth}
+                    mediaQuery={mediaQuery}
+                    mediaWidth={mediaWidth}
+                >
+                    {isExpanded && (
+                        <InputFragment
+                            value={inputValue}
+                            placeholder={placeholder}
+                            onChange={(e): void => handleChange(e)}
+                            ref={inputRef}
+                        />
+                    )}
+                </ExpanableContainer>
+                {isExpanded && (
                     <Icon
                         as={Times}
-                        onClick={() => {
-                            state[1](false);
-                            setInputValue('');
-                            onClose();
-                        }}
+                        onClick={resetSearchBox}
                     />
                 )}
             </SelectDisplay>
@@ -74,7 +87,7 @@ interface SearchBarSelectProps extends LabelLayoutProps {
     onChange?: Function;
     limit?: number;
 }
-const SelectDisplay = styled.p<SearchBarSelectProps>`
+const SelectDisplay = styled.div<SearchBarSelectProps>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
     ${flex('flex-start', 'center')}
     font-size: 0.85rem;
@@ -82,55 +95,46 @@ const SelectDisplay = styled.p<SearchBarSelectProps>`
     cursor: pointer;
     outline: none;
     border: none;
-    margin: 0px;
-    width: fit-content;
+    border-radius: 999px;
     max-width: 100%;
+    overflow:hidden;
     ${({ theme }): string => `
         background-color: ${theme.colors.input.default};
-        border-radius: ${theme.dimensions.radius};
+        padding: ${theme.dimensions.padding.container};
     `}
 `;
 
-interface IIconProps {
-    left?: boolean;
+interface IExpandableContainer {
+    isExpanded : boolean;
+    expandedWidth: string;
+    mediaQuery?: string;
+    mediaWidth?: string;
 }
 
-const Icon = styled.svg<IIconProps>`
-    width: 20px;
+const ExpanableContainer = styled.div<IExpandableContainer>`
+    ${({ isExpanded, expandedWidth}): string => `
+        width: ${isExpanded ? expandedWidth : NOT_EXPANDED_WIDTH};
+    `}
+    ${({ mediaQuery, mediaWidth, isExpanded }) => mediaQuery && media(mediaQuery, `width: ${isExpanded ? mediaWidth : NOT_EXPANDED_WIDTH};`)}
+    ${transition(['width'])}
+`;
+
+const Icon = styled.svg`
+    height: 20px;
     flex-shrink: 0;
-    margin-left: auto;
-    ${({ left, theme }): string => `
-    ${
-    left
-        ? `
-    padding-left: ${theme.dimensions.padding.container};
-    cursor:initial;
-    `
-        : `
-    padding-right: ${theme.dimensions.padding.container};
-    `
-}
-    `};
 `;
 
-interface IInputFragmentProps {
-    isExpanded: boolean;
-}
-
-const InputFragment = styled(I)<IInputFragmentProps>`
-    min-width: 0;
+const InputFragment = styled(I)`
     flex-grow: 1;
-    ${({ isExpanded }): string => `
-    width:${isExpanded ? EXPANDED_WIDTH : NOT_EXPANDED_WIDTH}px;
-    `}
-    transition:width 1s;
-    &:focus {
-        box-shadow: none;
-    }
-    ${({ backgroundColor, borderRadius }): string => `
+    width: 100%;
+    ${({backgroundColor, borderRadius, theme }): string => `
+        padding: 0px ${theme.dimensions.padding.container};
         background-color: ${backgroundColor};
         border-radius: ${borderRadius};
     `}
+    &:focus {
+        box-shadow: none;
+    }
 `;
 
 const Container = styled.div`
