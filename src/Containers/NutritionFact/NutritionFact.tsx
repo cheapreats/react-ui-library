@@ -1,4 +1,4 @@
-import React,{useCallback,useMemo} from 'react'
+import React,{useCallback,useMemo,useRef,forwardRef,useEffect,useState} from 'react'
 import styled from 'styled-components'
 import { Mixins } from '../../Utils'
 import {
@@ -8,10 +8,16 @@ import {
 import Theme from '../../Themes/ThemeTemplate'
 
 const smallFontSize=Theme.font.size.small
+const EXTRA_PIXEL=1
+
+interface IAdditionalProps{
+    ref?:boolean;
+    delay?:boolean;
+}
 
 interface IEntries{
     type:string;
-    entry:IEntryProps|IHeadingEntryProps;
+    entry:IEntryProps&IAdditionalProps|IHeadingEntryProps&IAdditionalProps;
 }
 
 export interface INutritionFactProps{
@@ -20,13 +26,28 @@ export interface INutritionFactProps{
 
 export const NutritionFact:React.FC<INutritionFactProps>=({entries}):React.ReactElement=>
 {
+    const mainContainerRef=useRef<HTMLDivElement>(null)
+
+    const containerRef=useRef<HTMLDivElement>(null)
+
+    const delayLabel=useRef<string[]>([])
+
+    const infoRef=useRef<IInfo|null>(null)
+
+    /**
+     * this function stores in infoRef the value of info
+     * @param info {any} - the info that will stored
+     */
+    const getInfo=useCallback((info:IInfo)=>{
+        infoRef.current=info
+    },[])
 
     /**
      * renders an entry of type entry
      * @param entry {IEntryProps} - the entry to render
      * @returns {React.ReactElement} the rendered entry
      */
-    const renderEntry=useCallback((entry:IEntryProps)=>{
+    const renderEntry=useCallback((entry:IEntryProps&IAdditionalProps)=>{
         const {label,...rest}=entry
         return <Entry key={label} label={label} {...rest} margin='0 0 2px' padding='0 0 1px' />
     },[])
@@ -36,11 +57,24 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries}):React.React
      * @param entry {IHeadingEntryProps} - the entry to render
      * @returns {React.ReactElement} the rendered entry
      */
-    const renderHeadingEntry=useCallback((entry:IHeadingEntryProps)=>{
-        const {label,...rest}=entry
+    const renderHeadingEntry=useCallback((entry:IHeadingEntryProps&IAdditionalProps)=>{
+        const {label,ref,delay,...rest}=entry
+        if(ref) return <HeadingEntry key={label} label={label} {...rest} ref={containerRef} />
+        if(delay) {
+            delayLabel.current.push(label)
+            return <HeadingEntry key={label} label='' {...rest} uploadInfo={getInfo} />
+        }
         return <HeadingEntry key={label} label={label} {...rest} />
     }
     ,[])
+
+    /**
+     * this sets max width for the main container of the component and also sets the content for the delayed label
+     */
+    useEffect(()=>{
+        if(mainContainerRef.current&&containerRef.current) mainContainerRef.current.style.maxWidth=`${containerRef.current.clientWidth+EXTRA_PIXEL}px`
+        infoRef.current?.setDelayedLabel(delayLabel.current[0])
+    },[])
 
     /**
      * renders the entries
@@ -59,7 +93,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries}):React.React
     ,[entries])
 
     return     (
-        <MainContainer padding='5px'>
+        <MainContainer padding='5px' ref={mainContainerRef}>
             {renderEntries()}
         </MainContainer>
     )
@@ -77,6 +111,10 @@ ${Main({...props})}
 `}
 `
 
+interface IInfo{
+    setDelayedLabel:React.Dispatch<React.SetStateAction<string | undefined>>;
+}
+
 interface ICommonEntryProps{
     fontSize?:string;
     bold?:boolean;
@@ -89,14 +127,26 @@ interface IHeadingEntryProps extends ICommonEntryProps{
     label:string;
     justifyContent?:string;
     secondLabel?:string;
+    uploadInfo?:(info:IInfo)=>void;
 }
 
-const HeadingEntry:React.FC<IHeadingEntryProps>=({label,fontSize=smallFontSize,separatorWidth=1,secondLabel,...props}):React.ReactElement=>(
-    <EntryContainer separatorWidth={separatorWidth} fontSize={fontSize} {...props}>
-        <div>{label}</div>
-        {secondLabel&&<div>{secondLabel}</div>}
-    </EntryContainer>
-)
+const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,fontSize=smallFontSize,separatorWidth=1,secondLabel,uploadInfo,...props},ref):React.ReactElement=>{
+    const [delayedLabel,setDelayedLabel]=useState<string>()
+
+    /**
+     * this uploads the info to the parent component
+     */
+    useEffect(()=>{
+        if(uploadInfo) uploadInfo({setDelayedLabel})
+    },[])
+
+    return (
+        <EntryContainer separatorWidth={separatorWidth} fontSize={fontSize} {...props} ref={ref}>
+            <div>{label||delayedLabel}</div>
+            {secondLabel&&<div>{secondLabel}</div>}
+        </EntryContainer>
+    )
+})
 
 interface IEntryProps extends ICommonEntryProps{
     amount:number;
