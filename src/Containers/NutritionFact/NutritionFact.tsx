@@ -168,7 +168,7 @@ const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,editMod
 })
 
 interface IEntryProps extends ICommonEntryProps{
-    amount:number;
+    amount?:number;
     dailyAmount:number;
     label:string;
     unity:string;
@@ -177,7 +177,7 @@ interface IEntryProps extends ICommonEntryProps{
 }
 
 const Entry:React.FC<IEntryProps>=({
-    amount,
+    amount=0,
     dailyAmount,
     label,
     unity,
