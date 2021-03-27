@@ -22,6 +22,7 @@ export interface InputFragmentProps
     onClick?: React.MouseEventHandler<HTMLInputElement>;
     className?: string;
     type?: string;
+    width?:number;
 }
 
 export const InputFragment = React.forwardRef<
@@ -45,6 +46,10 @@ const InputElement = styled.input<InputFragmentProps>`
         cursor: not-allowed;
         opacity: 0.6;
     }
+
+    ${({width}):string=>`
+    ${width?`width:${width}px;`:''}
+    `}
 
     // Theme Stuff
     ${({ theme }): string => `

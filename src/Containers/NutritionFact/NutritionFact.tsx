@@ -6,8 +6,11 @@ import {
     MainInterface,
 } from '../../Utils/BaseStyles';
 import Theme from '../../Themes/ThemeTemplate'
+import {Input} from '../../Inputs/Input/Input'
 
 const EXTRA_PIXEL=1
+const ENTRY_INPUT_WIDTH=20
+const HEADER_ENTRY_INPUT_WIDTH=40
 
 interface IAdditionalProps{
     ref?:boolean;
@@ -21,9 +24,10 @@ interface IEntries{
 
 export interface INutritionFactProps{
     entries:IEntries[];
+    editMode?:boolean;
 }
 
-export const NutritionFact:React.FC<INutritionFactProps>=({entries}):React.ReactElement=>
+export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):React.ReactElement=>
 {
     const mainContainerRef=useRef<HTMLDivElement>(null)
 
@@ -40,8 +44,8 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries}):React.React
      */
     const renderEntry=useCallback((entry:IEntryProps&IAdditionalProps):React.ReactElement=>{
         const {label,...rest}=entry
-        return <Entry key={label} label={label} {...rest} margin='0 0 2px' padding='0 0 1px' />
-    },[])
+        return <Entry key={label} label={label} {...rest} margin='0 0 2px' padding='0 0 1px' editMode={editMode} />
+    },[editMode])
 
     /**
      * renders an entry of type heading
@@ -50,12 +54,12 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries}):React.React
      */
     const renderHeadingEntry=useCallback((entry:IHeadingEntryProps&IAdditionalProps):React.ReactElement=>{
         const {label,ref,delay,...rest}=entry
-        if(ref) return <HeadingEntry key={label} label={label} {...rest} ref={containerRef} />
+        if(ref) return <HeadingEntry key={label} label={label} {...rest} ref={containerRef} editMode={editMode} />
         if(delay) {
             delayLabel.current.push(label)
-            return <HeadingEntry key={label} label='' {...rest} infoRef={infoRef} />
+            return <HeadingEntry key={label} label='' {...rest} infoRef={infoRef} editMode={editMode} />
         }
-        return <HeadingEntry key={label} label={label} {...rest} />
+        return <HeadingEntry key={label} label={label} {...rest} editMode={editMode} />
     }
     ,[])
 
@@ -110,6 +114,7 @@ interface ICommonEntryProps{
     fontSize?:string;
     bold?:boolean;
     separatorWidth?:number;
+    editMode?:boolean;
     margin?:string;
     padding?:string;
 }
@@ -119,10 +124,12 @@ interface IHeadingEntryProps extends ICommonEntryProps{
     justifyContent?:string;
     secondLabel?:string;
     infoRef?:React.MutableRefObject<IInfo | null>;
+    editable?:boolean;
 }
 
-const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,separatorWidth=1,secondLabel,infoRef,...props},ref):React.ReactElement=>{
+const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,editMode,editable,separatorWidth=1,secondLabel,infoRef,...props},ref):React.ReactElement=>{
     const [delayedLabel,setDelayedLabel]=useState<string>()
+    const [secondLabelState,setSecondLabelState]=useState(secondLabel)
 
     /**
      * this uploads the info to the parent component
@@ -131,10 +138,31 @@ const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,separat
         if(infoRef) infoRef.current={setDelayedLabel}
     },[])
 
+    /**
+     * updates state for second label based on event fired
+     * @param event {React.ChangeEvent<HTMLInputElement>} - the fired event 
+     */
+    const updateSecondLabel=useCallback(({target}:React.ChangeEvent<HTMLInputElement>)=>{
+        setSecondLabelState(target.value)
+    },[]) 
+
+    /**
+     * 
+     * @returns 
+     */
+    const renderSecondLabel=useCallback(()=>{
+        if(secondLabelState){
+            if(editMode&&editable)
+                return <Input value={secondLabelState} onChange={updateSecondLabel} width={HEADER_ENTRY_INPUT_WIDTH} />
+            return <div>{secondLabelState}</div>
+        }
+        return null
+    },[secondLabelState])
+
     return (
         <EntryContainer separatorWidth={separatorWidth} {...props} ref={ref}>
             <div>{label||delayedLabel}</div>
-            {secondLabel&&<div>{secondLabel}</div>}
+            {renderSecondLabel()}
         </EntryContainer>
     )
 })
@@ -153,21 +181,31 @@ const Entry:React.FC<IEntryProps>=({
     dailyAmount,
     label,
     unity,
+    editMode,
     bold=false,
     separatorWidth=1,
     indentationNumber=0,
     indentationSize=4,
     ...props
 }):React.ReactElement=>{
-
+    const [amountState,setAmountState]=useState<string>(amount.toString())
+    
     /**
      * this computes the daily value percentage
      */
     const dailyValuePercentage= useMemo(()=>{
-        if(dailyAmount)
-            return Math.round(amount/dailyAmount*100)
+        if(dailyAmount){
+            /**
+             * gets the percentage of a value respect a totalValue
+             * @param value {number} - value for which we want to get percentage
+             * @param totalValue {number} - value for which percentage is 100 
+             * @returns {number} the percentage
+             */
+            const getPercentage=(value:number,totalValue:number)=>Math.round(value/totalValue*100)
+            return getPercentage(parseInt(amountState,10),dailyAmount) 
+        }
         return null
-    },[amount,dailyAmount]);
+    },[dailyAmount,amountState]);
 
     /**
      * computes the amount of white space
@@ -184,6 +222,20 @@ const Entry:React.FC<IEntryProps>=({
         return space
     },[indentationNumber,indentationSize])
 
+    const updateAmountState=({target}:React.ChangeEvent<HTMLInputElement>)=>{
+        setAmountState(target.value)
+    }
+
+    /**
+     * renders the amount depending on editMode
+     */
+    const renderAmount=useCallback(()=>{
+        if(editMode){
+            return <Input onChange={updateAmountState} value={amountState} width={ENTRY_INPUT_WIDTH} />
+        }
+        return amountState
+    },[editMode,amountState])
+
     return (
         <EntryContainer separatorWidth={separatorWidth} justifyContent='space-between' {...props}>
             <LabelContainer> 
@@ -192,10 +244,10 @@ const Entry:React.FC<IEntryProps>=({
                     {label}
                     &nbsp;
                 </Bold>
-                <div>
-                    {amount}
+                <AmountContainer>
+                    {renderAmount()}
                     {unity}
-                </div>
+                </AmountContainer>
             </LabelContainer>
             {dailyValuePercentage!==null&&(
                 <Bold bold={bold}>
@@ -216,7 +268,7 @@ interface IEntryContainerProps extends MainInterface{
 
 const EntryContainer=styled.div<IEntryContainerProps>`
 ${({separatorWidth,fontSize=Theme.font.size.small,justifyContent='flex-start',bold=false,...props}):string=>`
-${Mixins.flex(justifyContent)}
+${Mixins.flex(justifyContent,'center')}
 border-bottom:${separatorWidth}px solid black;
 font-size:${fontSize};
 ${bold?'font-weight:700;':''}
@@ -225,7 +277,10 @@ ${Main({...props})}
 `
 
 const LabelContainer=styled.div`
-${Mixins.flex()}
+${Mixins.flex('flex-start','center')}
+`
+const AmountContainer=styled.div`
+${Mixins.flex('flex-start','center')}
 `
 
 interface IBoldProps{
