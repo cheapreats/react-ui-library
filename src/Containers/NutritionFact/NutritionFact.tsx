@@ -34,14 +34,6 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries}):React.React
     const infoRef=useRef<IInfo|null>(null)
 
     /**
-     * this function stores in infoRef the value of info
-     * @param info {any} - the info that will stored
-     */
-    const getInfo=useCallback((info:IInfo)=>{
-        infoRef.current=info
-    },[])
-
-    /**
      * renders an entry of type entry
      * @param entry {IEntryProps} - the entry to render
      * @returns {React.ReactElement} the rendered entry
@@ -61,7 +53,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries}):React.React
         if(ref) return <HeadingEntry key={label} label={label} {...rest} ref={containerRef} />
         if(delay) {
             delayLabel.current.push(label)
-            return <HeadingEntry key={label} label='' {...rest} uploadInfo={getInfo} />
+            return <HeadingEntry key={label} label='' {...rest} infoRef={infoRef} />
         }
         return <HeadingEntry key={label} label={label} {...rest} />
     }
@@ -126,17 +118,17 @@ interface IHeadingEntryProps extends ICommonEntryProps{
     label:string;
     justifyContent?:string;
     secondLabel?:string;
-    uploadInfo?:(info:IInfo)=>void;
+    infoRef?:React.MutableRefObject<IInfo | null>;
 }
 
-const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,separatorWidth=1,secondLabel,uploadInfo,...props},ref):React.ReactElement=>{
+const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,separatorWidth=1,secondLabel,infoRef,...props},ref):React.ReactElement=>{
     const [delayedLabel,setDelayedLabel]=useState<string>()
 
     /**
      * this uploads the info to the parent component
      */
     useEffect(()=>{
-        if(uploadInfo) uploadInfo({setDelayedLabel})
+        if(infoRef) infoRef.current={setDelayedLabel}
     },[])
 
     return (
