@@ -7,7 +7,6 @@ import {
 } from '../../Utils/BaseStyles';
 import Theme from '../../Themes/ThemeTemplate'
 
-const smallFontSize=Theme.font.size.small
 const EXTRA_PIXEL=1
 
 interface IAdditionalProps{
@@ -47,7 +46,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries}):React.React
      * @param entry {IEntryProps} - the entry to render
      * @returns {React.ReactElement} the rendered entry
      */
-    const renderEntry=useCallback((entry:IEntryProps&IAdditionalProps)=>{
+    const renderEntry=useCallback((entry:IEntryProps&IAdditionalProps):React.ReactElement=>{
         const {label,...rest}=entry
         return <Entry key={label} label={label} {...rest} margin='0 0 2px' padding='0 0 1px' />
     },[])
@@ -57,7 +56,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries}):React.React
      * @param entry {IHeadingEntryProps} - the entry to render
      * @returns {React.ReactElement} the rendered entry
      */
-    const renderHeadingEntry=useCallback((entry:IHeadingEntryProps&IAdditionalProps)=>{
+    const renderHeadingEntry=useCallback((entry:IHeadingEntryProps&IAdditionalProps):React.ReactElement=>{
         const {label,ref,delay,...rest}=entry
         if(ref) return <HeadingEntry key={label} label={label} {...rest} ref={containerRef} />
         if(delay) {
@@ -130,7 +129,7 @@ interface IHeadingEntryProps extends ICommonEntryProps{
     uploadInfo?:(info:IInfo)=>void;
 }
 
-const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,fontSize=smallFontSize,separatorWidth=1,secondLabel,uploadInfo,...props},ref):React.ReactElement=>{
+const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,separatorWidth=1,secondLabel,uploadInfo,...props},ref):React.ReactElement=>{
     const [delayedLabel,setDelayedLabel]=useState<string>()
 
     /**
@@ -141,7 +140,7 @@ const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,fontSiz
     },[])
 
     return (
-        <EntryContainer separatorWidth={separatorWidth} fontSize={fontSize} {...props} ref={ref}>
+        <EntryContainer separatorWidth={separatorWidth} {...props} ref={ref}>
             <div>{label||delayedLabel}</div>
             {secondLabel&&<div>{secondLabel}</div>}
         </EntryContainer>
@@ -162,7 +161,6 @@ const Entry:React.FC<IEntryProps>=({
     dailyAmount,
     label,
     unity,
-    fontSize=smallFontSize,
     bold=false,
     separatorWidth=1,
     indentationNumber=0,
@@ -170,7 +168,10 @@ const Entry:React.FC<IEntryProps>=({
     ...props
 }):React.ReactElement=>{
 
-    const dailyValue= useMemo(()=>{
+    /**
+     * this computes the daily value percentage
+     */
+    const dailyValuePercentage= useMemo(()=>{
         if(dailyAmount)
             return Math.round(amount/dailyAmount*100)
         return null
@@ -184,13 +185,15 @@ const Entry:React.FC<IEntryProps>=({
         let space=''
         const nbsp='\u00a0'
         for(let j=0;j<indentationNumber;j+=1){
-            for(let i=0;i<indentationSize; i+=1) space+=nbsp
+            for(let i=0;i<indentationSize; i+=1) {
+                space+=nbsp
+            }
         }
         return space
     },[indentationNumber,indentationSize])
 
     return (
-        <EntryContainer separatorWidth={separatorWidth} fontSize={fontSize} justifyContent='space-between' {...props}>
+        <EntryContainer separatorWidth={separatorWidth} justifyContent='space-between' {...props}>
             <LabelContainer> 
                 {renderIndentation()}
                 <Bold bold={bold}>
@@ -202,9 +205,9 @@ const Entry:React.FC<IEntryProps>=({
                     {unity}
                 </div>
             </LabelContainer>
-            {dailyValue!==null&&(
+            {dailyValuePercentage!==null&&(
                 <Bold bold={bold}>
-                    {dailyValue}
+                    {dailyValuePercentage}
                     %
                 </Bold>
             )}
@@ -213,14 +216,14 @@ const Entry:React.FC<IEntryProps>=({
 }
 
 interface IEntryContainerProps extends MainInterface{
-    fontSize:string;
+    fontSize?:string;
     separatorWidth:number;
     justifyContent?:string;
     bold?:boolean;
 }
 
 const EntryContainer=styled.div<IEntryContainerProps>`
-${({separatorWidth,fontSize,justifyContent='flex-start',bold=false,...props}):string=>`
+${({separatorWidth,fontSize=Theme.font.size.small,justifyContent='flex-start',bold=false,...props}):string=>`
 ${Mixins.flex(justifyContent)}
 border-bottom:${separatorWidth}px solid black;
 font-size:${fontSize};
