@@ -64,3 +64,4 @@ export * from './BoxComposition/BoxComposition';
 export * from './BoxComposition2/BoxComposition2';
 export * from './ReservationSideBar/ReservationSideBar';
 export * from './FeatureDisplay/FeatureDisplay';
+export * from './NutritionFact/NutritionFact';
