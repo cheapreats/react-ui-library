@@ -199,16 +199,8 @@ const Entry:React.FC<IEntryProps>=({
      * this computes the daily value percentage
      */
     const dailyValuePercentage= useMemo(()=>{
-        if(dailyAmount){
-            /**
-             * gets the percentage of a value respect a totalValue
-             * @param value {number} - value for which we want to get percentage
-             * @param totalValue {number} - value for which percentage is 100 
-             * @returns {number} the percentage
-             */
-            const getPercentage=(value:number,totalValue:number)=>Math.round(value/totalValue*100)
-            return getPercentage(parseInt(amountState,10),dailyAmount) 
-        }
+        if(dailyAmount)
+            return Math.round(parseInt(amountState,10)/dailyAmount*100) 
         return null
     },[dailyAmount,amountState]);
 
