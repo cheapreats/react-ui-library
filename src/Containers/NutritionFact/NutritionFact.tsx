@@ -13,13 +13,17 @@ const ENTRY_INPUT_WIDTH=20
 const HEADER_ENTRY_INPUT_WIDTH=40
 
 interface IAdditionalProps{
+    /* if the heading entry must to be taken as the reference entry for taking width from */
     ref?:boolean;
+    /* if the content of the heading entry must be delayed after setting max width of the main container */
     delay?:boolean;
 }
 
 interface IEntries{
+    /* type of entry, heading or entry */
     type:string;
-    entry:IEntryProps&IAdditionalProps|IHeadingEntryProps&IAdditionalProps;
+    /* data per line */
+    entry:IEntryProps|IHeadingEntryProps&IAdditionalProps;
 }
 
 export interface INutritionFactProps{
@@ -42,7 +46,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
      * @param entry {IEntryProps} - the entry to render
      * @returns {React.ReactElement} the rendered entry
      */
-    const renderEntry=useCallback((entry:IEntryProps&IAdditionalProps):React.ReactElement=>{
+    const renderEntry=useCallback((entry:IEntryProps):React.ReactElement=>{
         const {label,...rest}=entry
         return <Entry key={label} label={label} {...rest} margin='0 0 2px' padding='0 0 1px' editMode={editMode} />
     },[editMode])
@@ -80,7 +84,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
             case 'entry':
                 return renderEntry(entry as IEntryProps)
             case 'heading':
-                return renderHeadingEntry(entry as IHeadingEntryProps)
+                return renderHeadingEntry(entry as IHeadingEntryProps&IAdditionalProps)
             default:
                 return null
             }
@@ -147,8 +151,9 @@ const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,editMod
     },[]) 
 
     /**
-     * 
-     * @returns 
+     * renders the second label if exists
+     * @returns {JSX.Element | null} the rendered second label, in case that exists, depending on edit mode and if the entry is 
+     * editable
      */
     const renderSecondLabel=useCallback(()=>{
         if(secondLabelState){
@@ -267,7 +272,13 @@ interface IEntryContainerProps extends MainInterface{
 }
 
 const EntryContainer=styled.div<IEntryContainerProps>`
-${({separatorWidth,fontSize=Theme.font.size.small,justifyContent='flex-start',bold=false,...props}):string=>`
+${({
+        separatorWidth,
+        fontSize=Theme.font.size.small,
+        justifyContent='flex-start',
+        bold=false,
+        ...props
+    }):string=>`
 ${Mixins.flex(justifyContent,'center')}
 border-bottom:${separatorWidth}px solid black;
 font-size:${fontSize};
