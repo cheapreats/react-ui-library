@@ -33,11 +33,11 @@ export interface INutritionFactProps{
 
 export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):React.ReactElement=>
 {
-    const mainContainerRef=useRef<HTMLDivElement>(null)
+    const rootContainerRef=useRef<HTMLDivElement>(null)
 
     const containerRef=useRef<HTMLDivElement>(null)
 
-    const delayLabel=useRef<string[]>([])
+    const delayedLabelRef=useRef<string[]>([])
 
     const infoRef=useRef<IInfo|null>(null)
 
@@ -60,7 +60,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
         const {label,ref,delay,...rest}=entry
         if(ref) return <HeadingEntry key={label} label={label} ref={containerRef} editMode={editMode} {...rest} />
         if(delay) {
-            delayLabel.current.push(label)
+            delayedLabelRef.current.push(label)
             return <HeadingEntry key={label} label='' infoRef={infoRef} editMode={editMode} {...rest} />
         }
         return <HeadingEntry key={label} label={label} editMode={editMode} {...rest} />
@@ -71,8 +71,8 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
      * this sets max width for the main container of the component and also sets the content for the delayed label
      */
     useEffect(()=>{
-        if(mainContainerRef.current&&containerRef.current) mainContainerRef.current.style.maxWidth=`${containerRef.current.clientWidth+EXTRA_PIXEL}px`
-        infoRef.current?.setDelayedLabel(delayLabel.current[0])
+        if(rootContainerRef.current&&containerRef.current) rootContainerRef.current.style.maxWidth=`${containerRef.current.clientWidth+EXTRA_PIXEL}px`
+        infoRef.current?.setDelayedLabel(delayedLabelRef.current[0])
     },[])
 
     /**
@@ -92,17 +92,17 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
     ,[entries])
 
     return     (
-        <MainContainer padding='5px' ref={mainContainerRef}>
+        <RootContainer padding='5px' ref={rootContainerRef}>
             {renderEntries()}
-        </MainContainer>
+        </RootContainer>
     )
 }
 
-interface IMainContainerProps extends MainInterface{
+interface IRootContainerProps extends MainInterface{
     width?:number
 }
 
-const MainContainer=styled.div<IMainContainerProps>`
+const RootContainer=styled.div<IRootContainerProps>`
 border:2px solid black;
 ${({width,...props}):string=>`
 ${width?`width:${width}px;`:'width:fit-content;'}
