@@ -48,7 +48,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
      */
     const renderEntry=useCallback((entry:IEntryProps):React.ReactElement=>{
         const {label,...rest}=entry
-        return <Entry key={label} label={label} {...rest} margin='0 0 2px' padding='0 0 1px' editMode={editMode} />
+        return <Entry key={label} label={label} margin='0 0 2px' padding='0 0 1px' editMode={editMode} {...rest} />
     },[editMode])
 
     /**
@@ -58,12 +58,12 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
      */
     const renderHeadingEntry=useCallback((entry:IHeadingEntryProps&IAdditionalProps):React.ReactElement=>{
         const {label,ref,delay,...rest}=entry
-        if(ref) return <HeadingEntry key={label} label={label} {...rest} ref={containerRef} editMode={editMode} />
+        if(ref) return <HeadingEntry key={label} label={label} ref={containerRef} editMode={editMode} {...rest} />
         if(delay) {
             delayLabel.current.push(label)
-            return <HeadingEntry key={label} label='' {...rest} infoRef={infoRef} editMode={editMode} />
+            return <HeadingEntry key={label} label='' infoRef={infoRef} editMode={editMode} {...rest} />
         }
-        return <HeadingEntry key={label} label={label} {...rest} editMode={editMode} />
+        return <HeadingEntry key={label} label={label} editMode={editMode} {...rest} />
     }
     ,[])
 
