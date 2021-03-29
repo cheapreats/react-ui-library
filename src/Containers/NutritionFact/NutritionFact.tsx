@@ -35,7 +35,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
 {
     const rootContainerRef=useRef<HTMLDivElement>(null)
 
-    const containerRef=useRef<HTMLDivElement>(null)
+    const headingContainerRef=useRef<HTMLDivElement>(null)
 
     const delayedLabelRef=useRef<string[]>([])
 
@@ -58,7 +58,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
      */
     const renderHeadingEntry=useCallback((entry:IHeadingEntryProps&IAdditionalProps):React.ReactElement=>{
         const {label,ref,delay,...rest}=entry
-        if(ref) return <HeadingEntry key={label} label={label} ref={containerRef} editMode={editMode} {...rest} />
+        if(ref) return <HeadingEntry key={label} label={label} ref={headingContainerRef} editMode={editMode} {...rest} />
         if(delay) {
             delayedLabelRef.current.push(label)
             return <HeadingEntry key={label} label='' infoRef={infoRef} editMode={editMode} {...rest} />
@@ -71,7 +71,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
      * this sets max width for the main container of the component and also sets the content for the delayed label
      */
     useLayoutEffect(()=>{
-        if(rootContainerRef.current&&containerRef.current) rootContainerRef.current.style.maxWidth=`${containerRef.current.clientWidth+EXTRA_PIXEL}px`
+        if(rootContainerRef.current&&headingContainerRef.current) rootContainerRef.current.style.maxWidth=`${headingContainerRef.current.clientWidth+EXTRA_PIXEL}px`
         infoRef.current?.setDelayedLabel(delayedLabelRef.current[0])
     },[])
 
