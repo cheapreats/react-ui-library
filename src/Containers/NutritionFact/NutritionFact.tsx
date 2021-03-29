@@ -1,4 +1,4 @@
-import React,{useCallback,useMemo,useRef,forwardRef,useEffect,useState} from 'react'
+import React,{useCallback,useMemo,useRef,forwardRef,useState,useLayoutEffect} from 'react'
 import styled from 'styled-components'
 import { Mixins } from '../../Utils'
 import {
@@ -70,7 +70,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
     /**
      * this sets max width for the main container of the component and also sets the content for the delayed label
      */
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         if(rootContainerRef.current&&containerRef.current) rootContainerRef.current.style.maxWidth=`${containerRef.current.clientWidth+EXTRA_PIXEL}px`
         infoRef.current?.setDelayedLabel(delayedLabelRef.current[0])
     },[])
@@ -136,9 +136,9 @@ const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,editMod
     const [secondLabelState,setSecondLabelState]=useState(secondLabel)
 
     /**
-     * this uploads the info to the parent component
+     * this updates info in the parent component
      */
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         if(infoRef) infoRef.current={setDelayedLabel}
     },[])
 
