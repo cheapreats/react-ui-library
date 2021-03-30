@@ -16,25 +16,29 @@ const PERCENTAGE_FACTOR=100
 
 interface IAdditionalProps{
     /* if the heading entry must to be taken as the reference entry for taking width from */
-    isRefForComputingMaxWidth?:boolean;
+    isMaxWidthOfRootContainer?:boolean;
 }
+
+export enum EntryType{Heading,Entry}
 
 interface IEntries{
     /* type of entry, heading or entry */
-    type:string;
+    type:EntryType;
     /* data per line */
-    entry:IEntryProps|IHeadingEntryProps&IAdditionalProps;
+    data:IEntryProps|IHeadingEntryProps&IAdditionalProps;
 }
 
 export interface INutritionFactProps{
     entries:IEntries[];
-    editMode?:boolean;
+    isEditMode?:boolean;
 }
 
-export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):React.ReactElement=>
+export const NutritionFact:React.FC<INutritionFactProps>=({entries,isEditMode}):React.ReactElement=>
 {
+    // used to set the max width of the root container
     const rootContainerRef=useRef<HTMLDivElement>(null)
 
+    // used to compute the max width for the root container
     const headingLabelRef=useRef<HTMLDivElement>(null)
 
     /**
@@ -44,8 +48,8 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
      */
     const renderEntry=useCallback((entry:IEntryProps):React.ReactElement=>{
         const {label,...rest}=entry
-        return <Entry key={label} label={label} margin='0 0 2px' padding='0 0 1px' editMode={editMode} {...rest} />
-    },[editMode])
+        return <Entry key={label} label={label} margin='0 0 2px' padding='0 0 1px' isEditMode={isEditMode} {...rest} />
+    },[isEditMode])
 
     /**
      * renders an entry of type heading
@@ -53,29 +57,31 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
      * @returns {React.ReactElement} the rendered entry
      */
     const renderHeadingEntry=useCallback((entry:IHeadingEntryProps&IAdditionalProps):React.ReactElement=>{
-        const {label,isRefForComputingMaxWidth,...rest}=entry
-        if(isRefForComputingMaxWidth) return <HeadingEntry key={label} label={label} ref={headingLabelRef} editMode={editMode} {...rest} />
-        return <HeadingEntry key={label} label={label} editMode={editMode} {...rest} />
+        const {leftText,isMaxWidthOfRootContainer,...rest}=entry
+        if(isMaxWidthOfRootContainer) 
+            return <HeadingEntry key={leftText} leftText={leftText} ref={headingLabelRef} isEditMode={isEditMode} {...rest} />
+        return <HeadingEntry key={leftText} leftText={leftText} isEditMode={isEditMode} {...rest} />
     }
     ,[])
 
     /**
-     * this sets max width for the root container
+     * this sets max width for the root container based on the width of the heading (entry) taken as a reference
      */
     useLayoutEffect(()=>{
-        if(rootContainerRef.current&&headingLabelRef.current) rootContainerRef.current.style.maxWidth=`${headingLabelRef.current.clientWidth+EXTRA_PIXEL}px`
+        if(rootContainerRef.current&&headingLabelRef.current) 
+            rootContainerRef.current.style.maxWidth=`${headingLabelRef.current.clientWidth+EXTRA_PIXEL}px`
     },[])
 
     /**
      * renders the entries
      */
     const renderEntries=useCallback(()=>
-        entries.map(({type,entry})=>{
+        entries.map(({type,data})=>{
             switch(type){
-            case 'entry':
-                return renderEntry(entry as IEntryProps)
-            case 'heading':
-                return renderHeadingEntry(entry as IHeadingEntryProps&IAdditionalProps)
+            case EntryType.Entry:
+                return renderEntry(data as IEntryProps)
+            case EntryType.Heading:
+                return renderHeadingEntry(data as IHeadingEntryProps&IAdditionalProps)
             default:
                 return null
             }
@@ -103,29 +109,29 @@ ${Main({...props})}
 
 interface ICommonEntryProps{
     fontSize?:string;
-    bold?:boolean;
+    isBold?:boolean;
     separatorWidth?:number;
-    editMode?:boolean;
+    isEditMode?:boolean;
     margin?:string;
     padding?:string;
 }
 
 interface IHeadingEntryProps extends ICommonEntryProps{
-    label:string;
+    leftText:string;
     justifyContent?:string;
-    secondLabel?:string;
-    editable?:boolean;
+    rightText?:string;
+    isEditable?:boolean;
 }
 
-const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,editMode,editable,separatorWidth=1,secondLabel,...props},ref):React.ReactElement=>{
-    const [secondLabelState,setSecondLabelState]=useState(secondLabel)
+const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({leftText,isEditMode,isEditable,separatorWidth=1,rightText,...props},ref):React.ReactElement=>{
+    const [rightTextState,setRightTextState]=useState(rightText)
 
     /**
      * updates state for second label based on event fired
      * @param event {React.ChangeEvent<HTMLInputElement>} - the fired event 
      */
-    const updateSecondLabel=useCallback(({target}:React.ChangeEvent<HTMLInputElement>)=>{
-        setSecondLabelState(target.value)
+    const updateRightText=useCallback(({target}:React.ChangeEvent<HTMLInputElement>)=>{
+        setRightTextState(target.value)
     },[]) 
 
     /**
@@ -133,19 +139,19 @@ const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,editMod
      * @returns {JSX.Element | null} the rendered second label, in case that exists, depending on edit mode and if the entry is 
      * editable
      */
-    const renderSecondLabel=useCallback(()=>{
-        if(secondLabelState){
-            if(editMode&&editable)
-                return <Input value={secondLabelState} onChange={updateSecondLabel} width={HEADER_ENTRY_INPUT_WIDTH} />
-            return <div>{secondLabelState}</div>
+    const renderRightText=useCallback(()=>{
+        if(rightTextState){
+            if(isEditMode&&isEditable)
+                return <Input value={rightTextState} onChange={updateRightText} width={HEADER_ENTRY_INPUT_WIDTH} />
+            return <div>{rightTextState}</div>
         }
         return null
-    },[secondLabelState])
+    },[rightTextState])
 
     return (
         <EntryContainer separatorWidth={separatorWidth} {...props}>
-            <div ref={ref}>{label}</div>
-            {renderSecondLabel()}
+            <div ref={ref}>{leftText}</div>
+            {renderRightText()}
         </EntryContainer>
     )
 })
@@ -164,8 +170,8 @@ const Entry:React.FC<IEntryProps>=({
     dailyAmount,
     label,
     unity,
-    editMode,
-    bold=false,
+    isEditMode,
+    isBold=false,
     separatorWidth=1,
     indentationNumber=0,
     indentationSize=4,
@@ -197,6 +203,10 @@ const Entry:React.FC<IEntryProps>=({
         return space
     },[indentationNumber,indentationSize])
 
+    /**
+     * sets the amount vendor inputed
+     * @param event {React.ChangeEvent<HTMLInputElement>} - the event fired
+     */
     const updateAmountState=({target}:React.ChangeEvent<HTMLInputElement>)=>{
         setAmountState(target.value)
     }
@@ -205,17 +215,17 @@ const Entry:React.FC<IEntryProps>=({
      * renders the amount depending on editMode
      */
     const renderAmount=useCallback(()=>{
-        if(editMode){
+        if(isEditMode){
             return <Input onChange={updateAmountState} value={amountState} width={ENTRY_INPUT_WIDTH} />
         }
         return amountState
-    },[editMode,amountState])
+    },[isEditMode,amountState])
 
     return (
         <EntryContainer separatorWidth={separatorWidth} justifyContent='space-between' {...props}>
             <LabelContainer> 
                 {renderIndentation()}
-                <Bold bold={bold}>
+                <Bold isBold={isBold}>
                     {label}
                     &nbsp;
                 </Bold>
@@ -225,7 +235,7 @@ const Entry:React.FC<IEntryProps>=({
                 </AmountContainer>
             </LabelContainer>
             {dailyValuePercentage!==null&&(
-                <Bold bold={bold}>
+                <Bold isBold={isBold}>
                     {dailyValuePercentage}
                     %
                 </Bold>
@@ -238,7 +248,7 @@ interface IEntryContainerProps extends MainInterface{
     fontSize?:string;
     separatorWidth:number;
     justifyContent?:string;
-    bold?:boolean;
+    isBold?:boolean;
 }
 
 const EntryContainer=styled.div<IEntryContainerProps>`
@@ -246,13 +256,13 @@ ${({
         separatorWidth,
         fontSize=Theme.font.size.small,
         justifyContent='flex-start',
-        bold=false,
+        isBold=false,
         ...props
     }):string=>`
 ${Mixins.flex(justifyContent,'center')}
 border-bottom:${separatorWidth}px solid black;
 font-size:${fontSize};
-${bold?'font-weight:700;':''}
+${isBold?'font-weight:700;':''}
 ${Main({...props})}
 `}
 `
@@ -265,12 +275,12 @@ ${Mixins.flex('flex-start','center')}
 `
 
 interface IBoldProps{
-    bold?:boolean;
+    isBold?:boolean;
 }
 
 const Bold=styled.div<IBoldProps>`
-${({bold}):string=>`
-${bold?'font-weight:700;':''}
+${({isBold}):string=>`
+${isBold?'font-weight:700;':''}
 `}
 `
 
