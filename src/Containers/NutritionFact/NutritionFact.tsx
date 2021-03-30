@@ -11,6 +11,8 @@ import {Input} from '../../Inputs/Input/Input'
 const EXTRA_PIXEL=1
 const ENTRY_INPUT_WIDTH=20
 const HEADER_ENTRY_INPUT_WIDTH=40
+const DECIMAL_BASIS=10
+const PERCENTAGE_FACTOR=100
 
 interface IAdditionalProps{
     /* if the heading entry must to be taken as the reference entry for taking width from */
@@ -200,7 +202,7 @@ const Entry:React.FC<IEntryProps>=({
      */
     const dailyValuePercentage= useMemo(()=>{
         if(dailyAmount)
-            return Math.round(parseInt(amountState,10)/dailyAmount*100) 
+            return Math.round(parseInt(amountState,DECIMAL_BASIS)/dailyAmount*PERCENTAGE_FACTOR) 
         return null
     },[dailyAmount,amountState]);
 
