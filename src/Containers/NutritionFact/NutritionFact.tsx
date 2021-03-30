@@ -16,9 +16,7 @@ const PERCENTAGE_FACTOR=100
 
 interface IAdditionalProps{
     /* if the heading entry must to be taken as the reference entry for taking width from */
-    ref?:boolean;
-    /* if the content of the heading entry must be delayed after setting max width of the main container */
-    delay?:boolean;
+    isRefForComputingMaxWidth?:boolean;
 }
 
 interface IEntries{
@@ -37,11 +35,7 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
 {
     const rootContainerRef=useRef<HTMLDivElement>(null)
 
-    const headingContainerRef=useRef<HTMLDivElement>(null)
-
-    const delayedLabelRef=useRef<string[]>([])
-
-    const infoRef=useRef<IInfo|null>(null)
+    const headingLabelRef=useRef<HTMLDivElement>(null)
 
     /**
      * renders an entry of type entry
@@ -59,22 +53,17 @@ export const NutritionFact:React.FC<INutritionFactProps>=({entries,editMode}):Re
      * @returns {React.ReactElement} the rendered entry
      */
     const renderHeadingEntry=useCallback((entry:IHeadingEntryProps&IAdditionalProps):React.ReactElement=>{
-        const {label,ref,delay,...rest}=entry
-        if(ref) return <HeadingEntry key={label} label={label} ref={headingContainerRef} editMode={editMode} {...rest} />
-        if(delay) {
-            delayedLabelRef.current.push(label)
-            return <HeadingEntry key={label} label='' infoRef={infoRef} editMode={editMode} {...rest} />
-        }
+        const {label,isRefForComputingMaxWidth,...rest}=entry
+        if(isRefForComputingMaxWidth) return <HeadingEntry key={label} label={label} ref={headingLabelRef} editMode={editMode} {...rest} />
         return <HeadingEntry key={label} label={label} editMode={editMode} {...rest} />
     }
     ,[])
 
     /**
-     * this sets max width for the main container of the component and also sets the content for the delayed label
+     * this sets max width for the root container
      */
     useLayoutEffect(()=>{
-        if(rootContainerRef.current&&headingContainerRef.current) rootContainerRef.current.style.maxWidth=`${headingContainerRef.current.clientWidth+EXTRA_PIXEL}px`
-        infoRef.current?.setDelayedLabel(delayedLabelRef.current[0])
+        if(rootContainerRef.current&&headingLabelRef.current) rootContainerRef.current.style.maxWidth=`${headingLabelRef.current.clientWidth+EXTRA_PIXEL}px`
     },[])
 
     /**
@@ -112,10 +101,6 @@ ${Main({...props})}
 `}
 `
 
-interface IInfo{
-    setDelayedLabel:React.Dispatch<React.SetStateAction<string | undefined>>;
-}
-
 interface ICommonEntryProps{
     fontSize?:string;
     bold?:boolean;
@@ -129,20 +114,11 @@ interface IHeadingEntryProps extends ICommonEntryProps{
     label:string;
     justifyContent?:string;
     secondLabel?:string;
-    infoRef?:React.MutableRefObject<IInfo | null>;
     editable?:boolean;
 }
 
-const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,editMode,editable,separatorWidth=1,secondLabel,infoRef,...props},ref):React.ReactElement=>{
-    const [delayedLabel,setDelayedLabel]=useState<string>()
+const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,editMode,editable,separatorWidth=1,secondLabel,...props},ref):React.ReactElement=>{
     const [secondLabelState,setSecondLabelState]=useState(secondLabel)
-
-    /**
-     * this updates info in the parent component
-     */
-    useLayoutEffect(()=>{
-        if(infoRef) infoRef.current={setDelayedLabel}
-    },[])
 
     /**
      * updates state for second label based on event fired
@@ -167,8 +143,8 @@ const HeadingEntry=forwardRef<HTMLDivElement,IHeadingEntryProps>(({label,editMod
     },[secondLabelState])
 
     return (
-        <EntryContainer separatorWidth={separatorWidth} {...props} ref={ref}>
-            <div>{label||delayedLabel}</div>
+        <EntryContainer separatorWidth={separatorWidth} {...props}>
+            <div ref={ref}>{label}</div>
             {renderSecondLabel()}
         </EntryContainer>
     )

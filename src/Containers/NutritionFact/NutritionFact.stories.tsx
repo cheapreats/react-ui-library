@@ -17,7 +17,7 @@ export default {
                     padding:'0 0 1px',
                     fontSize:Theme.font.size.h1,
                     separatorWidth:2,
-                    ref:true,
+                    isRefForComputingMaxWidth:true,
                 }
         },  {
             type:'heading',
@@ -188,7 +188,6 @@ export default {
                 separatorWidth:0,
                 label:'*The % Daily Value (DV) tells you how much a nutrient in a serving of food contributes to a daily diet. 2,000 calories a day is used for general nutrition advice.',
                 fontSize:'.6rem',
-                delay:true,
             },
         },   
         ],
