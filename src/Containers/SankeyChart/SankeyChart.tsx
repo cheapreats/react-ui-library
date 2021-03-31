@@ -10,12 +10,15 @@ const LINK_COLOR='#77c878'
 const NODE_COLOR='#0088fe'
 const NODE_OPACITY=0.8
 
-export interface ISankeyChartProps{
+interface IProperties{
+    nodePadding?:number;
+    margin?:Partial<Margin>;
+}
+
+export interface ISankeyChartProps extends IProperties{
     width:number;
     height:number;
     data:any;
-    nodePadding?:number;
-    margin?:Partial<Margin>;
 }
 
 export const SankeyChart:React.FC<ISankeyChartProps>=({
@@ -24,12 +27,6 @@ export const SankeyChart:React.FC<ISankeyChartProps>=({
     ...props
 }
 ):React.ReactElement=>{
-
-    interface IProperties{
-        nodePadding?:number;
-        margin?:Partial<Margin>;
-    }
-
     /**
      * checks for not undefined properties and sets an object with those not undefined properties
      * @returns {IProperties} the properties
@@ -101,7 +98,6 @@ interface ITranslateProps{
     y:number;
     children:React.ReactElement<SVGElement>;
 }
-
 
 /**
  * it's a wrapper for a svg element to position it on x and y property values
