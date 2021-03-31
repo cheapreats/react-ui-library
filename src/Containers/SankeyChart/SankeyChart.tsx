@@ -10,12 +10,12 @@ const LINK_COLOR='#77c878'
 const NODE_COLOR='#0088fe'
 const NODE_OPACITY=0.8
 
-interface IProperties{
+interface ISankeyChartOptionalProperties{
     nodePadding?:number;
     margin?:Partial<Margin>;
 }
 
-export interface ISankeyChartProps extends IProperties{
+export interface ISankeyChartProps extends ISankeyChartOptionalProperties{
     width:number;
     height:number;
     data:any;
@@ -29,10 +29,10 @@ export const SankeyChart:React.FC<ISankeyChartProps>=({
 ):React.ReactElement=>{
     /**
      * checks for not undefined properties and sets an object with those not undefined properties
-     * @returns {IProperties} the properties
+     * @returns {ISankeyChartOptionalProperties} the properties
      */
-    const getProperties=()=>{
-        const properties:IProperties={}
+    const getOptionalProperties=()=>{
+        const properties:ISankeyChartOptionalProperties={}
         if(nodePadding)
             properties.nodePadding=nodePadding
         if(margin)
@@ -44,8 +44,8 @@ export const SankeyChart:React.FC<ISankeyChartProps>=({
         <Sankey
             node={<MyCustomNode />}
             link={{ stroke: LINK_COLOR }}
+            {...getOptionalProperties()}
             {...props}
-            {...getProperties()}
         />
     )
 }
