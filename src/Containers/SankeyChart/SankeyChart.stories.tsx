@@ -84,3 +84,52 @@ Colors.args = {
     nodeColor:'#fafafa',
     linkColor:'#333'
 }
+
+export const Visited = Basic.bind({})
+
+Visited.args = {
+    ...Visited.args,
+    nodePadding:50,
+    margin:{top:10,right:150,bottom:30,left:10},
+    data:{
+        nodes:[
+            {
+                name:'Visits'
+            },
+            {
+                name:'Purchased'
+            },
+            {
+                name:'Left'
+            },
+            {
+                name:'come back again'
+            },
+            {
+                name:'did not come back'
+            }
+        ],
+        links:[
+            {
+                source:0,
+                target:1,
+                value:50,
+            },
+            {
+                source:0,
+                target:2,
+                value:49,
+            },
+            {
+                source:1,
+                target:3,
+                value:25,
+            },
+            {
+                source:1,
+                target:4,
+                value:25,
+            }
+        ]
+    }
+}
