@@ -76,3 +76,11 @@ Perfect.args={
     nodePadding:50,
     margin:{top:10,right:150,bottom:30,left:10}
 }
+
+export const Colors = Perfect.bind({})
+
+Colors.args = {
+    ...Colors.args,
+    nodeColor:'#fafafa',
+    linkColor:'#333'
+}

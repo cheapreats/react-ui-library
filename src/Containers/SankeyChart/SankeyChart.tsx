@@ -1,4 +1,4 @@
-import React,{useRef, useState,useLayoutEffect} from 'react'
+import React,{useRef, useState,useLayoutEffect,useCallback} from 'react'
 import {Sankey,Margin,Rectangle} from 'recharts'
 import styled from 'styled-components'
 import Theme from '../../Themes/ThemeTemplate'
@@ -13,6 +13,8 @@ const NODE_OPACITY=0.8
 interface ISankeyChartOptionalProperties{
     nodePadding?:number;
     margin?:Partial<Margin>;
+    nodeColor?:string;
+    linkColor?:string;
 }
 
 export interface ISankeyChartProps extends ISankeyChartOptionalProperties{
@@ -24,6 +26,8 @@ export interface ISankeyChartProps extends ISankeyChartOptionalProperties{
 export const SankeyChart:React.FC<ISankeyChartProps>=({
     nodePadding,
     margin,
+    nodeColor=NODE_COLOR,
+    linkColor=LINK_COLOR,
     ...props
 }
 ):React.ReactElement=>{
@@ -39,57 +43,60 @@ export const SankeyChart:React.FC<ISankeyChartProps>=({
             properties.margin=margin
         return properties
     }
+
+    /**
+     * the react component which serves as custom node
+     */
+    const MyCustomNode=useCallback(({payload,...rest}:any):React.ReactElement<SVGElement>=>{
+        const [heightOffset,setHeightOffset]=useState<number>()
+
+        const legendRef=useRef<HTMLDivElement>(null)
+
+        const renderLegend=(name:string,value:string)=>(
+            <Container ref={legendRef}>
+                <Span>{name}</Span> 
+                <br />
+                <Span>{value}</Span>
+            </Container>
+        )
+
+        useLayoutEffect(()=>{
+            setHeightOffset(legendRef.current?.clientHeight)
+        },[])
+
+        /**
+         * gets the x position for the top left corner of the container of the node legend, based on x property and dx,
+         * which is the node width
+         * @returns {number} the x position
+         */
+        const getLegendXPosition=()=>rest.x+payload.dx
+
+        /**
+         * gets the y position for the top left corner of the container of the node legend, based on y property, dy (which
+         * is the height of the node) and heighOffset, which is the height of the legend itself
+         * @returns {number} the y position
+         */
+        const getLegendYPosition=()=>rest.y+payload.dy/2-(heightOffset?heightOffset/2:INITIAL_LEGEND_HEIGHT_OFFSET)
+        
+        return (
+            <svg>
+                <Rectangle className='recharts-sankey-node' fill={nodeColor} fillOpacity={NODE_OPACITY} payload={payload} {...rest} />
+                <Translate x={getLegendXPosition()} y={getLegendYPosition()}>
+                    <foreignObject width={LEGEND_CONTAINER_WIDTH} height={LEGEND_CONTAINER_HEIGHT}>
+                        {renderLegend(payload.name,payload.value)}
+                    </foreignObject>
+                </Translate>
+            </svg>
+        )
+    },[nodeColor])
                                     
     return (
         <Sankey
             node={<MyCustomNode />}
-            link={{ stroke: LINK_COLOR }}
+            link={{ stroke: linkColor }}
             {...getOptionalProperties()}
             {...props}
         />
-    )
-}
-
-const MyCustomNode=({payload,...rest}:any):React.ReactElement<SVGElement>=>{
-    const [heightOffset,setHeightOffset]=useState<number>()
-
-    const legendRef=useRef<HTMLDivElement>(null)
-
-    const renderLegend=(name:string,value:string)=>(
-        <Container ref={legendRef}>
-            <Span>{name}</Span> 
-            <br />
-            <Span>{value}</Span>
-        </Container>
-    )
-
-    useLayoutEffect(()=>{
-        setHeightOffset(legendRef.current?.clientHeight)
-    },[])
-
-    /**
-     * gets the x position for the top left corner of the container of the node legend, based on x property and dx,
-     * which is the node width
-     * @returns {number} the x position
-     */
-    const getLegendXPosition=()=>rest.x+payload.dx
-
-    /**
-     * gets the y position for the top left corner of the container of the node legend, based on y property, dy (which
-     * is the height of the node) and heighOffset, which is the height of the legend itself
-     * @returns {number} the y position
-     */
-    const getLegendYPosition=()=>rest.y+payload.dy/2-(heightOffset?heightOffset/2:INITIAL_LEGEND_HEIGHT_OFFSET)
-    
-    return (
-        <svg>
-            <Rectangle className='recharts-sankey-node' fill={NODE_COLOR} fillOpacity={NODE_OPACITY} payload={payload} {...rest} />
-            <Translate x={getLegendXPosition()} y={getLegendYPosition()}>
-                <foreignObject width={LEGEND_CONTAINER_WIDTH} height={LEGEND_CONTAINER_HEIGHT}>
-                    {renderLegend(payload.name,payload.value)}
-                </foreignObject>
-            </Translate>
-        </svg>
     )
 }
 
