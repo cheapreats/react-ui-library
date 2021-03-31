@@ -1,6 +1,5 @@
 import React from 'react';
 import { Carousel } from 'react-responsive-carousel';
-import SmallText from '@Text/SmallText';
 import styled from 'styled-components';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
@@ -33,14 +32,10 @@ export const CarouselTestimonial: React.FC<ICarouselTestimonialProps> = ({
                 <img src={carouselImage} />
             </ImageDiv>
             <ReviewTextDiv>
-                <SmallText color="#006aff" size="h4" bold>
-                    {reviewDescriptions[index]}
-                </SmallText>
+                {reviewDescriptions[index]}
             </ReviewTextDiv>
             <ReviwerDiv>
-                <SmallText color="#737373" size="h7" bold>
-                    {reviewers[index]}
-                </SmallText>
+                {reviewers[index]}
             </ReviwerDiv>
         </Section>
     );
@@ -80,8 +75,15 @@ const ImageDiv = styled.div`
 const ReviewTextDiv = styled.div`
     margin-bottom: 14px;
     margin-top: 28px;
+    font-size: 1.5em;
+    font-weight: bold;
+    color: #006aff ;
 `;
 const ReviwerDiv = styled.div`
     font-weight: 600;
     margin-bottom: 60px;
-`;
+    color: ${({ theme }) => theme.colors.chairTableBackground};
+    font-size:  1em;
+     `;
+
+
