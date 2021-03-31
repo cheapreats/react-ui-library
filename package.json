@@ -123,6 +123,7 @@
         "react-dropzone": "^11.2.4",
         "react-image-crop": "^8.6.6",
         "react-lottie": "^1.2.3",
+        "react-responsive-carousel": "^3.2.16",
         "react-router-dom": "^5.2.0",
         "react-table": "^7.6.2",
         "recharts": "^1.8.5",
