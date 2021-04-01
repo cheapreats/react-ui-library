@@ -6,52 +6,51 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 export interface ICarouselTestimonialProps {
     carouselTitle: string;
     carouselImage: string;
-    reviewDescriptions: string[];
-    reviewers: string[];
-    carouselAutoplay: boolean;
+    reviews: any[];
+    isAutoplaying: boolean;
     carouselInterval: number;
-    carouselLoop: boolean;
+    isLooping: boolean;
 }
 
 export const CarouselTestimonial: React.FC<ICarouselTestimonialProps> = ({
     carouselTitle,
     carouselImage,
-    reviewDescriptions,
-    reviewers,
-    carouselAutoplay,
+    reviews,
+    isAutoplaying,
     carouselInterval,
-    carouselLoop,
+    isLooping,
 }) => {
     /**
-     * Returns the JSX element of each carousel item based on its index
+     * Returns the JSX element of each carousel item 
      */
-    const getCarouselItem = (index: number) => (
-        <Section key={index}>
-            <TitleDiv key={carouselTitle}>{carouselTitle}</TitleDiv>
+    const getCarouselItem = (review: any) => (
+        <Section key={review}>
+            <TitleDiv key={carouselTitle}>
+                {carouselTitle}
+            </TitleDiv>
             <ImageDiv key={carouselImage}>
                 <img src={carouselImage} />
             </ImageDiv>
             <ReviewTextDiv>
-                {reviewDescriptions[index]}
+                {review.testimony}
             </ReviewTextDiv>
             <ReviwerDiv>
-                {reviewers[index]}
+                {review.reviewer}
             </ReviwerDiv>
         </Section>
     );
 
     /**
-     * Returns all carousel items
+     * Returns JSX elements of all carousel items
      */
     const getCarousel = () => {
-        let index = 0;
-        return reviewDescriptions.map(() => getCarouselItem(index++));
+        return reviews.map((review: any) => getCarouselItem(review));
     };
     return (
         <Carousel
-            autoPlay={carouselAutoplay}
+            autoPlay={isAutoplaying}
             interval={carouselInterval}
-            infiniteLoop={carouselLoop}
+            infiniteLoop={isLooping}
         >
             {getCarousel()}
         </Carousel>
@@ -63,9 +62,8 @@ const Section = styled.div`
 `;
 const TitleDiv = styled.div`
     font-size:16px;
-    color: black;
-    font-family: "Square Market", Helvetica, Arial, sans-serif;"
-`;
+    color: ${({ theme }) => theme.colors.text};
+    `;
 const ImageDiv = styled.div`
     margin-top: 10px;
     max-width: 90px;
@@ -77,7 +75,7 @@ const ReviewTextDiv = styled.div`
     margin-top: 28px;
     font-size: 1.5em;
     font-weight: bold;
-    color: #006aff ;
+    color: ${({ theme }) => theme.colors.occupancyStatusColors.Occupied}; 
 `;
 const ReviwerDiv = styled.div`
     font-weight: 600;
