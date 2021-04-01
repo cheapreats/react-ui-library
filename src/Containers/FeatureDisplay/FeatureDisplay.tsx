@@ -1,5 +1,5 @@
 import React from 'react';
-import SmallText from '@Text/SmallText';
+import {SmallText} from '@Text';
 import styled from 'styled-components';
 import { flex, media } from '@Utils/Mixins';
 import { Check } from '@styled-icons/boxicons-regular/Check';
@@ -15,6 +15,7 @@ export interface IFeatureDisplayProps {
     imageTagColors: string[];
     highlightTexts: string[];
     featureFooter: string;
+    linkHref?: string;
 }
 
 export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
@@ -25,9 +26,10 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
     imageTags,
     imageTagColors,
     highlightTexts,
-    featureFooter
+    featureFooter,
+    linkHref
 }) => {
-     /**
+    /**
      * Returns a JSX element array containing the highlightText
      */
     const getHighlightText = () => highlightTexts.map(
@@ -40,21 +42,18 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
             </SmallText>
         )
     )
-     /**
+    /**
      * Returns a JSX element array containing the imageTag and corresponding iconColor
      */
-    const getImageTags = () => {
-        let index = 0;
-        return imageTags.map(
-            (imageTag: string) => (
-                <GridItem key={imageTag}>
-                    <ChartDesc color={imageTagColors[index++]} />
-                    {' '}
-                    <SmallText>{imageTag}</SmallText>
-                </GridItem>
-            )
-        );
-    }
+    const getImageTags = () => imageTags.map(
+        (imageTag: string, index: number) => (
+            <GridItem key={imageTag}>
+                <ChartDesc color={imageTagColors[index]} />
+                {' '}
+                <SmallText>{imageTag}</SmallText>
+            </GridItem>
+        )
+    )
 
 
     return (
@@ -93,7 +92,7 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
                         >
                             {imageTitle}
                         </SmallText>
-                        <img src={featureImage} />
+                        <img src={featureImage} alt={featureTitle} />
                         <Section>
                             <Grid>
                                 {getImageTags()}
@@ -105,7 +104,7 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
                     {getHighlightText()}
                 </Section>
                 <Section>
-                    <Link href="#">
+                    <Link href={linkHref}>
                         <SmallText color="#9966ff" size="h7" bold>
                             {featureFooter}
                         </SmallText>

@@ -42,7 +42,7 @@ export default {
     args: {
         header: (
             <ListHeader
-                label="List Header"
+                label="Header"
                 headerFlex="space-between"
                 icon={COG_WHEEL_ICON}
                 iconProps="width: 20px; margin-right: 10px;"
@@ -75,14 +75,18 @@ export const ListHeaderWithSearchBar: Story<ListHeaderProps> = (args) => (
 );
 
 ListHeaderWithSearchBar.args = {
-    label: 'List Header',
+    label: 'Header',
     headerFlex: 'space-between',
     icon: COG_WHEEL_ICON,
-    iconProps: 'width: 20px; margin: 0 10px;',
+    iconProps: 'width: 20px; margin-left: 10px;',
     iconClick: () => alert('Icon Clicked'),
     onSearch: (value: string) => {
         console.log(value);
     },
+    searchBarWidth: '80vw',
+    searchBarMediaQuery: 'phone',
+    searchBarMediaWidth: '70vw '
+
 };
 
 export const Basic: Story<ListProps> = (args) => {
@@ -93,14 +97,14 @@ export const Basic: Story<ListProps> = (args) => {
             {...args}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            toggleComponent={
+            toggleComponent={(
                 <ListToggle
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                     isLeftToggle
                     isToggleHiddenDesktop
                 />
-            }
+            )}
         >
             {items.map((item) => (
                 <ListItem

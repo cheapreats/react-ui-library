@@ -65,3 +65,5 @@ export * from './BoxComposition2/BoxComposition2';
 export * from './ReservationSideBar/ReservationSideBar';
 export * from './FeatureDisplay/FeatureDisplay';
 export * from './CarouselTestimonial/CarouselTestimonial';
+export * from './NutritionFact/NutritionFact';
+export * from './SankeyChart/SankeyChart';
