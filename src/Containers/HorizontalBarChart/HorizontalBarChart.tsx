@@ -21,36 +21,25 @@ interface IDataItem{
     isTotal:boolean;
 }
 
-interface IChartOptionalProperties{
+interface IChartProperties{
     margin?:object;
+    data:IDataItem[];
+    unit:string;
 }
 
-export interface IHorizontalBarChartProps extends IChartOptionalProperties{
-    data:IDataItem[];
+export interface IHorizontalBarChartProps extends IChartProperties{
     header:string;
     summaryHeader:string;
     summaryDescription:string;
-    unit:string;
     width?:number;
 }
 
-export const HorizontalBarChart:React.FC<IHorizontalBarChartProps>=({data,header,summaryHeader,summaryDescription,width,margin,unit}):React.ReactElement=>{
+export const HorizontalBarChart:React.FC<IHorizontalBarChartProps>=({data,header,summaryHeader,summaryDescription,margin,unit,...props}):React.ReactElement=>{
     const [chartWidth,setChartWidth]=useState<number>()
     const [chartHeight,setChartHeight]=useState<number>()
 
     // used to compute width and height for the chart based on width and height of summary container
     const summaryContainerRef=useRef<HTMLDivElement>(null)
-
-    /**
-     * gets an object with not undefined properties for the chart
-     * @returns {IChartOptionalProperties} an object with the not undefined optional properties set to its value
-     */
-    const getChartOptionalProperties=()=>{
-        const chartOptionalProperties:IChartOptionalProperties={}
-        if(margin)
-            chartOptionalProperties.margin=margin
-        return chartOptionalProperties
-    }
 
     /**
      * compute dynamically the width and height of the chart
@@ -60,24 +49,38 @@ export const HorizontalBarChart:React.FC<IHorizontalBarChartProps>=({data,header
         setChartWidth(summaryContainerRef.current?.clientWidth)
     },[])
 
-
     /**
-     * this is the customized bar label
+     * this is the customized bar label used to tell the value of the bars
      */
-    const BarLabel=useCallback(({value,x,y,width:barWidth,height:barHeight}:any):React.ReactElement<SVGElement>=>(
-        <text 
-            x={x+barWidth+BAR_LABEL_LEFT_MARGIN}
-            y={y+barHeight/2+barHeight/4}
-            textAnchor='start'
-            fontSize={Theme.font.size.small} 
-            fontWeight='bold'
-            color={MainTheme.colors.text}
-        >
-            {value} 
-            &nbsp;
-            {unit}
-        </text>
-    )
+    const BarLabel=useCallback(({value,x,y,width:barWidth,height:barHeight}:any):React.ReactElement<SVGElement>=>{
+        /**
+         * this computes the x value for the text, based on x value of the bar, its width (bar width) and a little margin
+         * @returns the x value for the text
+         */
+        const getX=()=>x+barWidth+BAR_LABEL_LEFT_MARGIN
+
+        /**
+         * this computes the y value for the text, based on y value for the bar, and bar height formula to place it in the center
+         * of the bar
+         * @returns the y value for the text
+         */
+        const getY=()=>y+barHeight/2+barHeight/4
+        
+        return (
+            <text 
+                x={getX()}
+                y={getY()}
+                textAnchor='start'
+                fontSize={Theme.font.size.small} 
+                fontWeight='bold'
+                color={MainTheme.colors.text}
+            >
+                {value} 
+                &nbsp;
+                {unit}
+            </text>
+        )
+    }
     ,[unit])
 
     /**
@@ -99,22 +102,27 @@ export const HorizontalBarChart:React.FC<IHorizontalBarChartProps>=({data,header
         return result
     },[data])
 
+    /**
+     * this renders bars each one of a specific color
+     */
+    const renderCells=useCallback(()=>(
+        data.map((entry, index) => (
+            <Cell key={entry.label} fill={colors[index]} />
+        ))
+    ),[colors,data])
+
     return (   
-        <RootContainer width={width}>
+        <RootContainer {...props}>
             <HeaderContainer>
                 <Paragraph size='h6' bold>{header}</Paragraph>
             </HeaderContainer>
             <BottomContainer>
                 <ChartContainer>
-                    <BarChart width={chartWidth} height={chartHeight} data={data} layout='vertical' {...getChartOptionalProperties()}>
+                    <BarChart width={chartWidth} height={chartHeight} data={data} layout='vertical' margin={margin}>
                         <YAxis dataKey='label' type='category' tickLine={false} tick={<CustomizedAxisTick />} axisLine={{stroke:IS_TOTAL_COLOR}} />
                         <XAxis hide type='number' dataKey='value' />
                         <Bar dataKey='value' barSize={BAR_SIZE} label={<BarLabel />}>
-                            {
-                                data.map((entry, index) => (
-                                    <Cell key={entry.label} fill={colors[index]} />
-                                ))
-                            }
+                            {renderCells()}
                         </Bar>
                     </BarChart>
                 </ChartContainer>
