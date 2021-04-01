@@ -66,3 +66,4 @@ export * from './ReservationSideBar/ReservationSideBar';
 export * from './FeatureDisplay/FeatureDisplay';
 export * from './NutritionFact/NutritionFact';
 export * from './SankeyChart/SankeyChart';
+export * from './HorizontalBarChart/HorizontalBarChart';
