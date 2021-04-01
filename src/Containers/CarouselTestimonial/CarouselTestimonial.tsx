@@ -29,7 +29,7 @@ export const CarouselTestimonial: React.FC<ICarouselTestimonialProps> = ({
                 {carouselTitle}
             </TitleDiv>
             <ImageDiv key={carouselImage}>
-                <img src={carouselImage} />
+                <img src={carouselImage} alt='' />
             </ImageDiv>
             <ReviewTextDiv>
                 {review.testimony}
