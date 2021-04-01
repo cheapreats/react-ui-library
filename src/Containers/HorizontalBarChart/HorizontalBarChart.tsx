@@ -18,23 +18,24 @@ const BAR_SIZE=20
 interface IDataItem{
     label:string;
     value:number;
-    isTotal:boolean;
+    isComparedAgainst?:boolean;
 }
 
 interface IChartProperties{
     margin?:object;
     data:IDataItem[];
-    unit:string;
 }
 
-export interface IHorizontalBarChartProps extends IChartProperties{
+export interface IHorizontalBarChartProps{
     header:string;
     summaryHeader:string;
     summaryDescription:string;
     width?:number;
+    chartProperties:IChartProperties;
+    unit:string;
 }
 
-export const HorizontalBarChart:React.FC<IHorizontalBarChartProps>=({data,header,summaryHeader,summaryDescription,margin,unit,...props}):React.ReactElement=>{
+export const HorizontalBarChart:React.FC<IHorizontalBarChartProps>=({chartProperties,header,summaryHeader,summaryDescription,unit,...props}):React.ReactElement=>{
     const [chartWidth,setChartWidth]=useState<number>()
     const [chartHeight,setChartHeight]=useState<number>()
 
@@ -57,28 +58,25 @@ export const HorizontalBarChart:React.FC<IHorizontalBarChartProps>=({data,header
          * this computes the x value for the text, based on x value of the bar, its width (bar width) and a little margin
          * @returns the x value for the text
          */
-        const getX=()=>x+barWidth+BAR_LABEL_LEFT_MARGIN
+        const getPositionXForText=()=>x+barWidth+BAR_LABEL_LEFT_MARGIN
 
         /**
          * this computes the y value for the text, based on y value for the bar, and bar height formula to place it in the center
          * of the bar
          * @returns the y value for the text
          */
-        const getY=()=>y+barHeight/2+barHeight/4
+        const getCenterOfBarYValue =()=>y+barHeight/2+barHeight/4
         
         return (
-            <text 
-                x={getX()}
-                y={getY()}
+            <TextLabel 
+                x={getPositionXForText()}
+                y={getCenterOfBarYValue()}
                 textAnchor='start'
-                fontSize={Theme.font.size.small} 
-                fontWeight='bold'
-                color={MainTheme.colors.text}
             >
                 {value} 
                 &nbsp;
                 {unit}
-            </text>
+            </TextLabel>
         )
     }
     ,[unit])
@@ -88,10 +86,10 @@ export const HorizontalBarChart:React.FC<IHorizontalBarChartProps>=({data,header
      */
     const colors=useMemo(()=>{
         const result:string[]=[]
-        const isTotalValue=data.find((entry)=>entry.isTotal)?.value
+        const isTotalValue=chartProperties.data.find((entry)=>entry.isComparedAgainst)?.value
         if(isTotalValue)
-            data.forEach(entry=>{
-                if(entry.isTotal)
+            chartProperties.data.forEach(entry=>{
+                if(entry.isComparedAgainst)
                     result.push(IS_TOTAL_COLOR)
                 else if(entry.value<=isTotalValue+GREEN_COLOR_MARGIN)
                     result.push(MainTheme.colors.statusColors.green)
@@ -100,16 +98,16 @@ export const HorizontalBarChart:React.FC<IHorizontalBarChartProps>=({data,header
                 else result.push(MainTheme.colors.statusColors.red)
             })
         return result
-    },[data])
+    },[chartProperties.data])
 
     /**
      * this renders bars each one of a specific color
      */
     const renderCells=useCallback(()=>(
-        data.map((entry, index) => (
+        chartProperties.data.map((entry, index) => (
             <Cell key={entry.label} fill={colors[index]} />
         ))
-    ),[colors,data])
+    ),[colors,chartProperties.data])
 
     return (   
         <RootContainer {...props}>
@@ -118,7 +116,8 @@ export const HorizontalBarChart:React.FC<IHorizontalBarChartProps>=({data,header
             </HeaderContainer>
             <BottomContainer>
                 <ChartContainer>
-                    <BarChart width={chartWidth} height={chartHeight} data={data} layout='vertical' margin={margin}>
+                    {/* chart width and chart height are expected to be numbers, not strings */}
+                    <BarChart width={chartWidth} height={chartHeight} layout='vertical' {...chartProperties}>
                         <YAxis dataKey='label' type='category' tickLine={false} tick={<CustomizedAxisTick />} axisLine={{stroke:IS_TOTAL_COLOR}} />
                         <XAxis hide type='number' dataKey='value' />
                         <Bar dataKey='value' barSize={BAR_SIZE} label={<BarLabel />}>
@@ -174,3 +173,8 @@ const CustomizedAxisTick =({payload,...other}:any)=>(
     <Text {...other} fontWeight='bold' fontSize={Theme.font.size.small}>{payload.value}</Text>
 )
 
+const TextLabel=styled.text`
+font-size:${Theme.font.size.small}; 
+font-weight:bold;
+color:${MainTheme.colors.text};
+`
