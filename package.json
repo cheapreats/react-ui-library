@@ -107,7 +107,7 @@
         "@typescript-eslint/eslint-plugin": "^4.11.0",
         "@typescript-eslint/parser": "^4.11.0",
         "@zerollup/ts-transform-paths": "^1.7.18",
-        "babel-plugin-recharts": "^1.2.1",
+        "babel-plugin-recharts": "^2.0.0",
         "babel-plugin-styled-components": "^1.12.0",
         "babel-plugin-transform-class-properties": "^6.24.1",
         "babel-runtime": "^6.26.0",
