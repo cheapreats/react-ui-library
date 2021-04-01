@@ -1,5 +1,5 @@
 import React,{useRef, useState,useLayoutEffect,useCallback,useMemo} from 'react'
-import {Sankey,Margin,Rectangle} from 'recharts'
+import {Sankey,Rectangle} from 'recharts'
 import styled from 'styled-components'
 import Theme from '../../Themes/ThemeTemplate'
 
@@ -10,9 +10,16 @@ const LINK_COLOR='#77c878'
 const NODE_COLOR='#0088fe'
 const NODE_OPACITY=0.8
 
+interface IMargin {
+    top?: number;
+    right?: number;
+    bottom?: number;
+    left?: number;
+}
+
 interface ISankeyChartOptionalProperties{
     nodePadding?:number;
-    margin?:Partial<Margin>;
+    margin?:Partial<IMargin>;
     nodeColor?:string;
     linkColor?:string;
 }
