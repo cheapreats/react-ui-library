@@ -67,3 +67,4 @@ export * from './FeatureDisplay/FeatureDisplay';
 export * from './CarouselTestimonial/CarouselTestimonial';
 export * from './NutritionFact/NutritionFact';
 export * from './SankeyChart/SankeyChart';
+export * from './HorizontalBarChart/HorizontalBarChart';
