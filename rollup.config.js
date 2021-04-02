@@ -1,6 +1,6 @@
 import tsPlugin from 'rollup-plugin-typescript2';
 import ttypescript from 'ttypescript';
-import babel from 'rollup-plugin-babel';
+import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import { nodeResolve } from '@rollup/plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
@@ -29,6 +29,7 @@ export default {
             typescript: ttypescript,
             tsconfig: './tsconfig.json',
             include: ['*.ts+(|x)', '**/*.ts+(|x)'],
+            exclude: [ "*.d.ts", "**/*.d.ts", "node_modules/**", "__tests__", ".vscode", ".github" ],
             tsconfigOverride: { compilerOptions: { module: 'es2015' } },
             tsconfigDefaults: {
                 compilerOptions: {
