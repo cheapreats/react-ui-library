@@ -43,9 +43,7 @@ export const CarouselTestimonial: React.FC<ICarouselTestimonialProps> = ({
     /**
      * Returns JSX elements of all carousel items
      */
-    const getCarousel = () => {
-        return reviews.map((review: any) => getCarouselItem(review));
-    };
+    const getCarousel = () => reviews.map((review: any) => getCarouselItem(review));
     return (
         <Carousel
             autoPlay={isAutoplaying}
