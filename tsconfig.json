@@ -41,5 +41,5 @@
         }
     },
     "include": ["src/**/*", "__tests__"],
-    "exclude": ["node_modules", "**/.*/", "../src/**/*.stories.@(js|mdx|tsx|ts|jsx)", "scripts", "dist"]
+    "exclude": ["node_modules", "**/.*/", "../src/**/*.stories.@(js|mdx|tsx|ts|jsx)", "scripts", "dist", "*.d.ts", "**/*.d.ts"]
 }
