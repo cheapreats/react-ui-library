@@ -94,6 +94,7 @@
     ],
     "dependencies": {
         "@babel/preset-typescript": "^7.12.7",
+        "@here/maps-api-for-javascript": "^1.24.0",
         "@rollup/plugin-commonjs": "^17.0.0",
         "@rollup/plugin-json": "^4.1.0",
         "@rollup/plugin-node-resolve": "^11.0.1",

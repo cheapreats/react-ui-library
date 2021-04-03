@@ -1,17 +1,19 @@
-import React,{useState} from 'react'
+import React,{useState,useRef} from 'react'
 import styled from 'styled-components'
 import {MainTheme} from '@Themes'
 import {Paragraph} from '@Text/Paragraph'
 import Theme from '@Themes/ThemeTemplate'
 import S from 'rc-slider'
-import 'rc-slider/assets/index.css';
+import 'rc-slider/assets/index.css'
 import {Mixins} from '@Utils'
+import {useMap} from '@Utils/Hooks'
 
 const SLIDER_MARK_SIZE='0.65rem'
 const DECIMAL_BASE=10
 const TIMES_THEME_CONTAINER_PADDING=3
 const TIMES_THEME_CONTAINER_PADDING_BIS=2
 const TIMES_H1_FONT_SIZE=2
+const MAP_ASPECT_RATIO=2.5/4
 
 interface ISliderProps{
     min?:number;
@@ -21,7 +23,7 @@ interface ISliderProps{
 export interface IDeliveryRadiusProps{
     title:string;
     description:string;
-    width:string|number;
+    width:number;
     leftMarkContent:string;
     rightMarkContent:string;
     sliderProps?:ISliderProps;
@@ -30,14 +32,22 @@ export interface IDeliveryRadiusProps{
 
 export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({width,title,description,leftMarkContent,rightMarkContent,sliderProps,unit}):React.ReactElement=>{
     const [sliderValue,setSliderValue]=useState(sliderProps?.min??0)
+    const mapContainer=useRef<HTMLDivElement>(null)
+
+    const mapApikey='gSSgDhU5omF7RhwKqsy_EenuqNgG24F9pIRck2Dkiu0'
+    const mapCenter={lat:50,lng:5}
+    const mapZoom=4
+
+    useMap(mapContainer,mapApikey,mapCenter,mapZoom)
 
     const updateSliderValue=(value:number)=>{
         setSliderValue(value)
     }
 
     return (
-        <RootContainer>
-            <BottomPanel width={width}>
+        <RootContainer width={width}>
+            <TopPanel height={width*MAP_ASPECT_RATIO} ref={mapContainer} />
+            <BottomPanel>
                 <Paragraph size='h1' bold>{title}</Paragraph>
                 <Paragraph size='small' bold>{description}</Paragraph>
                 <SliderContainer>
@@ -79,54 +89,32 @@ export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({width,title,descrip
 }
 
 interface IRootContainerProps{
-    width?:string|number;
-    padding?:string;
+    width:number;
 }
 
 const RootContainer=styled.div<IRootContainerProps>`
 border-radius:${Theme.dimensions.radius};
-${({padding}):string=>`
-${padding?`padding:${padding};`:''}
-`}
-${({width}):string=>{
-        if(width!==undefined)
-            switch(typeof(width)){
-            case'number':
-                return `width:${width}px;`
-            case'string':
-                return `width:${width};`
-            default:
-                return ''
-            }
-        return 'width:fit-content;'
-    }}
+${({width}):string=>`width:${width}px;`}
 `
 
-interface IBottomPanelProps{
-    width?:string|number;
-}
-
-const BottomPanel=styled.div<IBottomPanelProps>`
+const BottomPanel=styled.div`
 background-color:${MainTheme.colors.background};
-${({width}):string=>{
-        if(width!==undefined)
-            switch(typeof(width)){
-            case'number':
-                return `width:${width}px;`
-            case'string':
-                return `width:${width};`
-            default:
-                return ''
-            }
-        return ''
-    }}
 padding:${Theme.dimensions.padding.container} ${Theme.dimensions.padding.container} ${parseInt(Theme.dimensions.padding.container as string,DECIMAL_BASE)*TIMES_THEME_CONTAINER_PADDING_BIS}px ${Theme.dimensions.padding.container};
 border-radius:0 0 ${Theme.dimensions.radius} ${Theme.dimensions.radius};
 `
 
-interface ISliderContainerProps{}
+interface ITopPanelProps{
+    height:number;
+}
 
-const SliderContainer=styled.div<ISliderContainerProps>`
+const TopPanel=styled.div<ITopPanelProps>`
+    ${({height}):string=>`height:${height}px;`}
+border-radius:${Theme.dimensions.radius} ${Theme.dimensions.radius} 0 0;
+border:2px solid ${MainTheme.colors.occupancyStatusColors.Occupied};
+overflow:hidden;
+`
+
+const SliderContainer=styled.div`
 padding:${parseInt(Theme.dimensions.padding.container as string,DECIMAL_BASE)*TIMES_THEME_CONTAINER_PADDING}px;
 ${Mixins.flex('column','center','center')}
 `
