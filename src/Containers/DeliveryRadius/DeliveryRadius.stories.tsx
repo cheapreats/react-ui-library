@@ -13,6 +13,8 @@ export default {
         leftMarkContent:'No Delivery',
         rightMarkContent:'Unlimited',
         unit:'km',
+        mapCoordinates:{lat:37.773972,lng:-122.431297},
+        mapZoom:10,
     },
 } as Meta;
 

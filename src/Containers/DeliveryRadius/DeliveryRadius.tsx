@@ -20,6 +20,11 @@ interface ISliderProps{
     max?:number;
 }
 
+interface IMapCoordinates{
+    lat:number;
+    lng:number;
+}
+
 export interface IDeliveryRadiusProps{
     title:string;
     description:string;
@@ -28,17 +33,17 @@ export interface IDeliveryRadiusProps{
     rightMarkContent:string;
     sliderProps?:ISliderProps;
     unit:string;
+    mapCoordinates:IMapCoordinates;
+    mapZoom:number;
 }
 
-export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({width,title,description,leftMarkContent,rightMarkContent,sliderProps,unit}):React.ReactElement=>{
+export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({width,title,description,leftMarkContent,rightMarkContent,sliderProps,unit,mapCoordinates,mapZoom}):React.ReactElement=>{
     const [sliderValue,setSliderValue]=useState(sliderProps?.min??0)
+
     const mapContainer=useRef<HTMLDivElement>(null)
-
     const mapApikey='gSSgDhU5omF7RhwKqsy_EenuqNgG24F9pIRck2Dkiu0'
-    const mapCenter={lat:50,lng:5}
-    const mapZoom=4
 
-    useMap(mapContainer,mapApikey,mapCenter,mapZoom)
+    useMap(mapContainer,mapApikey,mapCoordinates,mapZoom)
 
     const updateSliderValue=(value:number)=>{
         setSliderValue(value)
