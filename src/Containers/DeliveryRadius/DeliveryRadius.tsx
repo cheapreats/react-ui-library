@@ -57,7 +57,7 @@ export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({componentWidth,titl
     const mapContainer=useRef<HTMLDivElement>(null)
 
     const map= useMap(mapContainer,MAP_API_KEY,mapCoordinates,mapZoom)
-    const mapMarker= useMapMarker(map,mapCoordinates,<Icon as={LocationCurrent} height={MAP_MARK_ICON_HEIGHT} />)
+    useMapMarker(map,mapCoordinates,<Icon as={LocationCurrent} height={MAP_MARK_ICON_HEIGHT} />)
     const mapCircle= useMapCircle(map,mapCoordinates,sliderValue,unit)
 
     /**
