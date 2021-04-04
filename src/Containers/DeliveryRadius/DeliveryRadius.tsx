@@ -112,7 +112,7 @@ interface IRootContainerProps{
 
 const RootContainer=styled.div<IRootContainerProps>`
 border-radius:${Theme.dimensions.radius};
-${({width}):string=>`width:${width}px;`}
+width:${({width}):string=>`${width}`}px;
 `
 
 const BottomPanel=styled.div`

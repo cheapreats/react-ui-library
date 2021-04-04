@@ -1,4 +1,4 @@
-import React, {useEffect,useRef,MutableRefObject} from 'react'
+import React, {useEffect,useRef,MutableRefObject,useLayoutEffect} from 'react'
 import {renderToString} from 'react-dom/server';
 import H from "@here/maps-api-for-javascript"
 
@@ -19,15 +19,16 @@ export const useMap=(mapContainer:React.RefObject<HTMLDivElement>,apikey:string,
     const mapInstance=useRef<H.Map>()
     const platform=useRef<H.service.Platform>()
     
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         if(!platform.current)
             platform.current = new H.service.Platform({
                 apikey
             })
     
-        const defaultLayers = platform.current.createDefaultLayers();
-    
-        if(!mapInstance.current&&mapContainer.current?.clientWidth)
+            
+        if(!mapInstance.current&&mapContainer.current?.clientWidth){
+            const defaultLayers = platform.current.createDefaultLayers();
+
             mapInstance.current=new H.Map(
                 mapContainer.current,
                 defaultLayers.vector.normal.map,
@@ -37,6 +38,10 @@ export const useMap=(mapContainer:React.RefObject<HTMLDivElement>,apikey:string,
                     pixelRatio: window.devicePixelRatio || 1
                 }
             )
+
+            const ui = H.ui.UI.createDefault(mapInstance.current, defaultLayers)
+            ui?.removeControl('mapsettings')
+        }
 
         return ()=>{
             if(mapInstance.current) {
@@ -56,7 +61,7 @@ export const useMap=(mapContainer:React.RefObject<HTMLDivElement>,apikey:string,
  * @param element {React.ReactElement} - the rendered react element which is the mark
  */
 export const useMapMarker=(map:MutableRefObject<H.Map | undefined>,mapCoordinates:ICenterMap,element:React.ReactElement):void=>{
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         if(map.current){
             const icon = new H.map.DomIcon(renderToString(element))
             const marker = new H.map.DomMarker(mapCoordinates, {icon,data:{}})
@@ -74,7 +79,7 @@ export const useMapMarker=(map:MutableRefObject<H.Map | undefined>,mapCoordinate
  * @param unit {number} - the number of meters of the unit used in value
  */
 export const useMapCircle=(map:MutableRefObject<H.Map | undefined>,mapCoordinates:ICenterMap,value:number,unit:number):void=>{
-    useEffect(()=>{
+    useLayoutEffect(()=>{
         let circle:H.map.Circle
         if(map.current){
             // Instantiate a circle object (using the default style):

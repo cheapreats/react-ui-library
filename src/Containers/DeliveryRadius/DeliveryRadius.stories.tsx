@@ -9,7 +9,7 @@ export default {
     args:{
         title:'Delivery Radius',
         description:'Set your Delivery Radius, for how far away you would like the delivery option to be available for your customers',
-        componentWidth:600,
+        componentWidth:400,
         leftMarkContent:'No Delivery',
         rightMarkContent:'Unlimited',
         unit: DistanceUnit.km,
