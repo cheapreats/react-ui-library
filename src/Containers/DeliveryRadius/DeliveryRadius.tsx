@@ -15,6 +15,9 @@ const TIMES_THEME_CONTAINER_PADDING=3
 const TIMES_THEME_CONTAINER_PADDING_BIS=2
 const TIMES_H1_FONT_SIZE=2
 const MAP_ASPECT_RATIO=2.5/4
+const STATUS_COLORS_RED='#ee2434'
+const MAP_MARK_ICON_HEIGHT=20
+const MAP_API_KEY='gSSgDhU5omF7RhwKqsy_EenuqNgG24F9pIRck2Dkiu0'
 
 export enum DistanceUnit{
     km=1000,
@@ -34,7 +37,7 @@ interface IMapCoordinates{
 export interface IDeliveryRadiusProps{
     title:string;
     description:string;
-    width:number;
+    componentWidth:number;
     leftMarkContent:string;
     rightMarkContent:string;
     sliderProps?:ISliderProps;
@@ -43,14 +46,13 @@ export interface IDeliveryRadiusProps{
     mapZoom:number;
 }
 
-export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({width,title,description,leftMarkContent,rightMarkContent,sliderProps,unit,mapCoordinates,mapZoom}):React.ReactElement=>{
-    const [sliderValue,setSliderValue]=useState(sliderProps?.min??0)
+export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({componentWidth,title,description,leftMarkContent,rightMarkContent,sliderProps,unit,mapCoordinates,mapZoom}):React.ReactElement=>{
+    const [sliderValue,setSliderValue]=useState(sliderProps?.min ?? 0)
 
     const mapContainer=useRef<HTMLDivElement>(null)
-    const mapApikey='gSSgDhU5omF7RhwKqsy_EenuqNgG24F9pIRck2Dkiu0'
 
-    const map= useMap(mapContainer,mapApikey,mapCoordinates,mapZoom)
-    useMapMarker(map,mapCoordinates,<Icon as={LocationCurrent} />)
+    const map= useMap(mapContainer,MAP_API_KEY,mapCoordinates,mapZoom)
+    useMapMarker(map,mapCoordinates,<Icon as={LocationCurrent} height={MAP_MARK_ICON_HEIGHT} />)
     useMapCircle(map,mapCoordinates,sliderValue,unit)
 
     const updateSliderValue=(value:number)=>{
@@ -59,8 +61,8 @@ export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({width,title,descrip
 
     return (
         <>
-            <RootContainer width={width}>
-                <TopPanel height={width*MAP_ASPECT_RATIO} ref={mapContainer} />
+            <RootContainer width={componentWidth}>
+                <TopPanel height={componentWidth*MAP_ASPECT_RATIO} ref={mapContainer} />
                 <BottomPanel>
                     <Paragraph size='h1' bold>{title}</Paragraph>
                     <Paragraph size='small' bold>{description}</Paragraph>
@@ -143,10 +145,17 @@ const Slider=styled(S)`
 margin:${Theme.dimensions.padding.container};
 `
 
-const Icon = styled.svg`
-    height: 25px;
-    margin: 10px;
+interface IIconProps{
+    height:number;
+}
+
+const Icon = styled.svg<IIconProps>`
+${({height}):string=>`
+height: ${height}px;
+margin-top: -${height/2}px;
+margin-left:-${height/2}px;
+`}
     ${({ theme }) => `
-        color: ${theme.colors?.statusColors.red||'#ee2434'};
+        color: ${theme.colors?.statusColors.red||STATUS_COLORS_RED};
     `}
 `
