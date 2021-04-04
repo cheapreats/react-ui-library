@@ -43,12 +43,15 @@ export interface IDeliveryRadiusProps{
     leftMarkContent:string;
     rightMarkContent:string;
     sliderProps?:ISliderProps;
+    sliderHandleStyle?:React.CSSProperties | undefined;
+    sliderTrackStyle?:React.CSSProperties | undefined;
+    sliderRailStyle?:React.CSSProperties | undefined;
     unit:DistanceUnit;
     mapCoordinates:IMapCoordinates;
     mapZoom:number;
 }
 
-export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({componentWidth,title,description,leftMarkContent,rightMarkContent,sliderProps,unit,mapCoordinates,mapZoom}):React.ReactElement=>{
+export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({componentWidth,title,description,leftMarkContent,rightMarkContent,sliderProps,sliderHandleStyle,sliderTrackStyle,sliderRailStyle,unit,mapCoordinates,mapZoom}):React.ReactElement=>{
     const [sliderValue,setSliderValue]=useState(sliderProps?.min ?? 0)
 
     const mapContainer=useRef<HTMLDivElement>(null)
@@ -85,19 +88,9 @@ export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({componentWidth,titl
                             {DistanceUnit[unit]}
                         </SliderValue>
                         <Slider 
-                            handleStyle={{
-                                height: 56,
-                                width: 56,
-                                marginTop: -26,
-                                backgroundColor: MainTheme.colors.text,
-                                border: 0
-                            }}
-                            trackStyle={{
-                                background: 'none'
-                            }}
-                            railStyle={{
-                                backgroundColor:MainTheme.colors.text
-                            }}
+                            handleStyle={sliderHandleStyle}
+                            trackStyle={sliderTrackStyle}
+                            railStyle={sliderRailStyle}
                             marks={{
                                 [sliderProps?.min||0]:<Paragraph size={SLIDER_MARK_SIZE} bold>{leftMarkContent}</Paragraph>,
                                 [sliderProps?.max||100]:<Paragraph size={SLIDER_MARK_SIZE} bold>{rightMarkContent}</Paragraph>,

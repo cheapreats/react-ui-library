@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import {MainTheme} from '@Themes'
 import { DeliveryRadius, IDeliveryRadiusProps, DistanceUnit } from './DeliveryRadius';
 import { createStoryTitle } from '../../Constants';
 
@@ -18,6 +19,19 @@ export default {
         sliderProps:{
             min:0,
             max:8
+        },
+        sliderHandleStyle:{
+            height: 56,
+            width: 56,
+            marginTop: -26,
+            backgroundColor: MainTheme.colors.text,
+            border: 0
+        },
+        sliderTrackStyle:{
+            background: 'none'
+        },
+        sliderRailStyle:{
+            backgroundColor:MainTheme.colors.text
         }
     },
 } as Meta;
