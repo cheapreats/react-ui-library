@@ -1,4 +1,4 @@
-import React, {useEffect,useRef,MutableRefObject,useLayoutEffect} from 'react'
+import React, {useRef,MutableRefObject,useLayoutEffect} from 'react'
 import {renderToString} from 'react-dom/server';
 import H from "@here/maps-api-for-javascript"
 
@@ -38,9 +38,6 @@ export const useMap=(mapContainer:React.RefObject<HTMLDivElement>,apikey:string,
                     pixelRatio: window.devicePixelRatio || 1
                 }
             )
-
-            const ui = H.ui.UI.createDefault(mapInstance.current, defaultLayers)
-            ui?.removeControl('mapsettings')
         }
 
         return ()=>{
@@ -59,16 +56,27 @@ export const useMap=(mapContainer:React.RefObject<HTMLDivElement>,apikey:string,
  * @param map {MutableRefObject<H.Map | undefined>} - the map instance reference
  * @param mapCoordinates {ICenterMap} - the coordinates on the map where to place the mark
  * @param element {React.ReactElement} - the rendered react element which is the mark
+ * @returns {React.MutableRefObject<H.map.DomMarker | undefined>} a reference to the marker
  */
-export const useMapMarker=(map:MutableRefObject<H.Map | undefined>,mapCoordinates:ICenterMap,element:React.ReactElement):void=>{
+export const useMapMarker=(map:MutableRefObject<H.Map | undefined>,mapCoordinates:ICenterMap,element:React.ReactElement):React.MutableRefObject<H.map.DomMarker | undefined>=>{
+    const marker=useRef<H.map.DomMarker>()
+
     useLayoutEffect(()=>{
-        if(map.current){
+        if(map.current&&!marker.current){
             const icon = new H.map.DomIcon(renderToString(element))
-            const marker = new H.map.DomMarker(mapCoordinates, {icon,data:{}})
-            map.current.addObject(marker);
+            marker.current = new H.map.DomMarker(mapCoordinates, {icon,data:{}})
+            map.current.addObject(marker.current);
             map.current.setCenter(mapCoordinates);
         }
+        return ()=>{
+            if(marker.current){
+                marker.current.dispose()
+                marker.current=undefined
+            }
+        }
     },[mapCoordinates,map.current])
+
+    return marker
 }
 
 /**
@@ -77,18 +85,21 @@ export const useMapMarker=(map:MutableRefObject<H.Map | undefined>,mapCoordinate
  * @param mapCoordinates {ICenterMap} - the coordinates in the map of the center of the circle
  * @param value {number} - the radius of the circle
  * @param unit {number} - the number of meters of the unit used in value
+ * @returns {React.MutableRefObject<H.map.Circle | undefined>} a reference to the circle
  */
-export const useMapCircle=(map:MutableRefObject<H.Map | undefined>,mapCoordinates:ICenterMap,value:number,unit:number):void=>{
+export const useMapCircle=(map:MutableRefObject<H.Map | undefined>,mapCoordinates:ICenterMap,value:number,unit:number):React.MutableRefObject<H.map.Circle | undefined>=>{
+    const circle=useRef<H.map.Circle>()
     useLayoutEffect(()=>{
-        let circle:H.map.Circle
-        if(map.current){
-            // Instantiate a circle object (using the default style):
-            circle = new H.map.Circle(mapCoordinates, value*unit);
-            // Add the circle to the map:
-            map.current.addObject(circle);
+        if(map.current&&!circle.current){
+            circle.current = new H.map.Circle(mapCoordinates, value*unit)
+            map.current.addObject(circle.current)
         }
         return ()=>{
-            if(circle) circle.dispose()
+            if(circle.current){
+                circle.current.dispose()
+                circle.current=undefined
+            } 
         }
     },[map.current,mapCoordinates,value,unit])
+    return circle
 }

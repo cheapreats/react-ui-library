@@ -1,4 +1,4 @@
-import React,{useState,useRef} from 'react'
+import React,{useState,useRef, useEffect} from 'react'
 import styled from 'styled-components'
 import {MainTheme} from '@Themes'
 import {Paragraph} from '@Text/Paragraph'
@@ -52,8 +52,18 @@ export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({componentWidth,titl
     const mapContainer=useRef<HTMLDivElement>(null)
 
     const map= useMap(mapContainer,MAP_API_KEY,mapCoordinates,mapZoom)
-    useMapMarker(map,mapCoordinates,<Icon as={LocationCurrent} height={MAP_MARK_ICON_HEIGHT} />)
-    useMapCircle(map,mapCoordinates,sliderValue,unit)
+    const mapMarker= useMapMarker(map,mapCoordinates,<Icon as={LocationCurrent} height={MAP_MARK_ICON_HEIGHT} />)
+    const mapCircle= useMapCircle(map,mapCoordinates,sliderValue,unit)
+
+    /**
+     * this sets the zoom automatically to fetch dimensions of the circle, based on the value of the slider
+     */
+    useEffect(()=>{
+        const mapCircleBoundingBox=mapCircle.current?.getBoundingBox()
+        map.current?.getViewModel().setLookAtData({
+            bounds: mapCircleBoundingBox
+        })
+    },[sliderValue])
 
     const updateSliderValue=(value:number)=>{
         setSliderValue(value)
