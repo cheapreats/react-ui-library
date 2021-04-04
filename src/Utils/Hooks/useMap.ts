@@ -19,12 +19,14 @@ export const useMap=(mapContainer:React.RefObject<HTMLDivElement>,apikey:string,
     const mapInstance=useRef<H.Map>()
     const platform=useRef<H.service.Platform>()
     
+    /**
+     * this creates a new instance of a map, with the specified coordinates and zoom level
+     */
     useLayoutEffect(()=>{
         if(!platform.current)
             platform.current = new H.service.Platform({
                 apikey
             })
-    
             
         if(!mapInstance.current&&mapContainer.current?.clientWidth){
             const defaultLayers = platform.current.createDefaultLayers();
@@ -61,6 +63,9 @@ export const useMap=(mapContainer:React.RefObject<HTMLDivElement>,apikey:string,
 export const useMapMarker=(map:MutableRefObject<H.Map | undefined>,mapCoordinates:ICenterMap,element:React.ReactElement):React.MutableRefObject<H.map.DomMarker | undefined>=>{
     const marker=useRef<H.map.DomMarker>()
 
+    /**
+     * this adds a marker to the map in the specified coordinates
+     */
     useLayoutEffect(()=>{
         if(map.current&&!marker.current){
             const icon = new H.map.DomIcon(renderToString(element))
@@ -89,6 +94,10 @@ export const useMapMarker=(map:MutableRefObject<H.Map | undefined>,mapCoordinate
  */
 export const useMapCircle=(map:MutableRefObject<H.Map | undefined>,mapCoordinates:ICenterMap,value:number,unit:number):React.MutableRefObject<H.map.Circle | undefined>=>{
     const circle=useRef<H.map.Circle>()
+
+    /**
+     * this adds a circle to the map in the specified coordinates with the specified radius (parameter value)
+     */
     useLayoutEffect(()=>{
         if(map.current&&!circle.current){
             circle.current = new H.map.Circle(mapCoordinates, value*unit)
@@ -101,5 +110,6 @@ export const useMapCircle=(map:MutableRefObject<H.Map | undefined>,mapCoordinate
             } 
         }
     },[map.current,mapCoordinates,value,unit])
+
     return circle
 }

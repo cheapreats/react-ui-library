@@ -18,6 +18,8 @@ const MAP_ASPECT_RATIO=2.5/4
 const STATUS_COLORS_RED='#ee2434'
 const MAP_MARK_ICON_HEIGHT=20
 const MAP_API_KEY='gSSgDhU5omF7RhwKqsy_EenuqNgG24F9pIRck2Dkiu0'
+const PERCENTAGE_FACTOR=100
+const DEFAULT_SLIDER_STEP=1
 
 export enum DistanceUnit{
     km=1000,
@@ -105,7 +107,7 @@ export const DeliveryRadius:React.FC<IDeliveryRadiusProps>=({componentWidth,titl
                                 height:0,
                                 border:0
                             }}
-                            step={sliderProps?(sliderProps.max-sliderProps.min)/100:1}
+                            step={sliderProps?(sliderProps.max-sliderProps.min)/PERCENTAGE_FACTOR:DEFAULT_SLIDER_STEP}
                             onChange={updateSliderValue}
                             {...sliderProps}
                         />
