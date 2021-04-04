@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DeliveryRadius, IDeliveryRadiusProps, } from './DeliveryRadius';
+import { DeliveryRadius, IDeliveryRadiusProps, DistanceUnit } from './DeliveryRadius';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -12,9 +12,13 @@ export default {
         width:600,
         leftMarkContent:'No Delivery',
         rightMarkContent:'Unlimited',
-        unit:'km',
+        unit: DistanceUnit.km,
         mapCoordinates:{lat:37.773972,lng:-122.431297},
-        mapZoom:10,
+        mapZoom:12,
+        sliderProps:{
+            min:0,
+            max:8
+        }
     },
 } as Meta;
 

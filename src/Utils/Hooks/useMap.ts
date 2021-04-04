@@ -1,4 +1,5 @@
-import {useEffect,useRef} from 'react'
+import React, {useEffect,useRef,MutableRefObject} from 'react'
+import {renderToString} from 'react-dom/server';
 import H from "@here/maps-api-for-javascript"
 
 interface ICenterMap{
@@ -6,7 +7,7 @@ interface ICenterMap{
     lng:number;
 }
 
-export const useMap=(mapContainer:React.RefObject<HTMLDivElement>,apikey:string,center:ICenterMap,zoom:number):void=> {
+export const useMap=(mapContainer:React.RefObject<HTMLDivElement>,apikey:string,center:ICenterMap,zoom:number):MutableRefObject<H.Map | undefined>=> {
     const mapInstance=useRef<H.Map>()
     
     useEffect(()=>{
@@ -33,4 +34,32 @@ export const useMap=(mapContainer:React.RefObject<HTMLDivElement>,apikey:string,
             if(mapInstance.current) mapInstance.current.dispose()
         }
     },[]) 
+
+    return mapInstance
+}
+
+export const useMapMarker=(map:MutableRefObject<H.Map | undefined>,mapCoordinates:ICenterMap,element:React.ReactElement):void=>{
+    useEffect(()=>{
+        if(map.current){
+            const icon = new H.map.DomIcon(renderToString(element))
+            const marker = new H.map.DomMarker(mapCoordinates, {icon,data:{}})
+            map.current.addObject(marker);
+            map.current.setCenter(mapCoordinates);
+        }
+    },[mapCoordinates,map.current])
+}
+
+export const useMapCircle=(map:MutableRefObject<H.Map | undefined>,mapCoordinates:ICenterMap,value:number,unit:number):void=>{
+    useEffect(()=>{
+        let circle:H.map.Circle
+        if(map.current){
+            // Instantiate a circle object (using the default style):
+            circle = new H.map.Circle(mapCoordinates, value*unit);
+            // Add the circle to the map:
+            map.current.addObject(circle);
+        }
+        return ()=>{
+            if(circle) circle.dispose()
+        }
+    },[map.current,mapCoordinates,value,unit])
 }
