@@ -11,10 +11,8 @@ module.exports = {
         'airbnb',
         'plugin:@typescript-eslint/recommended',
         'plugin:import/errors',
-        'plugin:import/warnings',
         'plugin:import/typescript',
         'prettier',
-        'prettier/@typescript-eslint',
     ],
     globals: {
         Atomics: 'readonly',
