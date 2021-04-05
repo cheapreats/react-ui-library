@@ -1,13 +1,8 @@
 import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
 import styled from 'styled-components';
 import { CircleNotch } from '@styled-icons/fa-solid/CircleNotch';
-import {
-    Main,
-    MainInterface,
-    Responsive,
-    ResponsiveInterface,
-} from '@Utils/BaseStyles';
-import { transition, clickable, position, flex } from '@Utils/Mixins';
+import { Main, MainInterface, Responsive, ResponsiveInterface } from '@Utils/BaseStyles';
+import { clickable, flex, position, transition } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 
 export interface ButtonProps

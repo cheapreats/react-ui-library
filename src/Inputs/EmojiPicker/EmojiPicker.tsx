@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'emoji-mart/css/emoji-mart.css';
-import { Picker, BaseEmoji } from 'emoji-mart';
+import { BaseEmoji, Picker } from 'emoji-mart';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
@@ -25,7 +25,7 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
     return (
         <>
             <Button onClick={(): void => modal[1](true)}>{text}</Button>
-            <ModalStyled width="auto" state={modal}>
+            <ModalStyled width='auto' state={modal}>
                 <Picker
                     onSelect={({ native }: BaseEmoji): void => {
                         onChange(native);

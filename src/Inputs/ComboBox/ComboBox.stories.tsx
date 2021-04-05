@@ -14,11 +14,11 @@ export default {
         label: 'label',
         name: 'name',
         children: [
-            <option value="a">$10</option>,
-            <option value="b">$10-$20</option>,
-            <option value="c">$20-$30</option>,
-            <option value="d">$30-$40</option>,
-            <option value="e">$40+</option>,
+            <option value='a'>$10</option>,
+            <option value='b'>$10-$20</option>,
+            <option value='c'>$20-$30</option>,
+            <option value='d'>$30-$40</option>,
+            <option value='e'>$40+</option>,
         ],
     },
 } as Meta;

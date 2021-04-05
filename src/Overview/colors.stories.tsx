@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { MainTheme } from '@Themes/MainTheme';
-import { Heading, ColorCard } from '../index';
+import { ColorCard, Heading } from '../index';
 
 interface IListGridProps {
     columnWidth: number;
@@ -37,11 +37,11 @@ const flattenColors = (Value: string, label: string) => (
 
 storiesOf('Design System/Colors', module).add('Overview', () => (
     <div>
-        <Heading type="h1" bold>
+        <Heading type='h1' bold>
             Colors
         </Heading>
 
-        <Heading type="h2">Main Theme</Heading>
+        <Heading type='h2'>Main Theme</Heading>
         <ListGrid columnWidth={300} gap={15}>
             {Object.entries(MainTheme.colors).map(([key, value]) =>
                 typeof value === 'object' ? (

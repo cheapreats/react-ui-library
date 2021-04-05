@@ -25,7 +25,7 @@ export const ListToggle: React.FC<ListToggleProps> = ({
     return (
         <Button
             onClick={toggleList}
-            id="togg-button"
+            id='togg-button'
             isLeftToggle={isLeftToggle}
             isToggleHiddenDesktop={isToggleHiddenDesktop}
         >

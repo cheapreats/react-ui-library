@@ -1,6 +1,6 @@
-import React, { useMemo, useCallback, useRef, useEffect } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef } from 'react';
 import styled from 'styled-components';
-import { transition, position, flex } from '../../Utils/Mixins';
+import { flex, position, transition } from '../../Utils/Mixins';
 import { TimeColumn } from './TimeColumn';
 
 const VALUES = {
@@ -90,20 +90,20 @@ export const Timebox: React.FC<TimeboxProps> = ({
             <TimeColumn
                 items={VALUES.HOURS}
                 onChange={_onChange}
-                name="HOUR"
+                name='HOUR'
                 active={hour}
             />
             <TimeColumn
                 format={(v): string => v.toString().padStart(2, '0')}
                 items={VALUES.MINS}
                 onChange={_onChange}
-                name="MINUTE"
+                name='MINUTE'
                 active={min}
             />
             <TimeColumn
                 items={VALUES.PERIOD}
                 onChange={_onChange}
-                name="PERIOD"
+                name='PERIOD'
                 active={period}
             />
         </Container>

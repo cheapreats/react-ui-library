@@ -1,12 +1,6 @@
-import React, { useRef, useCallback, useEffect } from 'react';
+import React, { useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
-import {
-    scroll,
-    transition,
-    flex,
-    darken,
-    clickable,
-} from '../../Utils/Mixins';
+import { clickable, darken, flex, scroll, transition } from '../../Utils/Mixins';
 
 interface TimeColumnProps {
     format?: (value: string | number) => string | number;

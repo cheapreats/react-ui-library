@@ -1,15 +1,10 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { LineChart, Line } from 'recharts';
+import { Line, LineChart } from 'recharts';
 import { ArrowUp } from '@styled-icons/entypo/ArrowUp';
 import { ArrowDown } from '@styled-icons/entypo/ArrowDown';
 import { flex } from '@Utils/Mixins';
-import {
-    Main,
-    Responsive,
-    MainInterface,
-    ResponsiveInterface,
-} from '@Utils/BaseStyles';
+import { Main, MainInterface, Responsive, ResponsiveInterface } from '@Utils/BaseStyles';
 import { MainTheme } from '@Themes';
 import { SmallText } from '@Text';
 
@@ -53,29 +48,29 @@ export const Stock: React.FC<StockProps> = ({
         <StockBox {...props}>
             <Content>
                 <SmallText
-                    type="div"
-                    size="h6"
-                    color="text"
+                    type='div'
+                    size='h6'
+                    color='text'
                     bold
-                    lineHeight="false"
+                    lineHeight='false'
                 >
                     {title}
                 </SmallText>
                 <SmallText
-                    type="div"
-                    size="h1"
-                    color="background"
+                    type='div'
+                    size='h1'
+                    color='background'
                     bold
-                    lineHeight="false"
+                    lineHeight='false'
                 >
                     {getFigure()}
                 </SmallText>
                 <SmallText
-                    type="div"
-                    size="h6"
+                    type='div'
+                    size='h6'
                     color={chartColor}
                     bold
-                    lineHeight="false"
+                    lineHeight='false'
                 >
                     {`${getRate()} `}
                     <StyledIcon as={rate < 0 ? ArrowDown : ArrowUp} />
@@ -84,8 +79,8 @@ export const Stock: React.FC<StockProps> = ({
             <Content>
                 <LineChart width={150} height={50} data={chartData}>
                     <Line
-                        type="linear"
-                        dataKey="value"
+                        type='linear'
+                        dataKey='value'
                         stroke={getChartColor()}
                         strokeWidth={2}
                         dot={false}

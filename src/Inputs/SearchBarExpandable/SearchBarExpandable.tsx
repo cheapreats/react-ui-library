@@ -1,8 +1,8 @@
-import React, { useState, useRef, useCallback } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 import { Search } from '@styled-icons/fa-solid/Search';
 import { Times } from '@styled-icons/fa-solid/Times';
 import styled from 'styled-components';
-import { flex, transition, media } from '@Utils/Mixins';
+import { flex, media, transition } from '@Utils/Mixins';
 import { InputFragment as I, LabelLayoutProps } from '@Layouts';
 
 const EXPANDED_WIDTH = '500px';
@@ -40,20 +40,20 @@ export const SearchBarExpandable: React.FC<SearchBarExpandableProps> = ({
 
     const expandSearchBox = useCallback(() => {
         setIsExpanded(true);
-        setTimeout(()=> inputRef.current?.focus(), TIME_FOR_REF_TO_EXIST);
+        setTimeout(() => inputRef.current?.focus(), TIME_FOR_REF_TO_EXIST);
     }, [setIsExpanded, inputRef.current]);
 
     const resetSearchBox = () => {
         setIsExpanded(false);
         setInputValue('');
         onClose();
-    }
+    };
 
     return (
         <Container>
             <SelectDisplay>
                 <Icon as={Search} onClick={expandSearchBox} />
-                <ExpanableContainer 
+                <ExpanableContainer
                     isExpanded={isExpanded}
                     onClick={expandSearchBox}
                     expandedWidth={expandedWidth}
@@ -87,6 +87,7 @@ interface SearchBarSelectProps extends LabelLayoutProps {
     onChange?: Function;
     limit?: number;
 }
+
 const SelectDisplay = styled.div<SearchBarSelectProps>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
     ${flex('flex-start', 'center')}
@@ -105,17 +106,21 @@ const SelectDisplay = styled.div<SearchBarSelectProps>`
 `;
 
 interface IExpandableContainer {
-    isExpanded : boolean;
+    isExpanded: boolean;
     expandedWidth: string;
     mediaQuery?: string;
     mediaWidth?: string;
 }
 
 const ExpanableContainer = styled.div<IExpandableContainer>`
-    ${({ isExpanded, expandedWidth}): string => `
+    ${({ isExpanded, expandedWidth }): string => `
         width: ${isExpanded ? expandedWidth : NOT_EXPANDED_WIDTH};
     `}
-    ${({ mediaQuery, mediaWidth, isExpanded }) => mediaQuery && media(mediaQuery, `width: ${isExpanded ? mediaWidth : NOT_EXPANDED_WIDTH};`)}
+    ${({
+        mediaQuery,
+        mediaWidth,
+        isExpanded,
+    }) => mediaQuery && media(mediaQuery, `width: ${isExpanded ? mediaWidth : NOT_EXPANDED_WIDTH};`)}
     ${transition(['width'])}
 `;
 
@@ -127,7 +132,7 @@ const Icon = styled.svg`
 const InputFragment = styled(I)`
     flex-grow: 1;
     width: 100%;
-    ${({backgroundColor, borderRadius, theme }): string => `
+    ${({ backgroundColor, borderRadius, theme }): string => `
         padding: 0px ${theme.dimensions.padding.container};
         background-color: ${backgroundColor};
         border-radius: ${borderRadius};

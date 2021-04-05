@@ -1,16 +1,9 @@
 import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components';
 import { Check } from '@styled-icons/fa-solid/Check';
-import {
-    Main,
-    Responsive,
-    MainProps,
-    ResponsiveProps,
-    MainInterface,
-    ResponsiveInterface,
-} from '@Utils/BaseStyles';
+import { Main, MainInterface, MainProps, Responsive, ResponsiveInterface, ResponsiveProps } from '@Utils/BaseStyles';
 import { __useImplicitProps, ImplicitPropsInterface } from '@Utils/Hooks';
-import { position, darken, flex, transition } from '@Utils/Mixins';
+import { darken, flex, position, transition } from '@Utils/Mixins';
 
 export interface CheckboxProps
     extends MainInterface,
@@ -53,7 +46,7 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         <Container className={className} column={column} {...implicitProps}>
             <CheckContainer>
                 <Input
-                    type="checkbox"
+                    type='checkbox'
                     name={name}
                     onChange={(event: SyntheticEvent<HTMLInputElement>): void =>
                         onChange(event)}

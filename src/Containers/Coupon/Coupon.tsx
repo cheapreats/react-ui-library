@@ -1,12 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
-import {
-    Main,
-    Responsive,
-    MainInterface,
-    ResponsiveInterface,
-} from '@Utils/BaseStyles';
+import { Main, MainInterface, Responsive, ResponsiveInterface } from '@Utils/BaseStyles';
 
 export interface CouponProps extends CouponBoxProps {
     couponTitle: string;
@@ -80,6 +75,7 @@ const DashedLine = styled.div`
     left: 9%;
     width: 80%;
 `;
+
 interface CouponBoxProps
     extends MainInterface,
         ResponsiveInterface,

@@ -21,7 +21,7 @@ export default {
     args: {
         placeholder: 'placeholder',
         mediaQuery: 'tablet',
-        mediaWidth: '300px'
+        mediaWidth: '300px',
     },
 } as Meta;
 

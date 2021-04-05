@@ -1,7 +1,8 @@
 import React from 'react';
 import { TextLayout, TextLayoutProps } from '../Fragments/TextLayout';
 
-export interface HeadingProps extends TextLayoutProps {}
+export interface HeadingProps extends TextLayoutProps {
+}
 
 enum elements {
     h1 = 'h1',

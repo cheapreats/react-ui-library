@@ -1,11 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    Main,
-    MainInterface,
-    Responsive,
-    ResponsiveInterface,
-} from '../Utils/BaseStyles';
+import { Main, MainInterface, Responsive, ResponsiveInterface } from '../Utils/BaseStyles';
 
 export interface TextLayoutProps
     extends MainInterface,

@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { transition, styledCondition, scroll } from '@Utils/Mixins';
+import { scroll, styledCondition, transition } from '@Utils/Mixins';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 
 export interface TextareaProps extends LabelLayoutProps {

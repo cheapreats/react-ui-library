@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { transition, styledCondition } from '../Utils/Mixins';
-import { ResponsiveInterface, MainInterface } from '../Utils/BaseStyles';
+import { styledCondition, transition } from '../Utils/Mixins';
+import { MainInterface, ResponsiveInterface } from '../Utils/BaseStyles';
 
 export interface InputFragmentProps
     extends ResponsiveInterface,
@@ -22,17 +22,15 @@ export interface InputFragmentProps
     onClick?: React.MouseEventHandler<HTMLInputElement>;
     className?: string;
     type?: string;
-    width?:number|string;
+    width?: number | string;
 }
 
-export const InputFragment = React.forwardRef<
-    HTMLInputElement,
-    InputFragmentProps
->(
-    ({ ...props }, ref): React.ReactElement => (
-        <InputElement {...props} ref={ref} />
-    ),
-);
+export const InputFragment = React.forwardRef<HTMLInputElement,
+    InputFragmentProps>(
+        ({ ...props }, ref): React.ReactElement => (
+            <InputElement {...props} ref={ref} />
+        ),
+    );
 
 const InputElement = styled.input<InputFragmentProps>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
@@ -47,18 +45,18 @@ const InputElement = styled.input<InputFragmentProps>`
         opacity: 0.6;
     }
 
-    ${({width}):string=>{
-        if(width){
-            switch (typeof(width)){
+    ${({ width }): string => {
+        if (width) {
+            switch (typeof (width)) {
             case 'number':
-                return `width:${width}px;`
+                return `width:${width}px;`;
             case 'string':
-                return `width:${width};`
+                return `width:${width};`;
             default:
-                return ''
+                return '';
             }
         }
-        return ''
+        return '';
     }}
 
     // Theme Stuff

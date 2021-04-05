@@ -1,15 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    Main,
-    Responsive,
-    MainProps,
-    ResponsiveProps,
-    MainInterface,
-    ResponsiveInterface,
-} from '@Utils/BaseStyles';
+import { Main, MainInterface, MainProps, Responsive, ResponsiveInterface, ResponsiveProps } from '@Utils/BaseStyles';
 import { __useImplicitProps, ImplicitPropsInterface } from '@Utils/Hooks';
-import { position, darken, flex, transition } from '@Utils/Mixins';
+import { darken, flex, position, transition } from '@Utils/Mixins';
 
 export interface RadioProps
     extends MainInterface,
@@ -50,7 +43,7 @@ export const Radio: React.FC<RadioProps> = ({
         <Container className={className} column={column} {...implicitProps}>
             <RadioContainer>
                 <Input
-                    type="checkbox"
+                    type='checkbox'
                     {...props}
                     name={name}
                     value={value === undefined ? '' : value.toString()}

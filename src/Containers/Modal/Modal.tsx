@@ -1,13 +1,8 @@
 import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styled, { useTheme } from 'styled-components';
-import { position, flex, scroll, transition } from '@Utils/Mixins';
-import {
-    Main,
-    Responsive,
-    ResponsiveInterface,
-    MainInterface,
-} from '@Utils/BaseStyles';
+import { flex, position, scroll, transition } from '@Utils/Mixins';
+import { Main, MainInterface, Responsive, ResponsiveInterface } from '@Utils/BaseStyles';
 import { useTransition } from '@Utils/Hooks';
 
 export interface ModalProps

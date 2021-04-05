@@ -46,7 +46,7 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
         <ListHeaderContainer padding={padding} margin={margin} {...props}>
             <Row display={headerFlex}>
                 <HeadingContainer isExpanded={isExpanded}>
-                    <Heading bold type="h2" {...props}>
+                    <Heading bold type='h2' {...props}>
                         {label}
                     </Heading>
                 </HeadingContainer>
@@ -79,13 +79,13 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
 };
 
 interface IResponsiveSearchProps {
-    isExpanded: boolean; 
+    isExpanded: boolean;
 }
 
 const SearchContainer = styled.div<IResponsiveSearchProps>`
     ${Mixins.flex('row')}
     margin-left: auto;
-`
+`;
 
 const IconContainer = styled.div<IResponsiveSearchProps>`
     ${Mixins.flex('center')}
@@ -94,13 +94,13 @@ const IconContainer = styled.div<IResponsiveSearchProps>`
 `;
 const HeadingContainer = styled.div<IResponsiveSearchProps>`
     ${Mixins.transition(['transform', 'opacity'])}
-    ${({isExpanded}) => isExpanded ? 'transform: translateY(-200px); opacity: 0; position: fixed;' : 'opacity: 1;'}
-`
+    ${({ isExpanded }) => isExpanded ? 'transform: translateY(-200px); opacity: 0; position: fixed;' : 'opacity: 1;'}
+`;
 
 interface HeaderProps {
     padding?: string;
     margin?: string;
-    
+
 }
 
 const ListHeaderContainer = styled.div<HeaderProps>`
@@ -114,7 +114,7 @@ const ListHeaderContainer = styled.div<HeaderProps>`
 
 interface RowProps {
     display?: string;
-    
+
 }
 
 const Row = styled.div<RowProps>`

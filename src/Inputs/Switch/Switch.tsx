@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { position, darken, flex, transition } from '@Utils/Mixins';
+import { darken, flex, position, transition } from '@Utils/Mixins';
 
 export interface SwitchProps extends InputProps {
     leftTag?: string;
@@ -35,10 +35,10 @@ export const Switch: React.FC<SwitchProps> = ({
             <Info>{description}</Info>
         </Layout>
         <Row>
-            {leftTag && <Tag margin="5px 10px 0 0">{leftTag}</Tag>}
+            {leftTag && <Tag margin='5px 10px 0 0'>{leftTag}</Tag>}
             <Container>
                 <Input
-                    type="checkbox"
+                    type='checkbox'
                     onChange={(e): void => onChange(e)}
                     checked={isChecked}
                     disabled={disabled}
@@ -47,7 +47,7 @@ export const Switch: React.FC<SwitchProps> = ({
                     <SwitchDot />
                 </SwitchBox>
             </Container>
-            {rightTag && <Tag margin="5px 0 0 10px">{rightTag}</Tag>}
+            {rightTag && <Tag margin='5px 0 0 10px'>{rightTag}</Tag>}
         </Row>
     </Container>
 );
@@ -55,6 +55,7 @@ export const Switch: React.FC<SwitchProps> = ({
 interface TagProps {
     margin: string;
 }
+
 const Tag = styled.label<TagProps>`
     margin: ${(props): string => props.margin};
     font-weight: bold;

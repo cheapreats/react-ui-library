@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
@@ -37,7 +37,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                 <ColorInput
                     {...props}
                     ref={colorRef}
-                    type="color"
+                    type='color'
                     value={cardColor}
                     onChange={handleChange}
                 />

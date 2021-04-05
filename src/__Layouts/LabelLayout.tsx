@@ -1,18 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    Main,
-    MainProps,
-    MainInterface,
-    Responsive,
-    ResponsiveProps,
-    ResponsiveInterface,
-} from '../Utils/BaseStyles';
-import {
-    __useImplicitProps,
-    useTransition,
-    ImplicitPropsInterface,
-} from '../Utils/Hooks';
+import { Main, MainInterface, MainProps, Responsive, ResponsiveInterface, ResponsiveProps } from '../Utils/BaseStyles';
+import { __useImplicitProps, ImplicitPropsInterface, useTransition } from '../Utils/Hooks';
 import { flex, transition } from '../Utils/Mixins';
 
 export interface LabelLayoutProps

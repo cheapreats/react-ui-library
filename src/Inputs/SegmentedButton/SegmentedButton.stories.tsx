@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Save } from '@styled-icons/fa-solid/Save';
-import { SegmentedButton, ISegmentedButtonProps } from '../../index';
+import { ISegmentedButtonProps, SegmentedButton } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
 export default {

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css, useTheme } from 'styled-components';
-import { Plus, Minus } from '@styled-icons/boxicons-regular';
+import { Minus, Plus } from '@styled-icons/boxicons-regular';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
@@ -144,7 +144,7 @@ export const Chair: React.FC<IChair> = ({
             <ChairWrapperForClick
                 onClick={() => setVisibility(!visibility)}
                 onKeyPress={() => setVisibility(!visibility)}
-                role="button"
+                role='button'
                 tabIndex={0}
             >
                 {isRound ? getRoundChair() : getPositionChair()}
@@ -383,9 +383,7 @@ const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
     }}
 `;
 
-const RectangleChair = styled(BaseChair)<
-    Pick<IChair, 'position' | 'relativeSize'>
->`
+const RectangleChair = styled(BaseChair)<Pick<IChair, 'position' | 'relativeSize'>>`
     ${({ position }) =>
         ({
             top: HorizontalChairStyle,
@@ -395,9 +393,7 @@ const RectangleChair = styled(BaseChair)<
         }[position])};
 `;
 
-const RectangleChairText = styled.div<
-    Pick<IChair, 'position' | 'relativeSize'>
->`
+const RectangleChairText = styled.div<Pick<IChair, 'position' | 'relativeSize'>>`
     ${({ position }) =>
         ({
             top: textHorizontalChairStyle,
