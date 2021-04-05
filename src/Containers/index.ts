@@ -68,3 +68,4 @@ export * from './CarouselTestimonial/CarouselTestimonial';
 export * from './NutritionFact/NutritionFact';
 export * from './SankeyChart/SankeyChart';
 export * from './HorizontalBarChart/HorizontalBarChart';
+export * from './DeliveryRadius/DeliveryRadius';
