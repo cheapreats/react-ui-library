@@ -47,7 +47,7 @@ export interface ICircleTable {
      */
     tableUse: tableUseTypes;
     /**
-     * Array index for Tables
+     * Array index for the table
      */
     arrayIndex?: number;
 }

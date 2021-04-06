@@ -70,7 +70,7 @@ export interface ISquareTable {
      */
     tableUse: tableUseTypes;
     /**
-     * Array index for Tables
+     * Array index for the table
      */
     arrayIndex?: number;
 }
