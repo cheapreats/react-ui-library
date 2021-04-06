@@ -1,9 +1,19 @@
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
+import React, {
+    useCallback,
+    useEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import { CalendarAlt } from '@styled-icons/fa-solid/CalendarAlt';
 import styled, { useTheme } from 'styled-components';
 import { flex, position } from '../../Utils/Mixins';
 import { useTransition } from '../../Utils/Hooks';
-import { InputFragment, LabelLayout as LL, LabelLayoutProps } from '../../Fragments';
+import {
+    InputFragment,
+    LabelLayout as LL,
+    LabelLayoutProps,
+} from '../../Fragments';
 import { Datebox } from './Datebox';
 
 const printDate = (date?: Date): string => {
@@ -106,25 +116,25 @@ export const Datepicker: React.FC<DatepickerProps> = ({
         (el): void => {
             const d = new Date(el.target.value);
             switch (el.key) {
-            case 'Tab':
-                setShow(false);
-                break;
-            case 'Enter':
-                el.target = {
-                    ...el.target,
-                    name: props.name,
-                    value: d,
-                };
+                case 'Tab':
+                    setShow(false);
+                    break;
+                case 'Enter':
+                    el.target = {
+                        ...el.target,
+                        name: props.name,
+                        value: d,
+                    };
 
-                if (d.toDateString() === value?.toDateString()) {
-                    setShow((v): boolean => !v);
-                } else if (!Number.isNaN(d.getTime())) {
-                    setText(printDate(d));
-                    onChange(el);
-                }
-                break;
-            default:
-                break;
+                    if (d.toDateString() === value?.toDateString()) {
+                        setShow((v): boolean => !v);
+                    } else if (!Number.isNaN(d.getTime())) {
+                        setText(printDate(d));
+                        onChange(el);
+                    }
+                    break;
+                default:
+                    break;
             }
         },
         [value],

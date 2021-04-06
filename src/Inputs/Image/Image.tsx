@@ -120,14 +120,14 @@ export const Image: React.FC<ImageProps> = ({
         <>
             <Button icon={FileUpload} {...props}>
                 Upload Image
-                <Drop type='file' accept={accept} onChange={onUpload} />
+                <Drop type="file" accept={accept} onChange={onUpload} />
             </Button>
             <Modal
-                padding='20px 25px'
+                padding="20px 25px"
                 state={[modal, setModal]}
                 onClose={onClose}
             >
-                <Heading type='h3' bold>
+                <Heading type="h3" bold>
                     Crop Image
                 </Heading>
                 <CropWrapper>

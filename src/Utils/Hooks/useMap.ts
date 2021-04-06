@@ -15,7 +15,12 @@ interface ICenterMap {
  * @param zoom {number} - the level of zoom applied
  * @returns {MutableRefObject<H.Map | undefined>} a reference to the map instance created
  */
-export const useMap = (mapContainer: React.RefObject<HTMLDivElement>, apikey: string, center: ICenterMap, zoom: number): MutableRefObject<H.Map | undefined> => {
+export const useMap = (
+    mapContainer: React.RefObject<HTMLDivElement>,
+    apikey: string,
+    center: ICenterMap,
+    zoom: number,
+): MutableRefObject<H.Map | undefined> => {
     const mapInstance = useRef<H.Map>();
     const platform = useRef<H.service.Platform>();
 
@@ -60,7 +65,11 @@ export const useMap = (mapContainer: React.RefObject<HTMLDivElement>, apikey: st
  * @param element {React.ReactElement} - the rendered react element which is the mark
  * @returns {React.MutableRefObject<H.map.DomMarker | undefined>} a reference to the marker
  */
-export const useMapMarker = (map: MutableRefObject<H.Map | undefined>, mapCoordinates: ICenterMap, element: React.ReactElement): React.MutableRefObject<H.map.DomMarker | undefined> => {
+export const useMapMarker = (
+    map: MutableRefObject<H.Map | undefined>,
+    mapCoordinates: ICenterMap,
+    element: React.ReactElement,
+): React.MutableRefObject<H.map.DomMarker | undefined> => {
     const marker = useRef<H.map.DomMarker>();
 
     /**
@@ -69,7 +78,10 @@ export const useMapMarker = (map: MutableRefObject<H.Map | undefined>, mapCoordi
     useLayoutEffect(() => {
         if (map.current && !marker.current) {
             const icon = new H.map.DomIcon(renderToString(element));
-            marker.current = new H.map.DomMarker(mapCoordinates, { icon, data: {} });
+            marker.current = new H.map.DomMarker(mapCoordinates, {
+                icon,
+                data: {},
+            });
             map.current.addObject(marker.current);
             map.current.setCenter(mapCoordinates);
         }
@@ -92,7 +104,12 @@ export const useMapMarker = (map: MutableRefObject<H.Map | undefined>, mapCoordi
  * @param unit {number} - the number of meters of the unit used in value
  * @returns {React.MutableRefObject<H.map.Circle | undefined>} a reference to the circle
  */
-export const useMapCircle = (map: MutableRefObject<H.Map | undefined>, mapCoordinates: ICenterMap, value: number, unit: number): React.MutableRefObject<H.map.Circle | undefined> => {
+export const useMapCircle = (
+    map: MutableRefObject<H.Map | undefined>,
+    mapCoordinates: ICenterMap,
+    value: number,
+    unit: number,
+): React.MutableRefObject<H.map.Circle | undefined> => {
     const circle = useRef<H.map.Circle>();
 
     /**

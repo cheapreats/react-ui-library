@@ -1,8 +1,7 @@
 import React from 'react';
 import { TextLayout, TextLayoutProps } from '../Fragments/TextLayout';
 
-export interface SmallTextProps extends TextLayoutProps {
-}
+export interface SmallTextProps extends TextLayoutProps {}
 
 export const SmallText: React.FC<SmallTextProps> = ({
     children,

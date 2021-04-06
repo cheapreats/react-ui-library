@@ -14,11 +14,11 @@ export default {
         name: 'name',
         placeholder: 'placeholder',
         children: [
-            <option value='1'>value 1</option>,
-            <option value='2'>value 2</option>,
-            <option value='3'>value 3</option>,
-            <option value='4'>value 4</option>,
-            <option value='5'>value 5</option>,
+            <option value="1">value 1</option>,
+            <option value="2">value 2</option>,
+            <option value="3">value 3</option>,
+            <option value="4">value 4</option>,
+            <option value="5">value 5</option>,
         ],
     },
 } as Meta;

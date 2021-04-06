@@ -1,6 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { DragDropContext, Draggable, Droppable, DropResult } from 'react-beautiful-dnd';
+import {
+    DragDropContext,
+    Draggable,
+    Droppable,
+    DropResult,
+} from 'react-beautiful-dnd';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
 import { Heading, Paragraph } from '@Text';
@@ -110,18 +115,12 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                 </div>
                 <DragDropContext onDragEnd={onDragEnd}>
                     <ShownHeadersDiv>
-                        <Heading type='h3'>Headers</Heading>
+                        <Heading type="h3">Headers</Heading>
                         <Paragraph>
-                            You can
-                            {' '}
-                            <b>Add/Remove</b>
-                            {' '}
-                            desired headers and
-                            <b> Rearrange The Order</b>
-                            {' '}
-                            by dragging them
+                            You can <b>Add/Remove</b> desired headers and
+                            <b> Rearrange The Order</b> by dragging them
                         </Paragraph>
-                        <Droppable droppableId='labels' direction='horizontal'>
+                        <Droppable droppableId="labels" direction="horizontal">
                             {(provided): React.ReactElement => (
                                 <DragDiv
                                     ref={provided.innerRef}
@@ -152,7 +151,8 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                                             onClick={(): void =>
                                                                 removeHeader(
                                                                     index,
-                                                                )}
+                                                                )
+                                                            }
                                                         >
                                                             {keyToHeader(
                                                                 header,
@@ -170,7 +170,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                     </ShownHeadersDiv>
                 </DragDropContext>
                 <Select
-                    placeholder='Add additional headers'
+                    placeholder="Add additional headers"
                     disabled={headersInSelect.length === 0}
                     onChange={({
                         target,
@@ -195,7 +195,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                 </Select>
             </div>
             <div>
-                <Heading type='h3'>Date Picker</Heading>
+                <Heading type="h3">Date Picker</Heading>
                 <Paragraph>Filter the results by Date</Paragraph>
                 {FROM_TO.map(
                     (date): React.ReactElement => (
@@ -215,7 +215,7 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                     !resultObject.dates[date] && date === 'to'
                                         ? new Date()
                                         : resultObject.dates[date] &&
-                                        resultObject.dates[date]
+                                          resultObject.dates[date]
                                 }
                                 onChange={({
                                     target,
@@ -247,10 +247,10 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                 )}
             </div>
             <div>
-                <Heading type='h3'>Group Results</Heading>
+                <Heading type="h3">Group Results</Heading>
                 <Paragraph>Group results into sheets by:</Paragraph>
                 <Select
-                    margin='10px 0'
+                    margin="10px 0"
                     value={resultObject.groupBy}
                     onChange={({
                         target,

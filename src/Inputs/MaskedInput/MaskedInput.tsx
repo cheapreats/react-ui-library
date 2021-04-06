@@ -1,5 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { InputFragment, InputFragmentProps, LabelLayout, LabelLayoutProps } from '@Layouts';
+import {
+    InputFragment,
+    InputFragmentProps,
+    LabelLayout,
+    LabelLayoutProps,
+} from '@Layouts';
 
 const MINUS_SIGN = '-';
 const MIN_LESS_THAN_ZERO = 0;
@@ -90,14 +95,14 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
         maskInputPreset: MaskedInputPreset | ((value: string) => string),
     ): ((value: string) => string) => {
         switch (maskInputPreset) {
-        case MaskedInputPreset.DOLLAR:
-            return DOLLAR_FORMAT_MASK;
-        case MaskedInputPreset.PERCENTAGE:
-            return PERCENT_FORMAT_MASK;
-        case MaskedInputPreset.PHONE:
-            return PHONE_FORMAT_MASK;
-        default:
-            return mask as (value: string) => string;
+            case MaskedInputPreset.DOLLAR:
+                return DOLLAR_FORMAT_MASK;
+            case MaskedInputPreset.PERCENTAGE:
+                return PERCENT_FORMAT_MASK;
+            case MaskedInputPreset.PHONE:
+                return PHONE_FORMAT_MASK;
+            default:
+                return mask as (value: string) => string;
         }
     };
 

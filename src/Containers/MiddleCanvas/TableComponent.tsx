@@ -43,7 +43,7 @@ const Table = styled.table<TableProps>`
     ${({ theme, isPreview }): string => `
         border: ${isPreview ? '' : `solid 1px ${theme.colors.text}`};
         background-color: ${
-    isPreview ? theme.colors.background : theme.colors.input.default
-};
+            isPreview ? theme.colors.background : theme.colors.input.default
+        };
     `};
 `;

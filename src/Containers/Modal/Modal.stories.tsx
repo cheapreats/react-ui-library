@@ -16,11 +16,11 @@ export const Basic: Story<ModalProps> = (args) => {
         <>
             <Button onClick={() => Modal1[1](true)}>Open modal one</Button>
             <Modal {...args} state={Modal1} />
-            <Modal {...args} state={Modal1} padding='20px'>
+            <Modal {...args} state={Modal1} padding="20px">
                 Modal One
                 <Button onClick={() => Modal2[1](true)}>Open modal two</Button>
             </Modal>
-            <Modal {...args} state={Modal2} padding='20px'>
+            <Modal {...args} state={Modal2} padding="20px">
                 Modal Two
             </Modal>
         </>

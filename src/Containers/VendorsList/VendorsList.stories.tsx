@@ -377,7 +377,8 @@ const renderTagFilter = (column: HeaderGroup<any>) => (
         selectOptions={sampleGroupsMapped}
         selectProps={{ margin: '10px 0' }}
         onOptionsSelected={(selectedOptions) =>
-            column.setFilter(selectedOptions)}
+            column.setFilter(selectedOptions)
+        }
     />
 );
 
@@ -436,7 +437,14 @@ const getVendorsListProps = (): IVendorsListProps => ({
         {
             Header: 'Client',
             accessor: 'name',
-            Cell: ({ row }: CellProps<{ id: number, name: string, email: string, imageUrl: string }>) => (
+            Cell: ({
+                row,
+            }: CellProps<{
+                id: number;
+                name: string;
+                email: string;
+                imageUrl: string;
+            }>) => (
                 <Profile
                     key={row.original.id}
                     name={row.original.name}
@@ -448,7 +456,7 @@ const getVendorsListProps = (): IVendorsListProps => ({
         },
         {
             Header: 'Groups',
-            Cell: ({ row }: CellProps<{ groups: {name: string}[] }>) => (
+            Cell: ({ row }: CellProps<{ groups: { name: string }[] }>) => (
                 <TagContainer
                     tags={row.original.groups.map(
                         (group: IGroups) => group.name,

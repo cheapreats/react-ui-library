@@ -69,12 +69,7 @@ export const SearchBarExpandable: React.FC<SearchBarExpandableProps> = ({
                         />
                     )}
                 </ExpanableContainer>
-                {isExpanded && (
-                    <Icon
-                        as={Times}
-                        onClick={resetSearchBox}
-                    />
-                )}
+                {isExpanded && <Icon as={Times} onClick={resetSearchBox} />}
             </SelectDisplay>
         </Container>
     );
@@ -98,7 +93,7 @@ const SelectDisplay = styled.div<SearchBarSelectProps>`
     border: none;
     border-radius: 999px;
     max-width: 100%;
-    overflow:hidden;
+    overflow: hidden;
     ${({ theme }): string => `
         background-color: ${theme.colors.input.default};
         padding: ${theme.dimensions.padding.container};
@@ -116,11 +111,12 @@ const ExpanableContainer = styled.div<IExpandableContainer>`
     ${({ isExpanded, expandedWidth }): string => `
         width: ${isExpanded ? expandedWidth : NOT_EXPANDED_WIDTH};
     `}
-    ${({
-        mediaQuery,
-        mediaWidth,
-        isExpanded,
-    }) => mediaQuery && media(mediaQuery, `width: ${isExpanded ? mediaWidth : NOT_EXPANDED_WIDTH};`)}
+    ${({ mediaQuery, mediaWidth, isExpanded }) =>
+        mediaQuery &&
+        media(
+            mediaQuery,
+            `width: ${isExpanded ? mediaWidth : NOT_EXPANDED_WIDTH};`,
+        )}
     ${transition(['width'])}
 `;
 

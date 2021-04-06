@@ -1,7 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
-import { Main, MainInterface, Responsive, ResponsiveInterface } from '@Utils/BaseStyles';
+import {
+    Main,
+    MainInterface,
+    Responsive,
+    ResponsiveInterface,
+} from '@Utils/BaseStyles';
 
 export interface CouponProps extends CouponBoxProps {
     couponTitle: string;

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Paragraph } from '@Text';
 import { Button } from '@Inputs/Button/Button';
@@ -45,7 +45,7 @@ export const ProfileCard: React.FC<ProfileCardProps> = ({
     };
     const onImageError = () => {
         setIsImageError(true);
-    }
+    };
 
     return (
         <Container {...props}>

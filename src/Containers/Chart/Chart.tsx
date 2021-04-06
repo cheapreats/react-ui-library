@@ -1,11 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
-import { CartesianGrid, Line, LineChart, Tooltip, XAxis, YAxis } from 'recharts';
+import {
+    CartesianGrid,
+    Line,
+    LineChart,
+    Tooltip,
+    XAxis,
+    YAxis,
+} from 'recharts';
 import { flex } from '@Utils/Mixins';
-import { Main, MainInterface, Responsive, ResponsiveInterface } from '@Utils/BaseStyles';
+import {
+    Main,
+    MainInterface,
+    Responsive,
+    ResponsiveInterface,
+} from '@Utils/BaseStyles';
 
-export interface ChartProps extends ChartBoxProps {
-}
+export interface ChartProps extends ChartBoxProps {}
 
 export const Chart: React.FC<ChartProps> = ({
     color,
@@ -53,7 +64,7 @@ export const Chart: React.FC<ChartProps> = ({
             </Icons>
         </Header>
         <LineChart width={460} height={160} data={data}>
-            <XAxis dataKey='label' tickLine={false} />
+            <XAxis dataKey="label" tickLine={false} />
             <YAxis axisLine={false} tickLine={false} />
             <Tooltip
                 cursor={false}
@@ -62,7 +73,7 @@ export const Chart: React.FC<ChartProps> = ({
                 }
             />
             <CartesianGrid vertical={false} />
-            <Line type='linear' dataKey='value' stroke={color} />
+            <Line type="linear" dataKey="value" stroke={color} />
         </LineChart>
     </ChartBox>
 );
@@ -164,8 +175,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
         return (
             <CustomTooltipBox active={active} payload={payload} {...props}>
                 <strong>
-                    $
-                    <Big>{`${getFormattedHoverValue()}`}</Big>
+                    $<Big>{`${getFormattedHoverValue()}`}</Big>
                 </strong>
             </CustomTooltipBox>
         );
