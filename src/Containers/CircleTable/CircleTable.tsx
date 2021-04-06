@@ -46,6 +46,10 @@ export interface ICircleTable {
      * The use type for the table component (how it will be used in the app)
      */
     tableUse: tableUseTypes;
+    /**
+     * Array index for Tables
+     */
+    arrayIndex?: number;
 }
 
 /**
@@ -59,6 +63,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
     occupancyStatus = 'Vacant',
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
+    arrayIndex = 0,
     ...props
 }) => {
     /**

@@ -17,6 +17,11 @@ export interface IDraggableTable {
      * The starting coordinates on the canvas for the table
      */
     defaultXY: { x: number; y: number };
+
+    /**
+     * Array index for Tables
+     */
+    arrayIndex: number;
 }
 
 /**
@@ -51,6 +56,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
         tableUse: 'TableForManagement',
     },
     defaultXY = { x: 50, y: 24 },
+    arrayIndex= 0,
     ...props
 }) => {
     const [deltaPosition, setDeltaPosition] = useState({
@@ -88,6 +94,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                         relativeSize={tableInput.relativeSize}
                         chairs={tableInput.chairs}
                         tableUse={tableInput.tableUse}
+                        arrayIndex={arrayIndex}
                     />
                 );
             case 'Circle':
@@ -100,6 +107,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                         relativeSize={tableInput.relativeSize}
                         chairs={tableInput.chairs}
                         tableUse={tableInput.tableUse}
+                        arrayIndex={arrayIndex}
                     />
                 );
             default:

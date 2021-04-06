@@ -69,6 +69,10 @@ export interface ISquareTable {
      * The use type for the table component (how it will be used in the app)
      */
     tableUse: tableUseTypes;
+    /**
+     * Array index for Tables
+     */
+    arrayIndex?: number;
 }
 
 /**
@@ -84,6 +88,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     relativeSize = 1.0,
     isSquare = false,
     tableUse = 'TableForManagement',
+    arrayIndex = 0,
     ...props
 }) => {
     /**

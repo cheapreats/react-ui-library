@@ -62,6 +62,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
             <DraggableTable
                 tableInput={item.tableInput}
                 defaultXY={item.defaultXY}
+                arrayIndex={index}
                 key={generateTableKey(item.defaultXY.x.toString() + index)}
             />
         ));
