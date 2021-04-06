@@ -1,7 +1,12 @@
 import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
 import styled from 'styled-components';
 import { CircleNotch } from '@styled-icons/fa-solid/CircleNotch';
-import { Main, MainInterface, Responsive, ResponsiveInterface } from '@Utils/BaseStyles';
+import {
+    Main,
+    MainInterface,
+    Responsive,
+    ResponsiveInterface,
+} from '@Utils/BaseStyles';
 import { clickable, flex, position, transition } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 
@@ -90,9 +95,9 @@ const StyledButton = styled.button<ButtonProps>`
         color: ${theme.colors[contentColor] || contentColor};
         ${clickable(theme.colors[color] || color)}
         ${Main({
-        padding: theme.dimensions.padding.withBorder,
-        ...props,
-    })}
+            padding: theme.dimensions.padding.withBorder,
+            ...props,
+        })}
     `}
 
     // Primary button

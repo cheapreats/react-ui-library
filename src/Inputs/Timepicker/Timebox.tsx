@@ -43,22 +43,22 @@ export const Timebox: React.FC<TimeboxProps> = ({
     const _onChange = useCallback(
         (_name, _value): void => {
             switch (_name) {
-            case 'HOUR':
-                value.setHours(
-                    ((_value + 1) % 12) + (period === 'AM' ? 0 : 12),
-                );
-                break;
-            case 'MINUTE':
-                value.setMinutes(_value);
-                break;
-            case 'PERIOD':
-                value.setHours(value.getHours() % 12);
-                if (_value) {
-                    value.setHours(value.getHours() + 12);
-                }
-                break;
-            default:
-                break;
+                case 'HOUR':
+                    value.setHours(
+                        ((_value + 1) % 12) + (period === 'AM' ? 0 : 12),
+                    );
+                    break;
+                case 'MINUTE':
+                    value.setMinutes(_value);
+                    break;
+                case 'PERIOD':
+                    value.setHours(value.getHours() % 12);
+                    if (_value) {
+                        value.setHours(value.getHours() + 12);
+                    }
+                    break;
+                default:
+                    break;
             }
             onChange({
                 target: {
@@ -90,20 +90,20 @@ export const Timebox: React.FC<TimeboxProps> = ({
             <TimeColumn
                 items={VALUES.HOURS}
                 onChange={_onChange}
-                name='HOUR'
+                name="HOUR"
                 active={hour}
             />
             <TimeColumn
                 format={(v): string => v.toString().padStart(2, '0')}
                 items={VALUES.MINS}
                 onChange={_onChange}
-                name='MINUTE'
+                name="MINUTE"
                 active={min}
             />
             <TimeColumn
                 items={VALUES.PERIOD}
                 onChange={_onChange}
-                name='PERIOD'
+                name="PERIOD"
                 active={period}
             />
         </Container>

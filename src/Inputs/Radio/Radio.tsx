@@ -1,6 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Main, MainInterface, MainProps, Responsive, ResponsiveInterface, ResponsiveProps } from '@Utils/BaseStyles';
+import {
+    Main,
+    MainInterface,
+    MainProps,
+    Responsive,
+    ResponsiveInterface,
+    ResponsiveProps,
+} from '@Utils/BaseStyles';
 import { __useImplicitProps, ImplicitPropsInterface } from '@Utils/Hooks';
 import { darken, flex, position, transition } from '@Utils/Mixins';
 
@@ -43,7 +50,7 @@ export const Radio: React.FC<RadioProps> = ({
         <Container className={className} column={column} {...implicitProps}>
             <RadioContainer>
                 <Input
-                    type='checkbox'
+                    type="checkbox"
                     {...props}
                     name={name}
                     value={value === undefined ? '' : value.toString()}
@@ -117,9 +124,9 @@ const RadioBox = styled.div<RadioProps>`
             }
 
             ${Main({
-        padding: `${dimensions.radio.spacing}px`,
-        ...props,
-    })}
+                padding: `${dimensions.radio.spacing}px`,
+                ...props,
+            })}
         `;
     }}
     ${({ radioStyle, ...props }): string =>

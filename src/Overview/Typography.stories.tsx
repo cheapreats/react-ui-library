@@ -39,24 +39,21 @@ storiesOf('Design System/Typography', module).add(
     'Overview',
     () => (
         <Main>
-            <Heading type='h1' bold>
+            <Heading type="h1" bold>
                 Typography
             </Heading>
 
             <Section>
-                <Heading type='h2'>Fonts</Heading>
+                <Heading type="h2">Fonts</Heading>
                 <Paragraph>
                     CheaprEats uses only Quicksand across all applications and
                     systems. Before using our UI components, we highly recommend
-                    loading this font-family yourself via
-                    {' '}
-                    <a href='https://fonts.google.com/specimen/Quicksand'>
+                    loading this font-family yourself via{' '}
+                    <a href="https://fonts.google.com/specimen/Quicksand">
                         Google Fonts
-                    </a>
-                    {' '}
-                    or with
-                    {' '}
-                    <a href='https://github.com/typekit/webfontloader'>
+                    </a>{' '}
+                    or with{' '}
+                    <a href="https://github.com/typekit/webfontloader">
                         WebFontLoader
                     </a>
                     .
@@ -74,7 +71,7 @@ storiesOf('Design System/Typography', module).add(
             </Section>
 
             <Section>
-                <Heading type='h2'>Headings</Heading>
+                <Heading type="h2">Headings</Heading>
                 <Paragraph>
                     CheaprEats uses currently only 3 layers of heading from 1 to
                     3. It is important that headings are used properly to allow
@@ -99,7 +96,7 @@ storiesOf('Design System/Typography', module).add(
             </Section>
 
             <Section>
-                <Heading type='h2'>Paragraph</Heading>
+                <Heading type="h2">Paragraph</Heading>
                 <Paragraph>
                     Paragraphs are different from spans as it has semantic
                     meaning - It indicates the information in that tag is the
@@ -110,7 +107,7 @@ storiesOf('Design System/Typography', module).add(
             </Section>
 
             <Section>
-                <Heading type='h2'>Other Font Sizes</Heading>
+                <Heading type="h2">Other Font Sizes</Heading>
                 <ListGrid columnWidth={120}>
                     {Object.entries(MainTheme.font.size)
                         .filter(([key]) => !key.match(/^h[1-6]$/))

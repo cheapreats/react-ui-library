@@ -1,7 +1,14 @@
 import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components';
 import { Check } from '@styled-icons/fa-solid/Check';
-import { Main, MainInterface, MainProps, Responsive, ResponsiveInterface, ResponsiveProps } from '@Utils/BaseStyles';
+import {
+    Main,
+    MainInterface,
+    MainProps,
+    Responsive,
+    ResponsiveInterface,
+    ResponsiveProps,
+} from '@Utils/BaseStyles';
 import { __useImplicitProps, ImplicitPropsInterface } from '@Utils/Hooks';
 import { darken, flex, position, transition } from '@Utils/Mixins';
 
@@ -46,10 +53,11 @@ export const Checkbox: React.FC<CheckboxProps> = ({
         <Container className={className} column={column} {...implicitProps}>
             <CheckContainer>
                 <Input
-                    type='checkbox'
+                    type="checkbox"
                     name={name}
                     onChange={(event: SyntheticEvent<HTMLInputElement>): void =>
-                        onChange(event)}
+                        onChange(event)
+                    }
                     {...props}
                     value={
                         value === undefined || value === null
@@ -129,9 +137,9 @@ const CheckBox = styled.div<CheckboxProps>`
             }
 
             ${Main({
-        padding: `${dimensions.checkbox.spacing}px`,
-        ...props,
-    })}
+                padding: `${dimensions.checkbox.spacing}px`,
+                ...props,
+            })}
         `;
     }}
     ${({ checkboxStyle, ...props }): string =>

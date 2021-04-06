@@ -1,5 +1,5 @@
 import React from 'react';
-import {SmallText} from '@Text';
+import { SmallText } from '@Text';
 import styled from 'styled-components';
 import { flex, media } from '@Utils/Mixins';
 import { Check } from '@styled-icons/boxicons-regular/Check';
@@ -27,34 +27,28 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
     imageTagColors,
     highlightTexts,
     featureFooter,
-    linkHref
+    linkHref,
 }) => {
     /**
      * Returns a JSX element array containing the highlightText
      */
-    const getHighlightText = () => highlightTexts.map(
-        (highlightText: string) => (
+    const getHighlightText = () =>
+        highlightTexts.map((highlightText: string) => (
             <SmallText size="h7" key={highlightText}>
-                <Tick />
-                {' '}
-                {highlightText}
+                <Tick /> {highlightText}
                 <div />
             </SmallText>
-        )
-    )
+        ));
     /**
      * Returns a JSX element array containing the imageTag and corresponding iconColor
      */
-    const getImageTags = () => imageTags.map(
-        (imageTag: string, index: number) => (
+    const getImageTags = () =>
+        imageTags.map((imageTag: string, index: number) => (
             <GridItem key={imageTag}>
-                <ChartDesc color={imageTagColors[index]} />
-                {' '}
+                <ChartDesc color={imageTagColors[index]} />{' '}
                 <SmallText>{imageTag}</SmallText>
             </GridItem>
-        )
-    )
-
+        ));
 
     return (
         <Container>
@@ -72,11 +66,7 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
                     </SmallText>
                 </Section>
                 <Section>
-                    <SmallText
-                        type="div"
-                        size="h6"
-                        lineHeight="false"
-                    >
+                    <SmallText type="div" size="h6" lineHeight="false">
                         {featureSubTitle}
                     </SmallText>
                 </Section>
@@ -94,15 +84,11 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
                         </SmallText>
                         <img src={featureImage} alt={featureTitle} />
                         <Section>
-                            <Grid>
-                                {getImageTags()}
-                            </Grid>
+                            <Grid>{getImageTags()}</Grid>
                         </Section>
                     </Card>
                 </Section>
-                <Section>
-                    {getHighlightText()}
-                </Section>
+                <Section>{getHighlightText()}</Section>
                 <Section>
                     <Link href={linkHref}>
                         <SmallText color="#9966ff" size="h7" bold>
@@ -113,10 +99,7 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
             </Card>
         </Container>
     );
-
-
 };
-
 
 const Container = styled.main`
     ${flex('column', 'flex-start', 'center')}

@@ -2,7 +2,13 @@ import React from 'react';
 import styled from 'styled-components';
 import { AngleLeft } from '@styled-icons/fa-solid/AngleLeft';
 import { AngleRight } from '@styled-icons/fa-solid/AngleRight';
-import { clickable, flex, position, styledCondition, transition } from '../../Utils/Mixins';
+import {
+    clickable,
+    flex,
+    position,
+    styledCondition,
+    transition,
+} from '../../Utils/Mixins';
 import { MONTHS, WEEKDAYS } from '../../Utils/Constants';
 import { Button } from '../Button/Button';
 

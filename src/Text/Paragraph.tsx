@@ -1,8 +1,7 @@
 import React from 'react';
 import { TextLayout, TextLayoutProps } from '../Fragments/TextLayout';
 
-export interface ParagraphProps extends TextLayoutProps {
-}
+export interface ParagraphProps extends TextLayoutProps {}
 
 export const Paragraph: React.FC<ParagraphProps> = ({
     children,

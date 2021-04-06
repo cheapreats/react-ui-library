@@ -46,7 +46,7 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
         <ListHeaderContainer padding={padding} margin={margin} {...props}>
             <Row display={headerFlex}>
                 <HeadingContainer isExpanded={isExpanded}>
-                    <Heading bold type='h2' {...props}>
+                    <Heading bold type="h2" {...props}>
                         {label}
                     </Heading>
                 </HeadingContainer>
@@ -90,21 +90,21 @@ const SearchContainer = styled.div<IResponsiveSearchProps>`
 const IconContainer = styled.div<IResponsiveSearchProps>`
     ${Mixins.flex('center')}
     margin-left: 5px;
-
 `;
 const HeadingContainer = styled.div<IResponsiveSearchProps>`
     ${Mixins.transition(['transform', 'opacity'])}
-    ${({ isExpanded }) => isExpanded ? 'transform: translateY(-200px); opacity: 0; position: fixed;' : 'opacity: 1;'}
+    ${({ isExpanded }) =>
+        isExpanded
+            ? 'transform: translateY(-200px); opacity: 0; position: fixed;'
+            : 'opacity: 1;'}
 `;
 
 interface HeaderProps {
     padding?: string;
     margin?: string;
-
 }
 
 const ListHeaderContainer = styled.div<HeaderProps>`
-    
     ${({ theme, padding, margin }): string => `
     border-bottom: 2px solid ${theme.colors.text}20;
     padding: ${padding};
@@ -114,7 +114,6 @@ const ListHeaderContainer = styled.div<HeaderProps>`
 
 interface RowProps {
     display?: string;
-
 }
 
 const Row = styled.div<RowProps>`
@@ -128,5 +127,5 @@ interface IconProps {
 
 const Icon = styled.svg<IconProps>`
     ${(props): string | undefined => props.iconProps};
-    cursor:pointer;
+    cursor: pointer;
 `;

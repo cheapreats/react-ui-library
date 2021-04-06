@@ -29,7 +29,16 @@ export default {
             typescript: ttypescript,
             tsconfig: './tsconfig.json',
             include: ['*.ts+(|x)', '**/*.ts+(|x)'],
-            exclude: [ "*.d.ts", "**/*.d.ts", "node_modules/**", "__tests__", ".vscode", ".github", "scripts", "dist"],
+            exclude: [
+                '*.d.ts',
+                '**/*.d.ts',
+                'node_modules/**',
+                '__tests__',
+                '.vscode',
+                '.github',
+                'scripts',
+                'dist',
+            ],
             tsconfigOverride: { compilerOptions: { module: 'es2015' } },
             tsconfigDefaults: {
                 compilerOptions: {
@@ -39,7 +48,7 @@ export default {
         }),
         nodeResolve({ preferBuiltins: true }),
         babel({
-            exclude: ['node_modules', "scripts", "dist", "*.d.ts", "**/*.d.ts"],
+            exclude: ['node_modules', 'scripts', 'dist', '*.d.ts', '**/*.d.ts'],
             extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
             plugins: [
                 'babel-plugin-styled-components',
