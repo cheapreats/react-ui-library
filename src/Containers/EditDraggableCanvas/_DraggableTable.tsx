@@ -4,7 +4,7 @@ import Draggable from 'react-draggable';
 import { ISquareTable, SquareTable } from '@Containers/SquareTable/SquareTable';
 import { CircleTable, ICircleTable } from '@Containers/CircleTable/CircleTable';
 
-type getTableComponentType = () => JSX.Element;
+type getTableComponentType = () => JSX.Element | null;
 
 type tableInputType = ISquareTable | ICircleTable;
 
@@ -21,6 +21,10 @@ export interface IDraggableTable {
      * Array index for the table
      */
     arrayIndex: number;
+    /**
+     * Whether the draggable functionality is disabled (if true, then disabled)
+     */
+    isDisabled?: boolean;
 }
 
 /**
@@ -56,6 +60,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     },
     defaultXY = { x: 50, y: 24 },
     arrayIndex = 0,
+    isDisabled = false,
     ...props
 }) => {
     const [deltaPosition, setDeltaPosition] = useState({
@@ -78,7 +83,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     /**
      * Returns a JSX element with the correct component based on whether the
      * TableInput is an ISquareTable or an ICircleTable
-     * @returns {JSX.Element} the correct JSX.Element for the Table component
+     * @returns {JSX.Element | null} the correct JSX.Element for the Table component
      */
     const getTableComponent: getTableComponentType = () => {
         switch (tableInput.tableShape) {
@@ -110,12 +115,13 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     />
                 );
             default:
-                return <div />;
+                return null;
         }
     };
 
     return (
         <Draggable
+            disabled={isDisabled}
             bounds="parent"
             {...dragHandlers}
             defaultPosition={{ x: defaultXY.x, y: defaultXY.y }}
