@@ -2,7 +2,15 @@ import React from 'react';
 import { Cog } from '@styled-icons/fa-solid/Cog';
 import { useArgs } from '@storybook/client-api';
 import { Meta, Story } from '@storybook/react';
-import { List, ListFooter, ListHeader, ListHeaderProps, ListItem, ListProps, ListToggle } from '../../index';
+import {
+    List,
+    ListFooter,
+    ListHeader,
+    ListHeaderProps,
+    ListItem,
+    ListProps,
+    ListToggle,
+} from '../../index';
 import { createStoryTitle } from '../../Constants';
 
 const COG_WHEEL_ICON = Cog;
@@ -34,10 +42,10 @@ export default {
     args: {
         header: (
             <ListHeader
-                label='Header'
-                headerFlex='space-between'
+                label="Header"
+                headerFlex="space-between"
                 icon={COG_WHEEL_ICON}
-                iconProps='width: 20px; margin-right: 10px;'
+                iconProps="width: 20px; margin-right: 10px;"
                 iconClick={() => alert('Icon Clicked')}
             />
         ),
@@ -78,7 +86,6 @@ ListHeaderWithSearchBar.args = {
     searchBarWidth: '80vw',
     searchBarMediaQuery: 'phone',
     searchBarMediaWidth: '70vw ',
-
 };
 
 export const Basic: Story<ListProps> = (args) => {
@@ -89,14 +96,14 @@ export const Basic: Story<ListProps> = (args) => {
             {...args}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            toggleComponent={(
+            toggleComponent={
                 <ListToggle
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                     isLeftToggle
                     isToggleHiddenDesktop
                 />
-            )}
+            }
         >
             {items.map((item) => (
                 <ListItem

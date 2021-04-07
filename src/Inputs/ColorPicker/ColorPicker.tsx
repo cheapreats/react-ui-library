@@ -37,7 +37,7 @@ export const ColorPicker: React.FC<ColorPickerProps> = ({
                 <ColorInput
                     {...props}
                     ref={colorRef}
-                    type='color'
+                    type="color"
                     value={cardColor}
                     onChange={handleChange}
                 />

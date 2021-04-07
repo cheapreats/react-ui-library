@@ -25,7 +25,7 @@ export const EmojiPicker: React.FC<EmojiPickerProps> = ({
     return (
         <>
             <Button onClick={(): void => modal[1](true)}>{text}</Button>
-            <ModalStyled width='auto' state={modal}>
+            <ModalStyled width="auto" state={modal}>
                 <Picker
                     onSelect={({ native }: BaseEmoji): void => {
                         onChange(native);

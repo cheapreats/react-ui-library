@@ -47,6 +47,7 @@ NewUserCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
             },
             defaultXY: { x: 50, y: 24 },
+            arrayIndex: 0,
         },
     ],
 };
@@ -89,6 +90,7 @@ EditCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
             },
             defaultXY: { x: 50, y: 24 },
+            arrayIndex: 0,
         },
         {
             tableInput: {
@@ -135,6 +137,7 @@ EditCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
             },
             defaultXY: { x: 375, y: 37 },
+            arrayIndex: 0,
         },
         {
             // table 4 beginning
@@ -203,6 +206,7 @@ EditCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
             },
             defaultXY: { x: 367, y: -199 },
+            arrayIndex: 0,
         }, // table 4 end
         {
             // table 3 beginning
@@ -250,6 +254,7 @@ EditCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
             },
             defaultXY: { x: 210, y: -283 },
+            arrayIndex: 0,
         }, // table 3 end
         {
             // table 2 beginning
@@ -318,6 +323,7 @@ EditCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
             },
             defaultXY: { x: 43, y: -363 },
+            arrayIndex: 0,
         }, // table 2 end
     ],
 };
@@ -360,6 +366,7 @@ MgmtCanvasExample.args = {
                 tableUse: 'TableForManagement',
             },
             defaultXY: { x: 50, y: 24 },
+            arrayIndex: 0,
         },
         {
             tableInput: {
@@ -406,6 +413,7 @@ MgmtCanvasExample.args = {
                 tableUse: 'TableForManagement',
             },
             defaultXY: { x: 375, y: 37 },
+            arrayIndex: 0,
         },
         {
             // table 4 beginning
@@ -474,6 +482,7 @@ MgmtCanvasExample.args = {
                 tableUse: 'TableForManagement',
             },
             defaultXY: { x: 367, y: -199 },
+            arrayIndex: 0,
         }, // table 4 end
         {
             // table 3 beginning
@@ -521,6 +530,7 @@ MgmtCanvasExample.args = {
                 tableUse: 'TableForManagement',
             },
             defaultXY: { x: 210, y: -283 },
+            arrayIndex: 0,
         }, // table 3 end
         {
             // table 2 beginning
@@ -589,6 +599,7 @@ MgmtCanvasExample.args = {
                 tableUse: 'TableForManagement',
             },
             defaultXY: { x: 43, y: -363 },
+            arrayIndex: 0,
         }, // table 2 end
     ],
 };

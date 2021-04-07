@@ -69,6 +69,10 @@ export interface ISquareTable {
      * The use type for the table component (how it will be used in the app)
      */
     tableUse: tableUseTypes;
+    /**
+     * Array index for the table
+     */
+    arrayIndex?: number;
 }
 
 /**
@@ -84,6 +88,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     relativeSize = 1.0,
     isSquare = false,
     tableUse = 'TableForManagement',
+    arrayIndex = 0,
     ...props
 }) => {
     /**
@@ -193,36 +198,36 @@ export const SquareTable: React.FC<ISquareTable> = ({
      */
     const getTableBodyContent: getTableBodyContentType = () => {
         switch (tableUse) {
-        case 'AddTableButton':
-            return <StyledPlus />;
-        case 'TableForManagement':
-            return (
-                <Row relativeSize={relativeSize}>
-                    <TableInfo relativeSize={relativeSize}>
-                        <div>
-                            {`${tableID}\n${partyName}`}
-                            <Status occupancyStatus={occupancyStatus}>
-                                {occupancyStatus}
-                            </Status>
-                        </div>
-                    </TableInfo>
-                    <ColorDiv
-                        relativeSize={relativeSize}
-                        chairNumOnSide={
-                            isSquare ? squareTableSize : rectangleSideSize
-                        }
-                        occupancyStatus={occupancyStatus}
-                    />
-                </Row>
-            );
-        case 'TableForEditCanvas':
-            return (
-                <TableNumForEditScreen relativeSize={relativeSize}>
-                    {tableID}
-                </TableNumForEditScreen>
-            );
-        default:
-            return <div />;
+            case 'AddTableButton':
+                return <StyledPlus />;
+            case 'TableForManagement':
+                return (
+                    <Row relativeSize={relativeSize}>
+                        <TableInfo relativeSize={relativeSize}>
+                            <div>
+                                {`${tableID}\n${partyName}`}
+                                <Status occupancyStatus={occupancyStatus}>
+                                    {occupancyStatus}
+                                </Status>
+                            </div>
+                        </TableInfo>
+                        <ColorDiv
+                            relativeSize={relativeSize}
+                            chairNumOnSide={
+                                isSquare ? squareTableSize : rectangleSideSize
+                            }
+                            occupancyStatus={occupancyStatus}
+                        />
+                    </Row>
+                );
+            case 'TableForEditCanvas':
+                return (
+                    <TableNumForEditScreen relativeSize={relativeSize}>
+                        {tableID}
+                    </TableNumForEditScreen>
+                );
+            default:
+                return <div />;
         }
     };
 
@@ -291,14 +296,14 @@ type getOccupancyColorType = (occupancyStatus: occupancyStatusTypes) => string;
  */
 const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
-    case 'Vacant':
-        return useTheme().colors.occupancyStatusColors.Vacant;
-    case 'Reserved':
-        return useTheme().colors.occupancyStatusColors.Reserved;
-    case 'Occupied':
-        return useTheme().colors.occupancyStatusColors.Occupied;
-    default:
-        return '';
+        case 'Vacant':
+            return useTheme().colors.occupancyStatusColors.Vacant;
+        case 'Reserved':
+            return useTheme().colors.occupancyStatusColors.Reserved;
+        case 'Occupied':
+            return useTheme().colors.occupancyStatusColors.Occupied;
+        default:
+            return '';
     }
 };
 
@@ -313,7 +318,7 @@ interface ITableBody {
     tableUse: tableUseTypes;
 }
 
-const TableBody = styled.div<ITableBody>`
+const TableBody = styled.button<ITableBody>`
     ${({ chairNumOnSide, chairNumOnTop, relativeSize }) => {
         const BASE_TABLE_BODY_WIDTH_AND_HEIGHT = 20;
         const BASE_BORDER_RADIUS = 3;
@@ -321,14 +326,21 @@ const TableBody = styled.div<ITableBody>`
             chairNumOnSide * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
         }rem;
             width: ${
-    chairNumOnTop * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
-}rem;
+                chairNumOnTop * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
+            }rem;
             border-radius: ${BASE_BORDER_RADIUS * relativeSize}rem;`;
     }}
     background-color: ${({ theme, tableUse }) =>
         tableUse === 'AddTableButton' || tableUse === 'TableForEditCanvas'
             ? theme.colors.chairTableEditBackground
             : theme.colors.chairTableBackground};
+    padding: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    &:focus {
+        box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary};
+    }
 `;
 
 interface IColorDiv {
@@ -349,11 +361,11 @@ const ColorDiv = styled.div<IColorDiv>`
             width: ${BASE_COLOR_DIV_WIDTH * relativeSize}rem;
             margin-right: ${BASE_COLOR_DIV_MARGIN_RIGHT * relativeSize}rem;
             border-top-right-radius: ${
-    BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
-}rem;
+                BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+            }rem;
             border-bottom-right-radius: ${
-    BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
-}rem;`;
+                BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+            }rem;`;
     }}
     margin-left: auto;
     background-color: ${({ occupancyStatus }) =>
@@ -384,6 +396,7 @@ const TableInfo = styled.div<ITableInfo>`
     color: ${({ theme }) => theme.colors.background};
     font-weight: bold;
     white-space: pre-line;
+    text-align: left;
     ${({ relativeSize }) => {
         const BASE_TABLE_INFO_MARGIN_TOP = 2;
         const BASE_TABLE_INFO_MARGIN_LEFT = 3;

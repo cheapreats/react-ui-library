@@ -74,7 +74,7 @@ export const CustomSearch: React.FC<CustomSearchProps> = ({
         <Card width={width} height={height} {...cardProps}>
             <FirstColumnContainer>
                 <Select
-                    label='PRICE'
+                    label="PRICE"
                     placeholder={pricePlaceholder}
                     onChange={({ target }: any): void => {
                         onCustomPriceChange(target);
@@ -86,7 +86,7 @@ export const CustomSearch: React.FC<CustomSearchProps> = ({
             </FirstColumnContainer>
             <SecondColumnContainer>
                 <SearchBar
-                    label='FOOD'
+                    label="FOOD"
                     placeholder={foodPlaceholder}
                     onChange={({ target }: Record<string, string>): void => {
                         onCustomFoodChange(target);
@@ -101,7 +101,7 @@ export const CustomSearch: React.FC<CustomSearchProps> = ({
             </SecondColumnContainer>
             <ThirdColumnContainer>
                 <ComboBox
-                    label='LOCATION'
+                    label="LOCATION"
                     placeholder={locationPlaceholder}
                     onChange={({ target }: any): void => {
                         onCustomLocationChange(target);

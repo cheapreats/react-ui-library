@@ -2,7 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
 import { Heading } from '@Text/Heading';
-import { Main, MainInterface, Responsive, ResponsiveInterface } from '@Utils/BaseStyles';
+import {
+    Main,
+    MainInterface,
+    Responsive,
+    ResponsiveInterface,
+} from '@Utils/BaseStyles';
 
 export interface QRScanProps
     extends MainInterface,
@@ -25,7 +30,7 @@ export const QRScan: React.FC<QRScanProps> = ({
 }): React.ReactElement => (
     <QRScanBox {...props}>
         <Title>
-            <Heading type='h4' bold>
+            <Heading type="h4" bold>
                 {title}
             </Heading>
         </Title>

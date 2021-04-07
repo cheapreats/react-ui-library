@@ -2,7 +2,12 @@ import React, { useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import styled, { useTheme } from 'styled-components';
 import { flex, position, scroll, transition } from '@Utils/Mixins';
-import { Main, MainInterface, Responsive, ResponsiveInterface } from '@Utils/BaseStyles';
+import {
+    Main,
+    MainInterface,
+    Responsive,
+    ResponsiveInterface,
+} from '@Utils/BaseStyles';
 import { useTransition } from '@Utils/Hooks';
 
 export interface ModalProps
@@ -88,9 +93,9 @@ const Box = styled.div<IBoxProps>`
         width: ${theme.dimensions.modal.width[props.width] || props.width};
         height: ${props.height};
         ${Main({
-        padding: theme.dimensions.padding.container,
-        ...props,
-    })}
+            padding: theme.dimensions.padding.container,
+            ...props,
+        })}
     `}
 
     ${({ show }): string =>

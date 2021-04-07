@@ -15,33 +15,33 @@ const QRImg = styled.img`
 
 const footerItems = [
     <QRIconWithText
-        subTextSize='0.4rem'
-        headingTextSize='0.6rem'
-        textWidth='50px'
-        margin='5px 5px 5px 5px'
-        iconSize='30px'
-        headingText='QR code with'
-        subText='your phones camera'
+        subTextSize="0.4rem"
+        headingTextSize="0.6rem"
+        textWidth="50px"
+        margin="5px 5px 5px 5px"
+        iconSize="30px"
+        headingText="QR code with"
+        subText="your phones camera"
         icon={PhoneFill}
     />,
     <QRIconWithText
-        subTextSize='0.4rem'
-        headingTextSize='0.6rem'
-        textWidth='50px'
-        margin='5px 5px 5px 0'
-        iconSize='30px'
-        headingText='Pick up'
-        subText='or ...'
+        subTextSize="0.4rem"
+        headingTextSize="0.6rem"
+        textWidth="50px"
+        margin="5px 5px 5px 0"
+        iconSize="30px"
+        headingText="Pick up"
+        subText="or ..."
         icon={PhoneFill}
     />,
     <QRIconWithText
-        subTextSize='0.4rem'
-        headingTextSize='0.6rem'
-        textWidth='50px'
-        margin='5px 5px 5px 0'
-        iconSize='30px'
-        headingText='Order and Pay'
-        subText='in your browser'
+        subTextSize="0.4rem"
+        headingTextSize="0.6rem"
+        textWidth="50px"
+        margin="5px 5px 5px 0"
+        iconSize="30px"
+        headingText="Order and Pay"
+        subText="in your browser"
         icon={PhoneFill}
     />,
 ];
@@ -54,12 +54,12 @@ export default {
         qrDisplay: <QRImg src={qrImgURL1} />,
         footerItems,
         middleItems: (
-            <SmallText color='white' margin='10px auto'>
+            <SmallText color="white" margin="10px auto">
                 Get Updates from the store
             </SmallText>
         ),
         qrRightContent: (
-            <SmallText color='black' margin='10px auto'>
+            <SmallText color="black" margin="10px auto">
                 Get Updates from the store
             </SmallText>
         ),
