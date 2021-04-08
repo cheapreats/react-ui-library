@@ -167,11 +167,6 @@ const ItemRedemptionPoints:React.FC<IItemRedemptionPoints>=({index,dataItems,set
     )
 }
 
-// const Input=styled(I)`
-// background-color:${MainTheme.colors.statusColors.red};
-// overflow:hidden;
-// `
-
 const ItemCardContentContainer=styled(BaseContainer)`
 ${Mixins.flex('space-between','center')}
 `
