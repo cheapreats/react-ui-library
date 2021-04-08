@@ -10,13 +10,14 @@ import {Input} from '@Inputs/Input/Input'
 import {Card} from '@Containers/Card/Card'
 
 const DECIMAL_BASE=10
-const TIMES_VERTICAL_PADDING=1.5
-const TIMES_HORIZONTAL_PADDING=3
+const TITLE_CONTAINER_TIMES_VERTICAL_PADDING=1.5
+const TITLE_CONTAINER_TIMES_HORIZONTAL_PADDING=3
 const TITLE_CONTAINER_OPACITY=0.8
 const ITEMS_CONTAINER_MIN_WIDTH=260
 const INPUT_WIDTH=30
 const RED_CARD_MIN_WIDTH=216
 const TIMES_BATCH_UPDATE_MODAL_PADDING=2
+const NOT_REDEEMABLE=0
 
 interface IModalProps{
     state:[boolean,React.Dispatch<React.SetStateAction<boolean>>];
@@ -76,7 +77,7 @@ export const ItemsRedemptionPoints:React.FC<IItemsRedemptionPointsProps>=({modal
     return     (
         <>
             <Modal {...modalProps} width='fit-content'>
-                <TitleContainer padding={`${parseInt(MainTheme.dimensions.padding.container as string,DECIMAL_BASE)*TIMES_VERTICAL_PADDING}px ${parseInt(MainTheme.dimensions.padding.container as string,DECIMAL_BASE)*TIMES_HORIZONTAL_PADDING}px`}>
+                <TitleContainer padding={`${parseInt(MainTheme.dimensions.padding.container as string,DECIMAL_BASE)*TITLE_CONTAINER_TIMES_VERTICAL_PADDING}px ${parseInt(MainTheme.dimensions.padding.container as string,DECIMAL_BASE)*TITLE_CONTAINER_TIMES_HORIZONTAL_PADDING}px`}>
                     <Paragraph bold>{titleText}</Paragraph>
                     <Paragraph size='small' bold>{titleDescription}</Paragraph>
                 </TitleContainer>
@@ -144,7 +145,7 @@ const ItemRedemptionPoints:React.FC<IItemRedemptionPoints>=({index,dataItems,set
      */
     const updateRedemptionPoints=({target}:React.ChangeEvent<HTMLInputElement>)=>{
         let value=parseInt(target.value,DECIMAL_BASE)
-        if(value<0) value=0
+        if(value<NOT_REDEEMABLE) value=NOT_REDEEMABLE
         const newDataItems:IData[]=[]
         dataItems.forEach(dataItem=>{
             newDataItems.push({...dataItem})
@@ -160,11 +161,16 @@ const ItemRedemptionPoints:React.FC<IItemRedemptionPoints>=({index,dataItems,set
                     <Dot redemptionPoints={dataItems[index].redemptionPoints} />
                     <P bold size='small' margin='0 0 0 10px'>{dataItems[index].name}</P>
                 </DotNameContainer>
-                <Input type='number' value={dataItems[index].redemptionPoints} onChange={updateRedemptionPoints} width={INPUT_WIDTH} />
+                <Input type='number' value={dataItems[index].redemptionPoints} onChange={updateRedemptionPoints} width={INPUT_WIDTH} error/>
             </ItemCardContentContainer>
         </Card>
     )
 }
+
+// const Input=styled(I)`
+// background-color:${MainTheme.colors.statusColors.red};
+// overflow:hidden;
+// `
 
 const ItemCardContentContainer=styled(BaseContainer)`
 ${Mixins.flex('space-between','center')}
@@ -197,7 +203,7 @@ interface IBatchUpdateModalContentProps{
 }
 
 const BatchUpdateModalContent:React.FC<IBatchUpdateModalContentProps>=({cancelBatchUpdateButtonText,applyBatchUpdateButtonText,setIsBatchUpdateModalShown,applyToAllItemsText,setDataItems,dataItems}):React.ReactElement=>{
-    const [redemptionPoints,setRedemptionPoints]=useState(0)
+    const [redemptionPoints,setRedemptionPoints]=useState(NOT_REDEEMABLE)
 
     /**
      * sets the redemptionPoints value based on the value of the input field
@@ -205,7 +211,7 @@ const BatchUpdateModalContent:React.FC<IBatchUpdateModalContentProps>=({cancelBa
      */
     const updateRedemptionPoints=({target}:React.ChangeEvent<HTMLInputElement>)=>{
         let value=parseInt(target.value,DECIMAL_BASE)
-        if(value<0) value=0
+        if(value<NOT_REDEEMABLE) value=NOT_REDEEMABLE
         setRedemptionPoints(value)
     }
 
