@@ -34,15 +34,14 @@ export const ShowLogos: React.FC<ILogoProps> = ({
                 </Section>
 
                 <Grid>
-                    <ItemA><img src={logoA.url} width={logoA.width} /></ItemA>
-                    <ItemB><img src={logoB.url} width={logoB.width} /></ItemB>
-                    <ItemC><img src={logoC.url} width={logoC.width} /></ItemC>
-                    <ItemD><img src={logoD.url} width={logoD.width} /></ItemD>
-                    <ItemE><img src={logoE.url} width={logoE.width} /></ItemE>
+                    <ItemA><img src={logoA.url} width={logoA.width} alt={logoA.title} /></ItemA>
+                    <ItemB><img src={logoB.url} width={logoB.width} alt={logoB.title} /></ItemB>
+                    <ItemC><img src={logoC.url} width={logoC.width} alt={logoC.title}/></ItemC>
+                    <ItemD><img src={logoD.url} width={logoD.width} alt={logoD.title}/></ItemD>
+                    <ItemE><img src={logoE.url} width={logoE.width} alt={logoE.title}/></ItemE>
                 </Grid>
             </GridContainer>
         </Card>
-
     );
 };
 const Section = styled.div`
