@@ -115,7 +115,7 @@ const PieChart = styled.div<IPieChart>`
     background-image: conic-gradient(
         ${({ AverageWaitTime }) => getColor(AverageWaitTime)}
             ${({ AverageWaitTime }) =>
-        AverageWaitTime * MULTIPLY_DEGREE_ANGLE}deg,
+                AverageWaitTime * MULTIPLY_DEGREE_ANGLE}deg,
         ${({ backgroundColor }) => backgroundColor} 0 235deg
     );
 `;
