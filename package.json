@@ -126,6 +126,7 @@
         "react": "*",
         "react-beautiful-dnd": "^13.0.0",
         "react-dropzone": "^11.2.4",
+        "react-easy-flip": "^4.0.0-beta.2",
         "react-image-crop": "^8.6.6",
         "react-lottie": "^1.2.3",
         "react-responsive-carousel": "^3.2.18",

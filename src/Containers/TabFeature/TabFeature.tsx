@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import { Check } from '@styled-icons/boxicons-regular/Check';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styled from 'styled-components';  
+import { useFlip, FlipProvider } from 'react-easy-flip';
 import { flex, media } from '../../Utils/Mixins';
 import { Heading, Paragraph} from '../../index';
 
@@ -11,7 +12,6 @@ export interface TabFeatureProps {
     description: string;
     navheading: string;
     DataItems: any[];
-    activeBg: any;
 }
 
 export const TabFeature: React.FC<TabFeatureProps> = ({ 
@@ -20,11 +20,14 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
     description,
     navheading,
     DataItems,
-    activeBg,
     ...args
 }): React.ReactElement => {
     const [currNavkey, setCurrNavKey] = useState(0);
     const [prevNavKey, setPrevNavKey] = useState(0); 
+    const [selectedIndex,setSelectedIndex]=useState(0);
+
+    const flipRootId = 'flipRoot';
+    useFlip(flipRootId);
 
     /**
      * Renders a vertical list of check icons and text.
@@ -53,12 +56,22 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
         return DataItems.map(
             (item, navKey): React.ReactElement => (
                 <>
-                    <NavTab
+                    {selectedIndex!==navKey&&<NavTab
                         key={item} 
                         onClick={ () => changeNavFn(navKey)}
                     >
                         {item.title}
-                    </NavTab>
+                    </NavTab>}
+                    {selectedIndex===navKey&&
+                    (
+                        <NavTabSelected
+                            key={item} 
+                            onClick={ () => changeNavFn(navKey)}
+                            data-flip-id='highlight'
+                        >
+                            {item.title}
+                        </NavTabSelected>
+                    )}
                 </>
             ),
         )
@@ -108,10 +121,12 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
             </Row>
             <Row>
                 <Heading type="h3" bold>{navheading}</Heading>
-                <Tabs>
-                    <NavTabList>
-                        {navigation()}                         
-                    </NavTabList>
+                <Tabs onSelect={(index)=>{setSelectedIndex(index)}}>
+                    <FlipProvider>
+                        <NavTabList data-flip-root-id={flipRootId}>
+                            {navigation()}                         
+                        </NavTabList>
+                    </FlipProvider>
                     <ContentHolder> 
                         {contentBlock()}
                     </ContentHolder>
@@ -154,10 +169,10 @@ const NavTab = styled(Tab)`
     border-radius: 25px;
     z-index: 1;
     cursor: pointer;
-    &.react-tabs__tab--selected, .react-tabs__tab--selected:active {
-        color: #fff;
-        background-color: ${({ theme }) => theme.colors.primary};
-    }
+    // &.react-tabs__tab--selected, .react-tabs__tab--selected:active {
+    //     color: #fff;
+    //     background-color: ${({ theme }) => theme.colors.primary};
+    // }
     &.react-tabs__tab--selected:hover {
         opacity: 1;
     }
@@ -166,6 +181,10 @@ const NavTab = styled(Tab)`
     }
     ${media('phone', 'font-size:.8rem; padding:.2rem .5rem')};
 `;
+const NavTabSelected=styled(NavTab)`
+background-color: ${({ theme }) => theme.colors.primary};
+color: #fff;
+`
 const ContentHolder =styled.div`
     padding: 5px;
     border: 1px solid #c5c3c3;
