@@ -1,4 +1,4 @@
-import React,{useCallback,useState} from 'react'
+import React,{useCallback,useState,useRef,useEffect} from 'react'
 import styled from 'styled-components'
 import {Modal as M} from '@Containers/Modal/Modal'
 import {Paragraph as P} from '@Text'
@@ -18,6 +18,11 @@ const INPUT_WIDTH=30
 const RED_CARD_MIN_WIDTH=216
 const TIMES_BATCH_UPDATE_MODAL_PADDING=2
 const NOT_REDEEMABLE=0
+
+interface IReferenceValues{
+    setRedemptionPoints:React.Dispatch<React.SetStateAction<number>>;
+    redemptionPoints:number;
+}
 
 interface IModalProps{
     state:[boolean,React.Dispatch<React.SetStateAction<boolean>>];
@@ -42,15 +47,19 @@ export interface IItemsRedemptionPointsProps{
 }
 
 export const ItemsRedemptionPoints:React.FC<IItemsRedemptionPointsProps>=({modalProps,titleText,titleDescription,cancelButtonText,applyButtonText,batchUpdateButtonText,onClickApplyButton,onClickCancelButton,data,...props}):React.ReactElement=>{
-    const [dataItems,setDataItems]=useState(data)
     const [isShownBatchUpdateModal,setIsShownBatchUpdateModal]=useState(false)
 
     /**
+     * this is used to store info about the ItemRedemptionPoints child components
+     */
+    const infoRef=useRef<IReferenceValues[]>(new Array(data.length))
+
+    /**
      * renders the items as ItemRedemptionPoints components
-     * @param _data {IData[]} - the array of items
+     * @param dataItems {IData[]} - the array of items
      * @returns {React.ReactElement} the rendered items as an array of ItemRedemptionPoints components
      */
-    const renderItems=useCallback((_dataItems:IData[]):React.ReactElement=><>{_dataItems.map((dataItem,index,array)=><ItemRedemptionPoints key={dataItem.name} index={index} dataItems={array} setDataItems={setDataItems} />)}</>,[])
+    const renderItems=useCallback((dataItems:IData[]):React.ReactElement=><>{dataItems.map((dataItem,index)=><ItemRedemptionPoints key={dataItem.name} index={index} infoRef={infoRef} dataItem={dataItem} />)}</>,[])
 
     /**
      * opens batch update modal
@@ -62,17 +71,20 @@ export const ItemsRedemptionPoints:React.FC<IItemsRedemptionPointsProps>=({modal
     /**
      * executes onClickApplyButton function with the current state of dataItems
      */
-    const applyChanges=()=>{
-        onClickApplyButton(dataItems)
-    }
+    const applyChanges=useCallback(()=>{
+        const newDataItems:IData[]=[]
+        data.forEach((dataItem,index)=>{
+            newDataItems.push({...dataItem,redemptionPoints:infoRef.current[index].redemptionPoints})
+        })
+        onClickApplyButton(newDataItems)
+    },[data,onClickApplyButton])
 
     /**
-     * reset state and close modal
+     * this is a wrapper for onClickCancelButton in case we want to add some new functionality
      */
     const cancel=useCallback(()=>{
-        setDataItems(data)
         onClickCancelButton()
-    },[data])
+    },[onClickCancelButton])
 
     return     (
         <>
@@ -82,7 +94,7 @@ export const ItemsRedemptionPoints:React.FC<IItemsRedemptionPointsProps>=({modal
                     <Paragraph size='small' bold>{titleDescription}</Paragraph>
                 </TitleContainer>
                 <ItemsContainer>
-                    {renderItems(dataItems)}
+                    {renderItems(data)}
                 </ItemsContainer>
                 <ButtonsContainer margin='15px'>
                     <LeftButtonsContainer>
@@ -93,7 +105,7 @@ export const ItemsRedemptionPoints:React.FC<IItemsRedemptionPointsProps>=({modal
                 </ButtonsContainer>
             </Modal>
             <Modal state={[isShownBatchUpdateModal,setIsShownBatchUpdateModal]} width='fit-content' padding={`${parseInt(MainTheme.dimensions.padding.container as string,DECIMAL_BASE)*TIMES_BATCH_UPDATE_MODAL_PADDING}px`}>
-                <BatchUpdateModalContent setIsBatchUpdateModalShown={setIsShownBatchUpdateModal} cancelBatchUpdateButtonText={cancelButtonText} applyBatchUpdateButtonText={applyButtonText} setDataItems={setDataItems} dataItems={dataItems} {...props} />
+                <BatchUpdateModalContent setIsBatchUpdateModalShown={setIsShownBatchUpdateModal} cancelBatchUpdateButtonText={cancelButtonText} applyBatchUpdateButtonText={applyButtonText} infoRef={infoRef} {...props} />
             </Modal>
         </>
     )
@@ -132,12 +144,18 @@ min-width:${ITEMS_CONTAINER_MIN_WIDTH}px;
 `
 
 interface IItemRedemptionPoints{
-    dataItems:IData[];
-    setDataItems:React.Dispatch<React.SetStateAction<IData[]>>;
     index:number;
+    infoRef:React.MutableRefObject<IReferenceValues[]>;
+    dataItem:IData;
 }
 
-const ItemRedemptionPoints:React.FC<IItemRedemptionPoints>=({index,dataItems,setDataItems}):React.ReactElement=>{
+const ItemRedemptionPoints:React.FC<IItemRedemptionPoints>=({index,infoRef,dataItem}):React.ReactElement=>{
+
+    const [redemptionPoints,setRedemptionPoints]=useState(dataItem.redemptionPoints)
+
+    useEffect(()=>{
+        infoRef.current[index]={...infoRef.current[index],redemptionPoints,setRedemptionPoints}
+    },[redemptionPoints,index])
 
     /**
      * sets the redemptionPoints value based on the value of the input field
@@ -146,22 +164,17 @@ const ItemRedemptionPoints:React.FC<IItemRedemptionPoints>=({index,dataItems,set
     const updateRedemptionPoints=({target}:React.ChangeEvent<HTMLInputElement>)=>{
         let value=parseInt(target.value,DECIMAL_BASE)
         if(value<NOT_REDEEMABLE) value=NOT_REDEEMABLE
-        const newDataItems:IData[]=[]
-        dataItems.forEach(dataItem=>{
-            newDataItems.push({...dataItem})
-        })
-        newDataItems[index].redemptionPoints=value
-        setDataItems(newDataItems)
+        setRedemptionPoints(value)
     }
 
     return (
         <Card margin='10px' padding='0'>
             <ItemCardContentContainer padding={MainTheme.dimensions.padding.container}>
                 <DotNameContainer margin='0 10px 0 0'>
-                    <Dot redemptionPoints={dataItems[index].redemptionPoints} />
-                    <P bold size='small' margin='0 0 0 10px'>{dataItems[index].name}</P>
+                    <Dot redemptionPoints={redemptionPoints} />
+                    <P bold size='small' margin='0 0 0 10px'>{dataItem.name}</P>
                 </DotNameContainer>
-                <Input type='number' value={dataItems[index].redemptionPoints} onChange={updateRedemptionPoints} width={INPUT_WIDTH} error/>
+                <Input type='number' value={redemptionPoints} onChange={updateRedemptionPoints} width={INPUT_WIDTH} error/>
             </ItemCardContentContainer>
         </Card>
     )
@@ -193,11 +206,10 @@ interface IBatchUpdateModalContentProps{
     applyBatchUpdateButtonText:string;
     setIsBatchUpdateModalShown:React.Dispatch<React.SetStateAction<boolean>>;
     applyToAllItemsText:string;
-    setDataItems:React.Dispatch<React.SetStateAction<IData[]>>;
-    dataItems:IData[];
+    infoRef:React.MutableRefObject<IReferenceValues[]>;
 }
 
-const BatchUpdateModalContent:React.FC<IBatchUpdateModalContentProps>=({cancelBatchUpdateButtonText,applyBatchUpdateButtonText,setIsBatchUpdateModalShown,applyToAllItemsText,setDataItems,dataItems}):React.ReactElement=>{
+const BatchUpdateModalContent:React.FC<IBatchUpdateModalContentProps>=({cancelBatchUpdateButtonText,applyBatchUpdateButtonText,setIsBatchUpdateModalShown,applyToAllItemsText,infoRef}):React.ReactElement=>{
     const [redemptionPoints,setRedemptionPoints]=useState(NOT_REDEEMABLE)
 
     /**
@@ -221,11 +233,9 @@ const BatchUpdateModalContent:React.FC<IBatchUpdateModalContentProps>=({cancelBa
      * applyes the value redemptionPoints to all data items and closes batch update modal
      */
     const doBatchUpdate=()=>{
-        const newDataItems=[...dataItems]
-        newDataItems.forEach((dataItem,index,array)=>{
-            array[index]={...dataItem,redemptionPoints}
+        infoRef.current.forEach(object=>{
+            object.setRedemptionPoints(redemptionPoints)
         })
-        setDataItems(newDataItems)
         closeBatchUpdateModal()
     }
 

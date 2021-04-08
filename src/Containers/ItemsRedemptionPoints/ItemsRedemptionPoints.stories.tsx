@@ -31,7 +31,8 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<IItemsRedemptionPointsProps> = (args) => {
+export const Basic: Story<IItemsRedemptionPointsProps> = ({data,...args}) => {
+    const [dataItems,setDataItems]=useState(data)
     const [isModalShown, setIsModalShown]=useState(false)
 
     /**
@@ -50,17 +51,17 @@ export const Basic: Story<IItemsRedemptionPointsProps> = (args) => {
 
     /**
      * do business logic with the state of dataItems set by the user
-     * @param dataItems {IData[]} - the state of dataItems as modified by the user interaction
+     * @param newDataItems {IData[]} - the state of dataItems as modified by the user interaction
      */
-    const applyChanges=(dataItems:IData[])=>{
-        // do something with dataItems
+    const applyChanges=(newDataItems:IData[])=>{
+        setDataItems(newDataItems)
         closeModal()
     }
 
     return (
         <>
             <Button onClick={showComponent}>Show Component</Button>
-            <ItemsRedemptionPoints {...args} modalProps={{state:[isModalShown,setIsModalShown]}} onClickApplyButton={applyChanges} onClickCancelButton={closeModal} />
+            <ItemsRedemptionPoints data={dataItems} {...args} modalProps={{state:[isModalShown,setIsModalShown]}} onClickApplyButton={applyChanges} onClickCancelButton={closeModal} />
         </>
     )
 }
