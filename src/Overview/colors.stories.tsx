@@ -37,11 +37,11 @@ const flattenColors = (Value: string, label: string) => (
 
 storiesOf('Design System/Colors', module).add('Overview', () => (
     <div>
-        <Heading type='h1' bold>
+        <Heading type="h1" bold>
             Colors
         </Heading>
 
-        <Heading type='h2'>Main Theme</Heading>
+        <Heading type="h2">Main Theme</Heading>
         <ListGrid columnWidth={300} gap={15}>
             {Object.entries(MainTheme.colors).map(([key, value]) =>
                 typeof value === 'object' ? (

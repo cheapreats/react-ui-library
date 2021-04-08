@@ -1,4 +1,11 @@
-import React, { MouseEvent, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import React, {
+    MouseEvent,
+    useEffect,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+    useState,
+} from 'react';
 import styled, { DefaultTheme } from 'styled-components';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
 import { Popup } from '../../Containers/Popup/Popup';
@@ -72,7 +79,7 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
             ((theValue * maxAndMinDifference) /
                 (barRef.current?.clientWidth as number) +
                 min) /
-            step,
+                step,
         ) * step;
 
     useLayoutEffect((): void => {
@@ -124,9 +131,9 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
 
             const isOnRightSide =
                 clickedOn >=
-                (translateToPixels(rightKnobPosition) +
-                    translateToPixels(leftKnobPosition)) /
-                2 || !hasTwoKnobs;
+                    (translateToPixels(rightKnobPosition) +
+                        translateToPixels(leftKnobPosition)) /
+                        2 || !hasTwoKnobs;
 
             setIsRightKnobDragging(isOnRightSide);
             setIsLeftKnobDragging(!isOnRightSide);
@@ -236,11 +243,11 @@ export const Slider: React.FunctionComponent<SliderProps> = ({
 };
 
 const SliderBoard = styled.div<SliderProps>`
-  width: 100%;
-  height: 4px;
-  background: #e9e9e9;
-  cursor: pointer;
-  ${({ theme }): string => `
+    width: 100%;
+    height: 4px;
+    background: #e9e9e9;
+    cursor: pointer;
+    ${({ theme }): string => `
             border-radius: ${theme.dimensions.radius};
             box-shadow: ${theme.depth[1]};
         `} // Disabled
@@ -261,17 +268,17 @@ export interface SelectedBarProps {
 }
 
 const SliderBoardSelected = styled.div<SelectedBarProps>`
-  top: 1px;
-  height: 4px;
-  position: relative;
-  left: ${({ left }): string => `${left}px` || '0px'};
-  ${({ theme, hasRail }): string => `
+    top: 1px;
+    height: 4px;
+    position: relative;
+    left: ${({ left }): string => `${left}px` || '0px'};
+    ${({ theme, hasRail }): string => `
             border-radius: ${theme.dimensions.radius};
             box-shadow: ${theme.depth[1]};
             background: ${hasRail ? theme.colors.primary : '#e9e9e9'};
         `}
-  width: ${({ right }): string => `${right}px` || '0px'};
-  ${({ disabled }): string =>
+    width: ${({ right }): string => `${right}px` || '0px'};
+    ${({ disabled }): string =>
         disabled
             ? `
         cursor: not-allowed;
@@ -281,19 +288,19 @@ const SliderBoardSelected = styled.div<SelectedBarProps>`
 `;
 
 const SliderBoardMarks = styled.div<SliderProps>`
-  display: flex;
-  width: 100%;
-  position: relative;
-  font-weight: bold;
-  top: 6px;
-  ${({ disabled }): string =>
+    display: flex;
+    width: 100%;
+    position: relative;
+    font-weight: bold;
+    top: 6px;
+    ${({ disabled }): string =>
         disabled
             ? `
             cursor: not-allowed;
             opacity: 0.6;
         `
             : ''}
-  ${({ theme }): string => `
+    ${({ theme }): string => `
                 border-radius: ${theme.dimensions.radius};
                 box-shadow: ${theme.depth[1]};
             `}
@@ -306,30 +313,30 @@ export interface KnobProps {
 }
 
 const SliderKnobRight = styled.div<KnobProps>`
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  position: relative;
-  left: ${({ left }): string => `${left}px` || '100px'};
-  ${({ hasTwoKnobs }): string =>
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    position: relative;
+    left: ${({ left }): string => `${left}px` || '100px'};
+    ${({ hasTwoKnobs }): string =>
         hasTwoKnobs
             ? `
          top: -21px;
 `
             : 'top: -7px; '}
 
-  cursor: grab;
+    cursor: grab;
 
-  ${({ theme }): string => `
+    ${({ theme }): string => `
             background: ${theme.colors.primary};
         `}
-  &:active {
-    box-sizing: border-box;
-    border: solid 2px #96dbfa;
-    cursor: grabbing;
-  }
+    &:active {
+        box-sizing: border-box;
+        border: solid 2px #96dbfa;
+        cursor: grabbing;
+    }
 
-  ${({ disabled }): string =>
+    ${({ disabled }): string =>
         disabled
             ? `
         cursor: not-allowed;
@@ -339,29 +346,29 @@ const SliderKnobRight = styled.div<KnobProps>`
 `;
 
 const SliderKnobLeft = styled.div<KnobProps>`
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  position: relative;
-  top: -7px;
-  cursor: grab;
-  left: ${({ left }): string => `${left}px` || '0px'};
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    position: relative;
+    top: -7px;
+    cursor: grab;
+    left: ${({ left }): string => `${left}px` || '0px'};
 
-  ${({ disabled }): string =>
+    ${({ disabled }): string =>
         disabled
             ? `
         cursor: not-allowed;
         opacity: 0.6;
     `
             : ' '}
-  ${({ theme }): string => `
+    ${({ theme }): string => `
             background: ${theme.colors.primary};
         `}
   &:active {
-    box-sizing: border-box;
-    border: solid 2px #96dbfa;
-    cursor: grabbing;
-  }
+        box-sizing: border-box;
+        border: solid 2px #96dbfa;
+        cursor: grabbing;
+    }
 `;
 
 export default Slider;
