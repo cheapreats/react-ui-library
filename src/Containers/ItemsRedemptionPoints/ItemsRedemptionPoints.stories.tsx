@@ -50,7 +50,7 @@ export const Basic: Story<IItemsRedemptionPointsProps> = ({data,...args}) => {
     }
 
     /**
-     * do business logic with the state of dataItems set by the user
+     * do business logic with the state of dataItems set by the user and closes the modal/component
      * @param newDataItems {IData[]} - the state of dataItems as modified by the user interaction
      */
     const applyChanges=(newDataItems:IData[])=>{

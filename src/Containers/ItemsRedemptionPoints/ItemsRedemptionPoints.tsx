@@ -153,6 +153,10 @@ const ItemRedemptionPoints:React.FC<IItemRedemptionPoints>=({index,infoRef,dataI
 
     const [redemptionPoints,setRedemptionPoints]=useState(dataItem.redemptionPoints)
 
+    /**
+     * we store the information of the redemptionPoints and setRedemptionPoints in the reference variable of the parent 
+     * component
+     */
     useEffect(()=>{
         infoRef.current[index]={...infoRef.current[index],redemptionPoints,setRedemptionPoints}
     },[redemptionPoints,index])
