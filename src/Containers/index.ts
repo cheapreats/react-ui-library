@@ -69,3 +69,4 @@ export * from './NutritionFact/NutritionFact';
 export * from './SankeyChart/SankeyChart';
 export * from './HorizontalBarChart/HorizontalBarChart';
 export * from './DeliveryRadius/DeliveryRadius';
+export * from './ItemsRedemptionPoints/ItemsRedemptionPoints';
