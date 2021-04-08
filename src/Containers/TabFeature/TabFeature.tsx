@@ -13,6 +13,7 @@ export interface TabFeatureProps {
     DataItems: any[];
     activeBg: any;
 }
+
 export const TabFeature: React.FC<TabFeatureProps> = ({ 
     heading,
     subheading,
@@ -24,18 +25,20 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
 }): React.ReactElement => {
     const [currNavkey, setCurrNavKey] = useState(0);
     const [prevNavKey, setPrevNavKey] = useState(0); 
+
     /**
      * Renders a vertical list of check icons and text.
      * @param listItems 
      * @returns {React.ReactElement}
      */
-    const listItems = (listItems:string[]): React.ReactElement[] => listItems.map(            
+    const listItems = (_listItems:string[]): React.ReactElement[] => _listItems.map(            
         (item): React.ReactElement => (
             <ListItem key={item} >
                 <Tick /> {item}
             </ListItem>
         ),
     );
+
     /**
      * Renders a horizontal list of text for tab navigation.
      * @param DataItems
@@ -52,7 +55,7 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
                 <>
                     <NavTab
                         key={item} 
-                        onClick={ e => changeNavFn(navKey)}
+                        onClick={ () => changeNavFn(navKey)}
                     >
                         {item.title}
                     </NavTab>
@@ -60,6 +63,7 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
             ),
         )
     };
+
     /**
      * Component for showing content of left and right panels.
      * title, short description and list icons and text.
@@ -72,15 +76,14 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
                 <Content key={item} >
                     <LeftPanel>
                         { 
-                            (currNavkey > prevNavKey)
-                                ?
+                            (currNavkey > prevNavKey)?
                                 <AnimateLeftPanel>
-                                        <Heading type="h6" bold>{item.title}</Heading>
-                                        <CParagraph>{item.shortdescription}</CParagraph>
-                                        <ListItem>{listItems(item.liItems)}</ListItem>
-                                    </AnimateLeftPanel>
+                                    <Heading type="h6" bold>{item.title}</Heading>
+                                    <CParagraph>{item.shortdescription}</CParagraph>
+                                    <ListItem>{listItems(item.liItems)}</ListItem>
+                                </AnimateLeftPanel>
                                 : 
-                                    <AnimateLeftRight>
+                                <AnimateLeftRight>
                                     <Heading type="h6" bold>{item.title}</Heading>
                                     <CParagraph>{item.shortdescription}</CParagraph>
                                     <ListItem>{listItems(item.liItems)}</ListItem>
@@ -95,6 +98,7 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
                 </Content>
             ),
         );
+        
     return (
         <Container {...args}>
             <Row>
