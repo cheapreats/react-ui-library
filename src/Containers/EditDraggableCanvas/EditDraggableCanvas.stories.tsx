@@ -18,6 +18,7 @@ const Template: Story<IEditDraggableCanvas> = (args) => (
  */
 const handleTableClick = (selectedChildIndex: number) => {
     console.log(selectedChildIndex);
+};
 
 /**
  * Will print out the index, x and y coordinates of Draggable Table
@@ -40,6 +41,7 @@ NewUserCanvasExample.args = {
     maxCapacity: 0,
     canvasType: 'newUserCanvas',
     handleStop: handleOnStop,
+    onTableClick: handleTableClick,
     tables: [
         {
             tableInput: {
@@ -87,6 +89,7 @@ EditCanvasExample.args = {
     maxCapacity: 0,
     canvasType: 'editCanvas',
     handleStop: handleOnStop,
+    onTableClick: handleTableClick,
     tables: [
         {
             tableInput: {
@@ -379,6 +382,7 @@ MgmtCanvasExample.args = {
     maxCapacity: 0,
     canvasType: 'managementCanvas',
     handleStop: handleOnStop,
+    onTableClick: handleTableClick,
     tables: [
         {
             tableInput: {
