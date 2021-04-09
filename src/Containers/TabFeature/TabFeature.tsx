@@ -1,10 +1,11 @@
-import React, {useState} from 'react';
+import React, {useState,useRef,useEffect, useLayoutEffect} from 'react';
 import { Check } from '@styled-icons/boxicons-regular/Check';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styled from 'styled-components';  
-import { useFlip, FlipProvider } from 'react-easy-flip';
 import { flex, media } from '../../Utils/Mixins';
 import { Heading, Paragraph} from '../../index';
+
+const ANIMATION_DURATION=3000
 
 export interface TabFeatureProps { 
     heading: string;
@@ -26,8 +27,8 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
     const [prevNavKey, setPrevNavKey] = useState(0); 
     const [selectedIndex,setSelectedIndex]=useState(0);
 
-    const flipRootId = 'flipRoot';
-    useFlip(flipRootId,{duration:3000});
+    const movingTab=useRef<Tab>(null)
+    const lastRect=useRef()
 
     /**
      * Renders a vertical list of check icons and text.
@@ -63,9 +64,7 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
                         {item.title}
                         {selectedIndex===navKey&&
                     (
-                        <NavTabSelected
-                            data-flip-id='highlight'
-                        >
+                        <NavTabSelected ref={movingTab}>
                             {item.title}
                         </NavTabSelected>
                     )}
@@ -74,6 +73,37 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
             ),
         )
     };
+
+    /**
+     * on first render, cach the bounding rect of the moving element
+     */
+    useEffect(()=>{
+        // @ts-ignore
+        lastRect.current=movingTab.current?.node.getBoundingClientRect()
+    },[])
+
+    /**
+     * before painting, animate
+     */
+    useLayoutEffect(()=>{
+        // @ts-ignore
+        const nextRect=movingTab.current?.node.getBoundingClientRect()
+
+        // @ts-ignore
+        const translateX = nextRect.x-lastRect.current?.x;
+
+        // @ts-ignore
+        const widthFactor=1+(lastRect.current?.width-nextRect.width)/nextRect.width
+        
+        lastRect.current=nextRect
+
+        // @ts-ignore
+        movingTab.current?.node.animate([
+            {transform:`translateX(${-translateX}px) scaleX(${widthFactor})`},
+            {transform:`trnanslateX(0px) scaleX(1)`}
+        ],ANIMATION_DURATION)
+
+    },[movingTab.current])
 
     /**
      * Component for showing content of left and right panels.
@@ -119,12 +149,10 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
             </Row>
             <Row>
                 <Heading type="h3" bold>{navheading}</Heading>
-                <Tabs onSelect={(index)=>{setSelectedIndex(index)}}>
-                    <FlipProvider>
-                        <NavTabList data-flip-root-id={flipRootId}>
-                            {navigation()}                         
-                        </NavTabList>
-                    </FlipProvider>
+                <Tabs onSelect={(index)=>{if(index!==selectedIndex)setSelectedIndex(index)}}>
+                    <NavTabList>
+                        {navigation()}                         
+                    </NavTabList>
                     <ContentHolder> 
                         {contentBlock()}
                     </ContentHolder>
@@ -157,6 +185,8 @@ const NavTabList = styled(TabList)`
     position: relative;
     ${flex()};
     padding: 0;
+    background-color:${({theme})=>theme.colors.background};
+    z-index:1;
 `; 
 const NavTab = styled(Tab)`
     position: relative;
@@ -165,12 +195,14 @@ const NavTab = styled(Tab)`
     padding: .5rem 1rem;
     font-weight: bold;
     border-radius: 25px;
-    z-index: 999;
     cursor: pointer;
-    &.react-tabs__tab--selected, .react-tabs__tab--selected:active {
-        color: #fff;
-        // background-color: ${({ theme }) => theme.colors.primary};
-    }
+    mix-blend-mode: difference;
+    z-index:2;
+    color:${({ theme }) => theme.colors.background};
+    // &.react-tabs__tab--selected, .react-tabs__tab--selected:active {
+    //     color: #fff;
+    //     // background-color: ${({ theme }) => theme.colors.primary};
+    // }
     &.react-tabs__tab--selected:hover {
         opacity: 1;
     }
@@ -185,7 +217,7 @@ color: ${({ theme }) => theme.colors.primary};
 position:absolute;
 top:0;
 left:0;
-z-index:-9999;
+z-index:0;
 `
 const ContentHolder =styled.div`
     padding: 5px;
