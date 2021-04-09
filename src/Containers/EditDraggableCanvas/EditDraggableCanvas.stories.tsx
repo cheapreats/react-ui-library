@@ -6,6 +6,9 @@ import { createStoryTitle } from '../../Constants';
 export default {
     title: createStoryTitle('EditDraggableCanvas'),
     component: EditDraggableCanvas,
+    argTypes: {
+        handleStop: { action: 'stopped at' },
+    },
 } as Meta;
 
 const Template: Story<IEditDraggableCanvas> = (args) => (

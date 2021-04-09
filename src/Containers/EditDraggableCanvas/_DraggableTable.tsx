@@ -25,6 +25,8 @@ export interface IDraggableTable {
      * Whether the draggable functionality is disabled (if true, then disabled)
      */
     isDisabled?: boolean;
+
+    handleStop?: () => void;
 }
 
 /**
@@ -61,6 +63,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     defaultXY = { x: 50, y: 24 },
     arrayIndex = 0,
     isDisabled = false,
+    handleStop,
     ...props
 }) => {
     const [deltaPosition, setDeltaPosition] = useState({
@@ -87,35 +90,35 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
      */
     const getTableComponent: getTableComponentType = () => {
         switch (tableInput.tableShape) {
-        case 'Square':
-            return (
-                <SquareTable
-                    tableShape={tableInput.tableShape}
-                    tableID={tableInput.tableID}
-                    partyName={tableInput.partyName}
-                    isSquare={tableInput.isSquare}
-                    occupancyStatus={tableInput.occupancyStatus}
-                    relativeSize={tableInput.relativeSize}
-                    chairs={tableInput.chairs}
-                    tableUse={tableInput.tableUse}
-                    arrayIndex={arrayIndex}
-                />
-            );
-        case 'Circle':
-            return (
-                <CircleTable
-                    tableShape={tableInput.tableShape}
-                    tableID={tableInput.tableID}
-                    partyName={tableInput.partyName}
-                    occupancyStatus={tableInput.occupancyStatus}
-                    relativeSize={tableInput.relativeSize}
-                    chairs={tableInput.chairs}
-                    tableUse={tableInput.tableUse}
-                    arrayIndex={arrayIndex}
-                />
-            );
-        default:
-            return null;
+            case 'Square':
+                return (
+                    <SquareTable
+                        tableShape={tableInput.tableShape}
+                        tableID={tableInput.tableID}
+                        partyName={tableInput.partyName}
+                        isSquare={tableInput.isSquare}
+                        occupancyStatus={tableInput.occupancyStatus}
+                        relativeSize={tableInput.relativeSize}
+                        chairs={tableInput.chairs}
+                        tableUse={tableInput.tableUse}
+                        arrayIndex={arrayIndex}
+                    />
+                );
+            case 'Circle':
+                return (
+                    <CircleTable
+                        tableShape={tableInput.tableShape}
+                        tableID={tableInput.tableID}
+                        partyName={tableInput.partyName}
+                        occupancyStatus={tableInput.occupancyStatus}
+                        relativeSize={tableInput.relativeSize}
+                        chairs={tableInput.chairs}
+                        tableUse={tableInput.tableUse}
+                        arrayIndex={arrayIndex}
+                    />
+                );
+            default:
+                return null;
         }
     };
 
@@ -125,6 +128,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
             bounds="parent"
             {...dragHandlers}
             defaultPosition={{ x: defaultXY.x, y: defaultXY.y }}
+            onStop={handleStop}
             {...props}
         >
             <TableWidthWrapper>{getTableComponent()}</TableWidthWrapper>

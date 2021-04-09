@@ -119,14 +119,14 @@ export const NutritionFact: React.FC<INutritionFactProps> = ({
         () =>
             entries.map(({ type, data }) => {
                 switch (type) {
-                case EntryType.Entry:
-                    return renderEntry(data as IEntryProps);
-                case EntryType.Heading:
-                    return renderHeadingEntry(
+                    case EntryType.Entry:
+                        return renderEntry(data as IEntryProps);
+                    case EntryType.Heading:
+                        return renderHeadingEntry(
                             data as IHeadingEntryProps & IAdditionalProps,
-                    );
-                default:
-                    return null;
+                        );
+                    default:
+                        return null;
                 }
             }),
         [entries],
