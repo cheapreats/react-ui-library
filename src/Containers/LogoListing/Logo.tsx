@@ -1,11 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
+import { action } from "@storybook/addon-actions";
 import { Button } from '../../Inputs/Button/Button';
 import { Card } from '../Card/Card';
 
 export interface ILogoProps {
     listingTitle: string;
-    titleSummary: string;
+    listingDescription: string;
     buttonText: string;
     logoA: any;
     logoB: any;
@@ -15,7 +16,7 @@ export interface ILogoProps {
 }
 export const ShowLogos: React.FC<ILogoProps> = ({
     listingTitle,
-    titleSummary,
+    listingDescription,
     buttonText,
     logoA,
     logoB,
@@ -29,8 +30,8 @@ export const ShowLogos: React.FC<ILogoProps> = ({
             <GridContainer>
                 <Section>
                     <TitleDiv> {listingTitle}</TitleDiv>
-                    <SummaryDiv>{titleSummary}</SummaryDiv>
-                    <Button primary> {buttonText} </Button>
+                    <SummaryDiv>{listingDescription}</SummaryDiv>
+                    <Button primary onClick={action("Button is clicked!")}> {buttonText} </Button>
                 </Section>
 
                 <Grid>

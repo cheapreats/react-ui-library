@@ -10,7 +10,7 @@ export default {
 
 const defaultArgs = {
     listingTitle: 'Send payouts around the world',
-    titleSummary: 'Connect’s smart payout engine enables you to send money quickly—even instantly—to sellers, freelancers, or service providers around the world.',
+    listingDescription: 'Connect’s smart payout engine enables you to send money quickly—even instantly—to sellers, freelancers, or service providers around the world.',
     buttonText: 'Connect payouts >',
     logoA: {'url':'https://passiveincomemd.com/wp-content/uploads/2018/12/cozy-logo-orange-1024x341.png', 'width': '80px', 'title':'cozy logo'},
     logoB: {'url':'https://upload.wikimedia.org/wikipedia/commons/3/3e/Cargomatic_%28Company%29_Logo.png', 'width': '150px', 'title':'cargomatic logo'},
