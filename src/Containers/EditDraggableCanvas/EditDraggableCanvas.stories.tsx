@@ -12,6 +12,13 @@ const Template: Story<IEditDraggableCanvas> = (args) => (
     <EditDraggableCanvas {...args} />
 );
 
+/**
+ * Will print out the index, x and y coordinates of Draggable Table
+ * when the drag stops
+ * @param selectedChildIndex
+ * @param deltaX
+ * @param deltaY
+ */
 const handleOnStop = (
     selectedChildIndex: number,
     deltaX: number,

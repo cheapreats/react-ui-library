@@ -32,6 +32,13 @@ export interface IEditDraggableCanvas {
      * Array of DraggableTables
      */
     tables?: Array<IDraggableTable>;
+    /**
+     * The function that will pass over the index value of DraggableTable in the array with its
+     * coordinates on the canvas (x,y)
+     * @param selectedChildIndex
+     * @param deltaX
+     * @param deltaY
+     */
     handleStop: (
         selectedChildIndex: number,
         deltaX: number,

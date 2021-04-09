@@ -25,7 +25,13 @@ export interface IDraggableTable {
      * Whether the draggable functionality is disabled (if true, then disabled)
      */
     isDisabled?: boolean;
-
+    /**
+     * The function that will pass over the index value of DraggableTable in the array with its
+     * coordinates on the canvas (x,y)
+     * @param selectedChildIndex
+     * @param deltaX
+     * @param deltaY
+     */
     handleStop: (
         selectedChildIndex: number,
         deltaX: number,
@@ -88,8 +94,6 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
         handleDrag,
     };
 
-    const callOnStop = (data: any) => handleStop(arrayIndex, data.x, data.y);
-
     /**
      * Returns a JSX element with the correct component based on whether the
      * TableInput is an ISquareTable or an ICircleTable
@@ -135,7 +139,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
             bounds="parent"
             {...dragHandlers}
             defaultPosition={{ x: defaultXY.x, y: defaultXY.y }}
-            onStop={(e, data) => callOnStop(data)}
+            onStop={(e, data) => handleStop(arrayIndex, data.x, data.y)}
             {...props}
         >
             <TableWidthWrapper>{getTableComponent()}</TableWidthWrapper>
