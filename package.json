@@ -1,6 +1,6 @@
 {
     "name": "@cheapreats/react-ui",
-    "version": "2.3.93",
+    "version": "2.3.94",
     "description": "React UI library for CheaprEats",
     "main": "dist/index.js",
     "module": "dist/index.esgit .js",
@@ -74,7 +74,7 @@
         "styled-components": "^5.2.3",
         "styled-icons": "^10.22.0",
         "ts-jest": "^26.4.4",
-        "typescript": "^4.2.3"
+        "typescript": "^4.2.4"
     },
     "aliases": {
         "@Containers": "src/Containers",

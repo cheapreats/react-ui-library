@@ -36,6 +36,18 @@ export interface IEditDraggableCanvas {
      * @param selectedChildIndex - the array index for the table
      */
     onTableClick: (selectedChildIndex: number) => void;
+    /**
+     * The function that will pass over the index value of DraggableTable in the array with its
+     * coordinates on the canvas (x,y)
+     * @param selectedChildIndex
+     * @param deltaX
+     * @param deltaY
+     */
+    handleStop: (
+        selectedChildIndex: number,
+        deltaX: number,
+        deltaY: number,
+    ) => void;
 }
 
 /**
@@ -48,6 +60,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     canvasType = 'newUserCanvas',
     tables = [],
     onTableClick,
+    handleStop,
     ...props
 }) => {
 
@@ -73,6 +86,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                     key={generateTableKey(item.defaultXY.x.toString() + index)}
                     isDisabled
                     onTableClick={onTableClick}
+                    handleStop={handleStop}
                 />
             ));
         }
@@ -84,6 +98,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                 arrayIndex={index}
                 key={generateTableKey(item.defaultXY.x.toString() + index)}
                 onTableClick={onTableClick}
+                handleStop={handleStop}
             />
         ));
     };

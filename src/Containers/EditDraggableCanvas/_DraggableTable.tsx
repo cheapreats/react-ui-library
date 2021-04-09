@@ -30,6 +30,18 @@ export interface IDraggableTable {
      * @param selectedChildIndex - the array index for the table
      */
     onTableClick: (selectedChildIndex: number) => void;
+    /**
+     * The function that will pass over the index value of DraggableTable in the array with its
+     * coordinates on the canvas (x,y)
+     * @param selectedChildIndex
+     * @param deltaX
+     * @param deltaY
+     */
+    handleStop: (
+        selectedChildIndex: number,
+        deltaX: number,
+        deltaY: number,
+    ) => void;
 }
 
 /**
@@ -67,6 +79,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     arrayIndex = 0,
     isDisabled = false,
     onTableClick,
+    handleStop,
     ...props
 }) => {
     const [deltaPosition, setDeltaPosition] = useState({
@@ -76,6 +89,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
 
     const handleDrag = (e: Event, ui: { deltaX: number; deltaY: number }) => {
         const { x, y } = deltaPosition;
+        console.log(deltaPosition);
         setDeltaPosition({
             x: x + ui.deltaX,
             y: y + ui.deltaY,
@@ -133,6 +147,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
             bounds="parent"
             {...dragHandlers}
             defaultPosition={{ x: defaultXY.x, y: defaultXY.y }}
+            onStop={(e, data) => handleStop(arrayIndex, data.x, data.y)}
             {...props}
         >
             <TableWidthWrapper>{getTableComponent()}</TableWidthWrapper>

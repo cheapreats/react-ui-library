@@ -18,6 +18,20 @@ const Template: Story<IEditDraggableCanvas> = (args) => (
  */
 const handleTableClick = (selectedChildIndex: number) => {
     console.log(selectedChildIndex);
+
+/**
+ * Will print out the index, x and y coordinates of Draggable Table
+ * when the drag stops
+ * @param selectedChildIndex
+ * @param deltaX
+ * @param deltaY
+ */
+const handleOnStop = (
+    selectedChildIndex: number,
+    deltaX: number,
+    deltaY: number,
+) => {
+    console.log(selectedChildIndex, deltaX, deltaY);
 };
 
 export const NewUserCanvasExample = Template.bind({});
@@ -25,6 +39,7 @@ NewUserCanvasExample.args = {
     currentNumberOfChairs: 0,
     maxCapacity: 0,
     canvasType: 'newUserCanvas',
+    handleStop: handleOnStop,
     tables: [
         {
             tableInput: {
@@ -55,6 +70,7 @@ NewUserCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
@@ -70,6 +86,7 @@ EditCanvasExample.args = {
     currentNumberOfChairs: 0,
     maxCapacity: 0,
     canvasType: 'editCanvas',
+    handleStop: handleOnStop,
     tables: [
         {
             tableInput: {
@@ -100,6 +117,7 @@ EditCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
@@ -149,6 +167,7 @@ EditCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 375, y: 37 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
@@ -220,6 +239,7 @@ EditCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 367, y: -199 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
@@ -270,6 +290,7 @@ EditCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 210, y: -283 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
@@ -341,6 +362,7 @@ EditCanvasExample.args = {
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 43, y: -363 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
@@ -356,6 +378,7 @@ MgmtCanvasExample.args = {
     currentNumberOfChairs: 0,
     maxCapacity: 0,
     canvasType: 'managementCanvas',
+    handleStop: handleOnStop,
     tables: [
         {
             tableInput: {
@@ -386,6 +409,7 @@ MgmtCanvasExample.args = {
                 tableUse: 'TableForManagement',
                 onTableClick: handleTableClick,
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
@@ -435,6 +459,7 @@ MgmtCanvasExample.args = {
                 tableUse: 'TableForManagement',
                 onTableClick: handleTableClick,
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 375, y: 37 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
@@ -506,6 +531,7 @@ MgmtCanvasExample.args = {
                 tableUse: 'TableForManagement',
                 onTableClick: handleTableClick,
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 367, y: -199 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
@@ -556,6 +582,7 @@ MgmtCanvasExample.args = {
                 tableUse: 'TableForManagement',
                 onTableClick: handleTableClick,
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 210, y: -283 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
@@ -627,6 +654,7 @@ MgmtCanvasExample.args = {
                 tableUse: 'TableForManagement',
                 onTableClick: handleTableClick,
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 43, y: -363 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
