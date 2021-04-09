@@ -26,6 +26,11 @@ export interface IDraggableTable {
      */
     isDisabled?: boolean;
     /**
+     * Function to handle onClick event for the table
+     * @param selectedChildIndex - the array index for the table
+     */
+    onTableClick: (selectedChildIndex: number) => void;
+    /**
      * The function that will pass over the index value of DraggableTable in the array with its
      * coordinates on the canvas (x,y)
      * @param selectedChildIndex
@@ -73,6 +78,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     defaultXY = { x: 50, y: 24 },
     arrayIndex = 0,
     isDisabled = false,
+    onTableClick,
     handleStop,
     ...props
 }) => {
@@ -113,6 +119,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                         chairs={tableInput.chairs}
                         tableUse={tableInput.tableUse}
                         arrayIndex={arrayIndex}
+                        onTableClick={onTableClick}
                     />
                 );
             case 'Circle':
@@ -126,6 +133,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                         chairs={tableInput.chairs}
                         tableUse={tableInput.tableUse}
                         arrayIndex={arrayIndex}
+                        onTableClick={onTableClick}
                     />
                 );
             default:

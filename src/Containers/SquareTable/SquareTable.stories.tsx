@@ -11,6 +11,14 @@ export default {
 const Template: Story<ISquareTable> = (args) => <SquareTable {...args} />;
 
 /**
+ * Prints the Selected Child index to the console when Table is clicked
+ * @param selectedChildIndex
+ */
+const handleTableClick = (selectedChildIndex: number) => {
+    console.log(selectedChildIndex);
+};
+
+/**
  *Creates a square table with 7 chairs
  */
 export const SevenTopSquareTable = Template.bind({});
@@ -87,6 +95,7 @@ SevenTopSquareTable.args = {
     ],
     isSquare: true,
     tableUse: 'TableForManagement',
+    onTableClick: handleTableClick,
 };
 
 /**
@@ -166,6 +175,7 @@ EightTopVertRectangleTable.args = {
     ],
     isSquare: false,
     tableUse: 'TableForManagement',
+    onTableClick: handleTableClick,
 };
 
 /**
@@ -230,4 +240,5 @@ SixTopHorizontalRectangleTable.args = {
     isSquare: false,
     relativeSize: 0.5,
     tableUse: 'TableForManagement',
+    onTableClick: handleTableClick,
 };

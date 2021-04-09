@@ -35,6 +35,14 @@ export const DraggableCanvas = (): ReactElement => {
         handleDrag,
     };
 
+    /**
+     * Prints the Selected Child index to the console when Table is clicked
+     * @param selectedChildIndex
+     */
+    const handleTableClick = (selectedChildIndex: number) => {
+        console.log(selectedChildIndex);
+    };
+
     return (
         <SpacingForBottom id="demo">
             <PaddingForH52TextCenter>
@@ -80,6 +88,7 @@ export const DraggableCanvas = (): ReactElement => {
                                     },
                                 ]}
                                 tableUse="TableForManagement"
+                                onTableClick={handleTableClick}
                             />
                         </RectangleTwoTopWidth>
                     </Draggable>
@@ -115,6 +124,7 @@ export const DraggableCanvas = (): ReactElement => {
                                     },
                                 ]}
                                 tableUse="TableForManagement"
+                                onTableClick={handleTableClick}
                             />
                         </RectangleTwoTopWidth>
                     </Draggable>
@@ -198,6 +208,7 @@ export const DraggableCanvas = (): ReactElement => {
                                 ]}
                                 relativeSize={0.4}
                                 tableUse="TableForManagement"
+                                onTableClick={handleTableClick}
                             />
                         </SquareEightTopWidth>
                     </Draggable>
@@ -249,6 +260,7 @@ export const DraggableCanvas = (): ReactElement => {
                                     },
                                 ]}
                                 tableUse="TableForManagement"
+                                onTableClick={handleTableClick}
                             />
                         </RectangleFourTopWidth>
                     </Draggable>
@@ -321,6 +333,7 @@ export const DraggableCanvas = (): ReactElement => {
                                     },
                                 ]}
                                 tableUse="TableForManagement"
+                                onTableClick={handleTableClick}
                             />
                         </CircleTableWidth>
                     </Draggable>{' '}

@@ -18,7 +18,6 @@ export interface IEditDraggableCanvas {
      * The current number of chairs being used in the layout
      */
     currentNumberOfChairs: number;
-
     /**
      * The Max amount of chairs the layout can have currently
      */
@@ -32,6 +31,11 @@ export interface IEditDraggableCanvas {
      * Array of DraggableTables
      */
     tables?: Array<IDraggableTable>;
+    /**
+     * Function to handle onClick event for the table
+     * @param selectedChildIndex - the array index for the table
+     */
+    onTableClick: (selectedChildIndex: number) => void;
     /**
      * The function that will pass over the index value of DraggableTable in the array with its
      * coordinates on the canvas (x,y)
@@ -55,9 +59,11 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     maxCapacity = 0,
     canvasType = 'newUserCanvas',
     tables = [],
+    onTableClick,
     handleStop,
     ...props
 }) => {
+
     /**
      * Generates a unique key based on a string and a random number
      * @param prefix - a string to append to random number
@@ -79,6 +85,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                     arrayIndex={index}
                     key={generateTableKey(item.defaultXY.x.toString() + index)}
                     isDisabled
+                    onTableClick={onTableClick}
                     handleStop={handleStop}
                 />
             ));
@@ -90,6 +97,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                 defaultXY={item.defaultXY}
                 arrayIndex={index}
                 key={generateTableKey(item.defaultXY.x.toString() + index)}
+                onTableClick={onTableClick}
                 handleStop={handleStop}
             />
         ));

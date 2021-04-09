@@ -13,6 +13,13 @@ const Template: Story<IEditDraggableCanvas> = (args) => (
 );
 
 /**
+ * Prints the Selected Child index to the console when Table is clicked
+ * @param selectedChildIndex
+ */
+const handleTableClick = (selectedChildIndex: number) => {
+    console.log(selectedChildIndex);
+
+/**
  * Will print out the index, x and y coordinates of Draggable Table
  * when the drag stops
  * @param selectedChildIndex
@@ -61,10 +68,12 @@ NewUserCanvasExample.args = {
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
+                onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
+            onTableClick: handleTableClick,
         },
     ],
 };
@@ -106,10 +115,12 @@ EditCanvasExample.args = {
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
+                onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
+            onTableClick: handleTableClick,
         },
         {
             tableInput: {
@@ -154,10 +165,12 @@ EditCanvasExample.args = {
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
+                onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 375, y: 37 },
             arrayIndex: 0,
+            onTableClick: handleTableClick,
         },
         {
             // table 4 beginning
@@ -224,10 +237,12 @@ EditCanvasExample.args = {
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
+                onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 367, y: -199 },
             arrayIndex: 0,
+            onTableClick: handleTableClick,
         }, // table 4 end
         {
             // table 3 beginning
@@ -273,10 +288,12 @@ EditCanvasExample.args = {
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
+                onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 210, y: -283 },
             arrayIndex: 0,
+            onTableClick: handleTableClick,
         }, // table 3 end
         {
             // table 2 beginning
@@ -343,10 +360,12 @@ EditCanvasExample.args = {
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
+                onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 43, y: -363 },
             arrayIndex: 0,
+            onTableClick: handleTableClick,
         }, // table 2 end
     ],
 };
@@ -388,10 +407,12 @@ MgmtCanvasExample.args = {
                     },
                 ],
                 tableUse: 'TableForManagement',
+                onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
+            onTableClick: handleTableClick,
         },
         {
             tableInput: {
@@ -436,10 +457,12 @@ MgmtCanvasExample.args = {
                     },
                 ],
                 tableUse: 'TableForManagement',
+                onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 375, y: 37 },
             arrayIndex: 0,
+            onTableClick: handleTableClick,
         },
         {
             // table 4 beginning
@@ -506,10 +529,12 @@ MgmtCanvasExample.args = {
                     },
                 ],
                 tableUse: 'TableForManagement',
+                onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 367, y: -199 },
             arrayIndex: 0,
+            onTableClick: handleTableClick,
         }, // table 4 end
         {
             // table 3 beginning
@@ -555,10 +580,12 @@ MgmtCanvasExample.args = {
                     },
                 ],
                 tableUse: 'TableForManagement',
+                onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 210, y: -283 },
             arrayIndex: 0,
+            onTableClick: handleTableClick,
         }, // table 3 end
         {
             // table 2 beginning
@@ -625,10 +652,12 @@ MgmtCanvasExample.args = {
                     },
                 ],
                 tableUse: 'TableForManagement',
+                onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 43, y: -363 },
             arrayIndex: 0,
+            onTableClick: handleTableClick,
         }, // table 2 end
     ],
 };
