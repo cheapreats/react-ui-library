@@ -27,7 +27,7 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
     const [selectedIndex,setSelectedIndex]=useState(0);
 
     const flipRootId = 'flipRoot';
-    useFlip(flipRootId);
+    useFlip(flipRootId,{duration:3000});
 
     /**
      * Renders a vertical list of check icons and text.
@@ -56,22 +56,20 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
         return DataItems.map(
             (item, navKey): React.ReactElement => (
                 <>
-                    {selectedIndex!==navKey&&<NavTab
-                        key={item} 
+                    <NavTab
                         onClick={ () => changeNavFn(navKey)}
+                        key={item}
                     >
                         {item.title}
-                    </NavTab>}
-                    {selectedIndex===navKey&&
+                        {selectedIndex===navKey&&
                     (
                         <NavTabSelected
-                            key={item} 
-                            onClick={ () => changeNavFn(navKey)}
                             data-flip-id='highlight'
                         >
                             {item.title}
                         </NavTabSelected>
                     )}
+                    </NavTab>
                 </>
             ),
         )
@@ -167,12 +165,12 @@ const NavTab = styled(Tab)`
     padding: .5rem 1rem;
     font-weight: bold;
     border-radius: 25px;
-    z-index: 1;
+    z-index: 999;
     cursor: pointer;
-    // &.react-tabs__tab--selected, .react-tabs__tab--selected:active {
-    //     color: #fff;
-    //     background-color: ${({ theme }) => theme.colors.primary};
-    // }
+    &.react-tabs__tab--selected, .react-tabs__tab--selected:active {
+        color: #fff;
+        // background-color: ${({ theme }) => theme.colors.primary};
+    }
     &.react-tabs__tab--selected:hover {
         opacity: 1;
     }
@@ -183,7 +181,11 @@ const NavTab = styled(Tab)`
 `;
 const NavTabSelected=styled(NavTab)`
 background-color: ${({ theme }) => theme.colors.primary};
-color: #fff;
+color: ${({ theme }) => theme.colors.primary};
+position:absolute;
+top:0;
+left:0;
+z-index:-9999;
 `
 const ContentHolder =styled.div`
     padding: 5px;
