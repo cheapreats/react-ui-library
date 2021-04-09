@@ -18,7 +18,6 @@ export interface IEditDraggableCanvas {
      * The current number of chairs being used in the layout
      */
     currentNumberOfChairs: number;
-
     /**
      * The Max amount of chairs the layout can have currently
      */
@@ -45,6 +44,23 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     tables = [],
     ...props
 }) => {
+    /* Create a variable to hold the array index for the selected table on
+     * the canvas. Note: Don't use useState here, because re-rendering causes
+     * problems with the :focus css we use to visually highlight the selected
+     * table.
+     */
+    let selectedIndex = null;
+
+    /**
+     * Sets selectedIndex variable to the array index of the selected table
+     * when a table on the canvas is clicked
+     * @param selectedChildIndex
+     */
+    const handleTableClick = (selectedChildIndex: number) => {
+        selectedIndex = selectedChildIndex;
+        console.log(selectedIndex);
+    };
+
     /**
      * Generates a unique key based on a string and a random number
      * @param prefix - a string to append to random number
@@ -66,6 +82,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                     arrayIndex={index}
                     key={generateTableKey(item.defaultXY.x.toString() + index)}
                     isDisabled
+                    onTableClick={handleTableClick}
                 />
             ));
         }
@@ -76,6 +93,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                 defaultXY={item.defaultXY}
                 arrayIndex={index}
                 key={generateTableKey(item.defaultXY.x.toString() + index)}
+                onTableClick={handleTableClick}
             />
         ));
     };

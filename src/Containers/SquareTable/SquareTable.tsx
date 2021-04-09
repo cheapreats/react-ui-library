@@ -12,6 +12,8 @@ type Position = 'top' | 'bottom' | 'left' | 'right';
 
 type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
+type callOnTableClickType = () => void;
+
 type getSquareTableSizeType = (
     top: number,
     bottom: number,
@@ -73,6 +75,11 @@ export interface ISquareTable {
      * Array index for the table
      */
     arrayIndex?: number;
+    /**
+     * Function to handle onClick event for the table
+     * @param selectedChildIndex - the array index for the table
+     */
+    onTableClick: (selectedChildIndex: number) => void;
 }
 
 /**
@@ -89,6 +96,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     isSquare = false,
     tableUse = 'TableForManagement',
     arrayIndex = 0,
+    onTableClick,
     ...props
 }) => {
     /**
@@ -98,6 +106,13 @@ export const SquareTable: React.FC<ISquareTable> = ({
     const rightArray = chairs.filter((i) => i.position === 'right');
     const leftArray = chairs.filter((i) => i.position === 'left');
     const bottomArray = chairs.filter((i) => i.position === 'bottom');
+
+    /**
+     * Calls the onTableClick prop function with the arrayIndex prop as its
+     * parameter
+     */
+    const callOnTableClick: callOnTableClickType = () =>
+        onTableClick(arrayIndex);
 
     /**
      * Determines how many chairs to put per each side
@@ -261,6 +276,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                             isSquare ? squareTableSize : rectangleTopSize
                         }
                         tableUse={tableUse}
+                        onClick={callOnTableClick}
                     >
                         {getTableBodyContent(tableUse)}
                     </TableBody>
@@ -316,6 +332,7 @@ interface ITableBody {
     chairNumOnTop: number;
     relativeSize: number;
     tableUse: tableUseTypes;
+    onClick: (e: Event) => void;
 }
 
 const TableBody = styled.button<ITableBody>`

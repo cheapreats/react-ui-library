@@ -10,6 +10,10 @@ export default {
 
 const Template: Story<ICircleTable> = (args) => <CircleTable {...args} />;
 
+const handleTableClick = (selectedChildIndex: number) => {
+    console.log(selectedChildIndex);
+};
+
 /**
  *Creates a SquareTable component with 4 chairs
  */
@@ -104,4 +108,5 @@ FourTopTable.args = {
     ],
     relativeSize: 0.5,
     tableUse: 'TableForManagement',
+    onTableClick: handleTableClick,
 };
