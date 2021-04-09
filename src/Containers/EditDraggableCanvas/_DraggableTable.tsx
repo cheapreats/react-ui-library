@@ -8,8 +8,6 @@ type getTableComponentType = () => JSX.Element | null;
 
 type tableInputType = ISquareTable | ICircleTable;
 
-
-
 export interface IDraggableTable {
     /**
      * The input for the DraggableTable
@@ -28,7 +26,11 @@ export interface IDraggableTable {
      */
     isDisabled?: boolean;
 
-    handleStop: (selectedChildIndex: number, deltaX:number,deltaY:number) => void;
+    handleStop: (
+        selectedChildIndex: number,
+        deltaX: number,
+        deltaY: number,
+    ) => void;
 }
 
 /**
@@ -86,8 +88,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
         handleDrag,
     };
 
-    const callOnStop = (data:any) =>
-        handleStop(arrayIndex,data.x,data.y);
+    const callOnStop = (data: any) => handleStop(arrayIndex, data.x, data.y);
 
     /**
      * Returns a JSX element with the correct component based on whether the
@@ -134,7 +135,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
             bounds="parent"
             {...dragHandlers}
             defaultPosition={{ x: defaultXY.x, y: defaultXY.y }}
-            onStop={(e, data)=>callOnStop(data)}
+            onStop={(e, data) => callOnStop(data)}
             {...props}
         >
             <TableWidthWrapper>{getTableComponent()}</TableWidthWrapper>

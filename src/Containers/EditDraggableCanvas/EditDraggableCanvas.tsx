@@ -32,7 +32,11 @@ export interface IEditDraggableCanvas {
      * Array of DraggableTables
      */
     tables?: Array<IDraggableTable>;
-    handleStop: (selectedChildIndex: number, deltaX:number,deltaY:number) => void;
+    handleStop: (
+        selectedChildIndex: number,
+        deltaX: number,
+        deltaY: number,
+    ) => void;
 }
 
 /**

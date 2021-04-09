@@ -6,15 +6,18 @@ import { createStoryTitle } from '../../Constants';
 export default {
     title: createStoryTitle('EditDraggableCanvas'),
     component: EditDraggableCanvas,
-
 } as Meta;
 
 const Template: Story<IEditDraggableCanvas> = (args) => (
     <EditDraggableCanvas {...args} />
 );
 
-const handleOnStop = (selectedChildIndex: number, deltaX:number,deltaY:number) => {
-    console.log(selectedChildIndex,deltaX,deltaY);
+const handleOnStop = (
+    selectedChildIndex: number,
+    deltaX: number,
+    deltaY: number,
+) => {
+    console.log(selectedChildIndex, deltaX, deltaY);
 };
 
 export const NewUserCanvasExample = Template.bind({});
@@ -22,7 +25,7 @@ NewUserCanvasExample.args = {
     currentNumberOfChairs: 0,
     maxCapacity: 0,
     canvasType: 'newUserCanvas',
-    handleStop:handleOnStop,
+    handleStop: handleOnStop,
     tables: [
         {
             tableInput: {
@@ -52,6 +55,7 @@ NewUserCanvasExample.args = {
                 ],
                 tableUse: 'TableForEditCanvas',
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
         },
@@ -66,7 +70,7 @@ EditCanvasExample.args = {
     currentNumberOfChairs: 0,
     maxCapacity: 0,
     canvasType: 'editCanvas',
-    handleStop:handleOnStop,
+    handleStop: handleOnStop,
     tables: [
         {
             tableInput: {
@@ -96,6 +100,7 @@ EditCanvasExample.args = {
                 ],
                 tableUse: 'TableForEditCanvas',
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
         },
@@ -143,6 +148,7 @@ EditCanvasExample.args = {
                 ],
                 tableUse: 'TableForEditCanvas',
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 375, y: 37 },
             arrayIndex: 0,
         },
@@ -212,6 +218,7 @@ EditCanvasExample.args = {
                 ],
                 tableUse: 'TableForEditCanvas',
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 367, y: -199 },
             arrayIndex: 0,
         }, // table 4 end
@@ -260,6 +267,7 @@ EditCanvasExample.args = {
                 ],
                 tableUse: 'TableForEditCanvas',
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 210, y: -283 },
             arrayIndex: 0,
         }, // table 3 end
@@ -329,6 +337,7 @@ EditCanvasExample.args = {
                 ],
                 tableUse: 'TableForEditCanvas',
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 43, y: -363 },
             arrayIndex: 0,
         }, // table 2 end
@@ -343,7 +352,7 @@ MgmtCanvasExample.args = {
     currentNumberOfChairs: 0,
     maxCapacity: 0,
     canvasType: 'managementCanvas',
-    handleStop:handleOnStop,
+    handleStop: handleOnStop,
     tables: [
         {
             tableInput: {
@@ -373,6 +382,7 @@ MgmtCanvasExample.args = {
                 ],
                 tableUse: 'TableForManagement',
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
         },
@@ -420,6 +430,7 @@ MgmtCanvasExample.args = {
                 ],
                 tableUse: 'TableForManagement',
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 375, y: 37 },
             arrayIndex: 0,
         },
@@ -489,6 +500,7 @@ MgmtCanvasExample.args = {
                 ],
                 tableUse: 'TableForManagement',
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 367, y: -199 },
             arrayIndex: 0,
         }, // table 4 end
@@ -537,6 +549,7 @@ MgmtCanvasExample.args = {
                 ],
                 tableUse: 'TableForManagement',
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 210, y: -283 },
             arrayIndex: 0,
         }, // table 3 end
@@ -606,6 +619,7 @@ MgmtCanvasExample.args = {
                 ],
                 tableUse: 'TableForManagement',
             },
+            handleStop: handleOnStop,
             defaultXY: { x: 43, y: -363 },
             arrayIndex: 0,
         }, // table 2 end
