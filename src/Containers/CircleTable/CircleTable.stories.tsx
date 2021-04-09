@@ -10,6 +10,10 @@ export default {
 
 const Template: Story<ICircleTable> = (args) => <CircleTable {...args} />;
 
+/**
+ * Prints the Selected Child index to the console when Table is clicked
+ * @param selectedChildIndex
+ */
 const handleTableClick = (selectedChildIndex: number) => {
     console.log(selectedChildIndex);
 };
