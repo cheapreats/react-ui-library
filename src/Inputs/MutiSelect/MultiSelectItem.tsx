@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { transition, flex, clickable } from '../../Utils/Mixins';
+import { clickable, flex, transition } from '../../Utils/Mixins';
 import { MultiSelectContext } from './MultiSelectContext';
 import { Button, ButtonProps } from '../Button/Button';
 

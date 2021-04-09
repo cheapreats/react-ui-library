@@ -231,7 +231,8 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
                     <Select
                         placeholder="Select Room"
                         onChange={(e: React.ChangeEvent<any>) =>
-                            setRoom(e.target.value)}
+                            setRoom(e.target.value)
+                        }
                         name="rooms"
                         value={room}
                     >

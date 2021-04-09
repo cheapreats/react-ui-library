@@ -7,7 +7,7 @@ import {
     Responsive,
     ResponsiveInterface,
 } from '@Utils/BaseStyles';
-import { transition, clickable, position, flex } from '@Utils/Mixins';
+import { clickable, flex, position, transition } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
 
 export interface ButtonProps

@@ -33,11 +33,7 @@ export const WaitTimeDisplay: React.FC<IWaitTimeDisplay> = ({
                 </Col3>
                 <Col8>
                     <FontStyles>Average Wait</FontStyles>
-                    <FontStylesForTime>
-                        {AverageWaitTime}
-                        {' '}
-                        Min
-                    </FontStylesForTime>
+                    <FontStylesForTime>{AverageWaitTime} Min</FontStylesForTime>
                 </Col8>
             </Row>
         </ContainerForComponent>

@@ -14,7 +14,6 @@ module.exports = {
         'plugin:import/warnings',
         'plugin:import/typescript',
         'prettier',
-        'prettier/@typescript-eslint',
     ],
     globals: {
         Atomics: 'readonly',
@@ -61,6 +60,11 @@ module.exports = {
         'no-underscore-dangle': 'off',
         'no-param-reassign': 'off',
         '@typescript-eslint/ban-ts-comment': 'off',
+        '@typescript-eslint/no-explicit-any': 'off',
+        'react/destructuring-assignment': 'off',
+        'no-console': 'off',
+        'import/no-named-as-default': 'off',
+        'no-alert': 'off',
         indent: ['error', 4],
     },
 };

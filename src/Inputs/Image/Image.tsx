@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { FileUpload } from '@styled-icons/fa-solid/FileUpload';
 import 'react-image-crop/dist/ReactCrop.css';
 import ReactCrop from 'react-image-crop';
@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';
-import { position, flex } from '@Utils/Mixins';
+import { flex, position } from '@Utils/Mixins';
 import { Heading } from '@Text/Heading';
 import { Modal } from '@Containers/Modal/Modal';
 import { Button } from '../Button/Button';

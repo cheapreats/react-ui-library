@@ -61,6 +61,7 @@ const Container = styled.div<IContainerProps>`
 interface ITextColumn {
     textWidth?: string;
 }
+
 const TextColumn = styled.div<ITextColumn>`
     ${flex('column', 'start')}
     ${({ textWidth }) => `

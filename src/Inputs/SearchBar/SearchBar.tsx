@@ -1,9 +1,9 @@
-import React, { useState, useLayoutEffect } from 'react';
+import React, { useLayoutEffect, useState } from 'react';
 import { Search } from '@styled-icons/fa-solid/Search';
 import styled from 'styled-components';
 import { flex, transition } from '@Utils/Mixins';
 
-import { LabelLayout, InputFragment as I, LabelLayoutProps } from '@Layouts';
+import { InputFragment as I, LabelLayout, LabelLayoutProps } from '@Layouts';
 import { useTransition } from '@Utils/Hooks';
 
 import { SelectList } from '../../Containers/SelectList/SelectList';
@@ -100,6 +100,7 @@ interface SearchBarSelectProps extends LabelLayoutProps {
     backgroundColor?: string;
     borderRadius?: string;
 }
+
 const SelectDisplay = styled.p<SearchBarSelectProps>`
     ${transition(['background-color', 'opacity', 'box-shadow'])}
     ${flex('flex-start', 'center')}

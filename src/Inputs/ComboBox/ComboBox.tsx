@@ -1,25 +1,25 @@
 import React, {
-    useState,
-    useCallback,
-    useMemo,
     Children,
     isValidElement,
-    SyntheticEvent,
-    useRef,
     RefObject,
+    SyntheticEvent,
+    useCallback,
     useLayoutEffect,
+    useMemo,
+    useRef,
+    useState,
 } from 'react';
 import styled, { useTheme } from 'styled-components';
 import {
-    flex,
-    scroll,
-    position,
-    transition,
     clickable,
     darken,
+    flex,
+    position,
+    scroll,
+    transition,
 } from '@Utils/Mixins';
 import { useTransition } from '@Utils/Hooks';
-import { LabelLayout, LabelLayoutProps, InputFragment } from '@Layouts';
+import { InputFragment, LabelLayout, LabelLayoutProps } from '@Layouts';
 
 const MAX_VIEWING_LIMIT = 4;
 const REVERSE = '-1';

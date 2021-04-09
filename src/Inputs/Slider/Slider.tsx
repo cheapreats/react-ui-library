@@ -1,10 +1,10 @@
 import React, {
-    useState,
-    useLayoutEffect,
-    useRef,
     MouseEvent,
-    useMemo,
     useEffect,
+    useLayoutEffect,
+    useMemo,
+    useRef,
+    useState,
 } from 'react';
 import styled, { DefaultTheme } from 'styled-components';
 import { LabelLayout, LabelLayoutProps } from '@Layouts';
@@ -250,9 +250,8 @@ const SliderBoard = styled.div<SliderProps>`
     ${({ theme }): string => `
             border-radius: ${theme.dimensions.radius};
             box-shadow: ${theme.depth[1]};
-        `}
-    // Disabled
-        ${({ disabled }): string =>
+        `} // Disabled
+  ${({ disabled }): string =>
         disabled
             ? `
             cursor: not-allowed;
@@ -327,6 +326,7 @@ const SliderKnobRight = styled.div<KnobProps>`
             : 'top: -7px; '}
 
     cursor: grab;
+
     ${({ theme }): string => `
             background: ${theme.colors.primary};
         `}
@@ -335,6 +335,7 @@ const SliderKnobRight = styled.div<KnobProps>`
         border: solid 2px #96dbfa;
         cursor: grabbing;
     }
+
     ${({ disabled }): string =>
         disabled
             ? `
@@ -352,6 +353,7 @@ const SliderKnobLeft = styled.div<KnobProps>`
     top: -7px;
     cursor: grab;
     left: ${({ left }): string => `${left}px` || '0px'};
+
     ${({ disabled }): string =>
         disabled
             ? `
@@ -362,7 +364,7 @@ const SliderKnobLeft = styled.div<KnobProps>`
     ${({ theme }): string => `
             background: ${theme.colors.primary};
         `}
-        &:active {
+  &:active {
         box-sizing: border-box;
         border: solid 2px #96dbfa;
         cursor: grabbing;

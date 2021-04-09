@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Times } from '@styled-icons/fa-solid/Times';
-import { flex, darken, transition, clickable } from '@Utils/Mixins';
+import { clickable, darken, flex, transition } from '@Utils/Mixins';
 import { Main } from '@Utils/BaseStyles';
 
 interface ITagDiv extends React.HTMLAttributes<HTMLSpanElement> {

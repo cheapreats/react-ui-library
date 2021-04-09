@@ -1,9 +1,9 @@
 import React from 'react';
 import {
-    LabelLayout,
-    LabelLayoutProps,
     InputFragment,
     InputFragmentProps,
+    LabelLayout,
+    LabelLayoutProps,
 } from '@Layouts';
 
 export interface InputProps extends LabelLayoutProps, InputFragmentProps {

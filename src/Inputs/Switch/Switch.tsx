@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { position, darken, flex, transition } from '@Utils/Mixins';
+import { darken, flex, position, transition } from '@Utils/Mixins';
 
 export interface SwitchProps extends InputProps {
     leftTag?: string;
@@ -55,6 +55,7 @@ export const Switch: React.FC<SwitchProps> = ({
 interface TagProps {
     margin: string;
 }
+
 const Tag = styled.label<TagProps>`
     margin: ${(props): string => props.margin};
     font-weight: bold;

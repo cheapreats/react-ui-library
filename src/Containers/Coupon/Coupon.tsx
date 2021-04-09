@@ -3,8 +3,8 @@ import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
 import {
     Main,
-    Responsive,
     MainInterface,
+    Responsive,
     ResponsiveInterface,
 } from '@Utils/BaseStyles';
 
@@ -80,6 +80,7 @@ const DashedLine = styled.div`
     left: 9%;
     width: 80%;
 `;
+
 interface CouponBoxProps
     extends MainInterface,
         ResponsiveInterface,

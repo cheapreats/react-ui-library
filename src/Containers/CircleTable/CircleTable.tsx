@@ -46,6 +46,10 @@ export interface ICircleTable {
      * The use type for the table component (how it will be used in the app)
      */
     tableUse: tableUseTypes;
+    /**
+     * Array index for the table
+     */
+    arrayIndex?: number;
 }
 
 /**
@@ -59,6 +63,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
     occupancyStatus = 'Vacant',
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
+    arrayIndex = 0,
     ...props
 }) => {
     /**
@@ -145,6 +150,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                 tangentValue={tangent}
                 occupancyStatus={occupancyStatus}
                 tableUse={tableUse}
+                tabIndex={0}
             >
                 {getChairs()}
                 {getTableInfoContent(tableUse)}
@@ -235,6 +241,7 @@ interface ITableBody {
     occupancyStatus: occupancyStatusTypes;
     relativeSize: number;
     tableUse: string;
+    tabIndex: number;
 }
 
 const TableBody = styled.div<ITableBody>`
@@ -274,6 +281,12 @@ const TableBody = styled.div<ITableBody>`
             : 'solid'};
     border-color: ${({ occupancyStatus }) =>
         getOccupancyColor(occupancyStatus)};
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+    &:focus {
+        box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary};
+    }
 `;
 
 interface IChairWrapper {

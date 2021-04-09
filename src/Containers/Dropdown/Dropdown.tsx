@@ -156,7 +156,6 @@ const Dropdown: React.FC<IDropdownProps> = ({
     );
 };
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const placeStyles = (
     placement: any,
     targetPosition: any,

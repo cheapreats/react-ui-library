@@ -1,13 +1,13 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-import { LineChart, Line } from 'recharts';
+import { Line, LineChart } from 'recharts';
 import { ArrowUp } from '@styled-icons/entypo/ArrowUp';
 import { ArrowDown } from '@styled-icons/entypo/ArrowDown';
 import { flex } from '@Utils/Mixins';
 import {
     Main,
-    Responsive,
     MainInterface,
+    Responsive,
     ResponsiveInterface,
 } from '@Utils/BaseStyles';
 import { MainTheme } from '@Themes';

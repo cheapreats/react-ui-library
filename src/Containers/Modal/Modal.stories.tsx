@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Modal, Button, ModalProps } from '../../index';
+import { Button, Modal, ModalProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
 export default {

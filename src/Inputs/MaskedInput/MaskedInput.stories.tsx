@@ -1,5 +1,5 @@
 import React from 'react';
-import { MaskedInputPreset, MaskedInput, MaskedInputProps } from '@Inputs';
+import { MaskedInput, MaskedInputPreset, MaskedInputProps } from '@Inputs';
 import { Meta, Story } from '@storybook/react';
 import { useArgs } from '@storybook/client-api';
 import { createStoryTitle } from '../../Constants';

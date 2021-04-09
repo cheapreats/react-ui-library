@@ -2,7 +2,7 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { storiesOf } from '@storybook/react';
 import { MainTheme } from '@Themes/MainTheme';
-import { Heading, ColorCard } from '../index';
+import { ColorCard, Heading } from '../index';
 
 interface IListGridProps {
     columnWidth: number;

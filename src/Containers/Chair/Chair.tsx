@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css, useTheme } from 'styled-components';
-import { Plus, Minus } from '@styled-icons/boxicons-regular';
+import { Minus, Plus } from '@styled-icons/boxicons-regular';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
 

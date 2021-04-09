@@ -3,13 +3,13 @@ import styled from 'styled-components';
 import { AngleLeft } from '@styled-icons/fa-solid/AngleLeft';
 import { AngleRight } from '@styled-icons/fa-solid/AngleRight';
 import {
-    transition,
-    styledCondition,
-    flex,
     clickable,
+    flex,
     position,
+    styledCondition,
+    transition,
 } from '../../Utils/Mixins';
-import { WEEKDAYS, MONTHS } from '../../Utils/Constants';
+import { MONTHS, WEEKDAYS } from '../../Utils/Constants';
 import { Button } from '../Button/Button';
 
 const SIZE = 40;

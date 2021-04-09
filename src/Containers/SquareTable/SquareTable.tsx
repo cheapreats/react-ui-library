@@ -69,6 +69,10 @@ export interface ISquareTable {
      * The use type for the table component (how it will be used in the app)
      */
     tableUse: tableUseTypes;
+    /**
+     * Array index for the table
+     */
+    arrayIndex?: number;
 }
 
 /**
@@ -84,6 +88,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     relativeSize = 1.0,
     isSquare = false,
     tableUse = 'TableForManagement',
+    arrayIndex = 0,
     ...props
 }) => {
     /**
@@ -313,7 +318,7 @@ interface ITableBody {
     tableUse: tableUseTypes;
 }
 
-const TableBody = styled.div<ITableBody>`
+const TableBody = styled.button<ITableBody>`
     ${({ chairNumOnSide, chairNumOnTop, relativeSize }) => {
         const BASE_TABLE_BODY_WIDTH_AND_HEIGHT = 20;
         const BASE_BORDER_RADIUS = 3;
@@ -329,6 +334,13 @@ const TableBody = styled.div<ITableBody>`
         tableUse === 'AddTableButton' || tableUse === 'TableForEditCanvas'
             ? theme.colors.chairTableEditBackground
             : theme.colors.chairTableBackground};
+    padding: 0;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    &:focus {
+        box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary};
+    }
 `;
 
 interface IColorDiv {
@@ -384,6 +396,7 @@ const TableInfo = styled.div<ITableInfo>`
     color: ${({ theme }) => theme.colors.background};
     font-weight: bold;
     white-space: pre-line;
+    text-align: left;
     ${({ relativeSize }) => {
         const BASE_TABLE_INFO_MARGIN_TOP = 2;
         const BASE_TABLE_INFO_MARGIN_LEFT = 3;

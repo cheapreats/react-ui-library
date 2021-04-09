@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'emoji-mart/css/emoji-mart.css';
-import { Picker, BaseEmoji } from 'emoji-mart';
+import { BaseEmoji, Picker } from 'emoji-mart';
 import styled from 'styled-components';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { ImplicitPropsInterface } from '@Utils/Hooks';

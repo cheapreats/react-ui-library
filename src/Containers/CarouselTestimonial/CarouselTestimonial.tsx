@@ -21,31 +21,24 @@ export const CarouselTestimonial: React.FC<ICarouselTestimonialProps> = ({
     isLooping,
 }) => {
     /**
-     * Returns the JSX element of each carousel item 
+     * Returns the JSX element of each carousel item
      */
     const getCarouselItem = (review: any) => (
         <Section key={review}>
-            <TitleDiv key={carouselTitle}>
-                {carouselTitle}
-            </TitleDiv>
+            <TitleDiv key={carouselTitle}>{carouselTitle}</TitleDiv>
             <ImageDiv key={carouselImage}>
-                <img src={carouselImage} />
+                <img src={carouselImage} alt="" />
             </ImageDiv>
-            <ReviewTextDiv>
-                {review.testimony}
-            </ReviewTextDiv>
-            <ReviwerDiv>
-                {review.reviewer}
-            </ReviwerDiv>
+            <ReviewTextDiv>{review.testimony}</ReviewTextDiv>
+            <ReviwerDiv>{review.reviewer}</ReviwerDiv>
         </Section>
     );
 
     /**
      * Returns JSX elements of all carousel items
      */
-    const getCarousel = () => {
-        return reviews.map((review: any) => getCarouselItem(review));
-    };
+    const getCarousel = () =>
+        reviews.map((review: any) => getCarouselItem(review));
     return (
         <Carousel
             autoPlay={isAutoplaying}
@@ -61,9 +54,9 @@ const Section = styled.div`
     margin: 10px 0px 10px 0px;
 `;
 const TitleDiv = styled.div`
-    font-size:16px;
+    font-size: 16px;
     color: ${({ theme }) => theme.colors.text};
-    `;
+`;
 const ImageDiv = styled.div`
     margin-top: 10px;
     max-width: 90px;
@@ -75,13 +68,11 @@ const ReviewTextDiv = styled.div`
     margin-top: 28px;
     font-size: 1.5em;
     font-weight: bold;
-    color: ${({ theme }) => theme.colors.occupancyStatusColors.Occupied}; 
+    color: ${({ theme }) => theme.colors.occupancyStatusColors.Occupied};
 `;
 const ReviwerDiv = styled.div`
     font-weight: 600;
     margin-bottom: 60px;
     color: ${({ theme }) => theme.colors.chairTableBackground};
-    font-size:  1em;
-     `;
-
-
+    font-size: 1em;
+`;

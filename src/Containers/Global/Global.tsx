@@ -2,8 +2,8 @@ import React from 'react';
 
 import {
     createGlobalStyle,
-    ThemeProvider,
     DefaultTheme,
+    ThemeProvider,
 } from 'styled-components';
 import { flex } from '@Utils/Mixins';
 import * as Themes from '@Themes';

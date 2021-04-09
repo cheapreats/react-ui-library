@@ -1,18 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-    LineChart,
+    CartesianGrid,
     Line,
+    LineChart,
+    Tooltip,
     XAxis,
     YAxis,
-    Tooltip,
-    CartesianGrid,
 } from 'recharts';
 import { flex } from '@Utils/Mixins';
 import {
     Main,
-    Responsive,
     MainInterface,
+    Responsive,
     ResponsiveInterface,
 } from '@Utils/BaseStyles';
 
@@ -175,8 +175,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
         return (
             <CustomTooltipBox active={active} payload={payload} {...props}>
                 <strong>
-                    $
-                    <Big>{`${getFormattedHoverValue()}`}</Big>
+                    $<Big>{`${getFormattedHoverValue()}`}</Big>
                 </strong>
             </CustomTooltipBox>
         );

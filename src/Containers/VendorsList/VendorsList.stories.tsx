@@ -3,7 +3,7 @@ import { Story, Meta } from '@storybook/react';
 import { TableView } from '@styled-icons/material/TableView';
 import { List } from '@styled-icons/bootstrap/List';
 import { ViewGrid } from '@styled-icons/heroicons-solid/ViewGrid';
-import { Row, HeaderGroup } from 'react-table';
+import { Row, HeaderGroup, CellProps } from 'react-table';
 import moment from 'moment';
 import { ListHeader } from '@Containers/List';
 import { TagFilterSelect } from '@Containers/CollapsibleHeading/TagFilterSelect';
@@ -377,7 +377,8 @@ const renderTagFilter = (column: HeaderGroup<any>) => (
         selectOptions={sampleGroupsMapped}
         selectProps={{ margin: '10px 0' }}
         onOptionsSelected={(selectedOptions) =>
-            column.setFilter(selectedOptions)}
+            column.setFilter(selectedOptions)
+        }
     />
 );
 
@@ -436,21 +437,28 @@ const getVendorsListProps = (): IVendorsListProps => ({
         {
             Header: 'Client',
             accessor: 'name',
-            Cell: (cell: any) => (
+            Cell: ({
+                row,
+            }: CellProps<{
+                id: number;
+                name: string;
+                email: string;
+                imageUrl: string;
+            }>) => (
                 <Profile
-                    key={cell.row.original.id}
-                    name={cell.row.original.name}
-                    email={cell.row.original.email}
-                    imageUrl={cell.row.original?.imageUrl}
+                    key={row.original.id}
+                    name={row.original.name}
+                    email={row.original.email}
+                    imageUrl={row.original?.imageUrl}
                 />
             ),
             Filter: DefaultFilter,
         },
         {
             Header: 'Groups',
-            Cell: (cell: any) => (
+            Cell: ({ row }: CellProps<{ groups: { name: string }[] }>) => (
                 <TagContainer
-                    tags={cell.row.original.groups.map(
+                    tags={row.original.groups.map(
                         (group: IGroups) => group.name,
                     )}
                     isHoverable={false}
@@ -463,12 +471,12 @@ const getVendorsListProps = (): IVendorsListProps => ({
         {
             Header: 'Created',
             accessor: 'created_at',
-            Cell: (cell: any) => (
+            Cell: ({ row }: CellProps<{ created_at: string }>) => (
                 <SmallText
                     style={{ padding: '0 10px' }}
-                    key={cell.row.original.created_at}
+                    key={row.original.created_at}
                 >
-                    {moment(cell.row.original.created_at).format('LL')}
+                    {moment(row.original.created_at).format('LL')}
                 </SmallText>
             ),
             Filter: DefaultFilter,

@@ -10,6 +10,7 @@ interface ListItemProps
     setIsOpen?: React.Dispatch<React.SetStateAction<boolean>>;
     isSelected?: boolean;
 }
+
 export const ListItem: React.FC<ListItemProps> = ({
     children,
     onClick,
