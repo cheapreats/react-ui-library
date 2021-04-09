@@ -50,7 +50,7 @@ export const ItemsRedemptionPoints:React.FC<IItemsRedemptionPointsProps>=({modal
      * @param _dataItems {IData[]} - the array of items
      * @returns {React.ReactElement} the rendered items as an array of ItemRedemptionPoints components
      */
-    const renderItems=useCallback((_dataItems:IData[]):React.ReactElement=><>{_dataItems.map((dataItem,index)=><ItemRedemptionPoints key={dataItem.name} index={index}  dataItems={dataItems} setDataItems={setDataItems} />)}</>,[dataItems,setDataItems])
+    const renderItems=useCallback((_dataItems:IData[]):React.ReactElement=><>{_dataItems.map((dataItem,index)=><ItemRedemptionPoints key={dataItem.name} index={index} dataItems={dataItems} setDataItems={setDataItems} />)}</>,[dataItems,setDataItems])
 
     /**
      * opens batch update modal
@@ -166,7 +166,7 @@ const ItemRedemptionPoints:React.FC<IItemRedemptionPoints>=({index,dataItems,set
                     <Dot redemptionPoints={dataItems[index].redemptionPoints} />
                     <P bold size='small' margin='0 0 0 10px'>{dataItems[index].name}</P>
                 </DotNameContainer>
-                <Input type='number' value={dataItems[index].redemptionPoints} onChange={updateRedemptionPoints} width={INPUT_WIDTH} error/>
+                <Input type='number' value={dataItems[index].redemptionPoints} onChange={updateRedemptionPoints} width={INPUT_WIDTH} error />
             </ItemCardContentContainer>
         </Card>
     )

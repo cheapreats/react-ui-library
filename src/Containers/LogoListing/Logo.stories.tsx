@@ -20,6 +20,6 @@ const defaultArgs = {
 };
 
 export const Basic: Story<ILogoProps> = (args) => (
-    < ShowLogos {...args} />
+    <ShowLogos {...args} />
 );
 Basic.args = { ...defaultArgs};

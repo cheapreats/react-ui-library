@@ -96,14 +96,14 @@ export const Basic: Story<ListProps> = (args) => {
             {...args}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            toggleComponent={
+            toggleComponent={(
                 <ListToggle
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                     isLeftToggle
                     isToggleHiddenDesktop
                 />
-            }
+            )}
         >
             {items.map((item) => (
                 <ListItem
