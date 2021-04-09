@@ -6,20 +6,23 @@ import { createStoryTitle } from '../../Constants';
 export default {
     title: createStoryTitle('EditDraggableCanvas'),
     component: EditDraggableCanvas,
-    argTypes: {
-        handleStop: { action: 'stopped at' },
-    },
+
 } as Meta;
 
 const Template: Story<IEditDraggableCanvas> = (args) => (
     <EditDraggableCanvas {...args} />
 );
 
+const handleOnStop = (selectedChildIndex: number, deltaX:number,deltaY:number) => {
+    console.log(selectedChildIndex,deltaX,deltaY);
+};
+
 export const NewUserCanvasExample = Template.bind({});
 NewUserCanvasExample.args = {
     currentNumberOfChairs: 0,
     maxCapacity: 0,
     canvasType: 'newUserCanvas',
+    handleStop:handleOnStop,
     tables: [
         {
             tableInput: {
@@ -63,6 +66,7 @@ EditCanvasExample.args = {
     currentNumberOfChairs: 0,
     maxCapacity: 0,
     canvasType: 'editCanvas',
+    handleStop:handleOnStop,
     tables: [
         {
             tableInput: {
@@ -339,6 +343,7 @@ MgmtCanvasExample.args = {
     currentNumberOfChairs: 0,
     maxCapacity: 0,
     canvasType: 'managementCanvas',
+    handleStop:handleOnStop,
     tables: [
         {
             tableInput: {
