@@ -25,6 +25,23 @@ export interface IDraggableTable {
      * Whether the draggable functionality is disabled (if true, then disabled)
      */
     isDisabled?: boolean;
+    /**
+     * Function to handle onClick event for the table
+     * @param selectedChildIndex - the array index for the table
+     */
+    onTableClick: (selectedChildIndex: number) => void;
+    /**
+     * The function that will pass over the index value of DraggableTable in the array with its
+     * coordinates on the canvas (x,y)
+     * @param selectedChildIndex
+     * @param deltaX
+     * @param deltaY
+     */
+    handleStop: (
+        selectedChildIndex: number,
+        deltaX: number,
+        deltaY: number,
+    ) => void;
 }
 
 /**
@@ -61,6 +78,8 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     defaultXY = { x: 50, y: 24 },
     arrayIndex = 0,
     isDisabled = false,
+    onTableClick,
+    handleStop,
     ...props
 }) => {
     const [deltaPosition, setDeltaPosition] = useState({
@@ -70,6 +89,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
 
     const handleDrag = (e: Event, ui: { deltaX: number; deltaY: number }) => {
         const { x, y } = deltaPosition;
+        console.log(deltaPosition);
         setDeltaPosition({
             x: x + ui.deltaX,
             y: y + ui.deltaY,
@@ -87,35 +107,37 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
      */
     const getTableComponent: getTableComponentType = () => {
         switch (tableInput.tableShape) {
-        case 'Square':
-            return (
-                <SquareTable
-                    tableShape={tableInput.tableShape}
-                    tableID={tableInput.tableID}
-                    partyName={tableInput.partyName}
-                    isSquare={tableInput.isSquare}
-                    occupancyStatus={tableInput.occupancyStatus}
-                    relativeSize={tableInput.relativeSize}
-                    chairs={tableInput.chairs}
-                    tableUse={tableInput.tableUse}
-                    arrayIndex={arrayIndex}
-                />
-            );
-        case 'Circle':
-            return (
-                <CircleTable
-                    tableShape={tableInput.tableShape}
-                    tableID={tableInput.tableID}
-                    partyName={tableInput.partyName}
-                    occupancyStatus={tableInput.occupancyStatus}
-                    relativeSize={tableInput.relativeSize}
-                    chairs={tableInput.chairs}
-                    tableUse={tableInput.tableUse}
-                    arrayIndex={arrayIndex}
-                />
-            );
-        default:
-            return null;
+            case 'Square':
+                return (
+                    <SquareTable
+                        tableShape={tableInput.tableShape}
+                        tableID={tableInput.tableID}
+                        partyName={tableInput.partyName}
+                        isSquare={tableInput.isSquare}
+                        occupancyStatus={tableInput.occupancyStatus}
+                        relativeSize={tableInput.relativeSize}
+                        chairs={tableInput.chairs}
+                        tableUse={tableInput.tableUse}
+                        arrayIndex={arrayIndex}
+                        onTableClick={onTableClick}
+                    />
+                );
+            case 'Circle':
+                return (
+                    <CircleTable
+                        tableShape={tableInput.tableShape}
+                        tableID={tableInput.tableID}
+                        partyName={tableInput.partyName}
+                        occupancyStatus={tableInput.occupancyStatus}
+                        relativeSize={tableInput.relativeSize}
+                        chairs={tableInput.chairs}
+                        tableUse={tableInput.tableUse}
+                        arrayIndex={arrayIndex}
+                        onTableClick={onTableClick}
+                    />
+                );
+            default:
+                return null;
         }
     };
 
@@ -125,6 +147,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
             bounds="parent"
             {...dragHandlers}
             defaultPosition={{ x: defaultXY.x, y: defaultXY.y }}
+            onStop={(e, data) => handleStop(arrayIndex, data.x, data.y)}
             {...props}
         >
             <TableWidthWrapper>{getTableComponent()}</TableWidthWrapper>
