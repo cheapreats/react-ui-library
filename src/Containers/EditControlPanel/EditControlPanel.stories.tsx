@@ -8,8 +8,27 @@ export default {
     component: EditControlPanel,
 } as Meta;
 
+/**
+ * Functions for Delete, Rotate, and Click buttons
+ */
+const handleDeleteClick = () => {
+    console.log('Delete Button has been clicked');
+};
+
+const handleRotateClick = () => {
+    console.log('Rotate Button has been clicked');
+};
+
+const handleCloneClick = () => {
+    console.log('Clone Button has been clicked');
+};
+
 const Template: Story<IEditControlPanel> = (args) => (
     <EditControlPanel {...args} />
 );
-
-export const EditControlPanelComponent = Template.bind({});
+export const ControlPanelMain = Template.bind({});
+ControlPanelMain.args = {
+    onDeleteClick: handleDeleteClick,
+    onCloneClick: handleCloneClick,
+    onRotateClick: handleRotateClick,
+};

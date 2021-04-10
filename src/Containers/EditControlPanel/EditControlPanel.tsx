@@ -12,6 +12,10 @@ export interface IEditControlPanel {
      * The number of seats at the table
      */
     NumberOfSeats: number;
+
+    onDeleteClick: () => void;
+    onRotateClick: () => void;
+    onCloneClick: () => void;
 }
 
 /**
@@ -21,24 +25,12 @@ export interface IEditControlPanel {
 export const EditControlPanel: React.FC<IEditControlPanel> = ({
     TableNumber = 'T1',
     NumberOfSeats = 1,
+    onDeleteClick,
+    onRotateClick,
+    onCloneClick,
     ...props
 }) => {
     const [seat, setSeat] = useState(NumberOfSeats);
-
-    /**
-     * Functions for Delete, Rotate, and Click buttons
-     */
-    function onDeleteClick() {
-        console.log('Delete Button has been clicked');
-    }
-
-    function onRotateClick() {
-        console.log('Rotate Button has been clicked');
-    }
-
-    function onCloneClick() {
-        console.log('Clone Button has been clicked');
-    }
 
     return (
         <BorderForControlPanel {...props}>
