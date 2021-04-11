@@ -7,7 +7,7 @@ import { Heading, Paragraph} from '../../index';
 
 const ANIMATION_DURATION=200
 const MOVING_DIV_COLOR='#24dbee'
-const TAB_COLOR='#ce9a9a'
+const TAB_COLOR='#ceb5b5'
 
 export interface TabFeatureProps { 
     heading: string;
