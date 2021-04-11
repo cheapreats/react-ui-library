@@ -1,11 +1,13 @@
-import React, {useState,useRef,useEffect, useLayoutEffect} from 'react';
+import React, {useState,useRef,useEffect, useLayoutEffect,useCallback} from 'react';
 import { Check } from '@styled-icons/boxicons-regular/Check';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styled from 'styled-components';  
 import { flex, media } from '../../Utils/Mixins';
 import { Heading, Paragraph} from '../../index';
 
-const ANIMATION_DURATION=3000
+const ANIMATION_DURATION=200
+const MOVING_DIV_COLOR='#24dbee'
+const TAB_COLOR='#ce9a9a'
 
 export interface TabFeatureProps { 
     heading: string;
@@ -25,10 +27,10 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
 }): React.ReactElement => {
     const [currNavkey, setCurrNavKey] = useState(0);
     const [prevNavKey, setPrevNavKey] = useState(0); 
-    const [selectedIndex,setSelectedIndex]=useState(0);
 
-    const movingTab=useRef<Tab>(null)
-    const lastRect=useRef()
+    const movingDiv=useRef<HTMLDivElement>(null)
+    const lastRect=useRef<DOMRect>()
+    const tabsRef=useRef<Tab[]>([])
 
     /**
      * Renders a vertical list of check icons and text.
@@ -45,28 +47,30 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
 
     /**
      * Renders a horizontal list of text for tab navigation.
-     * @param DataItems
      * @returns {React.ReactElement}
      */
     const navigation = (): React.ReactElement[] => { 
-        const changeNavFn = (selecteNavkey : number) =>
+
+        const changeNavFn = (selectedNavkey : number) =>
         {
-            setPrevNavKey(currNavkey);
-            setCurrNavKey(selecteNavkey);
+            if(selectedNavkey!==currNavkey){
+                setCurrNavKey(selectedNavkey);
+                setPrevNavKey(currNavkey);
+            }
         }
+
         return DataItems.map(
             (item, navKey): React.ReactElement => (
                 <>
                     <NavTab
-                        onClick={ () => changeNavFn(navKey)}
-                        key={item}
+                        onClick={ () => {changeNavFn(navKey)}}
+                        key={`${item.title}_navTab`}
+                        ref={tab=>{if(tab)tabsRef.current.push(tab)}}
                     >
                         {item.title}
-                        {selectedIndex===navKey&&
+                        {currNavkey===navKey&&
                     (
-                        <NavTabSelected ref={movingTab}>
-                            {item.title}
-                        </NavTabSelected>
+                        <MovingDiv ref={movingDiv}>{item.title}</MovingDiv>
                     )}
                     </NavTab>
                 </>
@@ -74,71 +78,81 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
         )
     };
 
+    // const setMovingDivDimensions=()=>{
+    //     // @ts-ignore
+    //     const width=tabsRef.current[currNavkey].node.clientWidth
+    //     // @ts-ignore
+    //     const height=tabsRef.current[currNavkey].node.clientHeight
+
+    //     if(movingDiv.current){
+    //         movingDiv.current.style.width=`${width}px`
+    //         movingDiv.current.style.height=`${height}px`
+    //     }
+    // }
+
     /**
      * on first render, cach the bounding rect of the moving element
      */
     useEffect(()=>{
-        // @ts-ignore
-        lastRect.current=movingTab.current?.node.getBoundingClientRect()
+        if(movingDiv.current)
+            lastRect.current=movingDiv.current.getBoundingClientRect()
     },[])
 
     /**
      * before painting, animate
      */
     useLayoutEffect(()=>{
-        // @ts-ignore
-        const nextRect=movingTab.current?.node.getBoundingClientRect()
+        const nextRect=movingDiv.current?.getBoundingClientRect()
+        if(nextRect&&lastRect.current){
+            const translateX = nextRect.x-lastRect.current.x;
 
-        // @ts-ignore
-        const translateX = nextRect.x-lastRect.current?.x;
+            const widthFactor=1+(lastRect.current.width-nextRect.width)/nextRect.width
+            
+            lastRect.current=nextRect
+    
+            movingDiv.current?.animate([
+                {transform:`translateX(${-translateX}px) scaleX(${widthFactor})`},
+                {transform:`trnanslateX(0px) scaleX(1)`}
+            ],ANIMATION_DURATION)
+        }
 
-        // @ts-ignore
-        const widthFactor=1+(lastRect.current?.width-nextRect.width)/nextRect.width
-        
-        lastRect.current=nextRect
-
-        // @ts-ignore
-        movingTab.current?.node.animate([
-            {transform:`translateX(${-translateX}px) scaleX(${widthFactor})`},
-            {transform:`trnanslateX(0px) scaleX(1)`}
-        ],ANIMATION_DURATION)
-
-    },[movingTab.current])
+    },[movingDiv.current])
 
     /**
      * Component for showing content of left and right panels.
      * title, short description and list icons and text.
-     * @param DataItems
      * @returns {React.ReactElement}
      */
-    const contentBlock = (): React.ReactElement[] => 
-        DataItems.map(
-            (item): React.ReactElement => (                
-                <Content key={item} >
-                    <LeftPanel>
-                        { 
-                            (currNavkey > prevNavKey)?
-                                <AnimateLeftPanel>
-                                    <Heading type="h6" bold>{item.title}</Heading>
-                                    <CParagraph>{item.shortdescription}</CParagraph>
-                                    <ListItem>{listItems(item.liItems)}</ListItem>
-                                </AnimateLeftPanel>
-                                : 
-                                <AnimateLeftRight>
-                                    <Heading type="h6" bold>{item.title}</Heading>
-                                    <CParagraph>{item.shortdescription}</CParagraph>
-                                    <ListItem>{listItems(item.liItems)}</ListItem>
-                                </AnimateLeftRight>
-                        }
-                    </LeftPanel>  
-                    <RightPanel>
-                        <CodeBlock>
-                            {item.codeBlock}
-                        </CodeBlock>
-                    </RightPanel>           
-                </Content>
-            ),
-        );
+    const contentBlock = useCallback((): React.ReactElement[] => 
+        (
+            DataItems.map(
+                (item): React.ReactElement => (                
+                    <Content key={`${item.title}_content`}>
+                        <LeftPanel>
+                            { 
+                                (currNavkey > prevNavKey)?
+                                    <AnimateLeftPanel>
+                                        <Heading type="h6" bold>{item.title}</Heading>
+                                        <CParagraph>{item.shortdescription}</CParagraph>
+                                        <ListItem>{listItems(item.liItems)}</ListItem>
+                                    </AnimateLeftPanel>
+                                    : 
+                                    <AnimateLeftRight>
+                                        <Heading type="h6" bold>{item.title}</Heading>
+                                        <CParagraph>{item.shortdescription}</CParagraph>
+                                        <ListItem>{listItems(item.liItems)}</ListItem>
+                                    </AnimateLeftRight>
+                            }
+                        </LeftPanel>  
+                        <RightPanel>
+                            <CodeBlock>
+                                {item.codeBlock}
+                            </CodeBlock>
+                        </RightPanel>           
+                    </Content>
+                )
+            )
+        ),[DataItems,currNavkey,prevNavKey,listItems])
         
     return (
         <Container {...args}>
@@ -149,7 +163,7 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
             </Row>
             <Row>
                 <Heading type="h3" bold>{navheading}</Heading>
-                <Tabs onSelect={(index)=>{if(index!==selectedIndex)setSelectedIndex(index)}}>
+                <Tabs>
                     <NavTabList>
                         {navigation()}                         
                     </NavTabList>
@@ -181,14 +195,22 @@ const SParagraph = styled(Paragraph)`
 const GHeading = styled(Heading)` 
     color: ${({ theme }) => theme.colors.primary};
 `;
+
 const NavTabList = styled(TabList)`
     position: relative;
     ${flex()};
     padding: 0;
+
     background-color:${({theme})=>theme.colors.background};
-    z-index:1;
 `; 
+
 const NavTab = styled(Tab)`
+// &.react-tabs__tab--selected, .react-tabs__tab--selected:active {
+    //     color: #fff;
+    //     // background-color: ${({ theme }) => theme.colors.primary};
+    // }
+
+    outline:none;
     position: relative;
     ${flex('row','center')};
     text-align: center;
@@ -196,13 +218,11 @@ const NavTab = styled(Tab)`
     font-weight: bold;
     border-radius: 25px;
     cursor: pointer;
-    mix-blend-mode: difference;
-    z-index:2;
-    color:${({ theme }) => theme.colors.background};
-    // &.react-tabs__tab--selected, .react-tabs__tab--selected:active {
-    //     color: #fff;
-    //     // background-color: ${({ theme }) => theme.colors.primary};
-    // }
+
+    mix-blend-mode:difference;
+    // color:${({ theme }) => theme.colors.background};
+    color:${TAB_COLOR};
+
     &.react-tabs__tab--selected:hover {
         opacity: 1;
     }
@@ -211,14 +231,33 @@ const NavTab = styled(Tab)`
     }
     ${media('phone', 'font-size:.8rem; padding:.2rem .5rem')};
 `;
-const NavTabSelected=styled(NavTab)`
-background-color: ${({ theme }) => theme.colors.primary};
-color: ${({ theme }) => theme.colors.primary};
+
+const MovingDiv=styled.div`
+${flex('row','center')};
+text-align: center;
+padding: .5rem 1rem;
+font-weight: bold;
+border-radius: 25px;
+cursor: pointer;
+&.react-tabs__tab--selected:hover {
+    opacity: 1;
+}
+&:hover {
+    opacity: .5;
+}
+${media('phone', 'font-size:.8rem; padding:.2rem .5rem')};
+
 position:absolute;
 top:0;
 left:0;
-z-index:0;
+
+mix-blend-mode:difference;
+// background-color: ${({ theme }) => theme.colors.primary};
+// color:${({ theme }) => theme.colors.primary};
+background-color:${MOVING_DIV_COLOR};
+color:${MOVING_DIV_COLOR};
 `
+
 const ContentHolder =styled.div`
     padding: 5px;
     border: 1px solid #c5c3c3;
