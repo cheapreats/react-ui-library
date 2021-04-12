@@ -27,7 +27,8 @@ export const MainContainer: React.FC<IMainContainer> = () => (
             bird&apos;s-eye view of your dining areas from one simple interface!
         </PaddingOnBottom>
         <PaddingOnBottom>
-            Design dining areas and customize your tables with ease.{' '}
+            Design dining areas and customize your tables with ease.
+            {' '}
         </PaddingOnBottom>
         <PaddingOnBottom>
             Track customer interactions from end to end, so you can access all
