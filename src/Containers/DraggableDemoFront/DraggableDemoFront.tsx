@@ -336,10 +336,12 @@ export const DraggableCanvas = (): ReactElement => {
                                 onTableClick={handleTableClick}
                             />
                         </CircleTableWidth>
-                    </Draggable>{' '}
+                    </Draggable>
+                    {' '}
                     {/* End draggable table 2 */}
                 </StylesForCanvas>
-            </StylesForDraggableDemo>{' '}
+            </StylesForDraggableDemo>
+            {' '}
             {/* End Draggable Canvas */}
         </SpacingForBottom>
     );

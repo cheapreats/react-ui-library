@@ -71,7 +71,9 @@ export default {
 } as Meta;
 
 export const ListHeaderWithSearchBar: Story<ListHeaderProps> = (args) => (
-    <ListHeader {...args} />
+    <div style={{width: '255px'}}>
+        <ListHeader {...args} />
+    </div>
 );
 
 ListHeaderWithSearchBar.args = {
@@ -83,7 +85,7 @@ ListHeaderWithSearchBar.args = {
     onSearch: (value: string) => {
         console.log(value);
     },
-    searchBarWidth: '80vw',
+    searchBarWidth: '125px',
     searchBarMediaQuery: 'phone',
     searchBarMediaWidth: '70vw ',
 };
@@ -96,14 +98,14 @@ export const Basic: Story<ListProps> = (args) => {
             {...args}
             isOpen={isOpen}
             setIsOpen={setIsOpen}
-            toggleComponent={
+            toggleComponent={(
                 <ListToggle
                     isOpen={isOpen}
                     setIsOpen={setIsOpen}
                     isLeftToggle
                     isToggleHiddenDesktop
                 />
-            }
+            )}
         >
             {items.map((item) => (
                 <ListItem
