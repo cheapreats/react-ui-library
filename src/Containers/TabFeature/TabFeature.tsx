@@ -8,6 +8,7 @@ import { Heading, Paragraph} from '../../index';
 const ANIMATION_DURATION=200
 const MOVING_DIV_COLOR='#24dbee'
 const TAB_COLOR='#ceb5b5'
+const NEUTRAL_SCALE=1
 
 export interface TabFeatureProps { 
     heading: string;
@@ -78,18 +79,6 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
         )
     };
 
-    // const setMovingDivDimensions=()=>{
-    //     // @ts-ignore
-    //     const width=tabsRef.current[currNavkey].node.clientWidth
-    //     // @ts-ignore
-    //     const height=tabsRef.current[currNavkey].node.clientHeight
-
-    //     if(movingDiv.current){
-    //         movingDiv.current.style.width=`${width}px`
-    //         movingDiv.current.style.height=`${height}px`
-    //     }
-    // }
-
     /**
      * on first render, cach the bounding rect of the moving element
      */
@@ -99,14 +88,14 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
     },[])
 
     /**
-     * before painting, animate
+     * before painting, animate with flip
      */
     useLayoutEffect(()=>{
         const nextRect=movingDiv.current?.getBoundingClientRect()
         if(nextRect&&lastRect.current){
             const translateX = nextRect.x-lastRect.current.x;
 
-            const widthFactor=1+(lastRect.current.width-nextRect.width)/nextRect.width
+            const widthFactor=NEUTRAL_SCALE+(lastRect.current.width-nextRect.width)/nextRect.width
             
             lastRect.current=nextRect
     
