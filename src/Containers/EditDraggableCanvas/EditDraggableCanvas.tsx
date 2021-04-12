@@ -63,7 +63,6 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     handleStop,
     ...props
 }) => {
-
     /**
      * Generates a unique key based on a string and a random number
      * @param prefix - a string to append to random number
