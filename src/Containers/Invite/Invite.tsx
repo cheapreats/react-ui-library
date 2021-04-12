@@ -4,9 +4,9 @@ import Button from '@Inputs/Button/Button';
 import Input from '@Inputs/Input/Input';
 import Textarea from '@Inputs/Textarea/Textarea';
 import { flex, media, transition } from '@Utils/Mixins';
-import { Heading, Paragraph, SmallText } from '../../index'; 
 import { ChevronRight } from "@styled-icons/bootstrap/ChevronRight";
 import { ArrowRight } from "@styled-icons/bootstrap/ArrowRight";
+import { Heading, Paragraph, SmallText } from '../../index'; 
 
 export interface InviteProps { 
     title: string;
@@ -25,7 +25,7 @@ export const Invite: React.FC<InviteProps> = ({
     inviteArgs,
     ...args
 }) => {
-     /**
+    /**
      * @returns all elements of inviteArgs
      */
     const formFields = (): React.ReactElement[] => {
@@ -36,30 +36,30 @@ export const Invite: React.FC<InviteProps> = ({
         return inviteArgs.map(
             (item, key ): React.ReactElement => (
                 (key !== lastKey) ? 
-                <FormGroup key={item}>
-                    <Label>{item.label}</Label> 
-                    <IDiv>
-                        <Input 
-                            placeholder={item.placeholder}
-                            value={''}
-                        /> 
-                    </IDiv>   
-                </FormGroup>                     
-                :      
-                <FormGroup key={item}>              
-                    <Label>
-                        {item.label}
-                        <Paragraph color="">{item.subLabel}</Paragraph>
-                    </Label> 
-                    <IDiv>
-                        <Textarea 
+                    <FormGroup key={item}>
+                        <Label>{item.label}</Label> 
+                        <IDiv>
+                            <Input 
+                                placeholder={item.placeholder}
+                                value=""
+                            /> 
+                        </IDiv>   
+                    </FormGroup>                     
+                    :      
+                    <FormGroup key={item}>              
+                        <Label>
+                            {item.label}
+                            <Paragraph color="">{item.subLabel}</Paragraph>
+                        </Label> 
+                        <IDiv>
+                            <Textarea 
                                 rows="3"
                                 placeholder={item.placeholder}
-                                value={''}
-                                onChange={''}                     
+                                value=""
+                                onChange=""                     
                             />
-                    </IDiv>
-                </FormGroup>  
+                        </IDiv>
+                    </FormGroup>  
             ),
         )
     };
