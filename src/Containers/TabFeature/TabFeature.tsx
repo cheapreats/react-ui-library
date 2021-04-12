@@ -5,9 +5,9 @@ import styled from 'styled-components';
 import { flex, media } from '../../Utils/Mixins';
 import { Heading, Paragraph} from '../../index';
 
-const ANIMATION_DURATION=3000
-const MOVING_DIV_COLOR='#24dbee'
-const TAB_COLOR='#ceb5b5'
+const ANIMATION_DURATION=300
+const MOVING_DIV_COLOR='white'
+const TAB_COLOR='white'
 const NEUTRAL_SCALE=1
 
 export interface TabFeatureProps { 
@@ -237,7 +237,7 @@ const NavTab = styled(Tab)`
         opacity: 1;
     }
     &:hover {
-        opacity: .5;
+        opacity: .75;
     }
     ${media('phone', 'font-size:.8rem; padding:.2rem .5rem')};
 `;
@@ -253,7 +253,7 @@ cursor: pointer;
     opacity: 1;
 }
 &:hover {
-    opacity: .5;
+    opacity: .75;
 }
 ${media('phone', 'font-size:.8rem; padding:.2rem .5rem')};
 
