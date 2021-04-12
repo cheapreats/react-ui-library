@@ -70,3 +70,4 @@ export * from './SankeyChart/SankeyChart';
 export * from './HorizontalBarChart/HorizontalBarChart';
 export * from './DeliveryRadius/DeliveryRadius';
 export * from './ItemsRedemptionPoints/ItemsRedemptionPoints';
+export * from './Invite/Invite';
