@@ -47,8 +47,7 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
     const getImageTags = () =>
         imageTags.map((imageTag: string, index: number) => (
             <GridItem key={imageTag}>
-                <ChartDesc color={imageTagColors[index]} />
-                {' '}
+                <ChartDesc color={imageTagColors[index]} />{' '}
                 <SmallText>{imageTag}</SmallText>
             </GridItem>
         ));

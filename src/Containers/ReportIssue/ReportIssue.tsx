@@ -31,7 +31,8 @@ export const ReportIssue = ({
             </HeaderRow>
             <form
                 onSubmit={(event) =>
-                    handleSubmit(event, inputValue, textareaValue)}
+                    handleSubmit(event, inputValue, textareaValue)
+                }
             >
                 <SelectContainer>
                     <Select
@@ -39,7 +40,8 @@ export const ReportIssue = ({
                         value={inputValue}
                         placeholder={inputValue}
                         onChange={({ target }: { target: any }) =>
-                            setInputValue(target.value)}
+                            setInputValue(target.value)
+                        }
                     >
                         {options.map((option) => option)}
                     </Select>
@@ -50,7 +52,8 @@ export const ReportIssue = ({
                         label="Description(required)"
                         value={textareaValue}
                         onChange={({ target }: { target: any }) =>
-                            setTextareaValue(target.value)}
+                            setTextareaValue(target.value)
+                        }
                     />
                 </TextareaContainer>
                 <SubmitButtonContainer>

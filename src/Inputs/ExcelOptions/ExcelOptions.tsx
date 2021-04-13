@@ -157,7 +157,8 @@ export const ExcelOptions: React.FC<ExcelOptionsProps> = ({
                                                             onClick={(): void =>
                                                                 removeHeader(
                                                                     index,
-                                                                )}
+                                                                )
+                                                            }
                                                         >
                                                             {keyToHeader(
                                                                 header,

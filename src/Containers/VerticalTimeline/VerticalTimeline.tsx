@@ -94,7 +94,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
                 <Block
                     delta={delta.value}
                     color={delta.color}
-                    step={(
+                    step={
                         <Step
                             label={timelineData[index].label}
                             width={widthRightPanels}
@@ -103,7 +103,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
                             relative={index}
                             length={array.length}
                         />
-                    )}
+                    }
                     relative={index}
                     verticalSpacing={verticalSpacing}
                     widthLeftPanels={widthLeftPanels}
@@ -127,7 +127,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
         <div>
             {renderBlocks(deltas)}
             <Block
-                step={(
+                step={
                     <Step
                         label={timelineData[timelineData.length - 1].label}
                         width={widthRightPanels}
@@ -136,7 +136,7 @@ export const VerticalTimeline: React.FC<VerticalTimelineProps> = ({
                         length={deltas.length}
                         relative={deltas.length}
                     />
-                )}
+                }
                 relative={deltas.length}
                 verticalSpacing={verticalSpacing}
                 widthLeftPanels={widthLeftPanels}

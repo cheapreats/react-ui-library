@@ -56,7 +56,8 @@ export const Checkbox: React.FC<CheckboxProps> = ({
                     type="checkbox"
                     name={name}
                     onChange={(event: SyntheticEvent<HTMLInputElement>): void =>
-                        onChange(event)}
+                        onChange(event)
+                    }
                     {...props}
                     value={
                         value === undefined || value === null
