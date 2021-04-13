@@ -315,7 +315,10 @@ const Entry: React.FC<IEntryProps> = ({
                 </AmountContainer>
             </LabelContainer>
             {dailyValuePercentage !== null && (
-                <Bold isBold={isBold}>{dailyValuePercentage}%</Bold>
+                <Bold isBold={isBold}>
+                    {dailyValuePercentage}
+                    %
+                </Bold>
             )}
         </EntryContainer>
     );

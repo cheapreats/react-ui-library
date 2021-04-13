@@ -50,7 +50,7 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
                         {label}
                     </Heading>
                 </HeadingContainer>
-                <SearchContainer isExpanded={isExpanded}>
+                <SearchContainer>
                     {onSearch && (
                         <SearchBarExpandable
                             onInput={onSearch}
@@ -61,16 +61,16 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
                             mediaWidth={searchBarMediaWidth}
                         />
                     )}
-                    {icon && (
-                        <IconContainer isExpanded={isExpanded}>
-                            <Icon
-                                as={icon}
-                                onClick={iconClick}
-                                iconProps={iconProps}
-                            />
-                        </IconContainer>
-                    )}
                 </SearchContainer>
+                {icon && (
+                    <IconContainer isExpanded={isExpanded}>
+                        <Icon
+                            as={icon}
+                            onClick={iconClick}
+                            iconProps={iconProps}
+                        />
+                    </IconContainer>
+                )}
                 {headerRowComponent}
             </Row>
             {children}
@@ -82,21 +82,32 @@ interface IResponsiveSearchProps {
     isExpanded: boolean;
 }
 
-const SearchContainer = styled.div<IResponsiveSearchProps>`
+const SearchContainer = styled.div`
     ${Mixins.flex('row')}
     margin-left: auto;
 `;
 
 const IconContainer = styled.div<IResponsiveSearchProps>`
     ${Mixins.flex('center')}
-    margin-left: 5px;
+    
 `;
 const HeadingContainer = styled.div<IResponsiveSearchProps>`
     ${Mixins.transition(['transform', 'opacity'])}
+    @keyframes heading {
+        0% {
+            position: fixed;
+        }
+        90% {
+            position: fixed;
+        }
+        100% {
+            position: relative;
+        }
+    }
     ${({ isExpanded }) =>
         isExpanded
             ? 'transform: translateY(-200px); opacity: 0; position: fixed;'
-            : 'opacity: 1;'}
+            : 'transform: translateY(0px); animation: heading; animation-duration: 1s;'}
 `;
 
 interface HeaderProps {

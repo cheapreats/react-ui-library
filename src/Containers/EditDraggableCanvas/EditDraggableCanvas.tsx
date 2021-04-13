@@ -5,7 +5,7 @@ import {
     IDraggableTable,
 } from '@Containers/EditDraggableCanvas/_DraggableTable';
 
-type getCanvasFillType = () => JSX.Element;
+type getCanvasFillType = () => JSX.Element | null;
 
 type canvasTypes = 'newUserCanvas' | 'editCanvas' | 'managementCanvas';
 
@@ -18,7 +18,6 @@ export interface IEditDraggableCanvas {
      * The current number of chairs being used in the layout
      */
     currentNumberOfChairs: number;
-
     /**
      * The Max amount of chairs the layout can have currently
      */
@@ -32,6 +31,23 @@ export interface IEditDraggableCanvas {
      * Array of DraggableTables
      */
     tables?: Array<IDraggableTable>;
+    /**
+     * Function to handle onClick event for the table
+     * @param selectedChildIndex - the array index for the table
+     */
+    onTableClick: (selectedChildIndex: number) => void;
+    /**
+     * The function that will pass over the index value of DraggableTable in the array with its
+     * coordinates on the canvas (x,y)
+     * @param selectedChildIndex
+     * @param deltaX
+     * @param deltaY
+     */
+    handleStop: (
+        selectedChildIndex: number,
+        deltaX: number,
+        deltaY: number,
+    ) => void;
 }
 
 /**
@@ -43,6 +59,8 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     maxCapacity = 0,
     canvasType = 'newUserCanvas',
     tables = [],
+    onTableClick,
+    handleStop,
     ...props
 }) => {
     /**
@@ -57,20 +75,38 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
      * Returns a JSX element array containing the tables
      * @return {JSX.Element[]} - the DraggableTables
      */
-    const getTables: getTablesType = () =>
-        tables.map((item, index) => (
+    const getTables: getTablesType = () => {
+        if (canvasType === 'managementCanvas') {
+            return tables.map((item, index) => (
+                <DraggableTable
+                    tableInput={item.tableInput}
+                    defaultXY={item.defaultXY}
+                    arrayIndex={index}
+                    key={generateTableKey(item.defaultXY.x.toString() + index)}
+                    isDisabled
+                    onTableClick={onTableClick}
+                    handleStop={handleStop}
+                />
+            ));
+        }
+
+        return tables.map((item, index) => (
             <DraggableTable
                 tableInput={item.tableInput}
                 defaultXY={item.defaultXY}
+                arrayIndex={index}
                 key={generateTableKey(item.defaultXY.x.toString() + index)}
+                onTableClick={onTableClick}
+                handleStop={handleStop}
             />
         ));
+    };
 
     /**
      * Returns the correct text for a new user canvas or the tables
      * with the correct styles for a returning user canvas based on the
      * canvasType
-     * @returns {JSX.Element}
+     * @returns {JSX.Element | null}
      *
      */
     const getCanvasFill: getCanvasFillType = () => {
@@ -101,7 +137,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
             );
 
         default:
-            return <div />;
+            return null;
         }
     };
 

@@ -71,7 +71,9 @@ export default {
 } as Meta;
 
 export const ListHeaderWithSearchBar: Story<ListHeaderProps> = (args) => (
-    <ListHeader {...args} />
+    <div style={{width: '255px'}}>
+        <ListHeader {...args} />
+    </div>
 );
 
 ListHeaderWithSearchBar.args = {
@@ -83,7 +85,7 @@ ListHeaderWithSearchBar.args = {
     onSearch: (value: string) => {
         console.log(value);
     },
-    searchBarWidth: '80vw',
+    searchBarWidth: '125px',
     searchBarMediaQuery: 'phone',
     searchBarMediaWidth: '70vw ',
 };

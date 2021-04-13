@@ -5,6 +5,8 @@ import { Plus } from '@styled-icons/boxicons-regular';
 
 export type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
+type callOnTableClickType = () => void;
+
 type getChairsType = () => JSX.Element[];
 
 type tableUseTypes =
@@ -46,6 +48,15 @@ export interface ICircleTable {
      * The use type for the table component (how it will be used in the app)
      */
     tableUse: tableUseTypes;
+    /**
+     * Array index for the table
+     */
+    arrayIndex?: number;
+    /**
+     * Function to handle onClick event for the table
+     * @param selectedChildIndex - the array index for the table
+     */
+    onTableClick: (selectedChildIndex: number) => void;
 }
 
 /**
@@ -59,8 +70,17 @@ export const CircleTable: React.FC<ICircleTable> = ({
     occupancyStatus = 'Vacant',
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
+    arrayIndex = 0,
+    onTableClick,
     ...props
 }) => {
+    /**
+     * Calls the onTableClick prop function with the arrayIndex prop as its
+     * parameter
+     */
+    const callOnTableClick: callOnTableClickType = () =>
+        onTableClick(arrayIndex);
+
     /**
      * Returns a JSX element array containing the Chairs and ChairWrappers
      * @return {JSX.Element[]} - Chairs and ChairWrappers for the table
@@ -145,6 +165,8 @@ export const CircleTable: React.FC<ICircleTable> = ({
                 tangentValue={tangent}
                 occupancyStatus={occupancyStatus}
                 tableUse={tableUse}
+                tabIndex={0}
+                onClick={callOnTableClick}
             >
                 {getChairs()}
                 {getTableInfoContent(tableUse)}
@@ -235,6 +257,8 @@ interface ITableBody {
     occupancyStatus: occupancyStatusTypes;
     relativeSize: number;
     tableUse: string;
+    tabIndex: number;
+    onClick: (e: Event) => void;
 }
 
 const TableBody = styled.div<ITableBody>`
@@ -274,6 +298,12 @@ const TableBody = styled.div<ITableBody>`
             : 'solid'};
     border-color: ${({ occupancyStatus }) =>
         getOccupancyColor(occupancyStatus)};
+    padding: 0;
+    outline: none;
+    cursor: pointer;
+    &:focus {
+        box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary};
+    }
 `;
 
 interface IChairWrapper {

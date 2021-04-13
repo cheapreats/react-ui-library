@@ -35,7 +35,9 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
     const getHighlightText = () =>
         highlightTexts.map((highlightText: string) => (
             <SmallText size="h7" key={highlightText}>
-                <Tick /> {highlightText}
+                <Tick /> 
+                {' '}
+                {highlightText}
                 <div />
             </SmallText>
         ));
