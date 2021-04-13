@@ -14,6 +14,13 @@ export default {
                 type: 'text',
             },
         },
+        mask :{
+            defaultValue: '$99.99',
+            control: {
+                type: 'radio',
+                options: ['$99.99', '999%']
+            }
+        }
     },
     args: {
         realValue: "100",
@@ -22,7 +29,7 @@ export default {
         placeholder: 'Enter a value',
         description: 'Enter a value',
         error: '',
-        isInputValueNumber: false
+        isInputValueNumber: true
     },
 } as Meta;
 
