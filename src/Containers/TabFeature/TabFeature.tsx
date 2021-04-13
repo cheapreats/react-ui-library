@@ -1,4 +1,4 @@
-import React, {useState,useRef,useEffect, useLayoutEffect,useCallback} from 'react';
+import React, {useState,useRef, useLayoutEffect,useCallback} from 'react';
 import { Check } from '@styled-icons/boxicons-regular/Check';
 import { Tab, Tabs, TabList, TabPanel } from 'react-tabs';
 import styled from 'styled-components';  
@@ -6,8 +6,8 @@ import { flex, media } from '../../Utils/Mixins';
 import { Heading, Paragraph} from '../../index';
 
 const ANIMATION_DURATION=300
-const MOVING_DIV_COLOR='white'
-const TAB_COLOR='white'
+const MOVING_DIV_COLOR='#11dbcb' // this is the inverse color of MainInterface.colors.primary
+const TAB_COLOR='#11dbcb'
 const NEUTRAL_SCALE=1
 
 export interface TabFeatureProps { 
@@ -84,11 +84,8 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
         const width=tabsRef.current[currNavkey].node.clientWidth
         // @ts-ignore
         const height=tabsRef.current[currNavkey].node.clientHeight
-        console.log('width',width)
-        console.log('height',height)
 
         if(movingDiv.current){
-            console.log('setting width and height of moving element')
             movingDiv.current.style.width=`${width}px`
             movingDiv.current.style.height=`${height}px`
         }
@@ -230,7 +227,6 @@ const NavTab = styled(Tab)`
     cursor: pointer;
 
     mix-blend-mode:difference;
-    // color:${({ theme }) => theme.colors.background};
     color:${TAB_COLOR};
 
     &.react-tabs__tab--selected:hover {
@@ -245,7 +241,6 @@ const NavTab = styled(Tab)`
 const MovingDiv=styled.div`
 ${flex('row','center')};
 text-align: center;
---padding: .5rem 1rem;
 font-weight: bold;
 border-radius: 25px;
 cursor: pointer;
@@ -263,10 +258,6 @@ left:0;
 
 mix-blend-mode:difference;
 background-color:${MOVING_DIV_COLOR};
-
-// background-color: ${({ theme }) => theme.colors.primary};
-// color:${({ theme }) => theme.colors.primary};
---color:${MOVING_DIV_COLOR};
 `
 
 const ContentHolder =styled.div`
