@@ -243,7 +243,7 @@ EditCanvasExample.args = {
                 onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
-            defaultXY: { x: 367, y: -199 },
+            defaultXY: { x: 367, y: 154 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
         }, // table 4 end
@@ -294,7 +294,7 @@ EditCanvasExample.args = {
                 onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
-            defaultXY: { x: 210, y: -283 },
+            defaultXY: { x: 210, y: 57 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
         }, // table 3 end
@@ -366,7 +366,7 @@ EditCanvasExample.args = {
                 onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
-            defaultXY: { x: 43, y: -363 },
+            defaultXY: { x: 43, y: 177 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
         }, // table 2 end
@@ -536,7 +536,7 @@ MgmtCanvasExample.args = {
                 onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
-            defaultXY: { x: 367, y: -199 },
+            defaultXY: { x: 367, y: 154 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
         }, // table 4 end
@@ -587,7 +587,7 @@ MgmtCanvasExample.args = {
                 onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
-            defaultXY: { x: 210, y: -283 },
+            defaultXY: { x: 210, y: 57 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
         }, // table 3 end
@@ -659,7 +659,7 @@ MgmtCanvasExample.args = {
                 onTableClick: handleTableClick,
             },
             handleStop: handleOnStop,
-            defaultXY: { x: 43, y: -363 },
+            defaultXY: { x: 43, y: 177 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
         }, // table 2 end

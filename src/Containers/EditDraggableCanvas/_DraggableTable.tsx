@@ -157,4 +157,5 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
 
 const TableWidthWrapper = styled.div`
     width: 123px;
+    position: absolute;
 `;
