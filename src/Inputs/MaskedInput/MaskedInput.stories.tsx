@@ -1,5 +1,5 @@
 import React from 'react';
-import { MaskedInput, MaskedInputProps } from '@Inputs';
+import { MaskedInput, MaskedInputProps, MaskedInputPreset } from '@Inputs';
 import { Meta, Story } from '@storybook/react';
 import { useArgs } from '@storybook/client-api';
 import { createStoryTitle } from '../../Constants';
@@ -15,27 +15,26 @@ export default {
             },
         },
         mask :{
-            defaultValue: '$99.99',
+            defaultValue: MaskedInputPreset.PHONE,
             control: {
                 type: 'radio',
-                options: ['$99.99', '999%']
+                options: MaskedInputPreset
             }
         }
     },
     args: {
-        realValue: "100",
+        realValue: '12345678901',
         name: 'demo',
         label: 'Enter a value',
         placeholder: 'Enter a value',
         description: 'Enter a value',
         error: '',
-        isInputValueNumber: true
     },
 } as Meta;
 
 export const Basic: Story<MaskedInputProps> = (args) => {
     const [, updateArgs] = useArgs();
-    const onChange = (value: number | string) =>
-        updateArgs({ realValue: value });
+    const onChange = ({target}: any) =>
+        updateArgs({ realValue: target.value });
     return <MaskedInput {...args} onInputChange={onChange} />;
 };

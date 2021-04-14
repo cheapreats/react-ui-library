@@ -3,7 +3,7 @@
     "version": "2.3.99",
     "description": "React UI library for CheaprEats",
     "main": "dist/index.js",
-    "module": "dist/index.esgit .js",
+    "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
     "files": [
         "dist"
