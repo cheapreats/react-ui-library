@@ -9,6 +9,11 @@ import InputMask, {BeforeMaskedStateChangeStates, InputState} from 'react-input-
 
 const MATCH_NON_INPUT_VALUES = /[^0-9A-Za-z]/gm;
 const REPLACE_CHARACTERS_WITH_EMPTY_STRING = '';
+const MASK_SYMBOL = 1;
+const NON_NEGATIVE_NUMBER = 0;
+const FIRST_INDEX = 0;
+const DECIMAL_PLACE = 10;
+const ZERO_STRING = '0';
 
 export enum MaskedInputPreset {
     DOLLAR = '$999.99',
@@ -18,7 +23,7 @@ export enum MaskedInputPreset {
 
 export interface MaskedInputProps extends LabelLayoutProps, InputFragmentProps {
     realValue: number | string;
-    onInputChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+    onInputChange: (value: any) => void;
     customInputFormat?: (value: string) => string;
     mask: MaskedInputPreset;
     fillInput?: string;
@@ -52,12 +57,12 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
 
     const numberMaskFilter = (value: number| string, maskInputPreset: MaskedInputPreset) => {
         const realValueToString = value.toString();
-        const zeroesToAdd = maskInputPreset.length - realValueToString.length -1;
-        if (zeroesToAdd < 0) {
-            const modifiedStringValue = realValueToString.slice(0, zeroesToAdd);
+        const zeroesToAdd = maskInputPreset.length - realValueToString.length - MASK_SYMBOL;
+        if (zeroesToAdd < NON_NEGATIVE_NUMBER) {
+            const modifiedStringValue = realValueToString.slice(FIRST_INDEX, zeroesToAdd);
             return modifiedStringValue;
         }
-        const zerosToPrefix = '0'.repeat(zeroesToAdd);
+        const zerosToPrefix = ZERO_STRING.repeat(zeroesToAdd);
         return `${zerosToPrefix}${realValueToString}`
     }
 
@@ -82,15 +87,11 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     * */
     const onMaskedInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const {value} = event.target;
-        const valueWithoutMask = value.replace(MATCH_NON_INPUT_VALUES, REPLACE_CHARACTERS_WITH_EMPTY_STRING);
-        if (mask === MaskedInputPreset.PHONE) {
-            event.target.value = valueWithoutMask;
-        } else {
-            // @ts-ignore
-            event.target.value = parseInt(valueWithoutMask, 10)
+        let valueWithoutMask: string | number = value.replace(MATCH_NON_INPUT_VALUES, REPLACE_CHARACTERS_WITH_EMPTY_STRING);
+        if (mask !== MaskedInputPreset.PHONE) {
+            valueWithoutMask = parseInt(valueWithoutMask, DECIMAL_PLACE);
         }
-        console.log(parseInt(valueWithoutMask, 10))
-        onInputChange(event);
+        onInputChange(valueWithoutMask);
     }
 
     /**

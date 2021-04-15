@@ -34,7 +34,9 @@ export default {
 
 export const Basic: Story<MaskedInputProps> = (args) => {
     const [, updateArgs] = useArgs();
-    const onChange = ({target}: any) =>
-        updateArgs({ realValue: target.value });
+    const onChange = (value: any) => {
+        updateArgs({ realValue: value });
+    }
+        
     return <MaskedInput {...args} onInputChange={onChange} />;
 };
