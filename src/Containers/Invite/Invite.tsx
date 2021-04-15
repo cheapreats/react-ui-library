@@ -112,12 +112,14 @@ const Form = styled.form`
     align-items: center;
     border-radius: 5px;
     background-color: ${({ theme }) => theme.colors.occupancyStatusColors.Occupied};
+    ${media('phone', 'margin-top: 1rem;')}
 `;
 const FormGroup= styled.div`
     margin-bottom: .6rem;
     ${flex('row')};
     &:last-child {
         ${flex('flex-end')};
+        ${media('phone', 'align-items: flex-start;')};
     }
     ${media('phone', 'flex-direction: column;')};
 `;
