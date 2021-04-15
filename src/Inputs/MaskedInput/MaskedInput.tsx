@@ -5,43 +5,40 @@ import {
     LabelLayout,
     LabelLayoutProps,
 } from '@Layouts';
+import InputMask, {BeforeMaskedStateChangeStates, InputState} from 'react-input-mask';
 
-const MINUS_SIGN = '-';
-const MIN_LESS_THAN_ZERO = 0;
-const MASK_LESS_THAN_ZERO = 0;
-const FIRST_CHARACTER = 0;
-const SECOND_CHARACTER = 1;
-const FIX_NUMBER_TO_TWO_DECIMALS = 2;
-const ERROR_MESSAGE_VALUE_CALCULATION = 1;
-const DASH_TO_SEPERATE_PHONE_DIGITS = '-';
-const VALIDATE_INPUT_FORMAT = /^[+-]?(?:\d*\.)?\d+$/gm;
-const PHONE_NUMBER_MATCH = /(?:(?=\d{1,4}$)\d{1,4}$|\d{1,3})/gm;
+const MATCH_NON_INPUT_VALUES = /[^0-9A-Za-z]/gm;
+const REPLACE_CHARACTERS_WITH_EMPTY_STRING = '';
+const MASK_SYMBOL = 1;
+const NON_NEGATIVE_NUMBER = 0;
+const FIRST_INDEX = 0;
+const DECIMAL_PLACE = 10;
+const ZERO_STRING = '0';
 
 export enum MaskedInputPreset {
-    DOLLAR = 'DOLLAR',
-    PERCENTAGE = 'PERCENTAGE',
-    PHONE = 'PHONE',
+    DOLLAR = '$999.99',
+    PERCENTAGE = '999%',
+    PHONE = '1(999)999-9999',
 }
 
 export interface MaskedInputProps extends LabelLayoutProps, InputFragmentProps {
-    realValue: string;
-    onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
-    mask: MaskedInputPreset | ((value: string) => string);
-    min?: number;
-    max?: number;
+    realValue: number | string;
+    onInputChange: (value: any) => void;
+    customInputFormat?: (value: string) => string;
+    mask: MaskedInputPreset;
+    fillInput?: string;
+    isWithoutMaskCharacters?: boolean;
 }
 
 export const MaskedInput: React.FC<MaskedInputProps> = ({
     mask,
     realValue,
-    onChange,
-    min = 0,
-    max = 100,
+    onInputChange,
     error,
+    fillInput = '0',
+    disabled,
     ...props
 }): React.ReactElement => {
-    const [displayValue, setDisplayValue] = useState('');
-    const [isFocused, setIsFocused] = useState(false);
     const [isError, setIsError] = useState<boolean | string>(false);
 
     useEffect(() => {
@@ -52,120 +49,78 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
         }
     }, [error]);
 
-    const DOLLAR_FORMAT_MASK = (s: string): string => {
-        const number = parseFloat(s);
-        if (Number.isNaN(number)) {
-            setIsError('Value cannot be empty');
-            return '';
-        }
-        if (number < MASK_LESS_THAN_ZERO) {
-            return `-$${-number.toFixed(FIX_NUMBER_TO_TWO_DECIMALS)}`;
-        }
-        return `$${number.toFixed(FIX_NUMBER_TO_TWO_DECIMALS)}`;
-    };
+    // string no mask values
+    const phoneMaskFilter = (value: string| number): string => {
+        const realValueToString = value.toString();
+        return realValueToString;
+    }
 
-    const PERCENT_FORMAT_MASK = (s: string): string => {
-        const number = parseFloat(s);
-        if (Number.isNaN(number)) {
-            setIsError('Value cannot be empty');
-            return '';
+    const numberMaskFilter = (value: number| string, maskInputPreset: MaskedInputPreset) => {
+        const realValueToString = value.toString();
+        const zeroesToAdd = maskInputPreset.length - realValueToString.length - MASK_SYMBOL;
+        if (zeroesToAdd < NON_NEGATIVE_NUMBER) {
+            const modifiedStringValue = realValueToString.slice(FIRST_INDEX, zeroesToAdd);
+            return modifiedStringValue;
         }
-        if (number < MASK_LESS_THAN_ZERO) {
-            return `-${-number.toFixed(FIX_NUMBER_TO_TWO_DECIMALS)}%`;
-        }
-        return `${number.toFixed(FIX_NUMBER_TO_TWO_DECIMALS)}%`;
-    };
+        const zerosToPrefix = ZERO_STRING.repeat(zeroesToAdd);
+        return `${zerosToPrefix}${realValueToString}`
+    }
 
-    const PHONE_FORMAT_MASK = (s: string): string => {
-        const firstDigit = s.slice(FIRST_CHARACTER, SECOND_CHARACTER);
-        const phoneNumberToMatch = s.slice(SECOND_CHARACTER);
-        const phoneNumberFormat = phoneNumberToMatch.match(PHONE_NUMBER_MATCH);
-        if (phoneNumberFormat) {
-            return `${firstDigit}-${phoneNumberFormat.join(
-                DASH_TO_SEPERATE_PHONE_DIGITS,
-            )}`;
-        }
-        if (firstDigit) {
-            return `${firstDigit}`;
-        }
-        return '';
-    };
-
-    const getMaskFunction_ = (
-        maskInputPreset: MaskedInputPreset | ((value: string) => string),
-    ): ((value: string) => string) => {
+    const getMaskFunction = (maskInputPreset: MaskedInputPreset): string => {
         switch (maskInputPreset) {
         case MaskedInputPreset.DOLLAR:
-            return DOLLAR_FORMAT_MASK;
+            return numberMaskFilter(realValue, MaskedInputPreset.DOLLAR);
         case MaskedInputPreset.PERCENTAGE:
-            return PERCENT_FORMAT_MASK;
+            return numberMaskFilter(realValue, MaskedInputPreset.PERCENTAGE);
         case MaskedInputPreset.PHONE:
-            return PHONE_FORMAT_MASK;
+            return phoneMaskFilter(realValue);
         default:
-            return mask as (value: string) => string;
+            return  realValue.toString();
         }
     };
 
-    const inputValidator = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const targetValue = event.target.value;
-        const targetValueInteger = parseFloat(targetValue);
-        const greaterThanMin = targetValueInteger >= min;
-        const lessThanMax = targetValueInteger <= max;
-
-        setIsError(false);
-        onChange(event);
-
-        if (!targetValue.match(VALIDATE_INPUT_FORMAT)) {
-            setIsError('Invalid characters or input');
-        } else if (greaterThanMin && lessThanMax) {
-            setDisplayValue(targetValue);
-        } else if (targetValue === MINUS_SIGN && min < MIN_LESS_THAN_ZERO) {
-            setDisplayValue(targetValue);
-        } else {
-            setDisplayValue(targetValue);
-            if (min && !greaterThanMin) {
-                setIsError(
-                    `Value must be greater than ${
-                        min - ERROR_MESSAGE_VALUE_CALCULATION
-                    }`,
-                );
-            } else if (max) {
-                setIsError(
-                    `Value must be less than ${
-                        max + ERROR_MESSAGE_VALUE_CALCULATION
-                    }`,
-                );
-            }
+    /**
+     * Determines format of return value
+     * Sets the new real value
+     * 
+    *@param {React.ChangeEvent<HTMLInputElement>} event
+    * */
+    const onMaskedInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const {value} = event.target;
+        let valueWithoutMask: string | number = value.replace(MATCH_NON_INPUT_VALUES, REPLACE_CHARACTERS_WITH_EMPTY_STRING);
+        if (mask !== MaskedInputPreset.PHONE) {
+            valueWithoutMask = parseInt(valueWithoutMask, DECIMAL_PLACE);
         }
-    };
+        onInputChange(valueWithoutMask);
+    }
 
-    useEffect((): void => {
-        if (isFocused) {
-            setDisplayValue(realValue);
-        } else {
-            setDisplayValue(getMaskFunction_(mask)(realValue));
-        }
-    }, [realValue, mask]);
-
+    /**
+     * Formatted Mask Value passed to onMaskedInputchange
+     * Prevents having incomplete values
+     * ie: 10.0
+     * nextState value will always be complete input
+    *@param {InputState} nextState - the state after the mask is applied
+    * */
+    const beforeMaskedStateChange = ({nextState}: BeforeMaskedStateChangeStates): InputState => ({
+        value: nextState.value,
+        selection: nextState.selection
+    })
+    
     return (
         <LabelLayout {...props} error={isError}>
-            <InputFragment
-                value={displayValue}
-                onFocus={(): void => {
-                    setIsFocused(true);
-                    setDisplayValue(realValue);
-                }}
-                onBlur={(): void => {
-                    setIsFocused(false);
-                    setDisplayValue(getMaskFunction_(mask)(realValue));
-                }}
-                onChange={(e): void => {
-                    if (isFocused) {
-                        inputValidator(e);
-                    }
-                }}
-                {...props}
-            />
+            <InputMask 
+                mask={mask}
+                value={getMaskFunction(mask)}
+                onChange={onMaskedInputChange}
+                beforeMaskedStateChange={beforeMaskedStateChange}
+                maskPlaceholder={fillInput}
+                disabled={disabled}
+            >
+                <InputFragment
+                    error={isError}
+                    {...props}
+                />
+            </InputMask>
         </LabelLayout>
     );
 };

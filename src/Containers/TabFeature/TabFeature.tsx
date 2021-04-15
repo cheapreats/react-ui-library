@@ -40,8 +40,10 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
      */
     const listItems = (_listItems:string[]): React.ReactElement[] => _listItems.map(            
         (item): React.ReactElement => (
-            <ListItem key={item} >
-                <Tick /> {item}
+            <ListItem key={item}>
+                <Tick /> 
+                {' '}
+                {item}
             </ListItem>
         ),
     );
@@ -64,7 +66,7 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
             (item, navKey): React.ReactElement => (
                 <>
                     <NavTab
-                        onClick={ () => {changeNavFn(navKey)}}
+                        onClick={() => {changeNavFn(navKey)}}
                         key={`${item.title}_navTab`}
                         ref={tab=>{if(tab)tabsRef.current.push(tab)}}
                     >
@@ -137,18 +139,20 @@ export const TabFeature: React.FC<TabFeatureProps> = ({
                     <Content key={`${item.title}_content`}>
                         <LeftPanel>
                             { 
-                                (currNavkey > prevNavKey)?
+                                (currNavkey > prevNavKey)? (
                                     <AnimateLeftPanel>
                                         <Heading type="h6" bold>{item.title}</Heading>
                                         <CParagraph>{item.shortdescription}</CParagraph>
                                         <ListItem>{listItems(item.liItems)}</ListItem>
                                     </AnimateLeftPanel>
-                                    : 
-                                    <AnimateLeftRight>
-                                        <Heading type="h6" bold>{item.title}</Heading>
-                                        <CParagraph>{item.shortdescription}</CParagraph>
-                                        <ListItem>{listItems(item.liItems)}</ListItem>
-                                    </AnimateLeftRight>
+                                )
+                                    : (
+                                        <AnimateLeftRight>
+                                            <Heading type="h6" bold>{item.title}</Heading>
+                                            <CParagraph>{item.shortdescription}</CParagraph>
+                                            <ListItem>{listItems(item.liItems)}</ListItem>
+                                        </AnimateLeftRight>
+                                    )
                             }
                         </LeftPanel>  
                         <RightPanel>

@@ -48,8 +48,7 @@ export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
                             [key]: moment(e.target.value).format(
                                 MOMENT_24_HOUR_FORMAT,
                             ),
-                        })
-                    }
+                        })}
                 />
             ),
         )}

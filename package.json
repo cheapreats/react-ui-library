@@ -1,9 +1,9 @@
 {
     "name": "@cheapreats/react-ui",
-    "version": "2.3.98",
+    "version": "2.3.99",
     "description": "React UI library for CheaprEats",
     "main": "dist/index.js",
-    "module": "dist/index.esgit .js",
+    "module": "dist/index.es.js",
     "types": "dist/index.d.ts",
     "files": [
         "dist"
@@ -106,6 +106,7 @@
         "@types/react-beautiful-dnd": "^13.0.0",
         "@types/react-dom": "^17.0.2",
         "@types/react-image-crop": "^8.1.2",
+        "@types/react-input-mask": "^3.0.0",
         "@types/react-lottie": "^1.2.5",
         "@types/react-router-dom": "^5.1.7",
         "@types/recharts": "^1.8.19",
@@ -128,6 +129,7 @@
         "react-dropzone": "^11.2.4",
         "react-easy-flip": "^4.0.0-beta.2",
         "react-image-crop": "^8.6.6",
+        "react-input-mask": "^3.0.0-alpha.2",
         "react-lottie": "^1.2.3",
         "react-responsive-carousel": "^3.2.18",
         "react-router-dom": "^5.2.0",
