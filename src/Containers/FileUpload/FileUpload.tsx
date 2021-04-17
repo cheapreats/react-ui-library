@@ -13,6 +13,7 @@ import { Image } from '@styled-icons/fa-solid/Image';
 import { CheckCircle } from '@styled-icons/fa-solid/CheckCircle';
 import { TimesCircle } from '@styled-icons/fa-solid/TimesCircle';
 import { MainTheme } from '@Themes';
+import {useMounted} from '@Utils/Hooks'
 import { Loading } from '../Loading/Loading';
 import { BottomPanel } from './BottomPanel';
 import { Container, Icon } from './StyledComponents';
@@ -38,6 +39,9 @@ interface IState {
     isSuccessWidth: number;
     isDragEnter: boolean;
 }
+
+const MESSAGE_DURATION=5000
+const MAX_HEIGHT=9000 
 
 const PADDING = 10;
 const MARGIN = 10;
@@ -263,7 +267,7 @@ const reducer = (state: IState, action: Action): IState => {
         return {
             ...state,
             height: undefined,
-            maxHeight: 600,
+            maxHeight: MAX_HEIGHT,
         };
     default:
         return state;
@@ -281,6 +285,9 @@ export interface IFileUploadProps {
     successMessage: string;
     failureMessage: string;
     disabled: boolean;
+    setIsUploading:React.Dispatch<React.SetStateAction<boolean>>;
+    setIsSuccess:React.Dispatch<React.SetStateAction<boolean>>;
+    setIsFailure:React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 export const FileUpload: React.FC<IFileUploadProps> = ({
@@ -294,6 +301,9 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     successMessage,
     failureMessage,
     disabled,
+    setIsUploading,
+    setIsSuccess,
+    setIsFailure,
 }): React.ReactElement => {
     const initState: IState = {
         height: undefined,
@@ -310,6 +320,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         isDragEnter: false,
     };
     const [state, dispatch] = useReducer(reducer, initState);
+    const isMounted = useMounted();
 
     // this is to calculate (set) some values after the first render
     useEffect(() => {
@@ -450,6 +461,9 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     const loadingContainerRef = useRef<HTMLDivElement>(null);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
+        setIsUploading(true)
+        setIsSuccess(false)
+        setIsFailure(false)
         acceptedFiles.forEach((file) => {
             const reader = new FileReader();
             reader.onload = () => {
@@ -466,8 +480,17 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                         );
                     }
                     if (base64StringFile) {
+                        setIsSuccess(true)
+                        setIsFailure(false)
+                        setIsUploading(false)
+                        setTimeout(()=>{if(isMounted.current)setIsSuccess(false)},MESSAGE_DURATION)
                         setBase64(base64StringFile);
                     }
+                }else{
+                    setIsFailure(true)
+                    setIsSuccess(false)
+                    setIsUploading(false)
+                    setTimeout(()=>{if(isMounted.current)setIsFailure(false)},MESSAGE_DURATION)
                 }
             };
             reader.readAsArrayBuffer(file);
@@ -566,7 +589,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                     state.isSuccess.position
                 }
                 ref={loadingContainerRef}
-                overflow="hidden"
+                overflow='hidden'
                 width={
                     isFailure || isSuccess
                         ? state.isSuccessWidth

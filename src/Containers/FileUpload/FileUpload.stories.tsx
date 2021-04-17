@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import { Meta, Story } from '@storybook/react';
 import { FileUpload, IFileUploadProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
@@ -13,15 +13,22 @@ export default {
         setBase64: (base64StringFile: string) => {
             console.log(base64StringFile);
         },
-        isUploading: false,
-        isSuccess: false,
-        isFailure: false,
         successMessage: 'Completed',
         failureMessage: 'Something went wrong',
         disabled: false,
     },
 } as Meta;
 
-export const Basic: Story<IFileUploadProps> = (args) => (
-    <FileUpload {...args} />
-);
+export const Basic: Story<IFileUploadProps> = (args) => {
+    const [isUploading,setIsUploading]=useState(false)
+    const [isSuccess,setIsSuccess]=useState(false)
+    const [isFailure,setIsFailure]=useState(false)
+
+    const componentProps={
+        isUploading,isSuccess,isFailure,setIsUploading,setIsSuccess,setIsFailure
+    }
+
+    return (
+        <FileUpload {...args} {...componentProps} />
+    )
+};
