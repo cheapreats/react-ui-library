@@ -632,4 +632,6 @@ min-height:${minHeight}px;
 }
 ${disabled ? `opacity:0.6;` : ''}
 `}
+cursor:pointer;
+flex:1;
 `;
