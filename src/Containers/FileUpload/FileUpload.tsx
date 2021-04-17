@@ -40,7 +40,7 @@ interface IState {
     isDragEnter: boolean;
 }
 
-const MESSAGE_DURATION=5000
+const MESSAGE_DURATION=1500
 const MAX_HEIGHT=9000 
 
 const PADDING = 10;
@@ -288,6 +288,7 @@ export interface IFileUploadProps {
     setIsUploading:React.Dispatch<React.SetStateAction<boolean>>;
     setIsSuccess:React.Dispatch<React.SetStateAction<boolean>>;
     setIsFailure:React.Dispatch<React.SetStateAction<boolean>>;
+    messageDuration?:number;
 }
 
 export const FileUpload: React.FC<IFileUploadProps> = ({
@@ -304,6 +305,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     setIsUploading,
     setIsSuccess,
     setIsFailure,
+    messageDuration=MESSAGE_DURATION,
 }): React.ReactElement => {
     const initState: IState = {
         height: undefined,
@@ -487,13 +489,13 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                             if(isMounted.current)
                                 setIsSuccess(false)
                             setBase64(base64StringFile)
-                        },MESSAGE_DURATION)
+                        },messageDuration)
                     }
                 }else{
                     setIsFailure(true)
                     setIsSuccess(false)
                     setIsUploading(false)
-                    setTimeout(()=>{if(isMounted.current)setIsFailure(false)},MESSAGE_DURATION)
+                    setTimeout(()=>{if(isMounted.current)setIsFailure(false)},messageDuration)
                 }
             };
             reader.readAsArrayBuffer(file);
