@@ -45,7 +45,8 @@ export const TimeDisplay: React.FC<TimeDisplayProps> = ({
                                 as={Tag}
                                 key={`${toFromHours.to}`}
                                 onClick={() =>
-                                    handleRemoveHours(day, hoursIndex)}
+                                    handleRemoveHours(day, hoursIndex)
+                                }
                             >
                                 {convertTime(toFromHours.from, is24)}
                                 {DASH_BEWTWEEN_TIME_PERIODS}

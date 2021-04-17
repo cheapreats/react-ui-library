@@ -274,7 +274,7 @@ EditCanvasExample.args = {
                         tableUse: 'TableForEditCanvas',
                     },
                     {
-                        position: 'left',
+                        position: 'top',
                         isSeated: false,
                         occupiedBy: '',
                         isVisible: true,
@@ -282,7 +282,23 @@ EditCanvasExample.args = {
                         tableUse: 'TableForEditCanvas',
                     },
                     {
-                        position: 'right',
+                        position: 'bottom',
+                        isSeated: false,
+                        occupiedBy: '',
+                        isVisible: true,
+                        relativeSize: 1,
+                        tableUse: 'TableForEditCanvas',
+                    },
+                    {
+                        position: 'top',
+                        isSeated: false,
+                        occupiedBy: '',
+                        isVisible: true,
+                        relativeSize: 1,
+                        tableUse: 'TableForEditCanvas',
+                    },
+                    {
+                        position: 'bottom',
                         isSeated: false,
                         occupiedBy: '',
                         isVisible: true,
