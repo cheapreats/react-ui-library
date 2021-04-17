@@ -483,8 +483,11 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                         setIsSuccess(true)
                         setIsFailure(false)
                         setIsUploading(false)
-                        setTimeout(()=>{if(isMounted.current)setIsSuccess(false)},MESSAGE_DURATION)
-                        setBase64(base64StringFile);
+                        setTimeout(()=>{
+                            if(isMounted.current)
+                                setIsSuccess(false)
+                            setBase64(base64StringFile)
+                        },MESSAGE_DURATION)
                     }
                 }else{
                     setIsFailure(true)
