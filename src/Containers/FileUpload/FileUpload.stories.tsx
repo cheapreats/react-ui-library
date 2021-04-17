@@ -32,3 +32,31 @@ export const Basic: Story<IFileUploadProps> = (args) => {
         <FileUpload {...args} {...componentProps} />
     )
 };
+
+export const VeryLongMessageDuration: Story<IFileUploadProps> = (args) => {
+    const [isUploading,setIsUploading]=useState(false)
+    const [isSuccess,setIsSuccess]=useState(false)
+    const [isFailure,setIsFailure]=useState(false)
+
+    const componentProps={
+        isUploading,isSuccess,isFailure,setIsUploading,setIsSuccess,setIsFailure,messageDuration:20000
+    }
+
+    return (
+        <FileUpload {...args} {...componentProps} />
+    )
+};
+
+export const VeryShortMessageDuration: Story<IFileUploadProps> = (args) => {
+    const [isUploading,setIsUploading]=useState(false)
+    const [isSuccess,setIsSuccess]=useState(false)
+    const [isFailure,setIsFailure]=useState(false)
+
+    const componentProps={
+        isUploading,isSuccess,isFailure,setIsUploading,setIsSuccess,setIsFailure,messageDuration:200
+    }
+
+    return (
+        <FileUpload {...args} {...componentProps} />
+    )
+};
