@@ -73,7 +73,7 @@ const Wrapper = styled.div<WrapperProps>`
     box-shadow: 0 3px 2px 0 rgba(0, 0, 0, 0.15);
     ${({ isDragging, isRequired, isRecommended }): string => `
         border-left: 5px solid ${
-    isDragging &&
+            isDragging &&
             styledCondition(
                 isRequired,
                 COLOR_IS_REQUIRED,
@@ -81,12 +81,12 @@ const Wrapper = styled.div<WrapperProps>`
                 COLOR_IS_RECOMMENDED,
                 COLOR_DEFAULT,
             )
-};
+        };
         background-color: ${styledCondition(
-        isDragging,
-        BACKGROUND_GRAY,
-        COLOR_WHITE,
-    )};
+            isDragging,
+            BACKGROUND_GRAY,
+            COLOR_WHITE,
+        )};
     `}
 
     :hover {
@@ -98,11 +98,11 @@ const Icon = styled.svg<IconProps>`
     flex-shrink: 0;
     ${({ isRequired, isRecommended }): string => `
         color: ${styledCondition(
-        isRequired,
-        COLOR_IS_REQUIRED,
-        isRecommended,
-        COLOR_IS_RECOMMENDED,
-        COLOR_DEFAULT,
-    )};
+            isRequired,
+            COLOR_IS_REQUIRED,
+            isRecommended,
+            COLOR_IS_RECOMMENDED,
+            COLOR_DEFAULT,
+        )};
     `}
 `;

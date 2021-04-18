@@ -47,7 +47,8 @@ export const EditControlPanel: React.FC<IEditControlPanel> = ({
                                 <Col1>
                                     <StylesForLeftButton
                                         onClick={() =>
-                                            setSeat((prevSeat) => prevSeat - 1)}
+                                            setSeat((prevSeat) => prevSeat - 1)
+                                        }
                                     >
                                         -
                                     </StylesForLeftButton>
@@ -56,7 +57,8 @@ export const EditControlPanel: React.FC<IEditControlPanel> = ({
                                 <Col2>
                                     <StylesForRightButton
                                         onClick={() =>
-                                            setSeat((prevSeat) => prevSeat + 1)}
+                                            setSeat((prevSeat) => prevSeat + 1)
+                                        }
                                     >
                                         +
                                     </StylesForRightButton>

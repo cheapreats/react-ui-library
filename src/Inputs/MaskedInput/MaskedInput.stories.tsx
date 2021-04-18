@@ -14,13 +14,13 @@ export default {
                 type: 'text',
             },
         },
-        mask :{
+        mask: {
             defaultValue: MaskedInputPreset.PHONE,
             control: {
                 type: 'radio',
-                options: MaskedInputPreset
-            }
-        }
+                options: MaskedInputPreset,
+            },
+        },
     },
     args: {
         realValue: '12345678901',
@@ -36,7 +36,7 @@ export const Basic: Story<MaskedInputProps> = (args) => {
     const [, updateArgs] = useArgs();
     const onChange = (value: any) => {
         updateArgs({ realValue: value });
-    }
-        
+    };
+
     return <MaskedInput {...args} onInputChange={onChange} />;
 };
