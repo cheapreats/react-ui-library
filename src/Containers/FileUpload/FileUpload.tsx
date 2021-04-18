@@ -4,6 +4,7 @@ import React, {
     useEffect,
     useLayoutEffect,
     useReducer,
+    useState,
 } from 'react';
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
@@ -42,6 +43,8 @@ interface IState {
 
 const MESSAGE_DURATION=1500
 const MAX_HEIGHT=9000 
+const TRANSITION_HEIGHT_ANIMATION_DURATION=500
+const FIRST_FILE=0
 
 const PADDING = 10;
 const MARGIN = 10;
@@ -325,6 +328,21 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     };
     const [state, dispatch] = useReducer(reducer, initState);
     const isMounted = useMounted();
+    const [fileName,setFileName]=useState<string>('')
+
+    const base64StringFileRef=useRef<string>('')
+    const previousIsSuccessValue=useRef<boolean>(isSuccess)
+
+    /**
+     * this is to execute setBase64 function after the animation finishes
+     */
+    useEffect(()=>{
+        if(previousIsSuccessValue.current){
+            setTimeout(()=>{
+                setBase64(base64StringFileRef.current)},TRANSITION_HEIGHT_ANIMATION_DURATION)
+        }
+        previousIsSuccessValue.current=isSuccess
+    },[isSuccess])
 
     // this is to calculate (set) some values after the first render
     useEffect(() => {
@@ -465,6 +483,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     const loadingContainerRef = useRef<HTMLDivElement>(null);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
+        setFileName(acceptedFiles[FIRST_FILE].name)
         setIsUploading(true)
         setIsSuccess(false)
         setIsFailure(false)
@@ -484,6 +503,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                         );
                     }
                     if (base64StringFile) {
+                        base64StringFileRef.current=base64StringFile
                         setIsSuccess(true)
                         setIsFailure(false)
                         setIsUploading(false)
@@ -491,7 +511,6 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                             if(isMounted.current){
                                 setIsSuccess(false)
                             }
-                            setBase64(base64StringFile)
                         },messageDuration)
                     }
                 }else{
@@ -540,7 +559,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
             );
         }
         if (isUploading) {
-            return <Loading loading={isUploading} message="Uploading..." />;
+            return <Loading loading={isUploading} message={`Uploading ${fileName}`} />;
         }
         return undefined;
     };
