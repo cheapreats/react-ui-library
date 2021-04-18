@@ -35,9 +35,7 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
     const getHighlightText = () =>
         highlightTexts.map((highlightText: string) => (
             <SmallText size="h7" key={highlightText}>
-                <Tick /> 
-                {' '}
-                {highlightText}
+                <Tick /> {highlightText}
                 <div />
             </SmallText>
         ));
@@ -47,8 +45,7 @@ export const FeatureDisplay: React.FC<IFeatureDisplayProps> = ({
     const getImageTags = () =>
         imageTags.map((imageTag: string, index: number) => (
             <GridItem key={imageTag}>
-                <ChartDesc color={imageTagColors[index]} />
-                {' '}
+                <ChartDesc color={imageTagColors[index]} />{' '}
                 <SmallText>{imageTag}</SmallText>
             </GridItem>
         ));
