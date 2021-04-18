@@ -278,6 +278,7 @@ export interface IFileUploadProps {
     title: string;
     subTitle: string;
     minHeight: number;
+    minWidth?: number;
     setBase64: (base64StringFile: string) => void;
     isUploading: boolean;
     isSuccess: boolean;
@@ -295,6 +296,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     title,
     subTitle,
     minHeight,
+    minWidth,
     setBase64,
     isUploading,
     isSuccess,
@@ -486,8 +488,9 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                         setIsFailure(false)
                         setIsUploading(false)
                         setTimeout(()=>{
-                            if(isMounted.current)
+                            if(isMounted.current){
                                 setIsSuccess(false)
+                            }
                             setBase64(base64StringFile)
                         },messageDuration)
                     }
@@ -563,7 +566,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                     margin: `${MARGIN}px`,
                 })}
             >
-                <SubContainer minHeight={minHeight} disabled={disabled}>
+                <SubContainer minHeight={minHeight} minWidth={minWidth} disabled={disabled}>
                     {state.isDragEnter ? (
                         <FileMovingAnimation />
                     ) : (
@@ -617,16 +620,24 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
 
 interface ISubContainerProps {
     minHeight?: number;
+    minWidth?:number;
     disabled: boolean;
 }
 
 const SubContainer = styled.div<ISubContainerProps>`
     ${flex('column', 'space-between', 'center')}
-    ${({ minHeight, disabled }): string => `
+    ${({ minHeight, disabled,minWidth }): string => `
 ${
     minHeight
         ? `
 min-height:${minHeight}px;
+`
+        : ''
+}
+${
+    minWidth
+        ? `
+min-width:${minWidth}px;
 `
         : ''
 }
