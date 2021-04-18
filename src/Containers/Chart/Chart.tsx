@@ -175,8 +175,7 @@ const CustomTooltip: React.FC<CustomTooltipProps> = ({
         return (
             <CustomTooltipBox active={active} payload={payload} {...props}>
                 <strong>
-                    $
-                    <Big>{`${getFormattedHoverValue()}`}</Big>
+                    $<Big>{`${getFormattedHoverValue()}`}</Big>
                 </strong>
             </CustomTooltipBox>
         );

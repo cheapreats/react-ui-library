@@ -5,7 +5,10 @@ import {
     LabelLayout,
     LabelLayoutProps,
 } from '@Layouts';
-import InputMask, {BeforeMaskedStateChangeStates, InputState} from 'react-input-mask';
+import InputMask, {
+    BeforeMaskedStateChangeStates,
+    InputState,
+} from 'react-input-mask';
 
 const MATCH_NON_INPUT_VALUES = /[^0-9A-Za-z]/gm;
 const REPLACE_CHARACTERS_WITH_EMPTY_STRING = '';
@@ -50,65 +53,82 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
     }, [error]);
 
     // string no mask values
-    const phoneMaskFilter = (value: string| number): string => {
+    const phoneMaskFilter = (value: string | number): string => {
         const realValueToString = value.toString();
         return realValueToString;
-    }
+    };
 
-    const numberMaskFilter = (value: number| string, maskInputPreset: MaskedInputPreset) => {
+    const numberMaskFilter = (
+        value: number | string,
+        maskInputPreset: MaskedInputPreset,
+    ) => {
         const realValueToString = value.toString();
-        const zeroesToAdd = maskInputPreset.length - realValueToString.length - MASK_SYMBOL;
+        const zeroesToAdd =
+            maskInputPreset.length - realValueToString.length - MASK_SYMBOL;
         if (zeroesToAdd < NON_NEGATIVE_NUMBER) {
-            const modifiedStringValue = realValueToString.slice(FIRST_INDEX, zeroesToAdd);
+            const modifiedStringValue = realValueToString.slice(
+                FIRST_INDEX,
+                zeroesToAdd,
+            );
             return modifiedStringValue;
         }
         const zerosToPrefix = ZERO_STRING.repeat(zeroesToAdd);
-        return `${zerosToPrefix}${realValueToString}`
-    }
+        return `${zerosToPrefix}${realValueToString}`;
+    };
 
     const getMaskFunction = (maskInputPreset: MaskedInputPreset): string => {
         switch (maskInputPreset) {
-        case MaskedInputPreset.DOLLAR:
-            return numberMaskFilter(realValue, MaskedInputPreset.DOLLAR);
-        case MaskedInputPreset.PERCENTAGE:
-            return numberMaskFilter(realValue, MaskedInputPreset.PERCENTAGE);
-        case MaskedInputPreset.PHONE:
-            return phoneMaskFilter(realValue);
-        default:
-            return  realValue.toString();
+            case MaskedInputPreset.DOLLAR:
+                return numberMaskFilter(realValue, MaskedInputPreset.DOLLAR);
+            case MaskedInputPreset.PERCENTAGE:
+                return numberMaskFilter(
+                    realValue,
+                    MaskedInputPreset.PERCENTAGE,
+                );
+            case MaskedInputPreset.PHONE:
+                return phoneMaskFilter(realValue);
+            default:
+                return realValue.toString();
         }
     };
 
     /**
      * Determines format of return value
      * Sets the new real value
-     * 
-    *@param {React.ChangeEvent<HTMLInputElement>} event
-    * */
-    const onMaskedInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const {value} = event.target;
-        let valueWithoutMask: string | number = value.replace(MATCH_NON_INPUT_VALUES, REPLACE_CHARACTERS_WITH_EMPTY_STRING);
+     *
+     *@param {React.ChangeEvent<HTMLInputElement>} event
+     * */
+    const onMaskedInputChange = (
+        event: React.ChangeEvent<HTMLInputElement>,
+    ) => {
+        const { value } = event.target;
+        let valueWithoutMask: string | number = value.replace(
+            MATCH_NON_INPUT_VALUES,
+            REPLACE_CHARACTERS_WITH_EMPTY_STRING,
+        );
         if (mask !== MaskedInputPreset.PHONE) {
             valueWithoutMask = parseInt(valueWithoutMask, DECIMAL_PLACE);
         }
         onInputChange(valueWithoutMask);
-    }
+    };
 
     /**
      * Formatted Mask Value passed to onMaskedInputchange
      * Prevents having incomplete values
      * ie: 10.0
      * nextState value will always be complete input
-    *@param {InputState} nextState - the state after the mask is applied
-    * */
-    const beforeMaskedStateChange = ({nextState}: BeforeMaskedStateChangeStates): InputState => ({
+     *@param {InputState} nextState - the state after the mask is applied
+     * */
+    const beforeMaskedStateChange = ({
+        nextState,
+    }: BeforeMaskedStateChangeStates): InputState => ({
         value: nextState.value,
-        selection: nextState.selection
-    })
-    
+        selection: nextState.selection,
+    });
+
     return (
         <LabelLayout {...props} error={isError}>
-            <InputMask 
+            <InputMask
                 mask={mask}
                 value={getMaskFunction(mask)}
                 onChange={onMaskedInputChange}
@@ -116,10 +136,7 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
                 maskPlaceholder={fillInput}
                 disabled={disabled}
             >
-                <InputFragment
-                    error={isError}
-                    {...props}
-                />
+                <InputFragment error={isError} {...props} />
             </InputMask>
         </LabelLayout>
     );

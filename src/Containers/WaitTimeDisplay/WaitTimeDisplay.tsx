@@ -33,11 +33,7 @@ export const WaitTimeDisplay: React.FC<IWaitTimeDisplay> = ({
                 </Col3>
                 <Col8>
                     <FontStyles>Average Wait</FontStyles>
-                    <FontStylesForTime>
-                        {AverageWaitTime}
-                        {' '}
-                        Min
-                    </FontStylesForTime>
+                    <FontStylesForTime>{AverageWaitTime} Min</FontStylesForTime>
                 </Col8>
             </Row>
         </ContainerForComponent>
@@ -119,7 +115,7 @@ const PieChart = styled.div<IPieChart>`
     background-image: conic-gradient(
         ${({ AverageWaitTime }) => getColor(AverageWaitTime)}
             ${({ AverageWaitTime }) =>
-        AverageWaitTime * MULTIPLY_DEGREE_ANGLE}deg,
+                AverageWaitTime * MULTIPLY_DEGREE_ANGLE}deg,
         ${({ backgroundColor }) => backgroundColor} 0 235deg
     );
 `;

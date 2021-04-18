@@ -89,7 +89,6 @@ const SearchContainer = styled.div`
 
 const IconContainer = styled.div<IResponsiveSearchProps>`
     ${Mixins.flex('center')}
-    
 `;
 const HeadingContainer = styled.div<IResponsiveSearchProps>`
     ${Mixins.transition(['transform', 'opacity'])}

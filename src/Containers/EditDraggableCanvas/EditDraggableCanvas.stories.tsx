@@ -258,7 +258,7 @@ EditCanvasExample.args = {
                 relativeSize: 0.25,
                 chairs: [
                     {
-                        position: 'left',
+                        position: 'top',
                         isSeated: false,
                         occupiedBy: '',
                         isVisible: true,
@@ -266,7 +266,23 @@ EditCanvasExample.args = {
                         tableUse: 'TableForEditCanvas',
                     },
                     {
-                        position: 'right',
+                        position: 'bottom',
+                        isSeated: false,
+                        occupiedBy: '',
+                        isVisible: true,
+                        relativeSize: 1,
+                        tableUse: 'TableForEditCanvas',
+                    },
+                    {
+                        position: 'top',
+                        isSeated: false,
+                        occupiedBy: '',
+                        isVisible: true,
+                        relativeSize: 1,
+                        tableUse: 'TableForEditCanvas',
+                    },
+                    {
+                        position: 'bottom',
                         isSeated: false,
                         occupiedBy: '',
                         isVisible: true,
@@ -551,7 +567,7 @@ MgmtCanvasExample.args = {
                 relativeSize: 0.25,
                 chairs: [
                     {
-                        position: 'left',
+                        position: 'bottom',
                         isSeated: false,
                         occupiedBy: '',
                         isVisible: true,
@@ -559,7 +575,7 @@ MgmtCanvasExample.args = {
                         tableUse: 'TableForManagement',
                     },
                     {
-                        position: 'right',
+                        position: 'top',
                         isSeated: false,
                         occupiedBy: '',
                         isVisible: true,
