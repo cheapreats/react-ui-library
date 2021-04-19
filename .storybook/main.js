@@ -1,5 +1,7 @@
 const { aliases } = require('../package.json');
 const path = require('path');
+const WorkerPlugin = require('worker-plugin');
+
 
 module.exports = {
     stories: ['../src/**/*.stories.@(js|mdx|tsx|ts|jsx)'],
@@ -23,6 +25,7 @@ module.exports = {
             ]
         });
         config.resolve.extensions.push('.ts', '.tsx');
+        config.plugins.push(new WorkerPlugin())
         return config;
     },
 

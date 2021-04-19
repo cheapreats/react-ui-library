@@ -330,6 +330,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     const isMounted = useMounted();
     const [fileName,setFileName]=useState<string>('')
 
+    const workerRef=useRef<Worker>()
     const base64StringFileRef=useRef<string>('')
     const previousIsSuccessValue=useRef<boolean>(isSuccess)
 
@@ -488,39 +489,28 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         setIsSuccess(false)
         setIsFailure(false)
         acceptedFiles.forEach((file) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-                if (reader.result) {
-                    let base64StringFile = '';
-                    if (typeof reader.result === 'string') {
-                        base64StringFile = btoa(reader.result);
-                    } else {
-                        const bytes = Array.from(new Uint8Array(reader.result));
-                        base64StringFile = btoa(
-                            bytes
-                                .map((item) => String.fromCharCode(item))
-                                .join(''),
-                        );
-                    }
-                    if (base64StringFile) {
-                        base64StringFileRef.current=base64StringFile
-                        setIsSuccess(true)
-                        setIsFailure(false)
-                        setIsUploading(false)
-                        setTimeout(()=>{
-                            if(isMounted.current){
-                                setIsSuccess(false)
-                            }
-                        },messageDuration)
-                    }
+            const worker=new Worker('./worker.js', { type: 'module' })
+            workerRef.current=worker
+            worker.postMessage({file})
+            worker.onmessage=(e)=>{
+                const {base64StringFile}=e.data
+                if(base64StringFile!==undefined){
+                    base64StringFileRef.current=base64StringFile
+                    setIsSuccess(true)
+                    setIsFailure(false)
+                    setIsUploading(false)
+                    setTimeout(()=>{
+                        if(isMounted.current){
+                            setIsSuccess(false)
+                        }
+                    },messageDuration)
                 }else{
                     setIsFailure(true)
                     setIsSuccess(false)
                     setIsUploading(false)
                     setTimeout(()=>{if(isMounted.current)setIsFailure(false)},messageDuration)
                 }
-            };
-            reader.readAsArrayBuffer(file);
+            }
             dispatch({ type: SET_IS_DRAG_ENTER, value: false });
         });
     }, []);
@@ -564,6 +554,13 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         return undefined;
     };
 
+    const onCancelUploading=()=>{
+        if(workerRef.current){
+            workerRef.current.terminate()
+            setIsUploading(false)
+        }
+    }
+
     return (
         <Container
             backgroundColor="white"
@@ -601,6 +598,8 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                 </SubContainer>
             </Container>
             <BottomPanel
+                isUploading={isUploading}
+                onCancelUploading={onCancelUploading}
                 withBorder
                 padding={
                     isFailure || isSuccess ? undefined : '30px 20px 43px 20px'
