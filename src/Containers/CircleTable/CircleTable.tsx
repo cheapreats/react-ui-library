@@ -60,7 +60,7 @@ export interface ICircleTable {
     /**
      * Determines if the table is used in the toolbar or not
      */
-    toolbarUse?: boolean;
+    isInAddTableToolbar?: boolean;
 }
 
 /**
@@ -76,7 +76,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
     tableUse = 'TableForManagement',
     arrayIndex = 0,
     onTableClick,
-    toolbarUse = false,
+    isInAddTableToolbar = false,
     ...props
 }) => {
     /**
@@ -172,7 +172,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                 tableUse={tableUse}
                 tabIndex={0}
                 onClick={callOnTableClick}
-                toolbarUse={toolbarUse}
+                toolbarUse={isInAddTableToolbar}
             >
                 {getChairs()}
                 {getTableInfoContent(tableUse)}

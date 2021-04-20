@@ -83,7 +83,7 @@ export interface ISquareTable {
     /**
      * Determines if the table is used in the toolbar or not
      */
-    toolbarUse?: boolean;
+    isInAddTableToolbar?: boolean;
 }
 
 /**
@@ -101,7 +101,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     tableUse = 'TableForManagement',
     arrayIndex = 0,
     onTableClick,
-    toolbarUse = false,
+    isInAddTableToolbar = false,
     ...props
 }) => {
     /**
@@ -282,7 +282,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         }
                         tableUse={tableUse}
                         onClick={callOnTableClick}
-                        toolbarUse={toolbarUse}
+                        toolbarUse={isInAddTableToolbar}
                     >
                         {getTableBodyContent(tableUse)}
                     </TableBody>
