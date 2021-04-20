@@ -57,6 +57,10 @@ export interface ICircleTable {
      * @param selectedChildIndex - the array index for the table
      */
     onTableClick: (selectedChildIndex: number) => void;
+    /**
+     * Determines if the table is used in the toolbar or not
+     */
+    isInAddTableToolbar?: boolean;
 }
 
 /**
@@ -72,6 +76,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
     tableUse = 'TableForManagement',
     arrayIndex = 0,
     onTableClick,
+    isInAddTableToolbar = false,
     ...props
 }) => {
     /**
@@ -167,6 +172,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                 tableUse={tableUse}
                 tabIndex={0}
                 onClick={callOnTableClick}
+                toolbarUse={isInAddTableToolbar}
             >
                 {getChairs()}
                 {getTableInfoContent(tableUse)}
@@ -259,6 +265,7 @@ interface ITableBody {
     tableUse: string;
     tabIndex: number;
     onClick: (e: Event) => void;
+    toolbarUse: boolean;
 }
 
 const TableBody = styled.div<ITableBody>`
@@ -302,8 +309,9 @@ const TableBody = styled.div<ITableBody>`
     outline: none;
     cursor: pointer;
     &:focus {
-        box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary};
-    }
+      box-shadow: ${({ toolbarUse }) => (!toolbarUse ? '0 0 0 2px' : '')} ${({
+    theme,
+}) => theme.colors.primary};
 `;
 
 interface IChairWrapper {

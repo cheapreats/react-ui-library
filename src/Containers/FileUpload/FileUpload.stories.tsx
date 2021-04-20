@@ -1,4 +1,4 @@
-import React,{useState} from 'react';
+import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { FileUpload, IFileUploadProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
@@ -19,15 +19,28 @@ export default {
     },
 } as Meta;
 
-const useStateProps=()=>{
-    const [isUploading,setIsUploading]=useState(false)
-    const [isSuccess,setIsSuccess]=useState(false)
-    const [isFailure,setIsFailure]=useState(false)
-    return {isFailure,isSuccess,isUploading,setIsFailure,setIsSuccess,setIsUploading}
-}
+const useStateProps = () => {
+    const [isUploading, setIsUploading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [isFailure, setIsFailure] = useState(false);
+    return {
+        isFailure,
+        isSuccess,
+        isUploading,
+        setIsFailure,
+        setIsSuccess,
+        setIsUploading,
+    };
+};
 
-export const Basic: Story<IFileUploadProps> = (args) => <FileUpload {...args} {...useStateProps()} />
+export const Basic: Story<IFileUploadProps> = (args) => (
+    <FileUpload {...args} {...useStateProps()} />
+);
 
-export const VeryLongMessageDuration: Story<IFileUploadProps> = (args) => <FileUpload {...args} messageDuration={20000} {...useStateProps()} />
+export const VeryLongMessageDuration: Story<IFileUploadProps> = (args) => (
+    <FileUpload {...args} messageDuration={20000} {...useStateProps()} />
+);
 
-export const VeryShortMessageDuration: Story<IFileUploadProps> = (args) => <FileUpload {...args} messageDuration={200} {...useStateProps()} />
+export const VeryShortMessageDuration: Story<IFileUploadProps> = (args) => (
+    <FileUpload {...args} messageDuration={200} {...useStateProps()} />
+);
