@@ -14,15 +14,15 @@ import { Image } from '@styled-icons/fa-solid/Image';
 import { CheckCircle } from '@styled-icons/fa-solid/CheckCircle';
 import { TimesCircle } from '@styled-icons/fa-solid/TimesCircle';
 import { MainTheme } from '@Themes';
-import { useMounted } from '@Utils/Hooks';
+// import { useMounted } from '@Utils/Hooks';
 // @ts-ignore
-import worker from 'workerize-loader!./worker' // eslint-disable-line
+// import worker from 'workerize-loader!./worker' // eslint-disable-line
 import { Loading } from '../Loading/Loading';
 import { BottomPanel } from './BottomPanel';
 import { Container, Icon } from './StyledComponents';
 import { FileMovingAnimation } from './FileMovingAnimation';
 import { IsFailureIsSuccessPanel } from './IsFailureIsSuccessPanel';
-import {NO_BASE64STRINGFILE} from './constants'
+// import {NO_BASE64STRINGFILE} from './constants'
 
 interface IOptions {
     position: boolean;
@@ -330,7 +330,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         isDragEnter: false,
     };
     const [state, dispatch] = useReducer(reducer, initState);
-    const isMounted = useMounted();
+    // const isMounted = useMounted();
     const [fileName, setFileName] = useState<string>('');
 
     const workerRef = useRef<Worker>();
@@ -493,36 +493,36 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         setIsSuccess(false);
         setIsFailure(false);
         acceptedFiles.forEach((file) => {
-            const workerInstance=worker()
-            workerRef.current = workerInstance;
-            workerInstance.onmessage=(e:any)=>{
-                const { base64StringFile } = e.data;
-                if (base64StringFile === NO_BASE64STRINGFILE)
-                {
-                    workerRef.current?.terminate()
-                    setIsFailure(true);
-                    setIsSuccess(false);
-                    setIsUploading(false);
-                    setTimeout(() => {
-                        if (isMounted.current) setIsFailure(false);
-                    }, messageDuration);
-                }else if(base64StringFile!==undefined)
-                {
-
-                    workerRef.current?.terminate()
-                    base64StringFileRef.current = base64StringFile;
-                    setIsSuccess(true);
-                    setIsFailure(false);
-                    setIsUploading(false);
-                    setTimeout(() => {
-                        if (isMounted.current) {
-                            setIsSuccess(false);
-                        }
-                    }, messageDuration);
-                } 
-            }
-            workerInstance.postMessage({ file });
-            dispatch({ type: SET_IS_DRAG_ENTER, value: false });
+            // const workerInstance=worker()
+            // workerRef.current = workerInstance;
+            // workerInstance.onmessage=(e:any)=>{
+            //     const { base64StringFile } = e.data;
+            //     if (base64StringFile === NO_BASE64STRINGFILE)
+            //     {
+            //         workerRef.current?.terminate()
+            //         setIsFailure(true);
+            //         setIsSuccess(false);
+            //         setIsUploading(false);
+            //         setTimeout(() => {
+            //             if (isMounted.current) setIsFailure(false);
+            //         }, messageDuration);
+            //     }else if(base64StringFile!==undefined)
+            //     {
+            //
+            //         workerRef.current?.terminate()
+            //         base64StringFileRef.current = base64StringFile;
+            //         setIsSuccess(true);
+            //         setIsFailure(false);
+            //         setIsUploading(false);
+            //         setTimeout(() => {
+            //             if (isMounted.current) {
+            //                 setIsSuccess(false);
+            //             }
+            //         }, messageDuration);
+            //     }
+            // }
+            // workerInstance.postMessage({ file });
+            // dispatch({ type: SET_IS_DRAG_ENTER, value: false });
         });
     }, []);
     const onDragEnter = useCallback((event: React.DragEvent) => {

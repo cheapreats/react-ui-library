@@ -59,6 +59,7 @@ export default {
                 '@babel/preset-react',
                 '@babel/preset-typescript',
             ],
+            babelHelpers: 'bundled'
         }),
         postcss({
             extensions: ['.css'],
