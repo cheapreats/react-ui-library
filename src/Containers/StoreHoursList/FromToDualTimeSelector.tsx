@@ -29,7 +29,7 @@ export const FromToDualTimeSelector: React.FC<FromToDualTimeSelectorProps> = ({
     errors,
     ...props
 }): React.ReactElement => (
-    <TimeRow {...props}>
+    <TimeRow {...props} data-cy='StoreFromTimePicker'>
         {Object.entries(storeHours).map(
             ([key, time]): React.ReactElement => (
                 <Container
