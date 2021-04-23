@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import Card from '@Containers/Card/Card';
 import Button from '../../Inputs/Button/Button';
@@ -12,7 +12,8 @@ export interface IEditControlPanel {
      * The number of seats at the table
      */
     NumberOfSeats: number;
-
+    onRemoveChairClick: () => void;
+    onAddChairClick: () => void;
     onDeleteClick: () => void;
     onRotateClick: () => void;
     onCloneClick: () => void;
@@ -28,64 +29,56 @@ export const EditControlPanel: React.FC<IEditControlPanel> = ({
     onDeleteClick,
     onRotateClick,
     onCloneClick,
+    onRemoveChairClick,
+    onAddChairClick,
     ...props
-}) => {
-    const [seat, setSeat] = useState(NumberOfSeats);
-
-    return (
-        <BorderForControlPanel {...props}>
-            <Card>
-                <CenteredText>
-                    Table Number
-                    <InputStyles placeholder={TableNumber} />
-                </CenteredText>
-                <CenteredText>
-                    Number Of Seats
-                    <Border>
-                        <Container>
-                            <Row>
-                                <Col1>
-                                    <StylesForLeftButton
-                                        onClick={() =>
-                                            setSeat((prevSeat) => prevSeat - 1)
-                                        }
-                                    >
-                                        -
-                                    </StylesForLeftButton>
-                                </Col1>
-                                <Col10>{seat}</Col10>
-                                <Col2>
-                                    <StylesForRightButton
-                                        onClick={() =>
-                                            setSeat((prevSeat) => prevSeat + 1)
-                                        }
-                                    >
-                                        +
-                                    </StylesForRightButton>
-                                </Col2>
-                            </Row>
-                        </Container>
-                    </Border>
-                </CenteredText>
-                <PaddingForButtons>
-                    <ButtonStyles primary onClick={onRotateClick}>
-                        Rotate
-                    </ButtonStyles>
-                </PaddingForButtons>
-                <PaddingForButtons>
-                    <ButtonStyles primary onClick={onCloneClick}>
-                        Clone
-                    </ButtonStyles>
-                </PaddingForButtons>
-                <PaddingForButtons>
-                    <ButtonStyles primary onClick={onDeleteClick}>
-                        Delete
-                    </ButtonStyles>
-                </PaddingForButtons>
-            </Card>
-        </BorderForControlPanel>
-    );
-};
+}) => (
+    <BorderForControlPanel {...props}>
+        <Card>
+            <CenteredText>
+                Table Number
+                <InputStyles placeholder={TableNumber} />
+            </CenteredText>
+            <CenteredText>
+                Number Of Seats
+                <Border>
+                    <Container>
+                        <Row>
+                            <Col1>
+                                <StylesForLeftButton
+                                    onClick={onRemoveChairClick}
+                                >
+                                    -
+                                </StylesForLeftButton>
+                            </Col1>
+                            <Col10>{NumberOfSeats}</Col10>
+                            <Col2>
+                                <StylesForRightButton onClick={onAddChairClick}>
+                                    +
+                                </StylesForRightButton>
+                            </Col2>
+                        </Row>
+                    </Container>
+                </Border>
+            </CenteredText>
+            <PaddingForButtons>
+                <ButtonStyles primary onClick={onRotateClick}>
+                    Rotate
+                </ButtonStyles>
+            </PaddingForButtons>
+            <PaddingForButtons>
+                <ButtonStyles primary onClick={onCloneClick}>
+                    Clone
+                </ButtonStyles>
+            </PaddingForButtons>
+            <PaddingForButtons>
+                <ButtonStyles primary onClick={onDeleteClick}>
+                    Delete
+                </ButtonStyles>
+            </PaddingForButtons>
+        </Card>
+    </BorderForControlPanel>
+);
 
 /**
  * variables for the styled components
