@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
-import { SearchBarExpandable } from '../../Inputs/SearchBarExpandable/SearchBarExpandable';
+import { SearchBarExpandable, SearchBarExpandableProps } from '../../Inputs/SearchBarExpandable/SearchBarExpandable';
 import { Heading } from '../../Text/Heading';
 import { TextLayoutProps } from '../../__Layouts';
 import { Mixins } from '../../Utils';
@@ -20,6 +20,7 @@ export interface ListHeaderProps extends TextLayoutProps {
     searchBarWidth?: string;
     searchBarMediaQuery?: string;
     searchBarMediaWidth?: string;
+    searchBarProps?: SearchBarExpandableProps;
     onClose?: () => void;
 }
 
@@ -34,6 +35,7 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
     searchBarWidth,
     searchBarMediaQuery,
     searchBarMediaWidth,
+    searchBarProps,
     padding = '10px 20px;',
     margin = '0',
     onSearch,
@@ -59,6 +61,7 @@ export const ListHeader: React.FC<ListHeaderProps> = ({
                             expandedWidth={searchBarWidth}
                             mediaQuery={searchBarMediaQuery}
                             mediaWidth={searchBarMediaWidth}
+                            {...searchBarProps}
                         />
                     )}
                 </SearchContainer>
