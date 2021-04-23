@@ -297,7 +297,7 @@ export interface IFileUploadProps {
     setIsFailure: React.Dispatch<React.SetStateAction<boolean>>;
     messageDuration?: number;
 }
-
+ 
 export const FileUpload: React.FC<IFileUploadProps> = ({
     title,
     subTitle,
@@ -407,7 +407,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         } else if (state.totalHeight) {
             dispatch({ type: SET_HEIGHT, value: state.totalHeight });
         }
-        // this is to calculate and set isuploading container panel
+        // this is to calculate and set isuploading container panel.
         if (
             isUploading &&
             !isFailure &&
