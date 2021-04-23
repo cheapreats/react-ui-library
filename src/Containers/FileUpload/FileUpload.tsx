@@ -4,6 +4,7 @@ import React, {
     useEffect,
     useLayoutEffect,
     useReducer,
+    useState,
 } from 'react';
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
@@ -13,11 +14,15 @@ import { Image } from '@styled-icons/fa-solid/Image';
 import { CheckCircle } from '@styled-icons/fa-solid/CheckCircle';
 import { TimesCircle } from '@styled-icons/fa-solid/TimesCircle';
 import { MainTheme } from '@Themes';
+// import { useMounted } from '@Utils/Hooks';
+// @ts-ignore
+// import worker from 'workerize-loader!./worker' // eslint-disable-line
 import { Loading } from '../Loading/Loading';
 import { BottomPanel } from './BottomPanel';
 import { Container, Icon } from './StyledComponents';
 import { FileMovingAnimation } from './FileMovingAnimation';
 import { IsFailureIsSuccessPanel } from './IsFailureIsSuccessPanel';
+// import {NO_BASE64STRINGFILE} from './constants'
 
 interface IOptions {
     position: boolean;
@@ -38,6 +43,11 @@ interface IState {
     isSuccessWidth: number;
     isDragEnter: boolean;
 }
+
+const MESSAGE_DURATION = 1500;
+const MAX_HEIGHT = 9000;
+const TRANSITION_HEIGHT_ANIMATION_DURATION = 500;
+const FIRST_FILE = 0;
 
 const PADDING = 10;
 const MARGIN = 10;
@@ -106,167 +116,167 @@ type Action =
 
 const reducer = (state: IState, action: Action): IState => {
     switch (action.type) {
-        case SET_HEIGHT:
-            return {
-                ...state,
-                height: action.value,
-            };
-        case SET_MAX_HEIGHT:
-            return {
-                ...state,
-                maxHeight: action.value,
-            };
-        case SET_TOTAL_HEIGHT:
-            return {
-                ...state,
-                totalHeight: action.value,
-            };
-        case SET_COMPONENT_WIDTH:
-            return {
-                ...state,
-                componentWidth: action.value,
-            };
-        case SET_TOTAL_HEIGHT_PLUS:
-            return {
-                ...state,
-                totalHeightPlus: action.value,
-            };
-        case SET_POSITION_TOP_LOADING:
-            return {
-                ...state,
-                positionTopLoading: action.value,
-            };
-        case SET_IS_SUCCESS_WIDTH:
-            return {
-                ...state,
-                isSuccessWidth: action.value,
-            };
-        case SET_OPACITY_LOADING:
-            return {
-                ...state,
-                loading: {
-                    ...state.loading,
-                    opacity: action.value,
-                },
-            };
-        case SET_POSITION_LOADING:
-            return {
-                ...state,
-                loading: {
-                    ...state.loading,
-                    position: action.value,
-                },
-            };
-        case SET_OPACITY_IS_SUCCESS:
-            return {
-                ...state,
-                isSuccess: {
-                    ...state.isSuccess,
-                    opacity: action.value,
-                },
-            };
-        case SET_POSITION_IS_SUCCESS:
-            return {
-                ...state,
-                isSuccess: {
-                    ...state.isSuccess,
-                    position: action.value,
-                },
-            };
-        case SET_OPACITY_IS_FAILURE:
-            return {
-                ...state,
-                isFailure: {
-                    ...state.isFailure,
-                    opacity: action.value,
-                },
-            };
-        case SET_POSITION_IS_FAILURE:
-            return {
-                ...state,
-                isFailure: {
-                    ...state.isFailure,
-                    position: action.value,
-                },
-            };
-        case SET_LOADING_CONTAINER_HEIGHT:
-            return {
-                ...state,
-                loadingContainerHeight: action.value,
-            };
-        case SET_IS_DRAG_ENTER:
-            return {
-                ...state,
-                isDragEnter: action.value,
-            };
-        case LOADING_FADE_OUT:
-            return {
-                ...state,
-                loading: {
-                    ...state.loading,
-                    opacity: 0,
-                    position: true,
-                },
-            };
-        case LOADING_RESTORE:
-            return {
-                ...state,
-                loading: {
-                    ...state.loading,
-                    opacity: 1,
-                    position: false,
-                },
-            };
-        case IS_SUCCESS_FADE_OUT:
-            return {
-                ...state,
-                isSuccess: {
-                    ...state.isSuccess,
-                    opacity: 0,
-                    position: true,
-                },
-            };
-        case IS_SUCCESS_RESTORE:
-            return {
-                ...state,
-                isSuccess: {
-                    ...state.isSuccess,
-                    opacity: 1,
-                    position: false,
-                },
-            };
-        case IS_FAILURE_FADE_OUT:
-            return {
-                ...state,
-                isFailure: {
-                    ...state.isFailure,
-                    opacity: 0,
-                    position: true,
-                },
-            };
-        case IS_FAILURE_RESTORE:
-            return {
-                ...state,
-                isFailure: {
-                    ...state.isFailure,
-                    opacity: 1,
-                    position: false,
-                },
-            };
-        case SET_INITIAL_HEIGHT_VALUES:
-            return {
-                ...state,
-                maxHeight: action.value,
-                totalHeight: action.value,
-            };
-        case SET_INITIAL_HEIGHT_PLUS_VALUES:
-            return {
-                ...state,
-                height: undefined,
-                maxHeight: 600,
-            };
-        default:
-            return state;
+    case SET_HEIGHT:
+        return {
+            ...state,
+            height: action.value,
+        };
+    case SET_MAX_HEIGHT:
+        return {
+            ...state,
+            maxHeight: action.value,
+        };
+    case SET_TOTAL_HEIGHT:
+        return {
+            ...state,
+            totalHeight: action.value,
+        };
+    case SET_COMPONENT_WIDTH:
+        return {
+            ...state,
+            componentWidth: action.value,
+        };
+    case SET_TOTAL_HEIGHT_PLUS:
+        return {
+            ...state,
+            totalHeightPlus: action.value,
+        };
+    case SET_POSITION_TOP_LOADING:
+        return {
+            ...state,
+            positionTopLoading: action.value,
+        };
+    case SET_IS_SUCCESS_WIDTH:
+        return {
+            ...state,
+            isSuccessWidth: action.value,
+        };
+    case SET_OPACITY_LOADING:
+        return {
+            ...state,
+            loading: {
+                ...state.loading,
+                opacity: action.value,
+            },
+        };
+    case SET_POSITION_LOADING:
+        return {
+            ...state,
+            loading: {
+                ...state.loading,
+                position: action.value,
+            },
+        };
+    case SET_OPACITY_IS_SUCCESS:
+        return {
+            ...state,
+            isSuccess: {
+                ...state.isSuccess,
+                opacity: action.value,
+            },
+        };
+    case SET_POSITION_IS_SUCCESS:
+        return {
+            ...state,
+            isSuccess: {
+                ...state.isSuccess,
+                position: action.value,
+            },
+        };
+    case SET_OPACITY_IS_FAILURE:
+        return {
+            ...state,
+            isFailure: {
+                ...state.isFailure,
+                opacity: action.value,
+            },
+        };
+    case SET_POSITION_IS_FAILURE:
+        return {
+            ...state,
+            isFailure: {
+                ...state.isFailure,
+                position: action.value,
+            },
+        };
+    case SET_LOADING_CONTAINER_HEIGHT:
+        return {
+            ...state,
+            loadingContainerHeight: action.value,
+        };
+    case SET_IS_DRAG_ENTER:
+        return {
+            ...state,
+            isDragEnter: action.value,
+        };
+    case LOADING_FADE_OUT:
+        return {
+            ...state,
+            loading: {
+                ...state.loading,
+                opacity: 0,
+                position: true,
+            },
+        };
+    case LOADING_RESTORE:
+        return {
+            ...state,
+            loading: {
+                ...state.loading,
+                opacity: 1,
+                position: false,
+            },
+        };
+    case IS_SUCCESS_FADE_OUT:
+        return {
+            ...state,
+            isSuccess: {
+                ...state.isSuccess,
+                opacity: 0,
+                position: true,
+            },
+        };
+    case IS_SUCCESS_RESTORE:
+        return {
+            ...state,
+            isSuccess: {
+                ...state.isSuccess,
+                opacity: 1,
+                position: false,
+            },
+        };
+    case IS_FAILURE_FADE_OUT:
+        return {
+            ...state,
+            isFailure: {
+                ...state.isFailure,
+                opacity: 0,
+                position: true,
+            },
+        };
+    case IS_FAILURE_RESTORE:
+        return {
+            ...state,
+            isFailure: {
+                ...state.isFailure,
+                opacity: 1,
+                position: false,
+            },
+        };
+    case SET_INITIAL_HEIGHT_VALUES:
+        return {
+            ...state,
+            maxHeight: action.value,
+            totalHeight: action.value,
+        };
+    case SET_INITIAL_HEIGHT_PLUS_VALUES:
+        return {
+            ...state,
+            height: undefined,
+            maxHeight: MAX_HEIGHT,
+        };
+    default:
+        return state;
     }
 };
 
@@ -274,6 +284,7 @@ export interface IFileUploadProps {
     title: string;
     subTitle: string;
     minHeight: number;
+    minWidth?: number;
     setBase64: (base64StringFile: string) => void;
     isUploading: boolean;
     isSuccess: boolean;
@@ -281,12 +292,17 @@ export interface IFileUploadProps {
     successMessage: string;
     failureMessage: string;
     disabled: boolean;
+    setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsSuccess: React.Dispatch<React.SetStateAction<boolean>>;
+    setIsFailure: React.Dispatch<React.SetStateAction<boolean>>;
+    messageDuration?: number;
 }
 
 export const FileUpload: React.FC<IFileUploadProps> = ({
     title,
     subTitle,
     minHeight,
+    minWidth,
     setBase64,
     isUploading,
     isSuccess,
@@ -294,6 +310,10 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     successMessage,
     failureMessage,
     disabled,
+    setIsUploading,
+    setIsSuccess,
+    setIsFailure,
+    messageDuration = MESSAGE_DURATION,
 }): React.ReactElement => {
     const initState: IState = {
         height: undefined,
@@ -310,6 +330,24 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         isDragEnter: false,
     };
     const [state, dispatch] = useReducer(reducer, initState);
+    // const isMounted = useMounted();
+    const [fileName, setFileName] = useState<string>('');
+
+    const workerRef = useRef<Worker>();
+    const base64StringFileRef = useRef<string>('');
+    const previousIsSuccessValue = useRef<boolean>(isSuccess);
+
+    /**
+     * this is to execute setBase64 function after the animation finishes
+     */
+    useEffect(() => {
+        if (previousIsSuccessValue.current) {
+            setTimeout(() => {
+                setBase64(base64StringFileRef.current);
+            }, TRANSITION_HEIGHT_ANIMATION_DURATION);
+        }
+        previousIsSuccessValue.current = isSuccess;
+    }, [isSuccess]);
 
     // this is to calculate (set) some values after the first render
     useEffect(() => {
@@ -450,28 +488,41 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     const loadingContainerRef = useRef<HTMLDivElement>(null);
 
     const onDrop = useCallback((acceptedFiles: File[]) => {
+        setFileName(acceptedFiles[FIRST_FILE].name);
+        setIsUploading(true);
+        setIsSuccess(false);
+        setIsFailure(false);
         acceptedFiles.forEach((file) => {
-            const reader = new FileReader();
-            reader.onload = () => {
-                if (reader.result) {
-                    let base64StringFile = '';
-                    if (typeof reader.result === 'string') {
-                        base64StringFile = btoa(reader.result);
-                    } else {
-                        const bytes = Array.from(new Uint8Array(reader.result));
-                        base64StringFile = btoa(
-                            bytes
-                                .map((item) => String.fromCharCode(item))
-                                .join(''),
-                        );
-                    }
-                    if (base64StringFile) {
-                        setBase64(base64StringFile);
-                    }
-                }
-            };
-            reader.readAsArrayBuffer(file);
-            dispatch({ type: SET_IS_DRAG_ENTER, value: false });
+            // const workerInstance=worker()
+            // workerRef.current = workerInstance;
+            // workerInstance.onmessage=(e:any)=>{
+            //     const { base64StringFile } = e.data;
+            //     if (base64StringFile === NO_BASE64STRINGFILE)
+            //     {
+            //         workerRef.current?.terminate()
+            //         setIsFailure(true);
+            //         setIsSuccess(false);
+            //         setIsUploading(false);
+            //         setTimeout(() => {
+            //             if (isMounted.current) setIsFailure(false);
+            //         }, messageDuration);
+            //     }else if(base64StringFile!==undefined)
+            //     {
+            //
+            //         workerRef.current?.terminate()
+            //         base64StringFileRef.current = base64StringFile;
+            //         setIsSuccess(true);
+            //         setIsFailure(false);
+            //         setIsUploading(false);
+            //         setTimeout(() => {
+            //             if (isMounted.current) {
+            //                 setIsSuccess(false);
+            //             }
+            //         }, messageDuration);
+            //     }
+            // }
+            // workerInstance.postMessage({ file });
+            // dispatch({ type: SET_IS_DRAG_ENTER, value: false });
         });
     }, []);
     const onDragEnter = useCallback((event: React.DragEvent) => {
@@ -509,9 +560,21 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
             );
         }
         if (isUploading) {
-            return <Loading loading={isUploading} message="Uploading..." />;
+            return (
+                <Loading
+                    loading={isUploading}
+                    message={`Uploading ${fileName}`}
+                />
+            );
         }
         return undefined;
+    };
+
+    const onCancelUploading = () => {
+        if (workerRef.current) {
+            workerRef.current.terminate();
+            setIsUploading(false);
+        }
     };
 
     return (
@@ -535,7 +598,11 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                     margin: `${MARGIN}px`,
                 })}
             >
-                <SubContainer minHeight={minHeight} disabled={disabled}>
+                <SubContainer
+                    minHeight={minHeight}
+                    minWidth={minWidth}
+                    disabled={disabled}
+                >
                     {state.isDragEnter ? (
                         <FileMovingAnimation />
                     ) : (
@@ -551,6 +618,8 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                 </SubContainer>
             </Container>
             <BottomPanel
+                isUploading={isUploading}
+                onCancelUploading={onCancelUploading}
                 withBorder
                 padding={
                     isFailure || isSuccess ? undefined : '30px 20px 43px 20px'
@@ -589,12 +658,13 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
 
 interface ISubContainerProps {
     minHeight?: number;
+    minWidth?: number;
     disabled: boolean;
 }
 
 const SubContainer = styled.div<ISubContainerProps>`
     ${flex('column', 'space-between', 'center')}
-    ${({ minHeight, disabled }): string => `
+    ${({ minHeight, disabled, minWidth }): string => `
 ${
     minHeight
         ? `
@@ -602,6 +672,15 @@ min-height:${minHeight}px;
 `
         : ''
 }
+${
+    minWidth
+        ? `
+min-width:${minWidth}px;
+`
+        : ''
+}
 ${disabled ? `opacity:0.6;` : ''}
 `}
+cursor:pointer;
+    flex: 1;
 `;
