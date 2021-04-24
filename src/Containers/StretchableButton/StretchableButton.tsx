@@ -9,7 +9,7 @@ export interface IStretchableButtonProps {
     isDraggable: boolean;
     defaultHeight: string;
     defaultPositionX: number;
-    defaultPositionY: number;
+    topMargin: string;
 }
 
 export const StretchableButton: React.FC<IStretchableButtonProps> = ({
@@ -18,27 +18,35 @@ export const StretchableButton: React.FC<IStretchableButtonProps> = ({
     isDraggable,
     defaultHeight,
     defaultPositionX,
-    defaultPositionY
+    topMargin
 }) => {
     return (
-            <Rnd disableDragging={!isDraggable} minWidth={minWidth} bounds="parent" 
+        <Container marginTop={topMargin}>
+            <Rnd disableDragging={!isDraggable} minWidth={minWidth} bounds="parent"
                 enableResizing={{
                     right: true,
                     left: true
                 }}
+                // works at page load
                 default={{
                     x: defaultPositionX,
-                    y: defaultPositionY,
+                    y: 0, // managed by CSS using topMargin props 
                     width: minWidth,
                     height: defaultHeight
-                  }}
-                >
+                }}
+            >
                 <Btn onClick={action('Button is clicked!')}>
                     {buttonText}
                 </Btn>
             </Rnd>
+        </Container>
     );
 };
+
+interface IMarginProps {
+    marginTop: string;
+}
+
 const Btn = styled.div`
     height: 100%;
     display: flex;
@@ -52,3 +60,10 @@ const Btn = styled.div`
     font-size: 0.95rem;
     font-family: ${({ theme }) => theme.font.family};
     `;
+
+const Container = styled.div<IMarginProps>`
+    ${({ marginTop }) => `
+        transform: translate(0px,${marginTop});
+    `}    
+    position:relative;
+`;
