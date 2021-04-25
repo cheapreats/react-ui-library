@@ -133,6 +133,7 @@
         "react-input-mask": "^3.0.0-alpha.2",
         "react-lottie": "^1.2.3",
         "react-responsive-carousel": "^3.2.18",
+        "react-rnd": "^10.2.4",
         "react-router-dom": "^5.2.0",
         "react-table": "^7.6.2",
         "react-tabs": "^3.2.1",
