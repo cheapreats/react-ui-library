@@ -173,10 +173,10 @@ const SelectItem = styled.p<SelectItemProps>`
     ${({ theme, active }): string => `
         padding: ${theme.dimensions.padding.default};
         ${
-    active
-        ? ` background-color: ${darken('#ffffff', 0.05)} `
-        : clickable('#ffffff', 0.03)
-}
+            active
+                ? ` background-color: ${darken('#ffffff', 0.05)} `
+                : clickable('#ffffff', 0.03)
+        }
     `}
 `;
 

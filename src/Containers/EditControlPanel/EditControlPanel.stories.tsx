@@ -9,7 +9,8 @@ export default {
 } as Meta;
 
 /**
- * Functions for Delete, Rotate, and Click buttons
+ * Functions for Delete, Rotate, Click, RemoveChair, AddChair buttons
+ * These will show in the console to prove it has been clicked
  */
 const handleDeleteClick = () => {
     console.log('Delete Button has been clicked');
@@ -23,6 +24,14 @@ const handleCloneClick = () => {
     console.log('Clone Button has been clicked');
 };
 
+const handleRemoveChairClick = () => {
+    console.log('- Button has been clicked');
+};
+
+const handleAddChairClick = () => {
+    console.log('+ Button has been clicked');
+};
+
 const Template: Story<IEditControlPanel> = (args) => (
     <EditControlPanel {...args} />
 );
@@ -31,4 +40,6 @@ ControlPanelMain.args = {
     onDeleteClick: handleDeleteClick,
     onCloneClick: handleCloneClick,
     onRotateClick: handleRotateClick,
+    onAddChairClick: handleAddChairClick,
+    onRemoveChairClick: handleRemoveChairClick,
 };

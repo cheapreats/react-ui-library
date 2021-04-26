@@ -1,10 +1,10 @@
-import {NO_BASE64STRINGFILE} from './constants'
+// import {NO_BASE64STRINGFILE} from './constants'
 
 onmessage = (e) => {
     const { file } = e.data;
     const reader = new FileReader();
     reader.onload = () => {
-        let base64StringFile=NO_BASE64STRINGFILE;
+        let base64StringFile = 'NO_BASE64STRINGFILE';
         if (reader.result) {
             if (typeof reader.result === 'string') {
                 base64StringFile = btoa(reader.result);

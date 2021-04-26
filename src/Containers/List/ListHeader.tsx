@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
-import { SearchBarExpandable, SearchBarExpandableProps } from '../../Inputs/SearchBarExpandable/SearchBarExpandable';
+import {
+    SearchBarExpandable,
+    SearchBarExpandableProps,
+} from '../../Inputs/SearchBarExpandable/SearchBarExpandable';
 import { Heading } from '../../Text/Heading';
 import { TextLayoutProps } from '../../__Layouts';
 import { Mixins } from '../../Utils';

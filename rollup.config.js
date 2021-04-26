@@ -6,6 +6,7 @@ import { nodeResolve } from '@rollup/plugin-node-resolve';
 import postcss from 'rollup-plugin-postcss';
 import json from '@rollup/plugin-json';
 import { DEFAULT_EXTENSIONS } from '@babel/core';
+import copy from 'rollup-plugin-copy';
 import pkg from './package.json';
 
 export default {
@@ -23,6 +24,11 @@ export default {
         },
     ],
     plugins: [
+        copy({
+            targets: [
+                { src: 'src/Containers/FileUpload/worker.js', dest: 'dist' },
+            ],
+        }),
         commonjs(),
         json(),
         tsPlugin({
@@ -59,7 +65,7 @@ export default {
                 '@babel/preset-react',
                 '@babel/preset-typescript',
             ],
-            babelHelpers: 'bundled'
+            babelHelpers: 'bundled',
         }),
         postcss({
             extensions: ['.css'],
