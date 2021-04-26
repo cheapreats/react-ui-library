@@ -37,7 +37,7 @@ export interface IChair {
      * Indicates whether the chair is round.
      * True if the chair is round, otherwise false.
      */
-    isRound: boolean;
+    isRound?: boolean;
     /**
      * The size for the component relative to the parent
      */
