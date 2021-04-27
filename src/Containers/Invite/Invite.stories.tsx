@@ -16,30 +16,35 @@ const args = {
     buttonText: 'Submit',
     inviteArgs: [
         {
+            id: "0",
             label: 'First Name',
-            placeholder: 'Jane',
-            type: 'text',
+            placeholder: 'Jane', 
+            type: "text"
         },
         {
+            id: "1",
             label: 'Last Name',
-            placeholder: 'Diaz',
-            type: 'text',
+            placeholder: 'Diaz', 
+            type: "text"
         },
         {
+            id: "2",
             label: 'Work email',
-            placeholder: 'jane@account.com',
-            type: 'email',
+            placeholder: 'jane@account.com', 
+            type: "text"
         },
         {
+            id: "3",
             label: 'Company website',
-            placeholder: 'example.com',
-            type: 'text',
+            placeholder: 'example.com', 
+            type: "text"
         },
         {
+            id:"4",
             label: 'Other info',
             subLabel: "Optional",
-            placeholder: 'What do you want...',
-            type: 'textarea',
+            placeholder: 'What do you want...', 
+            type: "textarea"
         }
     ]
 };
