@@ -1,8 +1,8 @@
-import React     from 'react'; 
-import styled from 'styled-components';
+import React, { useState } from 'react'; 
 import Button from '@Inputs/Button/Button';
 import Input from '@Inputs/Input/Input'; 
 import Heading from '@Text/Heading';
+import styled from 'styled-components';
 import { flex, media } from '@Utils/Mixins'; 
 import { ChevronRight } from "@styled-icons/bootstrap/ChevronRight";
 import { ArrowRight } from "@styled-icons/bootstrap/ArrowRight";
@@ -15,9 +15,9 @@ export interface InviteProps {
     heading: string;
     description: string;
     footer: string;
-    buttonText: string;  
+    buttonText: string;
     inviteArgs: {
-        id: string;
+        name: string;
         label: string;
         placeholder: string;
         type: string;
@@ -39,15 +39,15 @@ interface OtherInfoProps {
  * @param  
  * @returns label & placeholder
  */
-const IFields = ({ label, ...props }: InputFieldsProps) => { 
-    const [field, meta] = useField(props);
+const IFields = ({ label, ...rest }: InputFieldsProps) => { 
+    const [field, meta] = useField(rest);
     return (
     <>
     {meta.touched && meta.error ? <SmallText color="primary">{meta.error}</SmallText> : null}
     <FormGroup>
         <Label>{label}</Label>
         <IDiv>
-            <IInput {...field} {...props} />
+            <IInput {...field} {...rest} />
         </IDiv>
     </FormGroup>
     </>
@@ -58,8 +58,8 @@ const IFields = ({ label, ...props }: InputFieldsProps) => {
  * @param
  * @returns label, sublabel & placeholder
  */
-const OtherInfo = ({ label, subLabel, ...props }: OtherInfoProps extends InputFieldsProps) => { 
-    const [field, meta] = useField(props);
+const OtherInfo = ({ label, subLabel, ...rest }: OtherInfoProps extends InputFieldsProps) => { 
+    const [field, meta] = useField(rest);
     return (
         <>                 
             {meta.touched && meta.error ? ( <SmallText color="primary">{meta.error}</SmallText> ) : null}                
@@ -69,7 +69,7 @@ const OtherInfo = ({ label, subLabel, ...props }: OtherInfoProps extends InputFi
                     <SubLabel>{subLabel}</SubLabel> 
                 </Label> 
                 <IDiv>
-                    <IField {...field} {...props} />
+                    <IField {...field} {...rest} />
                 </IDiv>   
             </FormGroup>
         </>
@@ -90,19 +90,19 @@ export const Invite: React.FC<InviteProps> = ({
      */
     const getAllInputs = (): React.ReactElement[] => {
         return inviteArgs.map(
-            (item, key): React.ReactElement => (
+            (item): React.ReactElement => (
                 ( item.type !== "textarea") ?
-                <IFields
-                    key={key}
+                <IFields 
+                    key={item.name}
                     label={item.label}
-                    name={item.id}
+                    name={item.name}
                     type={item.type}
                     placeholder={item.placeholder}
                 /> :
-                <OtherInfo
-                    key={key}
+                <OtherInfo 
+                    key={item.name}
                     label={item.label}
-                    name={item.id}
+                    name={item.name}
                     type={item.type}
                     placeholder={item.placeholder} 
                     subLabel={item.subLabel}
@@ -111,44 +111,57 @@ export const Invite: React.FC<InviteProps> = ({
             )
         )
     }
-     
+
     const InviteForm = () => {
+        const [ formValues, setFormValues ] = useState(null)
+        const initialValues = { firstName: "", lastName: "", email: "", website: "", otherInfo: ""}
+        const saveValues:any = { firstName: "", lastName: "", email: "", website: "", otherInfo: ""}
+    
+        /**
+         * required firstName, lastName & website
+         * validate and required email address
+         */ 
+        const validationSchema = Yup.object({
+            firstName: Yup.string().required('required'),
+            lastName: Yup.string().required('required'),
+            website: Yup.string().required("Required"),
+            email: Yup.string().email('Invalid email format').required('required'), 
+        })
+
+        /**
+         * output values
+         * @param values 
+         * @param submitForm 
+         */
+        const onSubmit = (values:any, submitForm:any) => {
+            console.log('Form values', values);
+            submitForm.setSubmitting(false);
+            submitForm.resetForm(false);
+        } 
+
         return (
-            <Formik
-              initialValues={{
-                firstName: "",
-                lastName: "",
-                email: "",
-                website: "",
-                otherInfo: ""
-              }}
-              /**
-               * require firstname, lastName, website
-               * validate email
-               */
-              validationSchema={Yup.object({
-                firstName: Yup.string().required("Required"),
-                lastName: Yup.string().required("Required"),
-                website: Yup.string().required("Required"),
-                email: Yup.string()
-                  .email("Invalid email addresss`")
-                  .required("Required")
-              })}
-              onSubmit={async (values, { setSubmitting }) => {
-                await new Promise((r) => setTimeout(r, 500));
-                setSubmitting(false);
-              }} 
+            <Formik 
+                initialValues = { formValues || initialValues}
+                validationSchema = {validationSchema}
+                onSubmit = {onSubmit}
+                enableReinitialize
             >
-              <Form>
-                {getAllInputs()}
-                <FormGroup> 
-                    <IButton {...buttonText}> 
-                        {buttonText}
-                        <IChevronRight />
-                        <IArrowRight />
-                    </IButton> 
-                </FormGroup> 
-              </Form>
+                {formik => (
+                <Form onSubmit={formik.handleSubmit}>
+                    {getAllInputs()}
+                    <FormGroup> 
+                        <IButton 
+                            {...buttonText} 
+                            type="submit"
+                            onClick={() => setFormValues(saveValues)}           
+                        > 
+                            {buttonText}
+                            <IChevronRight />
+                            <IArrowRight />
+                        </IButton> 
+                    </FormGroup>
+                </Form>
+                )}
             </Formik> 
         );
     };
@@ -163,7 +176,7 @@ export const Invite: React.FC<InviteProps> = ({
             <Col>  
                 {InviteForm()}
                 <FormFooter>
-                    <SmallText >{footer}</SmallText>
+                    <SmallText>{footer}</SmallText>
                 </FormFooter>
             </Col>
         </Row> 
