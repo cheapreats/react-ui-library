@@ -16,37 +16,37 @@ const args = {
     buttonText: 'Submit',
     inviteArgs: [
         {
-            id: "0",
+            name: "firstName",
             label: 'First Name',
             placeholder: 'Jane', 
             type: "text"
         },
         {
-            id: "1",
+            name: "lastName",
             label: 'Last Name',
             placeholder: 'Diaz', 
             type: "text"
         },
         {
-            id: "2",
+            name: "email",
             label: 'Work email',
             placeholder: 'jane@account.com', 
             type: "text"
         },
         {
-            id: "3",
+            name: "website",
             label: 'Company website',
             placeholder: 'example.com', 
             type: "text"
         },
         {
-            id:"4",
+            name:"otherInfo",
             label: 'Other info',
             subLabel: "Optional",
             placeholder: 'What do you want...', 
             type: "textarea"
-        }
-    ]
+        },
+    ],
 };
 
 export const Basic: Story<InviteProps> = (args) => (

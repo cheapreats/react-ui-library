@@ -1,8 +1,8 @@
 import React     from 'react'; 
-import styled from 'styled-components';
 import Button from '@Inputs/Button/Button';
 import Input from '@Inputs/Input/Input'; 
 import Heading from '@Text/Heading';
+import styled from 'styled-components';
 import { flex, media } from '@Utils/Mixins'; 
 import { ChevronRight } from "@styled-icons/bootstrap/ChevronRight";
 import { ArrowRight } from "@styled-icons/bootstrap/ArrowRight";
@@ -15,9 +15,9 @@ export interface InviteProps {
     heading: string;
     description: string;
     footer: string;
-    buttonText: string;  
+    buttonText: string;
     inviteArgs: {
-        id: string;
+        name: string;
         label: string;
         placeholder: string;
         type: string;
@@ -92,17 +92,17 @@ export const Invite: React.FC<InviteProps> = ({
         return inviteArgs.map(
             (item, key): React.ReactElement => (
                 ( item.type !== "textarea") ?
-                <IFields
-                    key={key}
+                <IFields 
+                    key={item.name}
                     label={item.label}
-                    name={item.id}
+                    name={item.name}
                     type={item.type}
                     placeholder={item.placeholder}
                 /> :
-                <OtherInfo
-                    key={key}
+                <OtherInfo 
+                    key={item.name}
                     label={item.label}
-                    name={item.id}
+                    name={item.name}
                     type={item.type}
                     placeholder={item.placeholder} 
                     subLabel={item.subLabel}
@@ -115,40 +115,48 @@ export const Invite: React.FC<InviteProps> = ({
     const InviteForm = () => {
         return (
             <Formik
-              initialValues={{
-                firstName: "",
-                lastName: "",
-                email: "",
-                website: "",
-                otherInfo: ""
-              }}
-              /**
-               * require firstname, lastName, website
-               * validate email
-               */
-              validationSchema={Yup.object({
-                firstName: Yup.string().required("Required"),
-                lastName: Yup.string().required("Required"),
-                website: Yup.string().required("Required"),
-                email: Yup.string()
-                  .email("Invalid email addresss`")
-                  .required("Required")
-              })}
-              onSubmit={async (values, { setSubmitting }) => {
-                await new Promise((r) => setTimeout(r, 500));
-                setSubmitting(false);
-              }} 
+                /** initiate values of all input fields */
+                initialValues={{ 
+                    firstName: "",
+                    lastName: "",
+                    email: "", 
+                    website: "",
+                    otherInfo: "" 
+                }}
+                /**
+                 * required firstName, lastName & website
+                 * validate and required email address
+                 */
+                validationSchema={Yup.object({
+                    firstName: Yup.string().required("Required"),
+                    lastName: Yup.string().required("Required"),
+                    website: Yup.string().required("Required"),
+                    email: Yup.string()
+                      .email("Invalid email addresss`")
+                      .required("Required")
+                })}
+                onSubmit={(values, actions) => {
+                    setTimeout(() => {
+                    alert(JSON.stringify(values, null, 2));
+                    actions.setSubmitting(false);
+                    }, 1000);
+                }}
             >
-              <Form>
-                {getAllInputs()}
-                <FormGroup> 
-                    <IButton {...buttonText}> 
-                        {buttonText}
-                        <IChevronRight />
-                        <IArrowRight />
-                    </IButton> 
-                </FormGroup> 
-              </Form>
+                {props => (
+                <Form onSubmit={props.handleSubmit}>
+                    {getAllInputs()}
+                    <FormGroup> 
+                        <IButton 
+                            {...buttonText} 
+                            type="submit"              
+                        > 
+                            {buttonText}
+                            <IChevronRight />
+                            <IArrowRight />
+                        </IButton> 
+                    </FormGroup>
+                </Form>
+                )}
             </Formik> 
         );
     };
@@ -163,7 +171,7 @@ export const Invite: React.FC<InviteProps> = ({
             <Col>  
                 {InviteForm()}
                 <FormFooter>
-                    <SmallText >{footer}</SmallText>
+                    <SmallText>{footer}</SmallText>
                 </FormFooter>
             </Col>
         </Row> 
