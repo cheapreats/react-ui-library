@@ -85,6 +85,12 @@ export interface ISquareTable {
      * @param selectedChildIndex - the array index for the table
      */
     onTableClick: (selectedChildIndex: number) => void;
+    /**
+     * Function to handle onClick event for the chair
+     * @param parentTableIndex - parent table index in the tables array
+     * @param chairIndex - chair index in chair array
+     */
+    onChairClick: (parentTableIndex: number, chairIndex: number) => void;
 }
 
 /**
@@ -103,6 +109,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     arrayIndex = 0,
     squareTableType = 'square',
     onTableClick,
+    onChairClick,
     ...props
 }) => {
     /**
@@ -193,6 +200,9 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 isVisible: false,
                 relativeSize,
                 tableUse,
+                chairIndex: array.length,
+                tableIndex: arrayIndex,
+                onChairClick,
             });
         }
     };

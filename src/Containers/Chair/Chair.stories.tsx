@@ -11,6 +11,14 @@ export default {
 const Template: Story<IChair> = (args) => <Chair {...args} />;
 
 /**
+ * Prints the Selected Child index to the console when Chair is clicked
+ * @param selectedChildIndex
+ */
+const handleOnChairClick = (tableIndex: number, chairIndex: number) => {
+    console.log(`Table: ${tableIndex} Chair: ${chairIndex}`);
+};
+
+/**
  *Creates free chair
  */
 export const ChairFreeTop = Template.bind({});
@@ -76,4 +84,17 @@ ChairOccupiedRound.args = {
     occupiedBy: 'Jack',
     isRound: true,
     relativeSize: 0.5,
+};
+
+export const ChairEditDraggableCanvas = Template.bind({});
+ChairEditDraggableCanvas.args = {
+    position: 'top',
+    isSeated: false,
+    occupiedBy: '',
+    isVisible: true,
+    relativeSize: 1,
+    tableUse: 'TableForEditCanvas',
+    chairIndex: 3,
+    tableIndex: 4,
+    onChairClick: handleOnChairClick,
 };

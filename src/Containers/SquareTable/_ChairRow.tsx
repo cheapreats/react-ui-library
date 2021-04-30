@@ -61,6 +61,9 @@ export const ChairRow: React.FC<IChairRow> = ({
                     isVisible={i.isVisible}
                     relativeSize={relativeSize}
                     tableUse={tableUse}
+                    chairIndex={i.chairIndex}
+                    tableIndex={i.tableIndex}
+                    onChairClick={i.onChairClick}
                 />
             </ChairCol>
         ));
@@ -84,6 +87,9 @@ export const ChairRow: React.FC<IChairRow> = ({
                         isVisible={i.isVisible}
                         relativeSize={relativeSize}
                         tableUse={tableUse}
+                        chairIndex={i.chairIndex}
+                        tableIndex={i.tableIndex}
+                        onChairClick={i.onChairClick}
                     />
                 </SideChairCentering>
             </SideChairRow>

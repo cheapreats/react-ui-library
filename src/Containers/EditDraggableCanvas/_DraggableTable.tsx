@@ -42,6 +42,12 @@ export interface IDraggableTable {
         deltaX: number,
         deltaY: number,
     ) => void;
+    /**
+     * Function to handle onClick event for the chair
+     * @param parentTableIndex - parent table index in the tables array
+     * @param chairIndex - chair index in chair array
+     */
+    onChairClick: (parentTableIndex: number, chairIndex: number) => void;
 }
 
 /**
@@ -63,6 +69,10 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                 isVisible: true,
                 relativeSize: 1,
                 tableUse: 'TableForManagement',
+                chairIndex: 0,
+                tableIndex: 0,
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
+                onChairClick: () => {},
             },
             {
                 position: 'bottom',
@@ -71,6 +81,10 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                 isVisible: true,
                 relativeSize: 1,
                 tableUse: 'TableForManagement',
+                chairIndex: 0,
+                tableIndex: 0,
+                // eslint-disable-next-line @typescript-eslint/no-empty-function
+                onChairClick: () => {},
             },
         ],
         tableUse: 'TableForManagement',
@@ -80,6 +94,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     isDisabled = false,
     onTableClick,
     handleStop,
+    onChairClick,
     ...props
 }) => {
     const [deltaPosition, setDeltaPosition] = useState({
@@ -120,6 +135,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                         tableUse={tableInput.tableUse}
                         arrayIndex={arrayIndex}
                         onTableClick={onTableClick}
+                        onChairClick={onChairClick}
                     />
                 );
             case 'Circle':
@@ -134,6 +150,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                         tableUse={tableInput.tableUse}
                         arrayIndex={arrayIndex}
                         onTableClick={onTableClick}
+                        onChairClick={onChairClick}
                     />
                 );
             default:

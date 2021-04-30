@@ -10,6 +10,8 @@ type getPositionChairType = () => JSX.Element;
 
 type getChairTextType = () => JSX.Element;
 
+type handleClickType = () => void;
+
 type tableUseTypes =
     | 'AddTableButton'
     | 'TableForEditCanvas'
@@ -46,6 +48,20 @@ export interface IChair {
      * The use type for the table component (how it will be used in the app)
      */
     tableUse: tableUseTypes;
+    /**
+     * Passes in the parent table index
+     */
+    tableIndex: number;
+    /**
+     * Unique index for each chair
+     */
+    chairIndex: number;
+    /**
+     * Function to handle onClick event for the chair
+     * @param parentTableIndex - parent table index in the tables array
+     * @param chairIndex - chair index in chair array
+     */
+    onChairClick: (parentTableIndex: number, chairIndex: number) => void;
 }
 
 /**
@@ -59,6 +75,9 @@ export const Chair: React.FC<IChair> = ({
     isRound = false,
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
+    tableIndex = -1,
+    chairIndex = -1,
+    onChairClick,
     ...props
 }) => {
     const [visibility, setVisibility] = useState(isVisible);
@@ -139,11 +158,20 @@ export const Chair: React.FC<IChair> = ({
         }
     };
 
+    /**
+     * This function will handle the chair click and will
+     * Update the state and call onChairClick function
+     */
+    const onHandleClick: handleClickType = () => {
+        onChairClick(tableIndex, chairIndex);
+        setVisibility(!visibility);
+    };
+
     if (tableUse === 'TableForEditCanvas') {
         return (
             <ChairWrapperForClick
-                onClick={() => setVisibility(!visibility)}
-                onKeyPress={() => setVisibility(!visibility)}
+                onClick={onHandleClick}
+                onKeyPress={onHandleClick}
                 role="button"
                 tabIndex={0}
             >
