@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css, useTheme } from 'styled-components';
-import { Minus, Plus } from '@styled-icons/boxicons-regular';
+import { Eye, EyeSlash } from '@styled-icons/bootstrap';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
@@ -150,12 +150,24 @@ export const Chair: React.FC<IChair> = ({
                 );
             case 'TableForEditCanvas':
                 if (visibility) {
-                    return <StyledMinus />;
+                    if (isRound) {
+                        return <RoundEyeSlash />;
+                    }
+                    if (position === 'top' || position === 'bottom') {
+                        return <TopBottomEyeSlash />;
+                    }
+                    return <LeftRightEyeSlash />;
                 }
-                return <StyledPlus />;
+                if (isRound) {
+                    return <RoundEye />;
+                }
+                if (position === 'top' || position === 'bottom') {
+                    return <TopBottomEye />;
+                }
+                return <LeftRightEye />;
             default:
                 return <div />;
-        }
+            }
     };
 
     /**
@@ -413,7 +425,7 @@ const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
 
 const RectangleChair = styled(BaseChair)<
     Pick<IChair, 'position' | 'relativeSize'>
->`
+    >`
     ${({ position }) =>
         ({
             top: HorizontalChairStyle,
@@ -425,7 +437,7 @@ const RectangleChair = styled(BaseChair)<
 
 const RectangleChairText = styled.div<
     Pick<IChair, 'position' | 'relativeSize'>
->`
+    >`
     ${({ position }) =>
         ({
             top: textHorizontalChairStyle,
@@ -439,7 +451,7 @@ const RoundChairText = styled.div<Pick<IChair, 'relativeSize'>>`
     ${textRoundStyle};
 `;
 
-const StyledPlus = styled(Plus)`
+const LeftRightEye = styled(Eye)`
     color: black;
     width: 75%;
     height: 100%;
@@ -447,9 +459,41 @@ const StyledPlus = styled(Plus)`
     display: block;
 `;
 
-const StyledMinus = styled(Minus)`
-    color: white;
+const TopBottomEye = styled(Eye)`
+    color: black;
+    width: 25%;
+    height: 100%;
+    margin: auto;
+    display: block;
+`;
+
+const RoundEye = styled(Eye)`
+    color: black;
+    width: 40%;
+    height: 100%;
+    margin: auto;
+    display: block;
+`;
+
+const LeftRightEyeSlash = styled(EyeSlash)`
     width: 75%;
+    color: white;
+    height: 100%;
+    margin: auto;
+    display: block;
+`;
+
+const TopBottomEyeSlash = styled(EyeSlash)`
+    width: 25%;
+    color: white;
+    height: 100%;
+    margin: auto;
+    display: block;
+`;
+
+const RoundEyeSlash = styled(EyeSlash)`
+    width: 40%;
+    color: white;
     height: 100%;
     margin: auto;
     display: block;
