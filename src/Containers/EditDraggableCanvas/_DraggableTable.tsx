@@ -71,8 +71,9 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                 tableUse: 'TableForManagement',
                 chairIndex: 0,
                 tableIndex: 0,
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                onChairClick: () => {},
+                onChairClick: () => {
+                    console.log();
+                },
             },
             {
                 position: 'bottom',
@@ -83,8 +84,9 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                 tableUse: 'TableForManagement',
                 chairIndex: 0,
                 tableIndex: 0,
-                // eslint-disable-next-line @typescript-eslint/no-empty-function
-                onChairClick: () => {},
+                onChairClick: () => {
+                    console.log();
+                },
             },
         ],
         tableUse: 'TableForManagement',
