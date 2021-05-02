@@ -1,7 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { createStoryTitle } from '../../Constants';
-import { StretchableButton, IStretchableButtonProps } from './StretchableButton';
+import {
+    StretchableButton,
+    IStretchableButtonProps,
+} from './StretchableButton';
 
 export default {
     title: createStoryTitle('Stretchable Button'),
@@ -16,8 +19,8 @@ const defaultArgs = {
     buttonText: 'Stretchable Button',
     minWidth: '200',
     isDraggable: true,
-    topMargin: "50px",
-    defaultHeight: "50px", // default value sets at only page load
+    topMargin: '50px',
+    defaultHeight: '50px', // default value sets at only page load
     defaultPositionX: 100,
 };
 

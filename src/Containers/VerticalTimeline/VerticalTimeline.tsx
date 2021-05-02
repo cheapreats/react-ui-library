@@ -203,11 +203,11 @@ const StepBox = styled.div<IStepBoxProps>`
         }
       
         ${
-    index === length
-        ? `
+            index === length
+                ? `
         96%{opacity:0;}
         `
-        : `
+                : `
         ${(index / length) * 100}% {
             opacity: 0;
         }
@@ -215,7 +215,7 @@ const StepBox = styled.div<IStepBoxProps>`
             opacity: 1;
         }
         `
-}
+        }
  
         100% {
             opacity: 1;
@@ -244,10 +244,10 @@ const StepBox = styled.div<IStepBoxProps>`
     height:${height}px;
     ${length === index ? `opacity:0;` : ''}
     ${
-    relative && verticalSpacing
-        ? `position:relative;top:${(verticalSpacing + 44) / 2 + 6}px;`
-        : ''
-}
+        relative && verticalSpacing
+            ? `position:relative;top:${(verticalSpacing + 44) / 2 + 6}px;`
+            : ''
+    }
     ${margin ? `margin:${margin};` : ''}
     ${end ? 'visibility:hidden;' : ''}
     ${center ? `${flex('center', 'center')}` : ''}
@@ -351,20 +351,20 @@ const Divider = styled.div<IDividerProps>`
         length,
     }): string => `
     ${
-    relative !== undefined && length !== undefined
-        ? `
+        relative !== undefined && length !== undefined
+            ? `
     @keyframes ${`dot${relative}`} {
         0%{opacity:0;}
         ${
-    relative !== length
-        ? `
+            relative !== length
+                ? `
         ${(relative * 100) / length}%{opacity: 0;}
         ${((relative + 1) * 100) / length}%{opacity:1;}
         `
-        : `
+                : `
         96%{opacity:0;}
         `
-}
+        }
         100%{opacity:1;}
       }
 
@@ -372,19 +372,19 @@ const Divider = styled.div<IDividerProps>`
     animation-duration:${2 * length}s;
     animation-iteration-count:1;
     `
-        : ''
-}
+            : ''
+    }
     ${color ? `color:${color};background-color:currentColor;` : 'color:black;'}
     border: 1px solid currentColor;
     ${
-    !end && !!heightPanels && relative !== undefined && length !== undefined
-        ? `
+        !end && !!heightPanels && relative !== undefined && length !== undefined
+            ? `
         @keyframes ${`flow${relative}`} {
             0%{height:0px;}
             ${(relative * 100) / length}%{height: 0px;}
             ${((relative + 1) * 100) / length}%{height:${
-    heightPanels + verticalSpacing - 2
-}px;}
+                  heightPanels + verticalSpacing - 2
+              }px;}
 100%{height:${heightPanels + verticalSpacing - 2}px;}
           }
     &::before {
@@ -401,7 +401,7 @@ const Divider = styled.div<IDividerProps>`
         left: 2px;
     }
     `
-        : ''
-}
+            : ''
+    }
     `}
 `;

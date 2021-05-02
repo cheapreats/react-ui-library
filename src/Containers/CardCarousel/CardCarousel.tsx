@@ -1,5 +1,5 @@
+import React from 'react';
 import styled, { createGlobalStyle } from 'styled-components';
-
 import {
     Calendar,
     CreditCard,
@@ -8,21 +8,27 @@ import {
     PersonFill,
     ArrowRepeat,
 } from '@styled-icons/bootstrap';
-import React from 'react';
 
-export const CardCarousel: React.FC = () => (
+export interface CardCarouselProps {
+    copyHeader: string;
+    copyBody: string;
+    cardTitle: string;
+    cardSubtitle: string;
+}
+
+export const CardCarousel: React.FC<CardCarouselProps> = ({
+    copyHeader,
+    copyBody,
+    cardTitle,
+    cardSubtitle,
+}) => (
     <>
         <Section>
             <Copy>
                 <header>
-                    <h1>Optimize the customer lifecycle</h1>
+                    <h1>{copyHeader}</h1>
                 </header>
-                <p>
-                    Use Stripe as a system of record for the customer lifecycle:
-                    manage important events such as automatically provisioning
-                    services for new subscribers or sending reminders for
-                    renewals.
-                </p>
+                <p>{copyBody}</p>
             </Copy>
             <Carousel>
                 <CarouselCard>
@@ -30,10 +36,8 @@ export const CardCarousel: React.FC = () => (
                         <CreditCardIcon size="35" />
                     </CardHead>
                     <CardBody>
-                        <p className="title">
-                            Stripe automatically updated a Visa ending in 4242
-                        </p>
-                        <p className="subtitle">7 days ago</p>
+                        <Title>{cardTitle}</Title>
+                        <Subtitle>{cardSubtitle}</Subtitle>
                     </CardBody>
                 </CarouselCard>
                 <CarouselCard>
@@ -41,10 +45,8 @@ export const CardCarousel: React.FC = () => (
                         <XIcon size="35" />
                     </CardHead>
                     <CardBody>
-                        <p className="title">
-                            Payment failed and an alert was sent
-                        </p>
-                        <p className="subtitle">7 hours ago</p>
+                        <Title>{cardTitle}</Title>
+                        <Subtitle>{cardSubtitle}</Subtitle>
                     </CardBody>
                 </CarouselCard>
                 <CarouselCard>
@@ -52,10 +54,8 @@ export const CardCarousel: React.FC = () => (
                         <CalendarIcon size="35" />
                     </CardHead>
                     <CardBody>
-                        <p className="title">
-                            Subscribed to Additional Storage
-                        </p>
-                        <p className="subtitle">10 days ago</p>
+                        <Title>{cardTitle}</Title>
+                        <Subtitle>{cardSubtitle}</Subtitle>
                     </CardBody>
                 </CarouselCard>
                 <CarouselCard>
@@ -63,8 +63,8 @@ export const CardCarousel: React.FC = () => (
                         <HourglassIcon size="35" />
                     </CardHead>
                     <CardBody>
-                        <p className="title">Trial ended for Bronze Plan</p>
-                        <p className="subtitle">10 days ago</p>
+                        <Title>{cardTitle}</Title>
+                        <Subtitle>{cardSubtitle}</Subtitle>
                     </CardBody>
                 </CarouselCard>
                 <CarouselCard>
@@ -72,8 +72,8 @@ export const CardCarousel: React.FC = () => (
                         <CalendarIcon size="35" />
                     </CardHead>
                     <CardBody>
-                        <p className="title">Subscribed to Bronze Plan</p>
-                        <p className="subtitle">15 days ago</p>
+                        <Title>{cardTitle}</Title>
+                        <Subtitle>{cardSubtitle}</Subtitle>
                     </CardBody>
                 </CarouselCard>
                 <CarouselCard>
@@ -81,10 +81,8 @@ export const CardCarousel: React.FC = () => (
                         <PersonIcon size="35" />
                     </CardHead>
                     <CardBody>
-                        <p className="title">
-                            Customer for Meghan Smith was created
-                        </p>
-                        <p className="subtitle">15 days ago</p>
+                        <Title>{cardTitle}</Title>
+                        <Subtitle>{cardSubtitle}</Subtitle>
                     </CardBody>
                 </CarouselCard>
                 <CarouselCard>
@@ -92,10 +90,8 @@ export const CardCarousel: React.FC = () => (
                         <CreditCardIcon size="35" />
                     </CardHead>
                     <CardBody>
-                        <p className="title">
-                            Updated payment method to Visa ending in 4028
-                        </p>
-                        <p className="subtitle">2 hours ago</p>
+                        <Title>{cardTitle}</Title>
+                        <Subtitle>{cardSubtitle}</Subtitle>
                     </CardBody>
                 </CarouselCard>
                 <CarouselCard>
@@ -103,10 +99,8 @@ export const CardCarousel: React.FC = () => (
                         <XIcon size="35" />
                     </CardHead>
                     <CardBody>
-                        <p className="title">
-                            Payment failed and an alert was sent
-                        </p>
-                        <p className="subtitle">7 hours ago</p>
+                        <Title>{cardTitle}</Title>
+                        <Subtitle>{cardSubtitle}</Subtitle>
                     </CardBody>
                 </CarouselCard>
                 <CarouselCard>
@@ -114,10 +108,8 @@ export const CardCarousel: React.FC = () => (
                         <ArrowIcon size="35" />
                     </CardHead>
                     <CardBody>
-                        <p className="title">
-                            Changed subscription from Bronze Plan to Gold Plan
-                        </p>
-                        <p className="subtitle">1 day ago</p>
+                        <Title>{cardTitle}</Title>
+                        <Subtitle>{cardSubtitle}</Subtitle>
                     </CardBody>
                 </CarouselCard>
             </Carousel>
@@ -128,7 +120,7 @@ export const CardCarousel: React.FC = () => (
 
 const GlobalStyle = createGlobalStyle`
   body {
-      background-color: #f0f3f8;
+      background-color: #f5f5f5;
   }
 `;
 
@@ -163,24 +155,24 @@ const Carousel = styled.div`
             visibility: hidden;
         }
         3%,
-        11.1111111111% {
+        11% {
             transform: translateY(100%) scale(0.7);
             opacity: 0.4;
             visibility: visible;
         }
-        14.1111111111%,
-        22.2222222222% {
+        14%,
+        22% {
             transform: translateY(0) scale(1);
             opacity: 1;
             visibility: visible;
         }
-        25.2222222222%,
-        33.3333333333% {
+        25%,
+        33% {
             transform: translateY(-100%) scale(0.7);
             opacity: 0.4;
             visibility: visible;
         }
-        36.3333333333% {
+        36% {
             transform: translateY(-100%) scale(0.5);
             opacity: 0;
             visibility: visible;
@@ -199,24 +191,24 @@ const Carousel = styled.div`
             visibility: hidden;
         }
         3%,
-        11.1111111111% {
+        11% {
             transform: translateY(-100%) scale(0.7);
             opacity: 0.4;
             visibility: visible;
         }
-        14.1111111111%,
-        22.2222222222% {
+        14%,
+        22% {
             transform: translateY(0) scale(1);
             opacity: 1;
             visibility: visible;
         }
-        25.2222222222%,
-        33.3333333333% {
+        25%,
+        33% {
             transform: translateY(100%) scale(0.7);
             opacity: 0.4;
             visibility: visible;
         }
-        36.3333333333% {
+        36% {
             transform: translateY(100%) scale(0.5);
             opacity: 0;
             visibility: visible;
@@ -292,7 +284,7 @@ const CarouselCard = styled.div`
 `;
 
 const CardHead = styled.div`
-    background-color: #17be54;
+    background-color: #ee272e;
     border-radius: 10% 0 0% 10%;
     width: 10%;
     height: 80%;
@@ -320,8 +312,15 @@ const CardBody = styled.div`
   padding: 0 10% 0 13%;
   box-shadow: 0 4px 2px -2px gray;
 
+  @media (max-width: 600px) {
+    width: 50%;
+    height: 100%;
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 5px 40px 0px 75px;
+`;
 
-  .title {
+const Title = styled.p`
     font-size: 16px;
     white-space: nowrap;
     margin-top: 3%;
@@ -330,26 +329,18 @@ const CardBody = styled.div`
     font-weight: 600;
 
     @media (max-width: 600px) {
-      font-size: 14px;
-          margin-top: 2%;
-  }
-  }
+        font-size: 14px;
+        margin-top: 2%;
+    }
+`;
 
-  .subtitle {
+const Subtitle = styled.p`
     background-color: #fff;
     font-size: 14px;
 
-        @media (max-width: 600px) {
-          font-size: 12px;
+    @media (max-width: 600px) {
+        font-size: 12px;
     }
-  }
-
-  @media (max-width: 600px) {
-    width: 50%;
-    height: 100%;
-    background-color: #fff;
-    border-radius: 8px;
-    padding: 5px 40px 0px 75px;
 `;
 
 const Copy = styled.div`
@@ -360,7 +351,7 @@ const Copy = styled.div`
     }
 
     h1 {
-      color: #17be54;
+      color: #000;
       font-size: 24px;
     }
 
