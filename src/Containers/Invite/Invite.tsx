@@ -7,7 +7,7 @@ import { flex, media } from '@Utils/Mixins';
 import { ChevronRight } from "@styled-icons/bootstrap/ChevronRight";
 import { ArrowRight } from "@styled-icons/bootstrap/ArrowRight";
 import { Paragraph, SmallText } from '../../index';
-import { Formik, useField, Field } from "formik";
+import { Formik, useField } from "formik";
 import * as Yup from "yup";
 
 export interface InviteProps { 
@@ -27,52 +27,32 @@ export interface InviteProps {
 
 interface InputFieldsProps {
     label: string;
+    subLabel?: string
     name: string;
     type: string;
     placeholder: string;
-}
-interface OtherInfoProps {
     as?: string;
 }
 
 /**
  * @param  
- * @returns label & placeholder
+ * @returns label, sublabel, input props & error message
  */
-const IFields = ({ label, ...rest }: InputFieldsProps) => { 
+ const IField = ({ label, subLabel, ...rest }: InputFieldsProps) => { 
     const [field, meta] = useField(rest);
     return (
     <>
-    {meta.touched && meta.error ? <SmallText color="primary">{meta.error}</SmallText> : null}
-    <FormGroup>
-        <Label>{label}</Label>
-        <IDiv>
-            <IInput {...field} {...rest} />
-        </IDiv>
-    </FormGroup>
+        {meta.touched && meta.error ? <SmallText color="primary">{meta.error}</SmallText> : null}
+        <FormGroup>
+            <Label>
+                {label}
+                <SubLabel>{subLabel}</SubLabel> 
+            </Label>
+            <IDiv>
+                <Input {...field} {...rest} />
+            </IDiv>
+        </FormGroup>
     </>
-    );
-};
-
-/**
- * @param
- * @returns label, sublabel & placeholder
- */
-const OtherInfo = ({ label, subLabel, ...rest }: OtherInfoProps extends InputFieldsProps) => { 
-    const [field, meta] = useField(rest);
-    return (
-        <>                 
-            {meta.touched && meta.error ? ( <SmallText color="primary">{meta.error}</SmallText> ) : null}                
-            <FormGroup>
-                <Label>
-                    {label}
-                    <SubLabel>{subLabel}</SubLabel> 
-                </Label> 
-                <IDiv>
-                    <IField {...field} {...rest} />
-                </IDiv>   
-            </FormGroup>
-        </>
     );
 };
 
@@ -86,26 +66,26 @@ export const Invite: React.FC<InviteProps> = ({
 }): React.ReactElement => {        
 
     /**
-     * return all input fields (label & placeholder)
+    * @returns label, sublabel, name, type & placeholder
      */
-    const getAllInputs = (): React.ReactElement[] => {
+     const getAllInputs = (): React.ReactElement[] => {
         return inviteArgs.map(
             (item): React.ReactElement => (
                 ( item.type !== "textarea") ?
-                <IFields 
+                <IField 
                     key={item.name}
                     label={item.label}
                     name={item.name}
                     type={item.type}
                     placeholder={item.placeholder}
                 /> :
-                <OtherInfo 
+                <IField 
                     key={item.name}
                     label={item.label}
+                    subLabel={item.subLabel}
                     name={item.name}
                     type={item.type}
-                    placeholder={item.placeholder} 
-                    subLabel={item.subLabel}
+                    placeholder={item.placeholder}
                     as="textarea" 
                 />
             )
@@ -134,7 +114,7 @@ export const Invite: React.FC<InviteProps> = ({
          * @param submitForm 
          */
         const onSubmit = (values:any, submitForm:any) => {
-            console.log('Form values', values);
+            alert(JSON.stringify(values, null, 2));
             submitForm.setSubmitting(false);
             submitForm.resetForm(false);
         } 
@@ -167,7 +147,7 @@ export const Invite: React.FC<InviteProps> = ({
     };
     
     return ( 
-        <Row>
+        <Wrapper>
             <Col>
                 <Heading color="primary" type="h5" bold>{title}</Heading>
                 <SHeading type="h1" bold>{heading}</SHeading>
@@ -179,11 +159,11 @@ export const Invite: React.FC<InviteProps> = ({
                     <SmallText>{footer}</SmallText>
                 </FormFooter>
             </Col>
-        </Row> 
+        </Wrapper> 
     );
 };
- 
-const Row = styled.div`
+
+const Wrapper = styled.div`
     margin-bottom: .6rem;
     ${flex('row')}
     ${media('phone', 'flex-direction: column;')}
@@ -246,23 +226,6 @@ const IArrowRight = styled(ArrowRight)`
         100% {width: 15px;}
     }
 `;
-const IInput = styled(Input)`
-    border-radius: 5px;
-`;
-const IField = styled(Field)`
-    min-height: 2.8rem;
-    width: 100%;
-    font-size: 0.85rem;
-    font-weight: bold;
-    box-sizing: border-box;
-    line-height: 1.4;
-    outline: none;
-    border: none;
-    resize: vertical;    
-    padding: 12px 20px;
-    border-radius: 5px;
-`;
-
 const IButton = styled(Button)`
     &:hover ${IChevronRight} {
         display: none;
