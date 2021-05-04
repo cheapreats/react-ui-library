@@ -113,4 +113,5 @@ FourTopTable.args = {
     relativeSize: 0.5,
     tableUse: 'TableForManagement',
     onTableClick: handleTableClick,
+    selectedIndex: -1,
 };

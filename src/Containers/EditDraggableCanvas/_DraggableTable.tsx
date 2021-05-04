@@ -42,6 +42,10 @@ export interface IDraggableTable {
         deltaX: number,
         deltaY: number,
     ) => void;
+    /**
+     * Index number for the currently selected table
+     */
+    selectedIndex?: number;
 }
 
 /**
@@ -74,12 +78,14 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
             },
         ],
         tableUse: 'TableForManagement',
+        selectedIndex: -1,
     },
     defaultXY = { x: 50, y: 24 },
     arrayIndex = 0,
     isDisabled = false,
     onTableClick,
     handleStop,
+    selectedIndex= -1,
     ...props
 }) => {
     const [deltaPosition, setDeltaPosition] = useState({
@@ -107,37 +113,39 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
      */
     const getTableComponent: getTableComponentType = () => {
         switch (tableInput.tableShape) {
-            case 'Square':
-                return (
-                    <SquareTable
-                        tableShape={tableInput.tableShape}
-                        tableID={tableInput.tableID}
-                        partyName={tableInput.partyName}
-                        isSquare={tableInput.isSquare}
-                        occupancyStatus={tableInput.occupancyStatus}
-                        relativeSize={tableInput.relativeSize}
-                        chairs={tableInput.chairs}
-                        tableUse={tableInput.tableUse}
-                        arrayIndex={arrayIndex}
-                        onTableClick={onTableClick}
-                    />
-                );
-            case 'Circle':
-                return (
-                    <CircleTable
-                        tableShape={tableInput.tableShape}
-                        tableID={tableInput.tableID}
-                        partyName={tableInput.partyName}
-                        occupancyStatus={tableInput.occupancyStatus}
-                        relativeSize={tableInput.relativeSize}
-                        chairs={tableInput.chairs}
-                        tableUse={tableInput.tableUse}
-                        arrayIndex={arrayIndex}
-                        onTableClick={onTableClick}
-                    />
-                );
-            default:
-                return null;
+        case 'Square':
+            return (
+                <SquareTable
+                    tableShape={tableInput.tableShape}
+                    tableID={tableInput.tableID}
+                    partyName={tableInput.partyName}
+                    isSquare={tableInput.isSquare}
+                    occupancyStatus={tableInput.occupancyStatus}
+                    relativeSize={tableInput.relativeSize}
+                    chairs={tableInput.chairs}
+                    tableUse={tableInput.tableUse}
+                    arrayIndex={arrayIndex}
+                    onTableClick={onTableClick}
+                    selectedIndex={selectedIndex}
+                />
+            );
+        case 'Circle':
+            return (
+                <CircleTable
+                    tableShape={tableInput.tableShape}
+                    tableID={tableInput.tableID}
+                    partyName={tableInput.partyName}
+                    occupancyStatus={tableInput.occupancyStatus}
+                    relativeSize={tableInput.relativeSize}
+                    chairs={tableInput.chairs}
+                    tableUse={tableInput.tableUse}
+                    arrayIndex={arrayIndex}
+                    onTableClick={onTableClick}
+                    selectedIndex={selectedIndex}
+                />
+            );
+        default:
+            return null;
         }
     };
 

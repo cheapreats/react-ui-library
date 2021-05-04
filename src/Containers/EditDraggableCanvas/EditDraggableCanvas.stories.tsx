@@ -90,6 +90,7 @@ EditCanvasExample.args = {
     canvasType: 'editCanvas',
     handleStop: handleOnStop,
     onTableClick: handleTableClick,
+    selectedIndex: 3,
     tables: [
         {
             tableInput: {

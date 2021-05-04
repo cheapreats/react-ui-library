@@ -48,6 +48,10 @@ export interface IEditDraggableCanvas {
         deltaX: number,
         deltaY: number,
     ) => void;
+    /**
+     * Index number for the currently selected table
+     */
+    selectedIndex?: number;
 }
 
 /**
@@ -61,6 +65,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     tables = [],
     onTableClick,
     handleStop,
+    selectedIndex= -1,
     ...props
 }) => {
     /**
@@ -86,6 +91,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                     isDisabled
                     onTableClick={onTableClick}
                     handleStop={handleStop}
+                    selectedIndex={selectedIndex}
                 />
             ));
         }
@@ -98,6 +104,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                 key={generateTableKey(item.defaultXY.x.toString() + index)}
                 onTableClick={onTableClick}
                 handleStop={handleStop}
+                selectedIndex={selectedIndex}
             />
         ));
     };
@@ -111,33 +118,33 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
      */
     const getCanvasFill: getCanvasFillType = () => {
         switch (canvasType) {
-            case 'newUserCanvas':
-                return (
-                    <TextStyles>
-                        <FontTop>Get Started!</FontTop>
-                        <FontBottom>
-                            Start creating your new layout by
-                        </FontBottom>
-                        <FontBottom>
-                            dragging and dropping your tables here
-                        </FontBottom>
-                    </TextStyles>
-                );
-            case 'editCanvas':
-                return (
-                    <StylesForDraggableDemo>
-                        <StylesForCanvas>{getTables()}</StylesForCanvas>
-                    </StylesForDraggableDemo>
-                );
-            case 'managementCanvas':
-                return (
-                    <StylesForDraggableDemo>
-                        <StylesForCanvas>{getTables()}</StylesForCanvas>
-                    </StylesForDraggableDemo>
-                );
+        case 'newUserCanvas':
+            return (
+                <TextStyles>
+                    <FontTop>Get Started!</FontTop>
+                    <FontBottom>
+                        Start creating your new layout by
+                    </FontBottom>
+                    <FontBottom>
+                        dragging and dropping your tables here
+                    </FontBottom>
+                </TextStyles>
+            );
+        case 'editCanvas':
+            return (
+                <StylesForDraggableDemo>
+                    <StylesForCanvas>{getTables()}</StylesForCanvas>
+                </StylesForDraggableDemo>
+            );
+        case 'managementCanvas':
+            return (
+                <StylesForDraggableDemo>
+                    <StylesForCanvas>{getTables()}</StylesForCanvas>
+                </StylesForDraggableDemo>
+            );
 
-            default:
-                return null;
+        default:
+            return null;
         }
     };
 

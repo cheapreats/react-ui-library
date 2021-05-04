@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Chair, IChair } from '@Containers/Chair/Chair';
 import { Plus } from '@styled-icons/boxicons-regular';
@@ -61,6 +61,10 @@ export interface ICircleTable {
      * Determines if the table is used in the toolbar or not
      */
     isInAddTableToolbar?: boolean;
+    /**
+     * Index number for the currently selected table
+     */
+    selectedIndex?: number;
 }
 
 /**
@@ -77,8 +81,25 @@ export const CircleTable: React.FC<ICircleTable> = ({
     arrayIndex = 0,
     onTableClick,
     isInAddTableToolbar = false,
+    selectedIndex= -1,
     ...props
 }) => {
+
+    // Create a reference to the TableBody styled component
+    const tableBodyRef = useRef(document.createElement("div"));
+
+    /**
+     * Use useEffect to keep focus on TableBody after re-render if the
+     * selectedIndex number matches the arrayIndex number for this table
+     */
+    useEffect(() => {
+        if (selectedIndex === arrayIndex) {
+            if (tableBodyRef != null) {
+                tableBodyRef.current.focus();
+            }
+        }
+    });
+    
     /**
      * Calls the onTableClick prop function with the arrayIndex prop as its
      * parameter
@@ -130,41 +151,42 @@ export const CircleTable: React.FC<ICircleTable> = ({
      */
     const getTableInfoContent: getTableInfoContentType = () => {
         switch (tableUse) {
-            case 'AddTableButton':
-                return (
-                    <TableInfo relativeSize={relativeSize}>
-                        <StyledPlus />
-                    </TableInfo>
-                );
-            case 'TableForManagement':
-                return (
-                    <TableInfo relativeSize={relativeSize}>
-                        <div>
-                            {tableID}
-                            <br />
-                            {partyName}
-                            <br />
-                            <Status occupancyStatus={occupancyStatus}>
-                                {occupancyStatus}
-                            </Status>
-                            <br />
-                        </div>
-                    </TableInfo>
-                );
-            case 'TableForEditCanvas':
-                return (
-                    <TableNumForEditScreen relativeSize={relativeSize}>
+        case 'AddTableButton':
+            return (
+                <TableInfo relativeSize={relativeSize}>
+                    <StyledPlus />
+                </TableInfo>
+            );
+        case 'TableForManagement':
+            return (
+                <TableInfo relativeSize={relativeSize}>
+                    <div>
                         {tableID}
-                    </TableNumForEditScreen>
-                );
-            default:
-                return <div />;
+                        <br />
+                        {partyName}
+                        <br />
+                        <Status occupancyStatus={occupancyStatus}>
+                            {occupancyStatus}
+                        </Status>
+                        <br />
+                    </div>
+                </TableInfo>
+            );
+        case 'TableForEditCanvas':
+            return (
+                <TableNumForEditScreen relativeSize={relativeSize}>
+                    {tableID}
+                </TableNumForEditScreen>
+            );
+        default:
+            return <div />;
         }
     };
 
     return (
         <div {...props}>
             <TableBody
+                ref={tableBodyRef}
                 relativeSize={relativeSize}
                 numOfChairs={chairs.length}
                 tangentValue={tangent}
@@ -207,14 +229,14 @@ const MIN_CHAIRS_BEFORE_SET_TANGENT_VALUE = 3;
  */
 const getPositionValue: getPositionValueType = (position) => {
     switch (position) {
-        case 'top':
-            return 0.75;
-        case 'bottom':
-            return 0.25;
-        case 'left':
-            return 0.5;
-        default:
-            return 1;
+    case 'top':
+        return 0.75;
+    case 'bottom':
+        return 0.25;
+    case 'left':
+        return 0.5;
+    default:
+        return 1;
     }
 };
 
@@ -242,14 +264,14 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, position) => {
  */
 const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
-        case 'Vacant':
-            return useTheme().colors.occupancyStatusColors.Vacant;
-        case 'Reserved':
-            return useTheme().colors.occupancyStatusColors.Reserved;
-        case 'Occupied':
-            return useTheme().colors.occupancyStatusColors.Occupied;
-        default:
-            return '';
+    case 'Vacant':
+        return useTheme().colors.occupancyStatusColors.Vacant;
+    case 'Reserved':
+        return useTheme().colors.occupancyStatusColors.Reserved;
+    case 'Occupied':
+        return useTheme().colors.occupancyStatusColors.Occupied;
+    default:
+        return '';
     }
 };
 
@@ -329,7 +351,7 @@ const ChairWrapper = styled.div<IChairWrapper>`
     --relativeSpaceBetweenChairs: 1; /* how much extra space we want between chairs, 1 = one chair size */
     --circleRadius: calc(
         ${({ numOfChairs }) =>
-                numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
+        numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
             (1 + var(--relativeSpaceBetweenChairs)) * var(--chairDiameter) /
             var(--tangent)
     ); /* circle radius */
@@ -341,7 +363,7 @@ const ChairWrapper = styled.div<IChairWrapper>`
     height: var(--chairDiameter);
     --perimeterPlacementValue: calc(
         ${({ counter, position, numOfChairs }) =>
-            getTurnValue(counter, numOfChairs, position)}
+        getTurnValue(counter, numOfChairs, position)}
     );
     transform: rotate(var(--perimeterPlacementValue))
         translate(var(--circleRadius))
