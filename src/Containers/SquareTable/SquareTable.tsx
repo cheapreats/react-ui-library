@@ -95,7 +95,7 @@ export interface ISquareTable {
     /**
      * Determines if the table is used in the toolbar or not
      */
-    isInAddTableToolbar?: boolean;
+    isNotHighlightedWhenSelected?: boolean;
 }
 
 /**
@@ -115,7 +115,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     squareTableType = 'square',
     onTableClick,
     onChairClick,
-    isInAddTableToolbar = false,
+    isNotHighlightedWhenSelected = false,
     ...props
 }) => {
     /**
@@ -299,7 +299,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         }
                         tableUse={tableUse}
                         onClick={callOnTableClick}
-                        toolbarUse={isInAddTableToolbar}
+                        toolbarUse={isNotHighlightedWhenSelected}
                     >
                         {getTableBodyContent(tableUse)}
                     </TableBody>
