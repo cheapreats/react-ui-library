@@ -52,6 +52,11 @@ export interface IEditDraggableCanvas {
      * Index number for the currently selected table
      */
     selectedIndex?: number;
+     /** Function to handle onClick event for the chair
+     * @param parentTableIndex - parent table index in the tables array
+     * @param chairIndex - chair index in chair array
+     */
+    onChairClick: (parentTableIndex: number, chairIndex: number) => void;
 }
 
 /**
@@ -66,6 +71,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
     onTableClick,
     handleStop,
     selectedIndex= -1,
+    onChairClick,
     ...props
 }) => {
     /**
@@ -92,6 +98,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                     onTableClick={onTableClick}
                     handleStop={handleStop}
                     selectedIndex={selectedIndex}
+                    onChairClick={onChairClick}
                 />
             ));
         }
@@ -105,6 +112,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                 onTableClick={onTableClick}
                 handleStop={handleStop}
                 selectedIndex={selectedIndex}
+                onChairClick={onChairClick}
             />
         ));
     };

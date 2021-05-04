@@ -46,6 +46,12 @@ export interface IDraggableTable {
      * Index number for the currently selected table
      */
     selectedIndex?: number;
+    /**
+     * Function to handle onClick event for the chair
+     * @param parentTableIndex - parent table index in the tables array
+     * @param chairIndex - chair index in chair array
+     */
+    onChairClick: (parentTableIndex: number, chairIndex: number) => void;
 }
 
 /**
@@ -67,6 +73,11 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                 isVisible: true,
                 relativeSize: 1,
                 tableUse: 'TableForManagement',
+                chairIndex: 0,
+                tableIndex: 0,
+                onChairClick: () => {
+                    console.log();
+                },
             },
             {
                 position: 'bottom',
@@ -75,6 +86,11 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                 isVisible: true,
                 relativeSize: 1,
                 tableUse: 'TableForManagement',
+                chairIndex: 0,
+                tableIndex: 0,
+                onChairClick: () => {
+                    console.log();
+                },
             },
         ],
         tableUse: 'TableForManagement',
@@ -86,6 +102,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     onTableClick,
     handleStop,
     selectedIndex= -1,
+    onChairClick,
     ...props
 }) => {
     const [deltaPosition, setDeltaPosition] = useState({
@@ -126,6 +143,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     tableUse={tableInput.tableUse}
                     arrayIndex={arrayIndex}
                     onTableClick={onTableClick}
+                    onChairClick={onChairClick}
                     selectedIndex={selectedIndex}
                 />
             );
@@ -141,6 +159,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     tableUse={tableInput.tableUse}
                     arrayIndex={arrayIndex}
                     onTableClick={onTableClick}
+                    onChairClick={onChairClick}
                     selectedIndex={selectedIndex}
                 />
             );

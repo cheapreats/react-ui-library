@@ -21,6 +21,14 @@ const handleTableClick = (selectedChildIndex: number) => {
 };
 
 /**
+ * Prints the Selected Child index to the console when Chair is clicked
+ * @param selectedChildIndex
+ */
+const handleOnChairClick = (tableIndex: number, chairIndex: number) => {
+    console.log(`Table: ${tableIndex} Chair: ${chairIndex}`);
+};
+
+/**
  * Will print out the index, x and y coordinates of Draggable Table
  * when the drag stops
  * @param selectedChildIndex
@@ -59,6 +67,9 @@ NewUserCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 0,
+                        tableIndex: 0,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'bottom',
@@ -67,15 +78,20 @@ NewUserCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 0,
+                        tableIndex: 0,
+                        onChairClick: handleOnChairClick,
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
+                onChairClick: handleOnChairClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
+            onChairClick: handleOnChairClick,
         },
     ],
 };
@@ -108,6 +124,9 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 0,
+                        tableIndex: 0,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'bottom',
@@ -116,15 +135,20 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 1,
+                        tableIndex: 0,
+                        onChairClick: handleOnChairClick,
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
+                onChairClick: handleOnChairClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
+            onChairClick: handleOnChairClick,
         },
         {
             tableInput: {
@@ -142,6 +166,9 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 0,
+                        tableIndex: 1,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'bottom',
@@ -150,6 +177,9 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 1,
+                        tableIndex: 1,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'left',
@@ -158,6 +188,9 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 2,
+                        tableIndex: 1,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'right',
@@ -166,15 +199,20 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 3,
+                        tableIndex: 1,
+                        onChairClick: handleOnChairClick,
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
+                onChairClick: handleOnChairClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 375, y: 37 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
+            onChairClick: handleOnChairClick,
         },
         {
             // table 4 beginning
@@ -193,6 +231,9 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 0,
+                        tableIndex: 2,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -202,6 +243,9 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 1,
+                        tableIndex: 2,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -211,6 +255,9 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 2,
+                        tableIndex: 2,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -220,6 +267,9 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 3,
+                        tableIndex: 2,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -229,6 +279,9 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 4,
+                        tableIndex: 2,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -238,15 +291,20 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 5,
+                        tableIndex: 2,
+                        onChairClick: handleOnChairClick,
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
+                onChairClick: handleOnChairClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 367, y: 154 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
+            onChairClick: handleOnChairClick,
         }, // table 4 end
         {
             // table 3 beginning
@@ -265,6 +323,9 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 0,
+                        tableIndex: 3,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'bottom',
@@ -273,6 +334,9 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 1,
+                        tableIndex: 3,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -281,6 +345,9 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 2,
+                        tableIndex: 3,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'bottom',
@@ -289,6 +356,9 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 4,
+                        tableIndex: 3,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'left',
@@ -297,6 +367,9 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 5,
+                        tableIndex: 3,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'right',
@@ -305,15 +378,20 @@ EditCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 5,
+                        tableIndex: 3,
+                        onChairClick: handleOnChairClick,
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
+                onChairClick: handleOnChairClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 210, y: 57 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
+            onChairClick: handleOnChairClick,
         }, // table 3 end
         {
             // table 2 beginning
@@ -332,6 +410,9 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 0,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -341,6 +422,9 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -350,6 +434,9 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 2,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -359,6 +446,9 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 3,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -368,6 +458,9 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 4,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -377,17 +470,23 @@ EditCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForEditCanvas',
+                        chairIndex: 5,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 onTableClick: handleTableClick,
+                onChairClick: handleOnChairClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 43, y: 177 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
+            onChairClick: handleOnChairClick,
         }, // table 2 end
     ],
+    onChairClick: handleOnChairClick,
 };
 
 /**
@@ -417,6 +516,9 @@ MgmtCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'bottom',
@@ -425,15 +527,20 @@ MgmtCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                 ],
                 tableUse: 'TableForManagement',
                 onTableClick: handleTableClick,
+                onChairClick: handleOnChairClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
+            onChairClick: handleOnChairClick,
         },
         {
             tableInput: {
@@ -451,6 +558,9 @@ MgmtCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'bottom',
@@ -459,6 +569,9 @@ MgmtCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'left',
@@ -467,6 +580,9 @@ MgmtCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'right',
@@ -475,15 +591,20 @@ MgmtCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                 ],
                 tableUse: 'TableForManagement',
                 onTableClick: handleTableClick,
+                onChairClick: handleOnChairClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 375, y: 37 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
+            onChairClick: handleOnChairClick,
         },
         {
             // table 4 beginning
@@ -502,6 +623,9 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -511,6 +635,9 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -520,6 +647,9 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -529,6 +659,9 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -538,6 +671,9 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -547,15 +683,20 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                 ],
                 tableUse: 'TableForManagement',
                 onTableClick: handleTableClick,
+                onChairClick: handleOnChairClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 367, y: 154 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
+            onChairClick: handleOnChairClick,
         }, // table 4 end
         {
             // table 3 beginning
@@ -574,6 +715,9 @@ MgmtCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -582,6 +726,9 @@ MgmtCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'left',
@@ -590,6 +737,9 @@ MgmtCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'right',
@@ -598,15 +748,20 @@ MgmtCanvasExample.args = {
                         isVisible: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                 ],
                 tableUse: 'TableForManagement',
                 onTableClick: handleTableClick,
+                onChairClick: handleOnChairClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 210, y: 57 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
+            onChairClick: handleOnChairClick,
         }, // table 3 end
         {
             // table 2 beginning
@@ -625,6 +780,9 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -634,6 +792,9 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -643,6 +804,9 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -652,6 +816,9 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -661,6 +828,9 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                     {
                         position: 'top',
@@ -670,15 +840,20 @@ MgmtCanvasExample.args = {
                         isRound: true,
                         relativeSize: 1,
                         tableUse: 'TableForManagement',
+                        chairIndex: 1,
+                        tableIndex: 4,
+                        onChairClick: handleOnChairClick,
                     },
                 ],
                 tableUse: 'TableForManagement',
                 onTableClick: handleTableClick,
+                onChairClick: handleOnChairClick,
             },
             handleStop: handleOnStop,
             defaultXY: { x: 43, y: 177 },
             arrayIndex: 0,
             onTableClick: handleTableClick,
+            onChairClick: handleOnChairClick,
         }, // table 2 end
     ],
 };
