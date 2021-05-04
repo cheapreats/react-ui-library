@@ -91,6 +91,11 @@ export interface ISquareTable {
      * @param chairIndex - chair index in chair array
      */
     onChairClick: (parentTableIndex: number, chairIndex: number) => void;
+
+    /**
+     * Determines if the table is used in the toolbar or not
+     */
+    isNotHighlightedWhenSelected?: boolean;
 }
 
 /**
@@ -110,6 +115,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     squareTableType = 'square',
     onTableClick,
     onChairClick,
+    isNotHighlightedWhenSelected = false,
     ...props
 }) => {
     /**
@@ -293,6 +299,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         }
                         tableUse={tableUse}
                         onClick={callOnTableClick}
+                        toolbarUse={isNotHighlightedWhenSelected}
                     >
                         {getTableBodyContent(tableUse)}
                     </TableBody>
@@ -349,6 +356,7 @@ interface ITableBody {
     relativeSize: number;
     tableUse: tableUseTypes;
     onClick: (e: Event) => void;
+    toolbarUse: boolean;
 }
 
 const TableBody = styled.button<ITableBody>`
@@ -372,7 +380,8 @@ const TableBody = styled.button<ITableBody>`
     outline: none;
     cursor: pointer;
     &:focus {
-        box-shadow: 0 0 0 2px ${({ theme }) => theme.colors.primary};
+        box-shadow: ${({ toolbarUse }) => (!toolbarUse ? '0 0 0 2px' : '')}
+            ${({ theme }) => theme.colors.primary};
     }
 `;
 

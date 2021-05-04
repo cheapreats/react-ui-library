@@ -167,7 +167,7 @@ export const Chair: React.FC<IChair> = ({
                 return <LeftRightEye />;
             default:
                 return <div />;
-            }
+        }
     };
 
     /**
@@ -425,7 +425,7 @@ const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
 
 const RectangleChair = styled(BaseChair)<
     Pick<IChair, 'position' | 'relativeSize'>
-    >`
+>`
     ${({ position }) =>
         ({
             top: HorizontalChairStyle,
@@ -437,7 +437,7 @@ const RectangleChair = styled(BaseChair)<
 
 const RectangleChairText = styled.div<
     Pick<IChair, 'position' | 'relativeSize'>
-    >`
+>`
     ${({ position }) =>
         ({
             top: textHorizontalChairStyle,
