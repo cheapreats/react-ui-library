@@ -142,10 +142,29 @@ export const SquareTable: React.FC<ISquareTable> = ({
     /**
      * Split chairs array into four arrays for each table side
      */
-    const topArray = chairs.filter((i) => i.position === 'top');
-    const rightArray = chairs.filter((i) => i.position === 'right');
-    const leftArray = chairs.filter((i) => i.position === 'left');
-    const bottomArray = chairs.filter((i) => i.position === 'bottom');
+    const topArray = Array<IChair>();
+    const rightArray = Array<IChair>();
+    const bottomArray = Array<IChair>();
+    const leftArray = Array<IChair>();
+
+    chairs.map((i, index) => {
+        if (i.position === 'top') {
+            i.chairIndex = index;
+            topArray.push(i);
+        }
+        else if (i.position === 'right') {
+            i.chairIndex = index;
+            rightArray.push(i);
+        }
+        else if (i.position === 'bottom') {
+            i.chairIndex = index;
+            bottomArray.push(i);
+        }
+        else {
+            i.chairIndex = index;
+            leftArray.push(i);
+        }
+    });
 
     /**
      * Calls the onTableClick prop function with the arrayIndex prop as its
