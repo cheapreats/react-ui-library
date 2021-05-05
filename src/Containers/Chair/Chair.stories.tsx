@@ -11,11 +11,20 @@ export default {
 const Template: Story<IChair> = (args) => <Chair {...args} />;
 
 /**
- * Prints the Selected Child index to the console when Chair is clicked
- * @param selectedChildIndex
+ * Prints the table index and the chair index to the console
+ * when Chair is clicked
+ * @param tableIndex
+ * @param chairIndex
  */
 const handleOnChairClick = (tableIndex: number, chairIndex: number) => {
     console.log(`Table: ${tableIndex} Chair: ${chairIndex}`);
+};
+
+/**
+ * Prints a message to the console
+ */
+const handleUpdateTable = () => {
+    console.log("Update table called");
 };
 
 /**
@@ -25,6 +34,8 @@ export const ChairFreeTop = Template.bind({});
 ChairFreeTop.args = {
     position: 'top',
     relativeSize: 0.5,
+    onChairClick: handleOnChairClick,
+    updateTable: handleUpdateTable,
 };
 
 /**
@@ -35,6 +46,8 @@ ChairOccupiedTop.args = {
     position: 'top',
     isSeated: true,
     occupiedBy: 'Dmytro',
+    onChairClick: handleOnChairClick,
+    updateTable: handleUpdateTable,
 };
 
 /**
@@ -45,6 +58,8 @@ ChairOccupiedBottom.args = {
     position: 'bottom',
     isSeated: true,
     occupiedBy: 'Scott',
+    onChairClick: handleOnChairClick,
+    updateTable: handleUpdateTable,
 };
 
 /**
@@ -53,6 +68,8 @@ ChairOccupiedBottom.args = {
 export const ChairFreeLeft = Template.bind({});
 ChairFreeLeft.args = {
     position: 'left',
+    onChairClick: handleOnChairClick,
+    updateTable: handleUpdateTable,
 };
 
 /**
@@ -63,6 +80,8 @@ ChairOccupiedLeft.args = {
     position: 'left',
     isSeated: true,
     occupiedBy: 'Dmytro',
+    onChairClick: handleOnChairClick,
+    updateTable: handleUpdateTable,
 };
 
 /**
@@ -73,6 +92,8 @@ ChairOccupiedRight.args = {
     position: 'right',
     isSeated: true,
     occupiedBy: 'Corey',
+    onChairClick: handleOnChairClick,
+    updateTable: handleUpdateTable,
 };
 
 /**
@@ -84,6 +105,8 @@ ChairOccupiedRound.args = {
     occupiedBy: 'Jack',
     isRound: true,
     relativeSize: 0.5,
+    onChairClick: handleOnChairClick,
+    updateTable: handleUpdateTable,
 };
 
 export const ChairEditDraggableCanvas = Template.bind({});
@@ -97,4 +120,5 @@ ChairEditDraggableCanvas.args = {
     chairIndex: 3,
     tableIndex: 4,
     onChairClick: handleOnChairClick,
+    updateTable: handleUpdateTable,
 };

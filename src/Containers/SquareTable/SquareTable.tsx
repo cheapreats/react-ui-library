@@ -2,7 +2,7 @@
  * Documentation – the order of chairs are in the chairs array will populate the table from top left to the bottom right
  * “the purpose of the order in the array is to populate the chairs from top left to bottom right”
  */
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Plus } from '@styled-icons/boxicons-regular';
 import { IChair } from '../Chair/Chair';
@@ -13,6 +13,8 @@ type Position = 'top' | 'bottom' | 'left' | 'right';
 type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
 type callOnTableClickType = () => void;
+
+type rerenderTableType = () => void;
 
 type getSquareTableSizeType = (
     top: number,
@@ -124,6 +126,17 @@ export const SquareTable: React.FC<ISquareTable> = ({
     ...props
 }) => {
 
+    // Create a variable to allow useState to force a re-render of the component
+    const [forceUpdate, setForceUpdate] = useState(false);
+
+    /**
+     * Re-renders the table (this function is passed to chairs so the
+     * table will re-render when chairs are selected so focus is
+     * maintained for the selected table)
+     */
+    const rerenderTable: rerenderTableType = () =>
+        setForceUpdate(!forceUpdate);
+
     // Create a reference to the TableBody styled component
     const tableBodyRef = useRef(document.createElement("button"));
 
@@ -230,6 +243,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 chairIndex: array.length,
                 tableIndex: arrayIndex,
                 onChairClick,
+                updateTable: rerenderTable
             });
         }
     };
@@ -297,6 +311,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 chairs={topArray}
                 relativeSize={relativeSize}
                 tableUse={tableUse}
+                updateTable={rerenderTable}
             />
 
             {/** table itself */}
@@ -308,6 +323,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="left"
                         chairs={leftArray}
                         tableUse={tableUse}
+                        updateTable={rerenderTable}
                     />
 
                     <TableBody
@@ -332,6 +348,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="right"
                         chairs={rightArray}
                         tableUse={tableUse}
+                        updateTable={rerenderTable}
                     />
                 </Row>
             </div>
@@ -342,6 +359,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 position="bottom"
                 chairs={bottomArray}
                 tableUse={tableUse}
+                updateTable={rerenderTable}
             />
         </div>
     );

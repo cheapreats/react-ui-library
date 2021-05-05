@@ -19,12 +19,20 @@ const handleTableClick = (selectedChildIndex: number) => {
 };
 
 /**
- * Prints the Selected Child index to the console when Chair is clicked
+ * Prints the table index and the chair index to the console
+ * when Chair is clicked
  * @param tableIndex
  * @param chairIndex
  */
 const handleOnChairClick = (tableIndex: number, chairIndex: number) => {
     console.log(`Table: ${tableIndex} Chair: ${chairIndex}`);
+};
+
+/**
+ * Prints a message to the console
+ */
+const handleUpdateTable = () => {
+    console.log("Update table called");
 };
 
 /**
@@ -48,6 +56,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -60,6 +69,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -72,6 +82,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -84,6 +95,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -96,6 +108,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -108,6 +121,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -120,6 +134,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -132,6 +147,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -144,6 +160,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
     ],
     relativeSize: 0.5,
@@ -172,6 +189,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 1,
             tableIndex: 2,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -184,6 +202,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 1,
             tableIndex: 2,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -196,6 +215,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 2,
             tableIndex: 2,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -208,6 +228,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 3,
             tableIndex: 2,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -220,6 +241,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 4,
             tableIndex: 2,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
         {
             position: 'top',
@@ -232,6 +254,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 5,
             tableIndex: 2,
             onChairClick: handleOnChairClick,
+            updateTable: handleUpdateTable,
         },
     ],
     tableUse: 'TableForEditCanvas',

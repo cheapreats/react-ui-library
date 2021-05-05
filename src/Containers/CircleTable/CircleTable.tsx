@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Chair, IChair } from '@Containers/Chair/Chair';
 import { Plus } from '@styled-icons/boxicons-regular';
@@ -6,6 +6,8 @@ import { Plus } from '@styled-icons/boxicons-regular';
 export type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
 type callOnTableClickType = () => void;
+
+type rerenderTableType = () => void;
 
 type getChairsType = () => JSX.Element[];
 
@@ -92,6 +94,17 @@ export const CircleTable: React.FC<ICircleTable> = ({
     ...props
 }) => {
 
+    // Create a variable to allow useState to force a re-render of the component
+    const [forceUpdate, setForceUpdate] = useState(false);
+
+    /**
+     * Re-renders the table (this function is passed to chairs so the
+     * table will re-render when chairs are selected so focus is
+     * maintained for the selected table)
+     */
+    const rerenderTable: rerenderTableType = () =>
+        setForceUpdate(!forceUpdate);
+
     // Create a reference to the TableBody styled component
     const tableBodyRef = useRef(document.createElement("div"));
 
@@ -138,6 +151,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                     tableIndex={arrayIndex}
                     chairIndex={index}
                     onChairClick={onChairClick}
+                    updateTable={rerenderTable}
                 />
             </ChairWrapper>
         ));
