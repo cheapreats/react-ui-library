@@ -70,7 +70,7 @@ export interface ICircleTable {
      * @param parentTableIndex - parent table index in the tables array
      * @param chairIndex - chair index in chair array
      */
-    onChairClick: (parentTableIndex: number, chairIndex: number) => void;
+    onChairClick: (parentTableIndex: number, chairIndex: number, selectedTableIndex: number) => void;
 }
 
 /**

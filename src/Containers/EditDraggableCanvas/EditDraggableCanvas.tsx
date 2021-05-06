@@ -51,12 +51,12 @@ export interface IEditDraggableCanvas {
     /**
      * Index number for the currently selected table
      */
-    selectedIndex?: number;
+    selectedIndex: number;
      /** Function to handle onClick event for the chair
      * @param parentTableIndex - parent table index in the tables array
      * @param chairIndex - chair index in chair array
      */
-    onChairClick: (parentTableIndex: number, chairIndex: number) => void;
+    onChairClick: (parentTableIndex: number, chairIndex: number, selectedTableIndex: number) => void;
 }
 
 /**

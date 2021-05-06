@@ -14,8 +14,8 @@ const Template: Story<IChair> = (args) => <Chair {...args} />;
  * Prints the Selected Child index to the console when Chair is clicked
  * @param selectedChildIndex
  */
-const handleOnChairClick = (tableIndex: number, chairIndex: number) => {
-    console.log(`Table: ${tableIndex} Chair: ${chairIndex}`);
+const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
+    console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
 };
 
 /**
@@ -96,5 +96,6 @@ ChairEditDraggableCanvas.args = {
     tableUse: 'TableForEditCanvas',
     chairIndex: 3,
     tableIndex: 4,
+    selectedIndex: 3,
     onChairClick: handleOnChairClick,
 };
