@@ -84,7 +84,7 @@ export interface ISquareTable {
     /**
      * Index number for the currently selected table
      */
-    selectedIndex?: number;
+    selectedIndex: number;
     /**
      * Function to handle onClick event for the table
      * @param selectedChildIndex - the array index for the table
@@ -248,6 +248,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 tableUse,
                 chairIndex: array.length,
                 tableIndex: arrayIndex,
+                selectedIndex,
                 onChairClick,
             });
         }
@@ -316,6 +317,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 chairs={topArray}
                 relativeSize={relativeSize}
                 tableUse={tableUse}
+                selectedIndex={selectedIndex}
             />
 
             {/** table itself */}
@@ -327,6 +329,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="left"
                         chairs={leftArray}
                         tableUse={tableUse}
+                        selectedIndex={selectedIndex}
                     />
 
                     <TableBody
@@ -351,6 +354,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="right"
                         chairs={rightArray}
                         tableUse={tableUse}
+                        selectedIndex={selectedIndex}
                     />
                 </Row>
             </div>
@@ -361,6 +365,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 position="bottom"
                 chairs={bottomArray}
                 tableUse={tableUse}
+                selectedIndex={selectedIndex}
             />
         </div>
     );

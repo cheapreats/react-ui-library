@@ -34,6 +34,10 @@ interface IChairRow {
      * The use type for the table component (how it will be used in the app)
      */
     tableUse: tableUseTypes;
+    /**
+     * Index number for the currently selected table
+     */
+    selectedIndex: number;
 }
 
 /**
@@ -44,6 +48,7 @@ export const ChairRow: React.FC<IChairRow> = ({
     chairs = [],
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
+    selectedIndex = -1,
     ...props
 }) => {
     /**
@@ -64,6 +69,7 @@ export const ChairRow: React.FC<IChairRow> = ({
                     chairIndex={i.chairIndex}
                     tableIndex={i.tableIndex}
                     onChairClick={i.onChairClick}
+                    selectedIndex={selectedIndex}
                 />
             </ChairCol>
         ));
@@ -90,6 +96,7 @@ export const ChairRow: React.FC<IChairRow> = ({
                         chairIndex={i.chairIndex}
                         tableIndex={i.tableIndex}
                         onChairClick={i.onChairClick}
+                        selectedIndex={selectedIndex}
                     />
                 </SideChairCentering>
             </SideChairRow>
@@ -110,34 +117,34 @@ export const ChairRow: React.FC<IChairRow> = ({
      */
     const chairRowSwitch: chairRowSwitchType = () => {
         switch (position) {
-            case 'top':
-                return (
-                    <div>
-                        <TopBottomRow
-                            relativeSize={relativeSize}
-                            chairNumOnSide={chairs.length}
-                        >
-                            {getChairsTopBottom(chairs)}
-                        </TopBottomRow>
-                    </div>
-                );
-            case 'bottom':
-                return (
-                    <div>
-                        <TopBottomRow
-                            relativeSize={relativeSize}
-                            chairNumOnSide={chairs.length}
-                        >
-                            {getChairsTopBottom(chairs)}
-                        </TopBottomRow>
-                    </div>
-                );
-            case 'left':
-                return <div>{getChairsLeftRight(chairs)}</div>;
-            case 'right':
-                return <div>{getChairsLeftRight(chairs)}</div>;
-            default:
-                return <div />;
+        case 'top':
+            return (
+                <div>
+                    <TopBottomRow
+                        relativeSize={relativeSize}
+                        chairNumOnSide={chairs.length}
+                    >
+                        {getChairsTopBottom(chairs)}
+                    </TopBottomRow>
+                </div>
+            );
+        case 'bottom':
+            return (
+                <div>
+                    <TopBottomRow
+                        relativeSize={relativeSize}
+                        chairNumOnSide={chairs.length}
+                    >
+                        {getChairsTopBottom(chairs)}
+                    </TopBottomRow>
+                </div>
+            );
+        case 'left':
+            return <div>{getChairsLeftRight(chairs)}</div>;
+        case 'right':
+            return <div>{getChairsLeftRight(chairs)}</div>;
+        default:
+            return <div />;
         }
     };
 

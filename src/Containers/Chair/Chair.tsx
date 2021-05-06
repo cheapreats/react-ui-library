@@ -57,11 +57,15 @@ export interface IChair {
      */
     chairIndex: number;
     /**
+     * Index number for the currently selected table
+     */
+    selectedIndex: number;
+    /**
      * Function to handle onClick event for the chair
      * @param parentTableIndex - parent table index in the tables array
      * @param chairIndex - chair index in chair array
      */
-    onChairClick: (parentTableIndex: number, chairIndex: number) => void;
+    onChairClick: (parentTableIndex: number, chairIndex: number, selectedIndex: number) => void;
 }
 
 /**
@@ -77,10 +81,10 @@ export const Chair: React.FC<IChair> = ({
     tableUse = 'TableForManagement',
     tableIndex = -1,
     chairIndex = -1,
+    selectedIndex = -1,
     onChairClick,
     ...props
 }) => {
-    // const [visibility, setVisibility] = useState(isVisible);
 
     /**
      * Returns a JSX.Element for the Chair with RoundChair styles
@@ -173,8 +177,7 @@ export const Chair: React.FC<IChair> = ({
      * Update the state and call onChairClick function
      */
     const onHandleClick: handleClickType = () => {
-        onChairClick(tableIndex, chairIndex);
-        // setVisibility(!visibility);
+        onChairClick(tableIndex, chairIndex, selectedIndex);
     };
 
     if (tableUse === 'TableForEditCanvas') {

@@ -64,7 +64,7 @@ export interface ICircleTable {
     /**
      * Index number for the currently selected table
      */
-    selectedIndex?: number;
+    selectedIndex: number;
     /**
      * Function to handle onClick event for the chair
      * @param parentTableIndex - parent table index in the tables array
@@ -137,6 +137,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                     tableUse={tableUse}
                     tableIndex={arrayIndex}
                     chairIndex={index}
+                    selectedIndex={selectedIndex}
                     onChairClick={onChairClick}
                 />
             </ChairWrapper>
