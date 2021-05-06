@@ -125,7 +125,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
 }) => {
 
     // Create a reference to the TableBody styled component
-    const tableBodyRef = useRef(document.createElement("button"));
+    const tableBodyRef = useRef(document.createElement("div"));
 
     /**
      * Use useEffect to keep focus on TableBody after re-render if the
@@ -342,6 +342,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                             isSquare ? squareTableSize : rectangleTopSize
                         }
                         tableUse={tableUse}
+                        tabIndex={0}
                         onClick={callOnTableClick}
                         toolbarUse={isNotHighlightedWhenSelected}
                     >
@@ -405,7 +406,7 @@ interface ITableBody {
     toolbarUse: boolean;
 }
 
-const TableBody = styled.button<ITableBody>`
+const TableBody = styled.div<ITableBody>`
     ${({ chairNumOnSide, chairNumOnTop, relativeSize }) => {
         const BASE_TABLE_BODY_WIDTH_AND_HEIGHT = 20;
         const BASE_BORDER_RADIUS = 3;

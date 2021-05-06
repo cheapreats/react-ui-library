@@ -60,7 +60,7 @@ export interface IDraggableTable {
  */
 export const DraggableTable: React.FC<IDraggableTable> = ({
     tableInput = {
-        tableShape: 'Circle',
+        tableShape: "",
         tableID: 'T1',
         partyName: '',
         occupancyStatus: 'Vacant',
