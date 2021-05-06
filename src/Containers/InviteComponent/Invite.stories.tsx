@@ -16,6 +16,7 @@ const args = {
     footer:
         'Because Stripe Treasury is in beta, it is available to a limited number of invited platforms and capabilities will continue to change.',
     buttonText: 'Submit',
+    argTypes: { onClick: { action: 'clicked' } },
     inviteArgs: [
         {
             name: 'firstName',
