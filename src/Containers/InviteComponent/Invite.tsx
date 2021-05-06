@@ -44,9 +44,7 @@ const FormRow = ({ label, subLabel, type, placeholder, ...rest }: InputFieldsPro
     const [field, meta] = useField(rest);
     return (
         <div {...rest} >
-            {meta.touched && meta.error ? (
-                <SmallText color="primary">{meta.error}</SmallText>
-            ) : null}
+            {meta.touched && meta.error && <SmallText color="primary">{meta.error}</SmallText>}
             <FormGroup>
                 <Label>
                     {label}
