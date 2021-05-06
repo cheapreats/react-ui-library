@@ -45,7 +45,7 @@ export interface IDraggableTable {
     /**
      * Index number for the currently selected table
      */
-    selectedIndex?: number;
+    selectedIndex: number;
     /**
      * Function to handle onClick event for the chair
      * @param parentTableIndex - parent table index in the tables array
@@ -75,6 +75,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                 tableUse: 'TableForManagement',
                 chairIndex: 0,
                 tableIndex: 0,
+                selectedIndex: 0,
                 onChairClick: () => {
                     console.log();
                 },
@@ -88,6 +89,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                 tableUse: 'TableForManagement',
                 chairIndex: 0,
                 tableIndex: 0,
+                selectedIndex: 0,
                 onChairClick: () => {
                     console.log();
                 },
