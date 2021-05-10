@@ -40,6 +40,10 @@ export interface IReservationList {
      * The size of the party
      */
     partySize: number;
+    /**
+     * The room the table should be located
+     */
+    location?: String;
 }
 
 export interface IWaitingRoomList {
@@ -63,6 +67,10 @@ export interface IWaitingRoomList {
      * How long they have been on the wait list
      */
     time: string;
+    /**
+     * The room the table should be located
+     */
+    location?: String;
 }
 
 /**
