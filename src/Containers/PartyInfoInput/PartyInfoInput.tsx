@@ -1,17 +1,32 @@
 import React from 'react';
 import styled from 'styled-components';
 import Card from '@Containers/Card/Card';
-import Button from '@Inputs/Button/Button';
-import Input from '@Inputs/Input/Input';
+import { Button, Input } from '@Inputs';
 import { FaRegTimesCircle } from 'react-icons/fa';
 
 export interface IPartyInfoInput {
+    /**
+     * Function to handle onClick event for the Next button
+     */
     onNextClick: () => void;
+    /**
+     * Function to handle onClick event for the - button
+     */
     onMinusClick: () => void;
+    /**
+     * Function to handle onClick event for the + button
+     */
     onPlusClick: () => void;
+    /**
+     * Function to handle onClick event for the x button
+     */
     onBackButtonClick: () => void;
 }
 
+/**
+ * Primary UI component for user interaction
+ * PartyInfoInput
+ */
 export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
     onNextClick,
     onMinusClick,
@@ -58,6 +73,10 @@ export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
         </AlignContentCenter>
     </WidthForCard>
 );
+
+/**
+ * Styled Components
+ */
 
 const StylesForFaRegTimesCircle = styled(FaRegTimesCircle)`
     float: right;
