@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Card from '@Containers/Card/Card';
 import { Button, Input } from '@Inputs';
-import { FaRegTimesCircle } from 'react-icons/fa';
+import { Close } from '@styled-icons/ionicons-sharp/Close';
 
 export interface IPartyInfoInput {
     /**
@@ -36,7 +36,7 @@ export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
 }) => (
     <WidthForCard>
         <AlignContentCenter>
-            <StylesForFaRegTimesCircle onClick={onBackButtonClick} />
+            <StylesForCloseIcon onClick={onBackButtonClick} />
             <WidthHeightForEachField>
                 <strong>Party Name</strong>
                 <Input placeholder="Name" />
@@ -78,8 +78,10 @@ export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
  * Styled Components
  */
 
-const StylesForFaRegTimesCircle = styled(FaRegTimesCircle)`
+const StylesForCloseIcon = styled(Close)`
     float: right;
+    width: 24px;
+    height: 24px;
 `;
 
 const WidthForCard = styled(Card)`

@@ -2,12 +2,11 @@ import React, { useState } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Card, IReservationList, IWaitingRoomList } from '@Containers';
 import { Select, Button } from '@Inputs';
-import {
-    FaUserFriends,
-    FaChair,
-    FaRegClock,
-    FaRegTimesCircle,
-} from 'react-icons/fa';
+import { Close } from '@styled-icons/ionicons-sharp/Close';
+import { PeopleOutline } from '@styled-icons/evaicons-outline/PeopleOutline';
+import { Cancel } from '@styled-icons/material/Cancel';
+import { ClockFill } from '@styled-icons/bootstrap/ClockFill';
+import { Chair } from '@styled-icons/material/Chair';
 
 type getReservationInformation = (
     array: Array<getSeatingInfoTypes>,
@@ -88,10 +87,8 @@ export const SeatingInfoInput: React.FC<ISeatingInfoInput> = ({
             <Container>
                 <DisplayFlex>
                     <PartySizeWidth>
-                        <AlignVertically>
-                            <FaUserFriends />
-                            {i.partySize}
-                        </AlignVertically>
+                        <PeopleOutlineStyles />
+                        <AlignVertically>{i.partySize}</AlignVertically>
                     </PartySizeWidth>
                     <TableIdAndRoomWidth>
                         <TableBorder occupancyStatus={i.occupancyStatus}>
@@ -177,7 +174,7 @@ export const SeatingInfoInput: React.FC<ISeatingInfoInput> = ({
         <WidthForCard>
             <DisplayFlex>
                 <strong>Back</strong>
-                <StylesForFaXIcon onClick={onBackButtonClick} />
+                <StylesForCloseIcon onClick={onBackButtonClick} />
             </DisplayFlex>
             <DisplayFlex>
                 <WidthForSelectFields>
@@ -211,13 +208,19 @@ export const SeatingInfoInput: React.FC<ISeatingInfoInput> = ({
             </ContainerForCustomerInfo>
             <DisplayFlex>
                 <StylesForThreeButtons onClick={onSeatCustomerClick} primary>
-                    <FaChair />
+                    <WidthForIcons>
+                        <Chair />
+                    </WidthForIcons>
                 </StylesForThreeButtons>
                 <StylesForThreeButtons onClick={onAddToWaitListClick} primary>
-                    <FaRegClock />
+                    <WidthForIcons>
+                        <ClockFill />
+                    </WidthForIcons>
                 </StylesForThreeButtons>
                 <StylesForThreeButtons onClick={onEndReservationClick} primary>
-                    <FaRegTimesCircle />
+                    <WidthForIcons>
+                        <Cancel />
+                    </WidthForIcons>
                 </StylesForThreeButtons>
             </DisplayFlex>
         </WidthForCard>
@@ -234,13 +237,25 @@ const WidthForCard = styled(Card)`
     height: 576px;
 `;
 
+const WidthForIcons = styled.div`
+    height: 24px;
+    width: 24px;
+`;
+
+const PeopleOutlineStyles = styled(PeopleOutline)`
+    width: 40px;
+    height: 30px;
+`;
+
 const DisplayFlex = styled.div`
     display: flex;
 `;
 
-const StylesForFaXIcon = styled(FaRegTimesCircle)`
+const StylesForCloseIcon = styled(Close)`
     margin-left: auto;
     margin-right: 0;
+    height: 24px;
+    width: 24px;
 `;
 
 const StylesForThreeButtons = styled(Button)`
