@@ -16,6 +16,7 @@ export * from './ColorPicker/ColorPicker';
 export * from './MaskedInput/MaskedInput';
 export * from './ComboBox/ComboBox';
 export * from './SearchBar/SearchBar';
+// eslint-disable-next-line import/no-cycle
 export * from './CustomSearch/CustomSearch';
 export * from './SettingsSwitch/SettingsSwitch';
 export * from './SegmentedButton/SegmentedButton';
