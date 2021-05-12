@@ -16,8 +16,8 @@ const handleDeleteClick = () => {
     console.log('Delete Button has been clicked');
 };
 
-const handleRotateClick = () => {
-    console.log('Rotate Button has been clicked');
+const handleTableNumberChange = (newTableNumber: string) => {
+    console.log(`New Table Input: ${newTableNumber}`);
 };
 
 const handleCloneClick = () => {
@@ -39,7 +39,7 @@ export const ControlPanelMain = Template.bind({});
 ControlPanelMain.args = {
     onDeleteClick: handleDeleteClick,
     onCloneClick: handleCloneClick,
-    onRotateClick: handleRotateClick,
     onAddChairClick: handleAddChairClick,
     onRemoveChairClick: handleRemoveChairClick,
+    onTableNumberChange: handleTableNumberChange,
 };
