@@ -40,28 +40,37 @@ interface InputFieldsProps {
  * @param
  * @returns label, sublabel, input props & error message
  */
-const FormRow = ({ label, subLabel, type, placeholder, ...rest }: InputFieldsProps) => {
+const FormRow = ({
+    label,
+    subLabel,
+    type,
+    placeholder,
+    ...rest
+}: InputFieldsProps) => {
     const [field, meta] = useField(rest);
     return (
-        <div {...rest} >
-            {meta.touched && meta.error && <SmallText color="primary">{meta.error}</SmallText>}
+        <div {...rest}>
+            {meta.touched && meta.error && (
+                <SmallText color="primary">{meta.error}</SmallText>
+            )}
             <FormGroup>
                 <Label>
                     {label}
                     <SubLabel>{subLabel}</SubLabel>
                 </Label>
                 <IDiv>
-                    {(type !== 'textarea' ?
+                    {type !== 'textarea' ? (
                         <Input
                             {...field}
                             type={type}
                             placeholder={placeholder}
-                        />:
+                        />
+                    ) : (
                         <Textarea
                             {...field}
-                            rows='3'
-                            placeholder={placeholder} 
-                        />                    
+                            rows="3"
+                            placeholder={placeholder}
+                        />
                     )}
                 </IDiv>
             </FormGroup>
@@ -80,27 +89,29 @@ export const Invite: React.FC<InviteProps> = ({
     /**
      * @returns label, sublabel, name, type & placeholder
      */
-    const getAllInputs = (): React.ReactElement[] => inviteArgs.map(
-        (item): React.ReactElement => <FormRow
-            key={item.name}
-            label={item.label}
-            subLabel={item.subLabel}
-            name={item.name}
-            type={item.type}
-            placeholder={item.placeholder}
-        />
-    );
+    const getAllInputs = (): React.ReactElement[] =>
+        inviteArgs.map(
+            (item): React.ReactElement => (
+                <FormRow
+                    key={item.name}
+                    label={item.label}
+                    subLabel={item.subLabel}
+                    name={item.name}
+                    type={item.type}
+                    placeholder={item.placeholder}
+                />
+            ),
+        );
 
     const InviteForm = () => {
-         
-        const initialValues = { 
-            firstName: "", 
-            lastName: "", 
-            email: "", 
-            website: "", 
-            otherInfo: ""
-        }        
-        
+        const initialValues = {
+            firstName: '',
+            lastName: '',
+            email: '',
+            website: '',
+            otherInfo: '',
+        };
+
         /**
          * required firstName, lastName & website
          * validate and required email address
@@ -126,7 +137,7 @@ export const Invite: React.FC<InviteProps> = ({
         };
 
         return (
-            <Formik 
+            <Formik
                 initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
@@ -139,7 +150,7 @@ export const Invite: React.FC<InviteProps> = ({
                             <IButton
                                 {...buttonText}
                                 type="submit"
-                                onClick={action('Button is clicked!')} 
+                                onClick={action('Button is clicked!')}
                             >
                                 {buttonText}
                                 <IChevronRight />
@@ -192,23 +203,23 @@ const Form = styled.form`
     border-radius: 5px;
     background-color: ${({ theme }) =>
         theme.colors.occupancyStatusColors.Occupied};
-    ${media('phone', 'margin-top: 1rem;')} 
+    ${media('phone', 'margin-top: 1rem;')}
     &:last-of-type > *:last-of-type {
         ${flex('flex-end')};
         ${media('phone', 'align-items: flex-start;')};
     }
-`; 
+`;
 const FormGroup = styled.div`
-    margin-bottom: 0.6rem;   
+    margin-bottom: 0.6rem;
     align-items: center;
     ${flex('row')};
     ${media('phone', 'flex-direction: column; display:block;')};
 `;
 const Label = styled.div`
-    flex: 0.75; 
+    flex: 0.75;
     font-weight: bold;
     color: ${({ theme }) => theme.colors.input.default};
-    ${media('phone', 'margin-bottom: .2rem;')}; 
+    ${media('phone', 'margin-bottom: .2rem;')};
 `;
 const SubLabel = styled.p`
     font-weight: 400;

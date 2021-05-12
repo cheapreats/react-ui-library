@@ -52,17 +52,17 @@ const Button = styled.button<ButtonProps>`
     ${({ theme, isLeftToggle, isToggleHiddenDesktop }): string => `
         box-shadow: ${theme.depth[1]};
         border-radius: ${
-    isLeftToggle ? '0 9999px 9999px 0' : '9999px 0 0 9999px'
-};
+            isLeftToggle ? '0 9999px 9999px 0' : '9999px 0 0 9999px'
+        };
     ${isToggleHiddenDesktop && 'display: none;'}
         ${Mixins.position(
-        'absolute',
-        0,
-        '20px',
-        isLeftToggle ? '-32px' : 'auto',
-        'auto',
-        isLeftToggle ? 'auto' : '-32px',
-    )}    
+            'absolute',
+            0,
+            '20px',
+            isLeftToggle ? '-32px' : 'auto',
+            'auto',
+            isLeftToggle ? 'auto' : '-32px',
+        )}    
     `}
     ${Mixins.media(
         `tablet`,

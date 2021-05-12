@@ -137,9 +137,9 @@ const CheckBox = styled.div<CheckboxProps>`
             }
 
             ${Main({
-        padding: `${dimensions.checkbox.spacing}px`,
-        ...props,
-    })}
+                padding: `${dimensions.checkbox.spacing}px`,
+                ...props,
+            })}
         `;
     }}
     ${({ checkboxStyle, ...props }): string =>
