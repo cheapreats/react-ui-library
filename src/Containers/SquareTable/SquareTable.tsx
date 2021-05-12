@@ -2,7 +2,7 @@
  * Documentation – the order of chairs are in the chairs array will populate the table from top left to the bottom right
  * “the purpose of the order in the array is to populate the chairs from top left to bottom right”
  */
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Plus } from '@styled-icons/boxicons-regular';
 import { IChair } from '../Chair/Chair';
@@ -74,12 +74,17 @@ export interface ISquareTable {
      */
     tableUse: tableUseTypes;
     /**
-     * Array index for the table
+     * Array index number for this table
      */
     arrayIndex?: number;
-
+    /**
+     * Whether the table is a square, vertical rectangle, or horizontal rectangle
+     */
     squareTableType?: getSquareTableTypes;
-
+    /**
+     * Index number for the currently selected table
+     */
+    selectedIndex: number;
     /**
      * Function to handle onClick event for the table
      * @param selectedChildIndex - the array index for the table
@@ -90,8 +95,7 @@ export interface ISquareTable {
      * @param parentTableIndex - parent table index in the tables array
      * @param chairIndex - chair index in chair array
      */
-    onChairClick: (parentTableIndex: number, chairIndex: number) => void;
-
+    onChairClick: (parentTableIndex: number, chairIndex: number, selectedTableIndex: number) => void;
     /**
      * Determines if the table is used in the toolbar or not
      */
@@ -113,18 +117,54 @@ export const SquareTable: React.FC<ISquareTable> = ({
     tableUse = 'TableForManagement',
     arrayIndex = 0,
     squareTableType = 'square',
+    selectedIndex = -1,
     onTableClick,
     onChairClick,
     isNotHighlightedWhenSelected = false,
     ...props
 }) => {
+
+    // Create a reference to the TableBody styled component
+    const tableBodyRef = useRef(document.createElement("div"));
+
+    /**
+     * Use useEffect to keep focus on TableBody after re-render if the
+     * selectedIndex number matches the arrayIndex number for this table
+     */
+    useEffect(() => {
+        if (selectedIndex === arrayIndex) {
+            if (tableBodyRef != null) {
+                tableBodyRef.current.focus();
+            }
+        }
+    });
+
     /**
      * Split chairs array into four arrays for each table side
      */
-    const topArray = chairs.filter((i) => i.position === 'top');
-    const rightArray = chairs.filter((i) => i.position === 'right');
-    const leftArray = chairs.filter((i) => i.position === 'left');
-    const bottomArray = chairs.filter((i) => i.position === 'bottom');
+    const topArray = Array<IChair>();
+    const rightArray = Array<IChair>();
+    const bottomArray = Array<IChair>();
+    const leftArray = Array<IChair>();
+
+    chairs.map((i, index) => {
+        if (i.position === 'top') {
+            i.chairIndex = index;
+            topArray.push(i);
+        }
+        else if (i.position === 'right') {
+            i.chairIndex = index;
+            rightArray.push(i);
+        }
+        else if (i.position === 'bottom') {
+            i.chairIndex = index;
+            bottomArray.push(i);
+        }
+        else {
+            i.chairIndex = index;
+            leftArray.push(i);
+        }
+    });
 
     /**
      * Calls the onTableClick prop function with the arrayIndex prop as its
@@ -208,6 +248,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 tableUse,
                 chairIndex: array.length,
                 tableIndex: arrayIndex,
+                selectedIndex,
                 onChairClick,
             });
         }
@@ -235,36 +276,36 @@ export const SquareTable: React.FC<ISquareTable> = ({
      */
     const getTableBodyContent: getTableBodyContentType = () => {
         switch (tableUse) {
-            case 'AddTableButton':
-                return <StyledPlus />;
-            case 'TableForManagement':
-                return (
-                    <Row relativeSize={relativeSize}>
-                        <TableInfo relativeSize={relativeSize}>
-                            <div>
-                                {`${tableID}\n${partyName}`}
-                                <Status occupancyStatus={occupancyStatus}>
-                                    {occupancyStatus}
-                                </Status>
-                            </div>
-                        </TableInfo>
-                        <ColorDiv
-                            relativeSize={relativeSize}
-                            chairNumOnSide={
-                                isSquare ? squareTableSize : rectangleSideSize
-                            }
-                            occupancyStatus={occupancyStatus}
-                        />
-                    </Row>
-                );
-            case 'TableForEditCanvas':
-                return (
-                    <TableNumForEditScreen relativeSize={relativeSize}>
-                        {tableID}
-                    </TableNumForEditScreen>
-                );
-            default:
-                return <div />;
+        case 'AddTableButton':
+            return <StyledPlus />;
+        case 'TableForManagement':
+            return (
+                <Row relativeSize={relativeSize}>
+                    <TableInfo relativeSize={relativeSize}>
+                        <div>
+                            {`${tableID}\n${partyName}`}
+                            <Status occupancyStatus={occupancyStatus}>
+                                {occupancyStatus}
+                            </Status>
+                        </div>
+                    </TableInfo>
+                    <ColorDiv
+                        relativeSize={relativeSize}
+                        chairNumOnSide={
+                            isSquare ? squareTableSize : rectangleSideSize
+                        }
+                        occupancyStatus={occupancyStatus}
+                    />
+                </Row>
+            );
+        case 'TableForEditCanvas':
+            return (
+                <TableNumForEditScreen relativeSize={relativeSize}>
+                    {tableID}
+                </TableNumForEditScreen>
+            );
+        default:
+            return <div />;
         }
     };
 
@@ -276,6 +317,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 chairs={topArray}
                 relativeSize={relativeSize}
                 tableUse={tableUse}
+                selectedIndex={selectedIndex}
             />
 
             {/** table itself */}
@@ -287,9 +329,11 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="left"
                         chairs={leftArray}
                         tableUse={tableUse}
+                        selectedIndex={selectedIndex}
                     />
 
                     <TableBody
+                        ref={tableBodyRef}
                         relativeSize={relativeSize}
                         chairNumOnSide={
                             isSquare ? squareTableSize : rectangleSideSize
@@ -298,6 +342,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                             isSquare ? squareTableSize : rectangleTopSize
                         }
                         tableUse={tableUse}
+                        tabIndex={0}
                         onClick={callOnTableClick}
                         toolbarUse={isNotHighlightedWhenSelected}
                     >
@@ -310,6 +355,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="right"
                         chairs={rightArray}
                         tableUse={tableUse}
+                        selectedIndex={selectedIndex}
                     />
                 </Row>
             </div>
@@ -320,6 +366,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 position="bottom"
                 chairs={bottomArray}
                 tableUse={tableUse}
+                selectedIndex={selectedIndex}
             />
         </div>
     );
@@ -335,14 +382,14 @@ type getOccupancyColorType = (occupancyStatus: occupancyStatusTypes) => string;
  */
 const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
-        case 'Vacant':
-            return useTheme().colors.occupancyStatusColors.Vacant;
-        case 'Reserved':
-            return useTheme().colors.occupancyStatusColors.Reserved;
-        case 'Occupied':
-            return useTheme().colors.occupancyStatusColors.Occupied;
-        default:
-            return '';
+    case 'Vacant':
+        return useTheme().colors.occupancyStatusColors.Vacant;
+    case 'Reserved':
+        return useTheme().colors.occupancyStatusColors.Reserved;
+    case 'Occupied':
+        return useTheme().colors.occupancyStatusColors.Occupied;
+    default:
+        return '';
     }
 };
 
@@ -359,7 +406,7 @@ interface ITableBody {
     toolbarUse: boolean;
 }
 
-const TableBody = styled.button<ITableBody>`
+const TableBody = styled.div<ITableBody>`
     ${({ chairNumOnSide, chairNumOnTop, relativeSize }) => {
         const BASE_TABLE_BODY_WIDTH_AND_HEIGHT = 20;
         const BASE_BORDER_RADIUS = 3;
@@ -367,8 +414,8 @@ const TableBody = styled.button<ITableBody>`
             chairNumOnSide * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
         }rem;
             width: ${
-                chairNumOnTop * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
-            }rem;
+    chairNumOnTop * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
+}rem;
             border-radius: ${BASE_BORDER_RADIUS * relativeSize}rem;`;
     }}
     background-color: ${({ theme, tableUse }) =>
@@ -403,11 +450,11 @@ const ColorDiv = styled.div<IColorDiv>`
             width: ${BASE_COLOR_DIV_WIDTH * relativeSize}rem;
             margin-right: ${BASE_COLOR_DIV_MARGIN_RIGHT * relativeSize}rem;
             border-top-right-radius: ${
-                BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
-            }rem;
+    BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+}rem;
             border-bottom-right-radius: ${
-                BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
-            }rem;`;
+    BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+}rem;`;
     }}
     margin-left: auto;
     background-color: ${({ occupancyStatus }) =>

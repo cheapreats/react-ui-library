@@ -26,8 +26,8 @@ const handleTableClick = (selectedChildIndex: number) => {
  * @param tableIndex
  * @param chairIndex
  */
-const handleOnChairClick = (tableIndex: number, chairIndex: number) => {
-    console.log(`Table: ${tableIndex} Chair: ${chairIndex}`);
+const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
+    console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
 };
 
 /**
@@ -67,6 +67,7 @@ FourTopTable.args = {
                 tableUse: 'TableForEditCanvas',
                 chairIndex: 0,
                 tableIndex: 2,
+                selectedIndex: 3,
                 onChairClick: handleOnChairClick,
             },
             {
@@ -79,6 +80,7 @@ FourTopTable.args = {
                 tableUse: 'TableForEditCanvas',
                 chairIndex: 1,
                 tableIndex: 2,
+                selectedIndex: 3,
                 onChairClick: handleOnChairClick,
             },
             {
@@ -91,6 +93,7 @@ FourTopTable.args = {
                 tableUse: 'TableForEditCanvas',
                 chairIndex: 2,
                 tableIndex: 2,
+                selectedIndex: 3,
                 onChairClick: handleOnChairClick,
             },
             {
@@ -103,6 +106,7 @@ FourTopTable.args = {
                 tableUse: 'TableForEditCanvas',
                 chairIndex: 3,
                 tableIndex: 2,
+                selectedIndex: 3,
                 onChairClick: handleOnChairClick,
             },
             {
@@ -115,6 +119,7 @@ FourTopTable.args = {
                 tableUse: 'TableForEditCanvas',
                 chairIndex: 4,
                 tableIndex: 2,
+                selectedIndex: 3,
                 onChairClick: handleOnChairClick,
             },
             {
@@ -127,16 +132,19 @@ FourTopTable.args = {
                 tableUse: 'TableForEditCanvas',
                 chairIndex: 5,
                 tableIndex: 2,
+                selectedIndex: 3,
                 onChairClick: handleOnChairClick,
             },
         ],
         tableUse: 'TableForEditCanvas',
+        selectedIndex: 3,
         onTableClick: handleTableClick,
         onChairClick: handleOnChairClick,
     },
     handleStop: handleOnStop,
     defaultXY: { x: 367, y: 154 },
     arrayIndex: 0,
+    selectedIndex: 3,
     onTableClick: handleTableClick,
     onChairClick: handleOnChairClick,
 };

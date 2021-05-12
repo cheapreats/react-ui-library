@@ -23,8 +23,8 @@ const handleTableClick = (selectedChildIndex: number) => {
  * @param tableIndex
  * @param chairIndex
  */
-const handleOnChairClick = (tableIndex: number, chairIndex: number) => {
-    console.log(`Table: ${tableIndex} Chair: ${chairIndex}`);
+const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
+    console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
 };
 
 /**
@@ -46,6 +46,7 @@ SevenTopSquareTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -57,6 +58,7 @@ SevenTopSquareTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -68,6 +70,7 @@ SevenTopSquareTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -79,6 +82,7 @@ SevenTopSquareTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -90,6 +94,7 @@ SevenTopSquareTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -101,6 +106,7 @@ SevenTopSquareTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -112,6 +118,7 @@ SevenTopSquareTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -123,6 +130,7 @@ SevenTopSquareTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
     ],
@@ -151,6 +159,7 @@ EightTopVertRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -162,6 +171,7 @@ EightTopVertRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -173,6 +183,7 @@ EightTopVertRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -184,6 +195,7 @@ EightTopVertRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -195,6 +207,7 @@ EightTopVertRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -206,6 +219,7 @@ EightTopVertRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -217,6 +231,7 @@ EightTopVertRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -228,6 +243,7 @@ EightTopVertRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
     ],
@@ -256,6 +272,7 @@ SixTopHorizontalRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -267,6 +284,7 @@ SixTopHorizontalRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -278,6 +296,7 @@ SixTopHorizontalRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -289,6 +308,7 @@ SixTopHorizontalRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -300,6 +320,7 @@ SixTopHorizontalRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -311,6 +332,7 @@ SixTopHorizontalRectangleTable.args = {
             tableUse: 'TableForManagement',
             chairIndex: 4,
             tableIndex: 2,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
     ],
@@ -339,6 +361,7 @@ SquareTableEditPage.args = {
             tableUse: 'TableForEditCanvas',
             chairIndex: 0,
             tableIndex: 3,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -350,6 +373,7 @@ SquareTableEditPage.args = {
             tableUse: 'TableForEditCanvas',
             chairIndex: 1,
             tableIndex: 3,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -361,6 +385,7 @@ SquareTableEditPage.args = {
             tableUse: 'TableForEditCanvas',
             chairIndex: 2,
             tableIndex: 3,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -372,6 +397,7 @@ SquareTableEditPage.args = {
             tableUse: 'TableForEditCanvas',
             chairIndex: 4,
             tableIndex: 3,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -383,6 +409,7 @@ SquareTableEditPage.args = {
             tableUse: 'TableForEditCanvas',
             chairIndex: 5,
             tableIndex: 3,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -394,6 +421,7 @@ SquareTableEditPage.args = {
             tableUse: 'TableForEditCanvas',
             chairIndex: 5,
             tableIndex: 3,
+            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
     ],

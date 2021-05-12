@@ -43,8 +43,8 @@ export const DraggableCanvas = (): ReactElement => {
         console.log(selectedChildIndex);
     };
 
-    const handleOnChairClick = (tableIndex: number, chairIndex: number) => {
-        console.log(`Table: ${tableIndex} Chair: ${chairIndex}`);
+    const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
+        console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
     };
 
     return (
@@ -83,6 +83,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -94,10 +95,12 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                 ]}
                                 tableUse="TableForManagement"
+                                selectedIndex={3}
                                 onTableClick={handleTableClick}
                                 onChairClick={handleOnChairClick}
                             />
@@ -126,6 +129,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -137,10 +141,12 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                 ]}
                                 tableUse="TableForManagement"
+                                selectedIndex={3}
                                 onTableClick={handleTableClick}
                                 onChairClick={handleOnChairClick}
                             />
@@ -168,6 +174,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -179,6 +186,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -190,6 +198,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -201,6 +210,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -212,6 +222,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -223,6 +234,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -234,6 +246,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -245,11 +258,13 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                 ]}
                                 relativeSize={0.4}
                                 tableUse="TableForManagement"
+                                selectedIndex={3}
                                 onTableClick={handleTableClick}
                                 onChairClick={handleOnChairClick}
                             />
@@ -278,6 +293,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -289,6 +305,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -300,6 +317,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -311,10 +329,12 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                 ]}
                                 tableUse="TableForManagement"
+                                selectedIndex={3}
                                 onTableClick={handleTableClick}
                                 onChairClick={handleOnChairClick}
                             />
@@ -343,6 +363,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -355,6 +376,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -367,6 +389,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -379,6 +402,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -391,6 +415,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                     {
@@ -403,10 +428,12 @@ export const DraggableCanvas = (): ReactElement => {
                                         tableUse: 'TableForManagement',
                                         chairIndex: 0,
                                         tableIndex: 0,
+                                        selectedIndex: 3,
                                         onChairClick: handleOnChairClick,
                                     },
                                 ]}
                                 tableUse="TableForManagement"
+                                selectedIndex={3}
                                 onTableClick={handleTableClick}
                                 onChairClick={handleOnChairClick}
                             />
