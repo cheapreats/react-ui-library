@@ -15,8 +15,13 @@ export interface IEditControlPanel {
     onRemoveChairClick: () => void;
     onAddChairClick: () => void;
     onDeleteClick: () => void;
-    onRotateClick: () => void;
     onCloneClick: () => void;
+
+    /**
+     * The function that will trigger when changing Table number
+     * and update the table number on table itself
+     */
+    onTableNumberChange: (newTableNumber: string) => void;
 }
 
 /**
@@ -27,17 +32,22 @@ export const EditControlPanel: React.FC<IEditControlPanel> = ({
     TableNumber = 'T1',
     NumberOfSeats = 1,
     onDeleteClick,
-    onRotateClick,
     onCloneClick,
     onRemoveChairClick,
     onAddChairClick,
+    onTableNumberChange,
     ...props
 }) => (
     <BorderForControlPanel {...props}>
         <Card>
             <CenteredText>
                 Table Number
-                <InputStyles placeholder={TableNumber} />
+                <InputStyles
+                    placeholder={TableNumber}
+                    onChange={(event) => {
+                        onTableNumberChange(event.target.value);
+                    }}
+                />
             </CenteredText>
             <CenteredText>
                 Number Of Seats
@@ -61,11 +71,6 @@ export const EditControlPanel: React.FC<IEditControlPanel> = ({
                     </Container>
                 </Border>
             </CenteredText>
-            <PaddingForButtons>
-                <ButtonStyles primary onClick={onRotateClick}>
-                    Rotate
-                </ButtonStyles>
-            </PaddingForButtons>
             <PaddingForButtons>
                 <ButtonStyles primary onClick={onCloneClick}>
                     Clone

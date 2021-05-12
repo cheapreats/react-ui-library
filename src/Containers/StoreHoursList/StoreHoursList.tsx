@@ -255,7 +255,7 @@ const Section = styled.div`
 const Footnote = styled(F)`
     padding: 0;
     box-shadow: none;
-    margin-bottom; 10px;
+    margin-bottom: 10px;
     margin-top: 10px;
     ${Mixins.flex('space-between')}
 `;
