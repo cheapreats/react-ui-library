@@ -51,5 +51,5 @@ const args = {
     ],
 };
 
-export const Basic: Story<InviteProps> = () => <Invite {...args} />;
+export const Basic: Story<InviteProps> = (args) => <Invite {...args} />;
 Basic.args = { ...args };

@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-// eslint-disable-next-line import/no-cycle
 import { Card as C } from '../../Containers';
 import { Button as B } from '../Button/Button';
 import { Select } from '../Select/Select';

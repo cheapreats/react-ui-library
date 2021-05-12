@@ -28,12 +28,10 @@ export interface InviteProps {
 
 interface InputFieldsProps {
     label: string;
-    // eslint-disable-next-line react/require-default-props
     subLabel?: string;
     name: string;
     type: string;
     placeholder: string;
-    // eslint-disable-next-line react/require-default-props
     as?: string;
 }
 

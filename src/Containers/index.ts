@@ -73,5 +73,4 @@ export * from './DeliveryRadius/DeliveryRadius';
 export * from './ItemsRedemptionPoints/ItemsRedemptionPoints';
 export * from './StretchableButton/StretchableButton';
 export * from './EditDraggableCanvas/_DraggableTable';
-// eslint-disable-next-line import/no-cycle
 export * from './Invite/Invite';
