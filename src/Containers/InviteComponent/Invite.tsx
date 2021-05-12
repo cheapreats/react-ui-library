@@ -1,14 +1,15 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Button from '@Inputs/Button/Button';
 import Input from '@Inputs/Input/Input';
+import Textarea from '@Inputs/Textarea/Textarea';
 import Heading from '@Text/Heading';
 import styled from 'styled-components';
+import { action } from '@storybook/addon-actions';
 import { flex, media } from '@Utils/Mixins';
 import { ChevronRight } from '@styled-icons/bootstrap/ChevronRight';
 import { ArrowRight } from '@styled-icons/bootstrap/ArrowRight';
 import { Formik, useField } from 'formik';
 import * as Yup from 'yup';
-// eslint-disable-next-line import/no-cycle
 import { Paragraph, SmallText } from '../../index';
 
 export interface InviteProps {
@@ -39,23 +40,32 @@ interface InputFieldsProps {
  * @param
  * @returns label, sublabel, input props & error message
  */
-const IField = ({ label, subLabel, ...rest }: InputFieldsProps) => {
+const FormRow = ({ label, subLabel, type, placeholder, ...rest }: InputFieldsProps) => {
     const [field, meta] = useField(rest);
     return (
-        <>
-            {meta.touched && meta.error ? (
-                <SmallText color="primary">{meta.error}</SmallText>
-            ) : null}
+        <div {...rest} >
+            {meta.touched && meta.error && <SmallText color="primary">{meta.error}</SmallText>}
             <FormGroup>
                 <Label>
                     {label}
                     <SubLabel>{subLabel}</SubLabel>
                 </Label>
                 <IDiv>
-                    <Input {...field} {...rest} />
+                    {(type !== 'textarea' ?
+                        <Input
+                            {...field}
+                            type={type}
+                            placeholder={placeholder}
+                        />:
+                        <Textarea
+                            {...field}
+                            rows='3'
+                            placeholder={placeholder} 
+                        />                    
+                    )}
                 </IDiv>
             </FormGroup>
-        </>
+        </div>
     );
 };
 
@@ -70,47 +80,27 @@ export const Invite: React.FC<InviteProps> = ({
     /**
      * @returns label, sublabel, name, type & placeholder
      */
-    const getAllInputs = (): React.ReactElement[] =>
-        inviteArgs.map(
-            (item): React.ReactElement =>
-                item.type !== 'textarea' ? (
-                    <IField
-                        key={item.name}
-                        label={item.label}
-                        name={item.name}
-                        type={item.type}
-                        placeholder={item.placeholder}
-                    />
-                ) : (
-                    <IField
-                        key={item.name}
-                        label={item.label}
-                        subLabel={item.subLabel}
-                        name={item.name}
-                        type={item.type}
-                        placeholder={item.placeholder}
-                        as="textarea"
-                    />
-                ),
-        );
+    const getAllInputs = (): React.ReactElement[] => inviteArgs.map(
+        (item): React.ReactElement => <FormRow
+            key={item.name}
+            label={item.label}
+            subLabel={item.subLabel}
+            name={item.name}
+            type={item.type}
+            placeholder={item.placeholder}
+        />
+    );
 
     const InviteForm = () => {
-        const [formValues, setFormValues] = useState(null);
-        const initialValues = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            website: '',
-            otherInfo: '',
-        };
-        const saveValues: any = {
-            firstName: '',
-            lastName: '',
-            email: '',
-            website: '',
-            otherInfo: '',
-        };
-
+         
+        const initialValues = { 
+            firstName: "", 
+            lastName: "", 
+            email: "", 
+            website: "", 
+            otherInfo: ""
+        }        
+        
         /**
          * required firstName, lastName & website
          * validate and required email address
@@ -136,8 +126,8 @@ export const Invite: React.FC<InviteProps> = ({
         };
 
         return (
-            <Formik
-                initialValues={formValues || initialValues}
+            <Formik 
+                initialValues={initialValues}
                 validationSchema={validationSchema}
                 onSubmit={onSubmit}
                 enableReinitialize
@@ -149,7 +139,7 @@ export const Invite: React.FC<InviteProps> = ({
                             <IButton
                                 {...buttonText}
                                 type="submit"
-                                onClick={() => setFormValues(saveValues)}
+                                onClick={action('Button is clicked!')} 
                             >
                                 {buttonText}
                                 <IChevronRight />
@@ -199,26 +189,26 @@ const FormFooter = styled.div`
 `;
 const Form = styled.form`
     padding: 1rem;
-    align-items: center;
     border-radius: 5px;
     background-color: ${({ theme }) =>
         theme.colors.occupancyStatusColors.Occupied};
-    ${media('phone', 'margin-top: 1rem;')}
-`;
-const FormGroup = styled.div`
-    margin-bottom: 0.6rem;
-    ${flex('row')};
-    &:last-child {
+    ${media('phone', 'margin-top: 1rem;')} 
+    &:last-of-type > *:last-of-type {
         ${flex('flex-end')};
         ${media('phone', 'align-items: flex-start;')};
     }
-    ${media('phone', 'flex-direction: column;')};
+`; 
+const FormGroup = styled.div`
+    margin-bottom: 0.6rem;   
+    align-items: center;
+    ${flex('row')};
+    ${media('phone', 'flex-direction: column; display:block;')};
 `;
 const Label = styled.div`
-    flex: 0.75;
+    flex: 0.75; 
     font-weight: bold;
     color: ${({ theme }) => theme.colors.input.default};
-    ${media('phone', 'margin-bottom: .2rem;')};
+    ${media('phone', 'margin-bottom: .2rem;')}; 
 `;
 const SubLabel = styled.p`
     font-weight: 400;
