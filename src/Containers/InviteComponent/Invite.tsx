@@ -1,16 +1,17 @@
-import React from 'react';
+import * as Yup from 'yup'; 
 import Button from '@Inputs/Button/Button';
-import Input from '@Inputs/Input/Input';
-import Textarea from '@Inputs/Textarea/Textarea';
 import Heading from '@Text/Heading';
+import Input from '@Inputs/Input/Input';
+import Paragraph from '@Text/Paragraph';
+import React from 'react';
+import SmallText from '@Text/SmallText';
+import Textarea from '@Inputs/Textarea/Textarea';  
 import styled from 'styled-components';
+import { ArrowRight } from '@styled-icons/bootstrap/ArrowRight';
+import { ChevronRight } from '@styled-icons/bootstrap/ChevronRight';
+import { Formik, useField } from 'formik';
 import { action } from '@storybook/addon-actions';
 import { flex, media } from '@Utils/Mixins';
-import { ChevronRight } from '@styled-icons/bootstrap/ChevronRight';
-import { ArrowRight } from '@styled-icons/bootstrap/ArrowRight';
-import { Formik, useField } from 'formik';
-import * as Yup from 'yup';
-import { Paragraph, SmallText } from '../../index';
 
 export interface InviteProps {
     title: string;
@@ -32,8 +33,7 @@ interface InputFieldsProps {
     subLabel?: string;
     name: string;
     type: string;
-    placeholder: string;
-    as?: string;
+    placeholder: string; 
 }
 
 /**
