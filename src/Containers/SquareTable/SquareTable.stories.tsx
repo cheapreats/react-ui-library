@@ -19,6 +19,15 @@ const handleTableClick = (selectedChildIndex: number) => {
 };
 
 /**
+ * Prints the Selected Child index to the console when Chair is clicked
+ * @param tableIndex
+ * @param chairIndex
+ */
+const handleOnChairClick = (tableIndex: number, chairIndex: number) => {
+    console.log(`Table: ${tableIndex} Chair: ${chairIndex}`);
+};
+
+/**
  *Creates a square table with 7 chairs
  */
 export const SevenTopSquareTable = Template.bind({});
@@ -35,6 +44,9 @@ SevenTopSquareTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'top',
@@ -43,6 +55,9 @@ SevenTopSquareTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'left',
@@ -51,6 +66,9 @@ SevenTopSquareTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'left',
@@ -59,6 +77,9 @@ SevenTopSquareTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'right',
@@ -67,6 +88,9 @@ SevenTopSquareTable.args = {
             isVisible: false,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'right',
@@ -75,6 +99,9 @@ SevenTopSquareTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'bottom',
@@ -83,6 +110,9 @@ SevenTopSquareTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'bottom',
@@ -91,11 +121,15 @@ SevenTopSquareTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
     ],
     isSquare: true,
     tableUse: 'TableForManagement',
     onTableClick: handleTableClick,
+    onChairClick: handleOnChairClick,
 };
 
 /**
@@ -115,6 +149,9 @@ EightTopVertRectangleTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'left',
@@ -123,6 +160,9 @@ EightTopVertRectangleTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'left',
@@ -131,6 +171,9 @@ EightTopVertRectangleTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'left',
@@ -139,6 +182,9 @@ EightTopVertRectangleTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'right',
@@ -147,6 +193,9 @@ EightTopVertRectangleTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'right',
@@ -155,6 +204,9 @@ EightTopVertRectangleTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'right',
@@ -163,6 +215,9 @@ EightTopVertRectangleTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'bottom',
@@ -171,11 +226,15 @@ EightTopVertRectangleTable.args = {
             isVisible: true,
             relativeSize: 1,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
     ],
     isSquare: false,
     tableUse: 'TableForManagement',
     onTableClick: handleTableClick,
+    onChairClick: handleOnChairClick,
 };
 
 /**
@@ -195,6 +254,9 @@ SixTopHorizontalRectangleTable.args = {
             isVisible: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'left',
@@ -203,6 +265,9 @@ SixTopHorizontalRectangleTable.args = {
             isVisible: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'top',
@@ -211,6 +276,9 @@ SixTopHorizontalRectangleTable.args = {
             isVisible: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'right',
@@ -219,6 +287,9 @@ SixTopHorizontalRectangleTable.args = {
             isVisible: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'bottom',
@@ -227,6 +298,9 @@ SixTopHorizontalRectangleTable.args = {
             isVisible: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
         {
             position: 'bottom',
@@ -235,10 +309,95 @@ SixTopHorizontalRectangleTable.args = {
             isVisible: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
+            chairIndex: 4,
+            tableIndex: 2,
+            onChairClick: handleOnChairClick,
         },
     ],
     isSquare: false,
     relativeSize: 0.5,
     tableUse: 'TableForManagement',
     onTableClick: handleTableClick,
+    onChairClick: handleOnChairClick,
+};
+
+export const SquareTableEditPage = Template.bind({});
+SquareTableEditPage.args = {
+    tableShape: 'Square',
+    tableID: 'T3',
+    partyName: 'Dmytro',
+    isSquare: false,
+    occupancyStatus: 'Reserved',
+    relativeSize: 0.25,
+    chairs: [
+        {
+            position: 'top',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            relativeSize: 1,
+            tableUse: 'TableForEditCanvas',
+            chairIndex: 0,
+            tableIndex: 3,
+            onChairClick: handleOnChairClick,
+        },
+        {
+            position: 'bottom',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            relativeSize: 1,
+            tableUse: 'TableForEditCanvas',
+            chairIndex: 1,
+            tableIndex: 3,
+            onChairClick: handleOnChairClick,
+        },
+        {
+            position: 'top',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            relativeSize: 1,
+            tableUse: 'TableForEditCanvas',
+            chairIndex: 2,
+            tableIndex: 3,
+            onChairClick: handleOnChairClick,
+        },
+        {
+            position: 'bottom',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            relativeSize: 1,
+            tableUse: 'TableForEditCanvas',
+            chairIndex: 4,
+            tableIndex: 3,
+            onChairClick: handleOnChairClick,
+        },
+        {
+            position: 'left',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            relativeSize: 1,
+            tableUse: 'TableForEditCanvas',
+            chairIndex: 5,
+            tableIndex: 3,
+            onChairClick: handleOnChairClick,
+        },
+        {
+            position: 'right',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            relativeSize: 1,
+            tableUse: 'TableForEditCanvas',
+            chairIndex: 5,
+            tableIndex: 3,
+            onChairClick: handleOnChairClick,
+        },
+    ],
+    tableUse: 'TableForEditCanvas',
+    onTableClick: handleTableClick,
+    onChairClick: handleOnChairClick,
 };

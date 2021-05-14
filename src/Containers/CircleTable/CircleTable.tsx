@@ -60,7 +60,13 @@ export interface ICircleTable {
     /**
      * Determines if the table is used in the toolbar or not
      */
-    isInAddTableToolbar?: boolean;
+    isNotHighlightedWhenSelected?: boolean;
+    /**
+     * Function to handle onClick event for the chair
+     * @param parentTableIndex - parent table index in the tables array
+     * @param chairIndex - chair index in chair array
+     */
+    onChairClick: (parentTableIndex: number, chairIndex: number) => void;
 }
 
 /**
@@ -76,7 +82,8 @@ export const CircleTable: React.FC<ICircleTable> = ({
     tableUse = 'TableForManagement',
     arrayIndex = 0,
     onTableClick,
-    isInAddTableToolbar = false,
+    isNotHighlightedWhenSelected = false,
+    onChairClick,
     ...props
 }) => {
     /**
@@ -107,6 +114,9 @@ export const CircleTable: React.FC<ICircleTable> = ({
                     isVisible={item.isVisible}
                     isRound={item.isRound}
                     tableUse={tableUse}
+                    tableIndex={arrayIndex}
+                    chairIndex={index}
+                    onChairClick={onChairClick}
                 />
             </ChairWrapper>
         ));
@@ -172,7 +182,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                 tableUse={tableUse}
                 tabIndex={0}
                 onClick={callOnTableClick}
-                toolbarUse={isInAddTableToolbar}
+                toolbarUse={isNotHighlightedWhenSelected}
             >
                 {getChairs()}
                 {getTableInfoContent(tableUse)}

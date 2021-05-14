@@ -118,5 +118,5 @@ const Item = styled.li<StyledCardProp>`
     flex-shrink: 0;
     align-items: center;
     box-shadow: ${({ theme }): string => theme.depth[1]};
-    ${({ animationCss }) => animationCss}}
+    ${({ animationCss }) => animationCss}
 `;

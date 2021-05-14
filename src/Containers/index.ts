@@ -72,3 +72,5 @@ export * from './HorizontalBarChart/HorizontalBarChart';
 export * from './DeliveryRadius/DeliveryRadius';
 export * from './ItemsRedemptionPoints/ItemsRedemptionPoints';
 export * from './StretchableButton/StretchableButton';
+export * from './EditDraggableCanvas/_DraggableTable';
+export * from './Invite/Invite';

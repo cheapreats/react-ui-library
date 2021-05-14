@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styled, { css, useTheme } from 'styled-components';
-import { Minus, Plus } from '@styled-icons/boxicons-regular';
+import { Eye, EyeSlash } from '@styled-icons/bootstrap';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
@@ -9,6 +9,8 @@ type getRoundChairType = () => JSX.Element;
 type getPositionChairType = () => JSX.Element;
 
 type getChairTextType = () => JSX.Element;
+
+type handleClickType = () => void;
 
 type tableUseTypes =
     | 'AddTableButton'
@@ -46,6 +48,20 @@ export interface IChair {
      * The use type for the table component (how it will be used in the app)
      */
     tableUse: tableUseTypes;
+    /**
+     * Passes in the parent table index
+     */
+    tableIndex: number;
+    /**
+     * Unique index for each chair
+     */
+    chairIndex: number;
+    /**
+     * Function to handle onClick event for the chair
+     * @param parentTableIndex - parent table index in the tables array
+     * @param chairIndex - chair index in chair array
+     */
+    onChairClick: (parentTableIndex: number, chairIndex: number) => void;
 }
 
 /**
@@ -59,6 +75,9 @@ export const Chair: React.FC<IChair> = ({
     isRound = false,
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
+    tableIndex = -1,
+    chairIndex = -1,
+    onChairClick,
     ...props
 }) => {
     const [visibility, setVisibility] = useState(isVisible);
@@ -131,19 +150,40 @@ export const Chair: React.FC<IChair> = ({
                 );
             case 'TableForEditCanvas':
                 if (visibility) {
-                    return <StyledMinus />;
+                    if (isRound) {
+                        return <RoundEyeSlash />;
+                    }
+                    if (position === 'top' || position === 'bottom') {
+                        return <TopBottomEyeSlash />;
+                    }
+                    return <LeftRightEyeSlash />;
                 }
-                return <StyledPlus />;
+                if (isRound) {
+                    return <RoundEye />;
+                }
+                if (position === 'top' || position === 'bottom') {
+                    return <TopBottomEye />;
+                }
+                return <LeftRightEye />;
             default:
                 return <div />;
         }
     };
 
+    /**
+     * This function will handle the chair click and will
+     * Update the state and call onChairClick function
+     */
+    const onHandleClick: handleClickType = () => {
+        onChairClick(tableIndex, chairIndex);
+        setVisibility(!visibility);
+    };
+
     if (tableUse === 'TableForEditCanvas') {
         return (
             <ChairWrapperForClick
-                onClick={() => setVisibility(!visibility)}
-                onKeyPress={() => setVisibility(!visibility)}
+                onClick={onHandleClick}
+                onKeyPress={onHandleClick}
                 role="button"
                 tabIndex={0}
             >
@@ -411,7 +451,7 @@ const RoundChairText = styled.div<Pick<IChair, 'relativeSize'>>`
     ${textRoundStyle};
 `;
 
-const StyledPlus = styled(Plus)`
+const LeftRightEye = styled(Eye)`
     color: black;
     width: 75%;
     height: 100%;
@@ -419,9 +459,41 @@ const StyledPlus = styled(Plus)`
     display: block;
 `;
 
-const StyledMinus = styled(Minus)`
-    color: white;
+const TopBottomEye = styled(Eye)`
+    color: black;
+    width: 25%;
+    height: 100%;
+    margin: auto;
+    display: block;
+`;
+
+const RoundEye = styled(Eye)`
+    color: black;
+    width: 40%;
+    height: 100%;
+    margin: auto;
+    display: block;
+`;
+
+const LeftRightEyeSlash = styled(EyeSlash)`
     width: 75%;
+    color: white;
+    height: 100%;
+    margin: auto;
+    display: block;
+`;
+
+const TopBottomEyeSlash = styled(EyeSlash)`
+    width: 25%;
+    color: white;
+    height: 100%;
+    margin: auto;
+    display: block;
+`;
+
+const RoundEyeSlash = styled(EyeSlash)`
+    width: 40%;
+    color: white;
     height: 100%;
     margin: auto;
     display: block;
