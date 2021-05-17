@@ -162,14 +162,14 @@ const placeStyles = (
     sourcePosition: any,
 ) => {
     switch (placement) {
-        case true:
-            return `
+    case true:
+        return `
             left: ${
-                targetPosition.right - sourcePosition.width + window.pageXOffset
-            }px;
+    targetPosition.right - sourcePosition.width + window.pageXOffset
+}px;
             `;
-        default:
-            return `
+    default:
+        return `
             left: ${targetPosition.left + window.pageXOffset}px;
             `;
     }
