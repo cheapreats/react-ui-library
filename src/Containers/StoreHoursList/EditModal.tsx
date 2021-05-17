@@ -82,6 +82,7 @@ export const EditModal: React.FC<EditTimeProps> = ({
             <StyledHeading type="h3">{FIRST_MODAL_HEADER}</StyledHeading>
             <ButtonsContainer>
                 <Section
+                    data-cy='editStoreAddHoursButton'
                     as={Button}
                     icon={Add}
                     onClick={(): void => {
