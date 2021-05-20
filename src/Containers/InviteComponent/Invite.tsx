@@ -19,13 +19,7 @@ export interface InviteProps {
     description: string;
     footer: string;
     buttonText: string;
-    inviteArgs: {
-        name: string;
-        label: string;
-        placeholder: string;
-        type: string;
-        subLabel?: string;
-    }[];
+    inviteArgs: InputFieldsProps[];
 }
 
 interface InputFieldsProps {
@@ -40,16 +34,17 @@ interface InputFieldsProps {
  * @param
  * @returns label, sublabel, input props & error message
  */
-const FormRow = ({
+const FormRow: React.FC<InputFieldsProps> = ({
     label,
-    subLabel,
+    subLabel = '',
     type,
     placeholder,
-    ...rest
-}: InputFieldsProps) => {
-    const [field, meta] = useField(rest);
+    name,
+    ...props
+}) => {
+    const [field, meta] = useField(name);
     return (
-        <div {...rest}>
+        <div {...props}>
             {meta.touched && meta.error && (
                 <SmallText color="primary">{meta.error}</SmallText>
             )}
