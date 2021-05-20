@@ -8,7 +8,7 @@ export default {
     component: Invite,
 } as Meta;
 
-const args = {
+const defaultArgs = {
     title: 'Invite only',
     heading: 'Request an invitation to Stripe Treasury',
     description:
@@ -53,4 +53,4 @@ const args = {
 };
 
 export const Basic: Story<InviteProps> = (args) => <Invite {...args} />;
-Basic.args = { ...args };
+Basic.args = { ...defaultArgs };
