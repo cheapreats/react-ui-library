@@ -74,4 +74,3 @@ export * from './ItemsRedemptionPoints/ItemsRedemptionPoints';
 export * from './StretchableButton/StretchableButton';
 export * from './EditDraggableCanvas/_DraggableTable';
 export * from './InviteComponent/Invite';
-export { DraggableTableTypeEnum } from '@Containers/EditDraggableCanvas/DraggableTableTypeEnum';

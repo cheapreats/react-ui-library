@@ -8,7 +8,6 @@
 import React, { ReactElement, useState } from 'react';
 import Draggable from 'react-draggable';
 import styled from 'styled-components';
-import { DraggableTableTypeEnum } from '@Containers/EditDraggableCanvas/DraggableTableTypeEnum';
 import { CircleTable } from '../CircleTable/CircleTable';
 import { CapacityDisplay } from '../CapacityDisplay/CapacityDisplay';
 import { SquareTable } from '../SquareTable/SquareTable';
@@ -68,7 +67,7 @@ export const DraggableCanvas = (): ReactElement => {
                     >
                         <RectangleTwoTopWidth>
                             <SquareTable
-                                tableShape={DraggableTableTypeEnum.SQUARE}
+                                tableShape="Square"
                                 tableID="T1"
                                 partyName=""
                                 isSquare
@@ -114,7 +113,7 @@ export const DraggableCanvas = (): ReactElement => {
                     >
                         <RectangleTwoTopWidth>
                             <SquareTable
-                                tableShape={DraggableTableTypeEnum.SQUARE}
+                                tableShape="Square"
                                 tableID="T4"
                                 partyName="Tina"
                                 isSquare
@@ -160,7 +159,7 @@ export const DraggableCanvas = (): ReactElement => {
                     >
                         <SquareEightTopWidth>
                             <SquareTable
-                                tableShape={DraggableTableTypeEnum.SQUARE}
+                                tableShape="Square"
                                 tableID="T5"
                                 partyName="Scott"
                                 isSquare={false}
@@ -278,7 +277,7 @@ export const DraggableCanvas = (): ReactElement => {
                     >
                         <RectangleFourTopWidth>
                             <SquareTable
-                                tableShape={DraggableTableTypeEnum.SQUARE}
+                                tableShape="Square"
                                 tableID="T3"
                                 partyName="Dmytro"
                                 isSquare={false}
@@ -348,7 +347,7 @@ export const DraggableCanvas = (): ReactElement => {
                     >
                         <CircleTableWidth>
                             <CircleTable
-                                tableShape={DraggableTableTypeEnum.CIRCLE}
+                                tableShape="Circle"
                                 tableID="T2"
                                 partyName="Corey"
                                 occupancyStatus="Occupied"

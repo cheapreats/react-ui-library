@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DraggableTableTypeEnum, EditDraggableCanvas, IEditDraggableCanvas } from '@Containers';
+import { EditDraggableCanvas, IEditDraggableCanvas } from '@Containers';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -55,7 +55,7 @@ NewUserCanvasExample.args = {
     tables: [
         {
             tableInput: {
-                tableShape: DraggableTableTypeEnum.SQUARE,
+                tableShape: "Square",
                 tableID: 'T1',
                 partyName: '',
                 isSquare: true,
@@ -116,7 +116,7 @@ EditCanvasExample.args = {
     tables: [
         {
             tableInput: {
-                tableShape: DraggableTableTypeEnum.SQUARE,
+                tableShape: "Square",
                 tableID: 'T1',
                 partyName: '',
                 isSquare: true,
@@ -162,7 +162,7 @@ EditCanvasExample.args = {
         },
         {
             tableInput: {
-                tableShape: DraggableTableTypeEnum.SQUARE,
+                tableShape: "Square",
                 tableID: 'T5',
                 partyName: 'Tina',
                 isSquare: true,
@@ -233,7 +233,7 @@ EditCanvasExample.args = {
         {
             // table 4 beginning
             tableInput: {
-                tableShape: DraggableTableTypeEnum.CIRCLE,
+                tableShape: "Circle",
                 tableID: 'T4',
                 partyName: 'Scott',
                 occupancyStatus: 'Occupied',
@@ -333,7 +333,7 @@ EditCanvasExample.args = {
         {
             // table 3 beginning
             tableInput: {
-                tableShape: DraggableTableTypeEnum.SQUARE,
+                tableShape: "Square",
                 tableID: 'T3',
                 partyName: 'Dmytro',
                 isSquare: false,
@@ -428,7 +428,7 @@ EditCanvasExample.args = {
         {
             // table 2 beginning
             tableInput: {
-                tableShape: DraggableTableTypeEnum.CIRCLE,
+                tableShape: "Circle",
                 tableID: 'T2',
                 partyName: 'Corey',
                 occupancyStatus: 'Occupied',
@@ -542,7 +542,7 @@ MgmtCanvasExample.args = {
     tables: [
         {
             tableInput: {
-                tableShape: DraggableTableTypeEnum.SQUARE,
+                tableShape: "Square",
                 tableID: 'T1',
                 partyName: '',
                 isSquare: true,
@@ -588,7 +588,7 @@ MgmtCanvasExample.args = {
         },
         {
             tableInput: {
-                tableShape: DraggableTableTypeEnum.SQUARE,
+                tableShape: "Square",
                 tableID: 'T5',
                 partyName: 'Tina',
                 isSquare: true,
@@ -659,7 +659,7 @@ MgmtCanvasExample.args = {
         {
             // table 4 beginning
             tableInput: {
-                tableShape: DraggableTableTypeEnum.CIRCLE,
+                tableShape: "Circle",
                 tableID: 'T4',
                 partyName: 'Scott',
                 occupancyStatus: 'Occupied',
@@ -759,7 +759,7 @@ MgmtCanvasExample.args = {
         {
             // table 3 beginning
             tableInput: {
-                tableShape: DraggableTableTypeEnum.SQUARE,
+                tableShape: "Square",
                 tableID: 'T3',
                 partyName: 'Dmytro',
                 isSquare: false,
@@ -830,7 +830,7 @@ MgmtCanvasExample.args = {
         {
             // table 2 beginning
             tableInput: {
-                tableShape: DraggableTableTypeEnum.CIRCLE,
+                tableShape: "Circle",
                 tableID: 'T2',
                 partyName: 'Corey',
                 occupancyStatus: 'Occupied',

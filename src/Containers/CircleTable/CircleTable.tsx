@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Chair, IChair } from '@Containers/Chair/Chair';
 import { Plus } from '@styled-icons/boxicons-regular';
-import { DraggableTableTypeEnum } from '@Containers/EditDraggableCanvas/DraggableTableTypeEnum';
 
 export type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
@@ -21,9 +20,9 @@ type generateChairKeyType = (pre: string) => string;
 
 export interface ICircleTable {
     /**
-     * The shape for the ICircleTable ("CIRCLE")
+     * The shape for the ICircleTable ("Circle")
      */
-    tableShape: DraggableTableTypeEnum.CIRCLE;
+    tableShape: "Circle";
     /**
     /**
      * The unique identifier for the table
@@ -78,7 +77,7 @@ export interface ICircleTable {
  * Primary UI component for user interaction
  */
 export const CircleTable: React.FC<ICircleTable> = ({
-    tableShape = DraggableTableTypeEnum.CIRCLE,
+    tableShape = "Circle",
     tableID = 'T1',
     chairs = [],
     partyName = 'Null',

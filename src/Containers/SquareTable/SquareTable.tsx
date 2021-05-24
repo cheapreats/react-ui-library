@@ -4,12 +4,13 @@
  */
 import React, { useEffect, useRef } from 'react';
 import styled, { useTheme } from 'styled-components';
-import { Plus } from '@styled-icons/boxicons-regular';
-import { DraggableTableTypeEnum } from '@Containers/EditDraggableCanvas/DraggableTableTypeEnum';
+import { Plus } from '@styled-icons/boxicons-regular'
 import { IChair } from '../Chair/Chair';
 import { ChairRow } from './_ChairRow';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
+
+type squareTableTypes = 'Square' | 'HorizontalRectangle' | 'VerticalRectangle'
 
 type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
@@ -41,11 +42,9 @@ type tableUseTypes =
 
 export interface ISquareTable {
     /**
-     * The shape for the ISquareTable ("SQUARE", "HORIZONTAL_RECTANGLE", "VERTICAL_RECTANGLE")
+     * The shape for the ISquareTable ("Square", "HorizontalRectangle", "VerticalRectangle")
      */
-    tableShape: DraggableTableTypeEnum.SQUARE |
-                DraggableTableTypeEnum.HORIZONTAL_RECTANGLE |
-                DraggableTableTypeEnum.VERTICAL_RECTANGLE;
+    tableShape: squareTableTypes;
     /**
      * The unique identifier for the table
      */
@@ -104,7 +103,7 @@ export interface ISquareTable {
  * Square Table
  */
 export const SquareTable: React.FC<ISquareTable> = ({
-    tableShape = DraggableTableTypeEnum.SQUARE,
+    tableShape = "Square",
     tableID = 'T1',
     partyName = 'Null',
     occupancyStatus = 'Vacant',

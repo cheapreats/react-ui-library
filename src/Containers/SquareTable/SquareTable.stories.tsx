@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DraggableTableTypeEnum, ISquareTable, SquareTable } from '@Containers';
+import { ISquareTable, SquareTable } from '@Containers';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -33,7 +33,7 @@ const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTabl
  */
 export const SevenTopSquareTable = Template.bind({});
 SevenTopSquareTable.args = {
-    tableShape: DraggableTableTypeEnum.SQUARE,
+    tableShape: "Square",
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
@@ -146,7 +146,7 @@ SevenTopSquareTable.args = {
  */
 export const EightTopVertRectangleTable = Template.bind({});
 EightTopVertRectangleTable.args = {
-    tableShape: DraggableTableTypeEnum.VERTICAL_RECTANGLE,
+    tableShape: "VerticalRectangle",
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Occupied',
@@ -259,7 +259,7 @@ EightTopVertRectangleTable.args = {
  */
 export const SixTopHorizontalRectangleTable = Template.bind({});
 SixTopHorizontalRectangleTable.args = {
-    tableShape: DraggableTableTypeEnum.HORIZONTAL_RECTANGLE,
+    tableShape: "HorizontalRectangle",
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Reserved',
@@ -346,7 +346,7 @@ SixTopHorizontalRectangleTable.args = {
 
 export const SquareTableEditPage = Template.bind({});
 SquareTableEditPage.args = {
-    tableShape: DraggableTableTypeEnum.SQUARE,
+    tableShape: "Square",
     tableID: 'T3',
     partyName: 'Dmytro',
     isSquare: false,

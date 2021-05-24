@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { CircleTable, DraggableTableTypeEnum, ICircleTable } from '@Containers';
+import { CircleTable, ICircleTable } from '@Containers';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -33,7 +33,7 @@ const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTabl
  */
 export const FourTopTable = Template.bind({});
 FourTopTable.args = {
-    tableShape: DraggableTableTypeEnum.CIRCLE,
+    tableShape: "Circle",
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
@@ -165,7 +165,7 @@ FourTopTable.args = {
 
 export const TableForEditDraggableCanvas = Template.bind({});
 TableForEditDraggableCanvas.args = {
-    tableShape: DraggableTableTypeEnum.CIRCLE,
+    tableShape: "Circle",
     tableID: 'T4',
     partyName: 'Scott',
     occupancyStatus: 'Occupied',

@@ -1,7 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { DraggableTable, IDraggableTable } from '@Containers/EditDraggableCanvas/_DraggableTable';
-import { DraggableTableTypeEnum } from '@Containers';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -50,7 +49,7 @@ const handleOnStop = (
 export const FourTopTable = Template.bind({});
 FourTopTable.args = {
     tableInput: {
-        tableShape: DraggableTableTypeEnum.CIRCLE,
+        tableShape: "Circle",
         tableID: 'T4',
         partyName: 'Scott',
         occupancyStatus: 'Occupied',
