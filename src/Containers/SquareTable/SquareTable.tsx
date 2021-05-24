@@ -5,6 +5,7 @@
 import React, { useEffect, useRef } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Plus } from '@styled-icons/boxicons-regular';
+import { DraggableTableTypeEnum } from '@Containers/EditDraggableCanvas/DraggableTableTypeEnum';
 import { IChair } from '../Chair/Chair';
 import { ChairRow } from './_ChairRow';
 
@@ -33,8 +34,6 @@ type fillArrayType = (
 
 type getTableBodyContentType = (tableUse: tableUseTypes) => JSX.Element;
 
-type getSquareTableTypes = 'square' | 'vertical' | 'horizontal';
-
 type tableUseTypes =
     | 'AddTableButton'
     | 'TableForEditCanvas'
@@ -42,9 +41,11 @@ type tableUseTypes =
 
 export interface ISquareTable {
     /**
-     * The shape for the ISquareTable ("Square")
+     * The shape for the ISquareTable ("SQUARE", "HORIZONTAL_RECTANGLE", "VERTICAL_RECTANGLE")
      */
-    tableShape: 'Square';
+    tableShape: DraggableTableTypeEnum.SQUARE |
+                DraggableTableTypeEnum.HORIZONTAL_RECTANGLE |
+                DraggableTableTypeEnum.VERTICAL_RECTANGLE;
     /**
      * The unique identifier for the table
      */
@@ -78,10 +79,6 @@ export interface ISquareTable {
      */
     arrayIndex?: number;
     /**
-     * Whether the table is a square, vertical rectangle, or horizontal rectangle
-     */
-    squareTableType?: getSquareTableTypes;
-    /**
      * Index number for the currently selected table
      */
     selectedIndex: number;
@@ -107,7 +104,7 @@ export interface ISquareTable {
  * Square Table
  */
 export const SquareTable: React.FC<ISquareTable> = ({
-    tableShape = 'Square',
+    tableShape = DraggableTableTypeEnum.SQUARE,
     tableID = 'T1',
     partyName = 'Null',
     occupancyStatus = 'Vacant',
@@ -116,7 +113,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
     isSquare = false,
     tableUse = 'TableForManagement',
     arrayIndex = 0,
-    squareTableType = 'square',
     selectedIndex = -1,
     onTableClick,
     onChairClick,

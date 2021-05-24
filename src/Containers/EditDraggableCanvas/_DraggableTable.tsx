@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import Draggable from 'react-draggable';
 import { ISquareTable, SquareTable } from '@Containers/SquareTable/SquareTable';
 import { CircleTable, ICircleTable } from '@Containers/CircleTable/CircleTable';
+import { DraggableTableTypeEnum } from '@Containers/EditDraggableCanvas/DraggableTableTypeEnum';
 
 type getTableComponentType = () => JSX.Element | null;
 
@@ -132,7 +133,9 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
      */
     const getTableComponent: getTableComponentType = () => {
         switch (tableInput.tableShape) {
-        case 'Square':
+        case DraggableTableTypeEnum.SQUARE:
+        case DraggableTableTypeEnum.HORIZONTAL_RECTANGLE:
+        case DraggableTableTypeEnum.VERTICAL_RECTANGLE:
             return (
                 <SquareTable
                     tableShape={tableInput.tableShape}
@@ -149,7 +152,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     selectedIndex={selectedIndex}
                 />
             );
-        case 'Circle':
+        case DraggableTableTypeEnum.CIRCLE:
             return (
                 <CircleTable
                     tableShape={tableInput.tableShape}

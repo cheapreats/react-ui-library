@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { CircleTable, ICircleTable } from '@Containers';
+import { CircleTable, DraggableTableTypeEnum, ICircleTable } from '@Containers';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -22,6 +22,7 @@ const handleTableClick = (selectedChildIndex: number) => {
  * Prints the Selected Child index to the console when Chair is clicked
  * @param tableIndex
  * @param chairIndex
+ * @param selectedTableIndex
  */
 const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
     console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
@@ -32,7 +33,7 @@ const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTabl
  */
 export const FourTopTable = Template.bind({});
 FourTopTable.args = {
-    tableShape: 'Circle',
+    tableShape: DraggableTableTypeEnum.CIRCLE,
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
@@ -164,7 +165,7 @@ FourTopTable.args = {
 
 export const TableForEditDraggableCanvas = Template.bind({});
 TableForEditDraggableCanvas.args = {
-    tableShape: 'Circle',
+    tableShape: DraggableTableTypeEnum.CIRCLE,
     tableID: 'T4',
     partyName: 'Scott',
     occupancyStatus: 'Occupied',

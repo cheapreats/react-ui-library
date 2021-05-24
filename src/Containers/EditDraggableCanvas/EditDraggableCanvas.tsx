@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    DraggableTable,
-    IDraggableTable,
-} from '@Containers/EditDraggableCanvas/_DraggableTable';
+import { DraggableTable, IDraggableTable } from '@Containers/EditDraggableCanvas/_DraggableTable';
 
 type getCanvasFillType = () => JSX.Element | null;
 

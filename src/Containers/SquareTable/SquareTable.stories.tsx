@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { SquareTable, ISquareTable } from '@Containers';
+import { DraggableTableTypeEnum, ISquareTable, SquareTable } from '@Containers';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -22,6 +22,7 @@ const handleTableClick = (selectedChildIndex: number) => {
  * Prints the Selected Child index to the console when Chair is clicked
  * @param tableIndex
  * @param chairIndex
+ * @param selectedTableIndex
  */
 const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
     console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
@@ -32,7 +33,7 @@ const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTabl
  */
 export const SevenTopSquareTable = Template.bind({});
 SevenTopSquareTable.args = {
-    tableShape: 'Square',
+    tableShape: DraggableTableTypeEnum.SQUARE,
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
@@ -145,7 +146,7 @@ SevenTopSquareTable.args = {
  */
 export const EightTopVertRectangleTable = Template.bind({});
 EightTopVertRectangleTable.args = {
-    tableShape: 'Square',
+    tableShape: DraggableTableTypeEnum.VERTICAL_RECTANGLE,
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Occupied',
@@ -258,7 +259,7 @@ EightTopVertRectangleTable.args = {
  */
 export const SixTopHorizontalRectangleTable = Template.bind({});
 SixTopHorizontalRectangleTable.args = {
-    tableShape: 'Square',
+    tableShape: DraggableTableTypeEnum.HORIZONTAL_RECTANGLE,
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Reserved',
@@ -345,7 +346,7 @@ SixTopHorizontalRectangleTable.args = {
 
 export const SquareTableEditPage = Template.bind({});
 SquareTableEditPage.args = {
-    tableShape: 'Square',
+    tableShape: DraggableTableTypeEnum.SQUARE,
     tableID: 'T3',
     partyName: 'Dmytro',
     isSquare: false,
@@ -372,30 +373,6 @@ SquareTableEditPage.args = {
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
             chairIndex: 1,
-            tableIndex: 3,
-            selectedIndex: 3,
-            onChairClick: handleOnChairClick,
-        },
-        {
-            position: 'top',
-            isSeated: false,
-            occupiedBy: '',
-            isVisible: true,
-            relativeSize: 1,
-            tableUse: 'TableForEditCanvas',
-            chairIndex: 2,
-            tableIndex: 3,
-            selectedIndex: 3,
-            onChairClick: handleOnChairClick,
-        },
-        {
-            position: 'bottom',
-            isSeated: false,
-            occupiedBy: '',
-            isVisible: true,
-            relativeSize: 1,
-            tableUse: 'TableForEditCanvas',
-            chairIndex: 4,
             tableIndex: 3,
             selectedIndex: 3,
             onChairClick: handleOnChairClick,
