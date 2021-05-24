@@ -333,7 +333,7 @@ EditCanvasExample.args = {
         {
             // table 3 beginning
             tableInput: {
-                tableShape: "Square",
+                tableShape: "HorizontalRectangle",
                 tableID: 'T3',
                 partyName: 'Dmytro',
                 isSquare: false,
