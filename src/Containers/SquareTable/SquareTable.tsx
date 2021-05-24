@@ -10,8 +10,6 @@ import { ChairRow } from './_ChairRow';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
-type squareTableTypes = 'Square' | 'HorizontalRectangle' | 'VerticalRectangle'
-
 type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
 type callOnTableClickType = () => void;
@@ -44,7 +42,7 @@ export interface ISquareTable {
     /**
      * The shape for the ISquareTable ("Square", "HorizontalRectangle", "VerticalRectangle")
      */
-    tableShape: squareTableTypes;
+    tableShape: 'Square' | 'HorizontalRectangle' | 'VerticalRectangle';
     /**
      * The unique identifier for the table
      */

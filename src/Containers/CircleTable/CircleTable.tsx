@@ -24,7 +24,6 @@ export interface ICircleTable {
      */
     tableShape: "Circle";
     /**
-    /**
      * The unique identifier for the table
      */
     tableID: string;
