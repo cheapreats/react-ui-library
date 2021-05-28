@@ -52,6 +52,10 @@ export interface IDraggableTable {
      * @param chairIndex - chair index in chair array
      */
     onChairClick: (parentTableIndex: number, chairIndex: number, selectedTableIndex: number) => void;
+    /**
+     * The name of the layout the IDraggableTable is a part of
+     */
+    layoutName?: string;
 }
 
 /**
@@ -105,6 +109,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     handleStop,
     selectedIndex= -1,
     onChairClick,
+    layoutName = "Dining Room",
     ...props
 }) => {
     const [deltaPosition, setDeltaPosition] = useState({
