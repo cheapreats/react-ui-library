@@ -15,23 +15,7 @@ const Template: Story<IReservationSideBar> = (args) => (
 export const ReservationSideBarComponent = Template.bind({});
 
 ReservationSideBarComponent.args = {
-    ReservationList: [
-        {
-            tableID: 'T1',
-            partyName: 'Corey Taylor',
-            occupancyStatus: 'Reserved',
-            time: '4:00 PM',
-            partySize: 5,
-        },
-    ],
-    WaitingRoomList: [
-        {
-            tableID: 'T1',
-            partyName: 'Bob Marley',
-            partySize: 5,
-            time: '5:00 PM',
-            occupancyStatus: 'Vacant',
-        },
-    ],
+    SeatedList: [],
+    WaitingRoomList: [],
     AvailableRoomsList: ['Dining Room', 'Kitchen', 'Living Room', 'Patio'],
 };

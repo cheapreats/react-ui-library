@@ -1,22 +1,22 @@
-import React from 'react'
+import React from 'react';
 import styled from 'styled-components';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles'; 
-import { Heading, Paragraph } from '../../index'; 
-import { media } from '../../Utils/Mixins'; 
+import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
+import { Heading, Paragraph } from '../../index';
+import { media } from '../../Utils/Mixins';
 import { Table } from './Table';
- 
+
 export interface TableFeatureProps extends MainInterface, ResponsiveInterface {
     heading: string;
     subHeading: string;
     title: string;
     description: string;
-    rowsVisible?: number; 
+    rowsVisible?: number;
     traditional: string;
     stripe: string;
-    data: { 
-        reportName: string; 
-        reportManual: string; 
-        reportAuto: string; 
+    data: {
+        reportName: string;
+        reportManual: string;
+        reportAuto: string;
     }[];
 }
 
@@ -27,24 +27,26 @@ export const TableFeature: React.FC<TableFeatureProps> = ({
     description,
     traditional,
     stripe,
-    data, 
+    data,
 }): React.ReactElement => (
     <Wrapper>
-        <Heading color="primary" type="h5" bold>{heading}</Heading>
-        <IHeading type="h1" bold>{subHeading}</IHeading>
+        <Heading color="primary" type="h5" bold>
+            {heading}
+        </Heading>
+        <IHeading type="h1" bold>
+            {subHeading}
+        </IHeading>
         <Content>
             <Desciption>
-                <Heading type="h6" bold>{title}</Heading>
-                <Paragraph>{description}</Paragraph> 
+                <Heading type="h6" bold>
+                    {title}
+                </Heading>
+                <Paragraph>{description}</Paragraph>
             </Desciption>
             <TableHolder>
-                <Table 
-                    traditional={traditional} 
-                    stripe={stripe} 
-                    data={data}
-                />
-            </TableHolder> 
-        </Content> 
+                <Table traditional={traditional} stripe={stripe} data={data} />
+            </TableHolder>
+        </Content>
     </Wrapper>
 );
 
@@ -69,7 +71,7 @@ const Desciption = styled.div`
     padding: 1.5rem 1rem 0 0;
     ${media('phone', 'padding: 0; width: 100%')}
 `;
-const TableHolder = styled.div`  
+const TableHolder = styled.div`
     width: 100%;
     display: block;
     padding-left: 1rem;

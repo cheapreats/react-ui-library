@@ -24,8 +24,14 @@ const handleTableClick = (selectedChildIndex: number) => {
  * @param chairIndex
  * @param selectedTableIndex
  */
-const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
-    console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
+const handleOnChairClick = (
+    tableIndex: number,
+    chairIndex: number,
+    selectedTableIndex: number,
+) => {
+    console.log(
+        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
+    );
 };
 
 /**
@@ -33,7 +39,7 @@ const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTabl
  */
 export const FourTopTable = Template.bind({});
 FourTopTable.args = {
-    tableShape: "Circle",
+    tableShape: 'Circle',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
@@ -165,7 +171,7 @@ FourTopTable.args = {
 
 export const TableForEditDraggableCanvas = Template.bind({});
 TableForEditDraggableCanvas.args = {
-    tableShape: "Circle",
+    tableShape: 'Circle',
     tableID: 'T4',
     partyName: 'Scott',
     occupancyStatus: 'Occupied',

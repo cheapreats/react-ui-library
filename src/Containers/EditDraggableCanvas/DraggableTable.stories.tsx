@@ -1,6 +1,9 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { DraggableTable, IDraggableTable } from '@Containers/EditDraggableCanvas/_DraggableTable';
+import {
+    DraggableTable,
+    IDraggableTable,
+} from '@Containers/EditDraggableCanvas/_DraggableTable';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -24,8 +27,14 @@ const handleTableClick = (selectedChildIndex: number) => {
  * @param chairIndex - the chair array index number for this chair
  * @param selectedTableIndex - the table array index number for the currently-selected table
  */
-const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
-    console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
+const handleOnChairClick = (
+    tableIndex: number,
+    chairIndex: number,
+    selectedTableIndex: number,
+) => {
+    console.log(
+        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
+    );
 };
 
 /**
@@ -49,7 +58,7 @@ const handleOnStop = (
 export const FourTopTable = Template.bind({});
 FourTopTable.args = {
     tableInput: {
-        tableShape: "Circle",
+        tableShape: 'Circle',
         tableID: 'T4',
         partyName: 'Scott',
         occupancyStatus: 'Occupied',

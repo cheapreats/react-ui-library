@@ -24,8 +24,14 @@ const handleTableClick = (selectedChildIndex: number) => {
  * @param chairIndex
  * @param selectedTableIndex
  */
-const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
-    console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
+const handleOnChairClick = (
+    tableIndex: number,
+    chairIndex: number,
+    selectedTableIndex: number,
+) => {
+    console.log(
+        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
+    );
 };
 
 /**
@@ -33,7 +39,7 @@ const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTabl
  */
 export const SevenTopSquareTable = Template.bind({});
 SevenTopSquareTable.args = {
-    tableShape: "Square",
+    tableShape: 'Square',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
@@ -146,7 +152,7 @@ SevenTopSquareTable.args = {
  */
 export const EightTopVertRectangleTable = Template.bind({});
 EightTopVertRectangleTable.args = {
-    tableShape: "VerticalRectangle",
+    tableShape: 'VerticalRectangle',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Occupied',
@@ -259,7 +265,7 @@ EightTopVertRectangleTable.args = {
  */
 export const SixTopHorizontalRectangleTable = Template.bind({});
 SixTopHorizontalRectangleTable.args = {
-    tableShape: "HorizontalRectangle",
+    tableShape: 'HorizontalRectangle',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Reserved',
@@ -346,7 +352,7 @@ SixTopHorizontalRectangleTable.args = {
 
 export const SquareTableEditPage = Template.bind({});
 SquareTableEditPage.args = {
-    tableShape: "Square",
+    tableShape: 'Square',
     tableID: 'T3',
     partyName: 'Dmytro',
     isSquare: false,

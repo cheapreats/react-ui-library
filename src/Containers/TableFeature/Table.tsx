@@ -6,38 +6,38 @@ import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
 import { Check } from '@styled-icons/boxicons-regular/Check';
 import { media } from '../../Utils/Mixins';
 
-interface WorkflowProps { 
-    reportName: string; 
-    reportManual: string; 
+interface WorkflowProps {
+    reportName: string;
+    reportManual: string;
     reportAuto: string;
 }
 
-interface ItemProps { 
-    reportName: string; 
-    reportManual: string; 
-    reportAuto: string; 
+interface ItemProps {
+    reportName: string;
+    reportManual: string;
+    reportAuto: string;
 }
 
 export interface TableProps extends MainInterface, ResponsiveInterface {
     data: WorkflowProps[] | ItemProps[];
-    rowsVisible?: number; 
+    rowsVisible?: number;
     traditional: string;
-    stripe: string; 
+    stripe: string;
 }
 
 interface UseSortReturnType {
     sortedItems: (WorkflowProps | ItemProps)[];
     setIsAscending: React.Dispatch<React.SetStateAction<boolean>>;
-    isAscending: boolean;    
+    isAscending: boolean;
 }
 
 /**
- * I got this code from RankingTabe component 
- * 
- * @param rowData 
- * @param rowLimit 
- * @param timeInterval 
- * @returns 
+ * I got this code from RankingTabe component
+ *
+ * @param rowData
+ * @param rowLimit
+ * @param timeInterval
+ * @returns
  */
 const useSort = (
     rowData: WorkflowProps[] | ItemProps[],
@@ -60,31 +60,21 @@ const useSort = (
 };
 
 export const Table: React.FC<TableProps> = ({
-    data, 
+    data,
     traditional,
     stripe,
-    rowsVisible = 10,   
+    rowsVisible = 10,
 }): React.ReactElement => {
-    const [workFlows ] = useState(
-        '',
-    );     
-    const { sortedItems } = useSort(
-        data,
-        rowsVisible,
-        workFlows,
-    );
+    const [workFlows] = useState('');
+    const { sortedItems } = useSort(data, rowsVisible, workFlows);
 
-    return ( 
+    return (
         <ITable>
             <thead>
-                <tr>  
+                <tr>
                     <Th />
-                    <Th>
-                        {traditional}
-                    </Th>
-                    <Th>
-                        {stripe}
-                    </Th> 
+                    <Th>{traditional}</Th>
+                    <Th>{stripe}</Th>
                 </tr>
             </thead>
             <tbody>
@@ -94,7 +84,7 @@ export const Table: React.FC<TableProps> = ({
                             item: WorkflowProps | ItemProps,
                         ): React.ReactElement => (
                             <BodyRow>
-                                <BodyTd>{item.reportName}</BodyTd> 
+                                <BodyTd>{item.reportName}</BodyTd>
                                 <BodyTd>{item.reportManual}</BodyTd>
                                 <BodyTd>
                                     <ICheck />
@@ -104,29 +94,29 @@ export const Table: React.FC<TableProps> = ({
                         ),
                     )}
             </tbody>
-        </ITable> 
+        </ITable>
     );
 };
 
 /** styled */
 const ITable = styled.table`
-    border-collapse:collapse;
+    border-collapse: collapse;
     overflow: hidden;
     padding: 0;
     width: 100%;
-`;  
+`;
 const Th = styled.th`
     text-align: left;
-    padding: 0 1rem .5rem; 
-`; 
-const BodyRow = styled.tr` 
+    padding: 0 1rem 0.5rem;
+`;
+const BodyRow = styled.tr`
     :nth-child(odd) {
         background-color: ${({ theme }) => theme.colors.primary};
     }
     :nth-child(even) {
         background-color: ${({ theme }) => theme.colors.PieChartColors.Red};
     }
-    :first-child td:first-child { 
+    :first-child td:first-child {
         border-top-left-radius: 10px;
     }
     :first-child td:last-child {
@@ -139,19 +129,19 @@ const BodyRow = styled.tr`
         border-bottom-right-radius: 10px;
     }
 `;
-const BodyTd = styled.td` 
+const BodyTd = styled.td`
     color: ${({ theme }) => theme.colors.input.default};
-    padding: .8rem;
+    padding: 0.8rem;
     :first-child {
         font-weight: 600;
     }
-    ${media('phone', 'padding: 8px;font-size: .8rem')} 
+    ${media('phone', 'padding: 8px;font-size: .8rem')}
 `;
-const ICheck = styled(Check)`  
-    margin-right: 10px;  
+const ICheck = styled(Check)`
+    margin-right: 10px;
     color: ${({ theme }) => theme.colors.text};
     background-color: ${({ theme }) => theme.colors.input.error};
     width: 15px;
     border-radius: 50%;
-    padding: 2px; 
+    padding: 2px;
 `;

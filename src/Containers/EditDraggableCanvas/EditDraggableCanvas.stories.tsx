@@ -26,8 +26,14 @@ const handleTableClick = (selectedChildIndex: number) => {
  * @param chairIndex
  * @param selectedTableIndex
  */
-const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
-    console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
+const handleOnChairClick = (
+    tableIndex: number,
+    chairIndex: number,
+    selectedTableIndex: number,
+) => {
+    console.log(
+        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
+    );
 };
 
 /**
@@ -55,7 +61,7 @@ NewUserCanvasExample.args = {
     tables: [
         {
             tableInput: {
-                tableShape: "Square",
+                tableShape: 'Square',
                 tableID: 'T1',
                 partyName: '',
                 isSquare: true,
@@ -116,7 +122,7 @@ EditCanvasExample.args = {
     tables: [
         {
             tableInput: {
-                tableShape: "Square",
+                tableShape: 'Square',
                 tableID: 'T1',
                 partyName: '',
                 isSquare: true,
@@ -162,7 +168,7 @@ EditCanvasExample.args = {
         },
         {
             tableInput: {
-                tableShape: "Square",
+                tableShape: 'Square',
                 tableID: 'T5',
                 partyName: 'Tina',
                 isSquare: true,
@@ -233,7 +239,7 @@ EditCanvasExample.args = {
         {
             // table 4 beginning
             tableInput: {
-                tableShape: "Circle",
+                tableShape: 'Circle',
                 tableID: 'T4',
                 partyName: 'Scott',
                 occupancyStatus: 'Occupied',
@@ -333,7 +339,7 @@ EditCanvasExample.args = {
         {
             // table 3 beginning
             tableInput: {
-                tableShape: "HorizontalRectangle",
+                tableShape: 'HorizontalRectangle',
                 tableID: 'T3',
                 partyName: 'Dmytro',
                 isSquare: false,
@@ -428,7 +434,7 @@ EditCanvasExample.args = {
         {
             // table 2 beginning
             tableInput: {
-                tableShape: "Circle",
+                tableShape: 'Circle',
                 tableID: 'T2',
                 partyName: 'Corey',
                 occupancyStatus: 'Occupied',
@@ -542,7 +548,7 @@ MgmtCanvasExample.args = {
     tables: [
         {
             tableInput: {
-                tableShape: "Square",
+                tableShape: 'Square',
                 tableID: 'T1',
                 partyName: '',
                 isSquare: true,
@@ -588,7 +594,7 @@ MgmtCanvasExample.args = {
         },
         {
             tableInput: {
-                tableShape: "Square",
+                tableShape: 'Square',
                 tableID: 'T5',
                 partyName: 'Tina',
                 isSquare: true,
@@ -659,7 +665,7 @@ MgmtCanvasExample.args = {
         {
             // table 4 beginning
             tableInput: {
-                tableShape: "Circle",
+                tableShape: 'Circle',
                 tableID: 'T4',
                 partyName: 'Scott',
                 occupancyStatus: 'Occupied',
@@ -759,7 +765,7 @@ MgmtCanvasExample.args = {
         {
             // table 3 beginning
             tableInput: {
-                tableShape: "Square",
+                tableShape: 'Square',
                 tableID: 'T3',
                 partyName: 'Dmytro',
                 isSquare: false,
@@ -830,7 +836,7 @@ MgmtCanvasExample.args = {
         {
             // table 2 beginning
             tableInput: {
-                tableShape: "Circle",
+                tableShape: 'Circle',
                 tableID: 'T2',
                 partyName: 'Corey',
                 occupancyStatus: 'Occupied',
