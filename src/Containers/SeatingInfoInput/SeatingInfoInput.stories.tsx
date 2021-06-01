@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { IChair, IDraggableTable } from '@Containers';
-import { SeatingInfoInput, ISeatingInfoInput } from './SeatingInfoInput';
+import {
+    SeatingInfoInput,
+    ISeatingInfoInput,
+} from '@Containers/SeatingInfoInput/SeatingInfoInput';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -37,9 +40,8 @@ const handleEndReservationClick = () => {
     console.log('EndReservation button has been clicked');
 };
 
-const [selectedIndex, setSelectedIndex] = useState(-1);
 const handleTableClick = (selectedTableIndex: number) => {
-    setSelectedIndex(selectedTableIndex);
+    console.log(selectedTableIndex);
 };
 
 /**
@@ -53,11 +55,7 @@ const handleOnChairClick = (
     chairIndex: number,
     selectedTableIndex: number,
 ) => {
-    if (selectedTableIndex > -1) {
-        console.log(tablesArray);
-        const newArray = [...tablesArray];
-        console.log(`newArray: ${newArray}`);
-    }
+    console.log(tableIndex + chairIndex + selectedTableIndex);
 };
 
 /**
@@ -74,7 +72,7 @@ const chairObjectForTables: IChair = {
     tableUse: 'TableForEditCanvas',
     tableIndex: 0,
     chairIndex: 0,
-    selectedIndex,
+    selectedIndex: 1,
     onChairClick: handleOnChairClick,
 };
 
@@ -90,10 +88,7 @@ const handleDragEnd = (
     deltaX: number,
     deltaY: number,
 ) => {
-    const currentArray = tablesArray;
-    currentArray[selectedTableIndex].defaultXY.x = deltaX;
-    currentArray[selectedTableIndex].defaultXY.y = deltaY;
-    setTablesArray(currentArray);
+    console.log(selectedTableIndex + deltaX + deltaY);
 };
 
 /**
@@ -110,7 +105,7 @@ const tableObjectForCanvas: IDraggableTable = {
         chairs: [],
         relativeSize: 0.25,
         tableUse: 'TableForEditCanvas',
-        selectedIndex,
+        selectedIndex: 1,
         onTableClick: handleTableClick,
         onChairClick: handleOnChairClick,
     },
@@ -118,7 +113,7 @@ const tableObjectForCanvas: IDraggableTable = {
     defaultXY: { x: 210, y: 100 },
     arrayIndex: 0,
     isDisabled: false,
-    selectedIndex,
+    selectedIndex: 1,
     onTableClick: handleTableClick,
     onChairClick: handleOnChairClick,
     layoutName: 'Dining Room',
@@ -313,11 +308,6 @@ const mockLayoutForManagePage: Array<IDraggableTable> = [
         defaultXY: { x: 43, y: 177 },
     },
 ];
-
-/**
- * tablesArray is the array of all the tables to be rendered and put on the canvas.
- */
-const [tablesArray, setTablesArray] = useState(mockLayoutForManagePage);
 
 const Template: Story<ISeatingInfoInput> = (args) => (
     <SeatingInfoInput {...args} />
