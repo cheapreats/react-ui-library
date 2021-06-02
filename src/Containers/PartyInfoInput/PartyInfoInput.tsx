@@ -31,10 +31,15 @@ export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
     onBackButtonClick,
     ...props
 }) => {
+    const date = new Date();
     const [NewPartyName, SetNewPartyName] = useState('Name');
     const [NewPartySize, SetNewPartySize] = useState(0);
-    const [NewReservationDate, SetNewReservationDate] = useState('');
-    const [NewReservationTime, SetNewReservationTime] = useState('');
+    const [NewReservationDate, SetNewReservationDate] = useState(
+        date.toDateString(),
+    );
+    const [NewReservationTime, SetNewReservationTime] = useState(
+        date.toLocaleTimeString(),
+    );
 
     const handleMinusClick = () => {
         SetNewPartySize(NewPartySize - 1);
@@ -83,7 +88,7 @@ export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
                 <WidthHeightForEachField>
                     <strong>Reservation Date</strong>
                     <Input
-                        placeholder="mm/dd/yyyy (current date)"
+                        placeholder={date.toDateString()}
                         onChange={(e: React.ChangeEvent<any>) =>
                             SetNewReservationDate(e.target.value)
                         }
@@ -92,7 +97,7 @@ export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
                 <WidthHeightForEachField>
                     <strong>Reservation Time</strong>
                     <Input
-                        placeholder="hh:mm (current time)"
+                        placeholder={date.toLocaleTimeString()}
                         onChange={(e: React.ChangeEvent<any>) =>
                             SetNewReservationTime(e.target.value)
                         }
