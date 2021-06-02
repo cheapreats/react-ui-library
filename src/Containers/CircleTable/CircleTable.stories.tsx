@@ -22,9 +22,16 @@ const handleTableClick = (selectedChildIndex: number) => {
  * Prints the Selected Child index to the console when Chair is clicked
  * @param tableIndex
  * @param chairIndex
+ * @param selectedTableIndex
  */
-const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
-    console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
+const handleOnChairClick = (
+    tableIndex: number,
+    chairIndex: number,
+    selectedTableIndex: number,
+) => {
+    console.log(
+        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
+    );
 };
 
 /**

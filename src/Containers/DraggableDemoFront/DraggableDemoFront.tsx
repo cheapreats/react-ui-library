@@ -43,8 +43,14 @@ export const DraggableCanvas = (): ReactElement => {
         console.log(selectedChildIndex);
     };
 
-    const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
-        console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
+    const handleOnChairClick = (
+        tableIndex: number,
+        chairIndex: number,
+        selectedTableIndex: number,
+    ) => {
+        console.log(
+            `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
+        );
     };
 
     return (

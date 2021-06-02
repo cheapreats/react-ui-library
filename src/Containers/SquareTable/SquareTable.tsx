@@ -33,8 +33,6 @@ type fillArrayType = (
 
 type getTableBodyContentType = (tableUse: tableUseTypes) => JSX.Element;
 
-type getSquareTableTypes = 'square' | 'vertical' | 'horizontal';
-
 type tableUseTypes =
     | 'AddTableButton'
     | 'TableForEditCanvas'
@@ -42,9 +40,9 @@ type tableUseTypes =
 
 export interface ISquareTable {
     /**
-     * The shape for the ISquareTable ("Square")
+     * The shape for the ISquareTable ("Square", "HorizontalRectangle", "VerticalRectangle")
      */
-    tableShape: 'Square';
+    tableShape: 'Square' | 'HorizontalRectangle' | 'VerticalRectangle';
     /**
      * The unique identifier for the table
      */
@@ -78,10 +76,6 @@ export interface ISquareTable {
      */
     arrayIndex?: number;
     /**
-     * Whether the table is a square, vertical rectangle, or horizontal rectangle
-     */
-    squareTableType?: getSquareTableTypes;
-    /**
      * Index number for the currently selected table
      */
     selectedIndex: number;
@@ -95,7 +89,11 @@ export interface ISquareTable {
      * @param parentTableIndex - parent table index in the tables array
      * @param chairIndex - chair index in chair array
      */
-    onChairClick: (parentTableIndex: number, chairIndex: number, selectedTableIndex: number) => void;
+    onChairClick: (
+        parentTableIndex: number,
+        chairIndex: number,
+        selectedTableIndex: number,
+    ) => void;
     /**
      * Determines if the table is used in the toolbar or not
      */
@@ -116,16 +114,14 @@ export const SquareTable: React.FC<ISquareTable> = ({
     isSquare = false,
     tableUse = 'TableForManagement',
     arrayIndex = 0,
-    squareTableType = 'square',
     selectedIndex = -1,
     onTableClick,
     onChairClick,
     isNotHighlightedWhenSelected = false,
     ...props
 }) => {
-
     // Create a reference to the TableBody styled component
-    const tableBodyRef = useRef(document.createElement("div"));
+    const tableBodyRef = useRef(document.createElement('div'));
 
     /**
      * Use useEffect to keep focus on TableBody after re-render if the
@@ -151,16 +147,13 @@ export const SquareTable: React.FC<ISquareTable> = ({
         if (i.position === 'top') {
             i.chairIndex = index;
             topArray.push(i);
-        }
-        else if (i.position === 'right') {
+        } else if (i.position === 'right') {
             i.chairIndex = index;
             rightArray.push(i);
-        }
-        else if (i.position === 'bottom') {
+        } else if (i.position === 'bottom') {
             i.chairIndex = index;
             bottomArray.push(i);
-        }
-        else {
+        } else {
             i.chairIndex = index;
             leftArray.push(i);
         }
@@ -276,36 +269,36 @@ export const SquareTable: React.FC<ISquareTable> = ({
      */
     const getTableBodyContent: getTableBodyContentType = () => {
         switch (tableUse) {
-        case 'AddTableButton':
-            return <StyledPlus />;
-        case 'TableForManagement':
-            return (
-                <Row relativeSize={relativeSize}>
-                    <TableInfo relativeSize={relativeSize}>
-                        <div>
-                            {`${tableID}\n${partyName}`}
-                            <Status occupancyStatus={occupancyStatus}>
-                                {occupancyStatus}
-                            </Status>
-                        </div>
-                    </TableInfo>
-                    <ColorDiv
-                        relativeSize={relativeSize}
-                        chairNumOnSide={
-                            isSquare ? squareTableSize : rectangleSideSize
-                        }
-                        occupancyStatus={occupancyStatus}
-                    />
-                </Row>
-            );
-        case 'TableForEditCanvas':
-            return (
-                <TableNumForEditScreen relativeSize={relativeSize}>
-                    {tableID}
-                </TableNumForEditScreen>
-            );
-        default:
-            return <div />;
+            case 'AddTableButton':
+                return <StyledPlus />;
+            case 'TableForManagement':
+                return (
+                    <Row relativeSize={relativeSize}>
+                        <TableInfo relativeSize={relativeSize}>
+                            <div>
+                                {`${tableID}\n${partyName}`}
+                                <Status occupancyStatus={occupancyStatus}>
+                                    {occupancyStatus}
+                                </Status>
+                            </div>
+                        </TableInfo>
+                        <ColorDiv
+                            relativeSize={relativeSize}
+                            chairNumOnSide={
+                                isSquare ? squareTableSize : rectangleSideSize
+                            }
+                            occupancyStatus={occupancyStatus}
+                        />
+                    </Row>
+                );
+            case 'TableForEditCanvas':
+                return (
+                    <TableNumForEditScreen relativeSize={relativeSize}>
+                        {tableID}
+                    </TableNumForEditScreen>
+                );
+            default:
+                return <div />;
         }
     };
 
@@ -382,14 +375,14 @@ type getOccupancyColorType = (occupancyStatus: occupancyStatusTypes) => string;
  */
 const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
-    case 'Vacant':
-        return useTheme().colors.occupancyStatusColors.Vacant;
-    case 'Reserved':
-        return useTheme().colors.occupancyStatusColors.Reserved;
-    case 'Occupied':
-        return useTheme().colors.occupancyStatusColors.Occupied;
-    default:
-        return '';
+        case 'Vacant':
+            return useTheme().colors.occupancyStatusColors.Vacant;
+        case 'Reserved':
+            return useTheme().colors.occupancyStatusColors.Reserved;
+        case 'Occupied':
+            return useTheme().colors.occupancyStatusColors.Occupied;
+        default:
+            return '';
     }
 };
 
@@ -414,8 +407,8 @@ const TableBody = styled.div<ITableBody>`
             chairNumOnSide * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
         }rem;
             width: ${
-    chairNumOnTop * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
-}rem;
+                chairNumOnTop * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
+            }rem;
             border-radius: ${BASE_BORDER_RADIUS * relativeSize}rem;`;
     }}
     background-color: ${({ theme, tableUse }) =>
@@ -450,11 +443,11 @@ const ColorDiv = styled.div<IColorDiv>`
             width: ${BASE_COLOR_DIV_WIDTH * relativeSize}rem;
             margin-right: ${BASE_COLOR_DIV_MARGIN_RIGHT * relativeSize}rem;
             border-top-right-radius: ${
-    BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
-}rem;
+                BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+            }rem;
             border-bottom-right-radius: ${
-    BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
-}rem;`;
+                BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+            }rem;`;
     }}
     margin-left: auto;
     background-color: ${({ occupancyStatus }) =>

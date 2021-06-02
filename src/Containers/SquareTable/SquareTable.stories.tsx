@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { SquareTable, ISquareTable } from '@Containers';
+import { ISquareTable, SquareTable } from '@Containers';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -22,9 +22,16 @@ const handleTableClick = (selectedChildIndex: number) => {
  * Prints the Selected Child index to the console when Chair is clicked
  * @param tableIndex
  * @param chairIndex
+ * @param selectedTableIndex
  */
-const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
-    console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
+const handleOnChairClick = (
+    tableIndex: number,
+    chairIndex: number,
+    selectedTableIndex: number,
+) => {
+    console.log(
+        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
+    );
 };
 
 /**
@@ -145,7 +152,7 @@ SevenTopSquareTable.args = {
  */
 export const EightTopVertRectangleTable = Template.bind({});
 EightTopVertRectangleTable.args = {
-    tableShape: 'Square',
+    tableShape: 'VerticalRectangle',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Occupied',
@@ -258,7 +265,7 @@ EightTopVertRectangleTable.args = {
  */
 export const SixTopHorizontalRectangleTable = Template.bind({});
 SixTopHorizontalRectangleTable.args = {
-    tableShape: 'Square',
+    tableShape: 'HorizontalRectangle',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Reserved',
@@ -372,30 +379,6 @@ SquareTableEditPage.args = {
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
             chairIndex: 1,
-            tableIndex: 3,
-            selectedIndex: 3,
-            onChairClick: handleOnChairClick,
-        },
-        {
-            position: 'top',
-            isSeated: false,
-            occupiedBy: '',
-            isVisible: true,
-            relativeSize: 1,
-            tableUse: 'TableForEditCanvas',
-            chairIndex: 2,
-            tableIndex: 3,
-            selectedIndex: 3,
-            onChairClick: handleOnChairClick,
-        },
-        {
-            position: 'bottom',
-            isSeated: false,
-            occupiedBy: '',
-            isVisible: true,
-            relativeSize: 1,
-            tableUse: 'TableForEditCanvas',
-            chairIndex: 4,
             tableIndex: 3,
             selectedIndex: 3,
             onChairClick: handleOnChairClick,

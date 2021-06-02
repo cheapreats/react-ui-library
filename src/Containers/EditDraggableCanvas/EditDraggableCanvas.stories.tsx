@@ -1,5 +1,5 @@
 import React from 'react';
-import { Story, Meta } from '@storybook/react';
+import { Meta, Story } from '@storybook/react';
 import { EditDraggableCanvas, IEditDraggableCanvas } from '@Containers';
 import { createStoryTitle } from '../../Constants';
 
@@ -22,10 +22,18 @@ const handleTableClick = (selectedChildIndex: number) => {
 
 /**
  * Prints the Selected Child index to the console when Chair is clicked
- * @param selectedChildIndex
+ * @param tableIndex
+ * @param chairIndex
+ * @param selectedTableIndex
  */
-const handleOnChairClick = (tableIndex: number, chairIndex: number, selectedTableIndex: number) => {
-    console.log(`Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`);
+const handleOnChairClick = (
+    tableIndex: number,
+    chairIndex: number,
+    selectedTableIndex: number,
+) => {
+    console.log(
+        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
+    );
 };
 
 /**
@@ -331,7 +339,7 @@ EditCanvasExample.args = {
         {
             // table 3 beginning
             tableInput: {
-                tableShape: 'Square',
+                tableShape: 'HorizontalRectangle',
                 tableID: 'T3',
                 partyName: 'Dmytro',
                 isSquare: false,
