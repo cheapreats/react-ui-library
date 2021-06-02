@@ -62,6 +62,7 @@ FourTopTable.args = {
         tableID: 'T4',
         partyName: 'Scott',
         occupancyStatus: 'Occupied',
+        arrayIndex: 0,
         relativeSize: 0.25,
         chairs: [
             {

@@ -74,7 +74,7 @@ export interface ISquareTable {
     /**
      * Array index number for this table
      */
-    arrayIndex?: number;
+    arrayIndex: number;
     /**
      * Index number for the currently selected table
      */

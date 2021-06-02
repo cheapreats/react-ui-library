@@ -31,10 +31,15 @@ export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
     onBackButtonClick,
     ...props
 }) => {
+    const date = new Date();
     const [NewPartyName, SetNewPartyName] = useState('Name');
     const [NewPartySize, SetNewPartySize] = useState(0);
-    const [NewReservationDate, SetNewReservationDate] = useState('');
-    const [NewReservationTime, SetNewReservationTime] = useState('');
+    const [NewReservationDate, SetNewReservationDate] = useState(
+        date.toDateString(),
+    );
+    const [NewReservationTime, SetNewReservationTime] = useState(
+        date.toLocaleTimeString(),
+    );
 
     const handleMinusClick = () => {
         SetNewPartySize(NewPartySize - 1);
@@ -83,7 +88,7 @@ export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
                 <WidthHeightForEachField>
                     <strong>Reservation Date</strong>
                     <Input
-                        placeholder="mm/dd/yyyy (current date)"
+                        placeholder={date.toDateString()}
                         onChange={(e: React.ChangeEvent<any>) =>
                             SetNewReservationDate(e.target.value)
                         }
@@ -92,7 +97,7 @@ export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
                 <WidthHeightForEachField>
                     <strong>Reservation Time</strong>
                     <Input
-                        placeholder="hh:mm (current time)"
+                        placeholder={date.toLocaleTimeString()}
                         onChange={(e: React.ChangeEvent<any>) =>
                             SetNewReservationTime(e.target.value)
                         }
@@ -123,73 +128,73 @@ export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
  */
 
 const StylesForCloseIcon = styled(Close)`
-    float: right;
-    width: 24px;
-    height: 24px;
+  float: right;
+  width: 24px;
+  height: 24px;
 `;
 
 const WidthForCard = styled(Card)`
-    width: 358px;
+  width: 358px;
 `;
 
 const AlignContentCenter = styled.div`
-    margin-left: auto;
-    margin-right: auto;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const WidthHeightForEachField = styled.div`
-    width: 304px;
-    height: 90px;
-    margin-left: auto;
-    margin-right: auto;
+  width: 304px;
+  height: 90px;
+  margin-left: auto;
+  margin-right: auto;
 `;
 
 const StylesForPartySizeInput = styled(Input)`
-    text-align: center;
+  text-align: center;
 `;
 
 const WidthForPartySize = styled.div`
-    width: 156px;
-    height: 50px;
+  width: 156px;
+  height: 50px;
 `;
 
 const StylesForNextButton = styled.div`
-    width: 80px;
-    margin-left: auto;
-    margin-right: 0;
+  width: 80px;
+  margin-left: auto;
+  margin-right: 0;
 `;
 
 const Col1 = styled.div`
-    -ms-flex: 0 0 8.333333%;
-    flex: 0 0 8.333333%;
-    max-width: 8.333333%;
+  -ms-flex: 0 0 8.333333%;
+  flex: 0 0 8.333333%;
+  max-width: 8.333333%;
 `;
 
 const Col2 = styled.div`
-    -webkit-box-flex: 0;
-    -ms-flex: 0 0 75%;
-    flex: 0 0 75%;
-    max-width: 75%;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-left: 48px;
-    margin-right: -48px;
-    min-height: 1px;
-    align-text: center;
+  -webkit-box-flex: 0;
+  -ms-flex: 0 0 75%;
+  flex: 0 0 75%;
+  max-width: 75%;
+  margin-top: auto;
+  margin-bottom: auto;
+  margin-left: 48px;
+  margin-right: -48px;
+  min-height: 1px;
+  align-text: center;
 `;
 const Col3 = styled.div`
-    -ms-flex: 0 0 8.333333%;
-    flex: 0 0 8.333333%;
-    max-width: 8.333333%;
+  -ms-flex: 0 0 8.333333%;
+  flex: 0 0 8.333333%;
+  max-width: 8.333333%;
 `;
 
 const Row = styled.div`
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-wrap: wrap;
-    flex-wrap: wrap;
-    padding-top: 0.5rem;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  padding-top: 0.5rem;
 `;
 
 export default PartyInfoInput;
