@@ -43,7 +43,8 @@ export const EditControlPanel: React.FC<IEditControlPanel> = ({
             <CenteredText>
                 Table Number
                 <InputStyles
-                    placeholder={TableNumber}
+                    placeholder="Select Table"
+                    value={TableNumber}
                     onChange={(event) => {
                         onTableNumberChange(event.target.value);
                     }}
