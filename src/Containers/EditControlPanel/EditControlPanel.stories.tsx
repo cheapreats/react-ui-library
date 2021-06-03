@@ -6,6 +6,9 @@ import { createStoryTitle } from '../../Constants';
 export default {
     title: createStoryTitle('EditControlPanel'),
     component: EditControlPanel,
+    argTypes: {
+        onTableNumberChange: { action: 'Table Number' },
+    },
 } as Meta;
 
 /**
