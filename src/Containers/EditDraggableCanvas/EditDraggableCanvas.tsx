@@ -135,10 +135,10 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
                 <TextStyles>
                     <FontTop>Get Started!</FontTop>
                     <FontBottom>
-                        Start creating your new layout by
+                        Add tables to your new layout by
                     </FontBottom>
                     <FontBottom>
-                        dragging and dropping your tables here
+                        clicking the buttons below
                     </FontBottom>
                 </TextStyles>
             );
