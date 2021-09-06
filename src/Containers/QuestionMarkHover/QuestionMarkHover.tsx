@@ -14,9 +14,7 @@ export interface QuestionMarkProps extends React.HTMLAttributes<HTMLDivElement> 
  */
 export const QuestionMarkHover: React.FC<QuestionMarkProps>=({title,...props})=> {
     return <Section {...props}>
-    <QuestionMark>
-        ?
-    </QuestionMark>
+    <QuestionMark> ? </QuestionMark>
     <Hover>
         <Rectangle> {title} </Rectangle>
         <Triangle> </Triangle>
