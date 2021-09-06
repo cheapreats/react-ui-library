@@ -7,13 +7,7 @@ export default {
     component: QuestionMarkHover,
     args: {
         title: 'test',
-        secondaryTitle: '?'
     }
     } as Meta;
 
-export const Template: Story<QuestionMarkProps> = (args) => <QuestionMarkHover {...args} />;
-
-
-
-
-    
+export const Template: Story<QuestionMarkProps> = (args) => <QuestionMarkHover {...args} />;    
