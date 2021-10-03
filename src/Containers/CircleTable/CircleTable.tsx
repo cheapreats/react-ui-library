@@ -344,9 +344,9 @@ const TableBody = styled.div<ITableBody>`
     outline: none;
     cursor: pointer;
     &:focus {
-      box-shadow: ${({ toolbarUse }) => (!toolbarUse ? '0 0 0 2px' : '')} ${({
-    theme,
-}) => theme.colors.primary};
+        box-shadow: ${({ toolbarUse }) => (!toolbarUse ? '0 0 0 2px' : '')};
+        ${({theme}) => theme.colors.primary};
+    }
 `;
 
 interface IChairWrapper {
