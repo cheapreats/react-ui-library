@@ -47,7 +47,7 @@ export const PartyInfoInput: React.FC<IPartyInfoInput> = ({
     };
 
     return (
-        <WidthForCard>
+        <WidthForCard {...props}>
             <AlignContentCenter>
                 <StylesForCloseIcon onClick={onBackButtonClick} />
                 <WidthHeightForEachField>
@@ -175,7 +175,7 @@ const Col2 = styled.div`
     margin-left: 48px;
     margin-right: -48px;
     min-height: 1px;
-    align-text: center;
+    text-align: center;
 `;
 const Col3 = styled.div`
     -ms-flex: 0 0 8.333333%;

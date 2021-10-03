@@ -66,5 +66,6 @@ module.exports = {
         'import/no-named-as-default': 'off',
         'no-alert': 'off',
         indent: ['error', 4],
+        'react/require-default-props': 'off',
     },
 };
