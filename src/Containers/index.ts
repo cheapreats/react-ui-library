@@ -20,6 +20,7 @@ export * from './Popup/Popup';
 export * from './SelectList/SelectList';
 export * from './Accordion';
 export * from './ColorCard/ColorCard';
+export * from './QuestionMarkHover/QuestionMarkHover';
 export * from './RankingTable/RankingTable';
 export * from './KitchenCard';
 export * from './HeaderRow/HeaderRow';
