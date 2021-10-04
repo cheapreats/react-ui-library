@@ -16,7 +16,7 @@
     "build": "rm -rf dist && rollup -c",
     "build:watch": "rollup -c -w",
     "test": "tsc && npm run eslint:fix",
-    "prepublish": "npm run lint && npm run build",
+    "prepublishOnly": "npm run lint && npm run build",
     "eslint": "eslint ./src --ext tsx,ts,jsx,js",
     "eslint:fix": "npm run eslint -- --fix",
     "prettier": "prettier **/*.ts **/*.tsx **/*.js",
