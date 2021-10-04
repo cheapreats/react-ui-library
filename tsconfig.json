@@ -1,6 +1,6 @@
 {
     "compilerOptions": {
-        "outDir": "dist",
+        "outDir": "./dist",
         "module": "commonjs",
         "target": "es2017",
         "lib": ["es2017", "dom", "ES2020", "ESNext"],
@@ -22,7 +22,7 @@
         "noUnusedLocals": true,
         "declaration": true,
         "declarationMap": false,
-        "declarationDir": "dist",
+        "declarationDir": "./dist",
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
@@ -46,5 +46,5 @@
         "src/styled.d.ts",
         "src/declaration.d.ts"
     ],
-    "exclude": ["node_modules", "**/.*/", "../src/**/*.stories.@(js|mdx|tsx|ts|jsx)", "scripts", "dist"]
+    "exclude": ["node_modules", "**/.*/", "../src/**/*.stories.@(js|mdx|tsx|ts|jsx)", "scripts", "./dist"]
 }
