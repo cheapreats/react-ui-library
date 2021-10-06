@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { ClickableSmallText } from '@Text';
 import { Heading } from '@Text';
 import { flex } from '@Utils/Mixins';
 
@@ -28,14 +29,20 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
     size,
     children,
     ...props
-}): React.ReactElement => (
-    <HighlightedRow padding={padding} width={width} {...props}>
-        <p>
-        We’re a <a href="/about/about_team.htm">team</a> of professionals working
-        hard to provide free learning content.
-        </p>
-    </HighlightedRow>
-);
+}): React.ReactElement => {
+    const onClick = () => {
+        console.log('hey')
+    };
+    
+    return (
+        <HighlightedRow padding={padding} width={width} {...props}>
+            <p>
+            We’re a <ClickableSmallText onClick={onClick}>Team</ClickableSmallText> of professionals working
+            hard to provide free learning content.
+            </p>
+        </HighlightedRow>
+    )
+};
 
 const HighlightedRow = styled.div<RowProps>`
     padding: ${(props): string => props.padding || '10px 10px'};
