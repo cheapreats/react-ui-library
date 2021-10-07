@@ -10,6 +10,9 @@ export default {
         children: 'Hello World',
         bold: true,
         color: 'black',
+        onClick: function () {
+            console.log('Hello World')
+        },
     },
 } as Meta;
 

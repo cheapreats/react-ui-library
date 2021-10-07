@@ -1,21 +1,19 @@
 import React from 'react';
 import { TextLayout, TextLayoutProps } from '../Fragments/TextLayout';
-import { Button } from '../Inputs/Button/Button';
-import { SmallText } from './SmallText';
 
 export interface ClickableSmallTextProps extends TextLayoutProps {}
 
 export const ClickableSmallText: React.FC<ClickableSmallTextProps> = ({
     children,
-    onClick,
     type = 'span',
     size = 'small',
     color = 'text',
+    onClick,
     ...props
 }): React.ReactElement => (
-    <Button onClick={onClick}>
-        <SmallText>{children}</SmallText>
-    </Button>
+    <TextLayout type={type} size={size} color={color} onClick={onClick} {...props}>
+        {children}
+    </TextLayout>
 );
 
 export default ClickableSmallText;
