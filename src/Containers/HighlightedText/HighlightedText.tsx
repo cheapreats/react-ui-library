@@ -3,10 +3,12 @@ import styled from 'styled-components';
 import { ClickableSmallText, SmallText } from '@Text';
 import { 
     List,
+    ListProps,
+} from '../List/List';
+import {
     VerticalListItemProps,
     ListItem,
-    ListProps,
-} from '../../index';
+} from '../List/ListItem';
 
 
 

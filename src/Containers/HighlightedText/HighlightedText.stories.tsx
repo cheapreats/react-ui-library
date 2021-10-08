@@ -28,7 +28,7 @@ const labels = [
         text: 'Wendy\'s',
         isSpecial: true,
         listArgs: {id: 'SpecialTextList'},
-        listItemsArgs: [{onClick: () => printChoice(`Wendy\'s`),}, {onClick: () => printChoice(`Burger King`),}],
+        listItemsArgs: [{onClick: () => printChoice(`Wendy's`),}, {onClick: () => printChoice(`Burger King`),}],
         listItemsBodies: ['Wendy\'s', 'Burger King'],
     },
 ]
