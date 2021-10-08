@@ -51,12 +51,13 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
     const StyleSpecial = (label: HighlightedString, index: number): React.ReactElement => {
         // console.log(label)
         if (label.isSpecial){
-            return <ClickableSmallText onClick={() => 
-            {
-                if (index === currSpecialIndex){
-                    setSpecialIndex(-1)
-                } else {setSpecialIndex(index)}
-            }
+            return <ClickableSmallText bold={true}
+            onClick={() => 
+                {
+                    if (index === currSpecialIndex){
+                        setSpecialIndex(-1)
+                    } else {setSpecialIndex(index)}
+                }
             }>{`${label.text  } `}</ClickableSmallText>
         } 
         return <SmallText>{`${label.text  } `}</SmallText>
