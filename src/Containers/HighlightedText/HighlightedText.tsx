@@ -52,30 +52,30 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
         // console.log(label)
         if (label.isSpecial){
             return <ClickableSmallText onClick={() => 
-                {
-                    if (index === currSpecialIndex){
-                        setSpecialIndex(-1)
-                    } else {setSpecialIndex(index)}
-                }
-            }>{label.text + ' '}</ClickableSmallText>
-        } else {
-            return <SmallText>{label.text + ' '}</SmallText>
-        }
+            {
+                if (index === currSpecialIndex){
+                    setSpecialIndex(-1)
+                } else {setSpecialIndex(index)}
+            }
+            }>{`${label.text  } `}</ClickableSmallText>
+        } 
+        return <SmallText>{`${label.text  } `}</SmallText>
+        
     }
 
-    const RenderList = (labelIndex: number): React.ReactElement | void => {
+    const RenderList = (labelIndex: number): React.ReactElement => {
         const defaultListArgs = {id: 'SpecialTextList'}
 
         if (labelIndex < 0){
-            return
+            return <></>
         }
 
         const label = labels[labelIndex]
         if (!label.isSpecial){
-            return
+            return <></>
         }
         
-        const listArgs = label.listArgs
+        const {listArgs} = label
         const listItemsArgs = label.listItemsArgs || []
         const listItemsBodies = label.listItemsBodies || []
 
