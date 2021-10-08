@@ -10,10 +10,9 @@ export default {
         children: 'Hello World',
         bold: true,
         color: 'black',
-        onClick: function () {
-            console.log('Hello World')
-        },
+        // onClick: { action: 'Highlighted Text was clicked.' },
     },
+    argTypes: { onClick: { action: 'Highlighted Text was clicked.' } },
 } as Meta;
 
 export const Basic: Story<SmallTextProps> = (args) => (

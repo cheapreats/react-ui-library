@@ -2,10 +2,12 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { HighlightedText, HighlightedTextProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
+import { action } from '@storybook/addon-actions';
 
-const printChoice = (choiceName: string) => {
-    console.log(`You chose ` + choiceName + `.`)
-}
+// const printChoice = (choiceName: string) => {
+//     action('You chose ' + choiceName + '.')
+//     // console.log(`You chose ` + choiceName + `.`)
+// }
 
 const labels = [
     {
@@ -15,9 +17,8 @@ const labels = [
     {
         text: 'Burger',
         isSpecial: true,
-        // onClick: () => console.log(`You clicked.`),
         listArgs: {id: 'SpecialTextList'},
-        listItemsArgs: [{onClick: () => printChoice(`Burger`),}, {onClick: () => printChoice(`Fries`),}],
+        listItemsArgs: [{onClick: action('Burger Clicked.'),}, {onClick: action('Fries Clicked.'),}],
         listItemsBodies: ['Burger', 'Fries'],
     },
     {
@@ -28,12 +29,10 @@ const labels = [
         text: 'Wendy\'s',
         isSpecial: true,
         listArgs: {id: 'SpecialTextList'},
-        listItemsArgs: [{onClick: () => printChoice(`Wendy's`),}, {onClick: () => printChoice(`Burger King`),}],
+        listItemsArgs: [{onClick: () => action('Wendy\'s Clicked.'),}, {onClick: () => action('Burger King Clicked.'),}],
         listItemsBodies: ['Wendy\'s', 'Burger King'],
     },
 ]
-
-
 
 export default {
     title: createStoryTitle('Highlighted Text'),
