@@ -48,12 +48,12 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
 }): React.ReactElement => {
     const [currSpecialIndex, setSpecialIndex] = useState(-1);
 
-    const StyleSpecial = (label: HighlightedString, index: number) => {
+    const StyleSpecial = (label: HighlightedString, index: number): React.ReactElement => {
         // console.log(label)
         if (label.isSpecial){
             return <ClickableSmallText onClick={() => 
                 {
-                    if (index == currSpecialIndex){
+                    if (index === currSpecialIndex){
                         setSpecialIndex(-1)
                     } else {setSpecialIndex(index)}
                 }
@@ -63,7 +63,7 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
         }
     }
 
-    const RenderList = (labelIndex: number) => {
+    const RenderList = (labelIndex: number): React.ReactElement | void => {
         const defaultListArgs = {id: 'SpecialTextList'}
 
         if (labelIndex < 0){
