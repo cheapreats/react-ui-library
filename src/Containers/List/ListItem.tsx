@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Main } from '../../Utils/BaseStyles';
 import { Mixins } from '../../Utils';
 
-interface ListItemProps
+export interface VerticalListItemProps
     extends Omit<React.HTMLAttributes<HTMLLIElement>, 'onClick'> {
     onClick?: (event: React.MouseEvent<Element, MouseEvent>) => void;
     padding?: string;
@@ -11,7 +11,7 @@ interface ListItemProps
     isSelected?: boolean;
 }
 
-export const ListItem: React.FC<ListItemProps> = ({
+export const ListItem: React.FC<VerticalListItemProps> = ({
     children,
     onClick,
     padding = '16px 20px',

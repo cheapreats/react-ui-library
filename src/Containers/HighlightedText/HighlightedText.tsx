@@ -1,17 +1,11 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
-import { ClickableSmallText } from '@Text';
-import { Heading } from '@Text';
-import { flex } from '@Utils/Mixins';
-import { useArgs } from '@storybook/client-api';
+import { ClickableSmallText, SmallText } from '@Text';
 import { 
     List,
-    ListFooter,
-    ListHeader,
-    ListHeaderProps,
+    VerticalListItemProps,
     ListItem,
     ListProps,
-    ListToggle,
 } from '../../index';
 
 
@@ -21,9 +15,18 @@ interface RowProps {
     width?: number;
 }
 
+export interface HighlightedString {
+    text: string;
+    isSpecial: boolean;
+    listArgs?: ListProps;
+    listItems?: Array<typeof ListItem>;
+    listItemsArgs?: Array<VerticalListItemProps>;
+    listItemsBodies?: Array<any>;
+    // onClick?: () => void;
+}
+
 export interface HighlightedTextProps {
-    labels: Array<string>;
-    options: Array<Array<string>>;
+    labels: Array<HighlightedString>;
     display?: string;
     type?: string;
     padding?: string;
@@ -33,7 +36,6 @@ export interface HighlightedTextProps {
 
 export const HighlightedText: React.FC<HighlightedTextProps> = ({
     labels,
-    options,
     display,
     type,
     padding,
@@ -42,69 +44,58 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
     children,
     ...props
 }): React.ReactElement => {
-    const onClick = () => {
-        console.log('hey')
-    };
-    
-    let items = [
-        { key: '1', data: 'data', date: 'today' },
-        { key: '2', data: 'data', date: 'yesterday' },
-        { key: '3', data: 'data', date: 'today' },
-        { key: '4', data: 'data', date: 'yesterday' },
-        { key: '5', data: 'data', date: 'today' },
-        { key: '7', data: 'data', date: 'yesterday' },
-        { key: '8', data: 'data', date: 'today' },
-        { key: '9', data: 'data', date: 'yesterday' },
-        { key: '10', data: 'data', date: 'today' },
-        { key: '11', data: 'data', date: 'yesterday' },
-        { key: '12', data: 'data', date: 'today' },
-    ];
-    let args = {
-        header: (
-            <ListHeader
-                label="Header"
-                headerFlex="space-between"
-                // icon={COG_WHEEL_ICON}
-                iconProps="width: 20px; margin-right: 10px;"
-                iconClick={() => alert('Icon Clicked')}
-            />
-        ),
-        footer: (
-            <ListFooter>
-                <p>This is a list Footer</p>
-            </ListFooter>
-        ),
-        // isOpen: false,
-        columnWidth: '300px',
-        loading: false,
-        cssPosition: 'string',
-        margin: '0',
-        left: '0',
-        right: 'auto',
-        id: '1',
-        mediaMixin: 'tablet',
-        mediaCssPosition: 'string',
-        mediaLeft: '0',
-        mediaRight: 'auto',
-        mediaMargin: 'auto',
-        mediaOnCloseTranslateXAxis: '-100%',
+    const [currSpecialIndex, setSpecialIndex] = useState(-1);
+
+    const StyleSpecial = (label: HighlightedString, index: number) => {
+        // console.log(label)
+        if (label.isSpecial){
+            return <ClickableSmallText onClick={() => 
+                {
+                    if (index == currSpecialIndex){
+                        setSpecialIndex(-1)
+                    } else {setSpecialIndex(index)}
+                }
+            }>{label.text + ' '}</ClickableSmallText>
+        } else {
+            return <SmallText>{label.text + ' '}</SmallText>
+        }
+    }
+
+    const RenderList = (labelIndex: number) => {
+        const defaultListArgs = {id: 'SpecialTextList'}
+
+        if (labelIndex < 0){
+            return
+        }
+
+        const label = labels[labelIndex]
+        if (!label.isSpecial){
+            return
+        }
+        
+        const listArgs = label.listArgs
+        const listItemsArgs = label.listItemsArgs || []
+        const listItemsBodies = label.listItemsBodies || []
+
+        return (
+            <List {...listArgs || defaultListArgs}>
+                {listItemsArgs.map((listItemsArg, index) => (
+                    <ListItem {...listItemsArg}>
+                        <p>{listItemsBodies && listItemsBodies[index]}</p>
+                    </ListItem>
+                ))}
+            </List>
+        )
     }
 
     return (
         <HighlightedRow padding={padding} width={width} {...props}>
             <p>
-            We’re a <ClickableSmallText onClick={onClick}>Team</ClickableSmallText> of professionals working
-            hard to provide free learning content.
-            </p>
-            <List {...args}>
-                {items.map((item) => (
-                    <ListItem
-                        onClick={() => alert(`You clicked ${item.date}`)}
-                    >
-                        <p>{item.date}</p>
-                    </ListItem>
+                {labels.map((label, index) => (
+                    StyleSpecial(label, index)
                 ))}
-            </List>
+            </p>
+            {RenderList(currSpecialIndex)}
         </HighlightedRow>
     )
 };
