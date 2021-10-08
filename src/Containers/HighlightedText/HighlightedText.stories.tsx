@@ -1,8 +1,8 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import { action } from '@storybook/addon-actions';
 import { HighlightedText, HighlightedTextProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
-import { action } from '@storybook/addon-actions';
 
 // const printChoice = (choiceName: string) => {
 //     action('You chose ' + choiceName + '.')
@@ -38,7 +38,7 @@ export default {
     title: createStoryTitle('Highlighted Text'),
     component: HighlightedText,
     args: {
-        labels: labels,
+        labels,
         display: 'column',
         type: 'h2',
         padding: '0 0 0 5px',
