@@ -3,6 +3,7 @@ import { Microphone } from '@styled-icons/fa-solid/Microphone';
 import { Meta, Story } from '@storybook/react';
 import { VoiceButton} from '../../index'; 
 import { createStoryTitle, getCaptionForLocale } from '../../Constants';
+import { VoiceButtonProps } from '..';
 
 export default {
     title: createStoryTitle('VoiceButton'),
@@ -10,13 +11,13 @@ export default {
     argTypes: { onClick: { action: 'Button Click Occurred' } },
     args: {
         disabled: false,
+        pulsing: false,
         icon: Microphone,
         iconSize: '14px',
-        contentColor: 'text',
-        full: false,
+        children: 'Talking...',
     },
 } as Meta;
 
-export const Basic: Story<ButtonProps> = (args) => (
-    <VoiceButton {...args}>{getCaptionForLocale(args.children as string)}</VoiceButton>
+export const Basic: Story<VoiceButtonProps> = (args) => (
+    <VoiceButton {...args}></VoiceButton>
 );
