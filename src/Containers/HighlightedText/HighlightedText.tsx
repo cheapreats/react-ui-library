@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ClickableSmallText, SmallText } from '@Text';
-import Dropdown, { IDropdownProps } from '../Dropdown/index';
-import DropdownItem, { IDropdownItemProps } from '../Dropdown/DropdownItem';
 import { JSXElement } from '@babel/types';
+import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
+import DropdownItem, { IDropdownItemProps } from '../Dropdown/DropdownItem';
 import { TextLayoutProps } from '../../Fragments/TextLayout';
 
 
@@ -21,15 +21,12 @@ export interface HighlightedTextProps extends TextLayoutProps {
 
 export const HighlightedText: React.FC<HighlightedTextProps> = ({
     labels,
-    children,
     ...props
 }): React.ReactElement => {
 
-    const GetSpecialText = (label: HighlightedString): React.ReactElement => {
-        return <ClickableSmallText bold>{`${label.text  } `}</ClickableSmallText>
-    }
+    const GetSpecialText = (label: HighlightedString): React.ReactElement => <ClickableSmallText bold>{`${label.text  } `}</ClickableSmallText>
 
-    const StyleSpecial = (label: HighlightedString, index: number): React.ReactElement => {
+    const StyleSpecial = (label: HighlightedString): React.ReactElement => {
         if (label.isSpecial){
             const listItemsArgs: Array<IDropdownItemProps> = label.listItemsArgs || []
             const listItemsBodies: Array<JSXElement> = label.listItemsBodies || []
@@ -48,15 +45,13 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
         
     }
 
-    const RenderText = (): React.ReactElement => {
-        return (
-            <p>
-                {labels.map((label, index) => (
-                    StyleSpecial(label, index)
-                ))}
-            </p>
-        )
-    }
+    const RenderText = (): React.ReactElement => (
+        <p>
+            {labels.map((label) => (
+                StyleSpecial(label)
+            ))}
+        </p>
+    )
 
     return (
         <HighlightedRow {...props}>
