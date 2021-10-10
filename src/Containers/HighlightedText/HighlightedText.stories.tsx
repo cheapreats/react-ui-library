@@ -4,11 +4,6 @@ import { action } from '@storybook/addon-actions';
 import { HighlightedText, HighlightedTextProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
-// const printChoice = (choiceName: string) => {
-//     action('You chose ' + choiceName + '.')
-//     // console.log(`You chose ` + choiceName + `.`)
-// }
-
 const labels = [
     {
         text: 'Ordering a',
@@ -29,7 +24,7 @@ const labels = [
         text: 'Wendy\'s',
         isSpecial: true,
         listArgs: {id: 'SpecialTextList'},
-        listItemsArgs: [{onClick: () => action('Wendy\'s Clicked.'),}, {onClick: () => action('Burger King Clicked.'),}],
+        listItemsArgs: [{onClick: action('Wendy\'s Clicked.'),}, {onClick: action('Burger King Clicked.'),}],
         listItemsBodies: ['Wendy\'s', 'Burger King'],
     },
 ]

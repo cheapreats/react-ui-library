@@ -19,7 +19,7 @@ type DropdownComponent<P = {}> = React.NamedExoticComponent<P> & {
 };
 
 export interface IDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-    dropdownButton: Element;
+    dropdownButton: React.ReactElement;
     dropdownWidth?: number;
     right?: boolean;
 }
