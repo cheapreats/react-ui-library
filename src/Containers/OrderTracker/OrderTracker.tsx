@@ -1,13 +1,12 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-import { StyledIcon } from 'styled-icons/types';
+// import {
+//     ShoppingBag,
+//     Payment,
+//     Food,
+// } from '@styled-icons/fluentui-system-filled';
 
-interface OrderStatus {
-    /** icon: the styled icon used in different statuses */
-    icon: StyledIcon;
-    /** text: the text under the styled icon */
-    text: String;
-}
+// const icons = [ShoppingBag, Payment, Food];
 
 interface Color {
     /** nonFocusedIcon: the color of the icon when not focused */
@@ -22,7 +21,7 @@ interface Color {
 
 export interface OrderTrackerProps {
     /** statuses: different statuses appearing on the component */
-    statuses: OrderStatus[];
+    statuses: string[];
     /** colors: the object Color with different color settings */
     colors: Color;
     /** currIndex: the current status of the component, represented by an integer */
@@ -33,7 +32,7 @@ export interface OrderTrackerProps {
 
 /**
  * The component informing the customer of the progress of a food order.
- * @param statuses An array of status objects
+ * @param statuses An array of strings representing each status of an order
  * @param colors An object of different colors
  * @param currIndex An integer representing the current status
  * @param size A string indicating the size of the components
@@ -95,17 +94,11 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
                         colors={colors}
                         currIndex={currIndex}
                         index={i}
-                        status={status}
                     />
                 );
             }
             return (
-                <StatusIcon
-                    colors={colors}
-                    currIndex={currIndex}
-                    index={i}
-                    status={status}
-                />
+                <StatusIcon colors={colors} currIndex={currIndex} index={i} />
             );
         };
 
@@ -121,7 +114,7 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
                         currIndex={currIndex}
                         index={i}
                     >
-                        {status.text}
+                        {statuses[i]}
                     </TextWrapper>
                 </ColDiv>
                 <BarContainer
@@ -178,6 +171,12 @@ interface IconContainerProps {
     size: string;
 }
 
+interface StatusIconProps {
+    colors: Color;
+    currIndex: number;
+    index: number;
+}
+
 /**
  * A container for icons
  */
@@ -187,17 +186,10 @@ const IconContainer = styled.div<IconContainerProps>`
     color: ${(props) => props.colors.nonFocusedIcon};
 `;
 
-interface StatusIconProps {
-    colors: Color;
-    currIndex: number;
-    index: number;
-    statuses: OrderStatus[];
-}
-
 /**
  * An icon representing a status of the component
  */
-const StatusIcon = styled((props) => props.status.icon)<StatusIconProps>`
+const StatusIcon = styled.div<StatusIconProps>`
     height: 100%;
     width: 100%;
     color: ${(props) =>
@@ -209,7 +201,7 @@ const StatusIcon = styled((props) => props.status.icon)<StatusIconProps>`
 /**
  * An icon with animation representing the change in statuses
  */
-const StatusIconActive = styled((props) => props.status.icon)<StatusIconProps>`
+const StatusIconActive = styled.div<StatusIconProps>`
     height: 100%;
     width: 100%;
     animation-name: ${iconAnimation};
@@ -224,7 +216,13 @@ interface BarContainerProps {
     colors: Color;
     index: number;
     size: string[];
-    statuses: OrderStatus[];
+    statuses: string[];
+}
+
+interface BarProps {
+    currIndex: number;
+    colors: Color;
+    statuses: string[];
 }
 
 /**
@@ -240,12 +238,6 @@ const BarContainer = styled.div<BarContainerProps>`
             ? props.colors.nonFocusedIcon
             : 'transparent'};
 `;
-
-interface BarProps {
-    currIndex: number;
-    colors: Color;
-    statuses: OrderStatus[];
-}
 
 /**
  * A bar displaying the progress of the order
