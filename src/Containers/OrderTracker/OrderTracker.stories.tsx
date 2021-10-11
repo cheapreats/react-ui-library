@@ -1,6 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-
+import {
+    ShoppingBag,
+    Payment,
+    Food,
+} from '@styled-icons/fluentui-system-filled';
 import { OrderTracker, OrderTrackerProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
@@ -8,7 +12,11 @@ export default {
     title: createStoryTitle('OrderTracker'),
     component: OrderTracker,
     args: {
-        statuses: ['Order', 'Payment', 'Food'],
+        statuses: [
+            { icon: ShoppingBag, text: 'Order' },
+            { icon: Payment, text: 'Payment' },
+            { icon: Food, text: 'Food' },
+        ],
         colors: {
             nonFocusedIcon: '#ddd',
             focusedIcon: '#f00',
