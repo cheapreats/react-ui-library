@@ -1,49 +1,39 @@
 import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
 import styled from 'styled-components';
 import { Button } from '../Button/Button';
-import { CircleFill } from '@styled-icons/bootstrap/CircleFill';
 import { useTransition } from '@Utils/Hooks';
-import { position } from '@Utils/Mixins';
-/*import {
-    Main,
-    MainInterface,
-    Responsive,
-    ResponsiveInterface,
-} from '@Utils/BaseStyles';
-import { clickable, flex, position, transition } from '@Utils/Mixins';
-//import { useTransition } from '@Utils/Hooks';
-export interface ButtonProps
-    extends MainInterface,
-        ResponsiveInterface,
-        React.HTMLAttributes<HTMLButtonElement> {
-    icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
-    iconSize?: string;
-    full?: boolean;
-    onClick?: React.MouseEventHandler;
-    disabled?: boolean;
-}*/
 
 export interface VoiceButtonProps {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     iconSize?: string;
     onClick?: React.MouseEventHandler;
     disabled?: boolean;
-    pulsing?: boolean;
+    isPulsing?: boolean;
 }
 
+/**
+ * A VoiceButton which uses Button functionality 
+ * @param children
+ * @param icon
+ * @param iconSize
+ * @param disabled
+ * @param isPulsing 
+ * @param props
+ * @constructor
+ */
 export const VoiceButton: React.FC<VoiceButtonProps> = ({
     children,
     icon,
     iconSize = '14px',
     disabled,
-    pulsing,
+    isPulsing,
     ...props
 }): React.ReactElement => {
-    const [, isAnimated] = useTransition(pulsing);
+    const [, isAnimated] = useTransition(isPulsing);
     return (
         <div>
             <p> { children } </p>
-            <StyledButton pulsing = {isAnimated} {...props} disabled={disabled}>
+            <StyledButton isPulsing = {isAnimated} {...props} disabled={disabled}>
                 {icon && (
                     <Icon
                         iconSize={iconSize}
@@ -67,10 +57,10 @@ const Icon = styled.svg<VoiceIconProps>`
     `}
 `;
 
-const StyledButton = styled(Button).attrs({})<{pulsing: boolean}>`
+const StyledButton = styled(Button).attrs({})<{isPulsing: boolean}>`
 
-    ${({ pulsing }): string =>
-        pulsing
+    ${({ isPulsing }): string =>
+        isPulsing
             ? `
             box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
             transform: scale(1);
