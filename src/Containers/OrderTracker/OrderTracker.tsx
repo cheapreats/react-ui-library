@@ -58,7 +58,7 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
          * A function that renders progress bar according to current status
          * @returns A JSX element that is a progress bar according to current status
          */
-        const renderBar = (): React.ReactNode => {
+        const renderBar = (): React.ReactElement | null => {
             if (currIndex < i + 1) {
                 return null;
             }
@@ -84,7 +84,7 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
          * A function that renders status icons according to the current status
          * @returns A JSX element that is an icon according to the current status
          */
-        const renderIcon = (): React.ReactNode => {
+        const renderIcon = (): React.ReactElement => {
             if (currIndex === i) {
                 return (
                     <IconActive
