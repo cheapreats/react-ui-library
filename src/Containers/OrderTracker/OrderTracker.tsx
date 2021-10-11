@@ -22,9 +22,9 @@ interface Color {
 export interface OrderTrackerProps {
     /** statuses: different statuses appearing on the component */
     statuses: string[];
-    /** colors: the object Color with different color settings */
+    /** colors: an object Color with different color settings */
     colors: Color;
-    /** currIndex: the current status of the component, represented by an integer */
+    /** currIndex: current status of the component, represented by an integer */
     currIndex: number;
     /** size: the size of the component, could be in both px and em */
     size: string;
@@ -36,7 +36,7 @@ export interface OrderTrackerProps {
  * @param colors An object of different colors
  * @param currIndex An integer representing the current status
  * @param size A string indicating the size of the components
- * @param props
+ * @param props Other props injected
  * @constructor
  */
 export const OrderTracker: React.VFC<OrderTrackerProps> = ({
@@ -151,7 +151,7 @@ const RowDiv = styled.div`
 `;
 
 /**
- * CSS for the animation of progress bar
+ * CSS animation of progress bar
  */
 const barAnimation = keyframes`
  0% { width: 0%; }
@@ -159,7 +159,7 @@ const barAnimation = keyframes`
 `;
 
 /**
- * CSS for the animation of the status icon
+ * CSS animation of the status icon
  */
 const iconAnimation = keyframes`
  0% { opacity: 0%; color: red}
@@ -167,13 +167,18 @@ const iconAnimation = keyframes`
 `;
 
 interface IconContainerProps {
+    /** colors: the object Color with different settings */
     colors: Color;
+    /** size: the size of the component */
     size: string;
 }
 
 interface StatusIconProps {
+    /** colors: an object Color with different settings */
     colors: Color;
+    /** currIndex: the number representing the current status */
     currIndex: number;
+    /** index: the index of the status */
     index: number;
 }
 
@@ -213,15 +218,23 @@ const StatusIconActive = styled.div<StatusIconProps>`
 `;
 
 interface BarContainerProps {
+    /** colors: an object Color with different settings */
     colors: Color;
+    /** index: an index of the progress bar */
     index: number;
+    /** size: size of the progress bar where the first element is the number
+     * and the second element is the unit */
     size: string[];
+    /** statuses: an array of texts describing each status */
     statuses: string[];
 }
 
 interface BarProps {
+    /** currIndex: the number representing the current status */
     currIndex: number;
+    /** colors: an object Color with different settings */
     colors: Color;
+    /** statuses: an array of texts describing each status */
     statuses: string[];
 }
 
@@ -270,9 +283,14 @@ const BarActive = styled.div<BarProps>`
 `;
 
 interface TextWrapperProps {
+    /** colors: an object Color with different settings */
     colors: Color;
+    /** currIndex: the number representing the current status */
     currIndex: number;
+    /** index: an index of the progress bar */
     index: number;
+    /** size: size of the progress bar where the first element is the number
+     * and the second element is the unit */
     size: string[];
 }
 
