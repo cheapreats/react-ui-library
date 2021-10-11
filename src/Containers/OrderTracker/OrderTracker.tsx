@@ -1,13 +1,11 @@
 import React from 'react';
 import styled, { keyframes } from 'styled-components';
-// import {
-//     ShoppingBag,
-//     Payment,
-//     Food,
-// } from '@styled-icons/fluentui-system-filled';
+import { StyledIcon } from 'styled-icons/types';
 
-// const icons = [ShoppingBag, Payment, Food];
-
+interface OrderStatus {
+    icon: StyledIcon;
+    text: string;
+}
 interface Color {
     /** nonFocusedIcon: the color of the icon when not focused */
     nonFocusedIcon: string;
@@ -18,10 +16,9 @@ interface Color {
     /** focusedText: the color of the text when not focused */
     focusedText: string;
 }
-
 export interface OrderTrackerProps {
     /** statuses: different statuses appearing on the component */
-    statuses: string[];
+    statuses: OrderStatus[];
     /** colors: an object Color with different color settings */
     colors: Color;
     /** currIndex: current status of the component, represented by an integer */
@@ -90,15 +87,21 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
         const renderIcon = (): React.ReactNode => {
             if (currIndex === i) {
                 return (
-                    <StatusIconActive
+                    <IconActive
                         colors={colors}
                         currIndex={currIndex}
                         index={i}
+                        as={status.icon}
                     />
                 );
             }
             return (
-                <StatusIcon colors={colors} currIndex={currIndex} index={i} />
+                <Icon
+                    colors={colors}
+                    currIndex={currIndex}
+                    index={i}
+                    as={status.icon}
+                />
             );
         };
 
@@ -108,14 +111,14 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
                     <IconContainer size={size} colors={colors}>
                         {renderIcon()}
                     </IconContainer>
-                    <TextWrapper
+                    <Text
                         colors={colors}
                         size={sizeArr}
                         currIndex={currIndex}
                         index={i}
                     >
-                        {statuses[i]}
-                    </TextWrapper>
+                        {status.text}
+                    </Text>
                 </ColDiv>
                 <BarContainer
                     colors={colors}
@@ -150,22 +153,6 @@ const RowDiv = styled.div`
     flex-direction: row;
 `;
 
-/**
- * CSS animation of progress bar
- */
-const barAnimation = keyframes`
- 0% { width: 0%; }
- 100% { width: 100%; }
-`;
-
-/**
- * CSS animation of the status icon
- */
-const iconAnimation = keyframes`
- 0% { opacity: 0%; color: red}
- 100% { opacity: 100%; color: red}
-`;
-
 interface IconContainerProps {
     /** colors: the object Color with different settings */
     colors: Color;
@@ -173,7 +160,7 @@ interface IconContainerProps {
     size: string;
 }
 
-interface StatusIconProps {
+interface IconProps {
     /** colors: an object Color with different settings */
     colors: Color;
     /** currIndex: the number representing the current status */
@@ -183,9 +170,17 @@ interface StatusIconProps {
 }
 
 /**
+ * CSS animation of the status icon
+ */
+const iconAnimation = keyframes`
+ 0% { opacity: 0%; color: red}
+ 100% { opacity: 100%; color: red}
+`;
+
+/**
  * A container for icons
  */
-const IconContainer = styled.div<IconContainerProps>`
+export const IconContainer = styled.div<IconContainerProps>`
     height: ${(props) => props.size};
     width: ${(props) => props.size};
     color: ${(props) => props.colors.nonFocusedIcon};
@@ -194,7 +189,7 @@ const IconContainer = styled.div<IconContainerProps>`
 /**
  * An icon representing a status of the component
  */
-const StatusIcon = styled.div<StatusIconProps>`
+export const Icon = styled.div<IconProps>`
     height: 100%;
     width: 100%;
     color: ${(props) =>
@@ -206,7 +201,7 @@ const StatusIcon = styled.div<StatusIconProps>`
 /**
  * An icon with animation representing the change in statuses
  */
-const StatusIconActive = styled.div<StatusIconProps>`
+export const IconActive = styled.div<IconProps>`
     height: 100%;
     width: 100%;
     animation-name: ${iconAnimation};
@@ -215,6 +210,14 @@ const StatusIconActive = styled.div<StatusIconProps>`
     animation-delay: ${(props) => (props.currIndex === 0 ? '0s' : '4s')};
     animation-duration: 2s;
     animation-iteration-count: 1;
+`;
+
+/**
+ * CSS animation of progress bar
+ */
+const barAnimation = keyframes`
+ 0% { width: 0%; }
+ 100% { width: 100%; }
 `;
 
 interface BarContainerProps {
@@ -226,7 +229,7 @@ interface BarContainerProps {
      * and the second element is the unit */
     size: string[];
     /** statuses: an array of texts describing each status */
-    statuses: string[];
+    statuses: OrderStatus[];
 }
 
 interface BarProps {
@@ -235,7 +238,7 @@ interface BarProps {
     /** colors: an object Color with different settings */
     colors: Color;
     /** statuses: an array of texts describing each status */
-    statuses: string[];
+    statuses: OrderStatus[];
 }
 
 /**
@@ -282,7 +285,7 @@ const BarActive = styled.div<BarProps>`
     animation-iteration-count: 1;
 `;
 
-interface TextWrapperProps {
+interface TextProps {
     /** colors: an object Color with different settings */
     colors: Color;
     /** currIndex: the number representing the current status */
@@ -297,7 +300,7 @@ interface TextWrapperProps {
 /**
  * A container for texts of each status
  */
-const TextWrapper = styled.p<TextWrapperProps>`
+const Text = styled.p<TextProps>`
     colors: ${(props) =>
         props.currIndex === props.index
             ? props.colors.focusedText
