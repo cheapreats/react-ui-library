@@ -56,6 +56,11 @@ export interface ISquareTable {
      */
     occupancyStatus: occupancyStatusTypes;
     /**
+     * Timer for the last time that table was served
+     * format: Hours:Minutes:Seconds
+     */
+    timeLastServed: string;
+    /**
      * Array of chairs
      */
     chairs: Array<IChair>;
@@ -109,6 +114,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     tableID = 'T1',
     partyName = 'Null',
     occupancyStatus = 'Vacant',
+    timeLastServed='0:00:00',
     chairs = [],
     relativeSize = 1.0,
     isSquare = false,
@@ -280,6 +286,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                             <Status occupancyStatus={occupancyStatus}>
                                 {occupancyStatus}
                             </Status>
+                            {`${timeLastServed}`}
                         </div>
                     </TableInfo>
                     <ColorDiv

@@ -43,6 +43,7 @@ SevenTopSquareTable.args = {
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
+    timeLastServed: '0:00:00',
     chairs: [
         {
             position: 'top',
@@ -412,3 +413,4 @@ SquareTableEditPage.args = {
     onTableClick: handleTableClick,
     onChairClick: handleOnChairClick,
 };
+
