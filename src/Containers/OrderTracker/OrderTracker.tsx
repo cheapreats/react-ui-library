@@ -129,9 +129,9 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
     ...props
 }: OrderTrackerProps): React.ReactElement => {
     /**
-     * @returns {JSX.Element[]} An array of elements each representing a status of the component
+     * @returns {React.ReactElement[]} An array of elements each representing a status of the component
      */
-    const getElements = (): JSX.Element[] =>
+    const getElements = (): React.ReactElement[] =>
         statuses.map((status, i) => {
             /* The split turns the size string, which is formatted as "DDpx" where "DD" is the size,
                into an array of the form ['', 'DD', 'px'] so it needs to be sliced at index 1
