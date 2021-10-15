@@ -4,7 +4,7 @@ import styled from 'styled-components';
 export interface AnalyticsProps extends React.HTMLAttributes<HTMLDivElement> {
 	title: string;
 	value: number;
-	change?: number;
+	change?: string;
 }
 
 export const Analytics: React.FC<AnalyticsProps> = ({
