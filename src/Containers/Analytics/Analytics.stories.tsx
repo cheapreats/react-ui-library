@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Analytics, AnalyticsProps } from '../../index';
+import { Analytics, IAnalyticsProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -13,4 +13,4 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<AnalyticsProps> = (args) => <Analytics {...args} />;
+export const Basic: Story<IAnalyticsProps> = (args) => <Analytics {...args} />;
