@@ -1,6 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const NUMERIC_SUFFIXES = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi'];
+const SHIFT_POINT = 1000;
+
 export interface AnalyticsProps extends React.HTMLAttributes<HTMLDivElement> {
 	title: string;
 	value: number;
@@ -12,19 +15,46 @@ export const Analytics: React.FC<AnalyticsProps> = ({
     value,
     change,
     ...props
-}): React.ReactElement => (
-    <Container {...props}>
-        <Title>
-            {title}
-        </Title>
-        <Value>
-            {value}
-            <Percentage>
-                {change}
-            </Percentage>
-        </Value>
-    </Container>
-);
+}): React.ReactElement => {
+    /**
+     * 
+     * @param count 
+     * @returns 
+     */
+    const minimizeLargeNumber = (count: number) => {
+        let shiftCount = 0;
+        while(count >= SHIFT_POINT && shiftCount < NUMERIC_SUFFIXES.length - 1) {
+            count /= SHIFT_POINT;
+            shiftCount += 1;
+        }
+        let roundedNumber = count.toFixed();
+        if(shiftCount > 0) {
+            if(count > 100) {
+                roundedNumber = count.toFixed(0);
+            } else if(count > 10){
+                roundedNumber = count.toFixed(1);
+            } else {
+                roundedNumber = count.toFixed(2);
+            }
+        }
+
+        return roundedNumber + NUMERIC_SUFFIXES[shiftCount];
+    };
+
+    return(
+        <Container {...props}>
+            <Title>
+                {title}
+            </Title>
+            <Value>
+                {minimizeLargeNumber(value)}
+                <Percentage>
+                    {change}
+                </Percentage>
+            </Value>
+        </Container>
+    );
+}
 
 const Container = styled.div`
 
