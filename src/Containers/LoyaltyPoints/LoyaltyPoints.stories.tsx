@@ -1,8 +1,9 @@
-
 import React from 'react'; 
 import { Meta, Story } from '@storybook/react';
-import { createStoryTitle, getCaptionForLocale } from '../../Constants';
-import { LoyaltyPointsProps, LoyaltyPoints, Paragraph } from "index";
+import { createStoryTitle } from '../../Constants';
+import { LoyaltyPointsProps, LoyaltyPoints } from "index";
+import { star } from '@styled-icons/material-rounded/Stars';
+
 
 export default {
   
@@ -15,9 +16,7 @@ export default {
 
 
 export const Basic: Story<LoyaltyPointsProps> = (args) => (
-  <LoyaltyPoints{...args}>
-    <Paragraph>{getCaptionForLocale('+10★')}</Paragraph>
-  
-  </LoyaltyPoints>
+  <LoyaltyPoints{...args}/>
 )
 
+//todo switch star from text to icon using styled-icons import
