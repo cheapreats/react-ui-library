@@ -2,38 +2,123 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 
+/**
+ * The icon and text representing the current status of the application
+ *
+ * @interface OrderStatus
+ * @field {StyledIcon} icon - the icon representing the current status
+ * @field {string} text - the descriptive name of the current status
+ */
 interface OrderStatus {
     icon: StyledIcon;
     text: string;
 }
+
+/**
+ * Color groups to use in different states of the component
+ *
+ * @field {string} iconNonFocusedColor - color of the icon when not focused
+ * @field {string} iconFocusedColor - color of the icon when focused
+ * @field {string} textNonFocusedColor - color of the text when not focused
+ * @field {string} textFocusedColor - color of the text when focused
+ */
 interface Color {
-    /** nonFocusedIcon: the color of the icon when not focused */
-    nonFocusedIcon: string;
-    /** nonFocusedIcon: the color of the icon when focused */
-    focusedIcon: string;
-    /** nonFocusedText: the color of the text when not focused */
-    nonFocusedText: string;
-    /** focusedText: the color of the text when not focused */
-    focusedText: string;
+    iconNonFocusedColor: string;
+    iconFocusedColor: string;
+    textNonFocusedColor: string;
+    textFocusedColor: string;
 }
+
+/**
+ * Properties of the main component
+ *
+ * @field {OrderStatus[]} statuses - the list of statuses that the component can be in
+ * @field {Color} colors - the color options for different states of the component
+ * @field {number} currIndex - integer representing the current status of the component
+ * @field {string} size - size of the component in CSS
+ */
 export interface OrderTrackerProps {
-    /** statuses: different statuses appearing on the component */
     statuses: OrderStatus[];
-    /** colors: an object Color with different color settings */
     colors: Color;
-    /** currIndex: current status of the component, represented by an integer */
     currIndex: number;
-    /** size: the size of the component, could be in both px and em */
     size: string;
 }
 
 /**
+ * Properties of the icon container
+ *
+ * @field {Color} colors - the color options for different states of the component
+ * @field {string} size - size of the component in CSS
+ */
+interface IconContainerProps {
+    colors: Color;
+    size: string;
+}
+
+/**
+ * Properties of the icon
+ *
+ * @field {Color} colors - the color options for different states of the icon
+ * @field {number} currIndex - integer representing the current status of the icon
+ * @field {number} index - the index of the status
+ */
+interface IconProps {
+    colors: Color;
+    currIndex: number;
+    index: number;
+}
+
+/**
+ * Properties of the bar container
+ *
+ * @field {Color} colors - the color options for different states of the component
+ * @field {number} index - the index of the progress bar
+ * @field {string[]} size - size of the progress bar formatted as [size, unit]
+ * @field {OrderStatus[]} statuses - array of objects representing each status
+ */
+interface BarContainerProps {
+    colors: Color;
+    index: number;
+    size: string[];
+    statuses: OrderStatus[];
+}
+
+/**
+ * Properties of the bar
+ *
+ * @field {number} currIndex - an integer representing the current status
+ * @field {Color} colors - the color options for different states of the component
+ * @field {OrderStatus[]} statuses - array of objects representing each status
+ */
+interface BarProps {
+    currIndex: number;
+    colors: Color;
+    statuses: OrderStatus[];
+}
+
+/**
+ * Properties of the status texts
+ *
+ * @field {Color} colors - the color options for different states of the component
+ * @field {number} currIndex - an integer representing the current status
+ * @field {number} index - the index of the progress bar
+ * @field {string[]} size - size of the progress bar formatted as [size, unit]
+ */
+interface TextProps {
+    colors: Color;
+    currIndex: number;
+    index: number;
+    size: string[];
+}
+
+/**
  * The component informing the customer of the progress of a food order.
- * @param statuses An array of strings representing each status of an order
- * @param colors An object of different colors
- * @param currIndex An integer representing the current status
- * @param size A string indicating the size of the components
- * @param props Other props injected
+ *
+ * @param {OrderStatus[]} statuses - An array of strings representing each status of an order
+ * @param {Color} colors - An object of different colors
+ * @param {number} currIndex - An integer representing the current status
+ * @param {string} size - A string indicating the size of the components
+ * @param {any} props - Other props injected
  * @constructor
  */
 export const OrderTracker: React.VFC<OrderTrackerProps> = ({
@@ -44,95 +129,101 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
     ...props
 }: OrderTrackerProps): React.ReactElement => {
     /**
-     * An array of JSX elements, each representing a status of the component
+     * @returns {JSX.Element[]} An array of elements each representing a status of the component
      */
-    const elements: JSX.Element[] = statuses.map((status, i) => {
-        /**
-         * An array representing size of the component with
-         * the element at first index the number and
-         * the element at the second index the unit
-         */
-        const sizeArr = size.split(/(\d+)/).slice(1);
+    const getElements = (): JSX.Element[] =>
+        statuses.map((status, i) => {
+            /* The split turns the size string, which is formatted as "DDpx" where "DD" is the size,
+               into an array of the form ['', 'DD', 'px'] so it needs to be sliced at index 1
+             */
+            const SPLIT_REGEX = /(\d+)/;
+            const sliceIndex = 1;
 
-        /**
-         * A function that renders progress bar according to current status
-         * @returns A JSX element that is a progress bar according to current status
-         */
-        const renderBar = (): React.ReactElement | null => {
-            if (currIndex < i + 1) {
-                return null;
-            }
-            if (currIndex === i + 1) {
+            /**
+             * An array representing size of the component with
+             * the element at first index the number and
+             * the element at the second index the unit
+             */
+            const sizeArr = size.split(SPLIT_REGEX).slice(sliceIndex);
+
+            /**
+             * A function that renders progress bar according to current status
+             * @returns A JSX element that is a progress bar according to current status
+             */
+            const renderBar = (): React.ReactElement | null => {
+                if (currIndex < i + 1) {
+                    return null;
+                }
+                if (currIndex === i + 1) {
+                    return (
+                        <BarActive
+                            currIndex={currIndex}
+                            colors={colors}
+                            statuses={statuses}
+                        />
+                    );
+                }
                 return (
-                    <BarActive
+                    <Bar
                         currIndex={currIndex}
                         colors={colors}
                         statuses={statuses}
                     />
                 );
-            }
-            return (
-                <Bar
-                    currIndex={currIndex}
-                    colors={colors}
-                    statuses={statuses}
-                />
-            );
-        };
+            };
 
-        /**
-         * A function that renders status icons according to the current status
-         * @returns A JSX element that is an icon according to the current status
-         */
-        const renderIcon = (): React.ReactElement => {
-            if (currIndex === i) {
+            /**
+             * A function that renders status icons according to the current status
+             * @returns A JSX element that is an icon according to the current status
+             */
+            const renderIcon = (): React.ReactElement => {
+                if (currIndex === i) {
+                    return (
+                        <IconActive
+                            colors={colors}
+                            currIndex={currIndex}
+                            index={i}
+                            as={status.icon}
+                        />
+                    );
+                }
                 return (
-                    <IconActive
+                    <Icon
                         colors={colors}
                         currIndex={currIndex}
                         index={i}
                         as={status.icon}
                     />
                 );
-            }
+            };
+
             return (
-                <Icon
-                    colors={colors}
-                    currIndex={currIndex}
-                    index={i}
-                    as={status.icon}
-                />
-            );
-        };
-
-        return (
-            <RowDiv>
-                <ColDiv>
-                    <IconContainer size={size} colors={colors}>
-                        {renderIcon()}
-                    </IconContainer>
-                    <Text
+                <RowDiv>
+                    <ColDiv>
+                        <IconContainer size={size} colors={colors}>
+                            {renderIcon()}
+                        </IconContainer>
+                        <Text
+                            colors={colors}
+                            size={sizeArr}
+                            currIndex={currIndex}
+                            index={i}
+                        >
+                            {status.text}
+                        </Text>
+                    </ColDiv>
+                    <BarContainer
                         colors={colors}
-                        size={sizeArr}
-                        currIndex={currIndex}
                         index={i}
+                        size={sizeArr}
+                        statuses={statuses}
                     >
-                        {status.text}
-                    </Text>
-                </ColDiv>
-                <BarContainer
-                    colors={colors}
-                    index={i}
-                    size={sizeArr}
-                    statuses={statuses}
-                >
-                    {renderBar()}
-                </BarContainer>
-            </RowDiv>
-        );
-    });
-
-    return <RowDiv {...props}>{elements}</RowDiv>;
+                        {renderBar()}
+                    </BarContainer>
+                </RowDiv>
+            );
+        });
+    return <RowDiv {...props}>{getElements()}</RowDiv>;
 };
 
 /**
@@ -153,21 +244,15 @@ const RowDiv = styled.div`
     flex-direction: row;
 `;
 
-interface IconContainerProps {
-    /** colors: the object Color with different settings */
-    colors: Color;
-    /** size: the size of the component */
-    size: string;
-}
+/**
+ * Duration of the icon animation
+ */
+const iconAnimationDuration = 0.5;
 
-interface IconProps {
-    /** colors: an object Color with different settings */
-    colors: Color;
-    /** currIndex: the number representing the current status */
-    currIndex: number;
-    /** index: the index of the status */
-    index: number;
-}
+/**
+ * Duration of the bar animation
+ */
+const barAnimationDuration = 0.3;
 
 /**
  * CSS animation of the status icon
@@ -181,9 +266,9 @@ const iconAnimation = keyframes`
  * A container for icons
  */
 export const IconContainer = styled.div<IconContainerProps>`
-    height: ${(props) => props.size};
-    width: ${(props) => props.size};
-    color: ${(props) => props.colors.nonFocusedIcon};
+    height: ${({ size }) => size};
+    width: ${({ size }) => size};
+    color: ${({ colors }) => colors.iconNonFocusedColor};
 `;
 
 /**
@@ -192,10 +277,10 @@ export const IconContainer = styled.div<IconContainerProps>`
 export const Icon = styled.div<IconProps>`
     height: 100%;
     width: 100%;
-    color: ${(props) =>
-        props.currIndex <= props.index
-            ? props.colors.nonFocusedIcon
-            : props.colors.focusedIcon};
+    color: ${({ currIndex, index, colors }) =>
+        currIndex <= index
+            ? colors.iconNonFocusedColor
+            : colors.iconFocusedColor};
 `;
 
 /**
@@ -207,8 +292,9 @@ export const IconActive = styled.div<IconProps>`
     animation-name: ${iconAnimation};
     animation-timing-function: linear;
     animation-fill-mode: forwards;
-    animation-delay: ${(props) => (props.currIndex === 0 ? '0s' : '4s')};
-    animation-duration: 2s;
+    animation-delay: ${({ currIndex }) =>
+        currIndex === 0 ? '0s' : `${barAnimationDuration}s`};
+    animation-duration: ${iconAnimationDuration}s;
     animation-iteration-count: 1;
 `;
 
@@ -220,38 +306,17 @@ const barAnimation = keyframes`
  100% { width: 100%; }
 `;
 
-interface BarContainerProps {
-    /** colors: an object Color with different settings */
-    colors: Color;
-    /** index: an index of the progress bar */
-    index: number;
-    /** size: size of the progress bar where the first element is the number
-     * and the second element is the unit */
-    size: string[];
-    /** statuses: an array of texts describing each status */
-    statuses: OrderStatus[];
-}
-
-interface BarProps {
-    /** currIndex: the number representing the current status */
-    currIndex: number;
-    /** colors: an object Color with different settings */
-    colors: Color;
-    /** statuses: an array of texts describing each status */
-    statuses: OrderStatus[];
-}
-
 /**
  * A container for progress bars
  */
 const BarContainer = styled.div<BarContainerProps>`
-    width: ${(props) => `${parseInt(props.size[0], 10) * 4}${props.size[1]}`};
-    height: ${(props) => `${parseInt(props.size[0], 10) / 10}${props.size[1]}`};
+    width: ${({ size }) => `${parseInt(size[0], 10) * 4}${size[1]}`};
+    height: ${({ size }) => `${parseInt(size[0], 10) / 10}${size[1]}`};
     align-self: center;
     border-radius: 50%;
-    background-color: ${(props) =>
-        props.index !== props.statuses.length - 1
-            ? props.colors.nonFocusedIcon
+    background-color: ${({ index, statuses, colors }) =>
+        index !== statuses.length - 1
+            ? colors.iconNonFocusedColor
             : 'transparent'};
 `;
 
@@ -262,9 +327,9 @@ const Bar = styled.div<BarProps>`
     border-radius: 50%;
     width: 100%;
     height: 100%;
-    background-color: ${(props) =>
-        props.currIndex <= props.statuses.length - 1
-            ? props.colors.focusedIcon
+    background-color: ${({ currIndex, statuses, colors }) =>
+        currIndex <= statuses.length - 1
+            ? colors.iconFocusedColor
             : 'transparent'};
 `;
 
@@ -275,39 +340,26 @@ const BarActive = styled.div<BarProps>`
     border-radius: 50%;
     width: 100%;
     height: 100%;
-    background-color: ${(props) =>
-        props.currIndex <= props.statuses.length - 1
-            ? props.colors.focusedIcon
+    background-color: ${({ currIndex, statuses, colors }) =>
+        currIndex <= statuses.length - 1
+            ? colors.iconFocusedColor
             : 'transparent'};
     animation-name: ${barAnimation};
     animation-timing-function: linear;
-    animation-duration: 4s;
+    animation-duration: ${barAnimationDuration}s;
     animation-iteration-count: 1;
 `;
-
-interface TextProps {
-    /** colors: an object Color with different settings */
-    colors: Color;
-    /** currIndex: the number representing the current status */
-    currIndex: number;
-    /** index: an index of the progress bar */
-    index: number;
-    /** size: size of the progress bar where the first element is the number
-     * and the second element is the unit */
-    size: string[];
-}
 
 /**
  * A container for texts of each status
  */
 const Text = styled.p<TextProps>`
-    colors: ${(props) =>
-        props.currIndex === props.index
-            ? props.colors.focusedText
-            : props.colors.nonFocusedText};
-    font-weight: ${(props) =>
-        props.currIndex === props.index ? 'bold' : 'normal'};
-    font-size: ${(props) =>
-        `${parseInt(props.size[0], 10) / 3} + ${props.size[1]}`};
+    colors: ${({ currIndex, index, colors }) =>
+        currIndex === index
+            ? colors.textFocusedColor
+            : colors.textNonFocusedColor};
+    font-weight: ${({ currIndex, index }) =>
+        currIndex === index ? 'bold' : 'normal'};
+    font-size: ${({ size }) => `${parseInt(size[0], 10) / 3} + ${size[1]}`};
     text-align: center;
 `;
