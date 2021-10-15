@@ -1,24 +1,23 @@
-import LoyaltyPoints from "./LoyaltyPoints";
-import starimage from "../resources/blue-star-hi.png";
 
+import React from 'react'; 
+import { Meta, Story } from '@storybook/react';
+import { createStoryTitle, getCaptionForLocale } from '../../Constants';
+import { LoyaltyPointsProps, LoyaltyPoints, Paragraph } from "index";
 
 export default {
+  
+  title: createStoryTitle('LoyaltyPoints'),
   component: LoyaltyPoints,
-  title: 'LoyaltyPoints',
-};
+  args:{
+    amount: '+10★'
+  }
+}as Meta;
 
-const LoyaltyPointsTemplate = args => <LoyaltyPoints {...args} />;
 
-export const Default = LoyaltyPointsTemplate.bind({});
-Default.args = {
-  LoyaltyPoints: {
-    amount: '+10',
-    state: true,
-    image: starimage,
-    updatedAt: new Date(2021, 0, 1, 9, 0),
-    
-    
-  },
-};
+export const Basic: Story<LoyaltyPointsProps> = (args) => (
+  <LoyaltyPoints{...args}>
+    <Paragraph>{getCaptionForLocale('+10★')}</Paragraph>
+  
+  </LoyaltyPoints>
+)
 
-//to do: implement feedback from meeting, refine ui
