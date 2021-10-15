@@ -31,13 +31,23 @@ const Container = styled.div`
 `;
 
 const Title = styled.p`
+    ${({theme}): string =>`font-size: ${theme.font.size.small};`}
 
+    margin-bottom: 8px;
 `;
 
 const Value = styled.p`
+    ${({theme}): string =>`font-size: ${theme.font.size.h2};`}
 
+    font-weight: 600;
+    margin: 0;
 `;
 
-const Percentage = styled.span`
+const Percentage = styled.sup`
+    ${({theme}): string =>`font-size: ${theme.font.size.small};`}
 
+    font-weight: normal;
+    margin-left: .25rem;
+    position: relative;
+    top: -0.4rem
 `;

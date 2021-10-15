@@ -7,9 +7,9 @@ export default {
     title: createStoryTitle('Analytics'),
     component: Analytics,
     args: {
-        title: "Test",
-        value: 10,
-        change: .5
+        title: "Delivered",
+        value: 128,
+        change: -3.0
     },
 } as Meta;
 
