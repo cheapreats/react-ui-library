@@ -141,7 +141,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                     chairIndex={index}
                     selectedIndex={selectedIndex}
                     onChairClick={onChairClick}
-                    tabIndex={1}
+                    chairTabIndexAtribute={item.chairTabIndexAtribute}
                 />
             </ChairWrapper>
         ));
