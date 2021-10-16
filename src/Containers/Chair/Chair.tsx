@@ -418,10 +418,6 @@ const BaseChair = styled.div<IBaseChair>`
         isVisible,
     )};
     background-color: ${getChairColor(isSeated, tableUse, isVisible)};`}
-    cursor: pointer;
-    &:focus {
-      box-shadow: ${({ isFocusActive }) => (isFocusActive ? '0 0 0 2px' : '')};
-    }
 `;
 
 const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
@@ -437,6 +433,9 @@ const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
     relativeSize * BASE_BORDER_WIDTH_FOR_ROUND_CHAIR
 }px solid black;`;
     }}
+    &:focus {
+      box-shadow: ${({ isFocusActive }) => (isFocusActive ? '0 0 0 2px' : '')};
+    }
 `;
 
 const RectangleChair = styled(BaseChair)<
@@ -449,6 +448,9 @@ const RectangleChair = styled(BaseChair)<
             left: VerticalChairStyle,
             right: VerticalChairStyle,
         }[position])};
+      &:focus {
+        box-shadow: ${({ isFocusActive }) => (isFocusActive ? '0 0 0 2px' : '')};
+      }
 `;
 
 const RectangleChairText = styled.div<
