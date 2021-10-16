@@ -70,6 +70,8 @@ export interface IChair {
         chairIndex: number,
         selectedIndex: number,
     ) => void;
+
+    tabIndex: number;
 }
 
 /**
@@ -86,6 +88,7 @@ export const Chair: React.FC<IChair> = ({
     tableIndex = -1,
     chairIndex = -1,
     selectedIndex = -1,
+    tabIndex= 1,
     onChairClick,
     ...props
 }) => {
@@ -101,6 +104,7 @@ export const Chair: React.FC<IChair> = ({
                 isSeated={isSeated}
                 tableUse={tableUse}
                 isVisible={isVisible}
+                isFocusActive = {true}
             >
                 {getChairText()}
             </RoundChair>
@@ -120,6 +124,8 @@ export const Chair: React.FC<IChair> = ({
                 position={position}
                 tableUse={tableUse}
                 isVisible={isVisible}
+                isFocusActive = {true}
+                tabIndex={1}
             >
                 {getChairText()}
             </RectangleChair>
@@ -399,6 +405,7 @@ interface IBaseChair {
     isSeated: boolean;
     tableUse: tableUseTypes;
     isVisible: boolean;
+    isFocusActive: boolean;
 }
 
 const BaseChair = styled.div<IBaseChair>`
@@ -407,6 +414,10 @@ const BaseChair = styled.div<IBaseChair>`
         isVisible,
     )};
     background-color: ${getChairColor(isSeated, tableUse, isVisible)};`}
+    cursor: pointer;
+    &:focus {
+      box-shadow: ${({ isFocusActive }) => (isFocusActive ? '0 0 0 2px' : '')};
+    }
 `;
 
 const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
