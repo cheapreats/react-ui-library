@@ -243,7 +243,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 tableIndex: arrayIndex,
                 selectedIndex,
                 onChairClick,
-                tabIndex: 1,
+                chairTabIndexAtribute: 0,
             });
         }
     };
