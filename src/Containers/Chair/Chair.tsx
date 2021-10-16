@@ -71,6 +71,9 @@ export interface IChair {
         selectedIndex: number,
     ) => void;
 
+    /**
+     * Number for atribute tabindex to make possible to focus on the chair
+     */
     tabIndex: number;
 }
 
@@ -104,7 +107,8 @@ export const Chair: React.FC<IChair> = ({
                 isSeated={isSeated}
                 tableUse={tableUse}
                 isVisible={isVisible}
-                isFocusActive = {true}
+                isFocusActive={true}
+                tabIndex={1}
             >
                 {getChairText()}
             </RoundChair>
@@ -124,7 +128,7 @@ export const Chair: React.FC<IChair> = ({
                 position={position}
                 tableUse={tableUse}
                 isVisible={isVisible}
-                isFocusActive = {true}
+                isFocusActive={true}
                 tabIndex={1}
             >
                 {getChairText()}
