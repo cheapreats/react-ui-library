@@ -55,6 +55,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -68,6 +69,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -81,6 +83,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -94,6 +97,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -107,6 +111,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -120,6 +125,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -133,6 +139,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -146,6 +153,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -159,6 +167,7 @@ FourTopTable.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
     ],
@@ -188,6 +197,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 1,
             tableIndex: 2,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -201,6 +211,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 1,
             tableIndex: 2,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -214,6 +225,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 2,
             tableIndex: 2,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -227,6 +239,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 3,
             tableIndex: 2,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -240,6 +253,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 4,
             tableIndex: 2,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
         {
@@ -253,6 +267,7 @@ TableForEditDraggableCanvas.args = {
             chairIndex: 5,
             tableIndex: 2,
             selectedIndex: 3,
+            tabIndex: 1,
             onChairClick: handleOnChairClick,
         },
     ],
