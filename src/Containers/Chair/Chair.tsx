@@ -74,7 +74,7 @@ export interface IChair {
     /**
      * Number for Chair global atribute which indicates that its element can be focused
      */
-    ChairTabIndexAtribute: number;
+    chairTabIndexAtribute: number;
 }
 
 /**
@@ -91,7 +91,7 @@ export const Chair: React.FC<IChair> = ({
     tableIndex = -1,
     chairIndex = -1,
     selectedIndex = -1,
-    ChairTabIndexAtribute= 0,
+    chairTabIndexAtribute= 0,
     onChairClick,
     ...props
 }) => {
@@ -108,7 +108,7 @@ export const Chair: React.FC<IChair> = ({
                 tableUse={tableUse}
                 isVisible={isVisible}
                 isFocusActive={true}
-                tabIndex={ChairTabIndexAtribute}
+                tabIndex={chairTabIndexAtribute}
             >
                 {getChairText()}
             </RoundChair>
@@ -129,7 +129,7 @@ export const Chair: React.FC<IChair> = ({
                 tableUse={tableUse}
                 isVisible={isVisible}
                 isFocusActive={true}
-                tabIndex={ChairTabIndexAtribute}
+                tabIndex={chairTabIndexAtribute}
             >
                 {getChairText()}
             </RectangleChair>
@@ -199,7 +199,7 @@ export const Chair: React.FC<IChair> = ({
                 onClick={onHandleClick}
                 onKeyPress={onHandleClick}
                 role="button"
-                tabIndex={ChairTabIndexAtribute}
+                tabIndex={chairTabIndexAtribute}
             >
                 {isRound ? getRoundChair() : getPositionChair()}
             </ChairWrapperForClick>
