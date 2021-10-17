@@ -7,6 +7,12 @@ export default {
     title: createStoryTitle('TagGroup'),
     component: TagGroup,
     args: {
+        tags: [
+            {children: 'Hello'},
+            {children: 'Goodbye'},
+            {children: 'You say goodbye and I say hello'},
+            {children: 'hello hello'}
+        ]
     },
 } as Meta;
 
