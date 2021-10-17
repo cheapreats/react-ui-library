@@ -2,119 +2,86 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 
-/**
- * The icon and text representing the current status of the application
- *
- * @interface OrderStatus
- * @field {StyledIcon} icon - the icon representing the current status
- * @field {string} text - the descriptive name of the current status
- */
 interface OrderStatus {
+    /* icon representing the current status */
     icon: StyledIcon;
+    /* the descriptive name of the current status */
     text: string;
 }
 
-/**
- * Color groups to use in different states of the component
- *
- * @field {string} iconNonFocusedColor - color of the icon when not focused
- * @field {string} iconFocusedColor - color of the icon when focused
- * @field {string} textNonFocusedColor - color of the text when not focused
- * @field {string} textFocusedColor - color of the text when focused
- */
 interface Color {
+    /* color of the icon when not focused */
     iconNonFocusedColor: string;
+    /* color of the icon when focused */
     iconFocusedColor: string;
+    /* color of the text when not focused */
     textNonFocusedColor: string;
+    /* color of the text when focused */
     textFocusedColor: string;
 }
 
-/**
- * Properties of the main component
- *
- * @field {OrderStatus[]} statuses - the list of statuses that the component can be in
- * @field {Color} colors - the color options for different states of the component
- * @field {number} currIndex - integer representing the current status of the component
- * @field {string} size - size of the component in CSS
- */
 export interface OrderTrackerProps {
+    /* list of statuses that the component can be in */
     statuses: OrderStatus[];
+    /* color options for different states of the component */
     colors: Color;
+    /* integer representing the current status of the component */
     currIndex: number;
+    /* size of the component in CSS */
     size: string;
 }
 
-/**
- * Properties of the icon container
- *
- * @field {Color} colors - the color options for different states of the component
- * @field {string} size - size of the component in CSS
- */
 interface IconContainerProps {
+    /* color options for different states of the component */
     colors: Color;
+    /* size of the component in CSS */
     size: string;
 }
 
-/**
- * Properties of the icon
- *
- * @field {Color} colors - the color options for different states of the icon
- * @field {number} currIndex - integer representing the current status of the icon
- * @field {number} index - the index of the status
- */
 interface IconProps {
+    /* color options for different states of the icon */
     colors: Color;
+    /* integer representing the current status of the icon */
     currIndex: number;
+    /* index of the status */
     index: number;
 }
 
-/**
- * Properties of the bar container
- *
- * @field {Color} colors - the color options for different states of the component
- * @field {number} index - the index of the progress bar
- * @field {string[]} size - size of the progress bar formatted as [size, unit]
- * @field {OrderStatus[]} statuses - array of objects representing each status
- */
 interface BarContainerProps {
+    /* color options for different states of the component */
     colors: Color;
+    /* index of the progress bar */
     index: number;
+    /* size of the progress bar formatted as [size, unit] */
     size: string[];
+    /* array of objects representing each status */
     statuses: OrderStatus[];
 }
 
-/**
- * Properties of the bar
- *
- * @field {number} currIndex - an integer representing the current status
- * @field {Color} colors - the color options for different states of the component
- * @field {OrderStatus[]} statuses - array of objects representing each status
- */
 interface BarProps {
+    /* integer representing the current status */
     currIndex: number;
+    /* color options for different states of the component */
     colors: Color;
+    /* array of objects representing each status */
     statuses: OrderStatus[];
 }
 
-/**
- * Properties of the status texts
- *
- * @field {Color} colors - the color options for different states of the component
- * @field {number} currIndex - an integer representing the current status
- * @field {number} index - the index of the progress bar
- * @field {string[]} size - size of the progress bar formatted as [size, unit]
- */
 interface TextProps {
+    /* color options for different states of the component */
     colors: Color;
+    /* integer representing the current status */
     currIndex: number;
+    /* index of the progress bar */
     index: number;
+    /* size of the progress bar formatted as [size, unit] */
     size: string[];
 }
 
 /**
  * The component informing the customer of the progress of a food order.
  *
- * @param {OrderStatus[]} statuses - An array of strings representing each status of an order
+ * @param {OrderStatus[]} statuses - An array of OrderStatus objects representing each status of an order
  * @param {Color} colors - An object of different colors
  * @param {number} currIndex - An integer representing the current status
  * @param {string} size - A string indicating the size of the components
@@ -129,22 +96,24 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
     ...props
 }: OrderTrackerProps): React.ReactElement => {
     /**
-     * @returns {React.ReactElement[]} An array of elements each representing a status of the component
+     * @returns {JSX.React.ReactElement[]} An array of elements each representing a status of the component
      */
     const getElements = (): React.ReactElement[] =>
         statuses.map((status, i) => {
             /* The split turns the size string, which is formatted as "DDpx" where "DD" is the size,
                into an array of the form ['', 'DD', 'px'] so it needs to be sliced at index 1
              */
-            const SPLIT_REGEX = /(\d+)/;
-            const sliceIndex = 1;
+            const EMPTY_LINE_REGEX = /(\d+)/;
+            const FIRST_ELEMENT_INDEX = 1;
 
             /**
              * An array representing size of the component with
              * the element at first index the number and
              * the element at the second index the unit
              */
-            const sizeArr = size.split(SPLIT_REGEX).slice(sliceIndex);
+            const sizeArr = size
+                .split(EMPTY_LINE_REGEX)
+                .slice(FIRST_ELEMENT_INDEX);
 
             /**
              * A function that renders progress bar according to current status
@@ -223,6 +192,7 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
                 </RowDiv>
             );
         });
+
     return <RowDiv {...props}>{getElements()}</RowDiv>;
 };
 
