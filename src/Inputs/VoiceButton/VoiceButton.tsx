@@ -1,7 +1,7 @@
 import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
 import styled from 'styled-components';
-import { Button } from '../Button/Button';
 import { useTransition } from '@Utils/Hooks';
+import { Button } from '../Button/Button';
 
 export interface VoiceButtonProps {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
@@ -12,12 +12,12 @@ export interface VoiceButtonProps {
 }
 
 /**
- * A VoiceButton which uses Button functionality 
+ * A VoiceButton which uses Button functionality
  * @param children
  * @param icon
  * @param iconSize
  * @param disabled
- * @param isPulsing 
+ * @param isPulsing
  * @param props
  * @constructor
  */
@@ -32,14 +32,9 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
     const [, isAnimated] = useTransition(isPulsing);
     return (
         <div>
-            <p> { children } </p>
-            <StyledButton isPulsing = {isAnimated} {...props} disabled={disabled}>
-                {icon && (
-                    <Icon
-                        iconSize={iconSize}
-                        as={icon}
-                    />
-                )}
+            <p> {children} </p>
+            <StyledButton isPulsing={isAnimated} {...props} disabled={disabled}>
+                {icon && <Icon iconSize={iconSize} as={icon} />}
             </StyledButton>
         </div>
     );
@@ -57,8 +52,7 @@ const Icon = styled.svg<VoiceIconProps>`
     `}
 `;
 
-const StyledButton = styled(Button).attrs({})<{isPulsing: boolean}>`
-
+const StyledButton = styled(Button).attrs({})<{ isPulsing: boolean }>`
     ${({ isPulsing }): string =>
         isPulsing
             ? `
@@ -81,7 +75,7 @@ const StyledButton = styled(Button).attrs({})<{isPulsing: boolean}>`
                 }
             }
     `
-            : ``} // No animation
+            : ``}// No animation
 `;
 
 export default VoiceButton;

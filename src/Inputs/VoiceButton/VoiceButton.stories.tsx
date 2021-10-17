@@ -1,7 +1,7 @@
 import React from 'react';
 import { Microphone } from '@styled-icons/fa-solid/Microphone';
 import { Meta, Story } from '@storybook/react';
-import { VoiceButton} from '../../index'; 
+import { VoiceButton } from '../../index';
 import { createStoryTitle } from '../../Constants';
 import { VoiceButtonProps } from '..';
 
@@ -19,5 +19,5 @@ export default {
 } as Meta;
 
 export const Basic: Story<VoiceButtonProps> = (args) => (
-    <VoiceButton {...args}></VoiceButton>
+    <VoiceButton {...args} />
 );
