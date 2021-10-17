@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import { Tag, TagProps } from '../Tag/Tag';
 
+const LEFT_MOST_TAG = 0;
 export interface TagGroupProps extends React.HTMLAttributes<HTMLDivElement> {
     /* [{text: value, icon: value}, {text: value, icon: value}] */
     tags: Array<TagProps>;
@@ -17,14 +18,14 @@ export const TagGroup: React.FC<TagGroupProps> = ({
 }): React.ReactElement => {
     /**
      * Displays the array of tags
-     * @param tagComponents The array of tag elements
+     * @param tagComponents {Array}
      */
     const displayTags = (tagComponents: Array<TagProps>) => {
         if (tagComponents.length === 1) {
             return <Tag {...tagComponents[0]} />
         }
         return tags.map((tag, index) => {
-            if (index === 0 ){
+            if (index === LEFT_MOST_TAG ){
                 return <TagPiece {...tag} position='left' />
             } 
             if (index === tagComponents.length - 1) {
