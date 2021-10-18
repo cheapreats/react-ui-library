@@ -37,18 +37,18 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
      * construct the element for a special text
      * @param label - HighlightedString of the special text
      */
-    const GetSpecialText = (label: HighlightedString): React.ReactElement => <ClickableSmallText bold>{`${label.text  } `}</ClickableSmallText>
+    const getSpecialText = (label: HighlightedString): React.ReactElement => <ClickableSmallText bold>{`${label.text  } `}</ClickableSmallText>
 
     /**
      * construct the dropdown or text for a HighlightedString
      * @param label - HighlightedString of the text
      */
-    const StyleSpecial = (label: HighlightedString): React.ReactElement => {
+    const styleSpecial = (label: HighlightedString): React.ReactElement => {
         if (label.isSpecial){
             const listItemsArgs: Array<IDropdownItemProps> = label.listItemsArgs || []
             const listItemsBodies: Array<JSXElement> = label.listItemsBodies || []
             const DropDownProps: IDropdownProps = {
-                dropdownButton: GetSpecialText(label),
+                dropdownButton: getSpecialText(label),
             }
             return <Dropdown {...DropDownProps}>
                 {listItemsArgs.map((listItemsArg, index) => (
@@ -64,17 +64,17 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
     /**
      * construct the elements from labels
      */
-    const RenderText = (): React.ReactElement => (
+    const renderText = (): React.ReactElement => (
         <p>
             {labels.map((label) => (
-                StyleSpecial(label)
+                styleSpecial(label)
             ))}
         </p>
     )
 
     return (
         <HighlightedRow {...props}>
-            {RenderText()}
+            {renderText()}
         </HighlightedRow>
     )
 };
