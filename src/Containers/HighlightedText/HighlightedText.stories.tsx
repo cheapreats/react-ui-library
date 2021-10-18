@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
-import { HighlightedText, HighlightedTextProps } from '../../index';
+import { ClickableSmallText, HighlightedString, HighlightedText, HighlightedTextProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
-const labels = [
+const labels: Array<HighlightedString> = [
     {
         text: 'Ordering a',
         isSpecial: false,
@@ -12,9 +12,11 @@ const labels = [
     {
         text: 'Burger',
         isSpecial: true,
-        listArgs: {id: 'SpecialTextList'},
-        listItemsArgs: [{onClick: action('Burger Clicked.'),}, {onClick: action('Fries Clicked.'),}],
-        listItemsBodies: ['Burger', 'Fries'],
+        listItemsArgs: [],
+        listItemsBodies: [
+            <ClickableSmallText onClick={action('Burger Clicked.')}>Burger</ClickableSmallText>, 
+            <ClickableSmallText onClick={action('Fries Clicked.')}>Fries</ClickableSmallText>
+        ],
     },
     {
         text: 'from',
@@ -23,9 +25,11 @@ const labels = [
     {
         text: 'Wendy\'s',
         isSpecial: true,
-        listArgs: {id: 'SpecialTextList'},
-        listItemsArgs: [{onClick: action('Wendy\'s Clicked.'),}, {onClick: action('Burger King Clicked.'),}],
-        listItemsBodies: ['Wendy\'s', 'Burger King'],
+        listItemsArgs: [],
+        listItemsBodies: [
+            <ClickableSmallText onClick={action('Wendy\'s Clicked.')}>{'Wendy\'s'}</ClickableSmallText>, 
+            <ClickableSmallText onClick={action('Burger King Clicked.')}>Burger King</ClickableSmallText>
+        ],
     },
 ]
 
@@ -34,11 +38,13 @@ export default {
     component: HighlightedText,
     args: {
         labels,
-        display: 'column',
-        type: 'h2',
-        padding: '0 0 0 5px',
-        width: 200,
         children: 'Header row children',
+        style: {
+            display: 'column',
+            type: 'h2',
+            padding: '0 0 0 5px',
+            width: 200,
+        }
     },
 } as Meta;
 

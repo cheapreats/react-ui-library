@@ -1,30 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ClickableSmallText, SmallText } from '@Text';
-import { JSXElement } from '@babel/types';
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
 import DropdownItem, { IDropdownItemProps } from '../Dropdown/DropdownItem';
 import { TextLayoutProps } from '../../Fragments/TextLayout';
 
 
 export interface HighlightedString {
-    /** Text: contents of the string */
+    /** contents of the string */
     text: string;
-    /** IsSpecial: whether or not the string has options; if it has options, it will be bolded */
+    /** whether or not the string has options; if it has options, it will be bolded */
     isSpecial: boolean;
-    /** ItemProps: props for a dropdownItem representing an option */
+    /** props for text component */
+    textProps?: TextLayoutProps;
+    /** props for Dropdown */
+    listProps?: IDropdownProps;
+    /** props for DropdownItems */
     listItemsArgs?: Array<IDropdownItemProps>;
-    /** ItemBodies: contents of a dropdownItem representing an option */
-    listItemsBodies?: Array<JSXElement>;
+    /** content of DropdownItems */
+    listItemsBodies?: Array<JSX.Element>;
 }
 
-export interface HighlightedTextProps extends TextLayoutProps {
+// extends line div
+export interface HighlightedTextProps extends React.HTMLAttributes<HTMLParagraphElement> {
     labels: Array<HighlightedString>;
 }
 
 /**
- * A paragraph with special strings that can be clicked to reveal a dropdown list of more options
- * @param labels - An array of HighlightedString; These will be displayed in the paragraph.
+ * Paragraph with special strings that can be clicked to reveal a dropdown list of more options
+ * @param labels - Array of HighlightedString; These will be displayed in the paragraph.
  * @param props
  * @constructor
  */
@@ -37,37 +41,37 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
      * construct the element for a special text
      * @param label - HighlightedString of the special text
      */
-    const getSpecialText = (label: HighlightedString): React.ReactElement => <ClickableSmallText bold>{`${label.text  } `}</ClickableSmallText>
+    const getSpecialTextComponent = (label: HighlightedString): React.ReactElement => <ClickableSmallText bold {...label.textProps}>{`${label.text  } `}</ClickableSmallText>
 
     /**
      * construct the dropdown or text for a HighlightedString
      * @param label - HighlightedString of the text
      */
-    const styleSpecial = (label: HighlightedString): React.ReactElement => {
+    const getTextComponent = (label: HighlightedString): React.ReactElement => {
         if (label.isSpecial){
             const listItemsArgs: Array<IDropdownItemProps> = label.listItemsArgs || []
-            const listItemsBodies: Array<JSXElement> = label.listItemsBodies || []
+            const listItemsBodies: Array<JSX.Element> = label.listItemsBodies || []
             const DropDownProps: IDropdownProps = {
-                dropdownButton: getSpecialText(label),
+                dropdownButton: getSpecialTextComponent(label),
             }
-            return <Dropdown {...DropDownProps}>
-                {listItemsArgs.map((listItemsArg, index) => (
-                    <DropdownItem {...listItemsArg}>
-                        {listItemsBodies && listItemsBodies[index]}
+            return <Dropdown {...DropDownProps} {...label.listProps}>
+                {listItemsBodies.map((_, index) => (
+                    <DropdownItem {...listItemsArgs[index]}>
+                        {listItemsBodies[index]}
                     </DropdownItem>
                 ))}
             </Dropdown>
         } 
-        return <SmallText>{`${label.text  } `}</SmallText>
+        return <SmallText {...label.textProps}>{`${label.text  } `}</SmallText>
     }
 
     /**
-     * construct the elements from labels
+     * construct elements from labels
      */
     const renderText = (): React.ReactElement => (
         <p>
             {labels.map((label) => (
-                styleSpecial(label)
+                getTextComponent(label)
             ))}
         </p>
     )
