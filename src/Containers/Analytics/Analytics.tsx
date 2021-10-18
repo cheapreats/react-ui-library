@@ -1,11 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
 
+const NUMERIC_SUFFIXES  = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi'];
+const SHIFT_POINT       = 1000;
+
 
 export interface IAnalyticsProps extends React.HTMLAttributes<HTMLDivElement> {
 	title: string;
+    /* title on the component */
 	value: number;
+    /* the statistical value being displayed */
 	change?: string;
+    /* optional parameter for displaying a change */
 }
 
 export const Analytics: React.FC<IAnalyticsProps> = ({
@@ -14,13 +20,10 @@ export const Analytics: React.FC<IAnalyticsProps> = ({
     change,
     ...props
 }): React.ReactElement => {
-    const NUMERIC_SUFFIXES  = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi'];
-    const SHIFT_POINT       = 1000;
-
     /**
-     * Takes in the number count and reduces it down to a more reasonable size using common numeric suffixes
-     * @param count the number you wish to minimize
-     * @returns a string representing the minimized number
+     * Takes in the value and reduces it a minimized form using numeric suffixes
+     * @param count {number} - the number you wish to minimize
+     * @returns {string} - minimized number
      */
     const minimizeLargeNumber = (count: number) => {
         let shiftCount = 0;
@@ -82,5 +85,5 @@ const Percentage = styled.sup`
     font-weight: normal;
     margin-left: .25rem;
     position: relative;
-    top: -0.4rem
+    top: -0.4rem;
 `;
