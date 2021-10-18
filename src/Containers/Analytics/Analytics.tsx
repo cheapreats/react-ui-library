@@ -3,7 +3,9 @@ import styled from 'styled-components';
 
 const NUMERIC_SUFFIXES  = ['', 'K', 'M', 'B', 'T', 'Qa', 'Qi'];
 const SHIFT_POINT       = 1000;
-
+const SHIFT_POINT_DIGIT_COUNT = 3;
+const SIGNIFICANT_FIGURES = 3;
+const BASE_10 = 10;
 
 export interface IAnalyticsProps extends React.HTMLAttributes<HTMLDivElement> {
 	title: string;
@@ -26,23 +28,20 @@ export const Analytics: React.FC<IAnalyticsProps> = ({
      * @returns {string} - minimized number
      */
     const minimizeLargeNumber = (count: number) => {
-        let shiftCount = 0;
-        while (count >= SHIFT_POINT && shiftCount < NUMERIC_SUFFIXES.length - 1) {
-            count /= SHIFT_POINT;
-            shiftCount += 1;
-        }
-        let roundedNumber = count.toFixed();
-        if (shiftCount > 0) {
-            if (count > 100) {
-                roundedNumber = count.toFixed(0);
-            } else if (count > 10) {
-                roundedNumber = count.toFixed(1);
-            } else {
-                roundedNumber = count.toFixed(2);
-            }
+        if(Math.abs(count) < SHIFT_POINT){
+            return count;
         }
 
-        return roundedNumber + NUMERIC_SUFFIXES[shiftCount];
+        const digitCount = Math.log10(Math.abs(count));
+        let shiftCount = Math.floor(digitCount / SHIFT_POINT_DIGIT_COUNT);
+        shiftCount = Math.min(shiftCount, NUMERIC_SUFFIXES.length - 1);
+
+        const integralSignificantFigures = digitCount % SHIFT_POINT_DIGIT_COUNT;
+
+        const reducedCount = count / BASE_10**(shiftCount * SHIFT_POINT_DIGIT_COUNT);
+        const displayString = reducedCount.toFixed(SIGNIFICANT_FIGURES - integralSignificantFigures);
+
+        return displayString + NUMERIC_SUFFIXES[shiftCount];
     };
 
     return(
