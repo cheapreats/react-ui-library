@@ -51,12 +51,18 @@ export const Analytics: React.FC<IAnalyticsProps> = ({
             </Title>
             <Value>
                 {minimizeLargeNumber(value)}
-                <Percentage change={change} value={0} title="blank" >
-                    {change}%
-                </Percentage>
+                {change !== undefined && 
+                    <Percentage change={change}>
+                        {change}%
+                    </Percentage>
+                }
             </Value>
         </div>
     );
+}
+
+interface IPercentageProps{
+    change: number;
 }
 
 const Title = styled.p`
@@ -76,7 +82,7 @@ const Value = styled.p`
     margin: 0;
 `;
 
-const Percentage = styled.sup<IAnalyticsProps>`
+const Percentage = styled.sup<IPercentageProps>`
     ${({theme}): string =>`
     font-size: ${theme.font.size.small};
     `}

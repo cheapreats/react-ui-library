@@ -9,7 +9,6 @@ export default {
     args: {
         title: "Delivered",
         value: 128,
-        change: 3
     },
 } as Meta;
 
