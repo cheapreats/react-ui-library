@@ -12,7 +12,7 @@ export interface IAnalyticsProps extends React.HTMLAttributes<HTMLDivElement> {
     /* title on the component */
 	value: number;
     /* the statistical value being displayed */
-	change?: string;
+	change?: number;
     /* optional parameter for displaying a change */
 }
 
@@ -51,8 +51,8 @@ export const Analytics: React.FC<IAnalyticsProps> = ({
             </Title>
             <Value>
                 {minimizeLargeNumber(value)}
-                <Percentage>
-                    {change}
+                <Percentage change={change} value={0} title="blank" >
+                    {change}%
                 </Percentage>
             </Value>
         </div>
@@ -76,10 +76,21 @@ const Value = styled.p`
     margin: 0;
 `;
 
-const Percentage = styled.sup`
+const Percentage = styled.sup<IAnalyticsProps>`
     ${({theme}): string =>`
     font-size: ${theme.font.size.small};
     `}
+    
+    color: ${({theme, change}): string => {
+        if (change === undefined || change === 0) {
+            return theme.colors.statusColors.orange;
+        } if (change > 0){
+            return theme.colors.statusColors.green;
+        }
+        return theme.colors.statusColors.red;
+    }};
+
+
 
     font-weight: normal;
     margin-left: .25rem;
