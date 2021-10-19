@@ -105,6 +105,8 @@ export interface ISquareTable {
     isNotHighlightedWhenSelected?: boolean;
 }
 
+
+
 /**
  * Primary UI component for user interaction
  * Square Table
@@ -114,7 +116,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     tableID = 'T1',
     partyName = 'Null',
     occupancyStatus = 'Vacant',
-    timeLastServed='0:00:00',
+    timeLastServed= '',
     chairs = [],
     relativeSize = 1.0,
     isSquare = false,
@@ -286,7 +288,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                             <Status occupancyStatus={occupancyStatus}>
                                 {occupancyStatus}
                             </Status>
-                            {`${timeLastServed}`}
+                            {occupancyStatus == 'Occupied'? <text>{`${timeLastServed}`}</text>: null}
                         </div>
                     </TableInfo>
                     <ColorDiv
