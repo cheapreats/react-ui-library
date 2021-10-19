@@ -16,6 +16,8 @@ type tableUseTypes =
 
 type getTableInfoContentType = (tableUse: tableUseTypes) => JSX.Element;
 
+type getNumberOfOccupiedChairsType = () => JSX.Element;
+
 type generateChairKeyType = (pre: string) => string;
 
 export interface ICircleTable {
@@ -157,6 +159,31 @@ export const CircleTable: React.FC<ICircleTable> = ({
     const tangent = Math.tan(Math.PI / chairs.length);
 
     /**
+     * calculates how many chairs are seated
+     * @return <string> div for the table
+     */
+    const getNumberOfOccupiedChairs: getNumberOfOccupiedChairsType = () =>
+    {
+        let seated = 0;
+        if(tableUse === "AddTableButton" ){
+            return(
+                <div>
+                </div>
+            );
+        }
+        for(let i=0; i<chairs.length; i++){
+            if(chairs[i].isSeated){
+                seated++;
+            }
+        }
+        return(
+            <div>
+                {seated}/{chairs.length}
+            </div>
+        );
+    }
+
+    /**
      * Returns a JSX element for the TableBody Content with the correct styles
      * and content based on whether the table is used in the management screen,
      * the add table toolbar, or the create/edit layout screen
@@ -181,6 +208,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                         <Status occupancyStatus={occupancyStatus}>
                             {occupancyStatus}
                         </Status>
+                        {getNumberOfOccupiedChairs()}
                         <br />
                     </div>
                 </TableInfo>
@@ -188,7 +216,10 @@ export const CircleTable: React.FC<ICircleTable> = ({
         case 'TableForEditCanvas':
             return (
                 <TableNumForEditScreen relativeSize={relativeSize}>
+
                     {tableID}
+
+                    {getNumberOfOccupiedChairs()}
                 </TableNumForEditScreen>
             );
         default:
