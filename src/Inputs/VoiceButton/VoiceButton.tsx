@@ -9,17 +9,11 @@ export interface VoiceButtonProps {
     onClick?: React.MouseEventHandler;
     disabled?: boolean;
     isPulsing?: boolean;
+    voiceButtonProps?: VoiceButtonProps;
 }
 
 /**
- * A VoiceButton which uses Button functionality
- * @param children
- * @param icon
- * @param iconSize
- * @param disabled
- * @param isPulsing
- * @param props
- * @constructor
+ * VoiceButton uses Button functionality
  */
 export const VoiceButton: React.FC<VoiceButtonProps> = ({
     children,
@@ -27,13 +21,14 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
     iconSize = '14px',
     disabled,
     isPulsing,
+    voiceButtonProps,
     ...props
 }): React.ReactElement => {
     const [, isAnimated] = useTransition(isPulsing);
     return (
-        <div>
+        <div {...props}>
             <p> {children} </p>
-            <StyledButton isPulsing={isAnimated} {...props} disabled={disabled}>
+            <StyledButton isPulsing={isAnimated} disabled={disabled} {...voiceButtonProps}>
                 {icon && <Icon iconSize={iconSize} as={icon} />}
             </StyledButton>
         </div>
