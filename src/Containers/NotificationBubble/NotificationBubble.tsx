@@ -4,7 +4,7 @@ import {Bell} from '@styled-icons/boxicons-solid'
 
 export interface NotificationBubbleProps extends React.HTMLAttributes<HTMLDivElement> {
     notificationCounter: number;
-    badgeProps: number;
+    badgeProps?: React.HTMLAttributes<HTMLDivElement>;
 }
 
 /* Max number shown on badge */
