@@ -8,12 +8,12 @@ const SIGNIFICANT_FIGURES = 3;
 const BASE_10 = 10;
 
 export interface IAnalyticsProps extends React.HTMLAttributes<HTMLDivElement> {
-	title: string;
     /* title on the component */
-	value: number;
+	title: string;
     /* the statistical value being displayed */
-	change?: number;
+	value: number;
     /* optional parameter for displaying a change */
+	change?: number;
 }
 
 export const Analytics: React.FC<IAnalyticsProps> = ({
