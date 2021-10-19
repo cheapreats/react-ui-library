@@ -160,7 +160,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
 
     /**
      * calculates how many chairs are seated
-     * @return <string> div for the table
+     * @return <string> div for the center of the table
      */
     const getNumberOfOccupiedChairs: getNumberOfOccupiedChairsType = () =>
     {
