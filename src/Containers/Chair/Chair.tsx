@@ -71,10 +71,7 @@ export interface IChair {
         selectedIndex: number,
     ) => void;
 
-    /**
-     * Number for Chair global atribute which indicates that its element can be focused
-     */
-    chairTabIndexAtribute: number;
+
 }
 
 /**
@@ -91,7 +88,7 @@ export const Chair: React.FC<IChair> = ({
     tableIndex = -1,
     chairIndex = -1,
     selectedIndex = -1,
-    chairTabIndexAtribute= 0,
+
     onChairClick,
     ...props
 }) => {
@@ -107,8 +104,7 @@ export const Chair: React.FC<IChair> = ({
                 isSeated={isSeated}
                 tableUse={tableUse}
                 isVisible={isVisible}
-                isFocusActive={true}
-                tabIndex={chairTabIndexAtribute}
+                tabIndex={0}
             >
                 {getChairText()}
             </RoundChair>
@@ -128,8 +124,7 @@ export const Chair: React.FC<IChair> = ({
                 position={position}
                 tableUse={tableUse}
                 isVisible={isVisible}
-                isFocusActive={true}
-                tabIndex={chairTabIndexAtribute}
+                tabIndex={0}
             >
                 {getChairText()}
             </RectangleChair>
@@ -199,7 +194,7 @@ export const Chair: React.FC<IChair> = ({
                 onClick={onHandleClick}
                 onKeyPress={onHandleClick}
                 role="button"
-                tabIndex={chairTabIndexAtribute}
+                tabIndex={0}
             >
                 {isRound ? getRoundChair() : getPositionChair()}
             </ChairWrapperForClick>
@@ -409,7 +404,7 @@ interface IBaseChair {
     isSeated: boolean;
     tableUse: tableUseTypes;
     isVisible: boolean;
-    isFocusActive: boolean;
+
 }
 
 const BaseChair = styled.div<IBaseChair>`
@@ -434,7 +429,7 @@ const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
 }px solid black;`;
     }}
     &:focus {
-      box-shadow: ${({ isFocusActive }) => (isFocusActive ? '0 0 0 2px' : '')};
+      box-shadow: 0 0 0 2px;
     }
 `;
 
@@ -449,7 +444,7 @@ const RectangleChair = styled(BaseChair)<
             right: VerticalChairStyle,
         }[position])};
       &:focus {
-        box-shadow: ${({ isFocusActive }) => (isFocusActive ? '0 0 0 2px' : '')};
+        box-shadow: 0 0 0 2px;
       }
 `;
 
