@@ -127,7 +127,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     onChairClick,
     isNotHighlightedWhenSelected = false,
     ...props
-}) => {
+}):React.ReactElement => {
     // Create a reference to the TableBody styled component
     const tableBodyRef = useRef(document.createElement('div'));
 
@@ -151,19 +151,16 @@ export const SquareTable: React.FC<ISquareTable> = ({
     const bottomArray = Array<IChair>();
     const leftArray = Array<IChair>();
 
-    chairs.map((i, index) => {
-        if (i.position === 'top') {
-            i.chairIndex = index;
-            topArray.push(i);
-        } else if (i.position === 'right') {
-            i.chairIndex = index;
-            rightArray.push(i);
-        } else if (i.position === 'bottom') {
-            i.chairIndex = index;
-            bottomArray.push(i);
+    chairs.map((chair, index):void => {
+        chair.chairIndex = index;
+        if (chair.position === 'top') {
+            topArray.push(chair);
+        } else if (chair.position === 'right') {
+            rightArray.push(chair);
+        } else if (chair.position === 'bottom') {
+            bottomArray.push(chair);
         } else {
-            i.chairIndex = index;
-            leftArray.push(i);
+            leftArray.push(chair);
         }
     });
 
@@ -182,7 +179,9 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * @param left {number} - Number of chairs on left side
      * @param right {number} - Number of chairs on right side
      * @return {number} - The largest number of chairs
+     * ToDo: Optimize getSquareTableSize
      */
+
     const getSquareTableSize: getSquareTableSizeType = (
         top,
         bottom,
@@ -237,6 +236,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     /**
      * Checks an array to see if it has fewer chairs than the target size
      * and adds invisible chairs if needed so array size matches target size
+     * ToDO: Change function name for clarity
      */
     const fillArray: fillArrayType = (array, size, position) => {
         while (array.length < size) {
@@ -288,7 +288,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                             <Status occupancyStatus={occupancyStatus}>
                                 {occupancyStatus}
                             </Status>
-                            {occupancyStatus == 'Occupied'? <text>{`${timeLastServed}`}</text>: null}
+                            {occupancyStatus === 'Occupied' && <text>{`${timeLastServed}`}</text>}
                         </div>
                     </TableInfo>
                     <ColorDiv
