@@ -77,4 +77,5 @@ export * from './EditDraggableCanvas/_DraggableTable';
 export * from './InviteComponent/Invite';
 export * from './SeatingInfoInput/SeatingInfoInput';
 export * from './PartyInfoInput/PartyInfoInput';
+export * from './TagGroup/TagGroup';
 export * from './Analytics/Analytics';
