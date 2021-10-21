@@ -38,13 +38,6 @@ const theme = {
     bg: "#e6e7eb"
 };
 
-/* This theme swaps fg and bg */
-const invertTheme = ({ main, fg, bg}) => ({
-    main: "silver",
-    fg: bg,
-    bg: fg
-});
-
 const TagDiv = styled.div`
     //border: 1px solid black;
     display: inline-flex;
