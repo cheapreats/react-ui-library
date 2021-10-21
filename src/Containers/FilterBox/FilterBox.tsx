@@ -31,20 +31,16 @@ const Container = styled.div`
     display: inline-flex;
 `;
 
-/* Define our `fg` and `bg` on the theme */
-const theme = {
-    main: "#85878a",
-    fg: "white",
-    bg: "#e6e7eb"
-};
 
 const TagDiv = styled.div`
-    //border: 1px solid black;
-    display: inline-flex;
-    background-color: ${theme.bg};
+
+    ${({ theme }) => `
+        background-color: ${theme.colors.border};
+        color:${theme.colors.text};
+    `}
 
     display: inline-flex;
-    //border: 2px solid ${theme.bg};
+
     border-radius: 999px;
     padding: 2px;
     padding-left: 1rem;
@@ -64,7 +60,9 @@ const TextBold = styled.div`
 `;
 
 const TextSilver = styled.div`
-    //color: 96989c;
-    color: ${theme.main};
+    ${({ theme }) => `
+        color:${theme.colors.text};
+    `}
+
     margin: 2px;
 `;
