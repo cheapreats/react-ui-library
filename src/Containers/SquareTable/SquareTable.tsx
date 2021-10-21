@@ -33,7 +33,7 @@ type fillArrayType = (
 
 type getTableBodyContentType = (tableUse: tableUseTypes) => JSX.Element;
 
-type getNumberOfOccupiedChairsType = () => JSX.Element;
+//type getNumberOfOccupiedChairsType = () => JSX.Element;
 
 type tableUseTypes =
     | 'AddTableButton'
@@ -267,23 +267,20 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * calculates how many chairs are seated
      * @return <string> div for the table
      */
-    const getNumberOfOccupiedChairs: getNumberOfOccupiedChairsType = () =>
+    const getNumberOfOccupiedChairs: () => (null | JSX.Element) = () =>
     {
-        let seated = 0;
         if(tableUse === "AddTableButton" ){
-            return(
-                <div>
-                </div>
-            );
+            return null;
         }
-        for(let i=0; i<chairs.length; i++){
-            if(chairs[i].isSeated){
-                seated++;
+        const seatedCount = chairs.reduce((seatedCount, chair)=>{
+            if(chair.isSeated){
+                return seatedCount+=1;
             }
-        }
+            return seatedCount;
+        },0)
         return(
         <div>
-            {seated}/{chairs.length}
+            {seatedCount}/{chairs.length}
         </div>
     );
     }
