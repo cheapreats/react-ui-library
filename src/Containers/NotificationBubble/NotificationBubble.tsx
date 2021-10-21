@@ -1,52 +1,76 @@
 import React from 'react';
 import styled from 'styled-components';
-import {Bell} from '@styled-icons/boxicons-solid'
+import {Bell} from '@styled-icons/boxicons-solid';
+
+/* Max number shown on badge */
+const MAX_NUMBER_SHOWN = 9;
 
 export interface NotificationBubbleProps extends React.HTMLAttributes<HTMLDivElement> {
     notificationCounter: number;
     badgeProps?: React.HTMLAttributes<HTMLDivElement>;
 }
 
-/* Max number shown on badge */
-const MaxNumberShown = 9;
-
 export const NotificationBubble: React.FC<NotificationBubbleProps> = ({
     /* Notification prop passed in */
     notificationCounter,
     badgeProps,
     ...props
-}): React.ReactElement => (
-    <div {...props}>
-        <NotificationBell/>
-        <Badge notificationCounter={notificationCounter} {...badgeProps}>
-            <b>{notificationCounter > MaxNumberShown ? '9+' : notificationCounter}</b>
-        </Badge>
+}): React.ReactElement => {
+    /**
+     * Takes in the notifications and transforms it to the displayed notification badge number
+     * @param notifications {number} - the number of notifications
+     * @returns {string} - the number of notifications displayed to the user in the badge
+     */
+    const getNotificationCount = (notifications: number) => {
+        if (notifications < 1) {
+            notificationCounter = 0;
+        } else if (notifications > MAX_NUMBER_SHOWN) {
+            return '9+';
+        }
+        return notificationCounter;
 
-    </div>
+    }
 
-);
+    return(
+        <div {...props}>
+            <NotificationBell/>
+            <BADGE notificationCounter={notificationCounter} {...badgeProps}>
+                <b>{getNotificationCount(notificationCounter)}</b>
+            </BADGE>
 
-const Badge = styled.div<NotificationBubbleProps>`
+        </div>
 
-display: ${({ notificationCounter }): string => (notificationCounter ? 'block' : 'none')};
+    );
 
-font-family: Arial, Helvetica, sans-serif;
+};
 
-background-color: red;
-font-size: 11px;
-color: white;
-text-align: center;
-width: 14px;
-height: 14px;
-border-radius: 50%;
-position: relative;
-bottom: 37px;
-left: 13px;
-border: 3px solid red;
+const BADGE = styled.div<NotificationBubbleProps>`
+
+    display: ${({ notificationCounter }): string => (notificationCounter ? 'block' : 'none')};
+
+    ${({ theme }) => `
+        border: 3px solid ${theme.colors.statusColors.red};
+        background-color: ${theme.colors.statusColors.red};
+        color:${theme.colors.input.default};
+    `}
+
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    text-align: center;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    position: relative;
+    bottom: 37px;
+    left: 13px;
 
 `;
 
 const NotificationBell = styled(Bell)`
+
+    ${({ theme }) => `
+        color:${theme.colors.text};
+    `}
 
     height: 32px;
     width: 32px;
