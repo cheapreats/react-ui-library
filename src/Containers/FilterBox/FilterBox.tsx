@@ -3,13 +3,15 @@ import styled from 'styled-components';
 import {CircleWithCross} from '@styled-icons/entypo'
 
 export interface FilterBoxProps extends React.HTMLAttributes<HTMLDivElement> {
+    /*  Description of search category  */
     title: string,
-    /*  This is a comment  */
+    /*  Search term  */
     query: string
 }
 
 export const FilterBox: React.FC<FilterBoxProps> = ({
-    title, query,
+    title,
+    query,
     ...props
 }): React.ReactElement => (
     <Container {...props}>
@@ -22,7 +24,6 @@ export const FilterBox: React.FC<FilterBoxProps> = ({
             </TextBold>
             <CrossIcon/>
         </TagDiv>
-        
     </Container>
 );
 
@@ -31,16 +32,12 @@ const Container = styled.div`
     display: inline-flex;
 `;
 
-
 const TagDiv = styled.div`
-
     ${({ theme }) => `
         background-color: ${theme.colors.border};
-        color:${theme.colors.text};
+        color: ${theme.colors.text};
     `}
-
     display: inline-flex;
-
     border-radius: 999px;
     padding: 2px;
     padding-left: 1rem;
@@ -60,9 +57,5 @@ const TextBold = styled.div`
 `;
 
 const TextSilver = styled.div`
-    ${({ theme }) => `
-        color:${theme.colors.text};
-    `}
-
     margin: 2px;
 `;
