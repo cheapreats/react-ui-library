@@ -6,7 +6,9 @@ import {Bell} from '@styled-icons/boxicons-solid';
 const MAX_NUMBER_SHOWN = 9;
 
 export interface NotificationBubbleProps extends React.HTMLAttributes<HTMLDivElement> {
+    /* Number of notifications passed in */
     notificationCounter: number;
+    /* Passed in props to modify the divs */
     badgeProps?: React.HTMLAttributes<HTMLDivElement>;
 }
 
@@ -34,9 +36,9 @@ export const NotificationBubble: React.FC<NotificationBubbleProps> = ({
     return(
         <div {...props}>
             <NotificationBell/>
-            <BADGE notificationCounter={notificationCounter} {...badgeProps}>
+            <Badge notificationCounter={notificationCounter} {...badgeProps}>
                 <b>{getNotificationCount(notificationCounter)}</b>
-            </BADGE>
+            </Badge>
 
         </div>
 
@@ -44,7 +46,7 @@ export const NotificationBubble: React.FC<NotificationBubbleProps> = ({
 
 };
 
-const BADGE = styled.div<NotificationBubbleProps>`
+const Badge = styled.div<NotificationBubbleProps>`
 
     display: ${({ notificationCounter }): string => (notificationCounter ? 'block' : 'none')};
 
@@ -58,7 +60,6 @@ const BADGE = styled.div<NotificationBubbleProps>`
     font-size: 11px;
     text-align: center;
     width: 14px;
-    height: 14px;
     border-radius: 50%;
     position: relative;
     bottom: 37px;
