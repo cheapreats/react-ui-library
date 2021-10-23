@@ -78,3 +78,6 @@ export * from './InviteComponent/Invite';
 export * from './SeatingInfoInput/SeatingInfoInput';
 export * from './PartyInfoInput/PartyInfoInput';
 export * from './FilterBox/FilterBox';
+export * from './NotificationBubble/NotificationBubble';
+export * from './TagGroup/TagGroup';
+export * from './Analytics/Analytics';
