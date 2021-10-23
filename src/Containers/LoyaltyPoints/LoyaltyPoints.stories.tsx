@@ -16,7 +16,7 @@ export default {
 
 
 export const Basic: Story<LoyaltyPointsProps> = (args) => (
-  <LoyaltyPoints{...args}/>
+  <LoyaltyPoints {...args}/>
 )
 
 //todo switch star from text to icon using styled-icons import
