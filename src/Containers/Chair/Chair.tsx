@@ -440,9 +440,7 @@ const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
     relativeSize * BASE_BORDER_WIDTH_FOR_ROUND_CHAIR
 }px solid black;`;
     }}
-    //&:focus {
-    //  box-shadow: 0 0 0 2px;
-    //}
+    
     box-shadow: ${({ isFocusedActive
                    }) => (isFocusedActive &&
             '0 0 0 2px')};
