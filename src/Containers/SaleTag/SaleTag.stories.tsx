@@ -1,18 +1,16 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Tag, TagProps } from '../../index';
+import { SaleTag, SaleTagProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
 export default {
-    // Use createStoryTitle to create a storybook element SaleTag
     title: createStoryTitle('SaleTag'),
-    // Show what SaleTag would look like
-    component: Tag,
+    component: SaleTag,
     args: {
-        children: '$2 off',
+        amount: 2,
     },
 } as Meta;
 
-export const Basic: Story<TagProps> = (args) => (
-    <Tag {...args}>{args.children}</Tag>
+export const Basic: Story<SaleTagProps> = (args) => (
+    <SaleTag {...args}/>
 );
