@@ -31,6 +31,7 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
         chairTableBackground: string;
         chairOccupiedBackground: string;
         chairTableEditBackground: string;
+        loyaltyText: string;
     };
 }
 
@@ -65,5 +66,6 @@ export const MainTheme: MainThemeInterface = {
             Green: '#008000',
             Yellow: '#ffff00',
         },
+        loyaltyText: '#0000FF',
     },
 };

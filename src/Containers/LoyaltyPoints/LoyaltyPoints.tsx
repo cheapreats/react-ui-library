@@ -11,7 +11,7 @@ export interface LoyaltyPointsProps
     extends MainInterface{
             amount: string;
         }
-        
+
 const LoyaltyPointsBox = styled.div`
 
     ${({theme, ...props}):string => `
@@ -25,7 +25,7 @@ const LoyaltyPointsBox = styled.div`
         border-top-left-radius: 0px;
         background-color: ${theme.colors.background};
         text-align: center;
-        color: blue;
+        color: ${theme.colors.loyaltyText};
         
     `}
 
