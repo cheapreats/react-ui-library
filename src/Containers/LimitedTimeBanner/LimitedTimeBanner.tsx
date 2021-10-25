@@ -1,62 +1,45 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-    Main,
-    MainInterface,
-    Responsive,
-    ResponsiveInterface,
-} from '@Utils/BaseStyles';
-import { transition } from '@Utils/Mixins';
+import {Clock} from '@styled-icons/bootstrap/Clock';
+import { MainInterface} from '@Utils/BaseStyles';
 
-export interface BannerProps
-    extends MainInterface,
-        ResponsiveInterface,
-        React.HTMLAttributes<HTMLDivElement> {
-    animated?: boolean;
-    flat?: boolean;
-    widthFitContent?: boolean;
+const BannerBox = styled.div`
+    // Theme Stuff
+    ${({theme, ...props}):string => `
+    font-family: ${theme.font.family};
+    background-color: rgba(0,0,0,0.5);
+    color: ${theme.colors.background}};
+    width: 250px;
+    height: 25px; 
+    text-align: center;
+    font-size: 14;
+    `}
+
+`;
+
+export interface IconProps {}
+const Icon = styled(Clock)<IconProps>`
+    width: 20px;
+    float: left;
+    margin-bottom: auto;
+    margin-top: auto;
+`;
+
+export interface LimitedTimeBannerProps
+    extends MainInterface {
+        HoursRemaining: string;
 }
 
-export const LimitedTimeBanner: React.FC<BannerProps> = ({
-    children,
-    ...props
-}): React.ReactElement => <BannerBox {...props}>{children}</BannerBox>;
+export const LimitedTimeBanner: React.FC<LimitedTimeBannerProps> = ({
+    HoursRemaining,...props
+}): React.ReactElement => {
+    return (
+        <BannerBox {...props}>
+            <Icon></Icon><p>{HoursRemaining}</p>
+       
+        </BannerBox>
+    ) ;
+};
 
-const BannerBox = styled.div<BannerProps & MainInterface & ResponsiveInterface>`
-    background-color: black;
-    // Theme Stuff
-    ${({ theme, ...props }): string => `
-    border-radius: ${theme.dimensions.radius};
-    font-family: ${theme.font.family};
-    color: white;
-    width: 200px;
-    height: 10px; 
-    ${Main({
-        padding: theme.dimensions.padding.container,
-        ...props,
-    })}
-    `}
-
-    // Flat
-    box-shadow: ${({ flat, theme }): string => theme.depth[flat ? 0 : 1]};
-
-    // Animated
-    ${({ animated, flat, theme }): string =>
-        animated
-            ? `
-        ${transition(['box-shadow'])}
-        &:hover {
-            box-shadow: ${theme.depth[flat ? 1 : 2]};
-        }
-    `
-            : ''}
-
-    // Base Styles
-    ${Responsive}
-
-    ${({ widthFitContent }): string => `
-    ${widthFitContent ? 'width:fit-content;' : ''}
-    `}
-`;
 
 export default LimitedTimeBanner;
