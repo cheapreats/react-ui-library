@@ -78,5 +78,3 @@ export * from './InviteComponent/Invite';
 export * from './SeatingInfoInput/SeatingInfoInput';
 export * from './PartyInfoInput/PartyInfoInput';
 export * from './LimitedTimeBanner/LimitedTimeBanner';
-export * from './MenuItemCard/MenuItemCard';
-export * from './LoyaltyPoints/LoyaltyPoints';
