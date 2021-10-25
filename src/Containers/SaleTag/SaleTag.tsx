@@ -1,9 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-
-export interface SaleTagProps extends React.HTMLAttributes<HTMLSpanElement> {
-    amount: number;
-}
+import { MainInterface } from '@Utils/BaseStyles';
 
 export const SaleTag: React.FC<SaleTagProps> = ({
     amount = 2,
@@ -13,6 +10,10 @@ export const SaleTag: React.FC<SaleTagProps> = ({
         {amount}$ off
     </SaleTagDiv>
 );
+
+export interface SaleTagProps extends MainInterface {
+    amount: number;
+}
 
 const SaleTagDiv = styled.span<SaleTagProps>`
     ${({theme, ...props}):string => `
