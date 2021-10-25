@@ -3,16 +3,16 @@ import styled from 'styled-components';
 import { MainInterface } from '@Utils/BaseStyles';
 
 export const SaleTag: React.FC<SaleTagProps> = ({
-    amount = 2,
+    saleAmount = 2,
     ...props
 }): React.ReactElement => (
-    <SaleTagDiv {...props} amount={amount}>
-        {amount}$ off
+    <SaleTagDiv {...props} saleAmount={saleAmount}>
+        {saleAmount}$ off
     </SaleTagDiv>
 );
 
 export interface SaleTagProps extends MainInterface {
-    amount: number;
+    saleAmount: number;
 }
 
 const SaleTagDiv = styled.span<SaleTagProps>`
