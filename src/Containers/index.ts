@@ -83,3 +83,4 @@ export * from './NotificationBubble/NotificationBubble';
 export * from './TagGroup/TagGroup';
 export * from './Analytics/Analytics';
 export * from './CustomerProfile/CustomerProfile';
+export * from './CreatedDate/CreatedDate';
