@@ -7,17 +7,18 @@ const BannerBox = styled.div`
     // Theme Stuff
     ${({theme, ...props}):string => `
     font-family: ${theme.font.family};
-    background-color: rgba(0,0,0,0.5);
     color: ${theme.colors.background}};
+
+    `}
+    background-color: rgba(0,0,0,0.5);
     width: 250px;
     height: 25px; 
     text-align: center;
     font-size: 14;
-    `}
-
 `;
 
-export interface IconProps {}
+export interface IconProps {
+}
 const Icon = styled(Clock)<IconProps>`
     width: 20px;
     float: left;
@@ -35,7 +36,8 @@ export const LimitedTimeBanner: React.FC<LimitedTimeBannerProps> = ({
 }): React.ReactElement => {
     return (
         <BannerBox {...props}>
-            <Icon></Icon><p>{HoursRemaining}</p>
+            <Icon />
+                <p>{HoursRemaining}</p>
        
         </BannerBox>
     ) ;
