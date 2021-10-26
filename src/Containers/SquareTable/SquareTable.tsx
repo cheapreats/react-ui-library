@@ -272,15 +272,16 @@ export const SquareTable: React.FC<ISquareTable> = ({
         if(tableUse === "AddTableButton" ){
             return null;
         }
-        const seatedCount = chairs.reduce((seatedCount, chair)=>{
+        const seatCount = chairs.reduce((seatedCount, chair)=>{
             if(chair.isSeated){
-                return seatedCount+=1;
+                seatedCount+=1;
+                return seatedCount;
             }
             return seatedCount;
         },0)
         return(
         <div>
-            {seatedCount}/{chairs.length}
+            {seatCount}/{chairs.length}
         </div>
     );
     }
