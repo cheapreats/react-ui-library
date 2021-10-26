@@ -179,7 +179,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * @param left {number} - Number of chairs on left side
      * @param right {number} - Number of chairs on right side
      * @return {number} - The largest number of chairs
-     * ToDo: Optimize getSquareTableSize
      */
 
     const getSquareTableSize: getSquareTableSizeType = (
@@ -236,7 +235,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
     /**
      * Checks an array to see if it has fewer chairs than the target size
      * and adds invisible chairs if needed so array size matches target size
-     * ToDO: Change function name for clarity
      */
     const fillArray: fillArrayType = (array, size, position) => {
         while (array.length < size) {
