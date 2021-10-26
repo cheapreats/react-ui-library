@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState } from 'react';
 import styled from 'styled-components';
 import { ClickableSmallText, SmallText } from '@Text';
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
@@ -26,6 +26,10 @@ export interface HighlightedTextProps extends React.HTMLAttributes<HTMLParagraph
     labels: Array<HighlightedString>;
 }
 
+export interface HeaderDivProps {
+    isActive: boolean;
+}
+
 /**
  * Paragraph with special strings that can be clicked to reveal a dropdown list of more options
  * @param labels - Array of HighlightedString; These will be displayed in the paragraph.
@@ -41,13 +45,21 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
      * construct the element for a special text
      * @param label - HighlightedString of the special text
      */
-    const getSpecialTextComponent = (label: HighlightedString): React.ReactElement => <ClickableSmallText bold {...label.textProps}>{`${label.text  } `}</ClickableSmallText>
+    const getSpecialTextComponent = (label: HighlightedString): React.ReactElement => {
+        const [textColor, setTextColor] = useState('black');
+        const handleChangeTextColor = () => {
+            setTextColor(textColor === 'black' ? 'orange' : 'black');
+        }
+
+        return <ClickableSmallText bold onClick={handleChangeTextColor} color={textColor} {...label.textProps}>{`${label.text  } `}</ClickableSmallText>
+    }
 
     /**
      * construct the dropdown or text for a HighlightedString
      * @param label - HighlightedString of the text
      */
     const getTextComponent = (label: HighlightedString): React.ReactElement => {
+        
         if (label.isSpecial){
             const listItemsArgs: Array<IDropdownItemProps> = label.listItemsArgs || []
             const listItemsBodies: Array<JSX.Element> = label.listItemsBodies || []

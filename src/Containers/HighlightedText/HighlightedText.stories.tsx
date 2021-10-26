@@ -4,7 +4,12 @@ import { action } from '@storybook/addon-actions';
 import { ClickableSmallText, HighlightedString, HighlightedText, HighlightedTextProps } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
-const labels: Array<HighlightedString> = [
+export default {
+    title: createStoryTitle('Highlighted Text'),
+    component: HighlightedText,
+} as Meta;
+
+const basicLabels: Array<HighlightedString> = [
     {
         text: 'Ordering a',
         isSpecial: false,
@@ -33,19 +38,48 @@ const labels: Array<HighlightedString> = [
     },
 ]
 
-export default {
-    title: createStoryTitle('Highlighted Text'),
-    component: HighlightedText,
-    args: {
-        labels,
-        children: 'Header row children',
-        style: {
-            display: 'column',
-            type: 'h2',
-            padding: '0 0 0 5px',
-            width: 200,
-        }
+const noneCaseLabels: Array<HighlightedString> = [
+    {
+        text: 'Ordering a',
+        isSpecial: false,
     },
-} as Meta;
+    {
+        text: 'milkshake',
+        isSpecial: false,
+        
+    },
+]
 
-export const Basic: Story<HighlightedTextProps> = (args) => <HighlightedText {...args} />;
+const basicArgs = {
+    labels: basicLabels,
+    children: 'Header row children',
+    style: {
+        display: 'column',
+        type: 'h2',
+        padding: '0 0 0 5px',
+        width: 200,
+    }
+}
+
+const noneCaseArgs = {
+    labels: noneCaseLabels,
+    children: 'Header row children',
+    style: {
+        display: 'column',
+        type: 'h2',
+        padding: '0 0 0 5px',
+        width: 200,
+    }
+}
+
+const Template: Story<HighlightedTextProps> = (args) => <HighlightedText {...args} />;
+
+export const Basic = Template.bind({});
+Basic.args = {
+    ...basicArgs,
+};
+
+export const NoneCase = Template.bind({});
+NoneCase.args = {
+    ...noneCaseArgs,
+}
