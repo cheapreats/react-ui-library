@@ -31,10 +31,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
     return (
         <div {...props}>
             <p> {children} </p>
-            <StyledButton
-                isPulsing={isAnimated}
-                disabled={disabled}
-            >
+            <StyledButton isPulsing={isAnimated} disabled={disabled}>
                 {icon && <Icon iconSize={iconSize} as={icon} />}
             </StyledButton>
         </div>
@@ -75,10 +72,7 @@ const PULSE_ANIMATION = `
 
 const StyledButton = styled(Button).attrs({})<{ isPulsing: boolean }>`
     ${({ isPulsing }): string =>
-        isPulsing
-            ? 
-            PULSE_ANIMATION
-            : ``}// No animation
+        isPulsing ? PULSE_ANIMATION : ``}// No animation
 `;
 
 export default VoiceButton;
