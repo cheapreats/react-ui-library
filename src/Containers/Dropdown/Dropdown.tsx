@@ -22,6 +22,8 @@ export interface IDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
     dropdownButton: React.ReactElement;
     dropdownWidth?: number;
     right?: boolean;
+    startState?: boolean;
+    toggleFunc?: Function;
 }
 
 interface IDropdownContentProps {
@@ -68,6 +70,8 @@ const Dropdown: React.FC<IDropdownProps> = ({
     dropdownWidth,
     children,
     right,
+    toggleFunc,
+    startState,
     ...props
 }): ReactElement => {
     const [isActive, setIsActive] = useState(false);
@@ -78,9 +82,16 @@ const Dropdown: React.FC<IDropdownProps> = ({
     const bodyRef = useRef<HTMLUListElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
+    if (startState != null && startState != isActive){
+        setIsActive(startState);
+    }
+
     useClickAway(containerRef, () => setIsActive(false));
     const toggleIsActive = (): void => {
         setIsActive(!isActive);
+        if (toggleFunc){
+            toggleFunc(!isActive);
+        }
     };
 
     const validChild = (

@@ -1,10 +1,9 @@
-import React, {useState } from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { ClickableSmallText, SmallText } from '@Text';
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
 import DropdownItem, { IDropdownItemProps } from '../Dropdown/DropdownItem';
 import { TextLayoutProps } from '../../Fragments/TextLayout';
-
 
 export interface HighlightedString {
     /** contents of the string */
@@ -40,6 +39,7 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
     labels,
     ...props
 }): React.ReactElement => {
+    const [selectedText, setSelectedText] = useState(-1);
 
     /**
      * construct the element for a special text
@@ -58,13 +58,23 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
      * construct the dropdown or text for a HighlightedString
      * @param label - HighlightedString of the text
      */
-    const getTextComponent = (label: HighlightedString): React.ReactElement => {
+    const getTextComponent = (label: HighlightedString, index: number): React.ReactElement => {
         
         if (label.isSpecial){
+            const toggleSelectedText = (isTargetTrue: boolean): void => {
+                if (isTargetTrue) {
+                    setSelectedText(index);
+                } else {
+                    setSelectedText(-1);
+                }
+            }
+
             const listItemsArgs: Array<IDropdownItemProps> = label.listItemsArgs || []
             const listItemsBodies: Array<JSX.Element> = label.listItemsBodies || []
             const DropDownProps: IDropdownProps = {
                 dropdownButton: getSpecialTextComponent(label),
+                startState: selectedText === index,
+                toggleFunc: toggleSelectedText,
             }
             return <Dropdown {...DropDownProps} {...label.listProps}>
                 {listItemsBodies.map((_, index) => (
@@ -82,8 +92,8 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
      */
     const renderText = (): React.ReactElement => (
         <p>
-            {labels.map((label) => (
-                getTextComponent(label)
+            {labels.map((label, index) => (
+                getTextComponent(label, index)
             ))}
         </p>
     )
