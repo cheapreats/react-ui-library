@@ -11,19 +11,19 @@ const BannerBox = styled.div`
 
     `}
     background-color: rgba(0,0,0,0.5);
-    width: 250px;
-    height: 25px; 
     text-align: center;
-    font-size: 14;
+    width: 250px;
+    height: 22px; 
+    line-height:25px
+    font-size: 12;
 `;
 
-export interface IconProps {
-}
-const Icon = styled(Clock)<IconProps>`
-    width: 20px;
+const Icon = styled(Clock)`
+    width: 18px;
     float: left;
-    margin-bottom: auto;
-    margin-top: auto;
+    padding-top:2.5px;
+    padding-bottom:2.5px;
+    padding-left: 2.5px;
 `;
 
 export interface LimitedTimeBannerProps
@@ -42,6 +42,5 @@ export const LimitedTimeBanner: React.FC<LimitedTimeBannerProps> = ({
         </BannerBox>
     ) ;
 };
-
 
 export default LimitedTimeBanner;
