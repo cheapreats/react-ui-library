@@ -53,20 +53,20 @@ export const Template: React.FC<TemplateProps> = ({
         labels: string[][],
     ): React.ReactElement => {
         switch (componentType) {
-        case 'table':
-            return (
-                <TableComponent
-                    droppableLabels={labels}
-                    isPreview={isPreview}
-                />
-            );
-        default:
-            return (
-                <DroppableElement
-                    droppableLabels={labels}
-                    isPreview={isPreview}
-                />
-            );
+            case 'table':
+                return (
+                    <TableComponent
+                        droppableLabels={labels}
+                        isPreview={isPreview}
+                    />
+                );
+            default:
+                return (
+                    <DroppableElement
+                        droppableLabels={labels}
+                        isPreview={isPreview}
+                    />
+                );
         }
     };
 
@@ -154,13 +154,13 @@ interface DraggableWrapperProps {
 const DraggableWrapper = styled.div<DraggableWrapperProps>`
     ${({ theme, isDragging }): string => `
         background-color: ${
-    isDragging ? theme.colors.border : theme.colors.background
-};
+            isDragging ? theme.colors.border : theme.colors.background
+        };
         border: ${
-    isDragging
-        ? `solid 1px ${theme.colors.text}`
-        : theme.colors.background
-};
+            isDragging
+                ? `solid 1px ${theme.colors.text}`
+                : theme.colors.background
+        };
         padding-bottom: 10px;
     `};
 `;

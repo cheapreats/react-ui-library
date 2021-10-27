@@ -78,17 +78,17 @@ export const MaskedInput: React.FC<MaskedInputProps> = ({
 
     const getMaskFunction = (maskInputPreset: MaskedInputPreset): string => {
         switch (maskInputPreset) {
-        case MaskedInputPreset.DOLLAR:
-            return numberMaskFilter(realValue, MaskedInputPreset.DOLLAR);
-        case MaskedInputPreset.PERCENTAGE:
-            return numberMaskFilter(
-                realValue,
-                MaskedInputPreset.PERCENTAGE,
-            );
-        case MaskedInputPreset.PHONE:
-            return phoneMaskFilter(realValue);
-        default:
-            return realValue.toString();
+            case MaskedInputPreset.DOLLAR:
+                return numberMaskFilter(realValue, MaskedInputPreset.DOLLAR);
+            case MaskedInputPreset.PERCENTAGE:
+                return numberMaskFilter(
+                    realValue,
+                    MaskedInputPreset.PERCENTAGE,
+                );
+            case MaskedInputPreset.PHONE:
+                return phoneMaskFilter(realValue);
+            default:
+                return realValue.toString();
         }
     };
 

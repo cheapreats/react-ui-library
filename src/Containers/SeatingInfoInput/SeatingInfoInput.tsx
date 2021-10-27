@@ -359,14 +359,14 @@ const ChangeColorToOccupancyStatus = styled.div<IChangeColorToOccupancyStatus>`
  */
 const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
-    case 'Vacant':
-        return useTheme().colors.occupancyStatusColors.Vacant;
-    case 'Reserved':
-        return useTheme().colors.occupancyStatusColors.Reserved;
-    case 'Occupied':
-        return useTheme().colors.occupancyStatusColors.Occupied;
-    default:
-        return '';
+        case 'Vacant':
+            return useTheme().colors.occupancyStatusColors.Vacant;
+        case 'Reserved':
+            return useTheme().colors.occupancyStatusColors.Reserved;
+        case 'Occupied':
+            return useTheme().colors.occupancyStatusColors.Occupied;
+        default:
+            return '';
     }
 };
 

@@ -16,10 +16,9 @@ export default {
             { label: '19/03', value: 200 },
             { label: '20/03', value: 200 },
             { label: '21/03', value: 257 },
-        ]
-    }
+        ],
+    },
 } as Meta;
 
 // TODO: Fix line 66 LineChart not being compiled correctly: https://github.com/recharts/recharts/issues/1057
 export const Basic: Story<ChartProps> = (args) => <Chart {...args} />;
-

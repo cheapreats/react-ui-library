@@ -30,8 +30,7 @@ export default {
         },
     },
     args: {
-        logo:
-            'https://scontent.fphx1-1.fna.fbcdn.net/v/t1.0-9/29432778_207936176627967_6515661452525090864_n.png?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=OkWX6CgivlkAX_0WjVR&_nc_ht=scontent.fphx1-1.fna&oh=ecd9d09cbba70ad21634fc51b0a3a608&oe=5FC97964',
+        logo: 'https://scontent.fphx1-1.fna.fbcdn.net/v/t1.0-9/29432778_207936176627967_6515661452525090864_n.png?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=OkWX6CgivlkAX_0WjVR&_nc_ht=scontent.fphx1-1.fna&oh=ecd9d09cbba70ad21634fc51b0a3a608&oe=5FC97964',
     },
 } as Meta;
 

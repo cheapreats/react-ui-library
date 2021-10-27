@@ -5,8 +5,7 @@ import { createStoryTitle } from '../../Constants';
 
 const data = [
     {
-        image:
-            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
+        image: 'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
         name: 'chilly chesseburger with bacon',
         totalSpent: 2000000,
         totalSpent1D: 1000,
@@ -15,8 +14,7 @@ const data = [
         totalSpent1Y: 600000,
     },
     {
-        image:
-            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
+        image: 'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
         name: 'chilly chesseburger with bacon',
         totalSpent: 4550000,
         totalSpent1D: 2000,
@@ -25,8 +23,7 @@ const data = [
         totalSpent1Y: 600000,
     },
     {
-        image:
-            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
+        image: 'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
         name: 'chilly chesseburger with bacon',
         totalSpent: 10000,
         totalSpent1D: 6000,
@@ -35,8 +32,7 @@ const data = [
         totalSpent1Y: 600000,
     },
     {
-        image:
-            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
+        image: 'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
         name: 'chilly chesseburger with bacon',
         totalSpent: 29000,
         totalSpent1D: 1000,
@@ -45,8 +41,7 @@ const data = [
         totalSpent1Y: 600000,
     },
     {
-        image:
-            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
+        image: 'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
         name: 'chilly chesseburger with bacon',
         totalSpent: 20000,
         totalSpent1D: 1000,
@@ -55,8 +50,7 @@ const data = [
         totalSpent1Y: 600000,
     },
     {
-        image:
-            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
+        image: 'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
         name: 'chilly chesseburger with bacon',
         totalSpent: 200,
         totalSpent1D: 1000,
@@ -65,8 +59,7 @@ const data = [
         totalSpent1Y: 600000,
     },
     {
-        image:
-            'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
+        image: 'https://cdn.dribbble.com/users/78464/screenshots/11446190/media/83dd322812573b74144f56b38560a259.jpg',
         name: 'chilly chesseburger with bacon',
         totalSpent: 20000,
         totalSpent1D: 100,

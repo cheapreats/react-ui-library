@@ -53,9 +53,8 @@ export const ItemsRedemptionPoints: React.FC<IItemsRedemptionPointsProps> = ({
     data,
     ...props
 }): React.ReactElement => {
-    const [isShownBatchUpdateModal, setIsShownBatchUpdateModal] = useState(
-        false,
-    );
+    const [isShownBatchUpdateModal, setIsShownBatchUpdateModal] =
+        useState(false);
     const [dataItems, setDataItems] = useState(data);
 
     /**
@@ -260,10 +259,10 @@ interface IDotProps {
 const Dot = styled.div<IDotProps>`
     ${({ redemptionPoints }): string => `
 background-color:${
-    redemptionPoints === 0
-        ? MainTheme.colors.statusColors.red
-        : MainTheme.colors.statusColors.green
-};
+        redemptionPoints === 0
+            ? MainTheme.colors.statusColors.red
+            : MainTheme.colors.statusColors.green
+    };
 `}
     width:18px;
     height: 18px;

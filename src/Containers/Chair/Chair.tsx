@@ -135,43 +135,43 @@ export const Chair: React.FC<IChair> = ({
      */
     const getChairText: getChairTextType = () => {
         switch (tableUse) {
-        case 'AddTableButton':
-            return <div />;
-        case 'TableForManagement':
-            if (isRound) {
-                return (
-                    <RoundChairText relativeSize={relativeSize}>
-                        {occupiedBy}
-                    </RoundChairText>
-                );
-            }
-            return (
-                <RectangleChairText
-                    position={position}
-                    relativeSize={relativeSize}
-                >
-                    {occupiedBy}
-                </RectangleChairText>
-            );
-        case 'TableForEditCanvas':
-            if (isVisible) {
+            case 'AddTableButton':
+                return <div />;
+            case 'TableForManagement':
                 if (isRound) {
-                    return <RoundEyeSlash />;
+                    return (
+                        <RoundChairText relativeSize={relativeSize}>
+                            {occupiedBy}
+                        </RoundChairText>
+                    );
+                }
+                return (
+                    <RectangleChairText
+                        position={position}
+                        relativeSize={relativeSize}
+                    >
+                        {occupiedBy}
+                    </RectangleChairText>
+                );
+            case 'TableForEditCanvas':
+                if (isVisible) {
+                    if (isRound) {
+                        return <RoundEyeSlash />;
+                    }
+                    if (position === 'top' || position === 'bottom') {
+                        return <TopBottomEyeSlash />;
+                    }
+                    return <LeftRightEyeSlash />;
+                }
+                if (isRound) {
+                    return <RoundEye />;
                 }
                 if (position === 'top' || position === 'bottom') {
-                    return <TopBottomEyeSlash />;
+                    return <TopBottomEye />;
                 }
-                return <LeftRightEyeSlash />;
-            }
-            if (isRound) {
-                return <RoundEye />;
-            }
-            if (position === 'top' || position === 'bottom') {
-                return <TopBottomEye />;
-            }
-            return <LeftRightEye />;
-        default:
-            return <div />;
+                return <LeftRightEye />;
+            default:
+                return <div />;
         }
     };
 
@@ -215,20 +215,20 @@ type getChairColorType = (
 const getChairColor: getChairColorType = (isSeated, tableUse, isVisible) => {
     const { colors } = useTheme();
     switch (tableUse) {
-    case 'TableForManagement':
-        if (isSeated) {
-            return colors.chairOccupiedBackground;
-        }
-        return colors.chairTableBackground;
-    case 'AddTableButton':
-        return colors.chairTableEditBackground;
-    case 'TableForEditCanvas':
-        if (isVisible) {
+        case 'TableForManagement':
+            if (isSeated) {
+                return colors.chairOccupiedBackground;
+            }
             return colors.chairTableBackground;
-        }
-        return colors.chairTableEditBackground;
-    default:
-        return colors.chairTableBackground;
+        case 'AddTableButton':
+            return colors.chairTableEditBackground;
+        case 'TableForEditCanvas':
+            if (isVisible) {
+                return colors.chairTableBackground;
+            }
+            return colors.chairTableEditBackground;
+        default:
+            return colors.chairTableBackground;
     }
 };
 
@@ -245,17 +245,17 @@ type getChairVisibilityType = (
  */
 const getChairVisibility: getChairVisibilityType = (tableUse, isVisible) => {
     switch (tableUse) {
-    case 'TableForManagement':
-        if (isVisible) {
+        case 'TableForManagement':
+            if (isVisible) {
+                return 'visible';
+            }
+            return 'hidden';
+        case 'AddTableButton':
             return 'visible';
-        }
-        return 'hidden';
-    case 'AddTableButton':
-        return 'visible';
-    case 'TableForEditCanvas':
-        return 'visible';
-    default:
-        return 'visible';
+        case 'TableForEditCanvas':
+            return 'visible';
+        default:
+            return 'visible';
     }
 };
 
@@ -276,38 +276,38 @@ const getRectangleChairStyles: getRectangleChairStyles = (
     const BASE_BORDER_RADIUS = 3;
     const BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS = 0.25;
     switch (position) {
-    case 'top':
-        return `border-top-left-radius:  ${
-            relativeSize * BASE_BORDER_RADIUS
-        }rem;
+        case 'top':
+            return `border-top-left-radius:  ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
             border-top-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
             margin-bottom: ${
-    relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
-}rem;
+                relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
+            }rem;
         `;
-    case 'left':
-        return `border-top-left-radius: ${
-            relativeSize * BASE_BORDER_RADIUS
-        }rem;
+        case 'left':
+            return `border-top-left-radius: ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
             border-bottom-left-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
         `;
-    case 'right':
-        return `border-top-right-radius: ${
-            relativeSize * BASE_BORDER_RADIUS
-        }rem;
+        case 'right':
+            return `border-top-right-radius: ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
             border-bottom-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
         `;
-    case 'bottom':
-        return `border-bottom-left-radius: ${
-            relativeSize * BASE_BORDER_RADIUS
-        }rem;
+        case 'bottom':
+            return `border-bottom-left-radius: ${
+                relativeSize * BASE_BORDER_RADIUS
+            }rem;
             border-bottom-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
             margin-top: ${
-    relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
-}rem;
+                relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
+            }rem;
         `;
-    default:
-        return '';
+        default:
+            return '';
     }
 };
 
@@ -365,8 +365,8 @@ const textHorizontalChairStyle = css<Pick<IChair, 'relativeSize'>>`
         return `width: ${relativeSize * HORIZONTAL_CHAIR_BASE_WIDTH}rem;
             margin-left: ${relativeSize * HORIZONTAL_CHAIR_BASE_MARGIN_LEFT}rem;
             padding-top: ${
-    relativeSize * HORIZONTAL_CHAIR_BASE_PADDING_TOP
-}rem;`;
+                relativeSize * HORIZONTAL_CHAIR_BASE_PADDING_TOP
+            }rem;`;
     }}
 `;
 
@@ -380,8 +380,8 @@ const textVerticalChairStyle = css<Pick<IChair, 'relativeSize'>>`
             relativeSize * VERTICAL_CHAIR_TEXT_BASE_PADDING_TOP
         }rem;
             margin-left: ${
-    relativeSize * VERTICAL_CHAIR_TEXT_BASE_MARGIN_LEFT
-}rem;
+                relativeSize * VERTICAL_CHAIR_TEXT_BASE_MARGIN_LEFT
+            }rem;
             writing-mode: vertical-rl;`;
     }}
 `;
@@ -419,8 +419,8 @@ const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
         }rem;
             height: ${relativeSize * BASE_WIDTH_AND_HEIGHT_FOR_ROUND_CHAIR}rem;
             border: ${
-    relativeSize * BASE_BORDER_WIDTH_FOR_ROUND_CHAIR
-}px solid black;`;
+                relativeSize * BASE_BORDER_WIDTH_FOR_ROUND_CHAIR
+            }px solid black;`;
     }}
 `;
 
