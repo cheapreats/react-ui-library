@@ -1,11 +1,17 @@
 //import { IChair } from '@Containers/Chair/Chair';
 import React, {useRef} from "react";
-import {IChair} from "@Containers";
+import {Chair, IChair} from "@Containers";
 import styled from "styled-components";
-//import {ICircleTable} from "@Containers";
 
 //TODO: delete it later
 //type getTableContentType = () => JSX.Element;
+
+type tableUseTypes =
+    | 'AddTableButton'
+    | 'TableForEditCanvas'
+    | 'TableForManagement';
+
+type getChairsType = () => JSX.Element[];
 
 export interface IOvalTable{
     /**
@@ -31,7 +37,7 @@ export interface IOvalTable{
     /**
      * The occupancy status for the table
      */
-    //occupancyStatus: occupancyStatusTypes;
+    //occupancyStatus: occupancyStatusTypes;    //TODO: delete later
 
     /**
      * The size for the component relative to the parent
@@ -41,7 +47,34 @@ export interface IOvalTable{
     /**
      * The use type for the table component (how it will be used in the app)
      */
-    //tableUse: tableUseTypes;
+    tableUse: tableUseTypes;
+
+    /**
+     * Array index for the table
+     */
+    tableIndex: number;
+
+    /**
+     * Function to handle onClick event for the table
+     * @param selectedChildIndex - the array index for the table
+     */
+    onTableClick: (selectedChildIndex: number) => void;
+
+    /**
+     * Index number for the currently selected table
+     */
+    selectedIndex: number;
+
+    /**
+     * Function to handle onClick event for the chair
+     * @param parentTableIndex - parent table index in the tables array
+     * @param chairIndex - chair index in chair array
+     */
+    onChairClick: (
+        parentTableIndex: number,
+        chairIndex: number,
+        selectedTableIndex: number,
+    ) => void;
 }
 
 /**
@@ -53,31 +86,50 @@ export const OvalTable: React.FC<IOvalTable> = ({
         partyName = 'Null',
         //occupancyStatus = 'Vacant',
         relativeSize = 1.0,
-        //tableUse = 'TableForManagement',
+        tableUse = 'TableForManagement',
+        tableIndex = 0,
+        selectedIndex = -1,
+        onChairClick,
 
         ...props
     }) => {
     // Create a reference to the TableBody styled component
     const tableBodyRef = useRef(document.createElement('div'));
 
-    //TODO: delete it later
-    //const getTableContent:getTableContentType = () => {
-    //    return(
-    //        <TableContent relativeSize={relativeSize}>
-//
-    //        </TableContent>
-    //    );
-//
-    //}
-
+    const tangent = Math.tan(Math.PI / chairs.length);
+    const getChairs: getChairsType = () =>
+        chairs.map((item, index) => (
+            <ChairWrapper
+                relativeSize={relativeSize}
+                numOfChairs={chairs.length}
+                counter={index + 1}
+                position={item.position} //TODO: delete it later
+                tangentValue={tangent}
+            >
+                <Chair
+                    relativeSize={relativeSize}
+                    position={item.position}
+                    occupiedBy={item.occupiedBy}
+                    isSeated={item.isSeated}
+                    isVisible={item.isVisible}
+                    isRound={item.isRound}
+                    tableUse={tableUse}
+                    tableIndex={tableIndex}
+                    chairIndex={index}
+                    selectedIndex={selectedIndex}
+                    onChairClick={onChairClick}
+                />
+            </ChairWrapper>
+        ));
     return(
         <div {...props}>
             <TableBody
                 ref={tableBodyRef}
                 relativeSize={relativeSize}
                 numOfChairs={chairs.length}
+                tangentValue={tangent}
             >
-
+                {getChairs()}
             </TableBody>
         </div>
     );
@@ -85,44 +137,129 @@ export const OvalTable: React.FC<IOvalTable> = ({
 
 };
 
+type Position = 'top' | 'bottom' | 'left' | 'right';
+
+type getPositionValueType = (position: Position) => number;
+
+type getTurnValueType = (
+    counter: number,
+    numOfChairs: number,
+    position: Position,
+) => string;
+
+const MIN_CHAIRS_BEFORE_TABLE_RESIZE = 4;
+const TANGENT_VALUE_FOR_LESS_THAN_THREE_CHAIRS = 1.73;
+const MIN_CHAIRS_BEFORE_SET_TANGENT_VALUE = 3;
+
+/**
+ * Returns a number value for each position (right, left, top, bottom)
+ * that will allow chairs to be positioned on the correct side of the
+ * table when there are less than three chairs at a CircleTable component
+ *
+ * @param position - the position on the table ("top", "bottom", "left", "right")
+ * @return {number} - the value associated with a given position
+ */
+const getPositionValue: getPositionValueType = (position) => {
+    switch (position) {
+        case 'top':
+            return 0.75;
+        case 'bottom':
+            return 0.25;
+        case 'left':
+            return 0.5;
+        default:
+            return 1;
+    }
+};
+
+/**
+ * Returns a string with the correct CSS turn positioning for a given chair
+ *
+ * @param counter - the chair's number relative to other chairs in the array
+ * @param numOfChairs - the total number of chairs at the table
+ * @param position - the position for the chair ('top', 'bottom', 'left', 'right')
+ * @return {string} - the correct turn value for a specific chair
+ */
+const getTurnValue: getTurnValueType = (counter, numOfChairs, position) => {
+    if (numOfChairs < MIN_CHAIRS_BEFORE_SET_TANGENT_VALUE) {
+        return `${getPositionValue(position)}turn / 1`;
+    }
+    return `${counter}turn / ${numOfChairs}`;
+};
+
 interface ITableBody {
     numOfChairs: number;
     relativeSize: number;
+    tangentValue: number;
 }
 
 const TableBody = styled.div<ITableBody>`
-    ${({ relativeSize }) => {
-      const BASE_TABLE_BORDER_WIDTH = 1.5;
-      const BASE_TABLE_BODY_MARGIN = 3;
-      const BASE_TABLE_WIDTH = 40;
-      const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * 0.7;
-      return `
-          border-width: ${relativeSize * BASE_TABLE_BORDER_WIDTH}em;
-          margin: ${relativeSize * BASE_TABLE_BODY_MARGIN}em;
-          width: ${relativeSize * BASE_TABLE_WIDTH}em;
-          height: ${relativeSize * BASE_TABLE_HEIGHT}em;
-          `;
-    }}
-    position: relative;
-    background-color: gray;
-    border-radius: 50%;
-    border-style: solid;
-    border-color: green;
-    outline: none;
+  
+  ${({ relativeSize }) => {
+    const BASE_TABLE_BORDER_WIDTH = 1.5;
+    const BASE_TABLE_BODY_MARGIN = 3;
+    const BASE_TABLE_WIDTH = 40;
+    const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * 0.7;
+    return `
+        border-width: ${relativeSize * BASE_TABLE_BORDER_WIDTH}em;
+        margin: ${relativeSize * BASE_TABLE_BODY_MARGIN}em;
+        width: ${relativeSize * BASE_TABLE_WIDTH}em;
+        height: ${relativeSize * BASE_TABLE_HEIGHT}em;
+        `;
+  }}
+
+  --relativeSpaceBetweenChairs: 1; /* how much extra space we want between chairs, 1 = one chair size */
+  ${({ numOfChairs, tangentValue }) =>
+          `--tangent: ${
+                  numOfChairs < MIN_CHAIRS_BEFORE_SET_TANGENT_VALUE
+                          ? TANGENT_VALUE_FOR_LESS_THAN_THREE_CHAIRS
+                          : tangentValue
+          };
+        --circleRadius: calc(
+            ${numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
+                (1 + var(--relativeSpaceBetweenChairs)) * var(--chairDiameter) / var(--tangent)
+        ); /* circle radius */`}
+  --containerSize: calc(2 * var(--circleRadius)); /* container size */
+  
+  position: relative;
+  background-color: gray;
+  border-radius: 50%;
+  border-style: solid;
+  border-color: green;
+  outline: none;
 `;
 
-//TODO: delete it later
-//interface ITableContent {
-//    relativeSize: number;
-//}
-//
-//const TableContent = styled.div<ITableContent>`
-//  text-align: center;
-//  width: 100%;
-//  height: 100%;
-//  display: flex;
-//  justify-content: center;
-//  align-items: center;
-//  font-weight: bold;
-//`;
+interface IChairWrapper {
+    counter: number;
+    numOfChairs: number;
+    tangentValue: number;
+    position: Position;
+    relativeSize: number;
+}
 
+const ChairWrapper = styled.div<IChairWrapper>`
+  --chairDiameter: ${({ relativeSize }) => {
+    const BASE_CHAIR_SIZE = 6.5;
+    return BASE_CHAIR_SIZE * relativeSize;
+  }}em; /* chair size */
+  --relativeSpaceBetweenChairs: 1; /* how much extra space we want between chairs, 1 = one chair size */
+  --circleRadius: calc(
+          ${({ numOfChairs }) =>
+                  numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
+          (1 + var(--relativeSpaceBetweenChairs)) * var(--chairDiameter) /
+          var(--tangent)
+  ); /* circle radius */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin: calc(-0.5 * var(--chairDiameter));
+  width: var(--chairDiameter);
+  height: var(--chairDiameter);
+  --perimeterPlacementValue: calc(
+          ${({ counter, position, numOfChairs }) =>
+                  getTurnValue(counter, numOfChairs, position)}
+  );
+  transform: rotate(var(--perimeterPlacementValue))
+  translate(var(--circleRadius))
+  rotate(calc(-1 * var(--perimeterPlacementValue)));
+`;
