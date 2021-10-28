@@ -7,7 +7,7 @@ export default {
     title: createStoryTitle('LimitedTimeBanner'),
     component: LimitedTimeBanner,
     args: {
-        HoursRemaining: '2 Hours Remaining'
+        HoursRemaining: 2, 
     },
 } as Meta;
 
