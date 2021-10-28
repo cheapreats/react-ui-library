@@ -24,8 +24,8 @@ export interface MenuItemCardProps
     soldOut?: boolean;
     loyaltyPointsToggle?: boolean;
     limitedTimeBannerToggle?: boolean,
-    saleAmount: number, 
-    amount: string,
+    saleTagToggle?: boolean, 
+    saleTagAmount: number, 
     ItemImage: string, 
     ItemName: string,
     ItemPrice: number,
@@ -36,15 +36,16 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
     // eslint-disable-next-line @typescript-eslint/no-shadow
     LoyaltyPoints,
     LimitedTimeBanner,
+    SaleTag, 
     animated,
     flat,
     widthFitContent,
     sale,
     soldOut,
-    saleAmount, 
-    amount, 
+    saleTagAmount, 
     loyaltyPointsToggle,
     limitedTimeBannerToggle,
+    saleTagToggle, 
     ItemImage, 
     ItemName,
     ItemPrice,
@@ -53,20 +54,21 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
     
 }): React.ReactElement => (
     <ItemCard {...props} ItemImage={ItemImage} ItemName={ItemName} ItemPrice={ItemPrice} discountAmount={discountAmount} animated={animated} 
-        flat={flat} widthFitContent={widthFitContent} sale={sale} soldOut={soldOut} amount={amount} LoyaltyPoints = {LoyaltyPoints} saleAmount = {saleAmount}
-        loyaltyPointsToggle={loyaltyPointsToggle} LimitedTimeBanner = {LimitedTimeBanner} limitedTimeBannerToggle={limitedTimeBannerToggle}> 
+        flat={flat} widthFitContent={widthFitContent} sale={sale} soldOut={soldOut} LoyaltyPoints = {LoyaltyPoints} saleTagAmount = {saleTagAmount}
+        loyaltyPointsToggle={loyaltyPointsToggle} LimitedTimeBanner = {LimitedTimeBanner} SaleTag = {SaleTag} saleTagToggle = {saleTagToggle}
+        limitedTimeBannerToggle={limitedTimeBannerToggle}> 
 
         <img src={ItemImage} alt={ItemName} style={{ width: 350, height: 200 }} />
         <Heading bold>{ItemName}</Heading>
 
         { limitedTimeBannerToggle && <Container><LimitedTimeBannerPosition>{LimitedTimeBanner}</LimitedTimeBannerPosition></Container> }
-     
+        { saleTagToggle && <Container><SaleTagPosition>{SaleTag}</SaleTagPosition></Container>}
         { loyaltyPointsToggle && <Container><LoyaltyPointsPosition>{LoyaltyPoints}</LoyaltyPointsPosition></Container> } 
-        <Container>{saleAmount}</Container>
+
         { sale? 
             <>
                 <SalePropsSlash>{ItemPrice}</SalePropsSlash>
-                <OnSale>{ItemPrice - discountAmount}</OnSale>
+                <OnSale>{ItemPrice - saleTagAmount}</OnSale>
             </>
             :
             <SaleProps>{ItemPrice}</SaleProps>
@@ -75,33 +77,8 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
     </ItemCard> 
 );
 
-const SaleProps = styled.header`  
-    font-size: 30px; 
-    text-align: right; 
-`
-
-const OnSale = styled.header`
-    font-size: 40px;
-    text-align: right;
-    font-weight: bold; 
-    color: #EE2434; 
-`
-const SalePropsSlash = styled(SaleProps)`
-    text-decoration: line-through;
-    font-size: 25px;
-    opacity: .6; 
-`
-
-const LoyaltyPointsPosition = styled.div`
-    position: absolute;
-    top: 10%;  
-`
-const LimitedTimeBannerPosition = styled.div`
-    position: absolute;
-    top: 31%;
-`
-
 const MenuItemCardBox = styled.div<MenuItemCardProps & MainInterface & ResponsiveInterface>`
+    position: relative; 
     background-color: white;
     width: 350px;
     height: 350px; 
@@ -131,3 +108,32 @@ const MenuItemCardBox = styled.div<MenuItemCardProps & MainInterface & Responsiv
 
     ${({ widthFitContent }): string => `${widthFitContent ? 'width:fit-content;' : ''} `}
 `;
+
+const SaleProps = styled.header`  
+    font-size: 30px; 
+    text-align: right; 
+`
+const OnSale = styled.header`
+    font-size: 40px;
+    text-align: right;
+    font-weight: bold; 
+    color: #EE2434; 
+`
+const SalePropsSlash = styled(SaleProps)`
+    text-decoration: line-through;
+    font-size: 25px;
+    opacity: .6; 
+`
+const LoyaltyPointsPosition = styled.div`
+    position: absolute;
+    top: 30px; 
+`
+const LimitedTimeBannerPosition = styled.div`
+    position: absolute;
+    bottom: 150px; 
+`
+const SaleTagPosition = styled.div`
+    position: absolute;
+    right: 20px;
+    top: 30px;
+`
