@@ -13,7 +13,8 @@ export default {
         disabled: false,
         isPulsing: false,
         icon: Microphone,
-        iconSize: '14px',
+        iconSize: '30px',
+        volume: '0%',
         children: 'Talking...',
     },
 } as Meta;
