@@ -37,13 +37,4 @@ const Icon = styled(Clock)`
     padding-left: 5px;
     height: 40px;
 `;
-/*
-    padding-top:7.5px
-    padding-bottom:3px;
-    font-size: 25px;
-    text-align: center;
-    width: 50px;
-    text-height: 30;
-    height: 40px; 
-*/
 export default LimitedTimeBanner;
