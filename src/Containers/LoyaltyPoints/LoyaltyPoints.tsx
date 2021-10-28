@@ -1,26 +1,31 @@
 import React from 'react'; 
 import styled from 'styled-components';
 import { MainInterface } from '@Utils/BaseStyles';
-
+import { Stars } from '@styled-icons/material/Stars';
 
 export const LoyaltyPoints: React.FC<LoyaltyPointsProps> = ({
-    amount, ...props
-}):React.ReactElement => <LoyaltyPointsBox {...props}><p>{amount}</p></LoyaltyPointsBox>;
+    LoyaltyAmount, ...props
+}):React.ReactElement => <LoyaltyPointsBox {...props}><p>+{LoyaltyAmount}<Star /></p></LoyaltyPointsBox>;
 
+const Star = styled(Stars)`
+    width: 20px;
+    height: 20px;
+`
 export interface LoyaltyPointsProps
     extends MainInterface{
-            amount: string;
+            LoyaltyAmount: number;
         }
 
 const LoyaltyPointsBox = styled.div`
 
     ${({theme, ...props}):string => `
-        border-radius: ${theme.dimensions.radius};
         font-family: ${theme.font.family};
-        width: 50px;
-        height: 25px;
-        padding: 1px -9px;
-        border-radius:30px;
+        font-size: 20px;
+        width: 60px;
+        height: 30px;
+        white-space: wrap;
+        padding: 5px -10px;
+        border-radius:50px;
         border-bottom-left-radius: 0px;
         border-top-left-radius: 0px;
         background-color: ${theme.colors.background};
