@@ -35,7 +35,7 @@ const Icon = styled(Clock)`
     width: 25px;
     float: left;
     padding-left: 5px;
-    height:40px;
+    height: 40px;
 `;
 /*
     padding-top:7.5px
