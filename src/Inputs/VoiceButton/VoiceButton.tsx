@@ -1,7 +1,7 @@
 import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
 import styled from 'styled-components';
-import { useTransition } from '@Utils/Hooks';
 import { Button } from '../Button/Button';
+import { useTransition } from '@Utils/Hooks';
 
 /**
  * VoiceButton props
@@ -9,11 +9,16 @@ import { Button } from '../Button/Button';
 export interface VoiceButtonProps {
     // microphone icon
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+    // changes width and height
     iconSize?: string;
+    // listens to button click
     onClick?: React.MouseEventHandler;
+    // when disabled, you can't interact with it
     disabled?: boolean;
     // decides if Button should pulse
     isPulsing?: boolean;
+    // additional props for styled button
+    voiceButtonProps?: ButtonProps;
 }
 
 /**
@@ -25,13 +30,22 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
     iconSize = '14px',
     disabled,
     isPulsing,
+    voiceButtonProps,
     ...props
 }): React.ReactElement => {
     const [, isAnimated] = useTransition(isPulsing);
     return (
         <div {...props}>
             <p> {children} </p>
+<<<<<<< HEAD
             <StyledButton isPulsing={isAnimated} disabled={disabled}>
+=======
+            <StyledButton
+                isPulsing={isAnimated}
+                disabled={disabled}
+                {...voiceButtonProps}
+            >
+>>>>>>> 003e76e6d34da4eda74cf92e115158843b6e5b12
                 {icon && <Icon iconSize={iconSize} as={icon} />}
             </StyledButton>
         </div>
