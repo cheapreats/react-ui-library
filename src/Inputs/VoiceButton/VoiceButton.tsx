@@ -1,6 +1,6 @@
 import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
 import styled from 'styled-components';
-import { Button } from '../Button/Button';
+import { Button, ButtonProps } from '../Button/Button';
 import { useTransition } from '@Utils/Hooks';
 
 /**
@@ -17,52 +17,84 @@ export interface VoiceButtonProps {
     disabled?: boolean;
     // decides if Button should pulse
     isPulsing?: boolean;
+    // volume level displayed on voice icon
+    volume?: string;
     // additional props for styled button
-    voiceButtonProps?: ButtonProps;
+    buttonProps?: ButtonProps[];
 }
-
 /**
  * VoiceButton uses Button functionality
  */
 export const VoiceButton: React.FC<VoiceButtonProps> = ({
     children,
     icon,
-    iconSize = '14px',
+    iconSize = '25px',
     disabled,
     isPulsing,
-    voiceButtonProps,
+    volume = '0%',
+    buttonProps,
     ...props
 }): React.ReactElement => {
     const [, isAnimated] = useTransition(isPulsing);
     return (
         <div {...props}>
             <p> {children} </p>
-<<<<<<< HEAD
-            <StyledButton isPulsing={isAnimated} disabled={disabled}>
-=======
             <StyledButton
                 isPulsing={isAnimated}
                 disabled={disabled}
-                {...voiceButtonProps}
+                {...buttonProps}
             >
->>>>>>> 003e76e6d34da4eda74cf92e115158843b6e5b12
-                {icon && <Icon iconSize={iconSize} as={icon} />}
+                <div>
+                    <div style={{
+                        background: 'green',
+                        position: 'absolute',
+                        bottom: '0px',
+                        width: '100%',
+                        height: volume,
+                    }}></div>
+                    {icon && <Icon iconSize={iconSize} as={icon} /> }
+                </div>
             </StyledButton>
         </div>
     );
 };
 
+
 interface VoiceIconProps {
     iconSize: string;
-    as: ForwardRefExoticComponent<RefAttributes<SVGSVGElement>>;
+    as: ForwardRefExoticComponent<RefAttributes<SVGSVGElement>>; //we treat as object
 }
 
 const Icon = styled.svg<VoiceIconProps>`
-    ${({ iconSize }) => `
+    ${({ iconSize }) =>`
         height: ${iconSize};
         width: ${iconSize};
     `}
 `;
+
+/*const TwoIcon = styled.svg<({ icon: ForwardRefExoticComponent<RefAttributes<SVGSVGElement>> })>`
+
+`*/
+
+/*interface StackedIconProps extends VoiceIconProps {
+    iconVolumeColor?: string;
+}
+
+const StackedIcon: React.FC<StackedIconProps> = ({
+    iconSize,
+    as,
+    iconVolumeColor = "green"
+}): React.ReactElement => {
+    return(
+        // {icon && <Icon iconSize={iconSize} as={icon} />}
+        <span>
+        <Icon iconSize={iconSize} as={as} iconColor={iconVolumeColor} >
+        <Icon iconSize={iconSize} as={as} />
+        </Icon>
+        </span>
+    )
+}
+*/
 
 const PULSE_ANIMATION = `
     box-shadow: 0 0 0 0 rgba(0, 0, 0, 1);
