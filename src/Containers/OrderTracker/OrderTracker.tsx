@@ -39,8 +39,6 @@ export interface OrderTrackerProps
 }
 
 interface IconContainerProps {
-    /* color options for different states of the component */
-    colors: Color;
     /* size of the component in CSS */
     size: string;
 }
@@ -148,13 +146,14 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
                     currIndex={currIndex}
                     index={i}
                     as={status.icon}
+                    key={currIndex}
                 />
             );
 
             return (
                 <RowDiv>
                     <ColDiv>
-                        <IconContainer size={size} colors={colors}>
+                        <IconContainer size={size}>
                             {renderIcon()}
                         </IconContainer>
                         <Text
@@ -214,9 +213,9 @@ const barAnimationDuration = 0.3;
 /**
  * CSS animation of the status icon
  */
-const inactiveToActiveIconAnimation = keyframes`
-    0% { opacity: 0%; color: red}
-    100% { opacity: 100%; color: red}
+const inactiveToActiveIconAnimation = (color: string) => keyframes`
+    from { opacity: 0%; color: transparent}
+    to { opacity: 100%; color: ${color}}
 `;
 
 /**
@@ -225,7 +224,6 @@ const inactiveToActiveIconAnimation = keyframes`
 export const IconContainer = styled.div<IconContainerProps>`
     height: ${({ size }) => size};
     width: ${({ size }) => size};
-    color: ${({ colors }) => colors.iconNonFocusedColor};
 `;
 
 /**
@@ -235,19 +233,19 @@ export const Icon = styled.div<IconProps>`
     height: 100%;
     width: 100%;
     color: ${({ currIndex, index, colors }) =>
-        currIndex < index
+        currIndex <= index
             ? colors.iconNonFocusedColor
             : colors.iconFocusedColor};
-
-    animation-name: ${inactiveToActiveIconAnimation};
+    animation-name: ${({ colors }) =>
+        inactiveToActiveIconAnimation(colors.iconFocusedColor)};
     ${({ currIndex, index }) =>
         currIndex === index &&
         `
-        animation-timing-function: linear';
-        animation-fill-mode: 'forwards';
-        animation-delay: ${currIndex === 0 ? '0s' : `${barAnimationDuration}s`};
-        animation-duration: '${iconAnimationDuration}s';
-        animation-iteration-count: '1';
+        animation-fill-mode: forwards;
+        animation-timing-function: linear;
+        animation-delay: ${currIndex === 0 ? `0s` : `${barAnimationDuration}s`};
+        animation-duration: ${iconAnimationDuration}s;
+        animation-iteration-count: 1;
     `};
 `;
 
@@ -255,8 +253,8 @@ export const Icon = styled.div<IconProps>`
  * CSS animation of progress bar
  */
 const barAnimation = keyframes`
- 0% { width: 0%; }
- 100% { width: 100%; }
+    from { width: 0%; }
+    to { width: 100%; }
 `;
 
 /**
@@ -298,7 +296,7 @@ const Bar = styled.div<BarProps>`
  * A container for texts of each status
  */
 const Text = styled.p<TextProps>`
-    colors: ${({ currIndex, index, colors }) =>
+    color: ${({ currIndex, index, colors }) =>
         currIndex === index
             ? colors.textFocusedColor
             : colors.textNonFocusedColor};
@@ -306,6 +304,7 @@ const Text = styled.p<TextProps>`
         currIndex === index ? 'bold' : 'normal'};
     font-size: ${({ size }) => `${parseInt(size[0], 10) / 3} + ${size[1]}`};
     text-align: center;
+    width: 100px;
     height: 20px;
     overflow: hidden;
 `;
