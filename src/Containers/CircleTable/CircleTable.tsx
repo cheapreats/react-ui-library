@@ -187,7 +187,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
                         <Status occupancyStatus={occupancyStatus}>
                             {occupancyStatus}
                         </Status>
-                        {occupancyStatus == 'Occupied'? <text>{`${timeLastServed}`}</text>: null}
+                        {occupancyStatus === 'Occupied' && <text>{`${timeLastServed}`}</text>}
                         <br />
                     </div>
                 </TableInfo>
