@@ -2,10 +2,16 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 
+/* The split turns the size string, which is formatted as "DDpx" where "DD" is the size,
+               into an array of the form ['', 'DD', 'px'] so it needs to be sliced at index 1
+             */
+const EMPTY_LINE_REGEX = /(\d+)/;
+const WHITE_SPACE_INDEX = 1;
+
 interface OrderStatus {
-    /* icon representing the current status */
+    /* visual of one of the states */
     icon: StyledIcon;
-    /* the descriptive name of the current status */
+    /* name of the status */
     text: string;
 }
 
@@ -20,12 +26,13 @@ interface Color {
     textFocusedColor: string;
 }
 
-export interface OrderTrackerProps {
-    /* list of statuses that the component can be in */
+export interface OrderTrackerProps
+    extends React.HTMLAttributes<HTMLDivElement> {
+    /* statuses that the component can be in */
     statuses: OrderStatus[];
     /* color options for different states of the component */
     colors: Color;
-    /* integer representing the current status of the component */
+    /* the current status of the component */
     currIndex: number;
     /* size of the component in CSS */
     size: string;
@@ -59,10 +66,12 @@ interface BarContainerProps {
 }
 
 interface BarProps {
-    /* integer representing the current status */
-    currIndex: number;
     /* color options for different states of the component */
     colors: Color;
+    /* integer representing the current status */
+    currIndex: number;
+    /* index of the progress bar */
+    index: number;
     /* array of objects representing each status */
     statuses: OrderStatus[];
 }
@@ -94,77 +103,53 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
     currIndex,
     size,
     ...props
-}: OrderTrackerProps): React.ReactElement => {
+}): React.ReactElement => {
     /**
-     * @returns {JSX.React.ReactElement[]} An array of elements each representing a status of the component
+     * Returns all HTML elements of component
+     * @returns {React.ReactElement[]} An array of elements each representing a status of the component
      */
     const getElements = (): React.ReactElement[] =>
         statuses.map((status, i) => {
-            /* The split turns the size string, which is formatted as "DDpx" where "DD" is the size,
-               into an array of the form ['', 'DD', 'px'] so it needs to be sliced at index 1
-             */
-            const EMPTY_LINE_REGEX = /(\d+)/;
-            const FIRST_ELEMENT_INDEX = 1;
-
             /**
              * An array representing size of the component with
              * the element at first index the number and
              * the element at the second index the unit
+             * NOTE: there is an issue in this code
              */
             const sizeArr = size
                 .split(EMPTY_LINE_REGEX)
-                .slice(FIRST_ELEMENT_INDEX);
+                .slice(WHITE_SPACE_INDEX);
 
             /**
-             * A function that renders progress bar according to current status
-             * @returns A JSX element that is a progress bar according to current status
+             * Renders progress bar according to current status
+             * @returns {React.ReactElement} A React element that is a progress bar according to current status
              */
             const renderBar = (): React.ReactElement | null => {
                 if (currIndex < i + 1) {
                     return null;
                 }
-                if (currIndex === i + 1) {
-                    return (
-                        <BarActive
-                            currIndex={currIndex}
-                            colors={colors}
-                            statuses={statuses}
-                        />
-                    );
-                }
                 return (
                     <Bar
-                        currIndex={currIndex}
                         colors={colors}
+                        currIndex={currIndex}
+                        index={i}
                         statuses={statuses}
                     />
                 );
             };
 
             /**
-             * A function that renders status icons according to the current status
+             * Renders status icons according to the current status
              * @returns A JSX element that is an icon according to the current status
              */
-            const renderIcon = (): React.ReactElement => {
-                if (currIndex === i) {
-                    return (
-                        <IconActive
-                            colors={colors}
-                            currIndex={currIndex}
-                            index={i}
-                            as={status.icon}
-                        />
-                    );
-                }
-                return (
-                    <Icon
-                        colors={colors}
-                        currIndex={currIndex}
-                        index={i}
-                        as={status.icon}
-                    />
-                );
-            };
+            const renderIcon = (): React.ReactElement => (
+                <Icon
+                    colors={colors}
+                    currIndex={currIndex}
+                    index={i}
+                    as={status.icon}
+                />
+            );
 
             return (
                 <RowDiv>
@@ -201,6 +186,8 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
  */
 const ColDiv = styled.div`
     display: flex;
+    width: 50%;
+    height: 100%;
     flex-direction: column;
     align-items: center;
     margin: 1%;
@@ -227,9 +214,9 @@ const barAnimationDuration = 0.3;
 /**
  * CSS animation of the status icon
  */
-const iconAnimation = keyframes`
- 0% { opacity: 0%; color: red}
- 100% { opacity: 100%; color: red}
+const inactiveToActiveIconAnimation = keyframes`
+    0% { opacity: 0%; color: red}
+    100% { opacity: 100%; color: red}
 `;
 
 /**
@@ -248,24 +235,20 @@ export const Icon = styled.div<IconProps>`
     height: 100%;
     width: 100%;
     color: ${({ currIndex, index, colors }) =>
-        currIndex <= index
+        currIndex < index
             ? colors.iconNonFocusedColor
             : colors.iconFocusedColor};
-`;
 
-/**
- * An icon with animation representing the change in statuses
- */
-export const IconActive = styled.div<IconProps>`
-    height: 100%;
-    width: 100%;
-    animation-name: ${iconAnimation};
-    animation-timing-function: linear;
-    animation-fill-mode: forwards;
-    animation-delay: ${({ currIndex }) =>
-        currIndex === 0 ? '0s' : `${barAnimationDuration}s`};
-    animation-duration: ${iconAnimationDuration}s;
-    animation-iteration-count: 1;
+    animation-name: ${inactiveToActiveIconAnimation};
+    ${({ currIndex, index }) =>
+        currIndex === index &&
+        `
+        animation-timing-function: linear';
+        animation-fill-mode: 'forwards';
+        animation-delay: ${currIndex === 0 ? '0s' : `${barAnimationDuration}s`};
+        animation-duration: '${iconAnimationDuration}s';
+        animation-iteration-count: '1';
+    `};
 `;
 
 /**
@@ -301,23 +284,14 @@ const Bar = styled.div<BarProps>`
         currIndex <= statuses.length - 1
             ? colors.iconFocusedColor
             : 'transparent'};
-`;
-
-/**
- * A bar with animation representing change in statuses
- */
-const BarActive = styled.div<BarProps>`
-    border-radius: 50%;
-    width: 100%;
-    height: 100%;
-    background-color: ${({ currIndex, statuses, colors }) =>
-        currIndex <= statuses.length - 1
-            ? colors.iconFocusedColor
-            : 'transparent'};
     animation-name: ${barAnimation};
-    animation-timing-function: linear;
-    animation-duration: ${barAnimationDuration}s;
-    animation-iteration-count: 1;
+    ${({ currIndex, index }) =>
+        currIndex === index + 1 &&
+        `
+        animation-timing-function: linear;
+        animation-duration: ${barAnimationDuration}s;
+        animation-iteration-count: 1;
+    `}
 `;
 
 /**
@@ -332,4 +306,6 @@ const Text = styled.p<TextProps>`
         currIndex === index ? 'bold' : 'normal'};
     font-size: ${({ size }) => `${parseInt(size[0], 10) / 3} + ${size[1]}`};
     text-align: center;
+    height: 20px;
+    overflow: hidden;
 `;
