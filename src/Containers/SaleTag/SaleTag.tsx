@@ -20,10 +20,7 @@ const SaleTagDiv = styled.span<SaleTagProps>`
         border-radius: 100px;
         width: 100px;
         height: 40px;
-        padding-left: 10px;
-        padding-right: 10px;
-        padding-top: 3px;
-        padding-bottom: 3px;
+        padding: 3px 10px;
         border-style: solid;
         border-width: 1px;
         font-size: 15px;
