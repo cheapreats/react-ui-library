@@ -13,12 +13,9 @@ export const CreatedDate: React.FC<CreatedDateProps> = ({
     dateCreated,
     ...props
 }): React.ReactElement => (
-    <div {...props}>
-        <Date dateCreated={dateCreated}>
-            {dateCreated}
-        </Date>
-
-    </div>
+    <Date dateCreated={dateCreated} {...props}>
+        {dateCreated}
+    </Date>
 
 );
 
