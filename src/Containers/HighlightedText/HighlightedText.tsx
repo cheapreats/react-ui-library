@@ -5,8 +5,8 @@ import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
 import DropdownItem, { IDropdownItemProps } from '../Dropdown/DropdownItem';
 import { TextLayoutProps } from '../../Fragments/TextLayout';
 
-const newTextOpacity: number = 1;
-const oldTextOpacity: number = 0.5;
+const newTextOpacity = 1;
+const oldTextOpacity = 0.5;
 
 export interface HighlightedString {
     /** contents of the string */
@@ -43,7 +43,7 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
     const [numEntries, setNumEntries] = useState(0);
     const [numNewEntries, setNumNewEntries] = useState(0);
 
-    if (labels.length != numEntries) {
+    if (labels.length !== numEntries) {
         setNumNewEntries (labels.length - numEntries)
         setNumEntries(labels.length)
     }
@@ -66,12 +66,10 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
             } else {
                 opacity = oldTextOpacity
             }
+        } else if (index >= labels.length - numNewEntries) {
+            opacity = newTextOpacity
         } else {
-            if (index >= labels.length - numNewEntries) {
-                opacity = newTextOpacity
-            } else {
-                opacity = oldTextOpacity
-            }
+            opacity = oldTextOpacity
         }
         
         if (label.isSpecial){
@@ -81,9 +79,9 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
                 dropdownButton: getSpecialTextComponent(label, opacity),
             }
             return <Dropdown {...DropDownProps} {...label.listProps}>
-                {listItemsBodies.map((_, index) => (
-                    <DropdownItem {...listItemsArgs[index]}>
-                        {listItemsBodies[index]}
+                {listItemsBodies.map((_, i) => (
+                    <DropdownItem {...listItemsArgs[i]}>
+                        {listItemsBodies[i]}
                     </DropdownItem>
                 ))}
             </Dropdown>
