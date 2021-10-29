@@ -30,9 +30,7 @@ export const CRMRow: React.FC<CRMRowProps> = ({
 }): React.ReactElement => (
     <CRMRowContainer {...props}>
         <CustomerProfileTD>
-            <div {...customerProfile}>
-                {customerProfile.profileName}
-            </div>
+            <CustomerProfile {...customerProfile}  />
         </CustomerProfileTD>
         <TagGroupTD>
             <TagGroup {...tags} />
