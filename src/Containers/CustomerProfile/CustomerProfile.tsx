@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import { User } from '@styled-icons/fa-solid/User';
 
 export interface CustomerProfileProps extends React.HTMLAttributes<HTMLDivElement> {
+    /* The name passed in */
     profileName: string;
+    /* The image passed in */
     profileImage: string;
 }
 
@@ -12,6 +14,9 @@ export const CustomerProfile: React.FC<CustomerProfileProps> = ({
     profileImage,
     ...props
 }): React.ReactElement => {
+    /**
+     * Displays the passed in image if valid, displays a default image otherwise
+     */
     const [isImageError, setIsImageError] = useState(false);
 
     const onImageError = () => {
