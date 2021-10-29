@@ -24,16 +24,15 @@ export const TableHeaderCell: React.FC<TableHeaderCellProps> = ({
 
 const HeaderCell = styled.th`
     ${({ theme }) => `
-        background-color: ${theme.colors.border};
         color: ${theme.colors.text};
+        font-size: ${theme.font.size.h5}
     `}
-    display: inline-flex;
     padding: 2px;
-    padding-left: 1rem;
     margin: 2px;
 `;
 
 const TextBold = styled.div`
+    display: inline;
     font-weight: bold;
     margin: 2px;
 `;
