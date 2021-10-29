@@ -29,6 +29,7 @@ const HeaderCell = styled.th`
     `}
     padding: 2px;
     margin: 2px;
+    text-align: left;
 `;
 
 const TextBold = styled.div`
