@@ -82,3 +82,4 @@ export * from './HighlightedText/HighlightedText';
 export * from './NotificationBubble/NotificationBubble';
 export * from './TagGroup/TagGroup';
 export * from './Analytics/Analytics';
+export * from './TableHeaderCell/TableHeaderCell';
