@@ -15,7 +15,7 @@ export const CustomerProfile: React.FC<CustomerProfileProps> = ({
     ...props
 }): React.ReactElement => {
     /**
-     * Displays the passed in image if valid, displays a default image otherwise
+     * Displays the passed in image if valid, otherwise displays a default image
      */
     const [isImageError, setIsImageError] = useState(false);
 
