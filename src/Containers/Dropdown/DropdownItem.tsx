@@ -1,7 +1,7 @@
 import React, { ReactElement, ReactNode } from 'react';
 import styled from 'styled-components';
 
-interface IDropdownItemProps {
+export interface IDropdownItemProps {
     children: ReactNode;
 }
 
