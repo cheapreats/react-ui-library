@@ -2,6 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import { MainInterface } from '@Utils/BaseStyles';
 
+export interface SaleTagProps extends MainInterface {
+    saleAmount: number;
+}
+
 export const SaleTag: React.FC<SaleTagProps> = ({
     saleAmount = 2,
     ...props
@@ -10,10 +14,6 @@ export const SaleTag: React.FC<SaleTagProps> = ({
         {saleAmount}$ off
     </SaleTagDiv>
 );
-
-export interface SaleTagProps extends MainInterface {
-    saleAmount: number;
-}
 
 const SaleTagDiv = styled.span<SaleTagProps>`
     ${({theme, ...props}):string => `
