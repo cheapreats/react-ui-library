@@ -85,3 +85,4 @@ export * from './Analytics/Analytics';
 export * from './CustomerProfile/CustomerProfile';
 export * from './CreatedDate/CreatedDate';
 export * from './CRMRow/CRMRow';
+export * from './LimitedTimeBanner/LimitedTimeBanner';
