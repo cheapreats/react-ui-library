@@ -21,12 +21,10 @@ type getSquareTableSizeType = (
     right: number,
 ) => number;
 
-type getRectangleTopType = (top: number, bottom: number) => number;
+type getRectangleTableType = (top: number, bottom: number, left: number, right : number) => number;
 
-type getRectangleSideType = (left: number, right: number) => number;
-
-type fillArrayType = (
-    array: Array<IChair>,
+type addInvisibleChairs = (
+    invisibileChairs: Array<IChair>,
     targetSize: number,
     position: Position,
 ) => void;
@@ -203,31 +201,18 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * of a rectangle table (top, bottom)
      * @param top {number} - Number of chairs on top side
      * @param bottom {number} - Number of chairs on bottom side
-     * @return {number} - The largest number of chairs
-     */
-    const getRectangleTopSize: getRectangleTopType = (top, bottom) => {
-        const maxSideValue = Math.max(top, bottom);
-        return maxSideValue > 0 ? maxSideValue : 1;
-    };
-
-    const rectangleTopSize = getRectangleTopSize(
-        topArray.length,
-        bottomArray.length,
-    );
-
-    /**
-     * Determines how many chairs to put on the left and right sides
-     * of a rectangle table (left, right)
      * @param left {number} - Number of chairs on left side
      * @param right {number} - Number of chairs on right side
      * @return {number} - The largest number of chairs
      */
-    const getRectangleSideSize: getRectangleSideType = (left, right) => {
-        const maxSideValue = Math.max(left, right);
+    const getRectangleTableSize: getRectangleTableType = (top, bottom, left, right) => {
+        const maxSideValue = Math.max(top, bottom,left, right);
         return maxSideValue > 0 ? maxSideValue : 1;
     };
 
-    const rectangleSideSize = getRectangleSideSize(
+    const rectangleTableSize = getRectangleTableSize(
+        topArray.length,
+        bottomArray.length,
         leftArray.length,
         rightArray.length,
     );
@@ -235,17 +220,18 @@ export const SquareTable: React.FC<ISquareTable> = ({
     /**
      * Checks an array to see if it has fewer chairs than the target size
      * and adds invisible chairs if needed so array size matches target size
+     * Changed name from fillArray to addInvisibleChairs for clarity
      */
-    const fillArray: fillArrayType = (array, size, position) => {
-        while (array.length < size) {
-            array.push({
+    const addInvisibleChairs: addInvisibleChairs = (invisibileChairs, size, position) => {
+        while (invisibileChairs.length < size) {
+            invisibileChairs.push({
                 position,
                 isSeated: false,
                 occupiedBy: '',
                 isVisible: false,
                 relativeSize,
                 tableUse,
-                chairIndex: array.length,
+                chairIndex: invisibileChairs.length,
                 tableIndex: arrayIndex,
                 selectedIndex,
                 onChairClick,
@@ -256,15 +242,15 @@ export const SquareTable: React.FC<ISquareTable> = ({
     // Add empty/invisible chairs to the arrays as needed so there are chairs at each
     // spot on the table
     if (isSquare) {
-        fillArray(topArray, squareTableSize, 'top');
-        fillArray(bottomArray, squareTableSize, 'bottom');
-        fillArray(leftArray, squareTableSize, 'left');
-        fillArray(rightArray, squareTableSize, 'right');
+        addInvisibleChairs(topArray, squareTableSize, 'top');
+        addInvisibleChairs(bottomArray, squareTableSize, 'bottom');
+        addInvisibleChairs(leftArray, squareTableSize, 'left');
+        addInvisibleChairs(rightArray, squareTableSize, 'right');
     } else {
-        fillArray(topArray, rectangleTopSize, 'top');
-        fillArray(bottomArray, rectangleTopSize, 'bottom');
-        fillArray(leftArray, rectangleSideSize, 'left');
-        fillArray(rightArray, rectangleSideSize, 'right');
+        addInvisibleChairs(topArray, rectangleTableSize, 'top');
+        addInvisibleChairs(bottomArray, rectangleTableSize, 'bottom');
+        addInvisibleChairs(leftArray, rectangleTableSize, 'left');
+        addInvisibleChairs(rightArray, rectangleTableSize, 'right');
     }
 
     /**
@@ -292,7 +278,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                     <ColorDiv
                         relativeSize={relativeSize}
                         chairNumOnSide={
-                            isSquare ? squareTableSize : rectangleSideSize
+                            isSquare ? squareTableSize : rectangleTableSize
                         }
                         occupancyStatus={occupancyStatus}
                     />
@@ -336,10 +322,10 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         ref={tableBodyRef}
                         relativeSize={relativeSize}
                         chairNumOnSide={
-                            isSquare ? squareTableSize : rectangleSideSize
+                            isSquare ? squareTableSize : rectangleTableSize
                         }
                         chairNumOnTop={
-                            isSquare ? squareTableSize : rectangleTopSize
+                            isSquare ? squareTableSize : rectangleTableSize
                         }
                         tableUse={tableUse}
                         tabIndex={0}
