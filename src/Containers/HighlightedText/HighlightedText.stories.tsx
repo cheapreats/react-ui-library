@@ -49,3 +49,55 @@ export default {
 } as Meta;
 
 export const Basic: Story<HighlightedTextProps> = (args) => <HighlightedText {...args} />;
+
+export const OldText = Basic.bind({});
+OldText.args = {
+    ...OldText.args,
+    labels:
+    [
+        {
+            text: 'Ordering a',
+            isSpecial: false,
+            overrideAge: false,
+        },
+        {
+            text: 'Burger',
+            isSpecial: true,
+            listItemsArgs: [],
+            listItemsBodies: [
+                <ClickableSmallText onClick={action('Burger Clicked.')}>Burger</ClickableSmallText>, 
+                <ClickableSmallText onClick={action('Fries Clicked.')}>Fries</ClickableSmallText>
+            ],
+            overrideAge: false,
+        },
+    ],
+};
+
+export const BothText = Basic.bind({});
+BothText.args = {
+    ...BothText.args,
+    labels:
+    [
+        {
+            text: 'Welcome to Burger Barn.',
+            isSpecial: false,
+            overrideAge: false,
+        },
+        {
+            text: 'Would you like a ',
+            isSpecial: false,
+            overrideAge: true,
+        },
+        {
+            text: 'Burger',
+            isSpecial: true,
+            listItemsArgs: [],
+            listItemsBodies: [
+                <ClickableSmallText onClick={action('Burger Clicked.')}>Burger</ClickableSmallText>, 
+                <ClickableSmallText onClick={action('Fries Clicked.')}>Fries</ClickableSmallText>
+            ],
+            overrideAge: true,
+        },
+    ],
+};
+
