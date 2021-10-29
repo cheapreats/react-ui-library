@@ -14,19 +14,20 @@ import {
 } from '../TagGroup/TagGroup';
 
 export interface CRMRowProps extends React.HTMLAttributes<HTMLTableRowElement> {
-
+    /* Date created prop passed in */
     dateCreated: CreatedDateProps;
+    /* Customer profile prop passed in */
     customerProfile: CustomerProfileProps;
+    /* Tags prop passed in */
     tags: TagGroupProps;
-
 }
 
 export const CRMRow: React.FC<CRMRowProps> = ({
+    /* Passing in the Date Created, Customer profile, and Tags */
     dateCreated,
     customerProfile,
     tags,
     ...props
-
 }): React.ReactElement => (
     <CRMRowContainer {...props}>
         <CustomerProfileTD>
