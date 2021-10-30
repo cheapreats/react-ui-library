@@ -2,10 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import {ArrowDown} from '@styled-icons/bootstrap'
 
-export interface TableHeaderCellProps extends React.HTMLAttributes<HTMLTableCellElement> {
-    /*  Header for profile image  */
+export interface TableHeaderCellProps extends React.HTMLAttributes<HTMLDivElement> {
+    /*  Name of the cell  */
     title: string,
-    accessor: string,
+    /* Boolean if filter is present */
     isFiltered: boolean
 }
 
@@ -22,7 +22,7 @@ export const TableHeaderCell: React.FC<TableHeaderCellProps> = ({
     </HeaderCell>
 );
 
-const HeaderCell = styled.th`
+const HeaderCell = styled.div`
     ${({ theme }) => `
         color: ${theme.colors.text};
         font-size: ${theme.font.size.h5}
