@@ -1,11 +1,18 @@
 import React from 'react';
-import ReactTable from 'react-table';
 import styled from 'styled-components';
+import {
+    Column,
+    HeaderGroup,
+    Row,
+    useTable
+} from 'react-table';
+import { CRMRowProps } from '../CRMRow/CRMRow';
+import { TableHeaderCellProps, TableHeaderCell } from '../TableHeaderCell/TableHeaderCell';
 
 export interface ICRMTableProps extends React.HTMLAttributes<HTMLTableElement> {
-    // TODO: Replace 'Object' with the appropriate interfaces from the Header and Row Components when available.
-    data: Array<Object>; 
-    columns: Array<Object>;
+    data: Array<CRMRowProps>; 
+    columns: Array<Column<CRMRowProps>>;
+
 }
 
 export const CRMTable: React.FC<ICRMTableProps> = ({
@@ -13,32 +20,38 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
     data,
     ...props
 }): React.ReactElement => {
-    // The Header Component will be replaced with the Appropraite Header Component when available
-    const buildHeader = (columnsData: Array<Object>) => columnsData.map((column) => <Header {...column} />);
-    const buildRows = (rowsData: Array<Object>) => rowsData.map((row) => <Data {...row} />);
 
-    return(
-        <CRMMainTable {...props}>
+    const instance = useTable<CRMRowProps>({ columns, data})
+
+    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = instance
+
+    const buildHeaderGroups = () => headerGroups.map((headerGroup) => (
+        <CRMTableHeaderRow>
+            {headerGroup.headers.map((column) => <TableHeaderCell {...column} />}
+        </CRMTableHeaderRow>
+    ));
+
+    const buildHeader = (headerGroup: HeaderGroup<CRMRowProps>) => );
+    const buildRows = () => rows.map((row: Row<CRMRowProps>) => {
+        prepareRow(row);
+        return <CRMRow {...row.getRowProps()} {...row}/>;
+    });
+
+    return (
+        <CRMMainTable {...props} {...getTableProps()}>
             <CRMTableHeader>
-                {buildHeader(columns)}
+                {buildHeaderGroups}
             </CRMTableHeader>
-            <CRMTableBody>
-                {buildRows(data)}
+            <CRMTableBody {...getTableBodyProps()}>
+                {buildRows()}
             </CRMTableBody>
         </CRMMainTable>
     );
 }
 
-const Data = styled.tr<Object>`
-
-`;
-
-const Header = styled.th<Object>`
-
-`;
-
 const CRMMainTable = styled.table`
     border: 1px solid black;
+    width: 100%;
 `;
 
 const CRMTableHeader = styled.thead`
@@ -46,5 +59,9 @@ const CRMTableHeader = styled.thead`
 `;
 
 const CRMTableBody = styled.tbody`
+
+`;
+
+const CRMTableHeaderRow = styled.tr`
 
 `;
