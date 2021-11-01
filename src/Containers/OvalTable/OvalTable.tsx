@@ -148,14 +148,17 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs) => {
 const getTranslateValue: getTranslateValueType = (counter, numOfChairs, relativeSize) => {
     const CHAIR_ANGLE = counter * (360/numOfChairs);
     const TABLE_BIGGEST_RADIUS = BASE_TABLE_WIDTH/2
+    const RIGHT_ANGLE = 90;
+    const COEFFICIENT_DIFFERENCE=  1-COEFFICIENT_OF_HEIGHT_REDUCTION;
+
     let chairAngleForHalfOval = CHAIR_ANGLE % 180;
     let translationCoefficient;
 
-    if(chairAngleForHalfOval <= 90){
-        translationCoefficient = 1-(0.3*(chairAngleForHalfOval/90))
+    if(chairAngleForHalfOval <= RIGHT_ANGLE){
+        translationCoefficient = 1-(COEFFICIENT_DIFFERENCE*(chairAngleForHalfOval/RIGHT_ANGLE))
     }else {
-        chairAngleForHalfOval = 90-(chairAngleForHalfOval-90)
-        translationCoefficient = 1-(0.3*(chairAngleForHalfOval/90))
+        chairAngleForHalfOval = RIGHT_ANGLE-(chairAngleForHalfOval-RIGHT_ANGLE)
+        translationCoefficient = 1-(COEFFICIENT_DIFFERENCE*(chairAngleForHalfOval/RIGHT_ANGLE))
     }
 
     return `
