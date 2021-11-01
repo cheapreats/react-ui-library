@@ -145,6 +145,14 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs) => {
     return `${counter}turn / ${numOfChairs}`;
 };
 
+/**
+ * Returns a string with the correct CSS translate length
+ *
+ * @param counter - the chair's number relative to other chairs in the array
+ * @param numOfChairs - the total number of chairs at the table
+ * @param relativeSize - The size for the component relative to the parent
+ * @return {string} - the correct turn value for a specific chair
+ */
 const getTranslateValue: getTranslateValueType = (counter, numOfChairs, relativeSize) => {
     const CHAIR_ANGLE = counter * (360/numOfChairs);
     const TABLE_BIGGEST_RADIUS = BASE_TABLE_WIDTH/2
