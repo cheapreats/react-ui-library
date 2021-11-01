@@ -97,6 +97,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
     const tableBodyRef = useRef(document.createElement('div'));
 
     const tangent = Math.tan(Math.PI / chairs.length);
+
     const getChairs: getChairsType = () =>
         chairs.map((item, index) => (
             <ChairWrapper
@@ -147,9 +148,18 @@ type getTurnValueType = (
     position: Position,
 ) => string;
 
+type getTranslateValueType = (
+    counter: number,
+    numOfChairs: number,
+    relativeSize: number,
+) => string;
+
 const MIN_CHAIRS_BEFORE_TABLE_RESIZE = 4;
 const TANGENT_VALUE_FOR_LESS_THAN_THREE_CHAIRS = 1.73;
 const MIN_CHAIRS_BEFORE_SET_TANGENT_VALUE = 3;
+const BASE_TABLE_WIDTH = 40;
+const COEFFICIENT_OF_HEIGHT_REDUCTION= 0.7;
+const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * COEFFICIENT_OF_HEIGHT_REDUCTION;
 
 /**
  * Returns a number value for each position (right, left, top, bottom)
@@ -187,19 +197,37 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, position) => {
     return `${counter}turn / ${numOfChairs}`;
 };
 
+const getTranslateValue: getTranslateValueType = (counter, numOfChairs, relativeSize) => {
+    const CHAIR_ANGLE = counter * (360/numOfChairs);
+    const TABLE_BIGGEST_RADIUS = BASE_TABLE_WIDTH/2
+    let chairAngleForHalfOval = CHAIR_ANGLE % 180;
+    let translationCoefficient;
+
+    if(chairAngleForHalfOval <= 90){
+        translationCoefficient = 1-(0.3*(chairAngleForHalfOval/90))
+    }else {
+        chairAngleForHalfOval = 90-(chairAngleForHalfOval-90)
+        translationCoefficient = 1-(0.3*(chairAngleForHalfOval/90))
+    }
+
+    return `
+        ${TABLE_BIGGEST_RADIUS*translationCoefficient*relativeSize}em
+    `;
+};
+
 interface ITableBody {
     numOfChairs: number;
     relativeSize: number;
     tangentValue: number;
 }
 
+
 const TableBody = styled.div<ITableBody>`
   
   ${({ relativeSize }) => {
     const BASE_TABLE_BORDER_WIDTH = 1.5;
     const BASE_TABLE_BODY_MARGIN = 3;
-    const BASE_TABLE_WIDTH = 40;
-    const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * 0.7;
+
     return `
         border-width: ${relativeSize * BASE_TABLE_BORDER_WIDTH}em;
         margin: ${relativeSize * BASE_TABLE_BODY_MARGIN}em;
@@ -243,23 +271,17 @@ const ChairWrapper = styled.div<IChairWrapper>`
     return BASE_CHAIR_SIZE * relativeSize;
   }}em; /* chair size */
   --relativeSpaceBetweenChairs: 1; /* how much extra space we want between chairs, 1 = one chair size */
-  --circleRadius: calc(
-          ${({ numOfChairs }) =>
-                  numOfChairs < MIN_CHAIRS_BEFORE_TABLE_RESIZE ? 1.0 : 0.5} *
-          (1 + var(--relativeSpaceBetweenChairs)) * var(--chairDiameter) /
-          var(--tangent)
-  ); /* circle radius */
+
   position: absolute;
   top: 50%;
   left: 50%;
   margin: calc(-0.5 * var(--chairDiameter));
-  width: var(--chairDiameter);
-  height: var(--chairDiameter);
   --perimeterPlacementValue: calc(
           ${({ counter, position, numOfChairs }) =>
                   getTurnValue(counter, numOfChairs, position)}
   );
   transform: rotate(var(--perimeterPlacementValue))
-  translate(var(--circleRadius))
+  translate(${({ counter, numOfChairs, relativeSize }) =>
+          getTranslateValue(counter, numOfChairs, relativeSize)})
   rotate(calc(-1 * var(--perimeterPlacementValue)));
 `;
