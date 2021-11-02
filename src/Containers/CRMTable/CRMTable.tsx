@@ -35,7 +35,15 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
 
     const buildRows = () => rows.map((row: Row<CRMRowProps>) => {
         prepareRow(row);
-        return <CRMRow {...row.getRowProps()} {...row}/>;
+        return (
+            <tr {...row.getRowProps()}>
+                {row.cells.map((cell) => {
+                    <td {...cell.getCellProps()}>
+                        {cell.render('Cell')}
+                    </td>
+                })}
+            </tr>
+        );
     });
 
     return (
