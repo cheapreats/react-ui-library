@@ -7,10 +7,10 @@ import {
 } from 'react-table';
 import { CRMRowProps } from '../CRMRow/CRMRow';
 
+
 export interface ICRMTableProps extends React.HTMLAttributes<HTMLTableElement> {
     data: Array<CRMRowProps>; 
     columns: Array<Column<CRMRowProps>>;
-
 }
 
 export const CRMTable: React.FC<ICRMTableProps> = ({
@@ -18,22 +18,27 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
     data,
     ...props
 }): React.ReactElement => {
+    
 
-    const instance = useTable<CRMRowProps>({ columns, data})
-
-    const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = instance
+    const { 
+        getTableProps, 
+        getTableBodyProps, 
+        headerGroups, 
+        rows, 
+        prepareRow 
+    } = useTable({ columns, data });
 
     const buildHeaderGroups = () => headerGroups.map((headerGroup) => (
-        <CRMTableHeaderRow {...headerGroup.getHeaderGroupProps()}>
+        <tr {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => {
                 <th {...column.getHeaderProps()}>
                     {column.render('Header')}
                 </th>
             })}
-        </CRMTableHeaderRow>
+        </tr>
     ));
 
-    const buildRows = () => rows.map((row: Row<CRMRowProps>) => {
+    const buildRows = () => rows.map((row) => {
         prepareRow(row);
         return (
             <tr {...row.getRowProps()}>
@@ -48,18 +53,19 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
 
     return (
         <CRMMainTable {...props} {...getTableProps()}>
-            <CRMTableHeader>
-                {buildHeaderGroups}
-            </CRMTableHeader>
-            <CRMTableBody {...getTableBodyProps()}>
+            <thead>
+                {buildHeaderGroups()}
+            </thead>
+            <tbody {...getTableBodyProps()}>
                 {buildRows()}
-            </CRMTableBody>
+            </tbody>
         </CRMMainTable>
     );
 }
 
 const CRMMainTable = styled.table`
     border: 1px solid black;
+    min-height: 25px;
     width: 100%;
 `;
 
