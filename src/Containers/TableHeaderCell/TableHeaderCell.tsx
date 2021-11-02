@@ -14,7 +14,7 @@ export const TableHeaderCell: React.FC<TableHeaderCellProps> = ({
     sortDown = false,
     ...props
 }): React.ReactElement => (
-    <HeaderCell {...props} onClick = {headerClick}>
+    <HeaderCell {...props}>
         <TextBold>
             {title}
         </TextBold>
@@ -22,10 +22,6 @@ export const TableHeaderCell: React.FC<TableHeaderCellProps> = ({
         {!sortDown && <UpArrow/>}
     </HeaderCell>
 );
-
-function headerClick() {
-    alert('Button has been clicked');
-}
 
 const HeaderCell = styled.div`
     ${({ theme }) => `
@@ -36,7 +32,6 @@ const HeaderCell = styled.div`
     margin: 2px;
     text-align: left;
     cursor: pointer;
-    box-shadow: 0px 2px 2px lightgray;
 `;
 
 const TextBold = styled.div`
