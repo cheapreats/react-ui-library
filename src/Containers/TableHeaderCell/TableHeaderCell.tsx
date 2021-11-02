@@ -5,22 +5,27 @@ import {ArrowDown} from '@styled-icons/bootstrap'
 export interface TableHeaderCellProps extends React.HTMLAttributes<HTMLDivElement> {
     /*  Name of the cell  */
     title: string,
-    /* Boolean if filter is present */
-    isFiltered: boolean
+    /* Direction of sort */
+    sortDown: boolean
 }
 
 export const TableHeaderCell: React.FC<TableHeaderCellProps> = ({
     title,
-    isFiltered = false,
+    sortDown = false,
     ...props
 }): React.ReactElement => (
-    <HeaderCell {...props}>
+    <HeaderCell {...props} onClick = {headerClick}>
         <TextBold>
             {title}
         </TextBold>
-        {isFiltered && <DownArrow/>}
+        {sortDown && <DownArrow/>}
+        {!sortDown && <UpArrow/>}
     </HeaderCell>
 );
+
+function headerClick() {
+    alert('Button has been clicked');
+}
 
 const HeaderCell = styled.div`
     ${({ theme }) => `
@@ -30,6 +35,8 @@ const HeaderCell = styled.div`
     padding: 2px;
     margin: 2px;
     text-align: left;
+    cursor: pointer;
+    box-shadow: 0px 2px 2px lightgray;
 `;
 
 const TextBold = styled.div`
@@ -43,4 +50,12 @@ const DownArrow = styled(ArrowDown)`
     height: 18px;
     width: 18px;
     padding: 2px;
+`;
+
+const UpArrow = styled(ArrowDown)`
+    margin: 2px;
+    height: 18px;
+    width: 18px;
+    padding: 2px;
+    transform: rotate(180deg);
 `;

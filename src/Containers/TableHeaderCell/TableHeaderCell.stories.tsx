@@ -8,7 +8,7 @@ export default {
     component: TableHeaderCell,
     args: {
         title: 'Name',
-        isFiltered: true
+        sortDown: true
     }
 } as Meta;
 
