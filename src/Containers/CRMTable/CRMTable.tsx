@@ -2,12 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import {
     Column,
-    HeaderGroup,
     Row,
     useTable
 } from 'react-table';
 import { CRMRowProps } from '../CRMRow/CRMRow';
-import { TableHeaderCellProps, TableHeaderCell } from '../TableHeaderCell/TableHeaderCell';
 
 export interface ICRMTableProps extends React.HTMLAttributes<HTMLTableElement> {
     data: Array<CRMRowProps>; 
@@ -26,12 +24,15 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
     const { getTableProps, getTableBodyProps, headerGroups, rows, prepareRow } = instance
 
     const buildHeaderGroups = () => headerGroups.map((headerGroup) => (
-        <CRMTableHeaderRow>
-            {headerGroup.headers.map((column) => <TableHeaderCell {...column} />}
+        <CRMTableHeaderRow {...headerGroup.getHeaderGroupProps()}>
+            {headerGroup.headers.map((column) => {
+                <th {...column.getHeaderProps()}>
+                    {column.render('Header')}
+                </th>
+            })}
         </CRMTableHeaderRow>
     ));
 
-    const buildHeader = (headerGroup: HeaderGroup<CRMRowProps>) => );
     const buildRows = () => rows.map((row: Row<CRMRowProps>) => {
         prepareRow(row);
         return <CRMRow {...row.getRowProps()} {...row}/>;
