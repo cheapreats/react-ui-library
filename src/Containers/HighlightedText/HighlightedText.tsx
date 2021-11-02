@@ -46,13 +46,13 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
      * @param label - HighlightedString of the special text
      */
     const getSpecialTextComponent = (label: HighlightedString): React.ReactElement => {
-        const [textColor, setTextColor] = useState('black');
-        const handleChangeTextColor = () => {
-            setTextColor(textColor === 'black' ? 'orange' : 'black');
+        const [isClicked, setIsClicked] = useState(false);
+        const handleIsClicked = () => {
+            setIsClicked(!isClicked);
         }
 
-        return <ClickableSmallText bold onClick={handleChangeTextColor} color={textColor} {...label.textProps}>{`${label.text  } `}</ClickableSmallText>
-    }
+        return <StyledClickableSmallText bold={isClicked} onClick={handleIsClicked} {...label.textProps}>{`${label.text}`}</StyledClickableSmallText>
+    }   
 
     /**
      * construct the dropdown or text for a HighlightedString
@@ -107,3 +107,7 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
 
 
 const HighlightedRow = styled.div``;
+
+const StyledClickableSmallText = styled(ClickableSmallText)`
+    color: ${props => props.bold ? 'orange' : 'black'}
+`;
