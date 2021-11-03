@@ -1,4 +1,4 @@
-import React, {useRef} from "react";
+import React from "react";
 import {Chair, IChair} from "@Containers";
 import styled from "styled-components";
 
@@ -10,37 +10,20 @@ type tableUseTypes =
 type getChairsType = () => JSX.Element[];
 
 export interface IOvalTable{
-    /**
-     * The shape for the IOvalTable ("Oval")
-     */
-    tableShape: 'Oval';
     /* Comment */
     tableID: string;
     /* Array of chairs */
     chairs: Array<IChair>;
-    /**
-     * The name of the party assigned to the table
-     */
+    /* The name of the party assigned to the table */
     partyName: string;
-    /**
-     * The size for the component relative to the parent
-     */
+    /* The size for the component relative to the parent */
     relativeSize: number;
-    /**
-     * The use type for the table component (how it will be used in the app)
-     */
+    /* The use type for the table component (how it will be used in the app) */
     tableUse: tableUseTypes;
-
-    /**
-     * Array index for the table
-     */
+    /* Array index for the table */
     tableIndex: number;
-
-    /**
-     * Index number for the currently selected table
-     */
+    /* Index number for the currently selected table */
     selectedIndex: number;
-
     /**
      * Function to handle onClick event for the chair
      * @param parentTableIndex - parent table index in the tables array
@@ -68,9 +51,6 @@ export const OvalTable: React.FC<IOvalTable> = ({
 
         ...props
     }) => {
-    // Create a reference to the TableBody styled component //TODO:
-    const tableBodyRef = useRef(document.createElement('div'));
-
     const getChairs: getChairsType = () =>
         chairs.map((chair, index) => {
             const {position, occupiedBy, isSeated, isVisible, isRound} = chair;
@@ -98,7 +78,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
     return(
         <div {...props}>
             <TableBody
-                ref={tableBodyRef}
+
                 relativeSize={relativeSize}
                 numOfChairs={chairs.length}
             >
@@ -106,8 +86,6 @@ export const OvalTable: React.FC<IOvalTable> = ({
             </TableBody>
         </div>
     );
-
-
 };
 
 type getTurnValueType = (
