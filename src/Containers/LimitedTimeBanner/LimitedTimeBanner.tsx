@@ -13,7 +13,7 @@ export const LimitedTimeBanner: React.FC<LimitedTimeBannerProps> = ({
 }): React.ReactElement => (
     <BannerBox {...props}>
         <Icon />
-        <p>{hoursRemaining} Remaining</p>
+        <p>{alterTime(hoursRemaining)} Remaining</p>
     </BannerBox>
 ) ;
 const alterTime = (value:number)  => {
