@@ -29,33 +29,33 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
     } = useTable({ columns, data });
 
     const buildHeaderGroups = () => headerGroups.map((headerGroup) => (
-        <tr {...headerGroup.getHeaderGroupProps()}>
+        <CRMTableHeaderRow {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
-                <th {...column.getHeaderProps()}>
+                <CRMTableHeaderCell {...column.getHeaderProps()}>
                     {column.render('Header')}
-                </th>
+                </CRMTableHeaderCell>
             ))}
-        </tr>
+        </CRMTableHeaderRow>
     ));
 
     const buildRows = () => rows.map((row) => {
         prepareRow(row);
         return (
-            <tr {...row.getRowProps()}>
+            <CRMTableDataRow {...row.getRowProps()}>
                 {row.cells.map((cell) => (
-                    <td {...cell.getCellProps()}>
+                    <CRMTableData {...cell.getCellProps()}>
                         {cell.render('Cell')}
-                    </td>
+                    </CRMTableData>
                 ))}
-            </tr>
+            </CRMTableDataRow>
         );
     });
 
     return (
         <CRMMainTable {...props} {...getTableProps()}>
-            <thead>
+            <CRMTableHeader>
                 {buildHeaderGroups()}
-            </thead>
+            </CRMTableHeader>
             <tbody {...getTableBodyProps()}>
                 {buildRows()}
             </tbody>
@@ -64,7 +64,7 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
 }
 
 const CRMMainTable = styled.table`
-    border: 1px solid black;
+    border-collapse: collapse;
     min-height: 25px;
     width: 100%;
 `;
@@ -78,5 +78,36 @@ const CRMTableBody = styled.tbody`
 `;
 
 const CRMTableHeaderRow = styled.tr`
-
+    ${({theme}) => `
+        border-bottom: 2px solid ${theme.colors.border};
+        }
+    `}
 `;
+
+const CRMTableDataRow = styled.tr`
+    ${({theme}) => `
+        border-bottom: .75px solid ${theme.colors.border};
+        
+        :hover{
+            border: none;
+            
+            transform: scale(1.015, 1.05);
+            box-shadow: ${theme.depth[1]};
+    `}
+`;
+
+const CRMTableHeaderCell = styled.th`
+    ${({theme}) => `
+        padding: ${theme.dimensions.padding.default};
+    `}
+
+    text-align: left;
+`;
+
+
+
+const CRMTableData = styled.td`
+    ${({theme}) => `
+        padding: ${theme.dimensions.padding.default};
+    `}
+`
