@@ -14,27 +14,18 @@ export interface IOvalTable{
      * The shape for the IOvalTable ("Oval")
      */
     tableShape: 'Oval';
-
-    /**
-     * The unique identifier for the table
-     */
+    /* Comment */
     tableID: string;
-
-    /**
-     * Array of chairs
-     */
+    /* Array of chairs */
     chairs: Array<IChair>;
-
     /**
      * The name of the party assigned to the table
      */
     partyName: string;
-
     /**
      * The size for the component relative to the parent
      */
     relativeSize: number;
-
     /**
      * The use type for the table component (how it will be used in the app)
      */
@@ -77,11 +68,13 @@ export const OvalTable: React.FC<IOvalTable> = ({
 
         ...props
     }) => {
-    // Create a reference to the TableBody styled component
+    // Create a reference to the TableBody styled component //TODO:
     const tableBodyRef = useRef(document.createElement('div'));
 
     const getChairs: getChairsType = () =>
-        chairs.map((item, index) => (
+        chairs.map((chair, index) => {
+            const {position, occupiedBy, isSeated, isVisible, isRound} = chair;
+            return(
             <ChairWrapper
                 relativeSize={relativeSize}
                 numOfChairs={chairs.length}
@@ -89,11 +82,11 @@ export const OvalTable: React.FC<IOvalTable> = ({
             >
                 <Chair
                     relativeSize={relativeSize}
-                    position={item.position}
-                    occupiedBy={item.occupiedBy}
-                    isSeated={item.isSeated}
-                    isVisible={item.isVisible}
-                    isRound={item.isRound}
+                    position={position}
+                    occupiedBy={occupiedBy}
+                    isSeated={isSeated}
+                    isVisible={isVisible}
+                    isRound={isRound}
                     tableUse={tableUse}
                     tableIndex={tableIndex}
                     chairIndex={index}
@@ -101,7 +94,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
                     onChairClick={onChairClick}
                 />
             </ChairWrapper>
-        ));
+            )});
     return(
         <div {...props}>
             <TableBody
@@ -130,8 +123,8 @@ type getTranslateValueType = (
 
 
 const BASE_TABLE_WIDTH = 40;
-const COEFFICIENT_OF_HEIGHT_REDUCTION= 0.7;
-const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * COEFFICIENT_OF_HEIGHT_REDUCTION;
+const LENGTH_TO_WIDTH_RATIO= 0.7;
+const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * LENGTH_TO_WIDTH_RATIO;
 
 /**
  * Returns a string with the correct CSS turn positioning for a given chair
@@ -148,29 +141,30 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs) => {
 /**
  * Returns a string with the correct CSS translate length
  *
- * @param counter - the chair's number relative to other chairs in the array
+ * @param chairIndex - the index of the chair in the array + 1
  * @param numOfChairs - the total number of chairs at the table
  * @param relativeSize - The size for the component relative to the parent
  * @return {string} - the correct turn value for a specific chair
  */
-const getTranslateValue: getTranslateValueType = (counter, numOfChairs, relativeSize) => {
-    const CHAIR_ANGLE = counter * (360/numOfChairs);
-    const TABLE_BIGGEST_RADIUS = BASE_TABLE_WIDTH/2
+const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relativeSize) => {
+    const SPACING_DIFFERENCE = 360/numOfChairs;
+    const CHAIR_ANGLE = chairIndex * SPACING_DIFFERENCE;
+    const CHAIR_SPACING_FROM_CENTER = BASE_TABLE_WIDTH/2
     const RIGHT_ANGLE = 90;
-    const COEFFICIENT_DIFFERENCE=  1-COEFFICIENT_OF_HEIGHT_REDUCTION;
+    const LENGTH_TO_WIDTH_DIFFERENCE =  1 - LENGTH_TO_WIDTH_RATIO;
 
+    //TODO: comments
     let chairAngleForHalfOval = CHAIR_ANGLE % 180;
     let translationCoefficient;
 
-    if(chairAngleForHalfOval <= RIGHT_ANGLE){
-        translationCoefficient = 1-(COEFFICIENT_DIFFERENCE*(chairAngleForHalfOval/RIGHT_ANGLE))
-    }else {
+    if(!(chairAngleForHalfOval <= RIGHT_ANGLE)){
         chairAngleForHalfOval = RIGHT_ANGLE-(chairAngleForHalfOval-RIGHT_ANGLE)
-        translationCoefficient = 1-(COEFFICIENT_DIFFERENCE*(chairAngleForHalfOval/RIGHT_ANGLE))
     }
 
+    translationCoefficient = 1-(LENGTH_TO_WIDTH_DIFFERENCE*(chairAngleForHalfOval/RIGHT_ANGLE))
+
     return `
-        ${TABLE_BIGGEST_RADIUS*translationCoefficient*relativeSize}em
+        ${CHAIR_SPACING_FROM_CENTER*translationCoefficient*relativeSize}em
     `;
 };
 
