@@ -28,7 +28,6 @@ const handleOnChairClick = (
 
 export const NineChairs = Template.bind({});
 NineChairs.args = {
-    tableShape: 'Oval',
     tableID: 'T1',
     partyName: 'Yurii',
     chairs: [
@@ -153,9 +152,8 @@ NineChairs.args = {
     relativeSize: 0.5,
 };
 
-export const TwelveChairs = Template.bind({});
-TwelveChairs.args = {
-    tableShape: 'Oval',
+export const ElevenChairs = Template.bind({});
+ElevenChairs.args = {
     tableID: 'T1',
     partyName: 'Yurii',
     chairs: [
@@ -163,19 +161,6 @@ TwelveChairs.args = {
             position: 'top',
             isSeated: true,
             occupiedBy: 'Scott',
-            isVisible: true,
-            isRound: true,
-            relativeSize: 1,
-            tableUse: 'TableForManagement',
-            chairIndex: 0,
-            tableIndex: 0,
-            selectedIndex: 3,
-            onChairClick: handleOnChairClick,
-        },
-        {
-            position: 'top',
-            isSeated: false,
-            occupiedBy: '',
             isVisible: true,
             isRound: true,
             relativeSize: 1,
