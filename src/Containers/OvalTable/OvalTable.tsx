@@ -75,10 +75,10 @@ export const OvalTable: React.FC<IOvalTable> = ({
                 />
             </ChairWrapper>
             )});
+
     return(
         <div {...props}>
             <TableBody
-
                 relativeSize={relativeSize}
                 numOfChairs={chairs.length}
             >
@@ -99,10 +99,9 @@ type getTranslateValueType = (
     relativeSize: number,
 ) => string;
 
-
 const BASE_TABLE_WIDTH = 40;
-const LENGTH_TO_WIDTH_RATIO= 0.7;
-const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * LENGTH_TO_WIDTH_RATIO;
+const HEIGHT_TO_WIDTH_RATIO= 0.7;
+const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * HEIGHT_TO_WIDTH_RATIO;
 
 /**
  * Returns a string with the correct CSS turn positioning for a given chair
@@ -112,37 +111,48 @@ const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * LENGTH_TO_WIDTH_RATIO;
  * @return {string} - the correct turn value for a specific chair
  */
 const getTurnValue: getTurnValueType = (counter, numOfChairs) => {
-
     return `${counter}turn / ${numOfChairs}`;
 };
 
 /**
- * Returns a string with the correct CSS translate length
+ * Calculates the translate distance for a specific chair based on it's position on Oval Table.
+ * Divides the table on 4 quadrants. Increasing the angle of rotation (clockwise) will decrease the
+ * translation distance in even quadrants, and increase in odd quadrants.
+ *
+ *
+ * Returns a string with the correct CSS translate length.
  *
  * @param chairIndex - the index of the chair in the array + 1
  * @param numOfChairs - the total number of chairs at the table
  * @param relativeSize - The size for the component relative to the parent
- * @return {string} - the correct turn value for a specific chair
+ * @return {string} - the correct translate value for a specific chair
  */
 const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relativeSize) => {
-    const SPACING_DIFFERENCE = 360/numOfChairs;
-    const CHAIR_ANGLE = chairIndex * SPACING_DIFFERENCE;
-    const CHAIR_SPACING_FROM_CENTER = BASE_TABLE_WIDTH/2
     const RIGHT_ANGLE = 90;
-    const LENGTH_TO_WIDTH_DIFFERENCE =  1 - LENGTH_TO_WIDTH_RATIO;
+    const STRAIGHT_ANGLE = 180;
+    const FULL_TURN = 360;
 
-    //TODO: comments
-    let chairAngleForHalfOval = CHAIR_ANGLE % 180;
-    let translationCoefficient;
+    // The angle between chairs according their quantity.
+    const SPACING_DIFFERENCE = FULL_TURN/numOfChairs;
+    // Clockwise rotation angle of current chair from x-axis of 4th quadrant
+    const CHAIR_ROTATION_ANGLE = chairIndex * SPACING_DIFFERENCE;
+    const BASE_RADIUS = BASE_TABLE_WIDTH/2
+    const HEIGHT_TO_WIDTH_DIFFERENCE =  1 - HEIGHT_TO_WIDTH_RATIO;
 
-    if(!(chairAngleForHalfOval <= RIGHT_ANGLE)){
-        chairAngleForHalfOval = RIGHT_ANGLE-(chairAngleForHalfOval-RIGHT_ANGLE)
+    // Reformat any chair rotation angle to not exceed 2 quadrants format (180 degrees).
+    let quadrantBasedAngle = CHAIR_ROTATION_ANGLE % STRAIGHT_ANGLE;
+
+    // In odd quadrants (angle > 90) increasing angle increase radius,
+    // so the angle can be proportionally inverted. For even quadrants, the angle remain the same.
+    if(quadrantBasedAngle > RIGHT_ANGLE){
+        quadrantBasedAngle = STRAIGHT_ANGLE - quadrantBasedAngle
     }
 
-    translationCoefficient = 1-(LENGTH_TO_WIDTH_DIFFERENCE*(chairAngleForHalfOval/RIGHT_ANGLE))
+    // Calculate the coefficient which may vary from 0.7 to 1, based on angle of the chair.
+    const translationCoefficient = 1 - (HEIGHT_TO_WIDTH_DIFFERENCE * (quadrantBasedAngle/RIGHT_ANGLE));
 
     return `
-        ${CHAIR_SPACING_FROM_CENTER*translationCoefficient*relativeSize}em
+        ${BASE_RADIUS * translationCoefficient * relativeSize}em
     `;
 };
 
