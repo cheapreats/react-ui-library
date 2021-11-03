@@ -152,8 +152,8 @@ NineChairs.args = {
     relativeSize: 0.5,
 };
 
-export const ElevenChairs = Template.bind({});
-ElevenChairs.args = {
+export const TwelveChairs = Template.bind({});
+TwelveChairs.args = {
     tableID: 'T1',
     partyName: 'Yurii',
     chairs: [
