@@ -10,6 +10,18 @@ import {
 } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
+const TextFilter = ({
+    column: { 
+        filterValue, setFilter }
+}) => (
+    <input
+        value={filterValue || ''}
+        onChange={e => {
+            setFilter(e.target.value || undefined)
+        }}
+    />
+)
+
 export default {
     title: createStoryTitle('CRM Table'),
     component: CRMTable,
@@ -51,6 +63,10 @@ export default {
                 accessor: "dateCreated"
             }
         ],
+        defaultColumn: {
+            Filter: TextFilter,
+            filter: 'text'
+        }
     },
 } as Meta;
 
@@ -63,19 +79,22 @@ WithComponents.args = {
         {
             Header: (() => (<TableHeaderCell title="Client" isFiltered/>)),
             accessor: "customerProfile",
-            Cell: (({ value }) => (<CustomerProfile {...value} />))
+            Cell: (({ value }) => (<CustomerProfile {...value} />)),
+            disableFilters: true
         },
         {
             Header: (() => (<TableHeaderCell title="Tags" />)),
             accessor: "tags",
-            Cell: (({ value }) => (<TagGroup {...value} />))
+            Cell: (({ value }) => (<TagGroup {...value} />)),
+            disableFilters: true
 
         },
         {
             Header: (() => (<TableHeaderCell title="Date Joined" isFiltered/>)),
             accessor: "dateCreated",
-            Cell: (({ value }) => (<CreatedDate {...value} />))
-
+            Cell: (({ value }) => (<CreatedDate {...value} />)),
+            Filter: TextFilter,
+            filter: 'text'
         }
     ],
     data: [
@@ -109,7 +128,12 @@ WithComponents.args = {
             tags: {tags: [
                 {children: 'Goodbye'},
             ]},
-            customerProfile: {profileName: "Joe Joe", profileImage: "https://i.imgur.com/dt6SAxE.jpeg"}
+            customerProfile: {profileName: "Joe Joe"}
         }
-    ]
+    ],
+    defaultColumn: {
+        Filter: TextFilter,
+        filter: 'text'
+    }
 }
+

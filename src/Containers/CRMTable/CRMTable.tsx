@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {
     Column,
-    Row,
+    useFilters,
     useTable
 } from 'react-table';
 import { CRMRowProps } from '../CRMRow/CRMRow';
@@ -11,30 +11,31 @@ import { CRMRowProps } from '../CRMRow/CRMRow';
 export interface ICRMTableProps extends React.HTMLAttributes<HTMLTableElement> {
     data: Array<CRMRowProps>; 
     columns: Array<Column<CRMRowProps>>;
+    defaultColumn: any,
     onRowClick: (original: CRMRowProps) => void;
 }
 
 export const CRMTable: React.FC<ICRMTableProps> = ({
     columns,
     data,
+    defaultColumn,
     onRowClick,
     ...props
 }): React.ReactElement => {
-    
-
     const { 
         getTableProps, 
         getTableBodyProps, 
         headerGroups, 
         rows, 
         prepareRow 
-    } = useTable({ columns, data });
+    } = useTable({ columns, data, defaultColumn }, useFilters);
 
     const buildHeaderGroups = () => headerGroups.map((headerGroup) => (
         <CRMTableHeaderRow {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
                 <CRMTableHeaderCell {...column.getHeaderProps()}>
                     {column.render('Header')}
+                    <div>{column.canFilter ? column.render('Filter') : null}</div>
                 </CRMTableHeaderCell>
             ))}
         </CRMTableHeaderRow>
@@ -55,9 +56,9 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
 
     return (
         <CRMMainTable {...props} {...getTableProps()}>
-            <CRMTableHeader>
+            <thead>
                 {buildHeaderGroups()}
-            </CRMTableHeader>
+            </thead>
             <tbody {...getTableBodyProps()}>
                 {buildRows()}
             </tbody>
@@ -69,14 +70,6 @@ const CRMMainTable = styled.table`
     border-collapse: collapse;
     min-height: 25px;
     width: 100%;
-`;
-
-const CRMTableHeader = styled.thead`
-
-`;
-
-const CRMTableBody = styled.tbody`
-
 `;
 
 const CRMTableHeaderRow = styled.tr`
