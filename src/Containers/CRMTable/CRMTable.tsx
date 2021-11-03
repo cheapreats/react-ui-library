@@ -11,7 +11,7 @@ import { CRMRowProps } from '../CRMRow/CRMRow';
 export interface ICRMTableProps extends React.HTMLAttributes<HTMLTableElement> {
     data: Array<CRMRowProps>; 
     columns: Array<Column<CRMRowProps>>;
-    defaultColumn: any,
+    defaultColumn?: any,
     onRowClick: (original: CRMRowProps) => void;
 }
 
