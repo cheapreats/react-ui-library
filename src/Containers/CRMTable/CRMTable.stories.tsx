@@ -6,6 +6,7 @@ import { createStoryTitle } from '../../Constants';
 export default {
     title: createStoryTitle('CRM Table'),
     component: CRMTable,
+    argTypes: { onRowClick: { action: 'Row was clicked' } },
     args: {
         data: [
             {
