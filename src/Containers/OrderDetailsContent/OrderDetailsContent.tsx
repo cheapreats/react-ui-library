@@ -1,66 +1,57 @@
-import React from 'react'
-import styled from 'styled-components'
-import { Card } from '../Card/Card'
-import RenderText from '../../Text/RenderText/RenderText'
+import React from 'react';
+import { Card } from '../Card/Card';
+import CardText from '../../Text/CardText/CardText';
 
 export interface IItemChoice {
     // name of choice
-    name?: string
+    name: string;
     // price of choice
-    price?: number
+    price: string;
 }
 
-export interface IItemModifier { 
+export interface IItemModifier {
     // modification name
-    name?: string,
+    name: string;
     // choices of modifications
-    choices?: Array<IItemChoice>
+    choices: Array<IItemChoice>;
 }
 
 export interface IItemsContent {
     // name of item
-    name?: string,
+    name: string;
     // price of item
-    price?: number,
+    price: string;
     // estimated time to make item
-    modifiers?: Array<IItemModifier>
+    modifiers: Array<IItemModifier>;
 }
 
-export interface IItems{ 
+export interface IItems {
     // list of items on a order
-    items: Array<IItemsContent>
+    items: Array<IItemsContent>;
 }
 
-const OrderDetailsContent: React.FC<IItems> = ({items, ...props}): React.ReactElement => (
+const OrderDetailsContent = ({
+    items,
+    ...props
+}: IItems): React.ReactElement => (
     <div {...props}>
-        {items.map(({name, price, modifiers}: IItemsContent) => (
+        {items.map(({ name, price, modifiers }: IItemsContent) => (
             <Card>
-                <RenderText 
-                    label={name}
-                    price={price}
-                />
+                <CardText leftText={name} rightText={price} />
                 {modifiers.map(({ name, choices }: IItemModifier) =>
-                    choices.map((choice, j) => (
-                        <OrderItem> 
-                            {`${name}: ${choice.name}`}
-                            <PriceText> {`$${choice.price}`} </PriceText>
-                        </OrderItem>
+                    choices.map((choice: IItemChoice) => (
+                        <CardText
+                            leftText={`${name}: ${choice.name}`}
+                            rightText={choice.price}
+                            style={{
+                                fontWeight: 'normal',
+                            }}
+                        />
                     )),
                 )}
             </Card>
         ))}
-    </div> 
-)
+    </div>
+);
 
-
-const PriceText = styled.span`
-    text-align: right;
-`
-const OrderItem = styled.p`
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-`
-
-
-export default OrderDetailsContent
+export default OrderDetailsContent;
