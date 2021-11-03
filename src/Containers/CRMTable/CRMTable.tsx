@@ -11,7 +11,7 @@ import { CRMRowProps } from '../CRMRow/CRMRow';
 export interface ICRMTableProps extends React.HTMLAttributes<HTMLTableElement> {
     data: Array<CRMRowProps>; 
     columns: Array<Column<CRMRowProps>>;
-    onRowClick?: React.MouseEventHandler;
+    onRowClick: (original: CRMRowProps) => void;
 }
 
 export const CRMTable: React.FC<ICRMTableProps> = ({
@@ -43,7 +43,7 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
     const buildRows = () => rows.map((row) => {
         prepareRow(row);
         return (
-            <CRMTableDataRow {...row.getRowProps()} onClick={onRowClick}>
+            <CRMTableDataRow {...row.getRowProps()} onClick={() => onRowClick(row.original)}>
                 {row.cells.map((cell) => (
                     <CRMTableData {...cell.getCellProps()}>
                         {cell.render('Cell')}
