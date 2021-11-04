@@ -27,7 +27,7 @@ const alterTime = (value:number)  => {
     if(value >= 24){
         if(value >= 168){
             if(value >= 8736){
-                return ('>1 Year');
+                return ('> 1 Year');
             }
             value = Math.floor(value / 168) % 60;
             str = (value + ' Week');
