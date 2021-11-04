@@ -8,32 +8,62 @@ export default {
     component: MenuItemCard,
     subcomponents: {LoyaltyPoints, LimitedTimeBanner, SaleTag}, 
     argTypes: { onClick: { action: 'Link to next step' } },
-    args: {
-        animated: true,
-        flat: false,
-        widthFitContent: false,
-        sale: false,
-        soldOut: false,
-        loyaltyPointsToggle: true, 
-        limitedTimeBannerToggle: true, 
-        saleTagToggle: true, 
-        ItemImage: 'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/63/2007/09/Ricotta-cheese-pancakes-with-blackberry-butter.jpg', 
-        ItemName: 'Blackberry Pancakes',
-        ItemPrice: 14.99,
-        discountAmount: 3, 
-        LoyaltyPoints: (
-            <LoyaltyPoints loyaltyAmount={10}/>
-        ),
-        LimitedTimeBanner:(
-            <LimitedTimeBanner HoursRemaining= {3}/>  
-        ),
-        SaleTag: (
-            <SaleTag saleTagAmount={5}/>
-        ), 
-    }, 
 } as Meta;
 
-export const Basic: Story<MenuItemCardProps> = (args) =>  <MenuItemCard  {...args}> <LoyaltyPoints loyaltyAmount={0} {...args}/> 
-    <LimitedTimeBanner HoursRemaining={0} {...args}/>  <SaleTag {...args} /> </MenuItemCard>;
+const Template: Story<MenuItemCardProps> = (args) =>  <MenuItemCard  {...args}> <LoyaltyPoints loyaltyAmount={10} {...args}/> 
+    <LimitedTimeBanner  HoursRemaining={5} {...args}/>  <SaleTag {...args} /> </MenuItemCard>;
+
+export const MenuItemCardBasic = Template.bind({}); 
+MenuItemCardBasic.args = {
+    ItemImage: 'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/63/2007/09/Ricotta-cheese-pancakes-with-blackberry-butter.jpg', 
+    ItemName: 'Blackberry Pancakes',
+    ItemPrice: 14.99,
+    sale: false,
+    soldOut: false,
+    loyaltyPointsToggle: true, 
+    limitedTimeBannerToggle: true,
+    saleTagToggle: true, 
+    widthFitContent: false,
+    heightFitContent: false,
+    animated: true,
+    flat: false,
+    saleTagAmount: 5,
+};
+
+export const MenuItemCardStates = Template.bind({}); 
+MenuItemCardStates.args = {
+    ItemImage: 'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/63/2007/09/Ricotta-cheese-pancakes-with-blackberry-butter.jpg', 
+    ItemName: 'Blackberry Pancakes',
+    ItemPrice: 14.99,
+    sale: true,
+    soldOut: true,
+    loyaltyPointsToggle: false, 
+    limitedTimeBannerToggle: false,
+    saleTagToggle: false, 
+    widthFitContent: false,
+    heightFitContent: false,
+    animated: true,
+    flat: false,
+    saleTagAmount: 5, 
+};
+
+export const MenuItemCardLongText = Template.bind({});
+MenuItemCardLongText.args = {
+    ItemImage: 'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/63/2007/09/Ricotta-cheese-pancakes-with-blackberry-butter.jpg', 
+    ItemName: 'Super crazy long combo special order with extra sides and drinks',
+    ItemPrice: 999.99,
+    sale: false,
+    soldOut: false,
+    loyaltyPointsToggle: true, 
+    limitedTimeBannerToggle: true,
+    saleTagToggle: true, 
+    widthFitContent: false,
+    heightFitContent: true,
+    animated: true,
+    flat: false,
+    saleTagAmount: 5, 
+};
+
+
 
 
