@@ -17,22 +17,29 @@ export const LimitedTimeBanner: React.FC<LimitedTimeBannerProps> = ({
     </BannerBox>
 ) ;
 const alterTime = (value:number)  => {
-    let newValue = value;
     if(value < 1){
         return ('< 1 Hour');
     }
     if(value == 1){
         return ('1 Hour');
     }
+    let str = (value+' Hour');
     if(value >= 24){
-        if(value>168){
-            newValue = Math.floor(value / 168) % 60;
-            return (newValue + ' Weeks')as string;
+        if(value >= 168){
+            if(value >= 8736){
+                return ('>1 Year');
+            }
+            value = Math.floor(value / 168) % 60;
+            str = (value + ' Week');
+        }else{
+            value = Math.floor(value / 24) % 60;
+            str = (value + ' Day');
         }
-        newValue = Math.floor(value / 24) % 60;
-        return (newValue + ' Days')as string;
     }
-    return(value+' Hours');
+    if(value>1){
+        str = str +'s';
+    }
+    return(str);
 }
 const BannerBox = styled.div`
     ${({theme}):string => `
