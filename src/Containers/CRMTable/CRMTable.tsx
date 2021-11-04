@@ -35,7 +35,7 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
             {headerGroup.headers.map((column) => (
                 <CRMTableHeaderCell {...column.getHeaderProps()}>
                     {column.render('Header')}
-                    <div>{column.canFilter ? column.render('Filter') : null}</div>
+                    <div>{column.canFilter && column.render('Filter')}</div>
                 </CRMTableHeaderCell>
             ))}
         </CRMTableHeaderRow>
