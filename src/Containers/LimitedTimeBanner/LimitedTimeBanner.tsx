@@ -18,19 +18,21 @@ export const LimitedTimeBanner: React.FC<LimitedTimeBannerProps> = ({
 ) ;
 const alterTime = (value:number)  => {
     let newValue = value;
-    if(value <= 1){
-        return ('> ' + value) as string;
+    if(value < 1){
+        return ('< 1 Hour');
+    }
+    if(value == 1){
+        return ('1 Hour');
     }
     if(value >= 24){
-        newValue = Math.floor(value / 24) % 60;
-        value -= newValue * 24;
-        if(newValue>100){
-            return ('100 days +');
+        if(value>168){
+            newValue = Math.floor(value / 168) % 60;
+            return (newValue + ' Weeks')as string;
         }
-        return (newValue + 'Days and '+ value + ' Hours')as string;
+        newValue = Math.floor(value / 24) % 60;
+        return (newValue + ' Days')as string;
     }
-    var str = value.toString();
-    return(str+' Hours');
+    return(value+' Hours');
 }
 const BannerBox = styled.div`
     ${({theme}):string => `
