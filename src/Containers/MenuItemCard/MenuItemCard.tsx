@@ -3,6 +3,8 @@ import styled from 'styled-components';
 import { Main, MainInterface, Responsive, ResponsiveInterface } from '@Utils/BaseStyles';
 import { transition, } from '@Utils/Mixins';
 import { Container } from '@Containers/FileUpload/StyledComponents';
+// eslint-disable-next-line import/no-cycle
+import {  LoyaltyPoints, LimitedTimeBanner, SaleTag } from '../../index';
 
 export interface MenuItemCardProps
     extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
@@ -18,11 +20,13 @@ export interface MenuItemCardProps
     soldOut?: boolean;
     loyaltyPointsToggle?: boolean;
     limitedTimeBannerToggle?: boolean,
-    saleTagToggle?: boolean,  
-    ItemImage: string, 
-    ItemName: string,
-    ItemPrice: number,
-    saleTagAmount: number, 
+    saleTagToggle?: boolean,
+    loyaltyAmount: number,
+    saleTagAmount: number,
+    hoursRemaining: number,   
+    itemImage: string, 
+    itemName: string,
+    itemPrice: number,
 }
 
 export const ItemCard: React.FC<MenuItemCardProps> = ({
@@ -31,11 +35,7 @@ export const ItemCard: React.FC<MenuItemCardProps> = ({
 }): React.ReactElement => <MenuItemCardBox {...props}>{children}</MenuItemCardBox>;
 
 // To do: disable toggles + clickable when enabling sold out state
-// To do: fix argument values from composite components (declared in menuitemcard stories but doesn't update, how do you pass them properly?)
 export const MenuItemCard: React.FC<MenuItemCardProps> = ({
-    LoyaltyPoints,
-    LimitedTimeBanner,
-    SaleTag, 
     animated,
     flat,
     widthFitContent,
@@ -45,35 +45,51 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
     loyaltyPointsToggle,
     limitedTimeBannerToggle,
     saleTagToggle, 
-    ItemImage, 
-    ItemName,
-    ItemPrice,
-    saleTagAmount, 
+    itemImage, 
+    itemName,
+    itemPrice,
+    saleTagAmount,
+    loyaltyAmount, 
+    hoursRemaining, 
     ...props
 }): React.ReactElement => (
         
-    <ItemCard {...props} ItemImage={ItemImage} ItemName={ItemName} ItemPrice={ItemPrice} animated={animated} 
-        flat={flat} widthFitContent={widthFitContent} sale={sale} soldOut={soldOut} LoyaltyPoints = {LoyaltyPoints} saleTagAmount = {saleTagAmount}
-        loyaltyPointsToggle={loyaltyPointsToggle} LimitedTimeBanner = {LimitedTimeBanner} SaleTag = {SaleTag} saleTagToggle = {saleTagToggle}
+    <ItemCard {...props} itemImage={itemImage} itemName={itemName} itemPrice={itemPrice} animated={animated} 
+        flat={flat} widthFitContent={widthFitContent} sale={sale} soldOut={soldOut} saleTagAmount = {saleTagAmount}
+        loyaltyPointsToggle={loyaltyPointsToggle} saleTagToggle = {saleTagToggle} loyaltyAmount = {loyaltyAmount} hoursRemaining = {hoursRemaining}
         limitedTimeBannerToggle={limitedTimeBannerToggle} heightFitContent = {heightFitContent}> 
         
-        <img src={ItemImage} alt={ItemName} style={{ width: 350, height: 200 }}/>
-        <ItemHeader>{ItemName}</ItemHeader>
+        <img src={itemImage} alt={itemName} style={{ width: 350, height: 200 }}/>
+        <ItemHeader>{itemName}</ItemHeader>
         { soldOut && <Container><SoldOutBox>Sold Out</SoldOutBox></Container> }
-        { limitedTimeBannerToggle && <Container><LimitedTimeBannerPosition>{LimitedTimeBanner}</LimitedTimeBannerPosition></Container> }
 
-        { loyaltyPointsToggle && <Container><LoyaltyPointsPosition>{LoyaltyPoints}</LoyaltyPointsPosition></Container> }
-        { saleTagToggle && <Container><SaleTagPosition>{SaleTag}</SaleTagPosition></Container>} 
+        { limitedTimeBannerToggle && <Container>
+            <LimitedTimeBannerPosition> <LimitedTimeBanner hoursRemaining={hoursRemaining}/></LimitedTimeBannerPosition> 
+        </Container> }
 
+        { loyaltyPointsToggle && <Container>
+            <LoyaltyPointsPosition> <LoyaltyPoints loyaltyAmount={loyaltyAmount}/></LoyaltyPointsPosition>
+        </Container> }
+
+        { saleTagToggle && <Container>
+            <SaleTagPosition><SaleTag saleTagAmount={saleTagAmount}/></SaleTagPosition>
+        </Container> } 
 
         { sale? 
             <>
-                <SalePropsSlash>{ItemPrice}</SalePropsSlash>
-                <OnSale>{ItemPrice - saleTagAmount}</OnSale>
+                <SalePropsSlash>{itemPrice}</SalePropsSlash>
+                <OnSale>{itemPrice - saleTagAmount}</OnSale>
             </>
-            :
-            <SaleProps>{ItemPrice}</SaleProps>
+            : [
+                itemPrice >= 1000 ? 
+                    <> 
+                        <SaleProps1k>{(Math.round(itemPrice * .1) / .1) / 1000}K</SaleProps1k>
+                    </> 
+                    : 
+                    <SaleProps>{itemPrice}</SaleProps>
+            ]
         }
+        
     </ItemCard> 
 );
 
@@ -83,6 +99,7 @@ const MenuItemCardBox = styled.div<MenuItemCardProps & MainInterface & Responsiv
     width: 350px;
     height: 350px; 
     z-index: 1; 
+    cursor: pointer; 
     
     ${({ theme, ...props }): string => `
     border-radius: ${theme.dimensions.radius};
@@ -128,7 +145,8 @@ const SoldOutBox = styled.div`
 const ItemHeader = styled.header`
     font-weight: bold;
     padding-left: 10px;
-    padding-right: 80px;
+    padding-bottom: 10px; 
+    padding-right: 100px;
     font-size: 40px;  
 `
 const SaleProps = styled.header`  
@@ -137,14 +155,19 @@ const SaleProps = styled.header`
     font-size: 30px; 
     text-align: right; 
     right: 10px;
-    bottom: 20px;
+    top: 300px;
 `
 const SalePropsSlash = styled(SaleProps)`
     text-decoration: line-through;
     font-size: 25px;
     opacity: .6; 
-    bottom: 100px; 
+    top: 230px; 
 `
+const SaleProps1k = styled(SaleProps)`
+    color: green;
+    font-size: 35px;
+`
+
 const OnSale = styled.header`
     position: absolute;
     font-size: 40px;
@@ -153,13 +176,7 @@ const OnSale = styled.header`
     color: #EE2434; 
     padding-right: 10px;
     right: 10px;
-    bottom: 20px; 
-`
-const TagsPosition = styled.div`
-    position: absolute;
-    top: 30px; 
-    display: flex; 
-    justify-content: space-between; 
+    top: 300px; 
 `
 const LoyaltyPointsPosition = styled.div`
     position: absolute;
@@ -173,5 +190,5 @@ const SaleTagPosition = styled.div`
 
 const LimitedTimeBannerPosition = styled.div`
     position: absolute;
-    bottom: 150px; 
+    top: 135px; 
 `

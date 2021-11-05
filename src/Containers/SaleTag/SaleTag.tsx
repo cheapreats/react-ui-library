@@ -2,20 +2,20 @@ import React from 'react';
 import styled from 'styled-components';
 
 export interface SaleTagProps extends React.HTMLAttributes<HTMLSpanElement> {
-    saleAmount: number;
+    saleTagAmount: number;
 }
 
 export const SaleTag: React.FC<SaleTagProps> = ({
-    saleAmount = 2,
+    saleTagAmount,
     ...props
 }): React.ReactElement => (
-    <SaleTagDiv {...props} saleAmount={saleAmount}>
-        {saleAmount}$ off
+    <SaleTagDiv {...props} saleTagAmount={saleTagAmount}>
+        {saleTagAmount}$ off
     </SaleTagDiv>
 );
 
 const SaleTagDiv = styled.span<SaleTagProps>`
-    ${({theme, ...props}):string => `
+    ${({theme}):string => `
         border-radius: 100px;
         width: 100px;
         height: 40px;

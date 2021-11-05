@@ -5,20 +5,19 @@ import { MainInterface} from '@Utils/BaseStyles';
 
 export interface LimitedTimeBannerProps
     extends MainInterface {
-        HoursRemaining: number,
+        hoursRemaining: number,
 }
 
 export const LimitedTimeBanner: React.FC<LimitedTimeBannerProps> = ({
-    HoursRemaining,...props
+    hoursRemaining,...props
 }): React.ReactElement => (
     <BannerBox {...props}>
         <Icon />
-        <p>{HoursRemaining} Hours Remaining</p>
+        <p>{hoursRemaining} Hours Remaining</p>
     </BannerBox>
 ) ;
 
 const BannerBox = styled.div`
-    // Theme Stuff
     ${({theme}):string => `
     font-family: ${theme.font.family};
     color: ${theme.colors.background}};

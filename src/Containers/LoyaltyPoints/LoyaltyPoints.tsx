@@ -3,12 +3,12 @@ import styled from 'styled-components';
 import { MainInterface } from '@Utils/BaseStyles'
 
 export const LoyaltyPoints: React.FC<LoyaltyPointsProps> = ({
-    amount, ...props
-}):React.ReactElement => <LoyaltyPointsBox {...props}><p>{amount}</p></LoyaltyPointsBox>;
+    loyaltyAmount, ...props
+}):React.ReactElement => <LoyaltyPointsBox {...props}><p>+{loyaltyAmount}✪</p></LoyaltyPointsBox>;
 
 export interface LoyaltyPointsProps
     extends MainInterface{
-            amount: string;
+        loyaltyAmount: number; 
         }
 
 const LoyaltyPointsBox = styled.div`

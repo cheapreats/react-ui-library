@@ -8,7 +8,7 @@ export default {
     title: createStoryTitle('LoyaltyPoints'),
     component: LoyaltyPoints,
     args:{
-        amount: '+10★'
+        loyaltyAmount: 10,  
     }
 }as Meta;
 

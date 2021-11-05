@@ -10,14 +10,17 @@ export default {
     argTypes: { onClick: { action: 'Link to next step' } },
 } as Meta;
 
-const Template: Story<MenuItemCardProps> = (args) =>  <MenuItemCard  {...args}> <LoyaltyPoints loyaltyAmount={10} {...args}/> 
-    <LimitedTimeBanner  HoursRemaining={5} {...args}/>  <SaleTag {...args} /> </MenuItemCard>;
+const Template: Story<MenuItemCardProps> = (args) =>  <MenuItemCard  {...args}> <LoyaltyPoints {...args}/> 
+    <LimitedTimeBanner {...args}/>  <SaleTag {...args} /> </MenuItemCard>;
 
 export const MenuItemCardBasic = Template.bind({}); 
 MenuItemCardBasic.args = {
-    ItemImage: 'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/63/2007/09/Ricotta-cheese-pancakes-with-blackberry-butter.jpg', 
-    ItemName: 'Blackberry Pancakes',
-    ItemPrice: 14.99,
+    itemImage: 'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/63/2007/09/Ricotta-cheese-pancakes-with-blackberry-butter.jpg', 
+    itemName: 'Blackberry Pancakes',
+    itemPrice: 15.99,
+    saleTagAmount: 5,
+    loyaltyAmount: 20, 
+    hoursRemaining: 2, 
     sale: false,
     soldOut: false,
     loyaltyPointsToggle: true, 
@@ -27,14 +30,16 @@ MenuItemCardBasic.args = {
     heightFitContent: false,
     animated: true,
     flat: false,
-    saleTagAmount: 5,
 };
 
 export const MenuItemCardStates = Template.bind({}); 
 MenuItemCardStates.args = {
-    ItemImage: 'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/63/2007/09/Ricotta-cheese-pancakes-with-blackberry-butter.jpg', 
-    ItemName: 'Blackberry Pancakes',
-    ItemPrice: 14.99,
+    itemImage: 'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/63/2007/09/Ricotta-cheese-pancakes-with-blackberry-butter.jpg', 
+    itemName: 'Blackberry Pancakes',
+    itemPrice: 14.99,
+    saleTagAmount: 5,
+    loyaltyAmount: 10, 
+    hoursRemaining: 2,  
     sale: true,
     soldOut: true,
     loyaltyPointsToggle: false, 
@@ -44,14 +49,16 @@ MenuItemCardStates.args = {
     heightFitContent: false,
     animated: true,
     flat: false,
-    saleTagAmount: 5, 
 };
 
 export const MenuItemCardLongText = Template.bind({});
 MenuItemCardLongText.args = {
-    ItemImage: 'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/63/2007/09/Ricotta-cheese-pancakes-with-blackberry-butter.jpg', 
-    ItemName: 'Super crazy long combo special order with extra sides and drinks',
-    ItemPrice: 999.99,
+    itemImage: 'https://keyassets-p2.timeincuk.net/wp/prod/wp-content/uploads/sites/63/2007/09/Ricotta-cheese-pancakes-with-blackberry-butter.jpg', 
+    itemName: 'Super crazy long combo special order with extra sides and drinks',
+    itemPrice: 999.99,
+    saleTagAmount: 5, 
+    loyaltyAmount: 10, 
+    hoursRemaining: 2, 
     sale: false,
     soldOut: false,
     loyaltyPointsToggle: true, 
@@ -61,9 +68,4 @@ MenuItemCardLongText.args = {
     heightFitContent: true,
     animated: true,
     flat: false,
-    saleTagAmount: 5, 
 };
-
-
-
-
