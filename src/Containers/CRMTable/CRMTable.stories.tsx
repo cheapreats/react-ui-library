@@ -136,6 +136,9 @@ WithComponents.args = {
             ]},
             customerProfile: {profileName: "Joe Joe"}
         }
-    ]
+    ],
+    defaultColumn: {
+        Filter: TextFilter,
+        filter: 'text'
+    }
 }
-

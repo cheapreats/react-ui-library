@@ -1,21 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
-    Column,
-    Row,
+    TableOptions,
     useFilters,
     useTable
 } from 'react-table';
 import { CRMRowProps } from '../CRMRow/CRMRow';
 
-export interface ICRMTableProps extends React.HTMLAttributes<HTMLTableElement> {
-    data: Array<CRMRowProps>; 
-    columns: Array<Column<CRMRowProps>>;
-    defaultColumn?: {
-        Filter: React.ReactElement | JSX.Element;
-        filter: string | ((rows: Array<Row<CRMRowProps>>, columnIds: Array<string>, filterValue: any) => Row<CRMRowProps>[]);
-    },
-    onRowClick: (original: CRMRowProps) => void;
+export interface ICRMTableProps extends TableOptions<CRMRowProps> {
+    onRowClick: (rowData: CRMRowProps) => void;
 }
 
 export const CRMTable: React.FC<ICRMTableProps> = ({
