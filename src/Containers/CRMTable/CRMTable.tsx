@@ -2,16 +2,19 @@ import React from 'react';
 import styled from 'styled-components';
 import {
     Column,
+    Row,
     useFilters,
     useTable
 } from 'react-table';
 import { CRMRowProps } from '../CRMRow/CRMRow';
 
-
 export interface ICRMTableProps extends React.HTMLAttributes<HTMLTableElement> {
     data: Array<CRMRowProps>; 
     columns: Array<Column<CRMRowProps>>;
-    defaultColumn?: any,
+    defaultColumn?: {
+        Filter: React.ReactElement | JSX.Element;
+        filter: string | ((rows: Array<Row<CRMRowProps>>, columnIds: Array<string>, filterValue: any) => Row<CRMRowProps>[]);
+    },
     onRowClick: (original: CRMRowProps) => void;
 }
 
@@ -98,8 +101,6 @@ const CRMTableHeaderCell = styled.th`
 
     text-align: left;
 `;
-
-
 
 const CRMTableData = styled.td`
     ${({theme}) => `
