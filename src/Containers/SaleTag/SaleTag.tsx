@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { MainInterface } from '@Utils/BaseStyles';
 
-export interface SaleTagProps extends MainInterface {
+export interface SaleTagProps extends React.HTMLAttributes<HTMLSpanElement> {
     saleAmount: number;
 }
 
@@ -10,12 +9,17 @@ export const SaleTag: React.FC<SaleTagProps> = ({
     saleAmount = 2,
     ...props
 }): React.ReactElement => (
-    <SaleTagDiv {...props} saleAmount={saleAmount}>
-        {saleAmount}$ off
+    <SaleTagDiv {...props}>
+        {fixSaleAmount(saleAmount)}$ off
     </SaleTagDiv>
 );
 
-const SaleTagDiv = styled.span<SaleTagProps>`
+const fixSaleAmount = (amount:number) => {
+    amount >= 1 ? amount = Math.floor(amount) : amount = 1;
+    return(amount);
+}
+
+const SaleTagDiv = styled.span`
     ${({theme, ...props}):string => `
         border-radius: 100px;
         width: 100px;
