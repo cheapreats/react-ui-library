@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import {Clock} from '@styled-icons/bootstrap/Clock';
 import { MainInterface} from '@Utils/BaseStyles';
-const hoursInDay =24;
+const hoursInDay = 24;
 const hoursInWeek = 168;
 const hoursInYear = 8736;
 const pluralCheck = 1;
@@ -24,17 +24,17 @@ const alterTime = (value:number)  => {
     switch ( true )
     {
         case (value < 1):
-            return ('< 1 Hour');
+            return ('Under 1 Hour');
         case  (value >= hoursInDay && value < hoursInWeek) :
-            value = Math.floor(value / hoursInDay) % 60;
+            value = Math.floor(value / hoursInDay);
             str = (value + ' Day');
                 break;
         case (value >= hoursInWeek && value < hoursInYear):
-            value = Math.floor(value / hoursInWeek) % 60;
+            value = Math.floor(value / hoursInWeek);
             str = (value + ' Week');
                 break;
         case (value >= hoursInYear):
-            return ('> 1 Year');
+            return ('Over A Year');
     }
     if(value > pluralCheck){
         str += 's';
