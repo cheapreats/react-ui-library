@@ -4,7 +4,6 @@ import { LimitedTimeBanner,LimitedTimeBannerProps} from '../../index';
 import { createStoryTitle} from '../../Constants';
 
 export default {
-    
     title: createStoryTitle('LimitedTimeBanner'),
     component: LimitedTimeBanner,
     args: {
