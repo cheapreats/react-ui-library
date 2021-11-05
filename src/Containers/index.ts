@@ -86,3 +86,4 @@ export * from './TableHeaderCell/TableHeaderCell';
 export * from './CustomerProfile/CustomerProfile';
 export * from './CreatedDate/CreatedDate';
 export * from './CRMRow/CRMRow';
+export * from './ProfileModal/ProfileModal';
