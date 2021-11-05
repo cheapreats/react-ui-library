@@ -2,48 +2,49 @@ import React from 'react';
 import styled from 'styled-components';
 import {Clock} from '@styled-icons/bootstrap/Clock';
 import { MainInterface} from '@Utils/BaseStyles';
-const HOURS_IN_DAY = 24;
-const HOURS_IN_WEEK = 168;
-const HOURS_IN_YEAR = 8736;
-const PLURAL_CHECK = 1;
+import moment from 'moment';
 
+console.log(moment.now());
+const MINUTES_IN_YEAR = 524160;
+
+/* Only importing the remaining time as a number  */
 export interface LimitedTimeBannerProps
     extends MainInterface {
-        hoursRemaining: number,
+        minsRemaining: number,
 }
 
 export const LimitedTimeBanner: React.FC<LimitedTimeBannerProps> = ({
-    hoursRemaining,...props
+    minsRemaining,
+    ...props
 }): React.ReactElement => (
     <BannerBox {...props}>
         <Icon />
-            <p>
-                {alterTime(hoursRemaining)} Remaining
-            </p>
+            <BannerHeader>
+                {alterTime(minsRemaining)} Remaining
+            </BannerHeader>
     </BannerBox>
 );
 
+const BannerHeader = styled.header`
+text-align:center;
+line-height:40px;
+font-size:25px;
+text-transform: capitalize;
+`;
+
+/**
+* @param value minsRemaining 
+* @returns Return Minutes as Hours, Days, Months, Year 
+* Also Returns if there is no time or if the time is over a year
+*/
 const alterTime = (value:number)  => {
-    let str = (value+' Hour');
-    switch ( true )
-    {
-        case (value < 1):
-            return ('Under 1 Hour');
-        case  (value >= HOURS_IN_DAY && value < HOURS_IN_WEEK) :
-            value = Math.floor(value / HOURS_IN_DAY);
-            str = (value + ' Day');
-                break;
-        case (value >= HOURS_IN_WEEK && value < HOURS_IN_YEAR):
-            value = Math.floor(value / HOURS_IN_WEEK);
-            str = (value + ' Week');
-                break;
-        case (value >= HOURS_IN_YEAR):
-            return ('Over A Year');
+    if(value <= 0){
+        return('No Time ')
     }
-    if(value > PLURAL_CHECK){
-        str += 's';
+    if(value > MINUTES_IN_YEAR){
+        return('Over A Year ')
     }
-    return(str);
+    return(moment.duration(value,'minutes').humanize());
 }
 
 const BannerBox = styled.div`
@@ -52,11 +53,8 @@ const BannerBox = styled.div`
     color: ${theme.colors.background}};
     background-color:  ${theme.colors.bannerBackgroundColor};
     `}
-    text-align:center;
-    line-height:40px;
     width:350px;
     height:40px;
-    font-size:25px;
 `;
 
 const Icon = styled(Clock)`
