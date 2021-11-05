@@ -2,7 +2,10 @@ import React from 'react';
 import styled from 'styled-components';
 import {Clock} from '@styled-icons/bootstrap/Clock';
 import { MainInterface} from '@Utils/BaseStyles';
-
+const hoursInDay =24;
+const hoursInWeek = 168;
+const hoursInYear = 8736;
+const pluralCheck = 1;
 export interface LimitedTimeBannerProps
     extends MainInterface {
         hoursRemaining: number,
@@ -20,22 +23,20 @@ const alterTime = (value:number)  => {
     let str = (value+' Hour');
     switch ( true )
     {
-        case (value == 1):
-            return ('1 Hour');
         case (value < 1):
             return ('< 1 Hour');
-        case  (value >= 24 && value < 168) :
-            value = Math.floor(value / 24) % 60;
+        case  (value >= hoursInDay && value < hoursInWeek) :
+            value = Math.floor(value / hoursInDay) % 60;
             str = (value + ' Day');
                 break;
-        case (value >= 168 && value < 8736):
-            value = Math.floor(value / 168) % 60;
+        case (value >= hoursInWeek && value < hoursInYear):
+            value = Math.floor(value / hoursInWeek) % 60;
             str = (value + ' Week');
                 break;
-        case (value >= 8736):
+        case (value >= hoursInYear):
             return ('> 1 Year');
     }
-    if(value>1){
+    if(value > pluralCheck){
         str += 's';
     }
     return(str);
