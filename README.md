@@ -33,6 +33,8 @@ This folder contains the Storybook configuration options
 This folder contains code generation scripts to help make development faster.
 
 ### Helpful Resources
+#### Need Icons
+Use the Styled-Icons library to import icons from : https://styled-icons.dev/
 #### Themes/ 
 Contains all the styling that CheaprEats uses so you don't have to guess to color codes, Also your components will automatically translate to dark mode!
 ##### Mixins (Responsiveness)

@@ -19,7 +19,7 @@ type DropdownComponent<P = {}> = React.NamedExoticComponent<P> & {
 };
 
 export interface IDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-    dropdownButton: Element;
+    dropdownButton: React.ReactElement;
     dropdownWidth?: number;
     right?: boolean;
 }
@@ -162,14 +162,14 @@ const placeStyles = (
     sourcePosition: any,
 ) => {
     switch (placement) {
-        case true:
-            return `
+    case true:
+        return `
             left: ${
-                targetPosition.right - sourcePosition.width + window.pageXOffset
-            }px;
+    targetPosition.right - sourcePosition.width + window.pageXOffset
+}px;
             `;
-        default:
-            return `
+    default:
+        return `
             left: ${targetPosition.left + window.pageXOffset}px;
             `;
     }

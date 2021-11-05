@@ -51,11 +51,12 @@ interface IconCompProps
         ResponsiveInterface,
         React.HTMLAttributes<HTMLDivElement> {
     height: string;
+    // eslint-disable-next-line react/no-unused-prop-types
     color?: string;
 }
 
 export const PhoneIconComp: React.FC<IconCompProps> = ({
-    color,
+    color = 'black',
     height,
 }): React.ReactElement => (
     <StyledSVG

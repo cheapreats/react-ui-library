@@ -4,11 +4,6 @@ node_modules
 dist
 .idea
 debug.log
-src/Containers/HorizontalScrollList/HorizontalScrollList.tsx
-src/Containers/MiddleCanvas/DroppableElement.tsx
-src/Containers/Modal/Modal.tsx
-src/Containers/QuestionMarkHover/QuestionMarkHover.stories.tsx
-src/Containers/QuestionMarkHover/QuestionMarkHover.tsx
-src/Containers/SelectList/SelectList.tsx
-src/Fragments/InputFragment.tsx
-src/Inputs/Button/Button.tsx
+build-storybook.log
+*.bundle.*
+storybook-static/*

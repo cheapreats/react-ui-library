@@ -25,11 +25,14 @@ export function reorder(
     startIndex: number,
     endIndex: number,
 ): ITemplatePrefill[];
+
 export function reorder(
     list: string[][],
     startIndex: number,
     endIndex: number,
 ): string[][];
+
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
 export function reorder(list: any, startIndex: number, endIndex: number): any {
     const [removed] = list.splice(startIndex, NO_OF_ITEMS_DELETED);
     list.splice(endIndex, REMOVE_NO_ITEMS, removed);

@@ -26,7 +26,7 @@ export const Timebox: React.FC<TimeboxProps> = ({
     show,
     setShow,
     mount,
-    disabled,
+    disabled = false,
 }): React.ReactElement => {
     const ref = useRef<HTMLDivElement>(null);
     const [hour, min, period] = useMemo(
@@ -43,22 +43,22 @@ export const Timebox: React.FC<TimeboxProps> = ({
     const _onChange = useCallback(
         (_name, _value): void => {
             switch (_name) {
-                case 'HOUR':
-                    value.setHours(
-                        ((_value + 1) % 12) + (period === 'AM' ? 0 : 12),
-                    );
-                    break;
-                case 'MINUTE':
-                    value.setMinutes(_value);
-                    break;
-                case 'PERIOD':
-                    value.setHours(value.getHours() % 12);
-                    if (_value) {
-                        value.setHours(value.getHours() + 12);
-                    }
-                    break;
-                default:
-                    break;
+            case 'HOUR':
+                value.setHours(
+                    ((_value + 1) % 12) + (period === 'AM' ? 0 : 12),
+                );
+                break;
+            case 'MINUTE':
+                value.setMinutes(_value);
+                break;
+            case 'PERIOD':
+                value.setHours(value.getHours() % 12);
+                if (_value) {
+                    value.setHours(value.getHours() + 12);
+                }
+                break;
+            default:
+                break;
             }
             onChange({
                 target: {
