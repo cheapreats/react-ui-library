@@ -10,17 +10,23 @@ import {
 } from '../../index';
 import { createStoryTitle } from '../../Constants';
 
-const TextFilter = ({
-    column: { 
-        filterValue, setFilter }
-}) => (
+interface FilterProps {
+    column: any;
+}
+
+const TextFilter: React.FC<FilterProps> = ({
+    column: {
+        filterValue,
+        setFilter,
+    },
+}): React.ReactElement => (
     <input
         value={filterValue || ''}
         onChange={e => {
             setFilter(e.target.value || undefined)
         }}
     />
-)
+);
 
 export default {
     title: createStoryTitle('CRM Table'),
