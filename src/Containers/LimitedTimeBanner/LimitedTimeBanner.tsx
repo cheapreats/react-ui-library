@@ -36,7 +36,7 @@ const alterTime = (value:number)  => {
             return ('> 1 Year');
     }
     if(value>1){
-        str = str +'s';
+        str += 's';
     }
     return(str);
 }
