@@ -1,4 +1,5 @@
 import React from 'react';
+import { HeaderProps } from 'react-table';
 import { Meta, Story } from '@storybook/react';
 import { 
     CreatedDate,
@@ -9,16 +10,14 @@ import {
     TagGroup
 } from '../../index';
 import { createStoryTitle } from '../../Constants';
+import { CRMRowProps } from '../CRMRow/CRMRow';
 
-interface FilterProps {
-    column: any;
-}
 
-const TextFilter: React.FC<FilterProps> = ({
+const TextFilter: React.FC<HeaderProps<CRMRowProps>> = ({
     column: {
         filterValue,
         setFilter,
-    },
+    }
 }): React.ReactElement => (
     <input
         value={filterValue || ''}
