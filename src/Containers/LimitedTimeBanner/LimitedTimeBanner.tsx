@@ -4,7 +4,7 @@ import {Clock} from '@styled-icons/bootstrap/Clock';
 import { MainInterface} from '@Utils/BaseStyles';
 import moment from 'moment';
 
-console.log(moment.now());
+moment.now();
 const MINUTES_IN_YEAR = 524160;
 
 /* Only importing the remaining time as a number  */
