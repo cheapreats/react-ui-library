@@ -82,20 +82,20 @@ WithComponents.args = {
     ...WithComponents.args,
     columns: [
         {
-            Header: (() => (<TableHeaderCell title="Client" isFiltered/>)),
+            Header: (() => (<TableHeaderCell title="Client" sortDown/>)),
             accessor: "customerProfile",
             Cell: (({ value }) => (<CustomerProfile {...value} />)),
             disableFilters: true
         },
         {
-            Header: (() => (<TableHeaderCell title="Tags" />)),
+            Header: (() => (<TableHeaderCell title="Tags" sortDown={false}/>)),
             accessor: "tags",
             Cell: (({ value }) => (<TagGroup {...value} />)),
             disableFilters: true
 
         },
         {
-            Header: (() => (<TableHeaderCell title="Date Joined" isFiltered/>)),
+            Header: (() => (<TableHeaderCell title="Date Joined" sortDown/>)),
             accessor: "dateCreated",
             Cell: (({ value }) => (<CreatedDate {...value} />)),
             Filter: TextFilter,
@@ -133,7 +133,7 @@ WithComponents.args = {
             tags: {tags: [
                 {children: 'Goodbye'},
             ]},
-            customerProfile: {profileName: "Joe Joe"}
+            customerProfile: {profileName: "Joe Joe", profileImage: ""}
         }
     ],
     defaultColumn: {
