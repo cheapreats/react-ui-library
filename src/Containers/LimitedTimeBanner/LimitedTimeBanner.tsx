@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import {Clock} from '@styled-icons/bootstrap/Clock';
-import { MainInterface} from '@Utils/BaseStyles';
+import {MainInterface} from '@Utils/BaseStyles';
 import moment from 'moment';
 
 moment.now();
 const MINUTES_IN_YEAR = 524160;
 
-/* Only importing the remaining time as a number  */
 export interface LimitedTimeBannerProps
     extends MainInterface {
+        /* minutes until time runs out */ 
         minsRemaining: number,
 }
 
@@ -33,9 +33,10 @@ text-transform: capitalize;
 `;
 
 /**
-* @param value minsRemaining 
-* @returns Return Minutes as Hours, Days, Months, Year 
-* Also Returns if there is no time or if the time is over a year
+* Turns an amount of time in minutes to Hours, Days, Months or a Year
+* Also checks if the time is to short (0 or less) or to long (more than a year) 
+* @param {number} value - The time remaining in minutes  
+* @returns {Strings} - The time remaining in a more concise and understandable form  
 */
 const alterTime = (value:number)  => {
     if(value <= 0){
