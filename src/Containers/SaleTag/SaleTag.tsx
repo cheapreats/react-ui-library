@@ -1,7 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import { positiveRounding } from '@Utils/positiveRounding';
 
-export interface SaleTagProps extends React.HTMLAttributes<HTMLSpanElement> {
+export interface SaleTagProps extends React.HTMLAttributes<HTMLDivElement> {
+    /*Amount to be displayed on SaleTag, the difference between a price and discounted price*/
     saleAmount: number;
 }
 
@@ -10,14 +12,9 @@ export const SaleTag: React.FC<SaleTagProps> = ({
     ...props
 }): React.ReactElement => (
     <SaleTagDiv {...props}>
-        {fixSaleAmount(saleAmount)}$ off
+        {positiveRounding(saleAmount)}$ off
     </SaleTagDiv>
 );
-
-const fixSaleAmount = (amount:number) => {
-    amount >= 1 ? amount = Math.floor(amount) : amount = 1;
-    return(amount);
-}
 
 const SaleTagDiv = styled.span`
     ${({theme, ...props}):string => `
