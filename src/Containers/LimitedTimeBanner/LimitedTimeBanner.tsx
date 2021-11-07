@@ -11,7 +11,7 @@ export interface LimitedTimeBannerProps
     extends MainInterface {
         /* minutes until time runs out */ 
         minsRemaining: number,
-}
+    }
 
 export const LimitedTimeBanner: React.FC<LimitedTimeBannerProps> = ({
     minsRemaining,
