@@ -1,18 +1,18 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-interface ICardTextProps {
-    // string to be rendered on right side of card
-    leftText: string;
-    // string to be rendered on left side of card
-    rightText: string;
+interface ILeftRightTextProps extends HTMLAttributes<HTMLSpanElement> {
+    // text to be rendered on left side of card
+    leftText?: string;
+    // text to be rendered on right side of card
+    rightText?: string;
 }
 
-const CardText = ({
+const LeftRightText = ({
     leftText,
     rightText,
     ...props
-}: ICardTextProps): React.ReactElement => (
+}: ILeftRightTextProps): React.ReactElement => (
     <LeftText {...props}>
         {leftText}
         <RightText>{rightText}</RightText>
@@ -21,7 +21,6 @@ const CardText = ({
 
 const RightText = styled.span`
     text-align: right;
-    padding-left: 12px;
     margin-left: auto;
 `;
 
@@ -32,4 +31,4 @@ const LeftText = styled.p`
     font-weight: bold;
 `;
 
-export default CardText;
+export default LeftRightText;

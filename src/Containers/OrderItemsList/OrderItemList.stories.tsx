@@ -1,23 +1,22 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import OrderDetailsContent from './OrderDetailsContent';
+import { IItems, OrderItemList } from './OrderItemList';
 import { createStoryTitle } from '../../Constants';
 
 export default {
-    title: createStoryTitle('Order Details Content'),
-    component: OrderDetailsContent,
+    title: createStoryTitle('Order List'),
+    component: OrderItemList,
     args: {
         items: [
             {
                 name: 'Burger',
-                price: 6.49,
+                price: '$6.49',
                 modifiers: [
                     {
-                        name: 'Modifier Test',
                         choices: [
                             {
-                                name: 'test1',
-                                price: 1.1,
+                                name: 'Cheese',
+                                price: '$1.10',
                             },
                         ],
                     },
@@ -25,16 +24,14 @@ export default {
             },
             {
                 name: 'Wrap',
-                price: 4.98,
-                modifiers: [],
+                price: '$4.98',
             },
             {
                 name: 'Cookie',
-                price: 3.0,
-                modifiers: [],
+                price: '$3.0',
             },
         ],
     },
 } as Meta;
 
-export const Basic: Story = (args) => <OrderDetailsContent {...args} />;
+export const Basic: Story<IItems> = (args) => <OrderItemList {...args} />;

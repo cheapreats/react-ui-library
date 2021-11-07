@@ -21,12 +21,12 @@ const orderTypes = {
     SELF_DELIVERY: 'Self Delivery',
 };
 
-interface IOrderIconProps {
+export interface IOrderTypeProps {
     /* Type of order (EAT_IN, TAKE_OUT, DELIVERY, SELF_DELIVERY) */
-    orderType: string;
+    orderType: OrderTypeIdentifier;
 }
 
-export const OrderType: React.FC<IOrderIconProps> = ({
+export const OrderType: React.FC<IOrderTypeProps> = ({
     orderType,
     ...props
 }): React.ReactElement => {
@@ -62,7 +62,6 @@ const IconParagraph = styled(Paragraph)`
     font-size: 1.4rem;
     margin: -5px 0 0;
     font-weight: bold;
-    text-align: right;
 `;
 
 const Icon = styled.svg`

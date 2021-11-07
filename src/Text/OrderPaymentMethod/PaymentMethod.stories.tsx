@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import {
+    IPaymentMethodProps,
     OrderPaymentMethod,
     OrderPaymentMethodTypes,
 } from './OrderPaymentMethod';
@@ -22,4 +23,6 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story = (args) => <OrderPaymentMethod {...args} />;
+export const Basic: Story<IPaymentMethodProps> = (args) => (
+    <OrderPaymentMethod {...args} />
+);

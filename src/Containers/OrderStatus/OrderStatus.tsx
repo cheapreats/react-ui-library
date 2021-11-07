@@ -9,9 +9,9 @@ export enum OrderStatusIdentifier {
     CANCELLED = 'CANCELLED',
 }
 
-interface IOrderStatusProps {
+export interface IOrderStatusProps {
     /* Status of order (Placed, Preparing, Cancelled etc...) */
-    orderStatus: string;
+    orderStatus: OrderStatusIdentifier;
 }
 
 export const OrderStatus = ({

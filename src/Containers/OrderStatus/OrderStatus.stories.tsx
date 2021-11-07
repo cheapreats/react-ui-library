@@ -1,6 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { OrderStatus, OrderStatusIdentifier } from './OrderStatus';
+import {
+    OrderStatus,
+    OrderStatusIdentifier,
+    IOrderStatusProps,
+} from './OrderStatus';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -19,4 +23,6 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story = (args) => <OrderStatus {...args} />;
+export const Basic: Story<IOrderStatusProps> = (args) => (
+    <OrderStatus {...args} />
+);

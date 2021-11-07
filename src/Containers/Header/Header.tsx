@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export interface IHeaderProps {
-    /* string or JSX component for top left of header */
+export interface IHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
+    /* Content for top left of header */
     topLeft?: string | JSX.Element;
-    /* string or JSX component for bottom left of header */
+    /* Content for bottom left of header */
     bottomLeft?: string | JSX.Element;
-    /* string or JSX component for top right of header */
+    /* Content for top right of header */
     topRight?: string | JSX.Element;
-    /* string or JSX component for bottom right of header */
+    /* Content for bottom right of header */
     bottomRight?: string | JSX.Element;
 }
 

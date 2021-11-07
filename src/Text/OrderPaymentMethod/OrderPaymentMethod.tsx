@@ -13,12 +13,12 @@ const paymentType = {
     IN_PERSON: 'In Person',
 };
 
-interface PaymentMethodProps {
+export interface IPaymentMethodProps {
     /* Type of payment (Credit card, wallet, in person) */
-    paymentMethod: string;
+    paymentMethod: OrderPaymentMethodTypes;
 }
 
-export const OrderPaymentMethod: React.FC<PaymentMethodProps> = ({
+export const OrderPaymentMethod: React.FC<IPaymentMethodProps> = ({
     paymentMethod,
     ...props
 }) => {
