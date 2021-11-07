@@ -7,7 +7,7 @@ export default {
     title: createStoryTitle('Order ID'),
     component: OrderID,
     args: {
-        orderID: 'e2c3',
+        orderId: 'e2c3',
     },
 } as Meta;
 
