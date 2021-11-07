@@ -6,6 +6,7 @@ import { Paragraph } from '../Paragraph';
 
 const PLANE_ICON = PlaneDeparture;
 const UTENSILS_ICON = Utensils;
+const UNDERSCORE_REGEX = /(^|_)./g;
 
 export enum OrderTypeIdentifier {
     EAT_IN = 'EAT_IN',
@@ -13,13 +14,6 @@ export enum OrderTypeIdentifier {
     DELIVERY = 'DELIVERY',
     SELF_DELIVERY = 'SELF_DELIVERY',
 }
-
-const orderTypes = {
-    EAT_IN: 'Eat In',
-    TAKE_OUT: 'Take Out',
-    DELIVERY: 'Delivery',
-    SELF_DELIVERY: 'Self Delivery',
-};
 
 export interface IOrderTypeProps {
     /* Type of order (EAT_IN, TAKE_OUT, DELIVERY, SELF_DELIVERY) */
@@ -30,17 +24,25 @@ export const OrderType: React.FC<IOrderTypeProps> = ({
     orderType,
     ...props
 }): React.ReactElement => {
+    /* Gets rid of underscore and uppercase text in a word */
+    const formatText = (text: OrderTypeIdentifier): string =>
+        text
+            .toLowerCase()
+            .replace(UNDERSCORE_REGEX, (e) =>
+                e.toUpperCase().replace('_', ' '),
+            );
+
     /* Returns order type with no underscores */
-    const handleOrderType = () => {
+    const handleOrderType = (): string => {
         switch (orderType) {
             case OrderTypeIdentifier.EAT_IN:
-                return orderTypes.EAT_IN;
+                return formatText(OrderTypeIdentifier.EAT_IN);
             case OrderTypeIdentifier.TAKE_OUT:
-                return orderTypes.TAKE_OUT;
+                return formatText(OrderTypeIdentifier.TAKE_OUT);
             case OrderTypeIdentifier.SELF_DELIVERY:
-                return orderTypes.SELF_DELIVERY;
+                return formatText(OrderTypeIdentifier.SELF_DELIVERY);
             case OrderTypeIdentifier.DELIVERY:
-                return orderTypes.DELIVERY;
+                return formatText(OrderTypeIdentifier.DELIVERY);
             default:
                 return 'Unknown';
         }

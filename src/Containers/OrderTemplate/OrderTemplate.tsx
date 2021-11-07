@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import OrderID from '@Text/OrderID/OrderID';
 import Header from '../Header/Header';
-import { Paragraph } from '../../Text/Paragraph';
 import {
     OrderPaymentMethod,
     OrderPaymentMethodTypes,
@@ -47,11 +47,7 @@ export const OrderTemplate: React.FC<IOrderTemplateProps> = ({
     <OrderContainer {...props}>
         <HeaderContianer>
             <Header
-                topLeft={
-                    <Paragraph size="1.4rem" bold>
-                        {`Order #${orderId}`}
-                    </Paragraph>
-                }
+                topLeft={<OrderID orderId={orderId} />}
                 bottomLeft={
                     <OrderPaymentMethod paymentMethod={paymentMethod} />
                 }

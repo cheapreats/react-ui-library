@@ -19,7 +19,7 @@ export const OrderStatus = ({
     ...props
 }: IOrderStatusProps): React.ReactElement => {
     /* Returns color based on order status */
-    const handleOrderStatus = () => {
+    const handleOrderStatus = (): StatusColors => {
         switch (orderStatus) {
             case OrderStatusIdentifier.PREPARED:
                 return StatusColors.green;

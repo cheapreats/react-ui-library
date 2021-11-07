@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { IItems, OrderItemList } from './OrderItemList';
+import { IOrderItems, OrderItemList } from './OrderItemList';
 import { createStoryTitle } from '../../Constants';
 
 export default {
@@ -34,4 +34,4 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<IItems> = (args) => <OrderItemList {...args} />;
+export const Basic: Story<IOrderItems> = (args) => <OrderItemList {...args} />;

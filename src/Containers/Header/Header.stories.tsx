@@ -4,12 +4,12 @@ import {
     OrderStatus,
     OrderStatusIdentifier,
 } from '@Containers/OrderStatus/OrderStatus';
+import { OrderID } from '@Text/OrderID/OrderID';
 import { OrderType, OrderTypeIdentifier } from '@Text/OrderType/OrderType';
 import {
     OrderPaymentMethod,
     OrderPaymentMethodTypes,
 } from '@Text/OrderPaymentMethod/OrderPaymentMethod';
-import { Paragraph } from '@Text/Paragraph';
 import Header from './Header';
 import { createStoryTitle } from '../../Constants';
 
@@ -17,11 +17,7 @@ export default {
     title: createStoryTitle('Order Header'),
     component: Header,
     args: {
-        topLeft: (
-            <Paragraph size="1.4rem" bold>
-                Order #2a3e
-            </Paragraph>
-        ),
+        topLeft: <OrderID orderId="3c3e" />,
         bottomLeft: (
             <OrderPaymentMethod
                 paymentMethod={OrderPaymentMethodTypes.WALLET}
