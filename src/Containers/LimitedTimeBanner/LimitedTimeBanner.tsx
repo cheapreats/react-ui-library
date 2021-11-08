@@ -4,7 +4,6 @@ import {Clock} from '@styled-icons/bootstrap/Clock';
 import {MainInterface} from '@Utils/BaseStyles';
 import moment from 'moment';
 
-moment.now();
 const MINUTES_IN_YEAR = 524160;
 
 export interface LimitedTimeBannerProps
