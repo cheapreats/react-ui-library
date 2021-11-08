@@ -2,12 +2,29 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 
-const ICONSIZE = {"small": "3em", "medium": "4em", "large": "5em"};
-const BARSIZE = {
-    "small": ["0.3em", "10em"], 
-    "medium": ["0.3em", "13em"], 
-    "large": ["0.3em", "15em"]};
-const TEXTSIZE = {"small": "1em", "medium": "1em", "large": "1.5em"};
+const SIZE = {
+    small: {
+        icon: '3em',
+        barHeight: '0.3em',
+        barWidth: '10em',
+        text: '1em',
+        textHeight: '1.25em',
+    },
+    medium: {
+        icon: '4em',
+        barHeight: '0.4em',
+        barWidth: '13em',
+        text: '1.25em',
+        textHeight: '1.5em',
+    },
+    large: {
+        icon: '5em',
+        barHeight: '0.5em',
+        barWidth: '15em',
+        text: '1.5em',
+        textHeight: '1.5em',
+    },
+};
 
 interface OrderStatus {
     /* visual of one of the states */
@@ -36,7 +53,7 @@ export interface OrderTrackerProps
     /* the current status of the component */
     currIndex: number;
     /* size of the component in CSS */
-    size: string;
+    size?: 'small' | 'medium' | 'large';
 }
 
 interface IconContainerProps {
@@ -100,7 +117,7 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
     statuses,
     colors,
     currIndex,
-    size,
+    size = 'small',
     ...props
 }): React.ReactElement => {
     /**
@@ -109,7 +126,6 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
      */
     const getElements = (): React.ReactElement[] =>
         statuses.map((status, i) => {
-
             /**
              * Renders progress bar according to current status
              * @returns {React.ReactElement} A React element that is a progress bar according to current status
@@ -214,8 +230,8 @@ const inactiveToActiveIconAnimation = (color: string) => keyframes`
  * A container for icons
  */
 export const IconContainer = styled.div<IconContainerProps>`
-    height: ${({ size }) => ICONSIZE[size]};
-    width: ${({ size }) => ICONSIZE[size]};
+    height: ${({ size }) => SIZE[size].icon};
+    width: ${({ size }) => SIZE[size].icon};
 `;
 
 /**
@@ -253,8 +269,9 @@ const barAnimation = keyframes`
  * A container for progress bars
  */
 const BarContainer = styled.div<BarContainerProps>`
-    width: ${({ size }) => BARSIZE[size][1]};
-    height: ${({ size }) => BARSIZE[size][0]};
+    border-radius: 50%;
+    width: ${({ size }) => SIZE[size].barWidth};
+    height: ${({ size }) => SIZE[size].barHeight};
     align-self: center;
     background-color: ${({ index, statuses, colors }) =>
         index !== statuses.length - 1
@@ -293,9 +310,9 @@ const Text = styled.p<TextProps>`
             : colors.textNonFocusedColor};
     font-weight: ${({ currIndex, index }) =>
         currIndex === index ? 'bold' : 'normal'};
-    font-size: ${({ size }) => TEXTSIZE[size]};
+    font-size: ${({ size }) => SIZE[size].text};
     text-align: center;
     width: 100px;
-    height: 20px;
+    height: ${({ size }) => SIZE[size].textHeight};
     overflow: hidden;
 `;
