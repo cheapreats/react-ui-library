@@ -2,11 +2,12 @@ import React from 'react';
 import styled, { keyframes } from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 
-/* The split turns the size string, which is formatted as "DDpx" where "DD" is the size,
-               into an array of the form ['', 'DD', 'px'] so it needs to be sliced at index 1
-             */
-const EMPTY_LINE_REGEX = /(\d+)/;
-const WHITE_SPACE_INDEX = 1;
+const ICONSIZE = {"small": "3em", "medium": "4em", "large": "5em"};
+const BARSIZE = {
+    "small": ["0.3em", "10em"], 
+    "medium": ["0.3em", "13em"], 
+    "large": ["0.3em", "15em"]};
+const TEXTSIZE = {"small": "1em", "medium": "1em", "large": "1.5em"};
 
 interface OrderStatus {
     /* visual of one of the states */
@@ -58,7 +59,7 @@ interface BarContainerProps {
     /* index of the progress bar */
     index: number;
     /* size of the progress bar formatted as [size, unit] */
-    size: string[];
+    size: string;
     /* array of objects representing each status */
     statuses: OrderStatus[];
 }
@@ -82,7 +83,7 @@ interface TextProps {
     /* index of the progress bar */
     index: number;
     /* size of the progress bar formatted as [size, unit] */
-    size: string[];
+    size: string;
 }
 
 /**
@@ -108,15 +109,6 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
      */
     const getElements = (): React.ReactElement[] =>
         statuses.map((status, i) => {
-            /**
-             * An array representing size of the component with
-             * the element at first index the number and
-             * the element at the second index the unit
-             * NOTE: there is an issue in this code
-             */
-            const sizeArr = size
-                .split(EMPTY_LINE_REGEX)
-                .slice(WHITE_SPACE_INDEX);
 
             /**
              * Renders progress bar according to current status
@@ -158,7 +150,7 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
                         </IconContainer>
                         <Text
                             colors={colors}
-                            size={sizeArr}
+                            size={size}
                             currIndex={currIndex}
                             index={i}
                         >
@@ -168,7 +160,7 @@ export const OrderTracker: React.VFC<OrderTrackerProps> = ({
                     <BarContainer
                         colors={colors}
                         index={i}
-                        size={sizeArr}
+                        size={size}
                         statuses={statuses}
                     >
                         {renderBar()}
@@ -222,8 +214,8 @@ const inactiveToActiveIconAnimation = (color: string) => keyframes`
  * A container for icons
  */
 export const IconContainer = styled.div<IconContainerProps>`
-    height: ${({ size }) => size};
-    width: ${({ size }) => size};
+    height: ${({ size }) => ICONSIZE[size]};
+    width: ${({ size }) => ICONSIZE[size]};
 `;
 
 /**
@@ -261,10 +253,9 @@ const barAnimation = keyframes`
  * A container for progress bars
  */
 const BarContainer = styled.div<BarContainerProps>`
-    width: ${({ size }) => `${parseInt(size[0], 10) * 4}${size[1]}`};
-    height: ${({ size }) => `${parseInt(size[0], 10) / 10}${size[1]}`};
+    width: ${({ size }) => BARSIZE[size][1]};
+    height: ${({ size }) => BARSIZE[size][0]};
     align-self: center;
-    border-radius: 50%;
     background-color: ${({ index, statuses, colors }) =>
         index !== statuses.length - 1
             ? colors.iconNonFocusedColor
@@ -302,7 +293,7 @@ const Text = styled.p<TextProps>`
             : colors.textNonFocusedColor};
     font-weight: ${({ currIndex, index }) =>
         currIndex === index ? 'bold' : 'normal'};
-    font-size: ${({ size }) => `${parseInt(size[0], 10) / 3} + ${size[1]}`};
+    font-size: ${({ size }) => TEXTSIZE[size]};
     text-align: center;
     width: 100px;
     height: 20px;

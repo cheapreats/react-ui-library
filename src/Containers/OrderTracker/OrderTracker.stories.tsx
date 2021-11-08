@@ -24,7 +24,7 @@ export default {
             textFocusedColor: '#555',
         },
         currIndex: 0,
-        size: '3em',
+        size: 'small',
     },
 } as Meta;
 
