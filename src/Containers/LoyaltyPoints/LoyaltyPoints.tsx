@@ -5,16 +5,16 @@ import {Paragraph} from '@Text';
 
 export interface LoyaltyPointsProps
     extends React.HTMLAttributes<HTMLDivElement>{
-            LoyaltyAmount: number;
-            LoyaltyPointLimit: number;
+            loyaltyamount: number; //the amount of loyalty points that the user gets with purchase, used to display on component.
+            loyaltypointlimit: number; //the limit of loyalty points before it says 99+ instead.
         }
 
 export const LoyaltyPoints: React.FC<LoyaltyPointsProps> = ({
-    LoyaltyAmount,
-    LoyaltyPointLimit, 
+    loyaltyamount,
+    loyaltypointlimit, 
     ...props
 }):React.ReactElement => <LoyaltyPointsBox {...props}>{ 
-    <Paragraph>+{getLoyaltyPoints(LoyaltyAmount,LoyaltyPointLimit)}<Star /></Paragraph>   
+    <Paragraph>+{getLoyaltyPoints(loyaltyamount,loyaltypointlimit)}<Star /></Paragraph>   
     }
 </LoyaltyPointsBox>;
 
@@ -24,8 +24,8 @@ function getLoyaltyPoints(loyaltypoints: number,loyaltypointlimit: number){
     return Math.round(loyaltypoints)
 }
 
-const LoyaltyPointsBox = styled.div`
-
+const LoyaltyPointsBox = styled(Paragraph)`
+    &{
     ${({theme, ...props}):string => `
         font-family: ${theme.font.family};
         font-size: 20px;
@@ -38,6 +38,7 @@ const LoyaltyPointsBox = styled.div`
         color: ${theme.colors.loyaltyText};
         vertical-allign: middle;
     `}
+    }
 `
 const Star = styled(Stars)`
     width: 20px;
