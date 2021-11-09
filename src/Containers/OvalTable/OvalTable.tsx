@@ -51,6 +51,10 @@ export const OvalTable: React.FC<IOvalTable> = ({
 
         ...props
     }) => {
+    /**
+     * Returns an array of chairs elements.
+     * @return {JSX.Element[]} - Chairs and ChairWrappers for the table
+     */
     const getChairs: getChairsType = () =>
         chairs.map((chair, index) => {
             const {position, occupiedBy, isSeated, isVisible, isRound} = chair;
