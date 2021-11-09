@@ -3,18 +3,26 @@ import styled from 'styled-components';
 
 export interface ProfileModalProps
     extends React.HTMLAttributes<HTMLDivElement> {
-    /*  Name of the cell  */
-    title: string;
-    /* Direction of sort */
-    sortDown: boolean;
+    /* Image url */
+    image: string;
+    /*  Name of user  */
+    name: string;
+    /* Date of profile creation */
+    date: string;
 }
 
 export const ProfileModal: React.FC<ProfileModalProps> = ({
-    title,
+    image,
+    name,
+    date,
     ...props
 }): React.ReactElement => (
     <Modal {...props}>
-        <TextBold>{title}</TextBold>
+        <ProfileImage 
+            src={image}
+        />
+        <TextBold>{name}</TextBold>
+        <TextBold>{date}</TextBold>
     </Modal>
 );
 
@@ -25,13 +33,21 @@ const Modal = styled.div`
     `}
     padding: 2px;
     margin: 2px;
-    text-align: left;
-    cursor: pointer;
 `;
 
 const TextBold = styled.div`
-    display: inline;
     font-weight: bold;
     margin: 2px;
 `;
 
+const ProfileImage = styled.img`
+    width: 80px;
+    height: 80px;
+    border-radius: 999px;
+    background-color: grey;
+`;
+
+const ModalTable = styled.table`
+    width: 100%;    
+    overflow: hidden;
+`;
