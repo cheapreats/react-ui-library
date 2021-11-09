@@ -22,7 +22,6 @@ const LEFT_ROW_TEXT = 'Clients per page';
 export const RowSelector: React.FC<IRowSelectorProps> = ({
     pageSize,
     setPageSize,
-    pageOptionsLength,
     pageSelectOptions,
     smallTextProps,
     selectProps,

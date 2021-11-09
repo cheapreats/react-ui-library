@@ -151,7 +151,6 @@ export const VendorsList: React.FC<IVendorsListProps> = ({
                     />
                 )}
                 <ReactTable
-                    data={data}
                     columns={columns}
                     getTableProps={getTableProps}
                     getTableBodyProps={getTableBodyProps}

@@ -12,15 +12,13 @@ export interface QuestionMarkProps extends React.HTMLAttributes<HTMLDivElement> 
  * @param {string} title - the text which will be displayed on the textbox
  * 
  */
-export const QuestionMarkHover: React.FC<QuestionMarkProps>=({title,...props})=> {
-    return <Section {...props}>
+export const QuestionMarkHover: React.FC<QuestionMarkProps>=({title,...props})=> <Section {...props}>
     <QuestionMark> ? </QuestionMark>
     <Hover>
         <Rectangle> {title} </Rectangle>
         <Triangle> </Triangle>
     </Hover>
- </Section>
-};
+</Section>;
 
 const QuestionMark = styled.div `
     font-size: 20px;

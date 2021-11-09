@@ -1,13 +1,14 @@
-import { QuestionMarkHover,QuestionMarkProps } from "./QuestionMarkHover";
 import React from "react";
 import { Story, Meta } from '@storybook/react';
+import { createStoryTitle } from "../../Constants";
+import { QuestionMarkHover,QuestionMarkProps } from "./QuestionMarkHover";
 
 export default {
-    title: 'QuestionMarkHover',
+    title: createStoryTitle('QuestionMarkHover'),
     component: QuestionMarkHover,
     args: {
         title: 'test',
     }
-    } as Meta;
+} as Meta;
 
 export const Template: Story<QuestionMarkProps> = (args) => <QuestionMarkHover {...args} />;    
