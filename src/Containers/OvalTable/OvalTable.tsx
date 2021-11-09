@@ -175,13 +175,16 @@ const TableBody = styled.div<ITableBody>`
         height: ${relativeSize * BASE_TABLE_HEIGHT}em;
         `;
   }}
-    
+  
+  ${({theme}): string =>`
+    background-color: ${theme.colors.chairTableBackground};
+    border-color: ${theme.colors.occupancyStatusColors.Vacant};
+    `}
   position: relative;
-  background-color: gray;
   border-radius: 50%;
   border-style: solid;
-  border-color: green;
   outline: none;
+  padding: 0;
 `;
 
 interface IChairWrapper {
