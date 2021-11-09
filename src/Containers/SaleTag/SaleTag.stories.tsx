@@ -7,7 +7,7 @@ export default {
     title: createStoryTitle('SaleTag'),
     component: SaleTag,
     args: {
-        saleTagAmount: 2,
+        saleAmount: 2,
     },
 } as Meta;
 

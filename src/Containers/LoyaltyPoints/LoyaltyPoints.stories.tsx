@@ -5,16 +5,14 @@ import { createStoryTitle } from '../../Constants';
 
 export default {
   
-    title: createStoryTitle('LoyaltyPoints'),
+    title: createStoryTitle('LoyaltyPoints'),   
     component: LoyaltyPoints,
     args:{
-        loyaltyAmount: 10,  
+        loyaltyamount: 10,
+        loyaltypointlimit: 100,
     }
 }as Meta;
-
 
 export const Basic: Story<LoyaltyPointsProps> = (args) => (
     <LoyaltyPoints {...args}/> 
 )
-
-// todo switch star from text to icon using styled-icons import
