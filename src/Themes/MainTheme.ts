@@ -5,6 +5,8 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
         primary: string;
         text: string;
         loyaltyText: string;
+        bannerBackgroundColor: string;
+        ItemCardSaleGreen: string;  
         input: {
             default: string;
             success: string;
@@ -63,6 +65,8 @@ export const MainTheme: MainThemeInterface = {
         chairOccupiedBackground: '#EE2434',
         chairTableEditBackground: '#C4C4C4',
         loyaltyText: '#0000FF',
+        bannerBackgroundColor: 'rgba(0,0,0,0.5)',
+        ItemCardSaleGreen: '#04CC00', 
         PieChartColors: {
             Red: '#FF0000',
             Green: '#008000',

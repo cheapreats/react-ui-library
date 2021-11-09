@@ -1,32 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Main, MainInterface, Responsive, ResponsiveInterface } from '@Utils/BaseStyles';
-import { transition, } from '@Utils/Mixins';
-import { Container } from '@Containers/FileUpload/StyledComponents';
+import { transition } from '@Utils/Mixins';
 // eslint-disable-next-line import/no-cycle
-import {  LoyaltyPoints, LimitedTimeBanner, SaleTag } from '../../index';
+import { LoyaltyPoints, LimitedTimeBanner, SaleTag } from '../../index';
 
 export interface MenuItemCardProps
     extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
-
     LoyaltyPoints?: React.ReactElement;  
     LimitedTimeBanner?: React.ReactElement;  
     SaleTag?: React.ReactElement;  
+    itemImage: string, // Image for the Menu Item Card, hosted on any server and converted to 350px x 200px 
+    itemName: string, // Item name, heightFitContent adjusts the item card size to fit any text (keeping min size of 350px)
+    itemPrice: number, // Price of the item, will be adjusted by saleAmount and will reduce + round if above 1000
+    itemPriceLimit: number, // Limit before item price is divided by 1000, should be greater than 1000
     animated?: boolean;
     flat?: boolean;
     widthFitContent?: boolean;
     heightFitContent?: boolean; 
     sale?: boolean;
     soldOut?: boolean;
-    loyaltyPointsToggle?: boolean;
-    limitedTimeBannerToggle?: boolean,
-    saleTagToggle?: boolean,
-    loyaltyAmount: number,
-    saleTagAmount: number,
-    hoursRemaining: number,   
-    itemImage: string, 
-    itemName: string,
-    itemPrice: number,
+    loyaltyamount: number,
+    loyaltypointlimit: number,
+    saleAmount: number,
+    minsRemaining: number,   
 }
 
 export const ItemCard: React.FC<MenuItemCardProps> = ({
@@ -34,7 +31,6 @@ export const ItemCard: React.FC<MenuItemCardProps> = ({
     ...props
 }): React.ReactElement => <MenuItemCardBox {...props}>{children}</MenuItemCardBox>;
 
-// To do: disable toggles + clickable when enabling sold out state
 export const MenuItemCard: React.FC<MenuItemCardProps> = ({
     animated,
     flat,
@@ -42,73 +38,72 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
     heightFitContent,
     sale,
     soldOut,
-    loyaltyPointsToggle,
-    limitedTimeBannerToggle,
-    saleTagToggle, 
     itemImage, 
     itemName,
     itemPrice,
-    saleTagAmount,
-    loyaltyAmount, 
-    hoursRemaining, 
+    itemPriceLimit,
+    saleAmount,
+    loyaltyamount,
+    loyaltypointlimit, 
+    minsRemaining, 
     ...props
-}): React.ReactElement => (
-        
+
+}): React.ReactElement => (  
     <ItemCard {...props} itemImage={itemImage} itemName={itemName} itemPrice={itemPrice} animated={animated} 
-        flat={flat} widthFitContent={widthFitContent} sale={sale} soldOut={soldOut} saleTagAmount = {saleTagAmount}
-        loyaltyPointsToggle={loyaltyPointsToggle} saleTagToggle = {saleTagToggle} loyaltyAmount = {loyaltyAmount} hoursRemaining = {hoursRemaining}
-        limitedTimeBannerToggle={limitedTimeBannerToggle} heightFitContent = {heightFitContent}> 
-        
+        flat={flat} widthFitContent={widthFitContent} sale={sale} soldOut={soldOut} saleAmount = {saleAmount} itemPriceLimit = {itemPriceLimit}
+        loyaltyamount = {loyaltyamount} minsRemaining = {minsRemaining} loyaltypointlimit = {loyaltypointlimit} heightFitContent = {heightFitContent}> 
+
         <img src={itemImage} alt={itemName} style={{ width: 350, height: 200 }}/>
         <ItemHeader>{itemName}</ItemHeader>
-        { soldOut && <Container><SoldOutBox>Sold Out</SoldOutBox></Container> }
+        { soldOut && <SoldOutBox>Sold Out</SoldOutBox>}
 
-        { limitedTimeBannerToggle && <Container>
-            <LimitedTimeBannerPosition> <LimitedTimeBanner hoursRemaining={hoursRemaining}/></LimitedTimeBannerPosition> 
-        </Container> }
+        { !!minsRemaining && 
+        <LimitedTimeBannerPosition> <LimitedTimeBanner minsRemaining={minsRemaining}/></LimitedTimeBannerPosition> } 
+    
+        { !!loyaltyamount && 
+        <LoyaltyPointsPosition> <LoyaltyPoints loyaltyamount={loyaltyamount} loyaltypointlimit = {loyaltypointlimit} /></LoyaltyPointsPosition> }
 
-        { loyaltyPointsToggle && <Container>
-            <LoyaltyPointsPosition> <LoyaltyPoints loyaltyAmount={loyaltyAmount}/></LoyaltyPointsPosition>
-        </Container> }
+        { !!saleAmount && 
+        <SaleTagPosition><SaleTag saleAmount={saleAmount}/></SaleTagPosition> }
 
-        { saleTagToggle && <Container>
-            <SaleTagPosition><SaleTag saleTagAmount={saleTagAmount}/></SaleTagPosition>
-        </Container> } 
-
-        { sale? 
-            <>
-                <SalePropsSlash>{itemPrice}</SalePropsSlash>
-                <OnSale>{itemPrice - saleTagAmount}</OnSale>
+        { sale
+            ? <>
+                <SalePropsSlash>${itemPrice}</SalePropsSlash>
+                <OnSale>${itemPrice - saleAmount}</OnSale>
             </>
-            : [
-                itemPrice >= 1000 ? 
-                    <> 
-                        <SaleProps1k>{(Math.round(itemPrice * .1) / .1) / 1000}K</SaleProps1k>
-                    </> 
-                    : 
-                    <SaleProps>{itemPrice}</SaleProps>
+            : [ itemPrice >= itemPriceLimit 
+                ? <> <SaleProps1k>${getItemValue(itemPrice, itemPriceLimit)}K</SaleProps1k> </> 
+                : <SaleProps>${itemPrice}</SaleProps> 
             ]
         }
-        
     </ItemCard> 
 );
+/**
+* Checks if the Item Price is greater than or equal to the item price limit 
+* Returns item price to the nearest tenth rounded
+* Also reduces the amount by 1000, the K is added in the component
+*/
+function getItemValue(itemPrice: number, itemPriceLimit: number){
+    if(itemPrice >= itemPriceLimit)
+        return ((Math.round(itemPrice * .1) / .1) / 1000) 
+    return itemPriceLimit };
 
 const MenuItemCardBox = styled.div<MenuItemCardProps & MainInterface & ResponsiveInterface>`
     position: relative; 
-    background-color: white;
     width: 350px;
     height: 350px; 
+    min-height: 350px; 
     z-index: 1; 
-    cursor: pointer; 
+    cursor: pointer;
+    box-shadow: ${({ flat, theme }): string => theme.depth[flat ? 0 : 1]}; 
     
     ${({ theme, ...props }): string => `
     border-radius: ${theme.dimensions.radius};
-    font-family: ${theme.font.family};
+    font-family: ${theme.colors.background}};
+    background-color: white; 
     ${Main({
         ...props,
     })} `}
-
-    box-shadow: ${({ flat, theme }): string => theme.depth[flat ? 0 : 1]};
 
     ${({ animated, flat, theme }): string =>
         animated ? ` ${transition(['box-shadow'])} &:hover {
@@ -125,9 +120,7 @@ const MenuItemCardBox = styled.div<MenuItemCardProps & MainInterface & Responsiv
     ${({ widthFitContent }): string => `${widthFitContent ? 'width:fit-content;' : ''} `}
     ${({ heightFitContent }): string => `${heightFitContent ? 'height:fit-content;' : ''} `}
 `;
-
 const SoldOutBox = styled.div`
-    // Theme Stuff
     ${({theme}):string => `
     font-family: ${theme.font.family};
     color: ${theme.colors.background}};
@@ -146,8 +139,8 @@ const ItemHeader = styled.header`
     font-weight: bold;
     padding-left: 10px;
     padding-bottom: 10px; 
-    padding-right: 100px;
-    font-size: 40px;  
+    padding-right: 120px;
+    font-size: 35px;  
 `
 const SaleProps = styled.header`  
     font-weight: bold; 
@@ -164,16 +157,19 @@ const SalePropsSlash = styled(SaleProps)`
     top: 230px; 
 `
 const SaleProps1k = styled(SaleProps)`
-    color: green;
     font-size: 35px;
+    ${({theme}):string => `
+    color: ${theme.colors.ItemCardSaleGreen};
+    `}
 `
-
 const OnSale = styled.header`
     position: absolute;
-    font-size: 40px;
+    font-size: 35px;
     text-align: right;
     font-weight: bold; 
-    color: #EE2434; 
+    ${({theme}):string => `
+    color: ${theme.colors.primary};
+    `}
     padding-right: 10px;
     right: 10px;
     top: 300px; 
@@ -187,8 +183,7 @@ const SaleTagPosition = styled.div`
     right: 10px;
     top: 53px;
 `
-
 const LimitedTimeBannerPosition = styled.div`
     position: absolute;
-    top: 135px; 
+    top: 160px; 
 `
