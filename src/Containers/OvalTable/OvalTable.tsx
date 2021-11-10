@@ -24,16 +24,6 @@ export interface IOvalTable{
     tableIndex: number;
     /* Index number for the currently selected table */
     selectedIndex: number;
-    /**
-     * Function to handle onClick event for the chair
-     * @param parentTableIndex - parent table index in the tables array
-     * @param chairIndex - chair index in chair array
-     */
-    onChairClick: (
-        parentTableIndex: number,
-        chairIndex: number,
-        selectedTableIndex: number,
-    ) => void;
 }
 
 /**
@@ -47,7 +37,6 @@ export const OvalTable: React.FC<IOvalTable> = ({
         tableUse = 'TableForManagement',
         tableIndex = 0,
         selectedIndex = -1,
-        onChairClick,
 
         ...props
     }): React.ReactElement => {
@@ -75,7 +64,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
                     tableIndex={tableIndex}
                     chairIndex={index}
                     selectedIndex={selectedIndex}
-                    onChairClick={onChairClick}
+                    onChairClick={chair.onChairClick}
                 />
             </ChairWrapper>
             )});
