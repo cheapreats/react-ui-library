@@ -32,7 +32,10 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
         chairOccupiedBackground: string;
         chairTableEditBackground: string;
         bannerBackgroundColor: string;
+        clickedBackground: string;
+        clickedText: string;
     };
+    
 }
 
 export const MainTheme: MainThemeInterface = {
@@ -67,5 +70,7 @@ export const MainTheme: MainThemeInterface = {
             Green: '#008000',
             Yellow: '#ffff00',
         },
+        clickedBackground: '#d7e5f0',
+        clickedText: '#191970',
     },
 };
