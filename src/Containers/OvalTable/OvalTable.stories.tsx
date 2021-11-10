@@ -2,6 +2,7 @@ import {Meta, Story} from "@storybook/react";
 import {createStoryTitle} from "../../Constants";
 import {IOvalTable, OvalTable} from "@Containers/OvalTable/OvalTable";
 import React from "react";
+import {action} from "@storybook/addon-actions";
 
 export default {
     title: createStoryTitle('OvalTable'),
@@ -9,22 +10,6 @@ export default {
 } as Meta;
 
 const Template: Story<IOvalTable> = (args) => <OvalTable {...args} />;
-
-/**
- * Prints the Selected Child index to the console when Chair is clicked
- * @param tableIndex
- * @param chairIndex
- * @param selectedTableIndex
- */
-const handleOnChairClick = (
-    tableIndex: number,
-    chairIndex: number,
-    selectedTableIndex: number,
-) => {
-    console.log(
-        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
-    );
-};
 
 export const NineChairs = Template.bind({});
 NineChairs.args = {
@@ -42,7 +27,7 @@ NineChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -55,7 +40,7 @@ NineChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -68,7 +53,7 @@ NineChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -81,7 +66,7 @@ NineChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -94,7 +79,7 @@ NineChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -107,7 +92,7 @@ NineChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -120,7 +105,7 @@ NineChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -133,7 +118,7 @@ NineChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -146,7 +131,7 @@ NineChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
     ],
     relativeSize: 0.5,
@@ -168,7 +153,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -181,7 +166,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -194,7 +179,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -207,7 +192,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -220,7 +205,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -233,7 +218,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -246,7 +231,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -259,7 +244,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -272,7 +257,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -285,7 +270,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -298,7 +283,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
         {
             position: 'top',
@@ -311,7 +296,7 @@ TwelveChairs.args = {
             chairIndex: 0,
             tableIndex: 0,
             selectedIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair was clicked"),
         },
     ],
     relativeSize: 1,
