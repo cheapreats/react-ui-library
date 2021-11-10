@@ -50,7 +50,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
         onChairClick,
 
         ...props
-    }) => {
+    }): React.ReactElement => {
     /**
      * Returns an array of chairs elements.
      * @return {JSX.Element[]} - Chairs and ChairWrappers for the table
@@ -164,7 +164,6 @@ interface ITableBody {
     numOfChairs: number;
     relativeSize: number;
 }
-
 
 const TableBody = styled.div<ITableBody>`
   
