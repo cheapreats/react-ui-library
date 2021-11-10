@@ -26,9 +26,6 @@ export const PartySizeSelector: React.FC<IPartySizeSelector> = ({
                 <Icon as={person}/>
             );
         }else {
-            if (clientIndex < 10){
-
-            }
             return (
                 <SecondIcon as={personFill}/>
             );
