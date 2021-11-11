@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components';
+import { ThreeDotsVertical } from '@styled-icons/bootstrap/ThreeDotsVertical';
 import {
     TableOptions,
     useFilters,
@@ -9,6 +10,7 @@ import { CRMRowProps } from '../CRMRow/CRMRow';
 
 export interface ICRMTableProps extends TableOptions<CRMRowProps> {
     onRowClick: (rowData: CRMRowProps) => void;
+    onMenuClick: () => void;
 }
 
 export const CRMTable: React.FC<ICRMTableProps> = ({
@@ -16,6 +18,7 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
     data,
     defaultColumn,
     onRowClick,
+    onMenuClick,
     ...props
 }): React.ReactElement => {
     const { 
@@ -46,6 +49,7 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
                         {cell.render('Cell')}
                     </CRMTableData>
                 ))}
+                <CRMTableMenuIcon onClick={(event: SyntheticEvent<HTMLInputElement>) => {onMenuClick(); event.stopPropagation();}} />
             </CRMTableDataRow>
         );
     });
@@ -100,3 +104,9 @@ const CRMTableData = styled.td`
         padding: ${theme.dimensions.padding.default};
     `}
 `
+const CRMTableMenuIcon = styled(ThreeDotsVertical)`
+    ${({theme}) => `
+        padding: ${theme.dimensions.padding.default};
+    `}  
+    height: 25px;
+`;
