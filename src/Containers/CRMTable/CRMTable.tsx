@@ -1,14 +1,18 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components';
 import {
     TableOptions,
     useFilters,
-    useTable
+    useTable,
+    useRowSelect
 } from 'react-table';
 import { CRMRowProps } from '../CRMRow/CRMRow';
+import { Checkbox } from '../../Inputs/CheckBox/Checkbox';
 
 export interface ICRMTableProps extends TableOptions<CRMRowProps> {
     onRowClick: (rowData: CRMRowProps) => void;
+    onCheckboxClick: () => void;
+    onAllCheckboxCLick: () => void;
 }
 
 export const CRMTable: React.FC<ICRMTableProps> = ({
@@ -16,6 +20,8 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
     data,
     defaultColumn,
     onRowClick,
+    onCheckboxClick,
+    onAllCheckboxCLick,
     ...props
 }): React.ReactElement => {
     const { 
@@ -23,8 +29,34 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
         getTableBodyProps, 
         headerGroups, 
         rows, 
-        prepareRow 
-    } = useTable({ columns, data, defaultColumn }, useFilters);
+        prepareRow,
+    } = useTable({ columns, data, defaultColumn },
+        useFilters,
+        useRowSelect,
+        hooks => {
+            hooks.visibleColumns.push(( columns ) => [
+                {
+                    id: 'selection',
+                    Header: ({ getToggleAllRowsSelectedProps }) => (
+                        <div>
+                            <Checkbox {...getToggleAllRowsSelectedProps()} onChange={onAllCheckboxCLick} 
+                                onClick={(event: SyntheticEvent<HTMLInputElement>): void => {
+                                    event.stopPropagation();
+                                }}/>
+                        </div>
+                    ),
+                    Cell: ({ row }) => (
+                        <div>
+                            <Checkbox {...row.getToggleRowSelectedProps()} onChange={onCheckboxClick} 
+                                onClick={(event: SyntheticEvent<HTMLInputElement>): void => {
+                                    event.stopPropagation();
+                                }}/>
+                        </div>
+                    )
+                },
+                ...columns,
+            ])
+        })
 
     const buildHeaderGroups = () => headerGroups.map((headerGroup) => (
         <CRMTableHeaderRow {...headerGroup.getHeaderGroupProps()}>
