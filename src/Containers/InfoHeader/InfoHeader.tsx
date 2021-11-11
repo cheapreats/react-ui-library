@@ -11,9 +11,10 @@ export const InfoHeader: React.FC<InfoHeaderProps>  = ({
     Text,
     ...props
 }): React.ReactElement => (
-    <InfoHeaderStyle>
-    {Text} <Icon />
-</InfoHeaderStyle>
+    <InfoHeaderStyle {...props}>
+        <Icon />
+            {Text} 
+    </InfoHeaderStyle>
 );
 
 const InfoHeaderStyle = styled.header`
