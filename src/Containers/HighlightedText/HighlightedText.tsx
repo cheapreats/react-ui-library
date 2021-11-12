@@ -27,7 +27,7 @@ export interface HighlightedString {
     /** content of DropdownItems */
     listItemsBodies?: Array<JSX.Element>;
     /** New (0) for opaque text, Old (1) for transparent text. None for automatic */
-    overrideAge?: Age;
+    isOld?: Age;
 }
 
 // extends line div
@@ -65,8 +65,8 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
      */
     const getTextComponent = (label: HighlightedString, index: number): React.ReactElement => {
         let opacity: number;
-        if (label.overrideAge != null){
-            if (label.overrideAge) {
+        if (label.isOld != null){
+            if (label.isOld == Age.New) {
                 opacity = newTextOpacity
             } else {
                 opacity = oldTextOpacity
