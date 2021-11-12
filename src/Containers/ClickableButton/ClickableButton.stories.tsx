@@ -7,7 +7,7 @@ export default{
     title: createStoryTitle('ClickableButton'),
     component: ClickableButton,
     args:{
-        buttontext: 'test',
+        buttontext: 'test', 
     }
 }as Meta;
 

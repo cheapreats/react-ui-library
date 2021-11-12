@@ -1,17 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
 export interface ClickableButtonProps extends React.HTMLAttributes<HTMLDivElement>{
     buttontext: string;
 };
 
 export const ClickableButton: React.FC<ClickableButtonProps> = ({
-    buttontext,
-    onClick,
+    buttontext, //the text that is displayed on the button.
+    onClick, //onclick not currently used but would be if the button did anything and would run on press.
     ...props
 }): React.ReactElement => <ClickableButtonBox {...props}>{
-    <p>{buttontext}</p>
+    <p>
+        {buttontext}
+    </p>
 }</ClickableButtonBox>;
 
 const ClickableButtonBox = styled.div`
@@ -21,6 +22,7 @@ const ClickableButtonBox = styled.div`
             line-height: 30px;
             width: 100px;
             height: 35px;
+            overflow: hidden;
             font-family: ${theme.font.family};
             border-radius:${theme.dimensions.radius};
             background-color: ${theme.colors.background};
@@ -36,3 +38,6 @@ const ClickableButtonBox = styled.div`
         }
     `}
 `
+export default ClickableButton;
+
+//todo change from css to prop state for hover
