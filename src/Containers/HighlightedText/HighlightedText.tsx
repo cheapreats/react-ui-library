@@ -8,6 +8,11 @@ import { TextLayoutProps } from '../../Fragments/TextLayout';
 const newTextOpacity = 1;
 const oldTextOpacity = 0.5;
 
+enum Age{
+    New = 0,
+    Old = 1,
+}
+
 export interface HighlightedString {
     /** contents of the string */
     text: string;
@@ -21,8 +26,8 @@ export interface HighlightedString {
     listItemsArgs?: Array<IDropdownItemProps>;
     /** content of DropdownItems */
     listItemsBodies?: Array<JSX.Element>;
-    /** true to override age as 'new', false to override as 'old'. Leave unfilled for automatic. */
-    overrideAge?: boolean;
+    /** New (0) for opaque text, Old (1) for transparent text. None for automatic */
+    overrideAge?: Age;
 }
 
 // extends line div
