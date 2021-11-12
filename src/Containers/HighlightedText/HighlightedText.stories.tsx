@@ -58,7 +58,7 @@ OldText.args = {
         {
             text: 'Ordering a',
             isSpecial: false,
-            overrideAge: false,
+            isOld: 1,
         },
         {
             text: 'Burger',
@@ -68,7 +68,7 @@ OldText.args = {
                 <ClickableSmallText onClick={action('Burger Clicked.')}>Burger</ClickableSmallText>, 
                 <ClickableSmallText onClick={action('Fries Clicked.')}>Fries</ClickableSmallText>
             ],
-            overrideAge: false,
+            isOld: 1,
         },
     ],
 };
@@ -81,12 +81,12 @@ BothText.args = {
         {
             text: 'Welcome to Burger Barn.',
             isSpecial: false,
-            overrideAge: false,
+            isOld: 1,
         },
         {
             text: 'Would you like a ',
             isSpecial: false,
-            overrideAge: true,
+            isOld: 0,
         },
         {
             text: 'Burger',
@@ -96,7 +96,7 @@ BothText.args = {
                 <ClickableSmallText onClick={action('Burger Clicked.')}>Burger</ClickableSmallText>, 
                 <ClickableSmallText onClick={action('Fries Clicked.')}>Fries</ClickableSmallText>
             ],
-            overrideAge: true,
+            isOld: 0,
         },
     ],
 };
