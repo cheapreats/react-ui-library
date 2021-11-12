@@ -25,8 +25,7 @@ padding-top: 8px;
 const Icon = styled(InfoCircleFill)`
     width: 16px;
     float: center;
-    padding-left: 8px;
-    padding-bottom: 5px;
+    padding: 0 0 5px 8px;
 `;
 
 export default InfoHeader;
