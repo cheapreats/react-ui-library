@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 
-const SVG_CONTAINER_WIDTH = 50;
+const SVG_CONTAINER_WIDTH = 30;
 const SVG_HORIZONTAL_START = 10;
 
 export interface IAccordionTierProps extends React.HTMLAttributes<HTMLDivElement> {
@@ -24,15 +24,27 @@ export const AccordionTier: React.FC<IAccordionTierProps> = ({
 
     useEffect((): void => {
         const childrenContainer = childrenRef.current;
+        const childHeights: number[] = [];
         if(childrenContainer){
             Array.from(childrenContainer.children).forEach((child) => {
                 totalChildrenHeight += child.clientHeight;
+                childHeights.push(child.clientHeight);
             })
         }
 
+        const horizontalDistance = SVG_CONTAINER_WIDTH - SVG_HORIZONTAL_START;
+        let currentOffset = 0;
+
         setPath(
             <svg width={`${SVG_CONTAINER_WIDTH}px`} height={`${totalChildrenHeight}px`} xmlns="http://www.w3.org/2000/svg">
-                <path d={`M${SVG_HORIZONTAL_START} 0 V${totalChildrenHeight}`} stroke="black" fill="transparent"/>
+                <path d={`M${SVG_HORIZONTAL_START} 0 V${totalChildrenHeight - (childHeights[childHeights.length - 1] / 2)}`} stroke="black" fill="transparent"/>
+                {childHeights.map((childHeight) => {
+                    currentOffset += childHeight / 2;
+                    const SVGPath = `M${SVG_HORIZONTAL_START} ${currentOffset} H${horizontalDistance}`
+                    currentOffset += childHeight / 2;
+
+                    return(<path d={SVGPath} stroke="black" fill="transparent"/>);
+                })}
             </svg>
         );
     })
