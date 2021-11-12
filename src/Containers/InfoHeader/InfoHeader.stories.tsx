@@ -7,7 +7,7 @@ export default {
     title: createStoryTitle('InfoHeader'),
     component: InfoHeader,
     args: {
-        Text: 'Reach', 
+        infotext: 'Reach', 
     },
 } as Meta;
 
