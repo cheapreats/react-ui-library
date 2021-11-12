@@ -12,7 +12,7 @@ export const InfoHeader: React.FC<InfoHeaderProps>  = ({
     ...props
 }): React.ReactElement => (
     <InfoHeaderStyle {...props}>
-        {Text} 
+        {infotext} 
             <Icon />
     </InfoHeaderStyle>
 );
