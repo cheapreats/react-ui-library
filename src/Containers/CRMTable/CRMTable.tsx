@@ -49,7 +49,7 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
                         {cell.render('Cell')}
                     </CRMTableData>
                 ))}
-                <CRMTableMenuIcon onClick={(event: SyntheticEvent<HTMLInputElement>) => {onMenuClick(); event.stopPropagation();}} />
+                <CRMTableMenuIcon onClick={(event: SyntheticEvent<SVGElement>) => {onMenuClick(); event.stopPropagation();}} />
             </CRMTableDataRow>
         );
     });
@@ -85,7 +85,6 @@ const CRMTableDataRow = styled.tr`
         
         :hover{
             border: none;
-            
             transform: scale(1.015, 1.05);
             box-shadow: ${theme.depth[1]};
     `}
@@ -95,7 +94,6 @@ const CRMTableHeaderCell = styled.th`
     ${({theme}) => `
         padding: ${theme.dimensions.padding.default};
     `}
-
     text-align: left;
 `;
 
