@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Modal } from '../Modal/Modal';
+import { Tag } from '../Tag/Tag';
 
 export interface ProfileModalProps
     extends React.HTMLAttributes<HTMLDivElement> {
@@ -9,30 +11,43 @@ export interface ProfileModalProps
     name: string;
     /* Date of profile creation */
     date: string;
+    /* Placeholder text for tags */
+    tags: string;
 }
 
 export const ProfileModal: React.FC<ProfileModalProps> = ({
     image,
     name,
+    tags = {Tag},
     date,
     ...props
 }): React.ReactElement => (
-    <Modal {...props}>
+    <MyModal state={[true, () => true]} {...props}>
         <ProfileImage 
             src={image}
         />
         <TextBold>{name}</TextBold>
-        <TextBold>{date}</TextBold>
-    </Modal>
+        <MyTag>
+            {tags}
+        </MyTag>
+        <TextBold >{date}</TextBold>
+    </MyModal>
 );
 
-const Modal = styled.div`
+const MyModal = styled(Modal)`
     ${({ theme }) => `
         color: ${theme.colors.text};
         font-size: ${theme.font.size.h5}
     `}
     padding: 2px;
-    margin: 2px;
+    margin: auto;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    justify-content: center;
 `;
 
 const TextBold = styled.div`
@@ -47,7 +62,7 @@ const ProfileImage = styled.img`
     background-color: grey;
 `;
 
-const ModalTable = styled.table`
+const MyTag = styled(Tag)`
     width: 100%;    
     overflow: hidden;
 `;

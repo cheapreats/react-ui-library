@@ -10,7 +10,8 @@ export default {
     args: {
         image: 'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg',
         name: 'Joshua',
-        date: '02-08-1986'
+        date: '02-08-1986',
+        tags: 'tags'
     },
 } as Meta;
 
