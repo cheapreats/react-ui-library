@@ -4,11 +4,11 @@ import {InfoCircleFill} from '@styled-icons/bootstrap/InfoCircleFill';
 
 export interface InfoHeaderProps extends React.HTMLAttributes<HTMLDivElement> {
     /* Text that will be shown */
-    Text: String;
+    infotext: String;
 }
 
 export const InfoHeader: React.FC<InfoHeaderProps>  = ({
-    Text,
+    infotext,
     ...props
 }): React.ReactElement => (
     <InfoHeaderStyle {...props}>
@@ -28,4 +28,5 @@ const Icon = styled(InfoCircleFill)`
     padding-left: 8px;
     padding-bottom: 5px;
 `;
+
 export default InfoHeader;
