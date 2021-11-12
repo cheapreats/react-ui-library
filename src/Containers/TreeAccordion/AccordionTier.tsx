@@ -16,13 +16,19 @@ export const AccordionTier: React.FC<IAccordionTierProps> = ({
     ...props
 }): React.ReactElement => {
     let totalChildrenHeight = 0;
-
     const [path, setPath] = useState(<svg />);
+    const [isActive, setIsActive] = useState(true);
+    const [visibleHeight, setHeight] = useState(0);
 
+    const toggleAccordian = (): void => {
+        setIsActive(!isActive);
+    }
 
     const childrenRef = useRef<HTMLDivElement>(null);
+    const headerRef = useRef<HTMLDivElement>(null);
 
     useEffect((): void => {
+        console.log(childrenRef);
         const childrenContainer = childrenRef.current;
         const childHeights: number[] = [];
         if(childrenContainer){
@@ -47,11 +53,23 @@ export const AccordionTier: React.FC<IAccordionTierProps> = ({
                 })}
             </svg>
         );
-    })
+    }, [childrenRef])
+
+    useEffect((): void => {
+        const headerNode = headerRef.current;
+        const childrenContianer = childrenRef.current;
+        if(headerNode && childrenContianer){
+            if(isActive){
+                setHeight(headerNode.clientHeight + childrenContianer.clientHeight)
+            } else {
+                setHeight(headerNode.clientHeight)
+            }
+        }
+    }, [isActive]);
 
     return(
-        <Tier {...props}>
-            <HeaderContainer>
+        <Tier {...props} height={visibleHeight}>
+            <HeaderContainer ref={headerRef} onClick={toggleAccordian}>
                 {header}
             </HeaderContainer>
             <BodyContainer>
@@ -66,12 +84,21 @@ export const AccordionTier: React.FC<IAccordionTierProps> = ({
     )
 }
 
-const Tier = styled.div`
+interface ITierProps{
+    height: number;
+}
 
+const Tier = styled.div<ITierProps>`
+    overflow: hidden;
+    ${(({ height }) => `
+        height: ${height}px;
+    `)}
 `;
 
 const HeaderContainer = styled.div`
-
+    :hover{
+        cursor: pointer
+    }
 `;
 
 const BodyContainer = styled.div`
