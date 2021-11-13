@@ -78,6 +78,7 @@ export const DraggableCanvas = (): ReactElement => {
                                 partyName=""
                                 isSquare
                                 occupancyStatus="Vacant"
+                                timeLastServed="00:00:00"
                                 relativeSize={0.4}
                                 chairs={[
                                     {
@@ -124,6 +125,7 @@ export const DraggableCanvas = (): ReactElement => {
                                 partyName="Tina"
                                 isSquare
                                 occupancyStatus="Occupied"
+                                timeLastServed="00:00:00"
                                 relativeSize={0.4}
                                 chairs={[
                                     {
@@ -170,6 +172,7 @@ export const DraggableCanvas = (): ReactElement => {
                                 partyName="Scott"
                                 isSquare={false}
                                 occupancyStatus="Occupied"
+                                timeLastServed="00:00:00"
                                 chairs={[
                                     {
                                         position: 'top',
@@ -288,6 +291,7 @@ export const DraggableCanvas = (): ReactElement => {
                                 partyName="Dmytro"
                                 isSquare={false}
                                 occupancyStatus="Reserved"
+                                timeLastServed="00:00:00"
                                 relativeSize={0.4}
                                 chairs={[
                                     {
@@ -357,6 +361,7 @@ export const DraggableCanvas = (): ReactElement => {
                                 tableID="T2"
                                 partyName="Corey"
                                 occupancyStatus="Occupied"
+                                timeLastServed="00:00:00"
                                 relativeSize={0.5}
                                 chairs={[
                                     {

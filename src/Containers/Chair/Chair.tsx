@@ -2,6 +2,7 @@ import React from 'react';
 import styled, { css, useTheme } from 'styled-components';
 import { Eye, EyeSlash } from '@styled-icons/bootstrap';
 
+
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
 type getRoundChairType = () => JSX.Element;
@@ -11,6 +12,7 @@ type getPositionChairType = () => JSX.Element;
 type getChairTextType = () => JSX.Element;
 
 type handleClickType = () => void;
+
 
 type tableUseTypes =
     | 'AddTableButton'
@@ -65,6 +67,7 @@ export interface IChair {
      * @param parentTableIndex - parent table index in the tables array
      * @param chairIndex - chair index in chair array
      */
+
     onChairClick: (
         parentTableIndex: number,
         chairIndex: number,
@@ -72,7 +75,7 @@ export interface IChair {
     ) => void;
 }
 
-/**
+    /**
  * Primary UI component for user interaction
  */
 export const Chair: React.FC<IChair> = ({

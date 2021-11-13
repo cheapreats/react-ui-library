@@ -40,6 +40,11 @@ export interface ICircleTable {
      */
     occupancyStatus: occupancyStatusTypes;
     /**
+     * Timer for the last time that table was served
+     * format: Hours:Minutes:Seconds
+     */
+    timeLastServed: string;
+    /**
      * The size for the component relative to the parent
      */
     relativeSize: number;
@@ -85,6 +90,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
     chairs = [],
     partyName = 'Null',
     occupancyStatus = 'Vacant',
+    timeLastServed= '0:00:00',
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
     arrayIndex = 0,
@@ -189,10 +195,25 @@ export const CircleTable: React.FC<ICircleTable> = ({
                 return (
                     <TableNumForEditScreen relativeSize={relativeSize}>
                         {tableID}
-                    </TableNumForEditScreen>
-                );
-            default:
-                return <div />;
+                        <br />
+                        {partyName}
+                        <br />
+                        <Status occupancyStatus={occupancyStatus}>
+                            {occupancyStatus}
+                        </Status>
+                        {occupancyStatus === 'Occupied' && <text>{`${timeLastServed}`}</text>}
+                        <br />
+                    </div>
+                </TableInfo>
+            );
+        case 'TableForEditCanvas':
+            return (
+                <TableNumForEditScreen relativeSize={relativeSize}>
+                    {tableID}
+                </TableNumForEditScreen>
+            );
+        default:
+            return <div />;
         }
     };
 

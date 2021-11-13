@@ -3,6 +3,8 @@ import { Meta, Story } from '@storybook/react';
 import { Chair, IChair } from './Chair';
 import { createStoryTitle } from '../../Constants';
 
+
+
 export default {
     title: createStoryTitle('Chair'),
     component: Chair,
