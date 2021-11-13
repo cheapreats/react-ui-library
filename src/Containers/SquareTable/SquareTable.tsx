@@ -261,36 +261,37 @@ export const SquareTable: React.FC<ISquareTable> = ({
      */
     const getTableBodyContent: getTableBodyContentType = () => {
         switch (tableUse) {
-            case 'AddTableButton':
-                return <StyledPlus />;
-            case 'TableForManagement':
-                return (
-                    <Row relativeSize={relativeSize}>
-                        <TableInfo relativeSize={relativeSize}>
-                            <div>
-                                {`${tableID}\n${partyName}`}
-                                <Status occupancyStatus={occupancyStatus}>
-                                    {occupancyStatus}
-                                </Status>
-                            </div>
-                        </TableInfo>
-                        <ColorDiv
-                            relativeSize={relativeSize}
-                            chairNumOnSide={
-                                isSquare ? squareTableSize : rectangleSideSize
-                            }
-                            occupancyStatus={occupancyStatus}
-                        />
-                    </Row>
-                );
-            case 'TableForEditCanvas':
-                return (
-                    <TableNumForEditScreen relativeSize={relativeSize}>
-                        {tableID}
-                    </TableNumForEditScreen>
-                );
-            default:
-                return <div />;
+        case 'AddTableButton':
+            return <StyledPlus />;
+        case 'TableForManagement':
+            return (
+                <Row relativeSize={relativeSize}>
+                    <TableInfo relativeSize={relativeSize}>
+                        <div>
+                            {`${tableID}\n${partyName}`}
+                            <Status occupancyStatus={occupancyStatus}>
+                                {occupancyStatus}
+                            </Status>
+                            {occupancyStatus === 'Occupied' && <text>{`${timeLastServed}`}</text>}
+                        </div>
+                    </TableInfo>
+                    <ColorDiv
+                        relativeSize={relativeSize}
+                        chairNumOnSide={
+                            isSquare ? squareTableSize : rectangleTableSize
+                        }
+                        occupancyStatus={occupancyStatus}
+                    />
+                </Row>
+            );
+        case 'TableForEditCanvas':
+            return (
+                <TableNumForEditScreen relativeSize={relativeSize}>
+                    {tableID}
+                </TableNumForEditScreen>
+            );
+        default:
+            return <div />;
         }
     };
 
