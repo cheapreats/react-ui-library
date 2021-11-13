@@ -77,9 +77,10 @@ export const Datepicker: React.FC<DatepickerProps> = ({
         setText(printDate(value));
     }, [value]);
 
-    const handleText = useCallback((el): void => setText(el.target.value), [
-        text,
-    ]);
+    const handleText = useCallback(
+        (el): void => setText(el.target.value),
+        [text],
+    );
 
     const selectDate = useCallback((el): void => {
         const val = new Date(el.target.getAttribute('data'));
@@ -95,15 +96,14 @@ export const Datepicker: React.FC<DatepickerProps> = ({
     }, []);
 
     const changePage = useCallback(
-        (change = 1): React.MouseEventHandler => (): void => {
-            setDate(
-                (d): Date => {
+        (change = 1): React.MouseEventHandler =>
+            (): void => {
+                setDate((d): Date => {
                     const curr: Date = new Date(d || new Date());
                     curr.setMonth(curr.getMonth() + change);
                     return curr;
-                },
-            );
-        },
+                });
+            },
         [],
     );
     const clearDate = (): void => {
@@ -116,25 +116,25 @@ export const Datepicker: React.FC<DatepickerProps> = ({
         (el): void => {
             const d = new Date(el.target.value);
             switch (el.key) {
-            case 'Tab':
-                setShow(false);
-                break;
-            case 'Enter':
-                el.target = {
-                    ...el.target,
-                    name: props.name,
-                    value: d,
-                };
+                case 'Tab':
+                    setShow(false);
+                    break;
+                case 'Enter':
+                    el.target = {
+                        ...el.target,
+                        name: props.name,
+                        value: d,
+                    };
 
-                if (d.toDateString() === value?.toDateString()) {
-                    setShow((v): boolean => !v);
-                } else if (!Number.isNaN(d.getTime())) {
-                    setText(printDate(d));
-                    onChange(el);
-                }
-                break;
-            default:
-                break;
+                    if (d.toDateString() === value?.toDateString()) {
+                        setShow((v): boolean => !v);
+                    } else if (!Number.isNaN(d.getTime())) {
+                        setText(printDate(d));
+                        onChange(el);
+                    }
+                    break;
+                default:
+                    break;
             }
         },
         [value],
