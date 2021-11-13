@@ -27,11 +27,11 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
             Green: string;
             Yellow: string;
         };
-        bannerBackgroundColor: string;
         editControlPanelColor: string;
         chairTableBackground: string;
         chairOccupiedBackground: string;
         chairTableEditBackground: string;
+        bannerBackgroundColor: string;
     };
 }
 
@@ -57,11 +57,11 @@ export const MainTheme: MainThemeInterface = {
             Reserved: '#ffc107',
             Occupied: '#17a2b8',
         },
-        bannerBackgroundColor: 'rgba(0,0,0,0.5)',
         editControlPanelColor: '#6c757d',
         chairTableBackground: '#6c757d',
         chairOccupiedBackground: '#EE2434',
         chairTableEditBackground: '#C4C4C4',
+        bannerBackgroundColor : 'rgba(0,0,0,0.5)',
         PieChartColors: {
             Red: '#FF0000',
             Green: '#008000',
