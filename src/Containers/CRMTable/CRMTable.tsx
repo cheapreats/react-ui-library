@@ -82,7 +82,7 @@ const CRMTableDataRow = styled.tr`
         :hover{
             border: none;
             
-            transform: scale(1.015, 1.05);
+            transform: scale(1.025, 1.2);
             box-shadow: ${theme.depth[1]};
     `}
 `;
