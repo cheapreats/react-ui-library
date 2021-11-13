@@ -45,19 +45,35 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
                 {...buttonProps}
             >
                 <div>
-                    <div style={{
-                        position: 'absolute',
-                        width: '100%',
-                        height: `${ 100 - parseFloat(volume) }%`,
-                        overflow: 'hidden',
-                    }}> {icon && <Icon iconSize={iconSize} as={icon} iconColor={"black"} /> } </div>
-                    {icon && <Icon iconSize={iconSize} as={icon} iconColor={"green"} /> }
+                    <div
+                        style={{
+                            position: 'absolute',
+                            width: '100%',
+                            height: `${100 - parseFloat(volume)}%`,
+                            overflow: 'hidden',
+                        }}
+                    >
+                        {' '}
+                        {icon && (
+                            <Icon
+                                iconSize={iconSize}
+                                as={icon}
+                                iconColor={'black'}
+                            />
+                        )}{' '}
+                    </div>
+                    {icon && (
+                        <Icon
+                            iconSize={iconSize}
+                            as={icon}
+                            iconColor={'green'}
+                        />
+                    )}
                 </div>
             </StyledButton>
         </div>
     );
 };
-
 
 interface VoiceIconProps {
     iconSize: string;
@@ -66,7 +82,7 @@ interface VoiceIconProps {
 }
 
 const Icon = styled.svg<VoiceIconProps>`
-    ${({ iconSize, iconColor }) =>`
+    ${({ iconSize, iconColor }) => `
         height: ${iconSize};
         width: ${iconSize};
         color: ${iconColor};

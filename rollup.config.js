@@ -74,9 +74,6 @@ export default {
     external: [
         ...Object.keys(pkg.dependencies || {}),
         ...Object.keys(pkg.peerDependencies || {}),
-<<<<<<< HEAD
         'workerize-loader',
-=======
->>>>>>> 003e76e6d34da4eda74cf92e115158843b6e5b12
     ],
 };

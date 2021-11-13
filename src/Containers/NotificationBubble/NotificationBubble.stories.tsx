@@ -7,8 +7,10 @@ export default {
     title: createStoryTitle('NotificationBubble'),
     component: NotificationBubble,
     args: {
-        notificationCounter: 3
-    }
-} as Meta
+        notificationCounter: 3,
+    },
+} as Meta;
 
-export const Basic: Story<NotificationBubbleProps> = (args) => <NotificationBubble {...args} />;
+export const Basic: Story<NotificationBubbleProps> = (args) => (
+    <NotificationBubble {...args} />
+);
