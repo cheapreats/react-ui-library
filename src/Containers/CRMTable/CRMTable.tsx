@@ -1,14 +1,22 @@
-import React from 'react';
+import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components';
 import {
     TableOptions,
     useFilters,
-    useTable
+    useTable,
+    useRowSelect,
+    Row
 } from 'react-table';
 import { CRMRowProps } from '../CRMRow/CRMRow';
+import { Checkbox } from '../../Inputs/CheckBox/Checkbox';
 
 export interface ICRMTableProps extends TableOptions<CRMRowProps> {
+    /* A click on the row itself */
     onRowClick: (rowData: CRMRowProps) => void;
+    /* A click on a checkbox in a row */
+    onCheckboxClick: () => void;
+    /* A click on a checkbox in the table header */
+    onHeaderCheckboxClick: () => void;
 }
 
 export const CRMTable: React.FC<ICRMTableProps> = ({
@@ -16,6 +24,8 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
     data,
     defaultColumn,
     onRowClick,
+    onCheckboxClick,
+    onHeaderCheckboxClick,
     ...props
 }): React.ReactElement => {
     const { 
@@ -23,8 +33,34 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
         getTableBodyProps, 
         headerGroups, 
         rows, 
-        prepareRow 
-    } = useTable({ columns, data, defaultColumn }, useFilters);
+        prepareRow,
+    } = useTable({ columns, data, defaultColumn },
+        useFilters,
+        useRowSelect,
+        hooks => {
+            hooks.visibleColumns.push(( tableColumns ) => [
+                {
+                    id: 'selection',
+                    Header: ({ getToggleAllRowsSelectedProps }) => (
+                        <TableHeaderCheckboxCell>
+                            <Checkbox {...getToggleAllRowsSelectedProps()} onChange={onHeaderCheckboxClick} 
+                                onClick={(event: SyntheticEvent<HTMLInputElement>): void => {
+                                    event.stopPropagation();
+                                }}/>
+                        </TableHeaderCheckboxCell>
+                    ),
+                    Cell: ({ row }: {row: Row}) => (
+                        <TableBodyCheckboxCell>
+                            <Checkbox {...row.getToggleRowSelectedProps()} onChange={onCheckboxClick} 
+                                onClick={(event: SyntheticEvent<HTMLInputElement>): void => {
+                                    event.stopPropagation();
+                                }}/>
+                        </TableBodyCheckboxCell>
+                    )
+                },
+                ...tableColumns,
+            ])
+        })
 
     const buildHeaderGroups = () => headerGroups.map((headerGroup) => (
         <CRMTableHeaderRow {...headerGroup.getHeaderGroupProps()}>
@@ -100,3 +136,11 @@ const CRMTableData = styled.td`
         padding: ${theme.dimensions.padding.default};
     `}
 `
+
+const TableHeaderCheckboxCell = styled.div`
+
+`;
+
+const TableBodyCheckboxCell = styled.div`
+
+`;
