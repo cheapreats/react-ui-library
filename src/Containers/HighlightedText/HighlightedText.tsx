@@ -46,12 +46,12 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
      * @param label - HighlightedString of the special text
      */
     const getSpecialTextComponent = (label: HighlightedString): React.ReactElement => {
-        const [isClicked, setIsClicked] = useState(false);
-        const handleIsClicked = () => {
-            setIsClicked(!isClicked);
+        const [onClick, setOnClick] = useState(false);
+        const handleOnClick = () => {
+            setOnClick(!onClick);
         }
 
-        return <StyledClickableSmallText bold={isClicked} onClick={handleIsClicked} {...label.textProps}>{`${label.text}`}</StyledClickableSmallText>
+        return <StyledClickableSmallText bold={onClick} onClick={handleOnClick} {...label.textProps}>{`${label.text}`}</StyledClickableSmallText>
     }   
 
     /**
