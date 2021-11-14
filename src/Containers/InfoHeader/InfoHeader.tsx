@@ -4,7 +4,7 @@ import {InfoCircleFill} from '@styled-icons/bootstrap/InfoCircleFill';
 import {Heading, HeadingProps} from '@Text';
 
 export interface InfoHeaderProps extends HeadingProps {
-    /* Text that will be shown */ // More specific 
+    /* Text to be displayed to the left of the icon */ 
     infotext: String;
 }
 
@@ -12,13 +12,13 @@ export const InfoHeader: React.FC<InfoHeaderProps>  = ({
     infotext,
     ...props
 }): React.ReactElement => (
-    <InfoHeaderStyle {...props}>
+    <InfoHeaderText {...props}>
         {infotext} 
         <Icon />
-    </InfoHeaderStyle>
+    </InfoHeaderText>
 );
 
-const InfoHeaderStyle = styled(Heading)`
+const InfoHeaderText = styled(Heading)`
 text-align:left;
 padding-top: 0px;
 `;
