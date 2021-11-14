@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { ClickableSmallText, SmallText } from '@Text';
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
@@ -7,11 +7,6 @@ import { TextLayoutProps } from '../../Fragments/TextLayout';
 
 const newTextOpacity = 1;
 const oldTextOpacity = 0.5;
-
-enum Age{
-    New = 0,
-    Old = 1,
-}
 
 export interface HighlightedString {
     /** contents of the string */
@@ -26,8 +21,8 @@ export interface HighlightedString {
     listItemsArgs?: Array<IDropdownItemProps>;
     /** content of DropdownItems */
     listItemsBodies?: Array<JSX.Element>;
-    /** New (0) for opaque text, Old (1) for transparent text. None for automatic */
-    isOld?: Age;
+    /** in [0, 1]; 0 for newest (opaque), 1 for oldest (most transparent). None for automatic */
+    age?: number;
 }
 
 // extends line div
@@ -48,10 +43,12 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
     const [numEntries, setNumEntries] = useState(0);
     const [numNewEntries, setNumNewEntries] = useState(0);
 
-    if (labels.length !== numEntries) {
-        setNumNewEntries (labels.length - numEntries)
-        setNumEntries(labels.length)
-    }
+    useEffect(() => {
+        if (labels.length !== numEntries) {
+            setNumNewEntries (labels.length - numEntries)
+            setNumEntries(labels.length)
+        }
+    })
 
     /**
      * construct the element for a special text
@@ -65,12 +62,8 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
      */
     const getTextComponent = (label: HighlightedString, index: number): React.ReactElement => {
         let opacity: number;
-        if (label.isOld != null){
-            if (label.isOld == Age.New) {
-                opacity = newTextOpacity
-            } else {
-                opacity = oldTextOpacity
-            }
+        if (label.age != null){
+            opacity = newTextOpacity - label.age*oldTextOpacity
         } else if (index >= labels.length - numNewEntries) {
             opacity = newTextOpacity
         } else {
