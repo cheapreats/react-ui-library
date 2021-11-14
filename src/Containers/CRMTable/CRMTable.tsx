@@ -1,4 +1,4 @@
-import React, { SyntheticEvent } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { ThreeDotsVertical } from '@styled-icons/bootstrap/ThreeDotsVertical';
 import {
@@ -9,7 +9,9 @@ import {
 import { CRMRowProps } from '../CRMRow/CRMRow';
 
 export interface ICRMTableProps extends TableOptions<CRMRowProps> {
+    /* A click on the table row */
     onRowClick: (rowData: CRMRowProps) => void;
+    /* A click on the menu button */
     onMenuClick: () => void;
 }
 
@@ -28,6 +30,11 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
         rows, 
         prepareRow 
     } = useTable({ columns, data, defaultColumn }, useFilters);
+
+    function justMenuClick(event: React.MouseEvent<SVGElement, MouseEvent>){
+        onMenuClick();
+        event.stopPropagation();
+    }
 
     const buildHeaderGroups = () => headerGroups.map((headerGroup) => (
         <CRMTableHeaderRow {...headerGroup.getHeaderGroupProps()}>
@@ -49,7 +56,7 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
                         {cell.render('Cell')}
                     </CRMTableData>
                 ))}
-                <CRMTableMenuIcon onClick={(event: SyntheticEvent<SVGElement>) => {onMenuClick(); event.stopPropagation();}} />
+                <CRMTableMenuIcon onClick={(event) => justMenuClick(event)} />
             </CRMTableDataRow>
         );
     });
