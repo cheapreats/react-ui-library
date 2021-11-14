@@ -4,7 +4,7 @@ import {InfoCircleFill} from '@styled-icons/bootstrap/InfoCircleFill';
 import {Heading, HeadingProps} from '@Text';
 
 export interface InfoHeaderProps extends HeadingProps {
-    /* Text to be displayed to the left of the icon */ 
+    /* Text that will be displayed to the left of the icon */ 
     infotext: String;
 }
 
