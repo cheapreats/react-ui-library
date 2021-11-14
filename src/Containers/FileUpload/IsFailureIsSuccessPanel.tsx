@@ -9,26 +9,28 @@ interface IIsFailureIsSuccessPanelProps {
     message: string;
 }
 
-export const IsFailureIsSuccessPanel: React.FC<IIsFailureIsSuccessPanelProps> = ({
-    IconToShow,
-    iconColor,
-    message,
-}): React.ReactElement => {
-    const [opacity, setOpacity] = useState(0);
-    useEffect(() => {
-        setOpacity(1);
-    }, []);
-    return (
-        <Container
-            withFlexSpaceBetween
-            flexGrow
-            margin="10px"
-            opacity={opacity}
-        >
-            <TextLayout bold color="DarkBlue">
-                {message}
-            </TextLayout>
-            <Icon as={IconToShow} color={iconColor} width={35} height={35} />
-        </Container>
-    );
-};
+export const IsFailureIsSuccessPanel: React.FC<IIsFailureIsSuccessPanelProps> =
+    ({ IconToShow, iconColor, message }): React.ReactElement => {
+        const [opacity, setOpacity] = useState(0);
+        useEffect(() => {
+            setOpacity(1);
+        }, []);
+        return (
+            <Container
+                withFlexSpaceBetween
+                flexGrow
+                margin="10px"
+                opacity={opacity}
+            >
+                <TextLayout bold color="DarkBlue">
+                    {message}
+                </TextLayout>
+                <Icon
+                    as={IconToShow}
+                    color={iconColor}
+                    width={35}
+                    height={35}
+                />
+            </Container>
+        );
+    };

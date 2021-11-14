@@ -31,7 +31,9 @@ export default {
     title: createStoryTitle('CRM Table'),
     component: CRMTable,
     argTypes: { onRowClick: { action: 'Row was clicked' },
-        onMenuClick: { action: 'Menu was clicked' } 
+        onMenuClick: { action: 'Menu was clicked' },  
+        onCheckboxClick: {action: 'Checkbox was clicked'},
+        onAllCheckboxCLick: {action: 'All checkboxes clicked'}
     },
     args: {
         data: [
@@ -58,14 +60,17 @@ export default {
         ],
         columns: [
             {
+                id: "customerProfile1",
                 Header: 'Client',
                 accessor: "customerProfile"
             },
             {
+                id: "tags1",
                 Header: 'Tags',
                 accessor: "tags"
             },
             {
+                id: "dateCreated1",
                 Header: 'Date Joined',
                 accessor: "dateCreated"
             }
@@ -84,12 +89,14 @@ WithComponents.args = {
     ...WithComponents.args,
     columns: [
         {
+            id: "customerProfile1",
             Header: (() => (<TableHeaderCell title="Client" sortDown/>)),
             accessor: "customerProfile",
             Cell: (({ value }) => (<CustomerProfile {...value} />)),
             disableFilters: true
         },
         {
+            id: "tags1",
             Header: (() => (<TableHeaderCell title="Tags" sortDown={false}/>)),
             accessor: "tags",
             Cell: (({ value }) => (<TagGroup {...value} />)),
@@ -97,6 +104,7 @@ WithComponents.args = {
 
         },
         {
+            id: "dateCreated1",
             Header: (() => (<TableHeaderCell title="Date Joined" sortDown/>)),
             accessor: "dateCreated",
             Cell: (({ value }) => (<CreatedDate {...value} />)),

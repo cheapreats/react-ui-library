@@ -98,9 +98,10 @@ const Dropdown: React.FC<IDropdownProps> = ({
         });
         return targetChildren.length >= 0 ? targetChildren : undefined;
     };
-    const itemChildren = useMemo(() => validChild(children, DropdownItem), [
-        children,
-    ]);
+    const itemChildren = useMemo(
+        () => validChild(children, DropdownItem),
+        [children],
+    );
     useLayoutEffect(() => {
         const buttonRefCurrent = buttonRef.current;
         const bodyRefCurrent = bodyRef.current;
@@ -162,14 +163,14 @@ const placeStyles = (
     sourcePosition: any,
 ) => {
     switch (placement) {
-    case true:
-        return `
+        case true:
+            return `
             left: ${
-    targetPosition.right - sourcePosition.width + window.pageXOffset
-}px;
+                targetPosition.right - sourcePosition.width + window.pageXOffset
+            }px;
             `;
-    default:
-        return `
+        default:
+            return `
             left: ${targetPosition.left + window.pageXOffset}px;
             `;
     }

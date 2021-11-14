@@ -31,17 +31,17 @@ export class FormatDate {
 
         let res = this.date.getMonth().toString();
         switch (type) {
-        case 'MM':
-            res = res.padStart(2, '0');
-            break;
-        case 'MMM':
-            res = MONTHS[res].slice(0, 3);
-            break;
-        case 'MMMM':
-            res = MONTHS[res];
-            break;
-        default:
-            break;
+            case 'MM':
+                res = res.padStart(2, '0');
+                break;
+            case 'MMM':
+                res = MONTHS[res].slice(0, 3);
+                break;
+            case 'MMMM':
+                res = MONTHS[res];
+                break;
+            default:
+                break;
         }
         this._res += prepend + res + append;
         return this;
@@ -52,17 +52,17 @@ export class FormatDate {
 
         let res = this.date.getDay().toString();
         switch (type) {
-        case 'WW':
-            res = res.padStart(2, '0');
-            break;
-        case 'WWW':
-            res = WEEKDAYS[res].slice(0, 3);
-            break;
-        case 'WWWW':
-            res = WEEKDAYS[res];
-            break;
-        default:
-            break;
+            case 'WW':
+                res = res.padStart(2, '0');
+                break;
+            case 'WWW':
+                res = WEEKDAYS[res].slice(0, 3);
+                break;
+            case 'WWWW':
+                res = WEEKDAYS[res];
+                break;
+            default:
+                break;
         }
         this._res += prepend + res + append;
         return this;
@@ -82,17 +82,17 @@ export class FormatDate {
 
         let res = this.date.getHours().toString();
         switch (type) {
-        case 'hh':
-            res = res.padStart(2, '0');
-            break;
-        case 'hp':
-            res = (parseInt(res, 10) % 12).toString();
-            break;
-        case 'hhp':
-            res = (parseInt(res, 10) % 12).toString().padStart(2, '0');
-            break;
-        default:
-            break;
+            case 'hh':
+                res = res.padStart(2, '0');
+                break;
+            case 'hp':
+                res = (parseInt(res, 10) % 12).toString();
+                break;
+            case 'hhp':
+                res = (parseInt(res, 10) % 12).toString().padStart(2, '0');
+                break;
+            default:
+                break;
         }
         this._res += prepend + res + append;
         return this;
@@ -146,9 +146,7 @@ const types = [
     'p', 'P'
 ]; */
 
-type msToTime = (
-    duration: number,
-) => {
+type msToTime = (duration: number) => {
     hours: number;
     minutes: number;
     seconds: number;

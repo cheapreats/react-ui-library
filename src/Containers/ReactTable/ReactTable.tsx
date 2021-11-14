@@ -165,11 +165,11 @@ const Scrollable = styled.div<IScrollable>`
         overflow-x: hidden;
         height: ${height};
         ${
-    mediaMixin &&
+            mediaMixin &&
             `@media (max-width: ${theme.media[mediaMixin] || mediaMixin}px) {
             height: ${mediaHeight}
         }`
-}
+        }
     `};
     ${scroll}
 `;
@@ -186,11 +186,11 @@ const STableHead = styled.thead`
 const STableData = styled.td`
     ${({ theme }): string => `
         ${media(
-        'phone',
-        `
+            'phone',
+            `
         font-size: ${theme.font.size.small};
         `,
-    )}
+        )}
     `};
 `;
 const STableHeader = styled.th`
@@ -198,11 +198,11 @@ const STableHeader = styled.th`
     margin-left: 10px;
     ${({ theme }): string => `
         ${media(
-        'phone',
-        `
+            'phone',
+            `
         font-size: ${theme.font.size.small};
         `,
-    )}
+        )}
     `};
 `;
 const SHeadTableRow = styled.tr`

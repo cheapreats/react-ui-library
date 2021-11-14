@@ -11,7 +11,13 @@ export const ClickableSmallText: React.FC<ClickableSmallTextProps> = ({
     onClick,
     ...props
 }): React.ReactElement => (
-    <TextLayout type={type} size={size} color={color} onClick={onClick} {...props}>
+    <TextLayout
+        type={type}
+        size={size}
+        color={color}
+        onClick={onClick}
+        {...props}
+    >
         {children}
     </TextLayout>
 );

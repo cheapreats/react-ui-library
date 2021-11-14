@@ -154,14 +154,14 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
      * */
     const toggleForTableInfo = (displaySelected: string) => {
         switch (displaySelected) {
-        case 'Seated':
-            return getSeatedPartyInformation(SeatedList);
-        case 'Waiting':
-            return getWaitingRoomPartyInformation(WaitingRoomList);
-        case 'UpComing':
-            return getUpComingPartyInformation(UpcomingList);
-        default:
-            return <div />;
+            case 'Seated':
+                return getSeatedPartyInformation(SeatedList);
+            case 'Waiting':
+                return getWaitingRoomPartyInformation(WaitingRoomList);
+            case 'UpComing':
+                return getUpComingPartyInformation(UpcomingList);
+            default:
+                return <div />;
         }
     };
 
@@ -174,33 +174,33 @@ export const ReservationSideBar: React.FC<IReservationSideBar> = ({
      * */
     const toggleButtonDisplay = (displaySelected: string) => {
         switch (displaySelected) {
-        case 'Seated':
-            return (
-                <StylesForButtons
-                    primary
-                    onClick={onAddReservationButtonClick}
-                >
-                    + Seated
-                </StylesForButtons>
-            );
-        case 'Waiting':
-            return (
-                <StylesForButtons primary onClick={onAddWaitingButtonClick}>
-                    + Waiting List
-                </StylesForButtons>
-            );
-        case 'UpComing':
-            return (
-                <StylesForButtons primary onClick={onAddWaitingButtonClick}>
-                    + UpComing List
-                </StylesForButtons>
-            );
-        default:
-            return (
-                <StylesForButtons primary onClick={onAddNewCustomerClick}>
-                    Add New Customer
-                </StylesForButtons>
-            );
+            case 'Seated':
+                return (
+                    <StylesForButtons
+                        primary
+                        onClick={onAddReservationButtonClick}
+                    >
+                        + Seated
+                    </StylesForButtons>
+                );
+            case 'Waiting':
+                return (
+                    <StylesForButtons primary onClick={onAddWaitingButtonClick}>
+                        + Waiting List
+                    </StylesForButtons>
+                );
+            case 'UpComing':
+                return (
+                    <StylesForButtons primary onClick={onAddWaitingButtonClick}>
+                        + UpComing List
+                    </StylesForButtons>
+                );
+            default:
+                return (
+                    <StylesForButtons primary onClick={onAddNewCustomerClick}>
+                        Add New Customer
+                    </StylesForButtons>
+                );
         }
     };
 
@@ -348,14 +348,14 @@ export default ReservationSideBar;
  */
 const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
-    case 'Vacant':
-        return useTheme().colors.occupancyStatusColors.Vacant;
-    case 'Reserved':
-        return useTheme().colors.occupancyStatusColors.Reserved;
-    case 'Occupied':
-        return useTheme().colors.occupancyStatusColors.Occupied;
-    default:
-        return '';
+        case 'Vacant':
+            return useTheme().colors.occupancyStatusColors.Vacant;
+        case 'Reserved':
+            return useTheme().colors.occupancyStatusColors.Reserved;
+        case 'Occupied':
+            return useTheme().colors.occupancyStatusColors.Occupied;
+        default:
+            return '';
     }
 };
 
@@ -486,10 +486,10 @@ const UpComingSwitch = styled.button<IUpComingSwitch>`
                 : theme.colors.background
         };
                  color: ${
-    colors === 'UpComing'
-        ? theme.colors.background
-        : theme.colors.statusColors.red
-};
+                     colors === 'UpComing'
+                         ? theme.colors.background
+                         : theme.colors.statusColors.red
+                 };
     `}
 `;
 
@@ -513,10 +513,10 @@ const SeatedSwitch = styled.button<ISeatedSwitch>`
                 : theme.colors.background
         };
     color: ${
-    colors === 'Seated'
-        ? theme.colors.background
-        : theme.colors.statusColors.red
-};
+        colors === 'Seated'
+            ? theme.colors.background
+            : theme.colors.statusColors.red
+    };
    `}
 `;
 
@@ -540,9 +540,9 @@ const WaitingRoomButton = styled.button<IWaitingRoomButton>`
                 : theme.colors.background
         };
              color: ${
-    colors === 'Waiting'
-        ? theme.colors.background
-        : theme.colors.statusColors.red
-};
+                 colors === 'Waiting'
+                     ? theme.colors.background
+                     : theme.colors.statusColors.red
+             };
             `}
 `;
