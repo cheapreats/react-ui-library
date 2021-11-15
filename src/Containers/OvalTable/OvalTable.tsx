@@ -126,11 +126,15 @@ const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relat
     const FULL_TURN = 360;
 
     // The angle between chairs according their quantity.
-    const SPACING_DIFFERENCE = FULL_TURN/numOfChairs;
+    const SPACING_DIFFERENCE = FULL_TURN / numOfChairs;
+
     // Clockwise rotation angle of current chair from x-axis of 4th quadrant
     const CHAIR_ROTATION_ANGLE = chairIndex * SPACING_DIFFERENCE;
-    const BASE_RADIUS = BASE_TABLE_WIDTH/2
-    const HEIGHT_TO_WIDTH_DIFFERENCE =  1 - HEIGHT_TO_WIDTH_RATIO;
+
+    const BASE_RADIUS = BASE_TABLE_WIDTH / 2
+
+    const WHOLE_COEFFICIENT = 1;
+    const HEIGHT_TO_WIDTH_DIFFERENCE =  WHOLE_COEFFICIENT - HEIGHT_TO_WIDTH_RATIO;
 
     // Reformat any chair rotation angle to not exceed 2 quadrants format (180 degrees).
     let quadrantBasedAngle = CHAIR_ROTATION_ANGLE % STRAIGHT_ANGLE;
@@ -142,7 +146,7 @@ const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relat
     }
 
     // Calculate the coefficient which may vary from 0.7 to 1, based on angle of the chair.
-    const translationCoefficient = 1 - (HEIGHT_TO_WIDTH_DIFFERENCE * (quadrantBasedAngle/RIGHT_ANGLE));
+    const translationCoefficient = WHOLE_COEFFICIENT - (HEIGHT_TO_WIDTH_DIFFERENCE * (quadrantBasedAngle/RIGHT_ANGLE));
 
     return `
         ${BASE_RADIUS * translationCoefficient * relativeSize}em
