@@ -93,19 +93,6 @@ export const OvalTable: React.FC<IOvalTable> = ({
     );
 };
 
-type getTurnValueType = (
-    counter: number,
-    numOfChairs: number,
-    chairPosition: chairsPositionType,
-) => string;
-
-type getTranslateValueType = (
-    counter: number,
-    numOfChairs: number,
-    relativeSize: number,
-    chairPosition: chairsPositionType,
-) => string;
-
 const BASE_TABLE_WIDTH = 40;
 const HEIGHT_TO_WIDTH_RATIO= 0.7;
 const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * HEIGHT_TO_WIDTH_RATIO;
@@ -114,23 +101,31 @@ const RIGHT_ANGLE = 90;
 const STRAIGHT_ANGLE = 180;
 const FULL_TURN = 360;
 
-// TODO: add description and param to the JSDOC,
+type getTurnValueType = (
+    counter: number,
+    numOfChairs: number,
+    chairsPosition: chairsPositionType,
+) => string;
+
 /**
- * Returns a string with the correct CSS turn positioning for a given chair
+ * Returns a string with the correct CSS turn positioning for a given chair.
+ * If
  *
  * @param counter - the chair's number relative to other chairs in the array
  * @param numOfChairs - the total number of chairs at the table
+ * @param chairsPosition - the placement position of all chairs (top, bottom, left, right or around)
  * @return {string} - the correct turn value for a specific chair
  */
-const getTurnValue: getTurnValueType = (counter, numOfChairs, chairPosition) => {
+const getTurnValue: getTurnValueType = (counter, numOfChairs, chairsPosition) => {
     const ADDITIONAL_CHAIR =
-        chairPosition === 'around' ? 0 : 1;
+        chairsPosition === 'around' ? 0 : 1;
+
     const PART_OF_TABLE_USED =
-        chairPosition === 'around' ? 1 : 0.5;
+        chairsPosition === 'around' ? 1 : 0.5;
 
     let turnValue = counter * PART_OF_TABLE_USED / (numOfChairs + ADDITIONAL_CHAIR);
 
-    switch (chairPosition){
+    switch (chairsPosition){
         case "around":
             break;
         case "top":
@@ -150,6 +145,13 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, chairPosition) => 
 
     return `${turnValue}turn`;
 };
+
+type getTranslateValueType = (
+    counter: number,
+    numOfChairs: number,
+    relativeSize: number,
+    chairsPosition: chairsPositionType,
+) => string;
 
 // TODO: add description and param to the JSDOC
 /**
@@ -194,7 +196,7 @@ const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relat
 
 type getQuadrantBasedAngleType = (
     angle: number,
-    chairPosition: chairsPositionType,
+    chairsPosition: chairsPositionType,
 ) => number;
 
 //TODO: add JSDOC
