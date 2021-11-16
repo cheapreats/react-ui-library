@@ -17,7 +17,7 @@ type chairsPositionType =
 type getChairsType = () => JSX.Element[];
 
 export interface IOvalTable{
-    /* Comment */ //TODO: change this comment
+    /* The unique identifier for the table */
     tableID: string;
     /* Array of chairs */
     chairs: Array<IChair>;
@@ -31,7 +31,7 @@ export interface IOvalTable{
     tableIndex: number;
     /* Index number for the currently selected table */
     selectedIndex: number;
-    // TODO:comments
+    /* Identifier of chairs placement relative to the table */
     chairsPosition: chairsPositionType;
 
 }
@@ -109,7 +109,10 @@ type getTurnValueType = (
 
 /**
  * Returns a string with the correct CSS turn positioning for a given chair.
- * If
+ * For all positions other than 'around', the function calculates turn value as there is one
+ * more additional chair. It prevents placement the last chair on x or y axis.
+ *
+ * Based on chairsPosition, adds additional turn value if needed.
  *
  * @param counter - the chair's number relative to other chairs in the array
  * @param numOfChairs - the total number of chairs at the table
@@ -117,6 +120,10 @@ type getTurnValueType = (
  * @return {string} - the correct turn value for a specific chair
  */
 const getTurnValue: getTurnValueType = (counter, numOfChairs, chairsPosition) => {
+    const QUARTER_TURN = 0.25;
+    const HALF_TURN = 0.5;
+    const THREE_QUARTERS_TURN = 0.75;
+
     const ADDITIONAL_CHAIR =
         chairsPosition === 'around' ? 0 : 1;
 
@@ -126,18 +133,14 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, chairsPosition) =>
     let turnValue = counter * PART_OF_TABLE_USED / (numOfChairs + ADDITIONAL_CHAIR);
 
     switch (chairsPosition){
-        case "around":
-            break;
         case "top":
-            turnValue = turnValue + 0.5;
-            break;
-        case "bottom":
+            turnValue = turnValue + HALF_TURN;
             break;
         case "left":
-            turnValue = turnValue + 0.25;
+            turnValue = turnValue + QUARTER_TURN;
             break;
         case "right":
-            turnValue = turnValue + 0.75;
+            turnValue = turnValue + THREE_QUARTERS_TURN;
             break;
         default:
             break;
