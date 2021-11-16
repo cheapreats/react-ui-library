@@ -7,6 +7,13 @@ type tableUseTypes =
     | 'TableForEditCanvas'
     | 'TableForManagement';
 
+type chairsPositionType =
+    | 'top'
+    | 'bottom'
+    | 'left'
+    | 'right'
+    | 'around';
+
 type getChairsType = () => JSX.Element[];
 
 export interface IOvalTable{
@@ -24,6 +31,10 @@ export interface IOvalTable{
     tableIndex: number;
     /* Index number for the currently selected table */
     selectedIndex: number;
+    // TODO:comments
+    isOneSideChairs: boolean;   //TODO: delete isOneSideChairs if unused
+    chairsPosition: chairsPositionType;
+
 }
 
 /**
@@ -37,6 +48,8 @@ export const OvalTable: React.FC<IOvalTable> = ({
         tableUse = 'TableForManagement',
         tableIndex = 0,
         selectedIndex = -1,
+        isOneSideChairs = false,
+        chairsPosition = 'top',
 
         ...props
     }): React.ReactElement => {
@@ -52,6 +65,8 @@ export const OvalTable: React.FC<IOvalTable> = ({
                 relativeSize={relativeSize}
                 numOfChairs={chairs.length}
                 counter={index + 1}
+                isOneSideChairs={isOneSideChairs}
+                chairPosition={chairsPosition}
             >
                 <Chair
                     relativeSize={relativeSize}
@@ -84,6 +99,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
 type getTurnValueType = (
     counter: number,
     numOfChairs: number,
+    chairPosition: chairsPositionType,
 ) => string;
 
 type getTranslateValueType = (
@@ -96,6 +112,7 @@ const BASE_TABLE_WIDTH = 40;
 const HEIGHT_TO_WIDTH_RATIO= 0.7;
 const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * HEIGHT_TO_WIDTH_RATIO;
 
+// TODO: add description and param to the JSDOC,
 /**
  * Returns a string with the correct CSS turn positioning for a given chair
  *
@@ -103,9 +120,10 @@ const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * HEIGHT_TO_WIDTH_RATIO;
  * @param numOfChairs - the total number of chairs at the table
  * @return {string} - the correct turn value for a specific chair
  */
-const getTurnValue: getTurnValueType = (counter, numOfChairs) => {
-    return `${counter}turn / ${numOfChairs}`;
+const getTurnValue: getTurnValueType = (counter, numOfChairs, chairPosition) => {
+    return `${counter/(numOfChairs)}turn`;
 };
+
 
 /**
  * Calculates the translate distance for a specific chair based on it's position on Oval Table.
@@ -126,7 +144,7 @@ const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relat
     const FULL_TURN = 360;
 
     // The angle between chairs according their quantity.
-    const SPACING_DIFFERENCE = FULL_TURN / numOfChairs;
+    const SPACING_DIFFERENCE = FULL_TURN / numOfChairs;//TODO: for half table numOfChairs + 1
 
     // Clockwise rotation angle of current chair from x-axis of 4th quadrant
     const CHAIR_ROTATION_ANGLE = chairIndex * SPACING_DIFFERENCE;
@@ -187,6 +205,8 @@ interface IChairWrapper {
     counter: number;
     numOfChairs: number;
     relativeSize: number;
+    isOneSideChairs: boolean;
+    chairPosition: chairsPositionType;
 }
 
 const ChairWrapper = styled.div<IChairWrapper>`
@@ -199,12 +219,13 @@ const ChairWrapper = styled.div<IChairWrapper>`
   top: 50%;
   left: 50%;
   margin: calc(-0.5 * var(--chairDiameter));
-  --perimeterPlacementValue: calc(
-          ${({ counter, numOfChairs }) =>
-                  getTurnValue(counter, numOfChairs)}
-  );
-  transform: rotate(var(--perimeterPlacementValue))
+  
+  --turnValue: 
+          ${({ counter, numOfChairs, chairPosition}) =>
+                  getTurnValue(counter, numOfChairs, chairPosition)}
+  ;
+  transform: rotate(var(--turnValue))
   translate(${({ counter, numOfChairs, relativeSize }) =>
           getTranslateValue(counter, numOfChairs, relativeSize)})
-  rotate(calc(-1 * var(--perimeterPlacementValue)));
+  rotate(calc(-1 * var(--turnValue)));
 `;
