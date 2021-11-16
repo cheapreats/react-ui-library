@@ -32,7 +32,6 @@ export interface IOvalTable{
     /* Index number for the currently selected table */
     selectedIndex: number;
     // TODO:comments
-    isOneSideChairs: boolean;   //TODO: delete isOneSideChairs if unused
     chairsPosition: chairsPositionType;
 
 }
@@ -48,7 +47,6 @@ export const OvalTable: React.FC<IOvalTable> = ({
         tableUse = 'TableForManagement',
         tableIndex = 0,
         selectedIndex = -1,
-        isOneSideChairs = false,
         chairsPosition = 'around',
 
         ...props
@@ -65,7 +63,6 @@ export const OvalTable: React.FC<IOvalTable> = ({
                 relativeSize={relativeSize}
                 numOfChairs={chairs.length}
                 counter={index + 1}
-                isOneSideChairs={isOneSideChairs}
                 chairPosition={chairsPosition}
             >
                 <Chair
@@ -256,7 +253,6 @@ interface IChairWrapper {
     counter: number;
     numOfChairs: number;
     relativeSize: number;
-    isOneSideChairs: boolean;
     chairPosition: chairsPositionType;
 }
 
