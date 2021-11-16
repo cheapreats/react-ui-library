@@ -49,7 +49,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
         tableIndex = 0,
         selectedIndex = -1,
         isOneSideChairs = false,
-        chairsPosition = 'top',
+        chairsPosition = 'around',
 
         ...props
     }): React.ReactElement => {
@@ -121,7 +121,30 @@ const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * HEIGHT_TO_WIDTH_RATIO;
  * @return {string} - the correct turn value for a specific chair
  */
 const getTurnValue: getTurnValueType = (counter, numOfChairs, chairPosition) => {
-    return `${counter/(numOfChairs)}turn`;
+    const ADDITIONAL_CHAIR =
+        chairPosition == 'around' ? 0 : 1;
+    const PART_OF_TABLE_USED =
+        chairPosition == 'around' ? 1 : 0.5;
+
+    let turnValue = counter * PART_OF_TABLE_USED / (numOfChairs + ADDITIONAL_CHAIR);
+
+    switch (chairPosition){
+        case "around":
+            break;
+        case "top":
+            turnValue = turnValue + 0.5;
+            break;
+        case "bottom":
+            break;
+        case "left":
+            turnValue = turnValue + 0.25;
+            break;
+        case "right":
+            turnValue = turnValue + 0.75;
+            break;
+    }
+
+    return `${turnValue}turn`;
 };
 
 
@@ -141,7 +164,7 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, chairPosition) => 
 const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relativeSize) => {
     const RIGHT_ANGLE = 90;
     const STRAIGHT_ANGLE = 180;
-    const FULL_TURN = 360;
+    const FULL_TURN = 360; //TODO: change to 360
 
     // The angle between chairs according their quantity.
     const SPACING_DIFFERENCE = FULL_TURN / numOfChairs;//TODO: for half table numOfChairs + 1
