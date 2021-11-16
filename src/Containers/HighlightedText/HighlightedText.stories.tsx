@@ -32,7 +32,7 @@ const labels: Array<HighlightedString> = [
         isSpecial: false,
     },
     {
-        text: "Wendy's",
+        text: "Wendy\'s",
         isSpecial: true,
         listItemsArgs: [],
         listItemsBodies: [
