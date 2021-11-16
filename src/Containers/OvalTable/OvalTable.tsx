@@ -17,7 +17,7 @@ type chairsPositionType =
 type getChairsType = () => JSX.Element[];
 
 export interface IOvalTable{
-    /* Comment */
+    /* Comment */ //TODO: change this comment
     tableID: string;
     /* Array of chairs */
     chairs: Array<IChair>;
@@ -49,7 +49,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
         tableIndex = 0,
         selectedIndex = -1,
         isOneSideChairs = false,
-        chairsPosition = 'around',
+        chairsPosition = 'top',
 
         ...props
     }): React.ReactElement => {
@@ -106,11 +106,16 @@ type getTranslateValueType = (
     counter: number,
     numOfChairs: number,
     relativeSize: number,
+    chairPosition: chairsPositionType,
 ) => string;
 
 const BASE_TABLE_WIDTH = 40;
 const HEIGHT_TO_WIDTH_RATIO= 0.7;
 const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * HEIGHT_TO_WIDTH_RATIO;
+
+const RIGHT_ANGLE = 90;
+const STRAIGHT_ANGLE = 180;
+const FULL_TURN = 360;
 
 // TODO: add description and param to the JSDOC,
 /**
@@ -122,9 +127,9 @@ const BASE_TABLE_HEIGHT = BASE_TABLE_WIDTH * HEIGHT_TO_WIDTH_RATIO;
  */
 const getTurnValue: getTurnValueType = (counter, numOfChairs, chairPosition) => {
     const ADDITIONAL_CHAIR =
-        chairPosition == 'around' ? 0 : 1;
+        chairPosition === 'around' ? 0 : 1;
     const PART_OF_TABLE_USED =
-        chairPosition == 'around' ? 1 : 0.5;
+        chairPosition === 'around' ? 1 : 0.5;
 
     let turnValue = counter * PART_OF_TABLE_USED / (numOfChairs + ADDITIONAL_CHAIR);
 
@@ -142,12 +147,14 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, chairPosition) => 
         case "right":
             turnValue = turnValue + 0.75;
             break;
+        default:
+            break;
     }
 
     return `${turnValue}turn`;
 };
 
-
+// TODO: add description and param to the JSDOC
 /**
  * Calculates the translate distance for a specific chair based on it's position on Oval Table.
  * Divides the table on 4 quadrants. Increasing the angle of rotation (clockwise) will decrease the
@@ -161,13 +168,12 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, chairPosition) => 
  * @param relativeSize - The size for the component relative to the parent
  * @return {string} - the correct translate value for a specific chair
  */
-const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relativeSize) => {
-    const RIGHT_ANGLE = 90;
-    const STRAIGHT_ANGLE = 180;
-    const FULL_TURN = 360; //TODO: change to 360
-
+const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relativeSize,chairPosition) => {
     // The angle between chairs according their quantity.
-    const SPACING_DIFFERENCE = FULL_TURN / numOfChairs;//TODO: for half table numOfChairs + 1
+    const SPACING_DIFFERENCE =
+        chairPosition === 'around' ?
+            (FULL_TURN / numOfChairs) :
+            (STRAIGHT_ANGLE / numOfChairs - 1);
 
     // Clockwise rotation angle of current chair from x-axis of 4th quadrant
     const CHAIR_ROTATION_ANGLE = chairIndex * SPACING_DIFFERENCE;
@@ -178,7 +184,24 @@ const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relat
     const HEIGHT_TO_WIDTH_DIFFERENCE =  WHOLE_COEFFICIENT - HEIGHT_TO_WIDTH_RATIO;
 
     // Reformat any chair rotation angle to not exceed 2 quadrants format (180 degrees).
-    let quadrantBasedAngle = CHAIR_ROTATION_ANGLE % STRAIGHT_ANGLE;
+    const QUADRANT_BASED_ANGLE = getQuadrantBasedAngle(CHAIR_ROTATION_ANGLE);
+
+    // Calculate the coefficient which may vary from 0.7 to 1, based on angle of the chair.
+    const translationCoefficient = WHOLE_COEFFICIENT - (HEIGHT_TO_WIDTH_DIFFERENCE * (QUADRANT_BASED_ANGLE/RIGHT_ANGLE));
+
+    return `
+        ${BASE_RADIUS * translationCoefficient * relativeSize}em
+    `;
+};
+
+type getQuadrantBasedAngleType = (
+    angle: number,
+) => number;
+
+//TODO: add JSDOC
+const getQuadrantBasedAngle: getQuadrantBasedAngleType = (angle) => {
+    // Reformat any chair rotation angle to not exceed 2 quadrants format (180 degrees).
+    let quadrantBasedAngle = angle % STRAIGHT_ANGLE;
 
     // In odd quadrants (angle > 90) increasing angle increase radius,
     // so the angle can be proportionally inverted. For even quadrants, the angle remain the same.
@@ -186,12 +209,7 @@ const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relat
         quadrantBasedAngle = STRAIGHT_ANGLE - quadrantBasedAngle
     }
 
-    // Calculate the coefficient which may vary from 0.7 to 1, based on angle of the chair.
-    const translationCoefficient = WHOLE_COEFFICIENT - (HEIGHT_TO_WIDTH_DIFFERENCE * (quadrantBasedAngle/RIGHT_ANGLE));
-
-    return `
-        ${BASE_RADIUS * translationCoefficient * relativeSize}em
-    `;
+    return quadrantBasedAngle;
 };
 
 interface ITableBody {
@@ -248,7 +266,7 @@ const ChairWrapper = styled.div<IChairWrapper>`
                   getTurnValue(counter, numOfChairs, chairPosition)}
   ;
   transform: rotate(var(--turnValue))
-  translate(${({ counter, numOfChairs, relativeSize }) =>
-          getTranslateValue(counter, numOfChairs, relativeSize)})
+  translate(${({ counter, numOfChairs, relativeSize, chairPosition }) =>
+          getTranslateValue(counter, numOfChairs, relativeSize, chairPosition)})
   rotate(calc(-1 * var(--turnValue)));
 `;
