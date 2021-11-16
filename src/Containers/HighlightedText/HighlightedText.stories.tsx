@@ -37,7 +37,7 @@ const labels: Array<HighlightedString> = [
         listItemsArgs: [],
         listItemsBodies: [
             <ClickableSmallText onClick={action("Wendy's Clicked.")}>
-                {"Wendy's"}
+                {"Wendy&#39;s"}
             </ClickableSmallText>,
             <ClickableSmallText onClick={action('Burger King Clicked.')}>
                 Burger King
