@@ -124,13 +124,13 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, chairsPosition) =>
     const HALF_TURN = 0.5;
     const THREE_QUARTERS_TURN = 0.75;
 
-    const ADDITIONAL_CHAIR =
+    const ADDITIONAL_SPACE =
         chairsPosition === 'around' ? 0 : 1;
 
     const PART_OF_TABLE_USED =
         chairsPosition === 'around' ? 1 : 0.5;
 
-    let turnValue = counter * PART_OF_TABLE_USED / (numOfChairs + ADDITIONAL_CHAIR);
+    let turnValue = counter * PART_OF_TABLE_USED / (numOfChairs + ADDITIONAL_SPACE);
 
     switch (chairsPosition){
         case "top":
@@ -156,27 +156,26 @@ type getTranslateValueType = (
     chairsPosition: chairsPositionType,
 ) => string;
 
-// TODO: add description and param to the JSDOC
 /**
  * Calculates the translate distance for a specific chair based on it's position on Oval Table.
  * Divides the table on 4 quadrants. Increasing the angle of rotation (clockwise) will decrease the
  * translation distance in even quadrants, and increase in odd quadrants.
- *
  *
  * Returns a string with the correct CSS translate length.
  *
  * @param chairIndex - the index of the chair in the array + 1
  * @param numOfChairs - the total number of chairs at the table
  * @param relativeSize - The size for the component relative to the parent
+ * @param chairsPosition - the placement position of all chairs (top, bottom, left, right or around)
  * @return {string} - the correct translate value for a specific chair
  */
 const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relativeSize,chairsPosition) => {
-    const ADDITIONAL_CHAIR = 1;
+    const ADDITIONAL_SPACE = 1;
     // The angle between chairs according their quantity.
     const SPACING_DIFFERENCE =
         chairsPosition === 'around' ?
             (FULL_TURN / numOfChairs) :
-            (STRAIGHT_ANGLE / (numOfChairs + ADDITIONAL_CHAIR));
+            (STRAIGHT_ANGLE / (numOfChairs + ADDITIONAL_SPACE));
 
     // Clockwise rotation angle of current chair from x-axis of 4th quadrant
     const CHAIR_ROTATION_ANGLE = chairIndex * SPACING_DIFFERENCE;
@@ -202,7 +201,17 @@ type getQuadrantBasedAngleType = (
     chairsPosition: chairsPositionType,
 ) => number;
 
-//TODO: add JSDOC
+/** Accepts any angle, locates in which quadrant it is located (odd with growing, or even
+ * with decreasing translateValue), and based at which quadrant angle placed reformat
+ * the angle to not exceed 1 quadrant (90 degree).
+ *
+ * If chairs position is left or right, add additional 90 degree to switch the angle to the
+ * next quadrant.
+ *
+ * @param angle the angle from positive x-axis to the current chair
+ * @param chairsPosition - the placement position of all chairs (top, bottom, left, right or around)
+ * @return {number} angle from 0 to 90
+ */
 const getQuadrantBasedAngle: getQuadrantBasedAngleType = (angle,chairsPosition) => {
     angle =
         chairsPosition === 'left' || chairsPosition === 'right' ?
@@ -227,7 +236,6 @@ interface ITableBody {
 }
 
 const TableBody = styled.div<ITableBody>`
-  
   ${({ relativeSize }) => {
     const BASE_TABLE_BORDER_WIDTH = 1.5;
     const BASE_TABLE_BODY_MARGIN = 3;
