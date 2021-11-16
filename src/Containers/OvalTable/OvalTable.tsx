@@ -49,7 +49,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
         tableIndex = 0,
         selectedIndex = -1,
         isOneSideChairs = false,
-        chairsPosition = 'top',
+        chairsPosition = 'around',
 
         ...props
     }): React.ReactElement => {
@@ -169,11 +169,12 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, chairPosition) => 
  * @return {string} - the correct translate value for a specific chair
  */
 const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relativeSize,chairPosition) => {
+    const ADDITIONAL_CHAIR = 1;
     // The angle between chairs according their quantity.
     const SPACING_DIFFERENCE =
         chairPosition === 'around' ?
             (FULL_TURN / numOfChairs) :
-            (STRAIGHT_ANGLE / numOfChairs - 1);
+            (STRAIGHT_ANGLE / (numOfChairs + ADDITIONAL_CHAIR));
 
     // Clockwise rotation angle of current chair from x-axis of 4th quadrant
     const CHAIR_ROTATION_ANGLE = chairIndex * SPACING_DIFFERENCE;
@@ -184,7 +185,10 @@ const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relat
     const HEIGHT_TO_WIDTH_DIFFERENCE =  WHOLE_COEFFICIENT - HEIGHT_TO_WIDTH_RATIO;
 
     // Reformat any chair rotation angle to not exceed 2 quadrants format (180 degrees).
-    const QUADRANT_BASED_ANGLE = getQuadrantBasedAngle(CHAIR_ROTATION_ANGLE);
+    const QUADRANT_BASED_ANGLE = getQuadrantBasedAngle(CHAIR_ROTATION_ANGLE, chairPosition);
+
+    console.log("SPACING_DIFFERENCE = " + SPACING_DIFFERENCE);
+    console.log("chair: " + chairIndex + "; angle: " + QUADRANT_BASED_ANGLE + "; original angle: " + CHAIR_ROTATION_ANGLE);
 
     // Calculate the coefficient which may vary from 0.7 to 1, based on angle of the chair.
     const translationCoefficient = WHOLE_COEFFICIENT - (HEIGHT_TO_WIDTH_DIFFERENCE * (QUADRANT_BASED_ANGLE/RIGHT_ANGLE));
@@ -196,10 +200,16 @@ const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relat
 
 type getQuadrantBasedAngleType = (
     angle: number,
+    chairPosition: chairsPositionType,
 ) => number;
 
 //TODO: add JSDOC
-const getQuadrantBasedAngle: getQuadrantBasedAngleType = (angle) => {
+const getQuadrantBasedAngle: getQuadrantBasedAngleType = (angle,chairPosition) => {
+    angle =
+        chairPosition === 'left' || chairPosition === 'right' ?
+            angle + RIGHT_ANGLE :
+            angle;
+
     // Reformat any chair rotation angle to not exceed 2 quadrants format (180 degrees).
     let quadrantBasedAngle = angle % STRAIGHT_ANGLE;
 
