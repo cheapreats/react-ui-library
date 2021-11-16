@@ -63,7 +63,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
                 relativeSize={relativeSize}
                 numOfChairs={chairs.length}
                 counter={index + 1}
-                chairPosition={chairsPosition}
+                chairsPosition={chairsPosition}
             >
                 <Chair
                     relativeSize={relativeSize}
@@ -165,11 +165,11 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, chairPosition) => 
  * @param relativeSize - The size for the component relative to the parent
  * @return {string} - the correct translate value for a specific chair
  */
-const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relativeSize,chairPosition) => {
+const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relativeSize,chairsPosition) => {
     const ADDITIONAL_CHAIR = 1;
     // The angle between chairs according their quantity.
     const SPACING_DIFFERENCE =
-        chairPosition === 'around' ?
+        chairsPosition === 'around' ?
             (FULL_TURN / numOfChairs) :
             (STRAIGHT_ANGLE / (numOfChairs + ADDITIONAL_CHAIR));
 
@@ -182,10 +182,7 @@ const getTranslateValue: getTranslateValueType = (chairIndex, numOfChairs, relat
     const HEIGHT_TO_WIDTH_DIFFERENCE =  WHOLE_COEFFICIENT - HEIGHT_TO_WIDTH_RATIO;
 
     // Reformat any chair rotation angle to not exceed 2 quadrants format (180 degrees).
-    const QUADRANT_BASED_ANGLE = getQuadrantBasedAngle(CHAIR_ROTATION_ANGLE, chairPosition);
-
-    console.log("SPACING_DIFFERENCE = " + SPACING_DIFFERENCE);
-    console.log("chair: " + chairIndex + "; angle: " + QUADRANT_BASED_ANGLE + "; original angle: " + CHAIR_ROTATION_ANGLE);
+    const QUADRANT_BASED_ANGLE = getQuadrantBasedAngle(CHAIR_ROTATION_ANGLE, chairsPosition);
 
     // Calculate the coefficient which may vary from 0.7 to 1, based on angle of the chair.
     const translationCoefficient = WHOLE_COEFFICIENT - (HEIGHT_TO_WIDTH_DIFFERENCE * (QUADRANT_BASED_ANGLE/RIGHT_ANGLE));
@@ -201,9 +198,9 @@ type getQuadrantBasedAngleType = (
 ) => number;
 
 //TODO: add JSDOC
-const getQuadrantBasedAngle: getQuadrantBasedAngleType = (angle,chairPosition) => {
+const getQuadrantBasedAngle: getQuadrantBasedAngleType = (angle,chairsPosition) => {
     angle =
-        chairPosition === 'left' || chairPosition === 'right' ?
+        chairsPosition === 'left' || chairsPosition === 'right' ?
             angle + RIGHT_ANGLE :
             angle;
 
@@ -253,7 +250,7 @@ interface IChairWrapper {
     counter: number;
     numOfChairs: number;
     relativeSize: number;
-    chairPosition: chairsPositionType;
+    chairsPosition: chairsPositionType;
 }
 
 const ChairWrapper = styled.div<IChairWrapper>`
@@ -268,11 +265,11 @@ const ChairWrapper = styled.div<IChairWrapper>`
   margin: calc(-0.5 * var(--chairDiameter));
   
   --turnValue: 
-          ${({ counter, numOfChairs, chairPosition}) =>
-                  getTurnValue(counter, numOfChairs, chairPosition)}
+          ${({ counter, numOfChairs, chairsPosition}) =>
+                  getTurnValue(counter, numOfChairs, chairsPosition)}
   ;
   transform: rotate(var(--turnValue))
-  translate(${({ counter, numOfChairs, relativeSize, chairPosition }) =>
-          getTranslateValue(counter, numOfChairs, relativeSize, chairPosition)})
+  translate(${({ counter, numOfChairs, relativeSize, chairsPosition }) =>
+          getTranslateValue(counter, numOfChairs, relativeSize, chairsPosition)})
   rotate(calc(-1 * var(--turnValue)));
 `;
