@@ -17,12 +17,8 @@ type chairsPositionType =
 type getChairsType = () => JSX.Element[];
 
 export interface IOvalTable{
-    /* The unique identifier for the table */
-    tableID: string;
     /* Array of chairs */
     chairs: Array<IChair>;
-    /* The name of the party assigned to the table */
-    partyName: string;
     /* The size for the component relative to the parent */
     relativeSize: number;
     /* The use type for the table component (how it will be used in the app) */
@@ -40,9 +36,7 @@ export interface IOvalTable{
  * Primary UI component for user interaction
  */
 export const OvalTable: React.FC<IOvalTable> = ({
-        tableID = 'T1',
         chairs = [],
-        partyName = 'Null',
         relativeSize = 1.0,
         tableUse = 'TableForManagement',
         tableIndex = 0,

@@ -13,8 +13,6 @@ const Template: Story<IOvalTable> = (args) => <OvalTable {...args} />;
 
 export const NineChairs = Template.bind({});
 NineChairs.args = {
-    tableID: 'T1',
-    partyName: 'Yurii',
     chairs: [
         {
             position: 'top',
@@ -140,8 +138,6 @@ NineChairs.args = {
 
 export const TwelveChairs = Template.bind({});
 TwelveChairs.args = {
-    tableID: 'T1',
-    partyName: 'Yurii',
     chairs: [
         {
             position: 'top',
@@ -306,8 +302,6 @@ TwelveChairs.args = {
 
 export const FourChairsTop = Template.bind({});
 FourChairsTop.args = {
-    tableID: 'T1',
-    partyName: 'Yurii',
     chairs: [
         {
             position: 'top',
@@ -368,8 +362,6 @@ FourChairsTop.args = {
 
 export const FiveChairsBottom = Template.bind({});
 FiveChairsBottom.args = {
-    tableID: 'T1',
-    partyName: 'Yurii',
     chairs: [
         {
             position: 'top',
