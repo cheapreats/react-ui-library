@@ -111,6 +111,14 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
         return <div />;
     })
 
+    /**
+     * Gets the number of children in the accordion or 0 if undefined
+     * @returns the number of single layer children in the accordion
+     */
+    const getChildrenCount = (() => (
+        children !== undefined ? children.length : 0
+    ))
+
     return(
         <Tier {...props} height={visibleHeight}>
             <HeaderContainer ref={headerRef} onClick={toggleAccordian}>
@@ -118,7 +126,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
                 <HeaderText>{header}</HeaderText>
                 <ArrowContainer>
                     {displayItemCount && <Text>
-                        {children !== undefined ? children.length : 0}
+                        {getChildrenCount()}
                     </Text>}
                     <AngleIcon isExpanded={isExpanded}/>
                 </ArrowContainer>
