@@ -5,15 +5,14 @@ import { Mixins } from '../../Utils';
 const SVG_CONTAINER_WIDTH = 30;
 const SVG_HORIZONTAL_START = 10;
 const HALF_HEIGHT = 2;
-const GET_LAST_CHILD_INDEX = 1
 const ANIMATION_TIME = 1500;
 const HEIGHT_ANIMATION_DELAY = 500;
-const ANIMATION_INCRIMENTAL = 300;
 const ANIMATION_INDEX_SHIFT = 1;
 
 export interface ITreeAccordionProps extends React.HTMLAttributes<HTMLDivElement> {
     /* The header name for the tier */
     header: string;
+    /* The child elements making up the accordion's items */
     children: Array<React.ReactNode>
 }
 
@@ -27,6 +26,9 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
     const [isExpanded, setIsExpanded] = useState(true);
     const [visibleHeight, setHeight] = useState(0);
 
+    /**
+     * Toggles the component's state between expanded and contracted
+     */
     const toggleAccordian = (): void => {
         setIsExpanded(!isExpanded);
     }
@@ -34,6 +36,9 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
     const childrenRef = useRef<HTMLDivElement>(null);
     const headerRef = useRef<HTMLDivElement>(null);
 
+    /**
+     * useEffect hook that triggers when the childRef is added to the Dom and updates the height array of child Elements for generating the SVG Paths
+     */
     useEffect((): void => {
         console.log(childrenRef);
         const childrenContainer = childrenRef.current;
@@ -47,6 +52,9 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
         setHeightArray(currentChildHeights);
     }, [childrenRef])
 
+    /**
+     * useEffect hook that triggers whenever the accordion's state is toggled between expanded and contracted. Upon doing so it updates the height of the main container to expand or contract the accordion
+     */
     useEffect((): void => {
         const headerNode = headerRef.current;
         console.log(header);
@@ -60,6 +68,10 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
         }
     }, [isExpanded]);
 
+    /**
+     * Generates a sized SVG Element and its child Path Elements where each path terminates at the center of an accordion child's height
+     * @returns an SVG Element containing it's child Path Elements
+     */
     const generatePaths = (() => {
         totalChildrenHeight = childHeights.reduce((a, b) => a + b, 0);
         let currentOffset = 0;
