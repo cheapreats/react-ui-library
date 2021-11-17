@@ -6,13 +6,13 @@ const SVG_HORIZONTAL_START = 10;
 const HALF_HEIGHT = 2;
 const GET_LAST_CHILD_INDEX = 1
 
-export interface IAccordionTierProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface ITreeAccordionProps extends React.HTMLAttributes<HTMLDivElement> {
     /* The header name for the tier */
     header: string;
     children: Array<React.ReactNode>
 }
 
-export const AccordionTier: React.FC<IAccordionTierProps> = ({
+export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
     header,
     children,
     ...props
