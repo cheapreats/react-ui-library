@@ -3,22 +3,26 @@ import styled from 'styled-components';
 import { Mixins } from '../../Utils';
 
 const SVG_CONTAINER_WIDTH = 30;
-const SVG_HORIZONTAL_START = 10;
+const SVG_HORIZONTAL_START = 12;
 const HALF_HEIGHT = 2;
 const ANIMATION_TIME = 1500;
 const HEIGHT_ANIMATION_DELAY = 500;
 const ANIMATION_INDEX_SHIFT = 1;
+const CENTER_ICON_ON_PATH = 2
 
 export interface ITreeAccordionProps extends React.HTMLAttributes<HTMLDivElement> {
     /* The header name for the tier */
     header: string;
     /* The child elements making up the accordion's items */
-    children: Array<React.ReactNode>
+    children: Array<React.ReactNode>;
+    /* An Optional icon to display to the left of the header */
+    icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
 }
 
 export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
     header,
     children,
+    icon,
     ...props
 }): React.ReactElement => {
     let totalChildrenHeight = 0;
@@ -95,6 +99,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
     return(
         <Tier {...props} height={visibleHeight}>
             <HeaderContainer ref={headerRef} onClick={toggleAccordian}>
+                {icon && <Icon as={icon} />}
                 {header}
             </HeaderContainer>
             <BodyContainer>
@@ -122,6 +127,8 @@ const Tier = styled.div<ITierProps>`
 `;
 
 const HeaderContainer = styled.div`
+    display: flex;
+    align-content: center;
     :hover{
         cursor: pointer
     }
@@ -155,4 +162,10 @@ const Path = styled.path<IPathProps>`
         ${Mixins.transition(['stroke-dashoffset'], (isExpanded ? animationTime : ANIMATION_TIME - animationTime))}
     `}
     fill: transparent;
+`;
+
+const Icon = styled.svg`
+    width: ${SVG_HORIZONTAL_START * CENTER_ICON_ON_PATH}px;
+    height: ${SVG_HORIZONTAL_START * CENTER_ICON_ON_PATH}px;
+    margin-right: .5rem;
 `;
