@@ -78,7 +78,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
      * @returns an SVG Element containing it's child Path Elements
      */
     const generatePaths = (() => {
-        const totalChildrenHeight = childHeights.reduce((a, b) => a + b, 0);
+        const totalChildrenHeight = childHeights.reduce((totalSum, currentElementValue) => totalSum + currentElementValue, 0);
         let currentOffset = 0;
         const animationTimePerChild = ANIMATION_TIME / childHeights.length;
         return(
