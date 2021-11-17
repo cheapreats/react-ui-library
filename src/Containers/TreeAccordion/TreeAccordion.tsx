@@ -60,13 +60,15 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
         let currentOffset = 0;
         return(
             <svg width={`${SVG_CONTAINER_WIDTH}px`} height={`${totalChildrenHeight}px`} xmlns="http://www.w3.org/2000/svg">
-                <path d={`M${SVG_HORIZONTAL_START} 0 V${totalChildrenHeight - (childHeights[childHeights.length - GET_LAST_CHILD_INDEX] / HALF_HEIGHT)}`} stroke="black" fill="transparent"/>
                 {childHeights.map((childHeight) => {
-                    currentOffset += childHeight / HALF_HEIGHT;
-                    const SVGPath = `M${SVG_HORIZONTAL_START} ${currentOffset} H${SVG_CONTAINER_WIDTH - SVG_HORIZONTAL_START}`
-                    currentOffset += childHeight / HALF_HEIGHT;
 
-                    return(<path d={SVGPath} stroke="black" fill="transparent"/>);
+                    const halfCurrentChildHeight = childHeight / HALF_HEIGHT;
+                    const arcEndHeight = currentOffset + halfCurrentChildHeight;
+                    const arcStartHeight = arcEndHeight - (SVG_CONTAINER_WIDTH - SVG_HORIZONTAL_START);
+                    const SVGPath = `M${SVG_HORIZONTAL_START} 0 V${arcStartHeight} Q${SVG_HORIZONTAL_START} ${arcEndHeight} ${SVG_CONTAINER_WIDTH} ${arcEndHeight}`
+                    currentOffset += childHeight;
+
+                    return( <Path d={SVGPath} pathLength={1} />);
                 })}
             </svg>
         )
@@ -108,7 +110,7 @@ const HeaderContainer = styled.div`
 
 const BodyContainer = styled.div`
     display: flex;
-
+    padding-top: ${SVG_CONTAINER_WIDTH - SVG_HORIZONTAL_START};
 `;
 
 const SVGContainer = styled.div`
@@ -118,5 +120,11 @@ const SVGContainer = styled.div`
 `;
 
 const ChildrenContainer = styled.div`
+    margin-left: .5rem;
+`;
 
+const Path = styled.path`
+    stroke: black;
+    stroke-width: 2px;
+    fill: transparent;
 `;
