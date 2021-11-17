@@ -1,10 +1,15 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { Mixins } from '../../Utils';
 
 const SVG_CONTAINER_WIDTH = 30;
 const SVG_HORIZONTAL_START = 10;
 const HALF_HEIGHT = 2;
 const GET_LAST_CHILD_INDEX = 1
+const ANIMATION_TIME = 1500;
+const HEIGHT_ANIMATION_DELAY = 500;
+const ANIMATION_INCRIMENTAL = 300;
+const ANIMATION_INDEX_SHIFT = 1;
 
 export interface ITreeAccordionProps extends React.HTMLAttributes<HTMLDivElement> {
     /* The header name for the tier */
@@ -19,11 +24,11 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
 }): React.ReactElement => {
     let totalChildrenHeight = 0;
     const [childHeights, setHeightArray] = useState([0])
-    const [isActive, setIsActive] = useState(true);
+    const [isExpanded, setIsExpanded] = useState(true);
     const [visibleHeight, setHeight] = useState(0);
 
     const toggleAccordian = (): void => {
-        setIsActive(!isActive);
+        setIsExpanded(!isExpanded);
     }
 
     const childrenRef = useRef<HTMLDivElement>(null);
@@ -47,20 +52,21 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
         console.log(header);
         const childrenContianer = childrenRef.current;
         if(headerNode && childrenContianer){
-            if(isActive){
+            if(isExpanded){
                 setHeight(headerNode.clientHeight + childrenContianer.clientHeight)
             } else {
                 setHeight(headerNode.clientHeight)
             }
         }
-    }, [isActive]);
+    }, [isExpanded]);
 
     const generatePaths = (() => {
         totalChildrenHeight = childHeights.reduce((a, b) => a + b, 0);
         let currentOffset = 0;
+        const animationTimePerChild = ANIMATION_TIME / childHeights.length;
         return(
             <svg width={`${SVG_CONTAINER_WIDTH}px`} height={`${totalChildrenHeight}px`} xmlns="http://www.w3.org/2000/svg">
-                {childHeights.map((childHeight) => {
+                {childHeights.map((childHeight, index) => {
 
                     const halfCurrentChildHeight = childHeight / HALF_HEIGHT;
                     const arcEndHeight = currentOffset + halfCurrentChildHeight;
@@ -68,7 +74,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
                     const SVGPath = `M${SVG_HORIZONTAL_START} 0 V${arcStartHeight} Q${SVG_HORIZONTAL_START} ${arcEndHeight} ${SVG_CONTAINER_WIDTH} ${arcEndHeight}`
                     currentOffset += childHeight;
 
-                    return( <Path d={SVGPath} pathLength={1} />);
+                    return( <Path d={SVGPath} pathLength={1} isExpanded={isExpanded} animationTime={animationTimePerChild * (index + ANIMATION_INDEX_SHIFT)}/>);
                 })}
             </svg>
         )
@@ -99,6 +105,7 @@ const Tier = styled.div<ITierProps>`
     overflow: hidden;
     ${(({ height }) => `
         height: ${height}px;
+        ${Mixins.transition(['height'], (ANIMATION_TIME - HEIGHT_ANIMATION_DELAY))}
     `)}
 `;
 
@@ -114,17 +121,26 @@ const BodyContainer = styled.div`
 `;
 
 const SVGContainer = styled.div`
-    ${() => `
-        width: ${SVG_CONTAINER_WIDTH}px;
-    `}
+    width: ${SVG_CONTAINER_WIDTH}px;
 `;
 
 const ChildrenContainer = styled.div`
     margin-left: .5rem;
 `;
 
-const Path = styled.path`
+interface IPathProps{
+    isExpanded: boolean;
+    animationTime: number
+}
+
+const Path = styled.path<IPathProps>`
+
     stroke: black;
     stroke-width: 2px;
+    stroke-dasharray: 1;
+    ${({isExpanded, animationTime}) => `
+        stroke-dashoffset: ${isExpanded ? 0 : 1};
+        ${Mixins.transition(['stroke-dashoffset'], (isExpanded ? animationTime : ANIMATION_TIME - animationTime))}
+    `}
     fill: transparent;
 `;
