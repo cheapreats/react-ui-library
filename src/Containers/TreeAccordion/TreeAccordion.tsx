@@ -30,7 +30,6 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
     displayItemCount = false,
     ...props
 }): React.ReactElement => {
-    let totalChildrenHeight = 0;
     const [childHeights, setHeightArray] = useState([0])
     const [isExpanded, setIsExpanded] = useState(true);
     const [visibleHeight, setHeight] = useState(0);
@@ -49,12 +48,10 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
      * useEffect hook that triggers when the childRef is added to the Dom and updates the height array of child Elements for generating the SVG Paths
      */
     useEffect((): void => {
-        console.log(childrenRef);
         const childrenContainer = childrenRef.current;
         const currentChildHeights: number[] = [];
         if(childrenContainer){
             Array.from(childrenContainer.children).forEach((child) => {
-                totalChildrenHeight += child.clientHeight;
                 currentChildHeights.push(child.clientHeight);
             })
         }
@@ -66,7 +63,6 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
      */
     useEffect((): void => {
         const headerNode = headerRef.current;
-        console.log(header);
         const childrenContianer = childrenRef.current;
         if(headerNode && childrenContianer){
             if(isExpanded){
@@ -82,7 +78,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
      * @returns an SVG Element containing it's child Path Elements
      */
     const generatePaths = (() => {
-        totalChildrenHeight = childHeights.reduce((a, b) => a + b, 0);
+        const totalChildrenHeight = childHeights.reduce((a, b) => a + b, 0);
         let currentOffset = 0;
         const animationTimePerChild = ANIMATION_TIME / childHeights.length;
         return(
