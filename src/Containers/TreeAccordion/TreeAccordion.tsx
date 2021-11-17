@@ -1,12 +1,14 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { AngleUp } from '@styled-icons/fa-solid/AngleUp';
 import { Mixins } from '../../Utils';
+
 
 const SVG_CONTAINER_WIDTH = 30;
 const SVG_HORIZONTAL_START = 12;
 const HALF_HEIGHT = 2;
-const ANIMATION_TIME = 1500;
-const HEIGHT_ANIMATION_DELAY = 500;
+const ANIMATION_TIME = 1000;
+const HEIGHT_ANIMATION_DELAY = 250;
 const ANIMATION_INDEX_SHIFT = 1;
 const CENTER_ICON_ON_PATH = 2
 
@@ -17,12 +19,15 @@ export interface ITreeAccordionProps extends React.HTMLAttributes<HTMLDivElement
     children: Array<React.ReactNode>;
     /* An Optional icon to display to the left of the header */
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+    /* If true the number of items in the accordion will be shown in the header */
+    displayItemCount?: boolean;
 }
 
 export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
     header,
     children,
     icon,
+    displayItemCount = false,
     ...props
 }): React.ReactElement => {
     let totalChildrenHeight = 0;
@@ -100,7 +105,13 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
         <Tier {...props} height={visibleHeight}>
             <HeaderContainer ref={headerRef} onClick={toggleAccordian}>
                 {icon && <Icon as={icon} />}
-                {header}
+                <HeaderText>{header}</HeaderText>
+                <ArrowContainer>
+                    {displayItemCount && <Text>
+                        {children.length}
+                    </Text>}
+                    <AngleIcon isExpanded={isExpanded}/>
+                </ArrowContainer>
             </HeaderContainer>
             <BodyContainer>
                 <SVGContainer>
@@ -127,15 +138,25 @@ const Tier = styled.div<ITierProps>`
 `;
 
 const HeaderContainer = styled.div`
-    display: flex;
+    display: inline-flex;
     align-content: center;
+    width: 100%;
     :hover{
         cursor: pointer
     }
 `;
 
+const HeaderText = styled.div`
+    ${({ theme }) => `
+        font-size: ${theme.font.size.h5};
+    `}
+    align-self: center;
+    flex-grow: 1
+`;
+
 const BodyContainer = styled.div`
     display: flex;
+    width: 100%;
     padding-top: ${SVG_CONTAINER_WIDTH - SVG_HORIZONTAL_START};
 `;
 
@@ -169,3 +190,31 @@ const Icon = styled.svg`
     height: ${SVG_HORIZONTAL_START * CENTER_ICON_ON_PATH}px;
     margin-right: .5rem;
 `;
+
+interface IAngleIconProps{
+    isExpanded: boolean;
+}
+
+const AngleIcon = styled(AngleUp)<IAngleIconProps>`
+    ${Mixins.transition(['transform'])}
+    transform: rotate(${({ isExpanded }): number => (isExpanded ? 180 : 90)}deg);
+    width: 12px;
+    margin-left: .3rem;
+`;
+
+const ArrowContainer = styled.div`
+    display: inline-flex;
+    allign-content: center;
+    margin-left: .5rem;
+    verticle-align: center;
+`
+
+const Text = styled.div`
+    ${({ theme }) => `  
+        font-size: ${theme.font.size.small};
+        background-color: ${theme.colors.border};
+        border-radius: 4px;
+    `}
+    padding: 2px 4px;
+    align-self: center;
+`

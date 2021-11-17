@@ -9,7 +9,11 @@ export default {
     component: TreeAccordion,
     args: {
         header: "Accordion Header",
-        icon: ReactLogo
+        icon: ReactLogo,
+        displayItemCount: true,
+        style: {
+            width: "15%"
+        }
     }
 } as Meta;
 
