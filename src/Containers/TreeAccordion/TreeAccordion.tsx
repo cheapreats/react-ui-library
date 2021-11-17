@@ -21,6 +21,8 @@ export interface ITreeAccordionProps extends React.HTMLAttributes<HTMLDivElement
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     /* If true the number of items in the accordion will be shown in the header */
     displayItemCount?: boolean;
+    /* Optional props to style the path making up the tree SVG */
+    pathProps?: React.HTMLAttributes<SVGPathElement>
 }
 
 export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
@@ -28,6 +30,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
     children,
     icon,
     displayItemCount = false,
+    pathProps,
     ...props
 }): React.ReactElement => {
     const [childHeights, setHeightArray] = useState([0])
@@ -91,7 +94,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
                     const SVGPath = `M${SVG_HORIZONTAL_START} 0 V${arcStartHeight} Q${SVG_HORIZONTAL_START} ${arcEndHeight} ${SVG_CONTAINER_WIDTH} ${arcEndHeight}`
                     currentOffset += childHeight;
 
-                    return( <Path d={SVGPath} pathLength={1} isExpanded={isExpanded} animationTime={animationTimePerChild * (index + ANIMATION_INDEX_SHIFT)}/>);
+                    return( <Path d={SVGPath} pathLength={1} isExpanded={isExpanded} animationTime={animationTimePerChild * (index + ANIMATION_INDEX_SHIFT)} {...pathProps}/>);
                 })}
             </svg>
         )
