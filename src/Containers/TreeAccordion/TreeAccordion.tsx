@@ -11,6 +11,7 @@ const ANIMATION_TIME = 1000;
 const HEIGHT_ANIMATION_DELAY = 250;
 const ANIMATION_INDEX_SHIFT = 1;
 const CENTER_ICON_ON_PATH = 2
+const BASE_10 = 10;
 
 export interface ITreeAccordionProps extends React.HTMLAttributes<HTMLDivElement> {
     /* The header name for the tier */
@@ -55,7 +56,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
         const currentChildHeights: number[] = [];
         if(childrenContainer){
             Array.from(childrenContainer.children).forEach((child) => {
-                currentChildHeights.push(child.clientHeight);
+                currentChildHeights.push(child.scrollHeight);
             })
         }
         setHeightArray(currentChildHeights);
@@ -69,9 +70,9 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
         const childrenContianer = childrenRef.current;
         if(headerNode && childrenContianer){
             if(isExpanded){
-                setHeight(headerNode.clientHeight + childrenContianer.clientHeight)
+                setHeight(headerNode.scrollHeight + childrenContianer.scrollHeight)
             } else {
-                setHeight(headerNode.clientHeight)
+                setHeight(headerNode.scrollHeight)
             }
         }
     }, [isExpanded]);
@@ -100,6 +101,14 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
         )
     });
 
+    /**
+     * Wraps each child element in an outer div to get the margins of the child when calculating the height
+     * @returns each child wrapped in an outer div Element
+     */
+    const addBoundingBoxDiv = (() => (
+        children.map((child) => (<ChildBoundingBoxContainer>{child}</ChildBoundingBoxContainer>))
+    ))
+
     return(
         <Tier {...props} height={visibleHeight}>
             <HeaderContainer ref={headerRef} onClick={toggleAccordian}>
@@ -117,7 +126,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
                     {generatePaths()}
                 </SVGContainer>
                 <ChildrenContainer ref={childrenRef}>
-                    {children}
+                    {addBoundingBoxDiv()}
                 </ChildrenContainer>
             </BodyContainer>
         </Tier>
@@ -137,6 +146,7 @@ const Tier = styled.div<ITierProps>`
 `;
 
 const HeaderContainer = styled.div`
+    margin: 0;
     display: inline-flex;
     align-content: center;
     width: 100%;
@@ -164,6 +174,7 @@ const SVGContainer = styled.div`
 `;
 
 const ChildrenContainer = styled.div`
+    margin: 0;
     margin-left: .5rem;
 `;
 
@@ -216,4 +227,11 @@ const Text = styled.div`
     `}
     padding: 2px 4px;
     align-self: center;
+`
+
+const ChildBoundingBoxContainer = styled.div`
+    margin: 0;
+    padding: 0;
+    border: none;
+    overflow: auto;
 `
