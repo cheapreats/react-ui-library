@@ -19,10 +19,24 @@ export default {
 
 export const Basic: Story<ITreeAccordionProps> = (args) => (
     <TreeAccordion {...args}>
-        <Paragraph padding="20px 0">Child 1</Paragraph>
-        <Paragraph lineHeight="100px">Child 2</Paragraph>
+        <Paragraph >Child 1</Paragraph>
+        <Paragraph >Child 2</Paragraph>
         <Paragraph>Child 3</Paragraph>
         <Paragraph>Child 4</Paragraph>
         <Paragraph>Child 5</Paragraph>
     </TreeAccordion>
+);
+
+export const RandomHeights: Story<ITreeAccordionProps> = (args) => (
+    <TreeAccordion {...args}>
+        <Paragraph padding="20px 0">Child 1</Paragraph>
+        <Paragraph lineHeight="100px">Child 2</Paragraph>
+        <Paragraph margin="20px">Child 3</Paragraph>
+        <Paragraph>Child 4</Paragraph>
+        <Paragraph>Child 5</Paragraph>
+    </TreeAccordion>
+);
+
+export const NoChildren: Story<ITreeAccordionProps> = (args) => (
+    <TreeAccordion {...args} />
 );
