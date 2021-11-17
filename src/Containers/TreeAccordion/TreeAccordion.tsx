@@ -11,13 +11,12 @@ const ANIMATION_TIME = 1000;
 const HEIGHT_ANIMATION_DELAY = 250;
 const ANIMATION_INDEX_SHIFT = 1;
 const CENTER_ICON_ON_PATH = 2
-const BASE_10 = 10;
 
 export interface ITreeAccordionProps extends React.HTMLAttributes<HTMLDivElement> {
     /* The header name for the tier */
     header: string;
     /* The child elements making up the accordion's items */
-    children: Array<React.ReactNode>;
+    children?: Array<React.ReactNode>;
     /* An Optional icon to display to the left of the header */
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     /* If true the number of items in the accordion will be shown in the header */
@@ -105,9 +104,12 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
      * Wraps each child element in an outer div to get the margins of the child when calculating the height
      * @returns each child wrapped in an outer div Element
      */
-    const addBoundingBoxDiv = (() => (
-        children.map((child) => (<ChildBoundingBoxContainer>{child}</ChildBoundingBoxContainer>))
-    ))
+    const addBoundingBoxDivs = (() => {
+        if(children !== undefined){
+            return children.map((child) => (<ChildBoundingBoxContainer>{child}</ChildBoundingBoxContainer>))
+        }
+        return <div />;
+    })
 
     return(
         <Tier {...props} height={visibleHeight}>
@@ -116,7 +118,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
                 <HeaderText>{header}</HeaderText>
                 <ArrowContainer>
                     {displayItemCount && <Text>
-                        {children.length}
+                        {children !== undefined ? children.length : 0}
                     </Text>}
                     <AngleIcon isExpanded={isExpanded}/>
                 </ArrowContainer>
@@ -126,7 +128,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
                     {generatePaths()}
                 </SVGContainer>
                 <ChildrenContainer ref={childrenRef}>
-                    {addBoundingBoxDiv()}
+                    {children !== undefined && addBoundingBoxDivs()}
                 </ChildrenContainer>
             </BodyContainer>
         </Tier>
