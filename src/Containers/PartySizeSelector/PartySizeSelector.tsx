@@ -3,39 +3,41 @@ import styled from 'styled-components';
 import {Person} from '@styled-icons/bootstrap/Person'
 import {PersonFill} from '@styled-icons/bootstrap/PersonFill'
 
-export interface IPartySizeSelector {
+export interface IPartySizeSelector extends React.HTMLAttributes<HTMLDivElement>{
+    clientIndexes: Array<number>;
+    partyName: string,
     person?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     personFill?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
 }
 
 
-
 export const PartySizeSelector: React.FC<IPartySizeSelector> = ({
+    clientIndexes= [],
+    partyName= "",
     person = Person,
     personFill = PersonFill,
     ...props
 }) => {
-    const [partySize, setIsFilled] = useState(0);
 
-    const clientIndexes = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+    const [partySize, setPartySize] = useState(0);
 
+    /**changes icons that have a smaller index then selected*/
     const getIcon = (clientIndex: number) =>{
-        /*changes icons that have a smaller index then selected*/
         if(clientIndex > partySize) {
             return (
                 <Icon as={person}/>
             );
         }else {
             return (
-                <SecondIcon as={personFill}/>
+                <Icon as={personFill}/>
             );
         }
     }
 
+    /*makes the columns of icons*/
     const cols = clientIndexes.map((clientIndex) =>
-            /* makes 10 columns*/
             <Col key={clientIndex.toString()}>
-                <IconButton onClick={() => setIsFilled(clientIndex)}>
+                <IconButton onClick={() => setPartySize(clientIndex)}>
 
                     {getIcon(clientIndex)}
                 </IconButton>
@@ -44,50 +46,56 @@ export const PartySizeSelector: React.FC<IPartySizeSelector> = ({
     );
 
     return(
-        <div {...props}>
-            <Title>AMOUNT</Title>
-            <Row>
-                {cols}
-            </Row>
-        </div>
+        <Content {...props}>
+            <Title>{partyName}</Title>
+            <Scrolling>
+                <Row>
+                    {cols}
+                </Row>
+            </Scrolling>
+        </Content>
     )
 };
 
-const Icon = styled.svg`
-    fill: #8c9c9c;
+const Content = styled.div`
 `;
 
-const SecondIcon = styled.svg`
-    fill: #dda859;
+const Scrolling = styled.div`
+  overflow-x: scroll;
+  overflow-y: hidden;
+`;
+
+const Icon = styled.svg`
+  fill: #f98300;
+  width: 35px;
 `;
 
 const IconButton = styled.button`
-  background-color: white;
+  background-color: #ffffff;
   border: none;
-  width: 100%;
-  height: 5em;
-`
+`;
+
 const Title = styled.div`
-  padding-left: 15px;
-  fill: #8c9c9c;
+  fill: #4a4a4a;
+  padding-bottom: 3px;
   font-weight: bold;
-`
+  font-size: 1.3rem;
+  margin-left: 13px;
+`;
 
 const Col = styled.div`
-  float: left;
-  width: 7%;
-`
+`;
 
 const Row = styled.div`
-  width: 100%;
-  max-width: 800px;
-`
+  display: inline-flex;
+`;
+
 const IndexNum = styled.div`
-  width: 100%;
-  margin-left: 24px;
-  fill: #8c9c9c;
+  fill: #4a4a4a;
   font-weight: bold;
-`
+  display: flex;
+  justify-content: center;
+`;
 
 
 
