@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Modal } from '../Modal/Modal';
-import { Tag } from '../Tag/Tag';
+import { Tag, TagProps} from '../Tag/Tag';
 
 export interface ProfileModalProps
     extends React.HTMLAttributes<HTMLDivElement> {
@@ -11,36 +11,47 @@ export interface ProfileModalProps
     name: string;
     /* Date of profile creation */
     date: string;
-    /* Placeholder text for tags */
-    tags: string;
+    /* [{text: value, icon: value}, {text: value, icon: value}] */
+    tags: Array<TagProps>;
 }
 
 export const ProfileModal: React.FC<ProfileModalProps> = ({
     image,
     name,
-    tags = {Tag},
+    tags,
     date,
     ...props
-}): React.ReactElement => (
-    <MyModal state={[true, () => true]} {...props}>
-        <ProfileImage 
-            src={image}
-        />
-        <TextBold>{name}</TextBold>
-        <MyTag>
-            {tags}
-        </MyTag>
-        <MyTag>
-            {tags}
-        </MyTag>
-        <TextBold >{date}</TextBold>
-    </MyModal>
-);
+}): React.ReactElement => {
+    /**
+     * Displays the array of tags
+     * @param tagComponents {Array}
+     */
+    const displayTags = (tagComponents: Array<TagProps>) => 
+        tagComponents.map((tag) => (
+            <div>
+                <MyTag {...tag} />
+            </div>
+        ));
+
+    return (
+        <MyModal state={[true, () => true]} {...props}>
+            <ProfileImage 
+                src={image}/>
+            <Text>{name}</Text>
+            <TextBold>Tags</TextBold>
+            {displayTags(tags)}
+            <TextBold>Date Created</TextBold>
+            <TextSmall>{date}</TextSmall>
+            
+        </MyModal>
+    );
+}
 
 const MyModal = styled(Modal)`
     ${({ theme }) => `
         color: ${theme.colors.text};
-        font-size: ${theme.font.size.h5}
+        font-size: ${theme.font.size.h5};
+        padding: ${theme.dimensions.padding.container};
     `}
     margin: auto;
     position: fixed;
@@ -54,6 +65,18 @@ const MyModal = styled(Modal)`
 const TextBold = styled.div`
     font-weight: bold;
     margin: 2px;
+    margin-top: .75rem;
+`;
+
+const Text = styled.div`
+    margin: 2px;
+`;
+
+const TextSmall = styled.div`
+    ${({ theme }) => `
+        font-size: ${theme.font.size.default};
+    `}
+    margin: 2px;
 `;
 
 const ProfileImage = styled.img`
@@ -64,6 +87,5 @@ const ProfileImage = styled.img`
 `;
 
 const MyTag = styled(Tag)`
-    width: 90%;
     overflow: hidden;
 `;
