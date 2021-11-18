@@ -82,3 +82,6 @@ export * from './HighlightedText/HighlightedText';
 export * from './NotificationBubble/NotificationBubble';
 export * from './TagGroup/TagGroup';
 export * from './Analytics/Analytics';
+export * from './ReachIndicator/ReachIndicator';
+export * from './DummyButton/DummyButton';
+

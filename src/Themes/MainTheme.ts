@@ -31,6 +31,11 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
         chairTableBackground: string;
         chairOccupiedBackground: string;
         chairTableEditBackground: string;
+        reachIndicatorColors: {
+            red: string;
+            yellow: string;
+            green: string;
+        };
     };
 }
 
@@ -64,6 +69,11 @@ export const MainTheme: MainThemeInterface = {
             Red: '#FF0000',
             Green: '#008000',
             Yellow: '#ffff00',
+        },
+        reachIndicatorColors: {
+            red: '#cf0202',
+            yellow: '#d1b306',
+            green: '#09d106',
         },
     },
 };
