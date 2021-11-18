@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Modal } from '../Modal/Modal';
 import { Tag, TagProps} from '../Tag/Tag';
@@ -32,9 +32,10 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
                 <MyTag {...tag} />
             </div>
         ));
+    const Modal1 = useState(true);
 
     return (
-        <MyModal state={[true, () => true]} {...props}>
+        <MyModal state={Modal1} {...props}>
             <ProfileImage 
                 src={image}/>
             <Text>{name}</Text>
@@ -42,7 +43,6 @@ export const ProfileModal: React.FC<ProfileModalProps> = ({
             {displayTags(tags)}
             <TextBold>Date Created</TextBold>
             <TextSmall>{date}</TextSmall>
-            
         </MyModal>
     );
 }
@@ -80,10 +80,12 @@ const TextSmall = styled.div`
 `;
 
 const ProfileImage = styled.img`
+    ${({ theme }) => `
+        background-color: ${theme.colors.background};
+    `}
     width: 80px;
     height: 80px;
     border-radius: 999px;
-    background-color: grey;
 `;
 
 const MyTag = styled(Tag)`
