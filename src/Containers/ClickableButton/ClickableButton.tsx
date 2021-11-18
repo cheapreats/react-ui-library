@@ -1,43 +1,40 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 
-export interface ClickableButtonProps extends React.HTMLAttributes<HTMLDivElement>{
+export interface ClickableButtonProps extends React.HTMLAttributes<HTMLButtonElement>{
     buttontext: string;
+    isclicked: boolean;
 };
 
 export const ClickableButton: React.FC<ClickableButtonProps> = ({
     buttontext, //the text that is displayed on the button.
-    onClick, //onclick not currently used but would be if the button did anything and would run on press.
+    isclicked, //is true when the button is clicked, which changes the button colors
     ...props
-}): React.ReactElement => <ClickableButtonBox {...props}>{
-    <p>
-        {buttontext}
-    </p>
-}</ClickableButtonBox>;
+}): React.ReactElement => {
+    const [clicked, setClicked] = useState(false);
+    return( 
+        <ClickableButtonBox buttontext={buttontext} isclicked={clicked} onMouseDown={() => setClicked(true)} onMouseUp={() => setClicked(false)} {...props}>
+            {buttontext}
+        </ClickableButtonBox> 
+    );
+};
 
-const ClickableButtonBox = styled.div`
-    ${({theme, ...props}):string => `
-        p{
-            text-align: center;
-            line-height: 30px;
-            width: 100px;
-            height: 35px;
-            overflow: hidden;
-            font-family: ${theme.font.family};
-            border-radius:${theme.dimensions.radius};
-            background-color: ${theme.colors.background};
-            color: ${theme.colors.text};
-        }
-        p:hover{
-            background-color: ${theme.colors.chairTableEditBackground};
-            color: ${theme.colors.text};
-        }
-        p:active{
-            background-color: ${theme.colors.clickedBackground};
-            color: ${theme.colors.clickedText};
+const ClickableButtonBox = styled.button<ClickableButtonProps>`
+    ${({theme, isclicked}):string => `
+        border: 0;
+        text-align: center;
+        line-height: 0px;
+        width: 100px;
+        height: 35px;
+        overflow: hidden;
+        font-family: ${theme.font.family};
+        border-radius:${theme.dimensions.radius};
+        background-color: ${isclicked ? theme.colors.clickedBackground : theme.colors.background}};
+        color: ${isclicked ? theme.colors.clickedText : theme.colors.text};
+        &:hover{
+            background-color: ${isclicked ? theme.colors.clickedBackground : theme.colors.hoverColor};
         }
     `}
-`
-export default ClickableButton;
+`;
 
-//todo change from css to prop state for hover
+export default ClickableButton;

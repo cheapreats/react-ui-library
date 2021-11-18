@@ -8,6 +8,7 @@ export default{
     component: ClickableButton,
     args:{
         buttontext: 'test', 
+        isclicked: false,
     }
 }as Meta;
 

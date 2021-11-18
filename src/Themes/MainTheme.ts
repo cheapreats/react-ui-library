@@ -34,6 +34,7 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
         bannerBackgroundColor: string;
         clickedBackground: string;
         clickedText: string;
+        hoverColor: string;
     };
     
 }
@@ -70,7 +71,8 @@ export const MainTheme: MainThemeInterface = {
             Green: '#008000',
             Yellow: '#ffff00',
         },
-        clickedBackground: '#d7e5f0',
-        clickedText: '#191970',
+        clickedBackground: '#E9F1FD',
+        clickedText: '#3173E5',
+        hoverColor: '#d3d3d3',
     },
 };
