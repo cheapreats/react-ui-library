@@ -19,9 +19,6 @@ export interface IAdvancedChair extends React.HTMLAttributes<HTMLDivElement> {
     chairIndex: number;
     selectedIndex: number;
     onChairClick: (
-        parentTableIndex: number,
-        chairIndex: number,
-        selectedIndex: number,
     ) => void;
 }
 
@@ -40,7 +37,7 @@ export const AdvancedChair: React.FC<IAdvancedChair> = ({
 }) => {
     return (
     <div{...props}>
-        <ChairBody>
+        <ChairBody onClick={onChairClick}>
             <BackOfChair/>
             <ChairSeat/>
             <TopChairLeg/>
