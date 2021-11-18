@@ -4,6 +4,7 @@ import { ClickableSmallText, SmallText } from '@Text';
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
 import DropdownItem, { IDropdownItemProps } from '../Dropdown/DropdownItem';
 import { TextLayoutProps } from '../../Fragments/TextLayout';
+import { MainTheme } from '@Themes';
 
 const newTextOpacity = 1;
 const oldTextOpacity = 0.5;
@@ -112,6 +113,5 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
 const HighlightedRow = styled.div``;
 
 const StyledClickableSmallText = styled(ClickableSmallText)`
-    color: ${({bold}) => bold ? 'orange' : 'black'}
+    color: ${({bold}) => bold ? MainTheme.colors.statusColors.orange : 'black'}
 `;
-
