@@ -66,7 +66,6 @@ NewUserCanvasExample.args = {
                 partyName: '',
                 isSquare: true,
                 occupancyStatus: 'Vacant',
-                timeLastServed:"00:00:00",
                 relativeSize: 0.25,
                 chairs: [
                     {
@@ -128,7 +127,6 @@ EditCanvasExample.args = {
                 partyName: '',
                 isSquare: true,
                 occupancyStatus: 'Vacant',
-                timeLastServed:"00:00:00",
                 relativeSize: 0.25,
                 chairs: [
                     {
@@ -175,7 +173,6 @@ EditCanvasExample.args = {
                 partyName: 'Tina',
                 isSquare: true,
                 occupancyStatus: 'Occupied',
-                timeLastServed:"00:00:00",
                 relativeSize: 0.25,
                 chairs: [
                     {
@@ -246,7 +243,6 @@ EditCanvasExample.args = {
                 tableID: 'T4',
                 partyName: 'Scott',
                 occupancyStatus: 'Occupied',
-                timeLastServed:"00:00:00",
                 relativeSize: 0.25,
                 chairs: [
                     {
@@ -348,7 +344,6 @@ EditCanvasExample.args = {
                 partyName: 'Dmytro',
                 isSquare: false,
                 occupancyStatus: 'Reserved',
-                timeLastServed:"00:00:00",
                 relativeSize: 0.25,
                 chairs: [
                     {
@@ -443,7 +438,6 @@ EditCanvasExample.args = {
                 tableID: 'T2',
                 partyName: 'Corey',
                 occupancyStatus: 'Occupied',
-                timeLastServed:"00:00:00",
                 relativeSize: 0.25,
                 chairs: [
                     {
@@ -559,7 +553,6 @@ MgmtCanvasExample.args = {
                 partyName: '',
                 isSquare: true,
                 occupancyStatus: 'Vacant',
-                timeLastServed:"00:00:00",
                 relativeSize: 0.25,
                 chairs: [
                     {
@@ -606,7 +599,6 @@ MgmtCanvasExample.args = {
                 partyName: 'Tina',
                 isSquare: true,
                 occupancyStatus: 'Occupied',
-                timeLastServed:"00:00:00",
                 relativeSize: 0.25,
                 chairs: [
                     {
@@ -677,7 +669,6 @@ MgmtCanvasExample.args = {
                 tableID: 'T4',
                 partyName: 'Scott',
                 occupancyStatus: 'Occupied',
-                timeLastServed:"00:00:00",
                 relativeSize: 0.25,
                 chairs: [
                     {
@@ -779,7 +770,6 @@ MgmtCanvasExample.args = {
                 partyName: 'Dmytro',
                 isSquare: false,
                 occupancyStatus: 'Reserved',
-                timeLastServed:"00:00:00",
                 relativeSize: 0.25,
                 chairs: [
                     {
@@ -850,7 +840,6 @@ MgmtCanvasExample.args = {
                 tableID: 'T2',
                 partyName: 'Corey',
                 occupancyStatus: 'Occupied',
-                timeLastServed:"00:00:00",
                 relativeSize: 0.25,
                 chairs: [
                     {
