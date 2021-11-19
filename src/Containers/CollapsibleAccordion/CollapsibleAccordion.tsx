@@ -1,13 +1,12 @@
 import React, { Children, isValidElement } from 'react';
 import { CollapsibleAccordionItem } from './CollapsibleAccordionItem';
 
-export interface CollapsibleAccordionProps {
-}
-
-export const CollapsibleAccordion: React.FC<CollapsibleAccordionProps> = ({
+export const CollapsibleAccordion: React.FC = ({
+    /* Child elements */
     children,
     ...props
 }): React.ReactElement => {
+    /* Convert children to array */
     const childrenArr = Children.toArray(children);
     return (
         <div {...props}>

@@ -8,8 +8,11 @@ import { Heading } from '../../Text';
 
 export interface CollapsibleAccordionItemProps
     extends React.HTMLAttributes<HTMLDivElement> {
+    /* Heading text */
     header: string;
+    /* Month and Year of purchases */
     purchaseDate: string;
+    /* Total amount of purchases */
     purchaseCount: number;
 }
 
@@ -26,6 +29,9 @@ export interface AngleIconProps {
     isActive: boolean;
 }
 
+/**
+     * Logic for the height given to the expanded accordion based on the amount of inside children
+     */
 export const CollapsibleAccordionItem: React.FC<CollapsibleAccordionItemProps> = ({
     header,
     purchaseDate,

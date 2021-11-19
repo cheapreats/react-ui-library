@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { CollapsibleAccordion, CollapsibleAccordionProps, Paragraph } from '../../index';
+import { CollapsibleAccordion, Paragraph } from '../../index';
 
 import { createStoryTitle } from '../../Constants';
 
@@ -9,7 +9,7 @@ export default {
     component: CollapsibleAccordion,
 } as Meta;
 
-export const Basic: Story<CollapsibleAccordionProps> = (args) => (
+export const Basic: Story = (args) => (
     <CollapsibleAccordion {...args}>
         <section data-header="Purchases" data-purchaseDate="Nov 2020" data-purchaseCount="5">
             <Paragraph>Nov 12 2020 | Generic Gas Station   | $4.92</Paragraph>
