@@ -6,11 +6,23 @@ import { createStoryTitle} from '../../Constants';
 export default {
     title: createStoryTitle('InfoHeader'),
     component: InfoHeader,
-    args: {
-        infotext: 'Reach', 
-    },
 } as Meta;
 
-export const Basic: Story<InfoHeaderProps> = (args) => (
+const Template: Story<InfoHeaderProps> = (args) => (
     <InfoHeader {...args}/>
 );
+
+export const BasicText = Template.bind({});
+BasicText.args = {
+    infotext: 'Reach', 
+};
+
+export const LargeText = Template.bind({});
+LargeText.args = {
+    infotext: 'ReachReachReachReachReachReachReachReachReachReachReachReachReachReachReachReachReach', 
+};
+
+export const NoText = Template.bind({});
+NoText.args = {
+    infotext: '', 
+};
