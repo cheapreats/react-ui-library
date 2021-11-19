@@ -19,8 +19,8 @@ export const InfoHeader: React.FC<InfoHeaderProps>  = ({
 );
 
 const InfoHeaderText = styled(Heading)`
-    text-align:left;
-`;
+    text-align: left;
+`; 
 
 const Icon = styled(InfoCircleFill)`
     width: 20px;
