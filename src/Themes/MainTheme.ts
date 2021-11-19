@@ -71,7 +71,7 @@ export const MainTheme: MainThemeInterface = {
             Yellow: '#ffff00',
         },
         reachIndicatorColors: {
-            red: '#cf0202',
+            red: '#f50707',
             yellow: '#d1b306',
             green: '#09d106',
         },

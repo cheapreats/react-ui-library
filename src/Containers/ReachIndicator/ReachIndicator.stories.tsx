@@ -7,7 +7,6 @@ export default {
     title: createStoryTitle('Reach Indicator'),
     component: ReachIndicator,
 } as Meta;
-
 const Template: Story<ReachIndicatorProps> = (args) => <ReachIndicator {...args} /> 
 
 export const ReachIndicatorBasic = Template.bind({});
@@ -16,7 +15,8 @@ ReachIndicatorBasic.args = {
     engageGoal: 50,
     reachNum: 30,
     reachGoal: 100,
-    percentMark: 50, 
+    percentMark: 50,
+    indicatorMinimum: 0,
 };
 
 export const ReachIndicatorMax = Template.bind({});
@@ -26,6 +26,7 @@ ReachIndicatorMax.args = {
     reachNum: 100,
     reachGoal: 100,
     percentMark: 50,
+    indicatorMinimum: 0, 
 };
 
 export const ReachIndicatorMin = Template.bind({});
@@ -35,4 +36,5 @@ ReachIndicatorMin.args = {
     reachNum: 0,
     reachGoal: 100,
     percentMark: 50,
+    indicatorMinimum: 0,
 };
