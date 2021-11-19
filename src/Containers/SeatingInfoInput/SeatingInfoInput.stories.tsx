@@ -102,7 +102,6 @@ const tableObjectForCanvas: IDraggableTable = {
         tableID: 'T*',
         partyName: '',
         occupancyStatus: 'Vacant',
-        timeLastServed:"00:00:00",
         chairs: [],
         relativeSize: 0.25,
         tableUse: 'TableForEditCanvas',

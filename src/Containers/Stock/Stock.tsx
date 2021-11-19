@@ -1,7 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-// TOOD: Fix Recharts not rendering stories when LineChart is not commented out (Could be a Rollup Issue)
-// import { Line, LineChart } from 'recharts';
+import { Line, LineChart } from 'recharts';
 import { ArrowUp } from '@styled-icons/entypo/ArrowUp';
 import { ArrowDown } from '@styled-icons/entypo/ArrowDown';
 import { flex } from '@Utils/Mixins';
@@ -29,16 +28,16 @@ export interface StockProps extends StockBoxProps {
 
 export const Stock: React.FC<StockProps> = ({
     chartColor,
-    // chartData,
+    chartData,
     title,
     figure,
     rate,
     ...props
 }): React.ReactElement => {
-    // const getChartColor = useCallback(
-    //     () => MainTheme.colors[chartColor] || chartColor,
-    //     [chartColor],
-    // );
+    const getChartColor = useCallback(
+        () => MainTheme.colors[chartColor] || chartColor,
+        [chartColor],
+    );
 
     const getFigure = useCallback(
         () => figure.toLocaleString(undefined, { maximumFractionDigits: 2 }),
@@ -83,7 +82,7 @@ export const Stock: React.FC<StockProps> = ({
                 </SmallText>
             </Content>
             <Content>
-                {/* <LineChart width={150} height={50} data={chartData}>
+                <LineChart width={150} height={50} data={chartData}>
                     <Line
                         type="linear"
                         dataKey="value"
@@ -91,7 +90,7 @@ export const Stock: React.FC<StockProps> = ({
                         strokeWidth={2}
                         dot={false}
                     />
-                </LineChart> */}
+                </LineChart>
             </Content>
         </StockBox>
     );
