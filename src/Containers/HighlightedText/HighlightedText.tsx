@@ -113,5 +113,5 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
 const HighlightedRow = styled.div``;
 
 const StyledClickableSmallText = styled(ClickableSmallText)`
-    color: ${({bold}) => bold ? MainTheme.colors.statusColors.orange : 'black'}
+    color: ${({bold}) => bold ? MainTheme.colors.statusColors.orange : MainTheme.colors.text}
 `;
