@@ -19,14 +19,14 @@ export const InfoHeader: React.FC<InfoHeaderProps>  = ({
 );
 
 const InfoHeaderText = styled(Heading)`
-text-align:left;
-padding-top: 0px;
+    text-align:left;
+    padding-top: 0px;
 `;
 
 const Icon = styled(InfoCircleFill)`
     width: 20px;
     float: center;
-    padding: 0 0 12px 15px;
+    padding: 0 0 12px 18px;
 `;
 
 export default InfoHeader;
