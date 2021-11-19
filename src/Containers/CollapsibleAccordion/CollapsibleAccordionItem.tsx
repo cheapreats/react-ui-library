@@ -22,20 +22,8 @@ export interface HeaderDivProps {
     isActive: boolean;
 }
 
-export interface HeaderProps {
-}
-
 export interface AngleIconProps {
     isActive: boolean;
-}
-
-export interface CartIconProps {
-}
-
-export interface purchaseDateProps {
-}
-
-export interface purchaseCountProps {
 }
 
 export const CollapsibleAccordionItem: React.FC<CollapsibleAccordionItemProps> = ({
@@ -115,7 +103,7 @@ const BodyDiv = styled.div`
     margin-left: 10px;
 `;
 
-const DateDiv = styled.div<purchaseDateProps>`
+const DateDiv = styled.div`
     margin-left: auto;
     padding: 5px 10px;
     border-radius: 3px;
@@ -126,7 +114,7 @@ const DateDiv = styled.div<purchaseDateProps>`
     `}
 `;
 
-const PurchaseCountDiv = styled.div<purchaseCountProps>`
+const PurchaseCountDiv = styled.div`
     padding: 5px 10px;
     border-radius: 3px;
     font-weight: bold;
@@ -150,7 +138,7 @@ const AngleIcon = styled(AngleRight)<AngleIconProps>`
     `}
 `;
 
-const CartIcon = styled(ShoppingCart)<CartIconProps>`
+const CartIcon = styled(ShoppingCart)`
     width: 20px;
     padding-left: 15px;
 
@@ -159,7 +147,7 @@ const CartIcon = styled(ShoppingCart)<CartIconProps>`
     `}
 `;
 
-const Header = styled(Heading)<HeaderProps>`
+const Header = styled(Heading)`
     float: left;
     font-size: 13px;
     font-weight: bold;
