@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css, useTheme } from 'styled-components';
 import { Eye, EyeSlash } from '@styled-icons/bootstrap';
 
-
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
 type getRoundChairType = () => JSX.Element;
@@ -13,61 +12,38 @@ type getChairTextType = () => JSX.Element;
 
 type handleClickType = () => void;
 
-
 type tableUseTypes =
     | 'AddTableButton'
     | 'TableForEditCanvas'
     | 'TableForManagement';
 
 export interface IChair {
-    /**
-     * The position of the chair relative to the table (top/bottom/left/right)
-     */
+    /* The position of the chair relative to the table (top/bottom/left/right) */
     position: Position;
-    /**
-     * Indicates whether someone is seated in the chair
-     * True if someone is seated in the chair, otherwise false
-     */
+    /* Indicates whether someone is seated in the chair
+     * True if someone is seated in the chair, otherwise false */
     isSeated: boolean;
-    /**
-     * Name of Person Sitting on Chair
-     */
+    /* Name of Person Sitting on Chair */
     occupiedBy: string;
-    /**
-     * Determines if the chair will be visible or not
-     */
+    /* Determines if the chair will be visible or not */
     isVisible: boolean;
-    /**
-     * Indicates whether the chair is round.
-     * True if the chair is round, otherwise false.
-     */
+    /* Indicates whether the chair is round. True if the chair is round, otherwise false. */
     isRound?: boolean;
-    /**
-     * The size for the component relative to the parent
-     */
+    /* The size for the component relative to the parent */
     relativeSize: number;
-    /**
-     * The use type for the table component (how it will be used in the app)
-     */
+    /* The use type for the table component (how it will be used in the app) */
     tableUse: tableUseTypes;
-    /**
-     * Passes in the parent table index
-     */
+    /* Passes in the parent table index */
     tableIndex: number;
-    /**
-     * Unique index for each chair
-     */
+    /* Unique index for each chair */
     chairIndex: number;
-    /**
-     * Index number for the currently selected table
-     */
+    /* Index number for the currently selected table */
     selectedIndex: number;
     /**
      * Function to handle onClick event for the chair
      * @param parentTableIndex - parent table index in the tables array
      * @param chairIndex - chair index in chair array
      */
-
     onChairClick: (
         parentTableIndex: number,
         chairIndex: number,
@@ -75,7 +51,7 @@ export interface IChair {
     ) => void;
 }
 
-    /**
+/**
  * Primary UI component for user interaction
  */
 export const Chair: React.FC<IChair> = ({
@@ -138,43 +114,43 @@ export const Chair: React.FC<IChair> = ({
      */
     const getChairText: getChairTextType = () => {
         switch (tableUse) {
-            case 'AddTableButton':
-                return <div />;
-            case 'TableForManagement':
-                if (isRound) {
-                    return (
-                        <RoundChairText relativeSize={relativeSize}>
-                            {occupiedBy}
-                        </RoundChairText>
-                    );
-                }
+        case 'AddTableButton':
+            return <div />;
+        case 'TableForManagement':
+            if (isRound) {
                 return (
-                    <RectangleChairText
-                        position={position}
-                        relativeSize={relativeSize}
-                    >
+                    <RoundChairText relativeSize={relativeSize}>
                         {occupiedBy}
-                    </RectangleChairText>
+                    </RoundChairText>
                 );
-            case 'TableForEditCanvas':
-                if (isVisible) {
-                    if (isRound) {
-                        return <RoundEyeSlash />;
-                    }
-                    if (position === 'top' || position === 'bottom') {
-                        return <TopBottomEyeSlash />;
-                    }
-                    return <LeftRightEyeSlash />;
-                }
+            }
+            return (
+                <RectangleChairText
+                    position={position}
+                    relativeSize={relativeSize}
+                >
+                    {occupiedBy}
+                </RectangleChairText>
+            );
+        case 'TableForEditCanvas':
+            if (isVisible) {
                 if (isRound) {
-                    return <RoundEye />;
+                    return <RoundEyeSlash />;
                 }
                 if (position === 'top' || position === 'bottom') {
-                    return <TopBottomEye />;
+                    return <TopBottomEyeSlash />;
                 }
-                return <LeftRightEye />;
-            default:
-                return <div />;
+                return <LeftRightEyeSlash />;
+            }
+            if (isRound) {
+                return <RoundEye />;
+            }
+            if (position === 'top' || position === 'bottom') {
+                return <TopBottomEye />;
+            }
+            return <LeftRightEye />;
+        default:
+            return <div />;
         }
     };
 
@@ -218,20 +194,20 @@ type getChairColorType = (
 const getChairColor: getChairColorType = (isSeated, tableUse, isVisible) => {
     const { colors } = useTheme();
     switch (tableUse) {
-        case 'TableForManagement':
-            if (isSeated) {
-                return colors.chairOccupiedBackground;
-            }
+    case 'TableForManagement':
+        if (isSeated) {
+            return colors.chairOccupiedBackground;
+        }
+        return colors.chairTableBackground;
+    case 'AddTableButton':
+        return colors.chairTableEditBackground;
+    case 'TableForEditCanvas':
+        if (isVisible) {
             return colors.chairTableBackground;
-        case 'AddTableButton':
-            return colors.chairTableEditBackground;
-        case 'TableForEditCanvas':
-            if (isVisible) {
-                return colors.chairTableBackground;
-            }
-            return colors.chairTableEditBackground;
-        default:
-            return colors.chairTableBackground;
+        }
+        return colors.chairTableEditBackground;
+    default:
+        return colors.chairTableBackground;
     }
 };
 
@@ -248,17 +224,17 @@ type getChairVisibilityType = (
  */
 const getChairVisibility: getChairVisibilityType = (tableUse, isVisible) => {
     switch (tableUse) {
-        case 'TableForManagement':
-            if (isVisible) {
-                return 'visible';
-            }
-            return 'hidden';
-        case 'AddTableButton':
+    case 'TableForManagement':
+        if (isVisible) {
             return 'visible';
-        case 'TableForEditCanvas':
-            return 'visible';
-        default:
-            return 'visible';
+        }
+        return 'hidden';
+    case 'AddTableButton':
+        return 'visible';
+    case 'TableForEditCanvas':
+        return 'visible';
+    default:
+        return 'visible';
     }
 };
 
@@ -279,38 +255,38 @@ const getRectangleChairStyles: getRectangleChairStyles = (
     const BASE_BORDER_RADIUS = 3;
     const BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS = 0.25;
     switch (position) {
-        case 'top':
-            return `border-top-left-radius:  ${
-                relativeSize * BASE_BORDER_RADIUS
-            }rem;
+    case 'top':
+        return `border-top-left-radius:  ${
+            relativeSize * BASE_BORDER_RADIUS
+        }rem;
             border-top-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
             margin-bottom: ${
-                relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
-            }rem;
+    relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
+}rem;
         `;
-        case 'left':
-            return `border-top-left-radius: ${
-                relativeSize * BASE_BORDER_RADIUS
-            }rem;
+    case 'left':
+        return `border-top-left-radius: ${
+            relativeSize * BASE_BORDER_RADIUS
+        }rem;
             border-bottom-left-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
         `;
-        case 'right':
-            return `border-top-right-radius: ${
-                relativeSize * BASE_BORDER_RADIUS
-            }rem;
+    case 'right':
+        return `border-top-right-radius: ${
+            relativeSize * BASE_BORDER_RADIUS
+        }rem;
             border-bottom-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
         `;
-        case 'bottom':
-            return `border-bottom-left-radius: ${
-                relativeSize * BASE_BORDER_RADIUS
-            }rem;
+    case 'bottom':
+        return `border-bottom-left-radius: ${
+            relativeSize * BASE_BORDER_RADIUS
+        }rem;
             border-bottom-right-radius: ${relativeSize * BASE_BORDER_RADIUS}rem;
             margin-top: ${
-                relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
-            }rem;
+    relativeSize * BASE_MARGIN_FOR_TOP_AND_BOTTOM_CHAIRS
+}rem;
         `;
-        default:
-            return '';
+    default:
+        return '';
     }
 };
 
@@ -368,8 +344,8 @@ const textHorizontalChairStyle = css<Pick<IChair, 'relativeSize'>>`
         return `width: ${relativeSize * HORIZONTAL_CHAIR_BASE_WIDTH}rem;
             margin-left: ${relativeSize * HORIZONTAL_CHAIR_BASE_MARGIN_LEFT}rem;
             padding-top: ${
-                relativeSize * HORIZONTAL_CHAIR_BASE_PADDING_TOP
-            }rem;`;
+    relativeSize * HORIZONTAL_CHAIR_BASE_PADDING_TOP
+}rem;`;
     }}
 `;
 
@@ -383,8 +359,8 @@ const textVerticalChairStyle = css<Pick<IChair, 'relativeSize'>>`
             relativeSize * VERTICAL_CHAIR_TEXT_BASE_PADDING_TOP
         }rem;
             margin-left: ${
-                relativeSize * VERTICAL_CHAIR_TEXT_BASE_MARGIN_LEFT
-            }rem;
+    relativeSize * VERTICAL_CHAIR_TEXT_BASE_MARGIN_LEFT
+}rem;
             writing-mode: vertical-rl;`;
     }}
 `;
@@ -422,8 +398,8 @@ const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
         }rem;
             height: ${relativeSize * BASE_WIDTH_AND_HEIGHT_FOR_ROUND_CHAIR}rem;
             border: ${
-                relativeSize * BASE_BORDER_WIDTH_FOR_ROUND_CHAIR
-            }px solid black;`;
+    relativeSize * BASE_BORDER_WIDTH_FOR_ROUND_CHAIR
+}px solid black;`;
     }}
 `;
 
