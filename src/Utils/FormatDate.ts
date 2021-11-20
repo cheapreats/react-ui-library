@@ -146,9 +146,7 @@ const types = [
     'p', 'P'
 ]; */
 
-type msToTime = (
-    duration: number,
-) => {
+type msToTime = (duration: number) => {
     hours: number;
     minutes: number;
     seconds: number;

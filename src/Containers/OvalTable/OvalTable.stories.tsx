@@ -1,8 +1,8 @@
 import {Meta, Story} from "@storybook/react";
-import {createStoryTitle} from "../../Constants";
 import {IOvalTable, OvalTable} from "@Containers/OvalTable/OvalTable";
 import React from "react";
 import {action} from "@storybook/addon-actions";
+import {createStoryTitle} from "../../Constants";
 
 export default {
     title: createStoryTitle('OvalTable'),

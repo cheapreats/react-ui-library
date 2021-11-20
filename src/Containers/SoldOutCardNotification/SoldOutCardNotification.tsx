@@ -18,34 +18,35 @@ export interface ISoldOutCardNotificationProps {
     maxWidth?: number;
 }
 
-export const SoldOutCardNotification: React.FC<ISoldOutCardNotificationProps> = ({
-    imgSrc,
-    header,
-    footer,
-    content,
-    maxWidth = MAX_WIDTH_DEFAULT_VALUE,
-}): React.ReactElement => (
-    <Card animated widthFitContent maxWidth={maxWidth}>
-        <Container flexParam1={FLEX_ROW}>
-            <Container
-                flexParam1={FLEX_COLUMN}
-                flexParam2={FLEX_SPACE_AROUND}
-                flexGrow={FLEX_GROW_VALUE}
-            >
-                {header}
-                {content}
-                {footer}
+export const SoldOutCardNotification: React.FC<ISoldOutCardNotificationProps> =
+    ({
+        imgSrc,
+        header,
+        footer,
+        content,
+        maxWidth = MAX_WIDTH_DEFAULT_VALUE,
+    }): React.ReactElement => (
+        <Card animated widthFitContent maxWidth={maxWidth}>
+            <Container flexParam1={FLEX_ROW}>
+                <Container
+                    flexParam1={FLEX_COLUMN}
+                    flexParam2={FLEX_SPACE_AROUND}
+                    flexGrow={FLEX_GROW_VALUE}
+                >
+                    {header}
+                    {content}
+                    {footer}
+                </Container>
+                <Container
+                    flexParam1={FLEX_COLUMN}
+                    flexParam2={FLEX_END}
+                    flexGrow={FLEX_GROW_VALUE}
+                >
+                    <Img src={imgSrc} />
+                </Container>
             </Container>
-            <Container
-                flexParam1={FLEX_COLUMN}
-                flexParam2={FLEX_END}
-                flexGrow={FLEX_GROW_VALUE}
-            >
-                <Img src={imgSrc} />
-            </Container>
-        </Container>
-    </Card>
-);
+        </Card>
+    );
 
 interface IContainerProps {
     flexParam1?: string;

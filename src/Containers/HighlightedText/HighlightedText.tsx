@@ -26,8 +26,7 @@ export interface HighlightedString {
 }
 
 // extends line div
-export interface HighlightedTextProps
-    extends React.HTMLAttributes<HTMLParagraphElement> {
+export interface HighlightedTextProps extends React.HTMLAttributes<HTMLParagraphElement> {
     labels: Array<HighlightedString>;
 }
 
@@ -99,7 +98,12 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
         </p>
     )
 
-    return <HighlightedRow {...props}>{renderText()}</HighlightedRow>;
+    return (
+        <HighlightedRow {...props}>
+            {renderText()}
+        </HighlightedRow>
+    )
 };
+
 
 const HighlightedRow = styled.div``;

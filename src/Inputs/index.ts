@@ -2,6 +2,7 @@ export * from './Datepicker';
 export * from './MutiSelect';
 export * from './Timepicker';
 export * from './Button/Button';
+export * from './VoiceButton/VoiceButton';
 export * from './CheckBox/Checkbox';
 export * from './Input/Input';
 export * from './Radio/Radio';

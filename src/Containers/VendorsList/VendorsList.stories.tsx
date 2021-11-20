@@ -82,12 +82,8 @@ const globalFilterMethod = (
 ) => {
     const stringRegexMatch = new RegExp(filterValue, 'gi');
     const filteredRows = rows.filter((row) => {
-        const {
-            email,
-            name,
-            groups,
-            created_at,
-        }: IOriginalValues = row.original as IOriginalValues;
+        const { email, name, groups, created_at }: IOriginalValues =
+            row.original as IOriginalValues;
         const emailMatch = stringRegexMatch.test(email);
         const nameMatch = stringRegexMatch.test(name);
         const tagsMatch = stringRegexMatch.test(
