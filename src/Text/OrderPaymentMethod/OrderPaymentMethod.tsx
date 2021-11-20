@@ -29,14 +29,14 @@ export const OrderPaymentMethod: React.FC<IPaymentMethodProps> = ({
     /* Returns payment method with no underscores */
     const handlePaymentMethod = (): string => {
         switch (paymentMethod) {
-            case OrderPaymentMethodTypes.CREDIT_CARD:
-                return formatText(OrderPaymentMethodTypes.CREDIT_CARD);
-            case OrderPaymentMethodTypes.WALLET:
-                return formatText(OrderPaymentMethodTypes.WALLET);
-            case OrderPaymentMethodTypes.IN_PERSON:
-                return formatText(OrderPaymentMethodTypes.IN_PERSON);
-            default:
-                return 'Unknown';
+        case OrderPaymentMethodTypes.CREDIT_CARD:
+            return formatText(OrderPaymentMethodTypes.CREDIT_CARD);
+        case OrderPaymentMethodTypes.WALLET:
+            return formatText(OrderPaymentMethodTypes.WALLET);
+        case OrderPaymentMethodTypes.IN_PERSON:
+            return formatText(OrderPaymentMethodTypes.IN_PERSON);
+        default:
+            return 'Unknown';
         }
     };
 

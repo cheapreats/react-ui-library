@@ -21,18 +21,18 @@ export const OrderStatus = ({
     /* Returns color based on order status */
     const handleOrderStatus = (): StatusColors => {
         switch (orderStatus) {
-            case OrderStatusIdentifier.PREPARED:
-                return StatusColors.green;
-            case OrderStatusIdentifier.COMPLETE:
-                return StatusColors.green;
-            case OrderStatusIdentifier.PREPARING:
-                return StatusColors.orange;
-            case OrderStatusIdentifier.PLACED:
-                return StatusColors.red;
-            case OrderStatusIdentifier.CANCELLED:
-                return StatusColors.red;
-            default:
-                return StatusColors.red;
+        case OrderStatusIdentifier.PREPARED:
+            return StatusColors.green;
+        case OrderStatusIdentifier.COMPLETE:
+            return StatusColors.green;
+        case OrderStatusIdentifier.PREPARING:
+            return StatusColors.orange;
+        case OrderStatusIdentifier.PLACED:
+            return StatusColors.red;
+        case OrderStatusIdentifier.CANCELLED:
+            return StatusColors.red;
+        default:
+            return StatusColors.red;
         }
     };
 

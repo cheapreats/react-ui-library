@@ -368,14 +368,14 @@ type getOccupancyColorType = (occupancyStatus: occupancyStatusTypes) => string;
  */
 const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     switch (occupancyStatus) {
-        case 'Vacant':
-            return useTheme().colors.occupancyStatusColors.Vacant;
-        case 'Reserved':
-            return useTheme().colors.occupancyStatusColors.Reserved;
-        case 'Occupied':
-            return useTheme().colors.occupancyStatusColors.Occupied;
-        default:
-            return '';
+    case 'Vacant':
+        return useTheme().colors.occupancyStatusColors.Vacant;
+    case 'Reserved':
+        return useTheme().colors.occupancyStatusColors.Reserved;
+    case 'Occupied':
+        return useTheme().colors.occupancyStatusColors.Occupied;
+    default:
+        return '';
     }
 };
 
@@ -400,8 +400,8 @@ const TableBody = styled.div<ITableBody>`
             chairNumOnSide * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
         }rem;
             width: ${
-                chairNumOnTop * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
-            }rem;
+    chairNumOnTop * BASE_TABLE_BODY_WIDTH_AND_HEIGHT * relativeSize
+}rem;
             border-radius: ${BASE_BORDER_RADIUS * relativeSize}rem;`;
     }}
     background-color: ${({ theme, tableUse }) =>
@@ -436,11 +436,11 @@ const ColorDiv = styled.div<IColorDiv>`
             width: ${BASE_COLOR_DIV_WIDTH * relativeSize}rem;
             margin-right: ${BASE_COLOR_DIV_MARGIN_RIGHT * relativeSize}rem;
             border-top-right-radius: ${
-                BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
-            }rem;
+    BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+}rem;
             border-bottom-right-radius: ${
-                BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
-            }rem;`;
+    BASE_COLOR_DIV_BORDER_RADIUS * relativeSize
+}rem;`;
     }}
     margin-left: auto;
     background-color: ${({ occupancyStatus }) =>

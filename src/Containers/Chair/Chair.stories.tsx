@@ -1,8 +1,8 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import {action} from "@storybook/addon-actions";
 import { Chair, IChair } from './Chair';
 import { createStoryTitle } from '../../Constants';
-import {action} from "@storybook/addon-actions";
 
 export default {
     title: createStoryTitle('Chair'),

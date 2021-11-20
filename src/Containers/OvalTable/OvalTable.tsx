@@ -36,15 +36,15 @@ export interface IOvalTable{
  * Primary UI component for user interaction
  */
 export const OvalTable: React.FC<IOvalTable> = ({
-        chairs = [],
-        relativeSize = 1.0,
-        tableUse = 'TableForManagement',
-        tableIndex = 0,
-        selectedIndex = -1,
-        chairsPosition = 'around',
+    chairs = [],
+    relativeSize = 1.0,
+    tableUse = 'TableForManagement',
+    tableIndex = 0,
+    selectedIndex = -1,
+    chairsPosition = 'around',
 
-        ...props
-    }): React.ReactElement => {
+    ...props
+}): React.ReactElement => {
     /**
      * Returns an array of chairs elements.
      * @return {JSX.Element[]} - Chairs and ChairWrappers for the table
@@ -53,26 +53,26 @@ export const OvalTable: React.FC<IOvalTable> = ({
         chairs.map((chair, index) => {
             const {position, occupiedBy, isSeated, isVisible, isRound} = chair;
             return(
-            <ChairWrapper
-                relativeSize={relativeSize}
-                numOfChairs={chairs.length}
-                counter={index + 1}
-                chairsPosition={chairsPosition}
-            >
-                <Chair
+                <ChairWrapper
                     relativeSize={relativeSize}
-                    position={position}
-                    occupiedBy={occupiedBy}
-                    isSeated={isSeated}
-                    isVisible={isVisible}
-                    isRound={isRound}
-                    tableUse={tableUse}
-                    tableIndex={tableIndex}
-                    chairIndex={index}
-                    selectedIndex={selectedIndex}
-                    onChairClick={chair.onChairClick}
-                />
-            </ChairWrapper>
+                    numOfChairs={chairs.length}
+                    counter={index + 1}
+                    chairsPosition={chairsPosition}
+                >
+                    <Chair
+                        relativeSize={relativeSize}
+                        position={position}
+                        occupiedBy={occupiedBy}
+                        isSeated={isSeated}
+                        isVisible={isVisible}
+                        isRound={isRound}
+                        tableUse={tableUse}
+                        tableIndex={tableIndex}
+                        chairIndex={index}
+                        selectedIndex={selectedIndex}
+                        onChairClick={chair.onChairClick}
+                    />
+                </ChairWrapper>
             )});
 
     return(
@@ -127,17 +127,17 @@ const getTurnValue: getTurnValueType = (counter, numOfChairs, chairsPosition) =>
     let turnValue = counter * PART_OF_TABLE_USED / (numOfChairs + ADDITIONAL_SPACE);
 
     switch (chairsPosition){
-        case "top":
-            turnValue = turnValue + HALF_TURN;
-            break;
-        case "left":
-            turnValue = turnValue + QUARTER_TURN;
-            break;
-        case "right":
-            turnValue = turnValue + THREE_QUARTERS_TURN;
-            break;
-        default:
-            break;
+    case "top":
+        turnValue += HALF_TURN;
+        break;
+    case "left":
+        turnValue += QUARTER_TURN;
+        break;
+    case "right":
+        turnValue += THREE_QUARTERS_TURN;
+        break;
+    default:
+        break;
     }
 
     return `${turnValue}turn`;
@@ -231,16 +231,16 @@ interface ITableBody {
 
 const TableBody = styled.div<ITableBody>`
   ${({ relativeSize }) => {
-    const BASE_TABLE_BORDER_WIDTH = 1.5;
-    const BASE_TABLE_BODY_MARGIN = 3;
+        const BASE_TABLE_BORDER_WIDTH = 1.5;
+        const BASE_TABLE_BODY_MARGIN = 3;
 
-    return `
+        return `
         border-width: ${relativeSize * BASE_TABLE_BORDER_WIDTH}em;
         margin: ${relativeSize * BASE_TABLE_BODY_MARGIN}em;
         width: ${relativeSize * BASE_TABLE_WIDTH}em;
         height: ${relativeSize * BASE_TABLE_HEIGHT}em;
         `;
-  }}
+    }}
   
   ${({theme}): string =>`
     background-color: ${theme.colors.chairTableBackground};
@@ -262,9 +262,9 @@ interface IChairWrapper {
 
 const ChairWrapper = styled.div<IChairWrapper>`
   --chairDiameter: ${({ relativeSize }) => {
-    const BASE_CHAIR_SIZE = 6.5;
-    return BASE_CHAIR_SIZE * relativeSize;
-  }}em; /* chair size */
+        const BASE_CHAIR_SIZE = 6.5;
+        return BASE_CHAIR_SIZE * relativeSize;
+    }}em; /* chair size */
 
   position: absolute;
   top: 50%;
@@ -273,10 +273,10 @@ const ChairWrapper = styled.div<IChairWrapper>`
   
   --turnValue: 
           ${({ counter, numOfChairs, chairsPosition}) =>
-                  getTurnValue(counter, numOfChairs, chairsPosition)}
+        getTurnValue(counter, numOfChairs, chairsPosition)}
   ;
   transform: rotate(var(--turnValue))
   translate(${({ counter, numOfChairs, relativeSize, chairsPosition }) =>
-          getTranslateValue(counter, numOfChairs, relativeSize, chairsPosition)})
+        getTranslateValue(counter, numOfChairs, relativeSize, chairsPosition)})
   rotate(calc(-1 * var(--turnValue)));
 `;
