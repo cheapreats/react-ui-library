@@ -39,3 +39,24 @@ Use the Styled-Icons library to import icons from : https://styled-icons.dev/
 Contains all the styling that CheaprEats uses so you don't have to guess to color codes, Also your components will automatically translate to dark mode!
 ##### Mixins (Responsiveness)
 - Ensure that you are using the consistent Mixins for your Media Queries: https://github.com/cheapreats/react-ui-library/blob/v2/src/Themes/ThemeTemplate.ts#L138
+
+# When Using This Library
+You need to import Global into your app and wrap your app with the Global to Access the Theme.
+    return (
+        <Global
+            extend={
+                JSON.parse(localStorage.getItem('isDark') ?? 'false')
+                    ? extendThemeDark
+                    : extendThemeMain
+            }
+            style={globalStyle}
+            theme={ThemeTypes.MAIN}
+        >
+            <QueryClientProvider client={queryClient}>
+                <Switch>
+                    {getLandingRoutes()}
+                    <Route path="/:id" component={Dashboard} />
+                </Switch>
+            </QueryClientProvider>
+        </Global>
+    );
