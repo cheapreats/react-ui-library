@@ -4,3 +4,6 @@ node_modules
 dist
 .idea
 debug.log
+build-storybook.log
+*.bundle.*
+storybook-static/*
