@@ -11,30 +11,36 @@ const Template: Story<ReachIndicatorProps> = (args) => <ReachIndicator {...args}
 
 export const ReachIndicatorBasic = Template.bind({});
 ReachIndicatorBasic.args = {
-    engageNum: 10,
-    engageGoal: 50,
-    reachNum: 30,
-    reachGoal: 100,
-    percentMark: 50,
-    indicatorMinimum: 0,
+    indicatorName: 'Post Engagement', 
+    indicatorNum: 10,
+    indicatorGoal: 50,
+    indicatorPercentMark: 50,
+    indicatorMinimum: 0, 
 };
 
-export const ReachIndicatorMax = Template.bind({});
-ReachIndicatorMax.args = {
-    engageNum: 50,
-    engageGoal: 50,
-    reachNum: 100,
-    reachGoal: 100,
-    percentMark: 50,
-    indicatorMinimum: 0, 
+export const ReachIndicatorPeopleReached = Template.bind({});
+ReachIndicatorPeopleReached.args = {
+    indicatorName: 'People Reached',
+    indicatorNum: 50,
+    indicatorGoal: 70,
+    indicatorPercentMark: 50,
+    indicatorMinimum: 0,
 };
 
 export const ReachIndicatorMin = Template.bind({});
 ReachIndicatorMin.args = {
-    engageNum: 0,
-    engageGoal: 50,
-    reachNum: 0,
-    reachGoal: 100,
-    percentMark: 50,
+    indicatorName: 'Post Engagement',
+    indicatorNum: 0,
+    indicatorGoal: 50,
+    indicatorPercentMark: 50,
+    indicatorMinimum: 0, 
+};
+
+export const ReachIndicatorVerbose = Template.bind({});
+ReachIndicatorVerbose.args = {
+    indicatorName: 'The number of people who engaged with this post is featured as a percentage of a goal amount below',
+    indicatorNum: 1500000,
+    indicatorGoal: 500000,
+    indicatorPercentMark: 50,
     indicatorMinimum: 0,
 };
