@@ -1,5 +1,4 @@
 .deploy
 .storybook
-dist
 node_modules
 storybook-static

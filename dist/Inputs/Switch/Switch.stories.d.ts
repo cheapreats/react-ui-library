@@ -1,0 +1,10 @@
+import { Meta, Story } from '@storybook/react';
+import { SwitchProps } from '../../index';
+declare const _default: Meta<import("@storybook/react").Args>;
+export default _default;
+export declare const Basic: Story<SwitchProps>;
+export declare const WithTags: Story<SwitchProps>;
+export declare const WithDisabled: Story<SwitchProps>;
+export declare const WithActiveColor: Story<SwitchProps>;
+export declare const WithSwitchColor: Story<SwitchProps>;
+export declare const WithBoth: Story<SwitchProps>;
