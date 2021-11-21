@@ -1,7 +1,6 @@
 node_modules
 .deploy
 .awcache
-dist
 .idea
 debug.log
 build-storybook.log
