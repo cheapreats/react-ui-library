@@ -3,11 +3,13 @@ import styled from 'styled-components';
 import {InfoCircleFill} from '@styled-icons/bootstrap/InfoCircleFill';
 import {Heading, HeadingProps} from '@Text';
 
+const [isShown, setIsShown] = useState(false);
+
 export interface InfoHeaderProps extends HeadingProps {
     /* Text that will be displayed to the left of the icon */ 
     infotext: String;
 }
-const [isShown, setIsShown] = useState(false);
+
 export const InfoHeader: React.FC<InfoHeaderProps>  = ({
     infotext,
     ...props
