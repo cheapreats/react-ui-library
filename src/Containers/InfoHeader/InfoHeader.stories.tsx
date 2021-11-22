@@ -6,6 +6,9 @@ import { createStoryTitle} from '../../Constants';
 export default {
     title: createStoryTitle('InfoHeader'),
     component: InfoHeader,
+    args: {
+    tooltiptext: 'Basic tooltip',
+    }
 } as Meta;
 
 const Template: Story<InfoHeaderProps> = (args) => (
@@ -14,8 +17,7 @@ const Template: Story<InfoHeaderProps> = (args) => (
 
 export const BasicText = Template.bind({});
 BasicText.args = {
-    infotext: 'Reach',
-    tooltiptext: 'Basic tooltip', 
+    infotext: 'Reach', 
 };
 
 export const LargeText = Template.bind({});
