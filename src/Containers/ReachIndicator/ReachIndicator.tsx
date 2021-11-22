@@ -3,11 +3,16 @@ import styled from 'styled-components';
 
 export interface ReachIndicatorProps
     extends React.HTMLAttributes<HTMLDivElement> {
-    indicatorName: string, // Reach indicator display name (people reached/post engagements)
-    indicatorNum: number, // Number of 'post' engagements
-    indicatorGoal: number, // Goal number of engagements, defines what percent of the engagement bar is filled
-    indicatorPercentMark: number, // Percent mark threshold that changes bar colour
-    indicatorMinimum: number, //EngagementBox must be greater than indicator minimum to render. Default value should be 0
+    /* Reach indicator display name ('people reached'/'post engagements') */
+    indicatorName: string,
+    /* Number of relevant engagements */
+    indicatorNum: number,
+    /* Goal number of engagements, defines what percent of the engagement bar is filled */
+    indicatorGoal: number,
+    /* Percent mark threshold that changes bar colour */
+    indicatorPercentMark: number,
+    /* EngagementBox must be greater than indicator minimum to render. Default value is 0 */
+    indicatorMinimum: number,
 }
 
 export const ReachIndicator: React.FC<ReachIndicatorProps> = ({
@@ -19,21 +24,20 @@ export const ReachIndicator: React.FC<ReachIndicatorProps> = ({
     ...props
 }): React.ReactElement => (
     <div>
-        { !!(indicatorNum > indicatorMinimum) && <>
+        { !!(indicatorNum > indicatorMinimum) &&
             <EngagementBox {...props}>
                 <EngagementHeader>{indicatorNum}</EngagementHeader>
                 <EngagementTheme>{indicatorName}</EngagementTheme>
                 <IndicatorProgressBar indicatorName={indicatorName} indicatorNum={indicatorNum} indicatorGoal={indicatorGoal} indicatorPercentMark={indicatorPercentMark} indicatorMinimum={indicatorMinimum} />
                 <LoadingBar />
             </EngagementBox >
-            </> 
         }
     </div>
 );
 /**
  * Takes two numbers, divides num1 by num2 and turns it into a percentage out of 100
- * @param Num1 Number of people who saw or interacted with the post
- * @param Num2 Goal amount of people to see or interact with the post 
+ * @param Num1 - Number of people who saw or interacted with the post
+ * @param Num2 - Goal amount of people to see or interact with the post 
  */
 let getPercentage = (num1: number, num2: number) => ((num1 / num2) * 100);
 
