@@ -21,6 +21,7 @@ export const InfoHeader: React.FC<InfoHeaderProps>  = ({
     ...props
 }): React.ReactElement => (
     <InfoHeaderText {...props}>
+        {infotext}
         {showIcon(infotext)}
     </InfoHeaderText>
 );
@@ -39,10 +40,12 @@ const showIcon = (text:String) => {
         <InfoHeaderText
           onMouseEnter={() => setIsShown(true)}
           onMouseLeave={() => setIsShown(false)}>
-          {text}
+          <Icon />
           {isShown && (
-            <Icon />
-        )}
+        <div>
+          Tooltip
+        </div>
+      )}
         </InfoHeaderText>
     );
   }
