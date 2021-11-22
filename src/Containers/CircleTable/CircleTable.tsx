@@ -16,7 +16,6 @@ type tableUseTypes =
 
 type getTableInfoContentType = (tableUse: tableUseTypes) => JSX.Element;
 
-
 type generateChairKeyType = (pre: string) => string;
 
 export interface ICircleTable {
@@ -40,6 +39,11 @@ export interface ICircleTable {
      * The occupancy status for the table
      */
     occupancyStatus: occupancyStatusTypes;
+    /**
+     * Timer for the last time that table was served
+     * format: Hours:Minutes:Seconds
+     */
+    timeLastServed: string;
     /**
      * The size for the component relative to the parent
      */
@@ -86,6 +90,7 @@ export const CircleTable: React.FC<ICircleTable> = ({
     chairs = [],
     partyName = 'Null',
     occupancyStatus = 'Vacant',
+    timeLastServed= '0:00:00',
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
     arrayIndex = 0,
@@ -158,29 +163,6 @@ export const CircleTable: React.FC<ICircleTable> = ({
     const tangent = Math.tan(Math.PI / chairs.length);
 
     /**
-     * calculates how many chairs are seated
-     * @return <string> div for the table
-     */
-    const getNumberOfOccupiedChairs: () => (null | JSX.Element) = () =>
-    {
-        if(tableUse === "AddTableButton" ){
-            return null;
-        }
-        const seatCount = chairs.reduce((seatedCount, chair)=>{
-            if(chair.isSeated){
-                seatedCount+=1;
-                return seatedCount;
-            }
-            return seatedCount;
-        },0)
-        return(
-            <div>
-                {seatCount}/{chairs.length}
-            </div>
-        );
-    }
-
-    /**
      * Returns a JSX element for the TableBody Content with the correct styles
      * and content based on whether the table is used in the management screen,
      * the add table toolbar, or the create/edit layout screen
@@ -205,19 +187,25 @@ export const CircleTable: React.FC<ICircleTable> = ({
                         <Status occupancyStatus={occupancyStatus}>
                             {occupancyStatus}
                         </Status>
-                        {getNumberOfOccupiedChairs()}
                         <br />
                     </div>
                 </TableInfo>
             );
         case 'TableForEditCanvas':
             return (
-                <TableNumForEditScreen relativeSize={relativeSize}>
-
-                    {tableID}
-
-                    {getNumberOfOccupiedChairs()}
-                </TableNumForEditScreen>
+                <TableInfo relativeSize={relativeSize}>
+                    <TableNumForEditScreen relativeSize={relativeSize}>
+                        {tableID}
+                        <br />
+                        {partyName}
+                        <br />
+                        <Status occupancyStatus={occupancyStatus}>
+                            {occupancyStatus}
+                        </Status>
+                        {occupancyStatus === 'Occupied' && <text>{`${timeLastServed}`}</text>}
+                        <br />
+                    </TableNumForEditScreen>
+                </TableInfo>
             );
         default:
             return <div />;
@@ -373,7 +361,7 @@ const TableBody = styled.div<ITableBody>`
     cursor: pointer;
     &:focus {
         box-shadow: ${({ toolbarUse }) => (!toolbarUse ? '0 0 0 2px' : '')};
-        ${({theme}) => theme.colors.primary};
+        ${({ theme }) => theme.colors.primary};
     }
 `;
 

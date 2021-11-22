@@ -469,8 +469,8 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                 });
             }
             if (isSuccess || isFailure) {
-                const width = containerRef.current?.getBoundingClientRect()
-                    .width;
+                const width =
+                    containerRef.current?.getBoundingClientRect().width;
                 if (width) {
                     dispatch({
                         type: SET_IS_SUCCESS_WIDTH,

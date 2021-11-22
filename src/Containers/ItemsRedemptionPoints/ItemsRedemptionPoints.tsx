@@ -53,9 +53,8 @@ export const ItemsRedemptionPoints: React.FC<IItemsRedemptionPointsProps> = ({
     data,
     ...props
 }): React.ReactElement => {
-    const [isShownBatchUpdateModal, setIsShownBatchUpdateModal] = useState(
-        false,
-    );
+    const [isShownBatchUpdateModal, setIsShownBatchUpdateModal] =
+        useState(false);
     const [dataItems, setDataItems] = useState(data);
 
     /**

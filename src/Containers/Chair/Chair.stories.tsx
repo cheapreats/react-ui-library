@@ -1,5 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import {action} from "@storybook/addon-actions";
 import { Chair, IChair } from './Chair';
 import { createStoryTitle } from '../../Constants';
 
@@ -10,19 +11,6 @@ export default {
 
 const Template: Story<IChair> = (args) => <Chair {...args} />;
 
-/**
- * Prints the Selected Child index to the console when Chair is clicked
- * @param selectedChildIndex
- */
-const handleOnChairClick = (
-    tableIndex: number,
-    chairIndex: number,
-    selectedTableIndex: number,
-) => {
-    console.log(
-        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
-    );
-};
 
 /**
  *Creates free chair
@@ -31,6 +19,7 @@ export const ChairFreeTop = Template.bind({});
 ChairFreeTop.args = {
     position: 'top',
     relativeSize: 0.5,
+    onChairClick: action("chair is clicked"),
 };
 
 /**
@@ -103,5 +92,5 @@ ChairEditDraggableCanvas.args = {
     chairIndex: 3,
     tableIndex: 4,
     selectedIndex: 3,
-    onChairClick: handleOnChairClick,
+    onChairClick: action("Chair is clicked"),
 };
