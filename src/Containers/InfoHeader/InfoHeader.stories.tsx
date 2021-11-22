@@ -14,15 +14,18 @@ const Template: Story<InfoHeaderProps> = (args) => (
 
 export const BasicText = Template.bind({});
 BasicText.args = {
-    infotext: 'Reach', 
+    infotext: 'Reach',
+    tooltiptext: 'Basic tooltip', 
 };
 
 export const LargeText = Template.bind({});
 LargeText.args = {
     infotext: 'ReachReachReachReachReachReachReachReachReachReachReachReachReachReachReachReachReach', 
+    tooltiptext: 'Text goes off screen', 
 };
 
 export const NoText = Template.bind({});
 NoText.args = {
-    infotext: '', 
+    infotext: '',
+    tooltiptext: 'Icon remains', 
 };
