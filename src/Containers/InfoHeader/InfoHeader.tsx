@@ -32,7 +32,7 @@ export const InfoHeader: React.FC<InfoHeaderProps>  = ({
 * @param {String} text - The time remaining in minutes  
 * @returns {InfoHeaderText} - The text and icon  
 */
-function showIcon(text:String) {
+const showIcon = (text:String) => {
     const [isShown, setIsShown] = useState(false);
     
     return (
