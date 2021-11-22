@@ -46,8 +46,8 @@ When you import this library there is the Version of React by the Library and th
   resolve: {
     alias: {
       // add as many aliases as you like! 
-      react: "./node_nodules/react",
-      "react-dom": "./node_nodules/react-dom"
+      react: "./node_modules/react",
+      "react-dom": "./node_modules/react-dom"
     }
   }
 - Wrap you app with the Theme Object
