@@ -99,9 +99,8 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
     const [unmergedHours, setUnmergedHours] = useState(initialMergeState);
     const [addModalState, setAddModalState] = isVisible;
     const [mergeModalState, setMergeModalState] = useState(false);
-    const [addStoreHoursCategory, setAddStoreHoursCategory] = useState(
-        activeCategory,
-    );
+    const [addStoreHoursCategory, setAddStoreHoursCategory] =
+        useState(activeCategory);
     const {
         values,
         dirty,

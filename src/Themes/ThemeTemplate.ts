@@ -75,8 +75,7 @@ export interface ThemeTemplateInterface {
 }
 
 const Theme: ThemeTemplateInterface = {
-    logo:
-        'https://scontent.fyvr5-1.fna.fbcdn.net/v/t1.0-9/29432778_207936176627967_6515661452525090864_n.png?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=Y4elB2T2_QAAX8A4bva&_nc_ht=scontent.fyvr5-1.fna&oh=7ce813a1e2bd2372bbd55cea07f2510e&oe=5FC584E4',
+    logo: 'https://scontent.fyvr5-1.fna.fbcdn.net/v/t1.0-9/29432778_207936176627967_6515661452525090864_n.png?_nc_cat=111&ccb=2&_nc_sid=09cbfe&_nc_ohc=Y4elB2T2_QAAX8A4bva&_nc_ht=scontent.fyvr5-1.fna&oh=7ce813a1e2bd2372bbd55cea07f2510e&oe=5FC584E4',
     name: 'CheaprEats',
     font: {
         family: '"Quicksand", sans-serif',

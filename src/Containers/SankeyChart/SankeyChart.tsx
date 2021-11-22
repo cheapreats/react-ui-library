@@ -85,10 +85,10 @@ export const SankeyChart: React.FC<ISankeyChartProps> = ({
              * the x position for the top left corner of the container of the node legend, based on x property and dx,
              * which is the node width
              */
-            const legendXPosition = useMemo((): number => rest.x + payload.dx, [
-                rest.x,
-                payload.dx,
-            ]);
+            const legendXPosition = useMemo(
+                (): number => rest.x + payload.dx,
+                [rest.x, payload.dx],
+            );
 
             /**
              * gets the y position for the top left corner of the container of the node legend, based on y property, dy (which

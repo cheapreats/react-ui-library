@@ -109,9 +109,8 @@ export const RankingTable: React.FC<RankingTableProps> = ({
     IsTimeIntervalFilterVisible = false,
     ...restProps
 }): React.ReactElement => {
-    const [selectedTimeInterval, setSelectedTimeInterval] = useState(
-        'totalSpent',
-    );
+    const [selectedTimeInterval, setSelectedTimeInterval] =
+        useState('totalSpent');
     const columns = data[0] && Object.keys(data[0]).slice(0, 3);
 
     const { sortedItems, setIsAscending, isAscending } = useSort(
