@@ -18,9 +18,9 @@ export const LimitedTimeBanner: React.FC<LimitedTimeBannerProps> = ({
 }): React.ReactElement => (
     <BannerBox {...props}>
         <Icon />
-            <BannerHeader>
-                {alterTime(minsRemaining)} Remaining
-            </BannerHeader>
+        <BannerHeader>
+            {alterTime(minsRemaining)} Remaining
+        </BannerHeader>
     </BannerBox>
 );
 

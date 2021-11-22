@@ -3,6 +3,4 @@
  * @param {number} amount - Number to round
  * @returns {number} - Rounded amount above 0
  */
-export const positiveRounding = (amount:number) => {
-    return(amount >= 1 ? Math.round(amount) : 1);
-};
+export const positiveRounding = (amount:number): number => (amount >= 1 ? Math.round(amount) : 1);

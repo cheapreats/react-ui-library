@@ -187,16 +187,25 @@ export const CircleTable: React.FC<ICircleTable> = ({
                         <Status occupancyStatus={occupancyStatus}>
                             {occupancyStatus}
                         </Status>
-                        {occupancyStatus === 'Occupied' && <text>{`${timeLastServed}`}</text>}
                         <br />
                     </div>
                 </TableInfo>
             );
         case 'TableForEditCanvas':
             return (
-                <TableNumForEditScreen relativeSize={relativeSize}>
-                    {tableID}
-                </TableNumForEditScreen>
+                <TableInfo relativeSize={relativeSize}>
+                    <TableNumForEditScreen relativeSize={relativeSize}>
+                        {tableID}
+                        <br />
+                        {partyName}
+                        <br />
+                        <Status occupancyStatus={occupancyStatus}>
+                            {occupancyStatus}
+                        </Status>
+                        {occupancyStatus === 'Occupied' && <text>{`${timeLastServed}`}</text>}
+                        <br />
+                    </TableNumForEditScreen>
+                </TableInfo>
             );
         default:
             return <div />;
@@ -352,7 +361,7 @@ const TableBody = styled.div<ITableBody>`
     cursor: pointer;
     &:focus {
         box-shadow: ${({ toolbarUse }) => (!toolbarUse ? '0 0 0 2px' : '')};
-        ${({theme}) => theme.colors.primary};
+        ${({ theme }) => theme.colors.primary};
     }
 `;
 

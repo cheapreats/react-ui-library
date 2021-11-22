@@ -52,9 +52,8 @@ export const StoreHoursList: React.FC<StoreHoursListProps> = ({
     const addModal = useState(false);
     const editCategoryModal = useState(false);
     const [confirmModal, setConfirmModalState] = useState(false);
-    const [allCategoriesWithHours, setAllCategoriesWithHours] = useState<
-        ICategoryWithHoursTypes[]
-    >(allCategories);
+    const [allCategoriesWithHours, setAllCategoriesWithHours] =
+        useState<ICategoryWithHoursTypes[]>(allCategories);
     const [activeCategory, setActiveCategory] = useState(0);
     const { values, dirty, resetForm, setFieldValue } = useFormik({
         initialValues: { categories: allCategoriesWithHours },

@@ -11,8 +11,7 @@ export default {
     title: createStoryTitle('SoldOutCardNotification'),
     component: SoldOutCardNotification,
     args: {
-        imgSrc:
-            'https://vuejobs.com/storage/avatars/GWnaVkQSwifU9Zn36Qzif4GQ38lMSWxLs9NgPaM4.png',
+        imgSrc: 'https://vuejobs.com/storage/avatars/GWnaVkQSwifU9Zn36Qzif4GQ38lMSWxLs9NgPaM4.png',
         header: <SmallText color="grey">Selling Fast</SmallText>,
         content: (
             <Paragraph>

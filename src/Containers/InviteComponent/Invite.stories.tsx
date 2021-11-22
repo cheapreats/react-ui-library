@@ -13,8 +13,7 @@ const defaultArgs = {
     heading: 'Request an invitation to Stripe Treasury',
     description:
         'While Stripe Treasury is in initial roll-out, we’re inviting a limited number of platforms that serve US-based businesses to participate. If you’d like to request an invitation, please provide additional information and we’ll keep you updated.',
-    footer:
-        'Because Stripe Treasury is in beta, it is available to a limited number of invited platforms and capabilities will continue to change.',
+    footer: 'Because Stripe Treasury is in beta, it is available to a limited number of invited platforms and capabilities will continue to change.',
     buttonText: 'Submit',
     argTypes: { onClick: { action: 'clicked' } },
     inviteArgs: [

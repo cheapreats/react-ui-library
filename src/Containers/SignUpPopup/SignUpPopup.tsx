@@ -14,7 +14,8 @@ export interface ISignUpPopupProps {
     handleSubmit: (arg0: { preventDefault: () => void }, arg1: string) => void;
 }
 
-const EMAIL_REGEX = /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+const EMAIL_REGEX =
+    /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
 const SIGN_UP_COOKIE = 'SignUpPopupSeen';
 
 export const SignUpPopup = ({

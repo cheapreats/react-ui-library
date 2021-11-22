@@ -1,10 +1,13 @@
-import React from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { ClickableSmallText, SmallText } from '@Text';
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
 import DropdownItem, { IDropdownItemProps } from '../Dropdown/DropdownItem';
 import { TextLayoutProps } from '../../Fragments/TextLayout';
+import { MainTheme } from '@Themes';
 
+const newTextOpacity = 1;
+const oldTextOpacity = 0.5;
 
 export interface HighlightedString {
     /** contents of the string */
@@ -19,6 +22,8 @@ export interface HighlightedString {
     listItemsArgs?: Array<IDropdownItemProps>;
     /** content of DropdownItems */
     listItemsBodies?: Array<JSX.Element>;
+    /** in [0, 1]; 0 for newest (opaque), 1 for oldest (most transparent). None for automatic */
+    age?: number;
 }
 
 // extends line div
@@ -36,33 +41,58 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
     labels,
     ...props
 }): React.ReactElement => {
+    const [numEntries, setNumEntries] = useState(0);
+    const [numNewEntries, setNumNewEntries] = useState(0);
+
+    useEffect(() => {
+        if (labels.length !== numEntries) {
+            setNumNewEntries (labels.length - numEntries)
+            setNumEntries(labels.length)
+        }
+    })
 
     /**
      * construct the element for a special text
      * @param label - HighlightedString of the special text
      */
-    const getSpecialTextComponent = (label: HighlightedString): React.ReactElement => <ClickableSmallText bold {...label.textProps}>{`${label.text  } `}</ClickableSmallText>
+    const getSpecialTextComponent = (label: HighlightedString, opacity: number): React.ReactElement => {
+        const [onClick, setOnClick] = useState(false);
+        const handleOnClick = () => {
+            setOnClick(!onClick);
+        }
+        
+        return <StyledClickableSmallText style={{opacity}} bold={onClick} onClick={handleOnClick} {...label.textProps}>{`${label.text  } `}</StyledClickableSmallText>
+    }
 
     /**
      * construct the dropdown or text for a HighlightedString
      * @param label - HighlightedString of the text
      */
-    const getTextComponent = (label: HighlightedString): React.ReactElement => {
+    const getTextComponent = (label: HighlightedString, index: number): React.ReactElement => {
+        let opacity: number;
+        if (label.age != null){
+            opacity = newTextOpacity - label.age*oldTextOpacity
+        } else if (index >= labels.length - numNewEntries) {
+            opacity = newTextOpacity
+        } else {
+            opacity = oldTextOpacity
+        }
+        
         if (label.isSpecial){
             const listItemsArgs: Array<IDropdownItemProps> = label.listItemsArgs || []
             const listItemsBodies: Array<JSX.Element> = label.listItemsBodies || []
             const DropDownProps: IDropdownProps = {
-                dropdownButton: getSpecialTextComponent(label),
+                dropdownButton: getSpecialTextComponent(label, opacity),
             }
             return <Dropdown {...DropDownProps} {...label.listProps}>
-                {listItemsBodies.map((_, index) => (
-                    <DropdownItem {...listItemsArgs[index]}>
-                        {listItemsBodies[index]}
+                {listItemsBodies.map((_, i) => (
+                    <DropdownItem {...listItemsArgs[i]}>
+                        {listItemsBodies[i]}
                     </DropdownItem>
                 ))}
             </Dropdown>
         } 
-        return <SmallText {...label.textProps}>{`${label.text  } `}</SmallText>
+        return <SmallText style={{opacity}} {...label.textProps}>{`${label.text  } `}</SmallText>
     }
 
     /**
@@ -70,8 +100,8 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
      */
     const renderText = (): React.ReactElement => (
         <p>
-            {labels.map((label) => (
-                getTextComponent(label)
+            {labels.map((label, index) => (
+                getTextComponent(label, index)
             ))}
         </p>
     )
@@ -83,5 +113,9 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
     )
 };
 
-
 const HighlightedRow = styled.div``;
+
+const StyledClickableSmallText = styled(ClickableSmallText)`
+    color: ${({bold}) => bold ? MainTheme.colors.statusColors.orange : MainTheme.colors.text}
+`;
+

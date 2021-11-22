@@ -2,7 +2,6 @@ import React from 'react';
 import styled, { css, useTheme } from 'styled-components';
 import { Eye, EyeSlash } from '@styled-icons/bootstrap';
 
-
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
 type getRoundChairType = () => JSX.Element;
@@ -13,61 +12,38 @@ type getChairTextType = () => JSX.Element;
 
 type handleClickType = () => void;
 
-
 type tableUseTypes =
     | 'AddTableButton'
     | 'TableForEditCanvas'
     | 'TableForManagement';
 
 export interface IChair {
-    /**
-     * The position of the chair relative to the table (top/bottom/left/right)
-     */
+    /* The position of the chair relative to the table (top/bottom/left/right) */
     position: Position;
-    /**
-     * Indicates whether someone is seated in the chair
-     * True if someone is seated in the chair, otherwise false
-     */
+    /* Indicates whether someone is seated in the chair
+     * True if someone is seated in the chair, otherwise false */
     isSeated: boolean;
-    /**
-     * Name of Person Sitting on Chair
-     */
+    /* Name of Person Sitting on Chair */
     occupiedBy: string;
-    /**
-     * Determines if the chair will be visible or not
-     */
+    /* Determines if the chair will be visible or not */
     isVisible: boolean;
-    /**
-     * Indicates whether the chair is round.
-     * True if the chair is round, otherwise false.
-     */
+    /* Indicates whether the chair is round. True if the chair is round, otherwise false. */
     isRound?: boolean;
-    /**
-     * The size for the component relative to the parent
-     */
+    /* The size for the component relative to the parent */
     relativeSize: number;
-    /**
-     * The use type for the table component (how it will be used in the app)
-     */
+    /* The use type for the table component (how it will be used in the app) */
     tableUse: tableUseTypes;
-    /**
-     * Passes in the parent table index
-     */
+    /* Passes in the parent table index */
     tableIndex: number;
-    /**
-     * Unique index for each chair
-     */
+    /* Unique index for each chair */
     chairIndex: number;
-    /**
-     * Index number for the currently selected table
-     */
+    /* Index number for the currently selected table */
     selectedIndex: number;
     /**
      * Function to handle onClick event for the chair
      * @param parentTableIndex - parent table index in the tables array
      * @param chairIndex - chair index in chair array
      */
-
     onChairClick: (
         parentTableIndex: number,
         chairIndex: number,
@@ -75,7 +51,7 @@ export interface IChair {
     ) => void;
 }
 
-    /**
+/**
  * Primary UI component for user interaction
  */
 export const Chair: React.FC<IChair> = ({
