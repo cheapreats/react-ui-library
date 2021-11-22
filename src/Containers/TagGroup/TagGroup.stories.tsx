@@ -8,13 +8,12 @@ export default {
     component: TagGroup,
     args: {
         tags: [
-            {children: 'Hello'},
-            {children: 'Goodbye'},
-            {children: 'You say goodbye and I say hello'},
-            {children: 'hello hello'}
-        ]
+            { children: 'Hello' },
+            { children: 'Goodbye' },
+            { children: 'You say goodbye and I say hello' },
+            { children: 'hello hello' },
+        ],
     },
 } as Meta;
 
-export const Basic: Story<TagGroupProps> = (args) => <TagGroup {...args} />
-
+export const Basic: Story<TagGroupProps> = (args) => <TagGroup {...args} />;

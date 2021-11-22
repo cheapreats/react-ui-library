@@ -27,8 +27,7 @@ export interface HighlightedString {
 }
 
 // extends line div
-export interface HighlightedTextProps
-    extends React.HTMLAttributes<HTMLParagraphElement> {
+export interface HighlightedTextProps extends React.HTMLAttributes<HTMLParagraphElement> {
     labels: Array<HighlightedString>;
 }
 
@@ -107,7 +106,11 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
         </p>
     )
 
-    return <HighlightedRow {...props}>{renderText()}</HighlightedRow>;
+    return (
+        <HighlightedRow {...props}>
+            {renderText()}
+        </HighlightedRow>
+    )
 };
 
 const HighlightedRow = styled.div``;
@@ -115,3 +118,4 @@ const HighlightedRow = styled.div``;
 const StyledClickableSmallText = styled(ClickableSmallText)`
     color: ${({bold}) => bold ? MainTheme.colors.statusColors.orange : MainTheme.colors.text}
 `;
+
