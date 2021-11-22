@@ -4,6 +4,7 @@ import { ClickableSmallText, SmallText } from '@Text';
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
 import DropdownItem, { IDropdownItemProps } from '../Dropdown/DropdownItem';
 import { TextLayoutProps } from '../../Fragments/TextLayout';
+import { MainTheme } from '@Themes';
 
 const newTextOpacity = 1;
 const oldTextOpacity = 0.5;
@@ -54,7 +55,14 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
      * construct the element for a special text
      * @param label - HighlightedString of the special text
      */
-    const getSpecialTextComponent = (label: HighlightedString, opacity: number): React.ReactElement => <ClickableSmallText style={{opacity}} bold {...label.textProps}>{`${label.text  } `}</ClickableSmallText>
+    const getSpecialTextComponent = (label: HighlightedString, opacity: number): React.ReactElement => {
+        const [onClick, setOnClick] = useState(false);
+        const handleOnClick = () => {
+            setOnClick(!onClick);
+        }
+        
+        return <StyledClickableSmallText style={{opacity}} bold={onClick} onClick={handleOnClick} {...label.textProps}>{`${label.text  } `}</StyledClickableSmallText>
+    }
 
     /**
      * construct the dropdown or text for a HighlightedString
@@ -105,5 +113,9 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
     )
 };
 
-
 const HighlightedRow = styled.div``;
+
+const StyledClickableSmallText = styled(ClickableSmallText)`
+    color: ${({bold}) => bold ? MainTheme.colors.statusColors.orange : MainTheme.colors.text}
+`;
+
