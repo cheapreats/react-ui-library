@@ -20,10 +20,10 @@ export const InfoHeader: React.FC<InfoHeaderProps>  = ({
 
 /**
 * This function determines if the user is mousing over the icon
-* If the user is the funtion will return the icon as well  as the text 
-* Otherwise just the text is shown 
-* @param {String} text - The time remaining in minutes  
-* @returns {InfoHeaderText} - The text and icon  
+* If the user mousing over the icon, a tooltip is displayed 
+* Otherwise just the text and icon is shown 
+* @param {String} text - the infotext from main react element 
+* @returns {InfoHeaderText} - The text, icon and a tootip 
 */
 const showIcon = (text:String) => {
     const [isShown, setIsShown] = useState(false);
