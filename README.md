@@ -40,7 +40,17 @@ Contains all the styling that CheaprEats uses so you don't have to guess to colo
 ##### Mixins (Responsiveness)
 - Ensure that you are using the consistent Mixins for your Media Queries: https://github.com/cheapreats/react-ui-library/blob/v2/src/Themes/ThemeTemplate.ts#L138
 
-# When Using This Library
+# When Importing/Using This Library
+- Ensure there is only one instance of react & react-dom being used in your app. Use Webpack alias to point to ./node_modules/react & ./node_modules/react-dom respectively.
+When you import this library there is the Version of React by the Library and the version of React by your app being used simutaneously. Even if they are the same versions, two copies of react/react-dom will cause issues. Point all instance of react/react-dom to the one used by your application using Webpack Aliases.
+  resolve: {
+    alias: {
+      // add as many aliases as you like! 
+      react: "./node_modules/react",
+      "react-dom": "./node_modules/react-dom"
+    }
+  }
+- Wrap you app with the Theme Object
 You need to import Global into your app and wrap your app with the Global to Access the Theme.
     return (
         <Global
