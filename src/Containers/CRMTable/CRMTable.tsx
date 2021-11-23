@@ -66,7 +66,7 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
             ])
         })
 
-    const justMenuClick = (event: React.MouseEvent<SVGElement, MouseEvent>) => {
+    const _onMenuClick = (event: React.MouseEvent<SVGElement, MouseEvent>) => {
         onMenuClick();
         event.stopPropagation();
     }
@@ -91,7 +91,7 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
                         {cell.render('Cell')}
                     </CRMTableData>
                 ))}
-                <CRMTableMenuIcon onClick={(event) => justMenuClick(event)} />
+                <CRMTableMenuIcon onClick={(event) => _onMenuClick(event)} />
             </CRMTableDataRow>
         );
     });
