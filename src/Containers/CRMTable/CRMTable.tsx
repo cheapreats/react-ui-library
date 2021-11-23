@@ -1,5 +1,6 @@
 import React, { SyntheticEvent } from 'react';
 import styled from 'styled-components';
+import { ThreeDotsVertical } from '@styled-icons/bootstrap/ThreeDotsVertical';
 import {
     TableOptions,
     useFilters,
@@ -11,6 +12,8 @@ import { CRMRowProps } from '../CRMRow/CRMRow';
 import { Checkbox } from '../../Inputs/CheckBox/Checkbox';
 
 export interface ICRMTableProps extends TableOptions<CRMRowProps> {
+    /* A click on the menu button */
+    onMenuClick: () => void;
     /* A click on the row itself */
     onRowClick: (rowData: CRMRowProps) => void;
     /* A click on a checkbox in a row */
@@ -24,6 +27,7 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
     data,
     defaultColumn,
     onRowClick,
+    onMenuClick,
     onCheckboxClick,
     onHeaderCheckboxClick,
     ...props
@@ -62,6 +66,11 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
             ])
         })
 
+    const _onMenuClick = (event: React.MouseEvent<SVGElement, MouseEvent>) => {
+        onMenuClick();
+        event.stopPropagation();
+    }
+
     const buildHeaderGroups = () => headerGroups.map((headerGroup) => (
         <CRMTableHeaderRow {...headerGroup.getHeaderGroupProps()}>
             {headerGroup.headers.map((column) => (
@@ -82,6 +91,7 @@ export const CRMTable: React.FC<ICRMTableProps> = ({
                         {cell.render('Cell')}
                     </CRMTableData>
                 ))}
+                <CRMTableMenuIcon onClick={(event) => _onMenuClick(event)} />
             </CRMTableDataRow>
         );
     });
@@ -117,7 +127,6 @@ const CRMTableDataRow = styled.tr`
         
         :hover{
             border: none;
-            
             transform: scale(1.015, 1.05);
             box-shadow: ${theme.depth[1]};
     `}
@@ -127,7 +136,6 @@ const CRMTableHeaderCell = styled.th`
     ${({theme}) => `
         padding: ${theme.dimensions.padding.default};
     `}
-
     text-align: left;
 `;
 
@@ -136,6 +144,12 @@ const CRMTableData = styled.td`
         padding: ${theme.dimensions.padding.default};
     `}
 `
+const CRMTableMenuIcon = styled(ThreeDotsVertical)`
+    ${({theme}) => `
+        padding: ${theme.dimensions.padding.default};
+    `}  
+    height: 25px;
+`;
 
 const TableHeaderCheckboxCell = styled.div`
 
