@@ -28,7 +28,7 @@ export const Basic: Story<ITreeAccordionProps> = (args) => (
 );
 
 export const RandomHeights: Story<ITreeAccordionProps> = (args) => (
-    <TreeAccordion {...args}>
+    <TreeAccordion {...args} treeStrokeColor="red" >
         <Paragraph padding="20px 0">Child 1</Paragraph>
         <Paragraph lineHeight="100px">Child 2</Paragraph>
         <Paragraph margin="20px">Child 3</Paragraph>

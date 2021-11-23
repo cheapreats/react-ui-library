@@ -21,8 +21,8 @@ export interface ITreeAccordionProps extends React.HTMLAttributes<HTMLDivElement
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     /* If true the number of items in the accordion will be shown in the header */
     displayItemCount?: boolean;
-    /* Optional props to style the path making up the tree SVG */
-    pathProps?: React.HTMLAttributes<SVGPathElement>
+    /* Color string override for the tree SVG */
+    treeStrokeColor?: string;
 }
 
 export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
@@ -30,7 +30,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
     children,
     icon,
     displayItemCount = false,
-    pathProps,
+    treeStrokeColor = "black",
     ...props
 }): React.ReactElement => {
     const [childHeights, setHeightArray] = useState([0])
@@ -94,7 +94,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
                     const SVGPath = `M${SVG_HORIZONTAL_START} 0 V${arcStartHeight} Q${SVG_HORIZONTAL_START} ${arcEndHeight} ${SVG_CONTAINER_WIDTH} ${arcEndHeight}`
                     currentOffset += childHeight;
 
-                    return( <Path d={SVGPath} pathLength={1} isExpanded={isExpanded} animationTime={animationTimePerChild * (index + ANIMATION_INDEX_SHIFT)} {...pathProps}/>);
+                    return( <Path d={SVGPath} pathLength={1} isExpanded={isExpanded} animationTime={animationTimePerChild * (index + ANIMATION_INDEX_SHIFT)} strokeColor={treeStrokeColor}/>);
                 })}
             </svg>
         )
@@ -190,17 +190,18 @@ const ChildrenContainer = styled.div`
 
 interface IPathProps{
     isExpanded: boolean;
-    animationTime: number
+    animationTime: number;
+    strokeColor: string;
 }
 
 const Path = styled.path<IPathProps>`
 
-    stroke: black;
     stroke-width: 2px;
     stroke-dasharray: 1;
-    ${({isExpanded, animationTime}) => `
+    ${({isExpanded, animationTime, strokeColor}) => `
         stroke-dashoffset: ${isExpanded ? 0 : 1};
-        ${Mixins.transition(['stroke-dashoffset'], (isExpanded ? animationTime : ANIMATION_TIME - animationTime))}
+        ${Mixins.transition(['stroke-dashoffset'], (isExpanded ? animationTime : ANIMATION_TIME - animationTime))};
+        stroke: ${strokeColor};
     `}
     fill: transparent;
 `;
