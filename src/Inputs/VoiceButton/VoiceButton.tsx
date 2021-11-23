@@ -1,7 +1,7 @@
 import React, { ForwardRefExoticComponent, RefAttributes } from 'react';
 import styled from 'styled-components';
-import { Button, ButtonProps } from '../Button/Button';
 import { useTransition } from '@Utils/Hooks';
+import { Button, ButtonProps } from '../Button/Button';
 
 /**
  * VoiceButton props
@@ -58,7 +58,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
                             <Icon
                                 iconSize={iconSize}
                                 as={icon}
-                                iconColor={'black'}
+                                iconColor="black"
                             />
                         )}{' '}
                     </div>
@@ -66,7 +66,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
                         <Icon
                             iconSize={iconSize}
                             as={icon}
-                            iconColor={'green'}
+                            iconColor="green"
                         />
                     )}
                 </div>
@@ -78,7 +78,7 @@ export const VoiceButton: React.FC<VoiceButtonProps> = ({
 interface VoiceIconProps {
     iconSize: string;
     iconColor?: string;
-    as: ForwardRefExoticComponent<RefAttributes<SVGSVGElement>>; //we treat as object
+    as: ForwardRefExoticComponent<RefAttributes<SVGSVGElement>>; // we treat as object
 }
 
 const Icon = styled.svg<VoiceIconProps>`

@@ -35,16 +35,16 @@ export const OrderType: React.FC<IOrderTypeProps> = ({
     /* Returns order type with no underscores */
     const handleOrderType = (): string => {
         switch (orderType) {
-            case OrderTypeIdentifier.EAT_IN:
-                return formatText(OrderTypeIdentifier.EAT_IN);
-            case OrderTypeIdentifier.TAKE_OUT:
-                return formatText(OrderTypeIdentifier.TAKE_OUT);
-            case OrderTypeIdentifier.SELF_DELIVERY:
-                return formatText(OrderTypeIdentifier.SELF_DELIVERY);
-            case OrderTypeIdentifier.DELIVERY:
-                return formatText(OrderTypeIdentifier.DELIVERY);
-            default:
-                return 'Unknown';
+        case OrderTypeIdentifier.EAT_IN:
+            return formatText(OrderTypeIdentifier.EAT_IN);
+        case OrderTypeIdentifier.TAKE_OUT:
+            return formatText(OrderTypeIdentifier.TAKE_OUT);
+        case OrderTypeIdentifier.SELF_DELIVERY:
+            return formatText(OrderTypeIdentifier.SELF_DELIVERY);
+        case OrderTypeIdentifier.DELIVERY:
+            return formatText(OrderTypeIdentifier.DELIVERY);
+        default:
+            return 'Unknown';
         }
     };
 

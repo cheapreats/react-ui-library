@@ -256,17 +256,17 @@ export const CreateHoursModal: React.FC<CreateHoursProps> = ({
             }
             if (mergedHours[day].length > NO_MERGED_HOURS) {
                 switch (merge[day]) {
-                    case MergeActions.MERGE:
-                        confirmedHours[day].push(...mergedHours[day]);
-                        break;
-                    case MergeActions.REPLACE:
-                        confirmedHours[day].push(values.storeHours);
-                        break;
-                    case MergeActions.KEEP:
-                        confirmedHours[day].push(...overWrittenHours[day]);
-                        break;
-                    default:
-                        break;
+                case MergeActions.MERGE:
+                    confirmedHours[day].push(...mergedHours[day]);
+                    break;
+                case MergeActions.REPLACE:
+                    confirmedHours[day].push(values.storeHours);
+                    break;
+                case MergeActions.KEEP:
+                    confirmedHours[day].push(...overWrittenHours[day]);
+                    break;
+                default:
+                    break;
                 }
             }
         });
