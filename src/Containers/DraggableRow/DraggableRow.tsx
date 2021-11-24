@@ -4,11 +4,13 @@ import { ITemplatePrefill } from './DraggableRowTypes';
 
 export interface DraggableRowProps extends React.HTMLAttributes<HTMLDivElement> {
     /*Template of a draggable element that can be reordered*/
-    templatePrefills: ITemplatePrefill;
+    templatePrefills: ITemplatePrefill[];
+    draggable?: boolean;
 }
 
 export const DraggableRow: React.FC<DraggableRowProps> = ({
     templatePrefills,
+    draggable = true,
     ...props
 }): React.ReactElement => {
 
@@ -16,6 +18,7 @@ export const DraggableRow: React.FC<DraggableRowProps> = ({
         <div {...props}>
             <Template
                 templatePrefills={templatePrefills}
+                draggable={draggable}
             />
         </div>
     );

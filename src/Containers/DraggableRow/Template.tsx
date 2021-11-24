@@ -11,17 +11,17 @@ import {
     DropResult,
 } from 'react-beautiful-dnd';
 import { ITemplatePrefill, reorder } from './DraggableRowTypes';
-import { DroppableElement } from './DroppableElement';
-import { MainInterface, ResponsiveInterface } from '../../Utils/BaseStyles';
-import { scroll, media } from '../../Utils/Mixins';
 
-export interface TemplateProps extends MainInterface, ResponsiveInterface {
+export interface TemplateProps extends React.HTMLAttributes<HTMLDivElement> {
     /*Managable template that holds information for each element of the draggable row (by default a caption)*/
-    templatePrefills: ITemplatePrefill;
+    templatePrefills: ITemplatePrefill[];
+    /*Boolean that toggles if items are draggable or not*/
+    draggable: boolean;
 }
 
 export const Template: React.FC<TemplateProps> = ({
     templatePrefills,
+    draggable,
     ...props
 }): React.ReactElement => {
     const [items, setItems] = useState<ITemplatePrefill[]>(
@@ -41,73 +41,78 @@ export const Template: React.FC<TemplateProps> = ({
         setItems(reorderedList);
     };
 
+    
 
-    const renderDraggableComponent = () =>
-        Object.values(items).map((templatePrefill, index) => (
+    const renderDraggableComponent = (drag:boolean) =>
+        Object.values(items).map((templatePrefill, index) => {
+            const {caption} = templatePrefill;
+            return (
             <Draggable
-                key={templatePrefill.caption}
-                draggableId={templatePrefill.caption}
-                index={index}
-            >
+                key={caption}
+                draggableId={caption}
+                index={index}>
+
                 {(
                     providedDraggable: DraggableProvided,
                     snapshotDraggable: DraggableStateSnapshot,
-                ) => (
-                    <DraggableWrapper
-                        ref={providedDraggable.innerRef}
-                        style={providedDraggable.draggableProps.style}
-                        isDragging={snapshotDraggable.isDragging}
-                        {...providedDraggable.draggableProps}
-                    >
-                        <Header>
-                            <div {...providedDraggable.dragHandleProps}>
-                                <Dots as={ReOrderDotsVertical} />
-                            </div>
-                            {templatePrefill.caption}
-                        </Header>
-                        {DroppableElement}
-                    </DraggableWrapper>
-                )}
+                ) => {
+                    const {innerRef, draggableProps, dragHandleProps} = providedDraggable;
+                    return (
+                        <DraggableWrapper
+                            ref={innerRef}
+                            style={draggableProps.style}
+                            isDragging={snapshotDraggable.isDragging}
+                            {...draggableProps}>
+                            <Header>
+                                {
+                                    drag
+                                    ? <div {...dragHandleProps}> <Icon as={ReOrderDotsVertical} /> </div>
+                                    : <div> <Icon as={ReOrderDotsVertical} /> </div>
+                                }
+                                {caption}
+                            </Header>
+                        </DraggableWrapper>
+                    )}
+                }
             </Draggable>
-        ));
+            )
+        });
 
     return (
-        <Wrapper {...props}>
-            <DragDropContext onDragEnd={onDrag}>
-                <Droppable droppableId="templateDroppable">
-                    {(provided: DroppableProvided) => (
-                        <div
-                            ref={provided.innerRef}
-                            {...provided.droppableProps}
-                        >
-                            {renderDraggableComponent()}
-                            {provided.placeholder}
-                        </div>
-                    )}
-                </Droppable>
-            </DragDropContext>
-        </Wrapper>
+        <ListWrapper>
+            <ElementWrapper {...props}>
+                <DragDropContext onDragEnd={onDrag}>
+                    <Droppable droppableId="templateDroppable">
+                        {(
+                            provided: DroppableProvided,
+                        ) => {
+                            const {innerRef, droppableProps, placeholder} = provided
+                            return (
+                                <div ref={innerRef} {...droppableProps}>
+                                    {renderDraggableComponent(draggable)}
+                                    {placeholder}
+                                </div>
+                            )}
+                        }
+                    </Droppable>
+                </DragDropContext>
+            </ElementWrapper>
+        </ListWrapper>
     );
 };
 
-const Wrapper = styled.div`
-    ${scroll};
-    width: 30%;
-    ${media(
-        'tablet',
-        `
-        width: 100%
-    `,
-    )};
+const ListWrapper = styled.div`
+    width: 100%;
+    margin: 10px;
+`;
+
+const ElementWrapper = styled.div`
+    width: 100%;
+    font-weight: bold;    
     ${({ theme }): string => `
         font-size: ${theme.font.size.small};
         background-color: ${theme.colors.background};
-        padding: ${'10px 0 2px 0'};
     `};
-    font-weight: bold;
-    line-height: 1.25;
-    margin: 3vh 0;
-    padding: auto;
 `;
 
 interface DraggableWrapperProps {
@@ -125,15 +130,15 @@ const DraggableWrapper = styled.div<DraggableWrapperProps>`
 
 const Header = styled.div`
     border-radius: 5px;
-    padding-top: 2px;
     display: flex;
     ${({ theme }): string => `
         font-size: ${theme.font.size.small};
     `};
 `;
 
-const Dots = styled.svg`
+const Icon = styled.svg`
     height: 20px;
     padding-right: 5px;
     padding-bottom: 1px;
 `;
+ 

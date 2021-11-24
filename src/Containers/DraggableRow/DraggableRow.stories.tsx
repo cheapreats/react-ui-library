@@ -7,6 +7,7 @@ export default {
     title: createStoryTitle('Draggable Row'),
     component: DraggableRow,
     args: {
+        draggable: true,
         templatePrefills: {
             TEMPLATE_ITEM: {
                 caption: 'This is a template caption.'
