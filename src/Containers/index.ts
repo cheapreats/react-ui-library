@@ -83,6 +83,7 @@ export * from './HighlightedText/HighlightedText';
 export * from './NotificationBubble/NotificationBubble';
 export * from './TagGroup/TagGroup';
 export * from './Analytics/Analytics';
+export * from './DraggableRow/DraggableRow';
 export * from './OrderTracker/OrderTracker';
 export * from './TableHeaderCell/TableHeaderCell';
 export * from './CustomerProfile/CustomerProfile';
@@ -91,5 +92,6 @@ export * from './CRMRow/CRMRow';
 export * from './ProfileModal/ProfileModal';
 export * from './CRMTable/CRMTable';
 export * from './LimitedTimeBanner/LimitedTimeBanner';
+export * from './InfoHeader/InfoHeader';
 export * from './ReachIndicator/ReachIndicator'; 
 
