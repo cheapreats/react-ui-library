@@ -90,14 +90,19 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
     }, [profileData]);
 
     return (
-        <Container>
-            {renderProfileCircles()}
-            <FeaturedProfile icon key={ADD_USER_ICON_KEY} background="grey" />
-        </Container>
+        <Holder>
+            <Container>
+                {renderProfileCircles()}
+                <FeaturedProfile icon key={ADD_USER_ICON_KEY} background="grey" />
+            </Container>
+            <CountContainer>{profileData.length}</CountContainer>
+        </Holder>
+            
     );
 };
 
 const Container = styled.ul`
+    
     ${flex('row')}
     padding: 5px;
 
@@ -120,3 +125,13 @@ const Container = styled.ul`
         z-index: -3;
     }
 `;
+
+const CountContainer = styled.div`
+    font-size 40px;
+    height 150px;
+    line-height 150px;
+    text-align:center;
+`
+const Holder = styled.div`
+    display: flex;
+`
