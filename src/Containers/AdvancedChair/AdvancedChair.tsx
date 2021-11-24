@@ -18,8 +18,9 @@ export interface IAdvancedChair extends React.HTMLAttributes<HTMLDivElement> {
     tableIndex: number;
     chairIndex: number;
     selectedIndex: number;
-    onChairClick: (
-    ) => void;
+    primaryChairColor: string;
+    chairColorGradient: string;
+    onChairClick: () => void;
 }
 
 export const AdvancedChair: React.FC<IAdvancedChair> = ({
@@ -32,19 +33,29 @@ export const AdvancedChair: React.FC<IAdvancedChair> = ({
     tableIndex = -1,
     chairIndex = -1,
     selectedIndex = -1,
+    primaryChairColor = '#6495ED',
+    chairColorGradient='#adbcf9',
     onChairClick,
     ...props
-}) => {
+    }) => {
     return (
-    <div{...props}>
-        <ChairBody onClick={onChairClick}>
-            <BackOfChair/>
-            <ChairSeat/>
-            <TopChairLeg/>
-            <BottomChairLeg/>
-        </ChairBody>
-    </div>
-)
+        <div{...props}>
+            <ChairBody onClick={onChairClick}>
+                <BackOfChair
+                    primaryChairColor={primaryChairColor}
+                    chairColorGradient={chairColorGradient}/>
+                <ChairSeat
+                    primaryChairColor={primaryChairColor}
+                    chairColorGradient={chairColorGradient}/>
+                <TopChairLeg
+                    primaryChairColor={primaryChairColor}
+                    chairColorGradient={chairColorGradient}/>
+                <BottomChairLeg
+                    primaryChairColor={primaryChairColor}
+                    chairColorGradient={chairColorGradient}/>
+            </ChairBody>
+        </div>
+    )
 }
 
 const ChairBody = styled.div`
@@ -62,26 +73,36 @@ const ChairBody = styled.div`
   "back . ."
 `;
 
-const BackOfChair = styled.div`
+interface IChairColor {
+    primaryChairColor: string;
+    chairColorGradient: string;
+}
+
+const ChairColorStyle = styled.div<IChairColor>`
+  ${({primaryChairColor, chairColorGradient}) => {
+    return `background: linear-gradient(to right,${primaryChairColor}, ${chairColorGradient})`;
+  }};
+`;
+
+const BackOfChair = styled(ChairColorStyle)`
   grid-area: back;
   border-radius: 1px 3px 3px 1px;
-  background: linear-gradient(to right, #6495ED, #adbcf9);
+  
 `;
 
-const ChairSeat = styled.div`
+const ChairSeat = styled(ChairColorStyle)`
   grid-area: seat;
   border-radius: 0px 3px 3px 0px;
-  background: linear-gradient(to right, #6495ED, #adbcf9);
+  
 `;
 
-const TopChairLeg = styled.div` 
+const TopChairLeg = styled(ChairColorStyle)`
   grid-area: firstleg;
   border-radius: 0px 3px 3px 0px;
-  background: #6495ED;
+ 
 `;
 
-const BottomChairLeg = styled.div`
+const BottomChairLeg = styled(ChairColorStyle)`
   grid-area: secondleg;
   border-radius: 0px 3px 3px 0px;
-  background: #6495ED;
 `;
