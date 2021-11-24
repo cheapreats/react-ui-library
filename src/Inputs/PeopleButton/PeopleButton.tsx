@@ -13,19 +13,35 @@ export interface ButtonProps
     extends MainInterface,
         ResponsiveInterface,
         React.HTMLAttributes<HTMLButtonElement> {
-    icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
-    iconSize?: string;
-    contentColor?: string;
-    color?: string;
-    primary?: boolean;
-    full?: boolean;
-    onClick?: React.MouseEventHandler;
-    disabled?: boolean;
 
+    /**
+     * Handles Icon properties
+     */
+    icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
+    /**
+     * Determines the size of the icon
+     */
+    iconSize?: string;
+    /**
+     * Handles button properties, css of button when not highlighted
+     */
+    primary?: boolean;
+    /**
+     * OnClick Handler
+     */
+    onClick?: React.MouseEventHandler;
+    /**
+     * Whether the button is disabled or not, If true then disabled
+     */
+    disabled?: boolean;
+    /**
+     * Vertical Line divider for PeopleButton
+     */
+    VerticalLine?:boolean,
 }
 
 /**
- * A people button to display reservation
+ * Button to display reservation summary
  * @param children
  * @param icon
  * @param disabled
@@ -46,28 +62,26 @@ export const PeopleButton: React.FC<ButtonProps> = ({
                         hasText={children}
                     />
             {children}
-            <div style={{borderLeft: "1px solid #000000 ", height:20, marginLeft: 20, marginRight: 20, color: "black",}}/>
+            <VerticalLine/>
             <Datepicker name="date" label="" />
         </StyledButton>
     );
 };
 
+/**
+ * Styled button with css
+ */
 const StyledButton = styled.button<ButtonProps>`
-    // Theme Stuff
+    // Theme
     ${({
 theme,
-color = 'background',
-contentColor = 'text',
  ...props
 }): string => `
-        font-family: ${theme.font.family};
-        background-color: ${theme.colors[color] || color};
-        color: ${theme.colors[contentColor] || contentColor};
         display: flex;
         align-items:center;
         margin:10px;
         padding:10px;
-        ${clickable(theme.colors[color] || color)}
+        ${clickable(theme.colors.background)}
         ${Main({
     padding: theme.dimensions.padding.withBorder,
     ...props,
@@ -82,12 +96,18 @@ contentColor = 'text',
       `: ''}
 `;
 
+/**
+ * Props for Icon
+ */
 interface IconProps {
     hasText?: React.ReactNode;
     iconSize: string;
     as: ForwardRefExoticComponent<RefAttributes<SVGSVGElement>>;
 }
 
+/**
+ * const for Icon
+ */
 const Icon = styled.svg<IconProps>`
     ${transition(['transform', 'opacity'])};
     ${({ iconSize }) => `
@@ -96,5 +116,17 @@ const Icon = styled.svg<IconProps>`
     `}
     margin-right: ${({ hasText }): number => (hasText ? 8 : 0)}px;
 `;
+
+/**
+ * const for Vertical line Divider
+ */
+const VerticalLine = styled.div`
+    border-left: solid 1px #000000;
+    height: 20px;
+    margin-left: 20px; 
+    margin-right: 20px; 
+    color: ${({ theme }) => theme.colors.text};  
+    `;
+
 
 export default PeopleButton;
