@@ -30,7 +30,7 @@ export const TreeAccordion: React.FC<ITreeAccordionProps> = ({
     children,
     icon,
     displayItemCount = false,
-    treeStrokeColor = "black",
+    treeStrokeColor,
     ...props
 }): React.ReactElement => {
     const [childHeights, setHeightArray] = useState([0])
@@ -191,17 +191,17 @@ const ChildrenContainer = styled.div`
 interface IPathProps{
     isExpanded: boolean;
     animationTime: number;
-    strokeColor: string;
+    strokeColor?: string;
 }
 
 const Path = styled.path<IPathProps>`
 
     stroke-width: 2px;
     stroke-dasharray: 1;
-    ${({isExpanded, animationTime, strokeColor}) => `
+    ${({isExpanded, animationTime, strokeColor, theme}) => `
         stroke-dashoffset: ${isExpanded ? 0 : 1};
         ${Mixins.transition(['stroke-dashoffset'], (isExpanded ? animationTime : ANIMATION_TIME - animationTime))};
-        stroke: ${strokeColor};
+        stroke: ${strokeColor || theme.colors.text};
     `}
     fill: transparent;
 `;
