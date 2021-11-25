@@ -90,9 +90,12 @@ export default {
     args: {
         profileData: profiles,
         alt: 'Profile Image',
+        counterBool: false,
     },
 } as Meta;
 
 export const Demo: Story<IFeaturedProfilesCardProps> = (args) => (
     <FeaturedProfilesCard {...args} />
 );
+
+//todo different use cases presets.

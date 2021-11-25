@@ -20,10 +20,13 @@ export interface IProfile {
 
 export interface IFeaturedProfilesCardProps {
     profileData: IProfile[];
+    counterBool: boolean;
 }
 
 export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
-    profileData,
+    profileData, //the array of profiles to be displayed
+    counterBool, //if true, the profile counter is displayed, and if false, the counter is not displayed
+    ...props
 }): React.ReactElement => {
     const renderProfileCircles = useCallback(() => {
         const determineProfilePictureLimit = () => {
@@ -95,7 +98,7 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
                 {renderProfileCircles()}
                 <FeaturedProfile icon key={ADD_USER_ICON_KEY} background="grey" />
             </Container>
-            <CountContainer>{profileData.length}</CountContainer>
+            {counterBool && <CountContainer>{profileData.length}</CountContainer>}
         </Holder>
             
     );
