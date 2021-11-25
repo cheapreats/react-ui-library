@@ -39,7 +39,7 @@ export const ReachIndicator: React.FC<ReachIndicatorProps> = ({
  * @param Num1 - Number of people who saw or interacted with the post
  * @param Num2 - Goal amount of people to see or interact with the post 
  */
-let getPercentage = (num1: number, num2: number) => ((num1 / num2) * 100);
+const getPercentage = (num1: number, num2: number) => ((num1 / num2) * 100);
 
 const EngagementBox = styled.div`
     width: 200px;
@@ -66,8 +66,8 @@ const IndicatorProgressBar = styled.div<ReachIndicatorProps>`
             ? theme.colors.reachIndicatorColors.green
             : theme.colors.reachIndicatorColors.red
         };
-    `}
-    width: ${ReachIndicator => getPercentage(ReachIndicator.indicatorNum, ReachIndicator.indicatorGoal)}%;    
+        width: ${getPercentage(indicatorNum, indicatorGoal)}%;
+    `}    
 `
 const LoadingBar = styled.div`
     height: 20px;

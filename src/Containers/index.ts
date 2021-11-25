@@ -91,5 +91,6 @@ export * from './CRMRow/CRMRow';
 export * from './ProfileModal/ProfileModal';
 export * from './CRMTable/CRMTable';
 export * from './LimitedTimeBanner/LimitedTimeBanner';
+export * from './TreeAccordion/TreeAccordion';
 export * from './ReachIndicator/ReachIndicator'; 
 
