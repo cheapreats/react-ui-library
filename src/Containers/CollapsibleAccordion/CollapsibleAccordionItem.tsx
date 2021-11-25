@@ -6,6 +6,9 @@ import { Mixins } from '../../Utils';
 import { transition } from '../../Utils/Mixins';
 import { Heading } from '../../Text';
 
+/* Max number shown on badge */
+const ROTATE_ARROW_POINT_DOWN = 90;
+
 export interface CollapsibleAccordionItemProps
     extends React.HTMLAttributes<HTMLDivElement> {
     /* Heading text */
@@ -51,11 +54,11 @@ export const CollapsibleAccordionItem: React.FC<CollapsibleAccordionItemProps> =
         const bodyNode = bodyRef.current;
         const headerNode = headerRef.current;
         if (bodyNode && headerNode) {
+            let currentHeight = headerNode.clientHeight;
             if (isActive) {
-                setHeight(bodyNode.clientHeight + headerNode.clientHeight);
-            } else {
-                setHeight(headerNode.clientHeight);
+                currentHeight += bodyNode.clientHeight;
             }
+            setHeight(currentHeight);
         }
     }, [isActive]);
 
@@ -132,7 +135,7 @@ const PurchaseCountDiv = styled.div`
 
 const AngleIcon = styled(AngleRight)<AngleIconProps>`
     ${transition(['transform'])}
-    transform: rotate(${({ isActive }): number => (isActive ? 90 : 0)}deg);
+    transform: rotate(${({ isActive }): number => (isActive ? ROTATE_ARROW_POINT_DOWN : 0)}deg);
     width: 8px;
     float: right;
     margin-bottom: auto;
