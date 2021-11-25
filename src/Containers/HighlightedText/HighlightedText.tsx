@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import { ClickableSmallText, SmallText } from '@Text';
+import { MainTheme } from '@Themes';
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
 import DropdownItem, { IDropdownItemProps } from '../Dropdown/DropdownItem';
 import { TextLayoutProps } from '../../Fragments/TextLayout';
-import { MainTheme } from '@Themes';
 
 const newTextOpacity = 1;
 const oldTextOpacity = 0.5;

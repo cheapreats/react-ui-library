@@ -53,20 +53,18 @@ export const PeopleButton: React.FC<ButtonProps> = ({
     iconSize = '14px',
     disabled,
     ...props
-}): React.ReactElement => {
-    return (
-        <StyledButton {...props} disabled={disabled} >
-                    <Icon
-                        iconSize={iconSize}
-                        as={UserCircle}
-                        hasText={children}
-                    />
-            {children}
-            <VerticalLine/>
-            <Datepicker name="date" label="" />
-        </StyledButton>
-    );
-};
+}): React.ReactElement => (
+    <StyledButton {...props} disabled={disabled} >
+        <Icon
+            iconSize={iconSize}
+            as={UserCircle}
+            hasText={children}
+        />
+        {children}
+        <VerticalLine/>
+        <Datepicker name="date" label="" />
+    </StyledButton>
+);
 
 /**
  * Styled button with css
@@ -74,23 +72,23 @@ export const PeopleButton: React.FC<ButtonProps> = ({
 const StyledButton = styled.button<ButtonProps>`
     // Theme
     ${({
-theme,
- ...props
-}): string => `
+        theme,
+        ...props
+    }): string => `
         display: flex;
         align-items:center;
         margin:10px;
         padding:10px;
         ${clickable(theme.colors.background)}
         ${Main({
-    padding: theme.dimensions.padding.withBorder,
-    ...props,
-})}
+        padding: theme.dimensions.padding.withBorder,
+        ...props,
+    })}
     `}
     // Primary button
     ${({ primary, theme }): string =>
-    primary
-        ? `
+        primary
+            ? `
         background-color: ${theme.colors.background};
         color: ${theme.colors.text};  
       `: ''}
