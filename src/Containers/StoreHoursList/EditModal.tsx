@@ -52,13 +52,10 @@ export const EditModal: React.FC<EditTimeProps> = ({
 }): React.ReactElement => {
     const [addModalState, setAddModalState] = addModal;
     const [confirmModalState, setConfirmModalState] = useState(false);
-    const [
-        editCategoryModalState,
-        setEditCategoryModalState,
-    ] = editCategoryModal;
-    const [selectActiveCategory, setSelectActiveCategory] = useState(
-        activeCategory,
-    );
+    const [editCategoryModalState, setEditCategoryModalState] =
+        editCategoryModal;
+    const [selectActiveCategory, setSelectActiveCategory] =
+        useState(activeCategory);
     const confirm = () => {
         saveStoreHours();
         setActiveCategory(selectActiveCategory);

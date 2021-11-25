@@ -98,9 +98,10 @@ const Dropdown: React.FC<IDropdownProps> = ({
         });
         return targetChildren.length >= 0 ? targetChildren : undefined;
     };
-    const itemChildren = useMemo(() => validChild(children, DropdownItem), [
-        children,
-    ]);
+    const itemChildren = useMemo(
+        () => validChild(children, DropdownItem),
+        [children],
+    );
     useLayoutEffect(() => {
         const buttonRefCurrent = buttonRef.current;
         const bodyRefCurrent = bodyRef.current;

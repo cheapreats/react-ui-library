@@ -1,8 +1,8 @@
 import {Meta, Story} from "@storybook/react";
-import {createStoryTitle} from "../../Constants";
 import {IOvalTable, OvalTable} from "@Containers/OvalTable/OvalTable";
 import React from "react";
 import {action} from "@storybook/addon-actions";
+import {createStoryTitle} from "../../Constants";
 
 export default {
     title: createStoryTitle('OvalTable'),
@@ -133,6 +133,7 @@ NineChairs.args = {
         },
     ],
     relativeSize: 0.5,
+    chairsPosition: 'around',
 };
 
 export const TwelveChairs = Template.bind({});
@@ -296,4 +297,138 @@ TwelveChairs.args = {
         },
     ],
     relativeSize: 1,
+    chairsPosition: 'around',
+};
+
+export const FourChairsTop = Template.bind({});
+FourChairsTop.args = {
+    chairs: [
+        {
+            position: 'top',
+            isSeated: true,
+            occupiedBy: 'Scott',
+            isVisible: true,
+            isRound: true,
+            relativeSize: 0.5,
+            tableUse: 'TableForManagement',
+            chairIndex: 0,
+            tableIndex: 0,
+            selectedIndex: 3,
+            onChairClick: action("Chair was clicked"),
+        },
+        {
+            position: 'top',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            isRound: true,
+            relativeSize: 0.5,
+            tableUse: 'TableForManagement',
+            chairIndex: 0,
+            tableIndex: 0,
+            selectedIndex: 3,
+            onChairClick: action("Chair was clicked"),
+        },
+        {
+            position: 'top',
+            isSeated: true,
+            occupiedBy: 'Dean',
+            isVisible: true,
+            isRound: true,
+            relativeSize: 0.5,
+            tableUse: 'TableForManagement',
+            chairIndex: 0,
+            tableIndex: 0,
+            selectedIndex: 3,
+            onChairClick: action("Chair was clicked"),
+        },
+        {
+            position: 'top',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            isRound: true,
+            relativeSize: 0.5,
+            tableUse: 'TableForManagement',
+            chairIndex: 0,
+            tableIndex: 0,
+            selectedIndex: 3,
+            onChairClick: action("Chair was clicked"),
+        },
+    ],
+    relativeSize: 0.5,
+    chairsPosition: 'top',
+};
+
+export const FiveChairsBottom = Template.bind({});
+FiveChairsBottom.args = {
+    chairs: [
+        {
+            position: 'top',
+            isSeated: true,
+            occupiedBy: 'Scott',
+            isVisible: true,
+            isRound: true,
+            relativeSize: 0.5,
+            tableUse: 'TableForManagement',
+            chairIndex: 0,
+            tableIndex: 0,
+            selectedIndex: 3,
+            onChairClick: action("Chair was clicked"),
+        },
+        {
+            position: 'top',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            isRound: true,
+            relativeSize: 0.5,
+            tableUse: 'TableForManagement',
+            chairIndex: 0,
+            tableIndex: 0,
+            selectedIndex: 3,
+            onChairClick: action("Chair was clicked"),
+        },
+        {
+            position: 'top',
+            isSeated: true,
+            occupiedBy: 'Dean',
+            isVisible: true,
+            isRound: true,
+            relativeSize: 0.5,
+            tableUse: 'TableForManagement',
+            chairIndex: 0,
+            tableIndex: 0,
+            selectedIndex: 3,
+            onChairClick: action("Chair was clicked"),
+        },
+        {
+            position: 'top',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            isRound: true,
+            relativeSize: 0.5,
+            tableUse: 'TableForManagement',
+            chairIndex: 0,
+            tableIndex: 0,
+            selectedIndex: 3,
+            onChairClick: action("Chair was clicked"),
+        },
+        {
+            position: 'top',
+            isSeated: false,
+            occupiedBy: '',
+            isVisible: true,
+            isRound: true,
+            relativeSize: 0.5,
+            tableUse: 'TableForManagement',
+            chairIndex: 0,
+            tableIndex: 0,
+            selectedIndex: 3,
+            onChairClick: action("Chair was clicked"),
+        },
+    ],
+    relativeSize: 0.5,
+    chairsPosition: 'bottom',
 };
