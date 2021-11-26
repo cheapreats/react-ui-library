@@ -96,17 +96,17 @@ const Template: Story<IFeaturedProfilesCardProps> = (args) => (
 export const Basic = Template.bind({});
 Basic.args = {
     profileData: profiles,
-    counterBool: false,
+    isCounterShowing: false,
 };
 
 export const NoProfiles = Template.bind({});
 NoProfiles.args = {
     profileData: [],
-    counterBool: false,
+    isCounterShowing: false,
 };
 
 export const CounterOn = Template.bind({});
 CounterOn.args = {
     profileData: profiles,
-    counterBool: true,
+    isCounterShowing: true,
 };
