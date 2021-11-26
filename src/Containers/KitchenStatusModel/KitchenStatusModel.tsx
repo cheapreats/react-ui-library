@@ -44,7 +44,7 @@ export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
             </StatusWrapper>
 
             {
-                status==statusEnum.Pause
+                status===statusEnum.Pause
                 ?<PauseWrapper>
                     <HeaderText>How long would you like to pause new orders?</HeaderText>
                     {
@@ -59,7 +59,7 @@ export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
         </TopWrapper>
 
         {
-            status==statusEnum.Pause
+            status===statusEnum.Pause
             ?<BottomWrapper>
                 <HeaderText>Updating your kitchen status to pause will:</HeaderText>
                 <BottomBody>
