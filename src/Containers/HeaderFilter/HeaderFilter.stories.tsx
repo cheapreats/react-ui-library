@@ -6,6 +6,9 @@ import { createStoryTitle } from '../../Constants';
 export default {
     title: createStoryTitle('Header Filter'),
     component: HeaderFilter,
+    argTypes: {
+        selectOption: { action: 'Option was selected' },
+    },
     args: {
         header: "Categories",
         items: ["All Categories", "Bedroom", "Cafe", "Office", "Kitchen"]

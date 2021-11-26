@@ -1,5 +1,6 @@
 import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 import styled from 'styled-components'
+import { Mixins } from '../../Utils'
 
 export interface IHeaderFilterProps extends React.HTMLAttributes<HTMLDivElement>{
     header: string;
@@ -51,13 +52,26 @@ export const HeaderFilter: React.FC<IHeaderFilterProps> = ({
 
     const generateListItems = () => (
         items.map((item) => (
-            <ListItem onClick={() => selectOption(item)}>{item}</ListItem>
+            <ListItem onClick={(event) => selectOptionNoPropigation(event, item)}>{item}</ListItem>
         ))
     );
 
+    const setIsActiveNoPropigation = (event: React.SyntheticEvent<HTMLDivElement>, value: boolean) => {
+        event.stopPropagation();
+        setIsActive(value);
+    }
+
+    const selectOptionNoPropigation = (event: React.SyntheticEvent<HTMLLIElement>, value: string) => {
+        event.stopPropagation();
+        setIsActive(false);
+        selectOption(value);
+    }
+
+    document.addEventListener('click', () => setIsActive(false));
+
     return (
         <FixedBoxContainer ref={fixedContainerRef}>
-            <MainContainer ref={mainContainerRef} {...props} onClick={() => setIsActive(true)} onBlur={() => setIsActive(false)} isActive={isActive}>
+            <MainContainer ref={mainContainerRef} {...props} onClick={(event: React.SyntheticEvent<HTMLDivElement>) => setIsActiveNoPropigation(event, true)} onBlur={() => setIsActive(false)} isActive={isActive}>
                 <HeaderContainer>
                     {header}    
                 </HeaderContainer>
@@ -80,9 +94,11 @@ const FixedBoxContainer = styled.div`
 `;
 
 const MainContainer = styled.div<IActiveToggleProps>`
-    ${({ isActive }) => `
+    ${({ isActive, theme }) => `
         position: ${isActive ? 'fixed' : 'static' };
+        box-shadow: ${isActive ? theme.depth[2] : 'none'};
     `}
+    border-radius: 0 0 10px 10px;
     z-index: 10;
 `
 
@@ -94,14 +110,21 @@ const ListContainer = styled.div<IActiveToggleProps>`
     ${({ isActive }) => `
         display: ${isActive ? 'block' : 'none' };
     `}
+    padding: 12px 0;
 `;
 
 const List = styled.ul`
-
+    margin: 0;
+    padding-left: 0;
 `;
 
 const ListItem = styled.li`
+    list-style: none;
+    padding: 4px 20px;
     :hover{
         cursor: pointer;
+        ${({ theme }) => `
+            background-color: ${Mixins.darken(theme.colors.background, .2)};
+        `}
     }
 `;
