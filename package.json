@@ -1,6 +1,6 @@
 {
   "name": "@cheapreats/react-ui",
-  "version": "2.4.40",
+  "version": "2.4.41",
   "description": "React UI library for CheaprEats",
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
@@ -11,6 +11,7 @@
   ],
   "sideEffects": false,
   "scripts": {
+    "preinstall": "echo @here:registry = https://repo.platform.here.com/artifactory/api/npm/maps-api-for-javascript/ > .npmrc",
     "start": "start-storybook -p 6006",
     "deploy": "npm run build && build-storybook -s dist -o deploy",
     "build": "rm -rf dist && rollup -c",
