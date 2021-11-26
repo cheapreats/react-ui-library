@@ -6,6 +6,10 @@ import { createStoryTitle} from '../../Constants';
 export default {
     title: createStoryTitle('InfoHeader'),
     component: InfoHeader,
+    argTypes: {
+     onMouseEnter: { action: 'Hover' },
+     onMouseLeave: { action: 'Leave' }
+    },
     args: {
     tooltiptext: 'Basic tooltip',
     }
