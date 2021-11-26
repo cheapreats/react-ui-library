@@ -92,4 +92,4 @@ export * from './ProfileModal/ProfileModal';
 export * from './CRMTable/CRMTable';
 export * from './LimitedTimeBanner/LimitedTimeBanner';
 export * from './ReachIndicator/ReachIndicator'; 
-
+export * from './KitchenStatusModel/KitchenStatusModel';
