@@ -87,15 +87,26 @@ const profiles = [
 export default {
     title: createStoryTitle('Featured Profiles Card'),
     component: FeaturedProfilesCard,
-    args: {
-        profileData: profiles,
-        alt: 'Profile Image',
-        counterBool: false,
-    },
 } as Meta;
 
-export const Demo: Story<IFeaturedProfilesCardProps> = (args) => (
+const Template: Story<IFeaturedProfilesCardProps> = (args) => (
     <FeaturedProfilesCard {...args} />
 );
 
-//todo different use cases presets.
+export const Basic = Template.bind({});
+Basic.args = {
+    profileData: profiles,
+    counterBool: false,
+};
+
+export const NoProfiles = Template.bind({});
+NoProfiles.args = {
+    profileData: [],
+    counterBool: false,
+};
+
+export const CounterOn = Template.bind({});
+CounterOn.args = {
+    profileData: profiles,
+    counterBool: true,
+};

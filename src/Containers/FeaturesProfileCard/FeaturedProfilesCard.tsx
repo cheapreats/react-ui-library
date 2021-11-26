@@ -59,32 +59,27 @@ export const FeaturedProfilesCard: React.FC<IFeaturedProfilesCardProps> = ({
             profile: IProfile,
             index: number,
         ): React.ReactElement => {
+            const featuredProfileProps = {
+                key: profile.id,
+                background: 'none'
+            };
+
             switch (true) {
             case index < determineProfilePictureLimit():
-                return (
-                    <FeaturedProfile
-                        key={profile.id}
-                        image={profile.image}
-                        background="none"
-                    />
-                );
+                featuredProfileProps['image'] = profile.image;
+
             case index < profileInitialsEndIndex:
-                return (
-                    <FeaturedProfile
-                        key={profile.id}
-                        initials={profile.initials}
-                        background="orange"
-                    />
-                );
+                featuredProfileProps['initials'] = profile.initials;
+                featuredProfileProps['background'] = "orange";
+
             default:
-                return (
-                    <FeaturedProfile
-                        key={profile.id}
-                        remainingProfiles={remainingProfiles}
-                        background="gray"
-                    />
-                );
+                featuredProfileProps['remainingProfiles'] = {remainingProfiles};
+                featuredProfileProps['background'] = "gray";
             }
+
+            return (
+                <FeaturedProfile {...featuredProfileProps}/>
+            )
         };
 
         return profiles.map(
