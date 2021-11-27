@@ -6,12 +6,17 @@ import { X } from '@styled-icons/bootstrap/X';
 import { action } from '@storybook/addon-actions';
 
 export interface KitchenStatusModelProps {
-    // Array for holding each minute value
-    status: statusEnum,
+    /* Enum from StatusButton for current store status */ 
+    status: statusEnum, 
+    /* Minute values for pause buttons */
     minuteAmounts: number[],
-    statusBarColorArray: string[],
+    /* Specifyied colors of the status buttons */
+    statusBarColorArray: string[], 
+    /* Header text for status buttons */
     statusHeaderArray: string[],
+    /* Body text for status buttons */
     statusBodyArray: string[],
+    /* Indices for status buttons */
     statusIndexArray: number[],
 }
 
