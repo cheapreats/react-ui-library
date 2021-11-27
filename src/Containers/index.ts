@@ -83,6 +83,7 @@ export * from './HighlightedText/HighlightedText';
 export * from './NotificationBubble/NotificationBubble';
 export * from './TagGroup/TagGroup';
 export * from './Analytics/Analytics';
+export * from './CollapsibleAccordion/CollapsibleAccordion';
 export * from './OrderTracker/OrderTracker';
 export * from './TableHeaderCell/TableHeaderCell';
 export * from './CustomerProfile/CustomerProfile';
@@ -94,4 +95,3 @@ export * from './LimitedTimeBanner/LimitedTimeBanner';
 export * from './TreeAccordion/TreeAccordion';
 export * from './ReachIndicator/ReachIndicator'; 
 export * from './InfoHeader/InfoHeader';
-
