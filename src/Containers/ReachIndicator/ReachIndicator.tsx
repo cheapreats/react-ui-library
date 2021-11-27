@@ -63,9 +63,9 @@ const IndicatorProgressBar = styled.div<ReachIndicatorProps>`
     ${({ theme, indicatorNum, indicatorGoal, indicatorPercentMark }): string => `
         font-family: ${theme.font.family};
         background-color: ${(getPercentage(indicatorNum, indicatorGoal) >= indicatorPercentMark)
-            ? theme.colors.reachIndicatorColors.green
-            : theme.colors.reachIndicatorColors.red
-        };
+        ? theme.colors.reachIndicatorColors.green
+        : theme.colors.reachIndicatorColors.red
+};
         width: ${getPercentage(indicatorNum, indicatorGoal)}%;
     `}    
 `
