@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { SearchBarExpandable, SearchBarExpandableProps } from '..';
+import { SearchBarExpandable, SearchBarExpandableProps } from '../../index';
 
 export default {
     title: 'Components/Search Bar Expandable',
