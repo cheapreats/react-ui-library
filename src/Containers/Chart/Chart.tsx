@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import {
+    LineChart,
     CartesianGrid,
     Line,
-    LineChart,
     Tooltip,
     XAxis,
     YAxis,
