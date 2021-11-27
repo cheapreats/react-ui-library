@@ -7,11 +7,11 @@ export default {
     title: 'Components/InfoHeader',
     component: InfoHeader,
     argTypes: {
-     onMouseEnter: { action: 'Hover' },
-     onMouseLeave: { action: 'Leave' }
+        onMouseEnter: { action: 'Hover' },
+        onMouseLeave: { action: 'Leave' }
     },
     args: {
-    tooltiptext: 'Basic tooltip',
+        tooltiptext: 'Basic tooltip',
     }
 } as Meta;
 

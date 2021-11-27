@@ -221,7 +221,7 @@ export default {
             },
         },
         isFullName: {
-            type: 'radio',
+            type: 'boolean',
             options: [true, false],
         },
     },
