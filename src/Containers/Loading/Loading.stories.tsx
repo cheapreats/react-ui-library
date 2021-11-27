@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Loading, LoadingProps } from '../../index';
-import { createStoryTitle, getCaptionForLocale } from '../../Constants';
+import {  getCaptionForLocale } from '../../Constants';
 
 export default {
-    title: createStoryTitle('Loading'),
+    title: 'Components/Loading',
     component: Loading,
     args: {
         loading: true,

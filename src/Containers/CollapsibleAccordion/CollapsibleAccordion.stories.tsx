@@ -2,10 +2,10 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { CollapsibleAccordion, Paragraph } from '../../index';
 
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('CollapsibleAccordion'),
+    title: 'Components/CollapsibleAccordion',
     component: CollapsibleAccordion,
 } as Meta;
 

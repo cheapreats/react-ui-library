@@ -5,10 +5,10 @@ import {
     OrderPaymentMethod,
     OrderPaymentMethodTypes,
 } from './OrderPaymentMethod';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Order Payment Method'),
+    title: 'Components/Order Payment Method',
     component: OrderPaymentMethod,
     argTypes: {
         paymentMethod: {

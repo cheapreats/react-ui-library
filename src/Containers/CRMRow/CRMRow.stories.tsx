@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { CRMRow, CRMRowProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('CRMRow'),
+    title: 'Components/CRMRow',
     component: CRMRow,
     args: {
         dateCreated: {dateCreated: "June 29, 2007"},

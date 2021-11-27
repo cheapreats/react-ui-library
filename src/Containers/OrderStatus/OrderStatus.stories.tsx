@@ -5,10 +5,10 @@ import {
     OrderStatusIdentifier,
     IOrderStatusProps,
 } from './OrderStatus';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Order Status'),
+    title: 'Components/Order Status',
     component: OrderStatus,
     argTypes: {
         orderStatus: {

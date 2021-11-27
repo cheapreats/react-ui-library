@@ -1,10 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { Status, StatusProps, StatusColors } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Status'),
+    title: 'Components/Status',
     component: Status,
     argTypes: {
         statusColor: {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { OrderID, IOrderIDProps } from './OrderID';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Order ID'),
+    title: 'Components/Order ID',
     component: OrderID,
     args: {
         orderId: 'e2c3',

@@ -5,7 +5,7 @@ import { Documents } from '@styled-icons/entypo/Documents';
 import { Cross } from '@styled-icons/entypo/Cross';
 import { User } from '@styled-icons/boxicons-solid/User';
 import { TransactionList, ITransactionProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 const sampleData = [
     {
@@ -41,7 +41,7 @@ const sampleData = [
 ];
 
 export default {
-    title: createStoryTitle('TransactionList'),
+    title: 'Components/TransactionList',
     component: TransactionList,
     argTypes: {
         action: { onClick: 'Clicked!' },

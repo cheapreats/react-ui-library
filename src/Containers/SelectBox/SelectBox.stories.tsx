@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { SelectBox, SelectBoxProps } from '../../index';
-import { createStoryTitle, getCaptionForLocale } from '../../Constants';
+import {  getCaptionForLocale } from '../../Constants';
 
 export default {
-    title: createStoryTitle('Select Box'),
+    title: 'Components/Select Box',
     component: SelectBox,
     argTypes: { onSelect: { action: 'onSelect clicked!' } },
     args: {

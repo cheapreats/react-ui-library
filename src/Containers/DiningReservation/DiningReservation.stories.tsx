@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { DiningReservation, DiningReservationProps } from './DiningReservation';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Dining Reservation'),
+    title: 'Components/Dining Reservation',
     component: DiningReservation,
 } as Meta;
 

@@ -4,10 +4,10 @@
 //     HorizontalBarChart,
 //     IHorizontalBarChartProps,
 // } from './HorizontalBarChart';
-// import { createStoryTitle } from '../../Constants';
+// 
 
 // export default {
-//     title: createStoryTitle('Horizontal Bar Chart'),
+//     title: 'Components/Horizontal Bar Chart',
 //     component: HorizontalBarChart,
 //     args: {
 //         chartProperties: {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Radio, RadioProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Radio'),
+    title: 'Components/Radio',
     component: Radio,
     args: {
         disabled: false,

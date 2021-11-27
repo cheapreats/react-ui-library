@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Tag, TagProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Tag'),
+    title: 'Components/Tag',
     component: Tag,
     args: {
         children: 'Hello',

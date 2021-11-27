@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import CardText from './CardText';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Order Item'),
+    title: 'Components/Order Item',
     component: CardText,
     args: {
         leftText: 'Test',

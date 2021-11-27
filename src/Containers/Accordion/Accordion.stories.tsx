@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Accordion, AccordionProps, Paragraph } from '../../index';
 
-import { createStoryTitle } from '../../Constants';
+
 
 const defaultActiveStyle = () => `
     color: #ee2434;
@@ -10,7 +10,7 @@ const defaultActiveStyle = () => `
 `;
 
 export default {
-    title: createStoryTitle('Accordion'),
+    title: 'Components/Accordion',
     component: Accordion,
 } as Meta;
 

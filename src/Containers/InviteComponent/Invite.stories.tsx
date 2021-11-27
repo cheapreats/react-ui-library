@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { createStoryTitle } from '../../Constants';
+
 import { Invite, InviteProps } from './Invite';
 
 export default {
-    title: createStoryTitle('Invite Component'),
+    title: 'Components/Invite Component',
     component: Invite,
 } as Meta;
 

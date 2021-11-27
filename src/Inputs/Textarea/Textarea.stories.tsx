@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Textarea, TextareaProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Text area'),
+    title: 'Components/Text area',
     component: Textarea,
     args: {
         placeholder: 'placeholder',

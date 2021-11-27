@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { action } from '@storybook/addon-actions';
 import { ClickableSmallText, HighlightedString, HighlightedText, HighlightedTextProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 const labels: Array<HighlightedString> = [
     {
@@ -34,7 +34,7 @@ const labels: Array<HighlightedString> = [
 ]
 
 export default {
-    title: createStoryTitle('Highlighted Text'),
+    title: 'Components/Highlighted Text',
     component: HighlightedText,
     args: {
         labels,

@@ -2,10 +2,10 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { useArgs } from '@storybook/client-api';
 import { Timepicker, TimepickerProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Timepicker'),
+    title: 'Components/Timepicker',
     component: Timepicker,
     argTypes: {
         timePickerValue: {

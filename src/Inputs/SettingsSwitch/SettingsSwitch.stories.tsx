@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { SettingsSwitch, SettingsSwitchProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Settings Switch'),
+    title: 'Components/Settings Switch',
     component: SettingsSwitch,
     argTypes: { onSwitch: { action: 'Switch has been used' } },
     args: {

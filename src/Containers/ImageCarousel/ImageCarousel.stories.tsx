@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ImageCarousel, ImageCarouselProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 const images = [
     'https://image.shutterstock.com/image-photo/image-250nw-1081879181.jpg',
@@ -10,7 +10,7 @@ const images = [
 ];
 
 export default {
-    title: createStoryTitle('Image Carousel'),
+    title: 'Components/Image Carousel',
     component: ImageCarousel,
     argTypes: { onClick: { action: 'Clicked!' } },
     args: {

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { EditControlPanel, IEditControlPanel } from '@Containers';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('EditControlPanel'),
+    title: 'Components/EditControlPanel',
     component: EditControlPanel,
 } as Meta;
 

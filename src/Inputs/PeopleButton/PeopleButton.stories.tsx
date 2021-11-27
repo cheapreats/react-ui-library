@@ -3,11 +3,11 @@ import { Save } from '@styled-icons/fa-solid/Save';
 import { Meta, Story } from '@storybook/react';
 import PeopleButton, {ButtonProps} from "@Inputs/PeopleButton/PeopleButton";
 import {Datepicker} from "@Inputs";
-import { createStoryTitle, getCaptionForLocale } from '../../Constants';
+import {  getCaptionForLocale } from '../../Constants';
 
 
 export default {
-    title: createStoryTitle('PeopleButton'),
+    title: 'Components/PeopleButton',
     component: PeopleButton,
     argTypes: { onClick: { action: "People Button Clicked" } },
     args: {

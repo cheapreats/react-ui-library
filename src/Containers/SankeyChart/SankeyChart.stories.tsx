@@ -1,10 +1,10 @@
 // import React from 'react';
 // import { Meta, Story } from '@storybook/react';
 // import { SankeyChart, ISankeyChartProps } from './SankeyChart';
-// import { createStoryTitle } from '../../Constants';
+// 
 
 // export default {
-//     title: createStoryTitle('SankeyChart'),
+//     title: 'Components/SankeyChart',
 //     component: SankeyChart,
 //     args: {
 //         width: 600,

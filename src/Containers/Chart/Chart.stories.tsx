@@ -2,10 +2,10 @@
 // import { Meta, Story } from '@storybook/react';
 // import { MainTheme } from '@Themes';
 // import { Chart, ChartProps } from '../../index';
-// import { createStoryTitle } from '../../Constants';
+// 
 
 // export default {
-//     title: createStoryTitle('Chart'),
+//     title: 'Components/Chart',
 //     component: Chart,
 //     args: {
 //         color: MainTheme.colors.primary,

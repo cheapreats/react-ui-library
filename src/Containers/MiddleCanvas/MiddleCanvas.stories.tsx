@@ -1,10 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { MiddleCanvas, MiddleCanvasProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Middle Canvas'),
+    title: 'Components/Middle Canvas',
     component: MiddleCanvas,
     args: {
         firstCaption: 'Before Receipt Prints',

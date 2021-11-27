@@ -4,10 +4,10 @@ import {
     CarouselTestimonial,
     ICarouselTestimonialProps,
 } from './CarouselTestimonial';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Carousel Testimonial'),
+    title: 'Components/Carousel Testimonial',
     component: CarouselTestimonial,
 } as Meta;
 

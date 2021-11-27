@@ -14,10 +14,10 @@ import { Profile } from './Profile';
 import { TagContainer } from './TagContainer';
 import { SmallText } from '../../Text/SmallText';
 import { VendorsList, IVendorsListProps } from './VendorsList';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Vendors List'),
+    title: 'Components/Vendors List',
     component: VendorsList,
 } as Meta;
 

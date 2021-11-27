@@ -12,11 +12,11 @@ import {
     NavigationItem,
     NavigationHeader,
 } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 import { logoWhite } from '../../assets';
 
 export default {
-    title: createStoryTitle('Navigation'),
+    title: 'Components/Navigation',
     component: Navigation,
 } as Meta;
 

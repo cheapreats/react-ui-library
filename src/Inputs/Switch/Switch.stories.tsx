@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Switch, SwitchProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Switch'),
+    title: 'Components/Switch',
     component: Switch,
     args: {
         label: 'label',
