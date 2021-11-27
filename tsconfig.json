@@ -30,6 +30,8 @@
             "@Layouts": ["./Fragments"],
             "@Containers/*": ["./Containers/*"],
             "@Containers": ["./Containers"],
+            "@Overview/*": ["./Overview/*"],
+            "@Overview": ["./Overview"],
             "@Inputs/*": ["./Inputs/*"],
             "@Inputs": ["./Inputs"],
             "@Text/*": ["./Text/*"],

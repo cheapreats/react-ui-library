@@ -13,7 +13,8 @@ module.exports = {
     "@storybook/addon-postcss"
   ],
   "features": {
-    "babelModeV7": true
+    "babelModeV7": true,
+    "storyStoreV7": true,
   },
   "webpackFinal": config => {
     return {
