@@ -93,4 +93,5 @@ export * from './CRMTable/CRMTable';
 export * from './LimitedTimeBanner/LimitedTimeBanner';
 export * from './TreeAccordion/TreeAccordion';
 export * from './ReachIndicator/ReachIndicator'; 
+export * from './InfoHeader/InfoHeader';
 
