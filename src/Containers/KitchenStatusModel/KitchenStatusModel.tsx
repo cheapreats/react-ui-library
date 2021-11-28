@@ -28,7 +28,40 @@ export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
     statusBodyArray,
     statusIndexArray,
     ...props
-}): React.ReactElement => (
+}): React.ReactElement => {
+
+    const pausebox = (currentStatus: statusEnum, minuteRemainingAmounts: number[]) => {
+        return(
+            currentStatus===statusEnum.Pause
+            ?<PauseWrapper>
+                <HeaderText>How long would you like to pause new orders?</HeaderText>
+                {
+                    minuteRemainingAmounts.map(minsRemaining => {
+                        return (<PauseBox minsRemaining={minsRemaining} />)
+                    })
+                }
+            </PauseWrapper>
+            :null
+        )
+    };
+
+    const updateStatus = (currentStatus: statusEnum, minsRemaining: number) => {
+        return(
+            status===statusEnum.Pause
+            ?<BottomWrapper>
+                <HeaderText>Updating your kitchen status to pause will:</HeaderText>
+                <BottomBody>
+                    <li>Stop all new orders from Store for x mins.</li>
+                    <li>Set a timer to change your status to Normal after x mins.</li>
+                </BottomBody>
+                <BottomButton onClick={action('updateStatus')}>Update Status</BottomButton>
+            </BottomWrapper>
+            :null
+        )
+    };
+
+    return (
+
     <BackgroundWrapper>
         <TopWrapper>
             <StatusWrapper>
@@ -48,36 +81,15 @@ export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
                 </StatusButton>
             </StatusWrapper>
 
-            {
-                status===statusEnum.Pause
-                ?<PauseWrapper>
-                    <HeaderText>How long would you like to pause new orders?</HeaderText>
-                    {
-                        minuteAmounts.map(minsRemaining => {
-                            return (<PauseBox minsRemaining={minsRemaining} />)
-                        })
-                    }
-                </PauseWrapper>
-                :<PauseWrapper></PauseWrapper>
-            }
+            { pausebox(status, minuteAmounts) }
 
         </TopWrapper>
 
-        {
-            status===statusEnum.Pause
-            ?<BottomWrapper>
-                <HeaderText>Updating your kitchen status to pause will:</HeaderText>
-                <BottomBody>
-                    <li>Stop all new orders from Store for x mins.</li>
-                    <li>Set a timer to change your status to Normal after x mins.</li>
-                </BottomBody>
-                <BottomButton onClick={action('updateStatus')}>Update Status</BottomButton>
-            </BottomWrapper>
-            :<div></div>
-        }
+        { updateStatus(status, minuteAmounts[0]) }
 
     </BackgroundWrapper>
-);
+    )
+};
 
 const BackgroundWrapper = styled.div`
     width: 530px;
