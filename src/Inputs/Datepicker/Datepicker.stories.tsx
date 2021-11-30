@@ -12,6 +12,8 @@ export default {
         label: 'label',
         placeholder: 'Placeholder',
         description: 'Description',
+        price:25,
+        priceStatus:0,
     },
 } as Meta;
 
