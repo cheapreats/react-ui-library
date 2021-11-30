@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import {Person} from '@styled-icons/bootstrap/Person'
 import {PersonFill} from '@styled-icons/bootstrap/PersonFill'
+import { Mixins } from '../../Utils';
 
 export interface IPartySizeSelector extends React.HTMLAttributes<HTMLDivElement>{
     clientIndexes: Array<number>;
     partyName: string,
+    onPersonClick: (index: number) => void,
     person?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     personFill?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
 }
@@ -14,6 +16,7 @@ export interface IPartySizeSelector extends React.HTMLAttributes<HTMLDivElement>
 export const PartySizeSelector: React.FC<IPartySizeSelector> = ({
     clientIndexes= [],
     partyName= "",
+    onPersonClick,
     person = Person,
     personFill = PersonFill,
     ...props
@@ -33,11 +36,15 @@ export const PartySizeSelector: React.FC<IPartySizeSelector> = ({
             );
         }
     }
+    const onPersonClickFinal = (clientIndex: number) => {
+        setPartySize(clientIndex);
+        onPersonClick(clientIndex);
+    }
 
     /*makes the columns of icons*/
     const cols = clientIndexes.map((clientIndex) =>
             <Col key={clientIndex.toString()}>
-                <IconButton onClick={() => setPartySize(clientIndex)}>
+                <IconButton onClick={() => onPersonClickFinal(clientIndex)}>
 
                     {getIcon(clientIndex)}
                 </IconButton>
@@ -61,22 +68,28 @@ const Content = styled.div`
 `;
 
 const Scrolling = styled.div`
-  overflow-x: scroll;
-  overflow-y: hidden;
+  ${Mixins.scroll}
+  overflow: auto;
+  &::-webkit-scrollbar {
+    background-color: transparent;
+  }
+  /*overflow-x: scroll;
+  overflow-y: hidden;*/
 `;
 
 const Icon = styled.svg`
-  fill: #f98300;
+  fill: ${({theme}) => theme.colors.statusColors.orange};
   width: 35px;
 `;
 
 const IconButton = styled.button`
-  background-color: #ffffff;
+  background-color: ${({theme}) => theme.colors.background};
   border: none;
+  
 `;
 
 const Title = styled.div`
-  fill: #4a4a4a;
+  fill: ${({theme}) => theme.colors.text};
   padding-bottom: 3px;
   font-weight: bold;
   font-size: 1.3rem;
@@ -84,6 +97,7 @@ const Title = styled.div`
 `;
 
 const Col = styled.div`
+    margin-bottom: 6px;
 `;
 
 const Row = styled.div`
@@ -91,7 +105,7 @@ const Row = styled.div`
 `;
 
 const IndexNum = styled.div`
-  fill: #4a4a4a;
+  fill: ${({theme}) => theme.colors.text};
   font-weight: bold;
   display: flex;
   justify-content: center;
