@@ -21,3 +21,4 @@ export * from './CustomSearch/CustomSearch';
 export * from './SettingsSwitch/SettingsSwitch';
 export * from './SegmentedButton/SegmentedButton';
 export * from './SearchBarExpandable/SearchBarExpandable';
+export * from './PartySizeSelector/PartySizeSelector';
