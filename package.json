@@ -3,7 +3,7 @@
   "version": "2.4.45",
   "description": "React UI library for CheaprEats",
   "main": "./dist/index.js",
-  "module": "./dist/index.js",
+  "module": "./dist/index.es.js",
   "types": "./dist/index.d.ts",
   "exports": "./dist/index.js",
   "files": [
