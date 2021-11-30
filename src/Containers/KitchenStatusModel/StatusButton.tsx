@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { action } from '@storybook/addon-actions';
 import { DashLg } from '@styled-icons/bootstrap/DashLg';
 
 export enum statusEnum {
@@ -15,7 +14,7 @@ export interface StatusButtonProps {
     statusBarColorArray: string[],
     statusHeaderArray: string[],
     statusBodyArray: string[],
-    statusIndexArray: number[]
+    onClick: (currentStatus: statusEnum) => void;
 }
 
 export const StatusButton: React.FC<StatusButtonProps> = ({
@@ -23,25 +22,33 @@ export const StatusButton: React.FC<StatusButtonProps> = ({
     statusBarColorArray,
     statusHeaderArray,
     statusBodyArray,
-    statusIndexArray,
+    onClick,
     ...props
-}): React.ReactElement => (
+}): React.ReactElement => {
     
-    <StatusButtonWrapper>
-        {
-            (statusIndexArray).map( index => {
-                return (
-                    
-                    <StatusButtonDiv onClick={action(String('Status: '+ statusHeaderArray[index]))}>
-                        <StatusIcon color={statusBarColorArray[index]}></StatusIcon>
-                        <StatusHeader>{statusHeaderArray[index]}</StatusHeader>
-                        <StatusBody>{statusBodyArray[index]}</StatusBody>
-                    </StatusButtonDiv>
-                )
-            })
-        } 
-    </StatusButtonWrapper>
-);
+    const onStatusClick = (currentStatus: number) => {
+        return function () {
+            onClick(currentStatus);
+        }
+    }
+
+    return (
+        <StatusButtonWrapper>
+            {
+                (statusBarColorArray).map( (color, index) => {
+                    return (
+                        
+                        <StatusButtonDiv onClick={onStatusClick(index)}>
+                            <StatusIcon color={color}></StatusIcon>
+                            <StatusHeader>{statusHeaderArray[index]}</StatusHeader>
+                            <StatusBody>{statusBodyArray[index]}</StatusBody>
+                        </StatusButtonDiv>
+                    )
+                })
+            } 
+        </StatusButtonWrapper>
+    )
+};
 
 const StatusButtonWrapper = styled.div`
     width: 100%;

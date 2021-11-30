@@ -16,8 +16,10 @@ export interface KitchenStatusModelProps {
     statusHeaderArray: string[],
     /* Body text for status buttons */
     statusBodyArray: string[],
-    /* Indices for status buttons */
-    statusIndexArray: number[],
+    /* Action for when a pause box is clicked */
+    onPauseClick: (minutes: number) => void;
+    /* Action for when a status button is clicked */
+    onStatusClick: (currentStatus: statusEnum) => void;
 }
 
 export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
@@ -26,7 +28,8 @@ export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
     statusBarColorArray,
     statusHeaderArray,
     statusBodyArray,
-    statusIndexArray,
+    onPauseClick,
+    onStatusClick,
     ...props
 }): React.ReactElement => {
 
@@ -43,7 +46,7 @@ export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
                 <HeaderText>How long would you like to pause new orders?</HeaderText>
                 {
                     minuteRemainingAmounts.map(minsRemaining => {
-                        return (<PauseBox minsRemaining={minsRemaining} />)
+                        return (<PauseBox onClick = {onPauseClick} minsRemaining={minsRemaining} />)
                     })
                 }
             </PauseWrapper>
@@ -85,11 +88,11 @@ export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
                 </StatusHeaderWrapper>
 
                 <StatusButton 
+                    onClick = {onStatusClick}
                     status={status}
                     statusBarColorArray={statusBarColorArray}
                     statusHeaderArray={statusHeaderArray} 
-                    statusBodyArray={statusBodyArray} 
-                    statusIndexArray={statusIndexArray}>
+                    statusBodyArray={statusBodyArray}>
                 </StatusButton>
             </StatusWrapper>
 

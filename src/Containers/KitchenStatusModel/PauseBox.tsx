@@ -1,20 +1,29 @@
 import React from 'react';
 import styled from 'styled-components';
-import { action } from '@storybook/addon-actions';
 
 export interface PauseBoxProps {
     /* minutes until time runs out */ 
-    minsRemaining: number,
+    minsRemaining: number;
+    /* Action that triggers when pause button is clicked */
+    onClick: (minutes: number) => void;
 }
 
 export const PauseBox: React.FC<PauseBoxProps> = ({
     minsRemaining,
+    onClick,
     ...props
-}): React.ReactElement => (
+}): React.ReactElement => {
 
+    const onPauseClick = (mins: number) => {
+        return function() {
+            onClick(mins);
+        }
+    };
+
+    return(
     <PauseBoxWrapper {...props}>
         <PauseContainer
-            onClick={action(String(minsRemaining))}
+            onClick={onPauseClick(minsRemaining)}
         >
             <PauseBoxHeader>
                 Pause For
@@ -24,7 +33,8 @@ export const PauseBox: React.FC<PauseBoxProps> = ({
             </PauseBoxBody>
         </PauseContainer>
     </PauseBoxWrapper>
-);
+    );
+};
 
 const PauseBoxWrapper = styled.div`
     margin: 5px 5px;
