@@ -1,0 +1,11 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\src",
+    "\\src\\Containers",
+    "\\src\\Containers\\ReachIndicator",
+    "\\src\\Containers\\StoreSelector"
+  ],
+  "SelectedNode": "\\src\\Containers\\StoreSelector\\StoreSelector.tsx",
+  "PreviewInSolutionExplorer": false
+}

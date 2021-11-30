@@ -90,5 +90,6 @@ export * from './CreatedDate/CreatedDate';
 export * from './CRMRow/CRMRow';
 export * from './CRMTable/CRMTable';
 export * from './LimitedTimeBanner/LimitedTimeBanner';
-export * from './ReachIndicator/ReachIndicator'; 
+export * from './ReachIndicator/ReachIndicator';
+export * from './StoreSelector/StoreSelector'; 
 
