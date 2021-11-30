@@ -30,6 +30,12 @@ export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
     ...props
 }): React.ReactElement => {
 
+    /**
+     * 
+     * @param currentStatus a restaurants current status [Normal, Busy, Paused], if Paused the component renders
+     * @param minuteRemainingAmounts array of minutes to be shown in pause boxes
+     * @returns Render multiple pause boxes with given minute amounts if status is paused
+     */
     const pausebox = (currentStatus: statusEnum, minuteRemainingAmounts: number[]) => {
         return(
             currentStatus===statusEnum.Pause
@@ -45,6 +51,12 @@ export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
         )
     };
 
+    /**
+     * 
+     * @param currentStatus a restaurants current status [Normal, Busy, Paused], if Paused the component renders
+     * @param minsRemaining minute value to be displayed on bottom text
+     * @returns Render the bottom text and update status button if status is paused
+     */
     const updateStatus = (currentStatus: statusEnum, minsRemaining: number) => {
         return(
             status===statusEnum.Pause
