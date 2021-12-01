@@ -87,8 +87,8 @@ export interface DateboxProps extends React.HTMLAttributes<HTMLDivElement> {
     animate: boolean;
     value: Date | undefined;
     clearDate?: Function;
-    price:Number;
-    priceStatus:PriceStatus;
+    price?:Number;
+    priceStatus?:PriceStatus;
 }
 
 export const Datebox: React.FC<DateboxProps> = ({

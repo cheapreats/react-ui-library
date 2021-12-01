@@ -10,7 +10,6 @@ import {clickable, flex} from '@Utils/Mixins';
 import moment from 'moment';
 import styled from 'styled-components';
 import {Heading} from '@Text/Heading';
-import {PriceStatus} from "@Inputs/Datepicker/Datebox";
 
 const FIRST_SELECT_OPTION = 0;
 
@@ -89,8 +88,6 @@ export const DateFilterSelect: React.FC<IDateFilterSelectProps> = ({
                     onChange={onDateChange}
                     onClear={onClearDate}
                     initialShow
-                    price = {0}
-                    priceStatus={PriceStatus.Good}
                 />
             </Modal>
         </>

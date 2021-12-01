@@ -2,7 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import {Modal} from '../Modal/Modal';
 import {Button, Datepicker, Input, Timepicker} from '../../index';
-import {PriceStatus} from "@Inputs/Datepicker/Datebox";
 
 export interface DiningReservationProps {
     modalState: [boolean, React.Dispatch<React.SetStateAction<boolean>>];
@@ -21,7 +20,7 @@ export const DiningReservation: React.FC<DiningReservationProps> = ({
                 label="How many people are u booking for?"
                 placeholder="Enter number of people you are booking for"
             />
-            <Datepicker name="date" label="Pick a date" price={0} priceStatus={PriceStatus.Good}/>
+            <Datepicker name="date" label="Pick a date"/>
 
             <Timepicker name="time" label="Pick a time" />
             <Input
