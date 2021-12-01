@@ -98,8 +98,8 @@ export const Datebox: React.FC<DateboxProps> = ({
                                                     selectDate,
                                                     animate,
                                                     value,
-                                                    price,
-                                                    priceStatus,
+                                                    price=0,
+                                                    priceStatus= PriceStatus.Good,
                                                 }): React.ReactElement => (
     <DateBox animate={animate}>
         <DateControls>
