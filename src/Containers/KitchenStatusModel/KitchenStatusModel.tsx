@@ -1,52 +1,96 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import { PauseBox } from './PauseBox';
-import { statusEnum, StatusButton  } from './StatusButton';
+import { statusEnum, StatusButton, StatusButtonElements  } from './StatusButton';
 import { X } from '@styled-icons/bootstrap/X';
 import { action } from '@storybook/addon-actions';
 
 export interface KitchenStatusModelProps {
-    /* Enum from StatusButton for current store status */ 
-    status: statusEnum, 
-    /* Minute values for pause buttons */
+    /* Minute amounts for when pause option is selected */
     minuteAmounts: number[],
-    /* Specifyied colors of the status buttons */
-    statusBarColorArray: string[], 
-    /* Header text for status buttons */
-    statusHeaderArray: string[],
-    /* Body text for status buttons */
-    statusBodyArray: string[],
+    /* Values for the status button (color, header and body) */
+    statusBox: StatusButtonElements[],
     /* Action for when a pause box is clicked */
     onPauseClick: (minutes: number) => void;
     /* Action for when a status button is clicked */
     onStatusClick: (currentStatus: statusEnum) => void;
+    /* Action for when the update button is clicked */
+    onUpdateClick: () => void;
 }
 
 export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
-    status,
+    statusBox,
     minuteAmounts,
-    statusBarColorArray,
-    statusHeaderArray,
-    statusBodyArray,
     onPauseClick,
     onStatusClick,
+    onUpdateClick,
     ...props
 }): React.ReactElement => {
 
+    const [currentStatus, setCurrentStatus] = useState(2);
+    const [currentMinutesRemaining, setMinutesRemaining] = useState(0)
+
+
     /**
      * 
-     * @param currentStatus a restaurants current status [Normal, Busy, Paused], if Paused the component renders
+     * @param status status amount to be set
+     * @returns a function that sets the 'givenStatus' and then calls onPauseClick
+     */
+    const statusChangeOnClick = (index: number) => {
+        return function () {
+            setCurrentStatus(statusBox[index].status);
+            onStatusClick(statusBox[index].status);
+        }
+    };
+
+    /**
+     * 
+     * @param statusBoxes set of parameters for status buttons (color, header, body)
+     * @returns renders multiple status buttons with given parameters from statusBoxes
+     */
+    const renderStatusButtons = (statusBoxes: StatusButtonElements[]) => {
+        return (
+            <StatusButtonWrapper>
+                {(statusBoxes).map( (box, index) => {
+                    return (
+                        <StatusButton 
+                            onClick = {statusChangeOnClick(index)}
+                            statusBox = {box}
+                            index = {index}
+                        >
+                        </StatusButton>
+                    )
+                })}
+            </StatusButtonWrapper>
+        )
+    }
+
+    /**
+     * 
+     * @param minsRemaining minute amount to be paused
+     * @returns a function that sets the 'minsRemaining' and then calls onPauseClick
+     */
+    const valueChangeOnPauseClick = (minsRemaining: number) => {
+        return function () {
+            setMinutesRemaining(minsRemaining);
+            onPauseClick(minsRemaining);
+        }
+    };
+
+    /**
+     * 
+     * @param givenStatus a restaurants status [Normal, Busy, Paused], if Paused the component renders
      * @param minuteRemainingAmounts array of minutes to be shown in pause boxes
      * @returns Render multiple pause boxes with given minute amounts if status is paused
      */
-    const pausebox = (currentStatus: statusEnum, minuteRemainingAmounts: number[]) => {
+    const renderPauseBox = (givenStatus: statusEnum, minuteRemainingAmounts: number[]) => {
         return(
-            currentStatus===statusEnum.Pause
+            givenStatus===statusEnum.Pause
             ?<PauseWrapper>
                 <HeaderText>How long would you like to pause new orders?</HeaderText>
                 {
                     minuteRemainingAmounts.map(minsRemaining => {
-                        return (<PauseBox onClick = {onPauseClick} minsRemaining={minsRemaining} />)
+                        return (<PauseBox onClick = {valueChangeOnPauseClick(minsRemaining)} minsRemaining={minsRemaining} />)
                     })
                 }
             </PauseWrapper>
@@ -56,20 +100,21 @@ export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
 
     /**
      * 
-     * @param currentStatus a restaurants current status [Normal, Busy, Paused], if Paused the component renders
-     * @param minsRemaining minute value to be displayed on bottom text
+     * @param givenStatus a restaurants status [Normal, Busy, Paused], if Paused the component renders
      * @returns Render the bottom text and update status button if status is paused
      */
-    const updateStatus = (currentStatus: statusEnum, minsRemaining: number) => {
+    const renderUpdateStatus = (givenStatus: statusEnum, minsRemaining: number) => {
         return(
-            status===statusEnum.Pause
+            givenStatus===statusEnum.Pause
             ?<BottomWrapper>
                 <HeaderText>Updating your kitchen status to pause will:</HeaderText>
                 <BottomBody>
-                    <li>Stop all new orders from Store for x mins.</li>
-                    <li>Set a timer to change your status to Normal after x mins.</li>
+                    <li>Stop all new orders from Store for {minsRemaining} mins.</li>
+                    <li>Set a timer to change your status to Normal after {minsRemaining} mins.</li>
                 </BottomBody>
-                <BottomButton onClick={action('updateStatus')}>Update Status</BottomButton>
+                <ButtonWrapper>
+                    <UpdateButton onClick={onUpdateClick}>Update Status</UpdateButton>
+                </ButtonWrapper>
             </BottomWrapper>
             :null
         )
@@ -87,20 +132,14 @@ export const KitchenStatusModel: React.FC<KitchenStatusModelProps> = ({
                     </HeaderText>
                 </StatusHeaderWrapper>
 
-                <StatusButton 
-                    onClick = {onStatusClick}
-                    status={status}
-                    statusBarColorArray={statusBarColorArray}
-                    statusHeaderArray={statusHeaderArray} 
-                    statusBodyArray={statusBodyArray}>
-                </StatusButton>
+                {renderStatusButtons(statusBox)}
             </StatusWrapper>
 
-            { pausebox(status, minuteAmounts) }
+            { renderPauseBox(currentStatus, minuteAmounts) }
 
         </TopWrapper>
 
-        { updateStatus(status, minuteAmounts[0]) }
+        { renderUpdateStatus(currentStatus, currentMinutesRemaining) }
 
     </BackgroundWrapper>
     )
@@ -128,6 +167,15 @@ const StatusHeaderWrapper = styled.div`
     margin-left: 5px;
 `;
 
+const HeaderText = styled.header`
+    ${({theme}):string => `
+    font-family: ${theme.font.family};
+    color: ${theme.colors.text}};
+    `}
+
+    font-weight: bold;
+`;
+
 const ExitIcon = styled(X)`
     height: 25px;
     display: block-inline;
@@ -138,14 +186,10 @@ const ExitIcon = styled(X)`
     cursor: pointer;
 `;
 
-const HeaderText = styled.header`
-    ${({theme}):string => `
-    font-family: ${theme.font.family};
-    color: ${theme.colors.text}};
-    `}
-
-    font-weight: bold;
-`;
+const StatusButtonWrapper = styled.div`
+    width: 100%;
+    margin: 5px;
+`
 
 const PauseWrapper = styled.div`
 `
@@ -162,8 +206,11 @@ const BottomBody = styled.ul`
     color: ${theme.colors.text}};
     `}
 `
+const ButtonWrapper = styled.div`
+    margin-top: 100px;
+`
 
-const BottomButton = styled.button`
+const UpdateButton = styled.button`
     ${({theme}):string => `
     font-family: ${theme.font.family};
     `}
@@ -171,7 +218,7 @@ const BottomButton = styled.button`
     font-weight: bolder;
     padding: 10px 0px;
     width: 80%;
-    margin: 150px 10% 0 10%;
+    margin: 0 10% 0 10%;
     border-radius: 5px;
     border-style: none;
     cursor: pointer;

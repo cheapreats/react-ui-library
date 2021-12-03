@@ -9,51 +9,38 @@ export enum statusEnum {
     Pause = 2,
 }
 
+export type StatusButtonElements= {status: statusEnum, color: string, header: string, body: string};
+
 export interface StatusButtonProps {
-    status: statusEnum,
-    statusBarColorArray: string[],
-    statusHeaderArray: string[],
-    statusBodyArray: string[],
+    /* Holds information about status buttons (color, header and body) */
+    statusBox: StatusButtonElements;
+    /* Index of the current box, corresponds to status when mapped */
+    index: number,
+    /* Action that is sent to story */
     onClick: (currentStatus: statusEnum) => void;
 }
 
 export const StatusButton: React.FC<StatusButtonProps> = ({
-    status,
-    statusBarColorArray,
-    statusHeaderArray,
-    statusBodyArray,
+    statusBox,
+    index,
     onClick,
     ...props
 }): React.ReactElement => {
     
-    const onStatusClick = (currentStatus: number) => {
+    const onStatusClick = (currentStatus: statusEnum) => {
         return function () {
             onClick(currentStatus);
         }
     }
 
     return (
-        <StatusButtonWrapper>
-            {
-                (statusBarColorArray).map( (color, index) => {
-                    return (
-                        
-                        <StatusButtonDiv onClick={onStatusClick(index)}>
-                            <StatusIcon color={color}></StatusIcon>
-                            <StatusHeader>{statusHeaderArray[index]}</StatusHeader>
-                            <StatusBody>{statusBodyArray[index]}</StatusBody>
-                        </StatusButtonDiv>
-                    )
-                })
-            } 
-        </StatusButtonWrapper>
+        <StatusButtonDiv onClick={onStatusClick(index)}>
+            <StatusIcon color={statusBox.color}></StatusIcon>
+            <StatusHeader>{statusBox.header}</StatusHeader>
+            <StatusBody>{statusBox.body}</StatusBody>
+        </StatusButtonDiv>
     )
 };
-
-const StatusButtonWrapper = styled.div`
-    width: 100%;
-    margin: 5px;
-`
 
 interface StyledButtonDivProps {
     status?: statusEnum;
