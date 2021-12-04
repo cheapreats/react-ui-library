@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MainTheme } from '@Themes/MainTheme';
-import { Heading, Paragraph, SmallText, TextLayout } from '../../index';
+import { Heading, Paragraph, SmallText } from '../../Text';
+import { TextLayout } from '../../__Layouts';
 
 const Main = styled.main`
     max-width: 800px;

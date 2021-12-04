@@ -2,7 +2,8 @@ import React, { Fragment } from 'react';
 import styled from 'styled-components';
 import { MainTheme } from '@Themes/MainTheme';
 import { DarkTheme } from '@Themes/DarkTheme';
-import { ColorCard, Heading } from '../../index';
+import { ColorCard } from '../../Containers';
+import { Heading } from '../../Text';
 
 export interface ColorsProps {}
 
