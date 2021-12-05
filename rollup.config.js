@@ -29,8 +29,32 @@ export default {
                 { src: 'src/Containers/FileUpload/worker.js', dest: 'dist' },
             ],
         }),
-        commonjs(),
-        json(),
+        commonjs({
+            exclude: [
+                '*.d.ts',
+                '**/*.d.ts',
+                'node_modules/**',
+                '__tests__',
+                '.vscode',
+                '.github',
+                'scripts',
+                'dist', 
+                'storybook-static', 
+            ]
+        }),
+        json({
+            exclude: [
+                '*.d.ts',
+                '**/*.d.ts',
+                'node_modules/**',
+                '__tests__',
+                '.vscode',
+                '.github',
+                'scripts',
+                'dist', 
+                'storybook-static', 
+            ]
+        }),
         tsPlugin({
             typescript: ttypescript,
             tsconfig: './tsconfig.json',
@@ -43,7 +67,8 @@ export default {
                 '.vscode',
                 '.github',
                 'scripts',
-                'dist',
+                'dist', 
+                'storybook-static', 
             ],
             tsconfigOverride: { compilerOptions: { module: 'es2015' } },
             tsconfigDefaults: {
@@ -52,9 +77,9 @@ export default {
                 },
             },
         }),
-        nodeResolve({ preferBuiltins: true }),
+        nodeResolve({ preferBuiltins: false }),
         babel({
-            exclude: ['node_modules', 'scripts', 'dist', '*.d.ts', '**/*.d.ts'],
+            exclude: ['node_modules', 'scripts', 'dist', '*.d.ts', '**/*.d.ts', 'storybook-static', '.vscode', '.github', '__tests__'],
             extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
             plugins: [
                 'babel-plugin-styled-components',
@@ -75,5 +100,7 @@ export default {
         ...Object.keys(pkg.dependencies || {}),
         ...Object.keys(pkg.peerDependencies || {}),
         'workerize-loader',
+        "react",
+        "react-dom"
     ],
 };

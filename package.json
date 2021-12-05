@@ -1,6 +1,6 @@
 {
   "name": "@cheapreats/react-ui",
-  "version": "2.4.45",
+  "version": "2.4.46",
   "description": "React UI library for CheaprEats",
   "main": "./dist/index.js",
   "module": "./dist/index.es.js",
@@ -103,7 +103,12 @@
     "node_modules",
     "dist",
     ".storybook",
-    ".deploy"
+    ".deploy",
+    "__tests__",
+    ".vscode",
+    ".github",
+    "dist", 
+    "storybook-static"
   ],
   "dependencies": {
     "@babel/preset-typescript": "^7.15.0",
