@@ -20,4 +20,4 @@ jobs:
       - uses: JS-DevTools/npm-publish@v1
         with:
           token: ${{ secrets.NPM_TOKEN }}
-      - run: npm run chromatic # publish Storybook and run visual tests
+      - run: npm run chromatic --auto-accept-changes # publish Storybook and run visual tests
