@@ -70,6 +70,7 @@ const Dropdown: React.FC<IDropdownProps> = ({
     right,
     ...props
 }): ReactElement => {
+    const [isBegan, setIsBegan] = useState(false);
     const [isActive, setIsActive] = useState(false);
     const [height, setHeight] = useState(0);
     const buttonRef = useRef<HTMLDivElement>(null);
@@ -82,6 +83,13 @@ const Dropdown: React.FC<IDropdownProps> = ({
     const toggleIsActive = (): void => {
         setIsActive(!isActive);
     };
+
+    useEffect(() => {
+        if (!isBegan){
+            setIsBegan(true);
+            toggleIsActive();
+        }
+    })
 
     const validChild = (
         elements: ReactNode,

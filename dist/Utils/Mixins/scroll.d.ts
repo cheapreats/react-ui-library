@@ -1,1 +1,0 @@
-export declare const scroll = "\n    &::-webkit-scrollbar {\n        width: 6px;\n        height: 6px;\n        background-color: #efefef;\n\n        &-thumb {\n            background-color: rgba(0,0,0,0.2);\n            border-radius: 999px;\n        }\n    }\n";

@@ -24,11 +24,6 @@ export default {
         },
     ],
     plugins: [
-        copy({
-            targets: [
-                { src: 'src/Containers/FileUpload/worker.js', dest: 'dist' },
-            ],
-        }),
         commonjs(),
         json(),
         tsPlugin({

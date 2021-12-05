@@ -1,6 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import styled from 'styled-components';
 import { ClickableSmallText, SmallText } from '@Text';
+import { getSpecialTextComponent } from './StyledClickableSmallText';
+import { MainTheme } from '@Themes';
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
 import DropdownItem, { IDropdownItemProps } from '../Dropdown/DropdownItem';
 import { TextLayoutProps } from '../../Fragments/TextLayout';
@@ -41,7 +43,8 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
     ...props
 }): React.ReactElement => {
     const [numEntries, setNumEntries] = useState(0);
-    const [numNewEntries, setNumNewEntries] = useState(0);
+    const [_, setNumNewEntries] = useState(0);
+    
 
     useEffect(() => {
         if (labels.length !== numEntries) {
@@ -50,11 +53,6 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
         }
     })
 
-    /**
-     * construct the element for a special text
-     * @param label - HighlightedString of the special text
-     */
-    const getSpecialTextComponent = (label: HighlightedString, opacity: number): React.ReactElement => <ClickableSmallText style={{opacity}} bold {...label.textProps}>{`${label.text  } `}</ClickableSmallText>
 
     /**
      * construct the dropdown or text for a HighlightedString
@@ -64,7 +62,7 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
         let opacity: number;
         if (label.age != null){
             opacity = newTextOpacity - label.age*oldTextOpacity
-        } else if (index >= labels.length - numNewEntries) {
+        } else if (index >= labels.length - 0) {
             opacity = newTextOpacity
         } else {
             opacity = oldTextOpacity
@@ -104,6 +102,5 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
         </HighlightedRow>
     )
 };
-
 
 const HighlightedRow = styled.div``;

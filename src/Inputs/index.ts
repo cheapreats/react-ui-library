@@ -10,7 +10,6 @@ export * from './Select/Select';
 export * from './Slider/Slider';
 export * from './Switch/Switch';
 export * from './Textarea/Textarea';
-export * from './Image/Image';
 export * from './ExcelOptions/ExcelOptions';
 export * from './EmojiPicker/EmojiPicker';
 export * from './ColorPicker/ColorPicker';
