@@ -43,10 +43,10 @@
             "@Utils": ["./Utils"]
         }
     },
-    "include": ["src/**/*", "__tests__"],
+    "include": ["src/**/*"],
     "files": [
         "src/styled.d.ts",
         "src/declaration.d.ts"
     ],
-    "exclude": ["node_modules", "**/.*/", "../src/**/*.stories.@(js|mdx|tsx|ts|jsx)", "scripts", "./dist"]
+    "exclude": ["node_modules", "**/.*/", "../src/**/*.stories.@(js|mdx|tsx|ts|jsx)", "scripts", "./dist", "__tests__"]
 }

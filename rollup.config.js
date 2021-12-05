@@ -1,3 +1,4 @@
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
 import tsPlugin from 'rollup-plugin-typescript2';
 import ttypescript from 'ttypescript';
 import babel from '@rollup/plugin-babel';
@@ -21,27 +22,17 @@ export default {
         {
             file: pkg.module,
             format: 'es',
+            sourcemap: true
         },
     ],
     plugins: [
+        peerDepsExternal(),
         copy({
             targets: [
                 { src: 'src/Containers/FileUpload/worker.js', dest: 'dist' },
             ],
         }),
-        commonjs({
-            exclude: [
-                '*.d.ts',
-                '**/*.d.ts',
-                'node_modules/**',
-                '__tests__',
-                '.vscode',
-                '.github',
-                'scripts',
-                'dist', 
-                'storybook-static', 
-            ]
-        }),
+        commonjs(),
         json({
             exclude: [
                 '*.d.ts',
@@ -56,6 +47,7 @@ export default {
             ]
         }),
         tsPlugin({
+            useTsconfigDeclarationDir: true,
             typescript: ttypescript,
             tsconfig: './tsconfig.json',
             include: ['*.ts+(|x)', '**/*.ts+(|x)'],
@@ -77,7 +69,7 @@ export default {
                 },
             },
         }),
-        nodeResolve({ preferBuiltins: false }),
+        nodeResolve({ preferBuiltins: true}),
         babel({
             exclude: ['node_modules', 'scripts', 'dist', '*.d.ts', '**/*.d.ts', 'storybook-static', '.vscode', '.github', '__tests__'],
             extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
