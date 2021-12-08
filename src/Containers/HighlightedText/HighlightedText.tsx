@@ -1,8 +1,8 @@
-import React, {useState, useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import { ClickableSmallText, SmallText } from '@Text';
-import { getSpecialTextComponent } from './StyledClickableSmallText';
-import { MainTheme } from '@Themes';
+import { SmallText } from '@Text';
+import SpecialTextComponent from './StyledClickableSmallText';
+// import { MainTheme } from '@Themes';
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
 import DropdownItem, { IDropdownItemProps } from '../Dropdown/DropdownItem';
 import { TextLayoutProps } from '../../Fragments/TextLayout';
@@ -25,6 +25,10 @@ export interface HighlightedString {
     listItemsBodies?: Array<JSX.Element>;
     /** in [0, 1]; 0 for newest (opaque), 1 for oldest (most transparent). None for automatic */
     age?: number;
+    /** whether the string shows on the right side*/
+    isRight?: boolean;
+    /** whether the dropdown is open */
+    isOpen?: boolean;
 }
 
 // extends line div
@@ -44,15 +48,25 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
 }): React.ReactElement => {
     const [numEntries, setNumEntries] = useState(0);
     const [_, setNumNewEntries] = useState(0);
-    
+    const [refreshHighlights, setRefreshHighlights] = useState(false);
+    const [isOpened, setIsOpened] = useState<Array<boolean>>([]);
+
 
     useEffect(() => {
         if (labels.length !== numEntries) {
             setNumNewEntries (labels.length - numEntries)
             setNumEntries(labels.length)
+
+            if (labels.length <= numEntries){
+                let nextisOpened: Array<boolean> = isOpened.slice()
+                nextisOpened.push(true)
+                setIsOpened([...nextisOpened])
+            }
         }
     })
 
+
+    
 
     /**
      * construct the dropdown or text for a HighlightedString
@@ -68,11 +82,21 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
             opacity = oldTextOpacity
         }
         
+        const openFunc = (target: boolean): void => {
+            const nextisOpened = isOpened.slice()
+            nextisOpened[index] = target
+            setIsOpened([...nextisOpened])
+
+            setRefreshHighlights(!refreshHighlights);
+        }
+        
         if (label.isSpecial){
             const listItemsArgs: Array<IDropdownItemProps> = label.listItemsArgs || []
             const listItemsBodies: Array<JSX.Element> = label.listItemsBodies || []
             const DropDownProps: IDropdownProps = {
-                dropdownButton: getSpecialTextComponent(label, opacity),
+                // dropdownButton: getSpecialTextComponent(label, opacity),
+                openFunc: openFunc,
+                dropdownButton: <SpecialTextComponent bold={isOpened[index]} label={{...label}} opacity={opacity}/>
             }
             return <Dropdown {...DropDownProps} {...label.listProps}>
                 {listItemsBodies.map((_, i) => (
@@ -82,7 +106,10 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
                 ))}
             </Dropdown>
         } 
+
+
         return <SmallText style={{opacity}} {...label.textProps}>{`${label.text  } `}</SmallText>
+        
     }
 
     /**

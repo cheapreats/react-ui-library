@@ -6,3 +6,4 @@ debug.log
 build-storybook.log
 *.bundle.*
 storybook-static/*
+dist

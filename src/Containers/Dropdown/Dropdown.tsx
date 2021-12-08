@@ -19,9 +19,11 @@ type DropdownComponent<P = {}> = React.NamedExoticComponent<P> & {
 };
 
 export interface IDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-    dropdownButton: React.ReactElement;
+    dropdownButton?: React.ReactElement;
     dropdownWidth?: number;
     right?: boolean;
+    openFunc?: (target: boolean) => void;
+    beginOpen?: boolean;
 }
 
 interface IDropdownContentProps {
@@ -68,9 +70,11 @@ const Dropdown: React.FC<IDropdownProps> = ({
     dropdownWidth,
     children,
     right,
+    openFunc,
+    beginOpen,
     ...props
 }): ReactElement => {
-    const [isBegan, setIsBegan] = useState(false);
+    const [isBegan, setIsBegan] = useState(beginOpen);
     const [isActive, setIsActive] = useState(false);
     const [height, setHeight] = useState(0);
     const buttonRef = useRef<HTMLDivElement>(null);
@@ -79,14 +83,18 @@ const Dropdown: React.FC<IDropdownProps> = ({
     const bodyRef = useRef<HTMLUListElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    useClickAway(containerRef, () => setIsActive(false));
+    useClickAway(containerRef, () => {
+        if (openFunc){openFunc(false)}
+        setIsActive(false)
+    });
     const toggleIsActive = (): void => {
+        if (openFunc){openFunc(!isActive)}
         setIsActive(!isActive);
     };
 
     useEffect(() => {
-        if (!isBegan){
-            setIsBegan(true);
+        if (isBegan){
+            setIsBegan(false);
             toggleIsActive();
         }
     })
@@ -148,7 +156,9 @@ const Dropdown: React.FC<IDropdownProps> = ({
             onClick={stopPropagation}
             {...props}
         >
-            <ToggleContainer ref={buttonRef} onClick={toggleIsActive}>
+            <ToggleContainer ref={buttonRef} onClick={()=>{
+                    toggleIsActive()
+                }}>
                 {dropdownButton}
             </ToggleContainer>
             <DropdownContent
@@ -171,6 +181,8 @@ const placeStyles = (
     sourcePosition: any,
 ) => {
     switch (placement) {
+    case false:
+        return `left: 0px;`;
     case true:
         return `
             left: ${

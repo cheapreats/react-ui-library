@@ -14,9 +14,11 @@ const labels: Array<HighlightedString> = [
         isSpecial: true,
         listItemsArgs: [],
         listItemsBodies: [
-            <ClickableSmallText onClick={action('Burger Clicked.')}>Burger</ClickableSmallText>, 
-            <ClickableSmallText onClick={action('Fries Clicked.')}>Fries</ClickableSmallText>
+            <ClickableSmallText>Burger</ClickableSmallText>, 
+            <ClickableSmallText>Fries</ClickableSmallText>
         ],
+        isRight: false,
+        isOpen: true,
     },
     {
         text: 'from',
@@ -27,8 +29,8 @@ const labels: Array<HighlightedString> = [
         isSpecial: true,
         listItemsArgs: [],
         listItemsBodies: [
-            <ClickableSmallText onClick={action('Wendy\'s Clicked.')}>{'Wendy\'s'}</ClickableSmallText>, 
-            <ClickableSmallText onClick={action('Burger King Clicked.')}>Burger King</ClickableSmallText>
+            <ClickableSmallText>{'Wendy\'s'}</ClickableSmallText>, 
+            <ClickableSmallText>Burger King</ClickableSmallText>
         ],
     },
 ]
