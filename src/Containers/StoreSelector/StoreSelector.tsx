@@ -60,11 +60,15 @@ export const StoreSelector: React.FC<StoreSelectorProps> = ({
     * @param setCurrentIndex - Function to update currentIndex stateful value
     * @param storeProfileData - Array that currentIndex is used on
     */
-    let indexIncrease = (currentIndex: number, setCurrentIndex: Function, storeProfileData: Array<StoreSelectorArrayProps>) => {(
-            currentIndex === (storeProfileData.length - 1)
-                ? setCurrentIndex(currentIndex - (storeProfileData.length - 1))
-                : setCurrentIndex(currentIndex + 1)
-    )}
+    let indexIncrease = (currentIndex: number, setCurrentIndex: Function, storeProfileData: Array<StoreSelectorArrayProps>) => {
+        let indexIncreaseVar = currentIndex;
+        (
+            (indexIncreaseVar === storeProfileData.length - 1)
+                ? indexIncreaseVar -= storeProfileData.length - 1
+                : indexIncreaseVar++
+        )
+        setCurrentIndex(indexIncreaseVar);
+    }
     /**
      * Takes the state, and decreases the value by 1 conditionally.
      * If the value is equal to 0, then value gets set to the top of the array instead (loops back around)
@@ -72,20 +76,24 @@ export const StoreSelector: React.FC<StoreSelectorProps> = ({
      * @param setCurrentIndex - Function to update that stateful value
      * @param storeProfileData - Array that currentIndex is used on
      */
-    let indexDecrease = (currentIndex: number, setCurrentIndex: Function, storeProfileData: Array<StoreSelectorArrayProps>) => {(
-            currentIndex === 0
-                ? setCurrentIndex(currentIndex + (storeProfileData.length - 1))
-                : setCurrentIndex(currentIndex - 1)
-    )}
+    let indexDecrease = (currentIndex: number, setCurrentIndex: Function, storeProfileData: Array<StoreSelectorArrayProps>) => {
+        let indexDecreaseVar = currentIndex;
+        (
+            (indexDecreaseVar === 0)
+                ? indexDecreaseVar += storeProfileData.length - 1
+                : indexDecreaseVar--
+        )
+        setCurrentIndex(indexDecreaseVar);
+    }
     /**
     * Returns text based on vendorApprovalStatus of the array. 
     * @param storeBorderStatus - Value of current object's VendorApprovalStatus 
     */
     let storeAccessibilitySwitch = (storeBorderStatus: VendorApprovalStatus) => {
         switch (storeBorderStatus) {
-            case 2:
+            case VendorApprovalStatus.APPROVED:
                 return "Approved!";
-            case 1:
+            case VendorApprovalStatus.PENDING:
                 return "Pending";
             default:
                 return "Not Approved";
@@ -137,12 +145,12 @@ const StoreSelectorBorder = styled.div<StoreSelectorProps>`
     border-radius: 15px;
     border-color: ${({ theme, storeBorderStatus }): string => {
         switch (storeBorderStatus) {
-        case 2:
-            return theme.colors.reachIndicatorColors.green
-        case 1:
-            return theme.colors.reachIndicatorColors.yellow
-        default:
-            return theme.colors.reachIndicatorColors.red
+            case VendorApprovalStatus.APPROVED:
+                return theme.colors.reachIndicatorColors.green
+            case VendorApprovalStatus.PENDING:
+                return theme.colors.reachIndicatorColors.yellow
+            default:
+                return theme.colors.reachIndicatorColors.red
             }
         }
     };

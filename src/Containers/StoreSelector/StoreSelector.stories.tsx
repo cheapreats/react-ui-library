@@ -19,9 +19,9 @@ StoreSelectorBasic.args = {
     upArrowEnabled: true,
     downArrowEnabled: true, 
     storeProfileData: [
-        { storeSelectorName: 'Jacks Store', storeSelectorId: 0, storeStatus: 2 },
-        { storeSelectorName: 'Pizza the hutt', storeSelectorId: 1, storeStatus: 1 },
-        { storeSelectorName: 'Bread pitt', storeSelectorId: 2, storeStatus: 0 },
+        { storeSelectorName: 'Jack\'s Store', storeSelectorId: 0, storeStatus: 2 },
+        { storeSelectorName: 'Pizza the Hutt', storeSelectorId: 1, storeStatus: 1 },
+        { storeSelectorName: 'Bread Pitt', storeSelectorId: 2, storeStatus: 0 },
         { storeSelectorName: 'The Codfather', storeSelectorId: 3, storeStatus: 2 },
     ],
 };
@@ -49,7 +49,7 @@ StoreSelectorVerbose.args = {
     upArrowEnabled: false,
     downArrowEnabled: false,
     storeProfileData: [
-        { storeSelectorName: 'The Grillenium Flacon episode 6: return of the jedfry', storeSelectorId: 0, storeStatus: 2 }
+        { storeSelectorName: 'The Grillenium Falcon episode 6: return of the jedfry', storeSelectorId: 0, storeStatus: 2 }
     ],
 };
 
