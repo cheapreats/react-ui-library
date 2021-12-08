@@ -65,7 +65,7 @@ export const StoreSelector: React.FC<StoreSelectorProps> = ({
         (
             (indexIncreaseVar === storeProfileData.length - 1)
                 ? indexIncreaseVar -= storeProfileData.length - 1
-                : indexIncreaseVar++
+                : indexIncreaseVar += 1
         )
         setCurrentIndex(indexIncreaseVar);
     }
@@ -81,7 +81,7 @@ export const StoreSelector: React.FC<StoreSelectorProps> = ({
         (
             (indexDecreaseVar === 0)
                 ? indexDecreaseVar += storeProfileData.length - 1
-                : indexDecreaseVar--
+                : indexDecreaseVar -= 1
         )
         setCurrentIndex(indexDecreaseVar);
     }
