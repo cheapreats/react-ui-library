@@ -1,10 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { DualSelectRadio, DualSelectRadioProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Dual Select Radio'),
+    title: 'Components/Dual Select Radio',
     component: DualSelectRadio,
     args: {
         caption: 'Dual Select',

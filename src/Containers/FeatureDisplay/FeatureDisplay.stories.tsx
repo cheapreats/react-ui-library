@@ -1,10 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import { createStoryTitle } from '../../Constants';
+
 import { FeatureDisplay, IFeatureDisplayProps } from './FeatureDisplay';
 
 export default {
-    title: createStoryTitle('Feature Display'),
+    title: 'Components/Feature Display',
     component: FeatureDisplay,
 } as Meta;
 

@@ -2,10 +2,9 @@ import {Meta, Story} from "@storybook/react";
 import {IOvalTable, OvalTable} from "@Containers/OvalTable/OvalTable";
 import React from "react";
 import {action} from "@storybook/addon-actions";
-import {createStoryTitle} from "../../Constants";
 
 export default {
-    title: createStoryTitle('OvalTable'),
+    title: 'Components/OvalTable',
     component: OvalTable,
 } as Meta;
 

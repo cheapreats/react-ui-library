@@ -9,7 +9,7 @@ import {
     TableHeaderCell,
     TagGroup
 } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 import { CRMRowProps } from '../CRMRow/CRMRow';
 
 
@@ -28,9 +28,10 @@ const TextFilter: React.FC<HeaderProps<CRMRowProps>> = ({
 );
 
 export default {
-    title: createStoryTitle('CRM Table'),
+    title: 'Components/CRM Table',
     component: CRMTable,
-    argTypes: { onRowClick: { action: 'Row was clicked' }, 
+    argTypes: { onRowClick: { action: 'Row was clicked' },
+        onMenuClick: { action: 'Menu was clicked' },  
         onCheckboxClick: {action: 'Checkbox was clicked'},
         onAllCheckboxCLick: {action: 'All checkboxes clicked'}
     },

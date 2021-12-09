@@ -1,7 +1,7 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { StoreHoursList, StoreHoursListProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 const defaultCategories = [
     {
@@ -128,7 +128,7 @@ const textHeaders = {
 const onSave = (categories: any) => console.log(categories);
 
 export default {
-    title: createStoryTitle('StoreHoursList'),
+    title: 'Components/StoreHoursList',
     component: StoreHoursList,
     args: {
         allCategories: defaultCategories,
@@ -141,7 +141,7 @@ export const Basic: Story<StoreHoursListProps> = (args) => (
 );
 
 export const NoCategories = Basic.bind({
-    title: createStoryTitle('StoreHoursList Empty Categories'),
+    title: 'Components/StoreHoursList Empty Categories',
 });
 NoCategories.args = {
     allCategories: [],

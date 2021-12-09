@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { FileUpload, IFileUploadProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('FileUpload'),
+    title: 'Components/FileUpload',
     component: FileUpload,
     args: {
         subTitle: 'Supports: JPG, JPEG2000, PNG',

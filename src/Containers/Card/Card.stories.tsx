@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Card, CardProps, Paragraph, SmallText } from '../../index';
-import { createStoryTitle, getCaptionForLocale } from '../../Constants';
+import {  getCaptionForLocale } from '../../Constants';
 
 export default {
-    title: createStoryTitle('Card'),
+    title: 'Components/Card',
     component: Card,
     args: {
         flat: false,

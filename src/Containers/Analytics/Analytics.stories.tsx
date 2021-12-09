@@ -1,10 +1,9 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Analytics, IAnalyticsProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
 
 export default {
-    title: createStoryTitle('Analytics'),
+    title: 'Components/Analytics',
     component: Analytics,
     args: {
         title: 'Delivered',

@@ -6,10 +6,10 @@ import {
     IItemsRedemptionPointsProps,
     IData,
 } from './ItemsRedemptionPoints';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Items Redemption Points'),
+    title: 'Components/Items Redemption Points',
     component: ItemsRedemptionPoints,
     args: {
         titleText: 'Food',

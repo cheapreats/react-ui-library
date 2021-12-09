@@ -1,13 +1,13 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
-import { createStoryTitle } from '../../Constants';
+
 import {
     StretchableButton,
     IStretchableButtonProps,
 } from './StretchableButton';
 
 export default {
-    title: createStoryTitle('Stretchable Button'),
+    title: 'Components/Stretchable Button',
     component: StretchableButton,
     // argTypes:{
     //     defaultHeight: {table:{disable:true}},

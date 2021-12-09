@@ -4,10 +4,10 @@ import {
     DraggableTable,
     IDraggableTable,
 } from '@Containers/EditDraggableCanvas/_DraggableTable';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('DraggableTable'),
+    title: 'Components/DraggableTable',
     component: DraggableTable,
 } as Meta;
 

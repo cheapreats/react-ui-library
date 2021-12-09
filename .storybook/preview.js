@@ -1,6 +1,5 @@
 import React  from 'react';
 import { Global } from '../src';
-import { addDecorator } from '@storybook/react';
 import { MINIMAL_VIEWPORTS} from '@storybook/addon-viewport';
 
 const customViewports = {
@@ -77,11 +76,14 @@ const style = theme => `
     }
 `;
 
-addDecorator(story => {
-    if (!document.querySelector('#modal')) {
-        const modal = document.createElement('div');
-        document.body.append(modal);
-        modal.id = 'modal';
+
+export const decorators = [
+    story => {
+        if (!document.querySelector('#modal')) {
+            const modal = document.createElement('div');
+            document.body.append(modal);
+            modal.id = 'modal';
+        }
+        return <Global style={ style }>{ story() }</Global>;
     }
-    return <Global style={ style }>{ story() }</Global>;
-});
+];

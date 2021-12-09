@@ -3,10 +3,10 @@ import { Import } from '@styled-icons/boxicons-regular/Import';
 import { Add } from '@styled-icons/ionicons-sharp/Add';
 import { Story, Meta } from '@storybook/react';
 import { VendorsHeader, IVendorsHeaderProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Vendors Header'),
+    title: 'Components/Vendors Header',
     component: VendorsHeader,
 } as Meta;
 

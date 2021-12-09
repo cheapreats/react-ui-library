@@ -12,11 +12,11 @@
                     "@Inputs": "./src/Inputs",
                     "@Text": "./src/Text",
                     "@Themes": "./src/Themes",
-                    "@Utils": "./src/Utils"
+                    "@Utils": "./src/Utils",
+                    "@Overview": "./src/Overview"
                 }
             },
             "babel-plugin-styled-components"
-        ],
-        "recharts"
+        ]
     ]
 }

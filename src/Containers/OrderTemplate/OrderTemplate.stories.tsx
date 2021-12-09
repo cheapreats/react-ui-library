@@ -3,11 +3,11 @@ import { Meta, Story } from '@storybook/react';
 import { OrderPaymentMethodTypes } from '@Text/OrderPaymentMethod/OrderPaymentMethod';
 import { OrderStatusIdentifier } from '@Containers/OrderStatus/OrderStatus';
 import { OrderTypeIdentifier } from '@Text/OrderType/OrderType';
-import { createStoryTitle } from '../../Constants';
+
 import { OrderTemplate, IOrderTemplateProps } from './OrderTemplate';
 
 export default {
-    title: createStoryTitle('Order Template'),
+    title: 'Components/Order Template',
     component: OrderTemplate,
     argTypes: {
         paymentMethod: {

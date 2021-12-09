@@ -1,10 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { DraggableCanvas } from './DraggableDemoFront';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('DraggableCanvas'),
+    title: 'Components/DraggableCanvas',
     component: DraggableCanvas,
 } as Meta;
 

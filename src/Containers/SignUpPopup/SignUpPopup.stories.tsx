@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { SignUpPopup, ISignUpPopupProps } from './SignUpPopup';
-import { createStoryTitle } from '../../Constants';
+
 
 const handleSubmit = (event: any, data: any) => {
     event.preventDefault();
@@ -9,7 +9,7 @@ const handleSubmit = (event: any, data: any) => {
 };
 
 export default {
-    title: createStoryTitle('Sign up Pop up'),
+    title: 'Components/Sign up Pop up',
     component: SignUpPopup,
     args: {
         heading: 'Special Offer - Get 1 month free',

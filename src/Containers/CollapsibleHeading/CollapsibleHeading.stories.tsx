@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { CollapsibleHeading, ICollapsibleHeadingProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 import { FilterSelect } from './FilterSelect';
 import { Button } from '../../Inputs/Button/Button';
 
 export default {
-    title: createStoryTitle('CollapsibleHeading'),
+    title: 'Components/CollapsibleHeading',
     component: CollapsibleHeading,
 } as Meta;
 

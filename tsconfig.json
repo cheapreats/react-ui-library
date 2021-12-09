@@ -1,8 +1,8 @@
 {
     "compilerOptions": {
         "outDir": "./dist",
-        "module": "commonjs",
-        "target": "es2017",
+        "module": "es6",
+        "target": "es5",
         "lib": ["es2017", "dom", "ES2020", "ESNext"],
         "sourceMap": false,
         "jsx": "react",
@@ -22,6 +22,7 @@
         "declaration": true,
         "declarationMap": false,
         "declarationDir": "./dist",
+        "downlevelIteration": true,
         "allowSyntheticDefaultImports": true,
         "experimentalDecorators": true,
         "emitDecoratorMetadata": true,
@@ -30,6 +31,8 @@
             "@Layouts": ["./Fragments"],
             "@Containers/*": ["./Containers/*"],
             "@Containers": ["./Containers"],
+            "@Overview/*": ["./Overview/*"],
+            "@Overview": ["./Overview"],
             "@Inputs/*": ["./Inputs/*"],
             "@Inputs": ["./Inputs"],
             "@Text/*": ["./Text/*"],
@@ -40,10 +43,10 @@
             "@Utils": ["./Utils"]
         }
     },
-    "include": ["src/**/*", "__tests__"],
+    "include": ["src/**/*"],
     "files": [
         "src/styled.d.ts",
         "src/declaration.d.ts"
     ],
-    "exclude": ["node_modules", "**/.*/", "../src/**/*.stories.@(js|mdx|tsx|ts|jsx)", "scripts", "./dist"]
+    "exclude": ["node_modules", "**/.*/", "../src/**/*.stories.@(js|mdx|tsx|ts|jsx)", "scripts", "./dist", "__tests__"]
 }

@@ -1,12 +1,12 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Select, SelectProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 // TODO: ADD STATE to component
 
 export default {
-    title: createStoryTitle('Select'),
+    title: 'Components/Select',
     component: Select,
     argTypes: { onChange: { action: `you selected` } },
     args: {

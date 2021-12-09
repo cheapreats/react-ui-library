@@ -2,10 +2,10 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import {action} from "@storybook/addon-actions";
 import { Chair, IChair } from './Chair';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Chair'),
+    title: 'Components/Chair',
     component: Chair,
 } as Meta;
 

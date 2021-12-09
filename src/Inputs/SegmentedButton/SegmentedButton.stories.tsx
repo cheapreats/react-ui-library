@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Save } from '@styled-icons/fa-solid/Save';
 import { ISegmentedButtonProps, SegmentedButton } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('SegmentedButton'),
+    title: 'Components/SegmentedButton',
     component: SegmentedButton,
     args: {
         width: '400px',

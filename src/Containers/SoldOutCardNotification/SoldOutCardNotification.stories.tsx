@@ -5,10 +5,10 @@ import {
     SoldOutCardNotification,
     ISoldOutCardNotificationProps,
 } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('SoldOutCardNotification'),
+    title: 'Components/SoldOutCardNotification',
     component: SoldOutCardNotification,
     args: {
         imgSrc: 'https://vuejobs.com/storage/avatars/GWnaVkQSwifU9Zn36Qzif4GQ38lMSWxLs9NgPaM4.png',

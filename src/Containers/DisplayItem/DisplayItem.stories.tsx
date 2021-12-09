@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { DisplayItem, DisplayItemProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Display Item'),
+    title: 'Components/Display Item',
     component: DisplayItem,
     args: {
         label: 'DisplayItemLabel',

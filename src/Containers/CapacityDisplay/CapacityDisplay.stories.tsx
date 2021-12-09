@@ -8,10 +8,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { CapacityDisplay, ICapacityDisplay } from './CapacityDisplay';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('CapacityDisplay'),
+    title: 'Components/CapacityDisplay',
     component: CapacityDisplay,
 } as Meta;
 

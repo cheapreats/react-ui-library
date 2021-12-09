@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Popup, PopupProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Popup'),
+    title: 'Components/Popup',
     component: Popup,
     args: {
         left: 10,

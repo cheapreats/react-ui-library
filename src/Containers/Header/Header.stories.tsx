@@ -11,10 +11,10 @@ import {
     OrderPaymentMethodTypes,
 } from '@Text/OrderPaymentMethod/OrderPaymentMethod';
 import Header from './Header';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Order Header'),
+    title: 'Components/Order Header',
     component: Header,
     args: {
         topLeft: <OrderID orderId="3c3e" />,

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { FilterBox, FilterBoxProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('FilterBox'),
+    title: 'Components/FilterBox',
     component: FilterBox,
     args: {
         title: 'Starts with: ',

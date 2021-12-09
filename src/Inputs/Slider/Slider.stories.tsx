@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Slider, SliderProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Slider'),
+    title: 'Components/Slider',
     component: Slider,
     argTypes: {
         onChange: {

@@ -1,10 +1,9 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
-import { SearchBarExpandable, SearchBarExpandableProps } from '..';
-import { createStoryTitle } from '../../Constants';
+import { SearchBarExpandable, SearchBarExpandableProps } from '../../index';
 
 export default {
-    title: createStoryTitle('Search Bar Expandable'),
+    title: 'Components/Search Bar Expandable',
     component: SearchBarExpandable,
     argTypes: {
         onChange: {

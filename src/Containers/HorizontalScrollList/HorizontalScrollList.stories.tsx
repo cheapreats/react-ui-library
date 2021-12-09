@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { HorizontalScrollList, ScrollListProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 const exampleHoveredStyle = () => `
     color: red;
@@ -25,7 +25,7 @@ const exampleLabelArray = [
 ];
 
 export default {
-    title: createStoryTitle('Horizontal Scroll List'),
+    title: 'Components/Horizontal Scroll List',
     component: HorizontalScrollList,
     args: {
         labelArray: exampleLabelArray,

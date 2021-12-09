@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ComboBox, ComboBoxSelectorProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Combo box'),
+    title: 'Components/Combo box',
     component: ComboBox,
     argTypes: { onChange: { action: 'Changed' } },
     args: {
