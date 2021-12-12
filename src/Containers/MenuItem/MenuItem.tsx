@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card } from '../Card/Card';
-import LeftRightText from '../../Text/CardText/CardText';
+import {LeftRightText} from '../../Text';
 
 interface IItemChoice {
     // name of choice
