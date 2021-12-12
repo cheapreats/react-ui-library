@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { ClickableSmallText, SmallTextProps } from '../index';
+import { ClickableSmallText, SmallTextProps } from '../../index';
 
 
 export default {

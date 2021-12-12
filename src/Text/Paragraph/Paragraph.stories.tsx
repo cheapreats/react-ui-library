@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Paragraph, ParagraphProps } from '../index';
+import { Paragraph, ParagraphProps } from '../../index';
 
 
 export default {

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { SmallText, SmallTextProps } from '../index';
+import { SmallText, SmallTextProps } from '../../index';
 
 
 export default {

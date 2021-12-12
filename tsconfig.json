@@ -48,5 +48,5 @@
         "src/styled.d.ts",
         "src/declaration.d.ts"
     ],
-    "exclude": ["node_modules", "**/.*/", "../src/**/*.stories.@(js|mdx|tsx|ts|jsx)", "scripts", "./dist", "__tests__"]
+    "exclude": ["node_modules", "../src/**/*.stories.@(js|mdx|tsx|ts|jsx)", "scripts", "./dist", "__tests__"]
 }

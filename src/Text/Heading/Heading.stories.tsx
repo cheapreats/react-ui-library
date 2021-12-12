@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Heading, HeadingProps } from '../index';
+import { Heading, HeadingProps } from '../../index';
 
 
 export default {
