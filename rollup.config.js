@@ -34,21 +34,6 @@ export default {
         }),
         nodeResolve({ preferBuiltins: true }),
         commonjs(),
-        babel({
-            exclude: ['node_modules', '/node_modules/', 'node_modules/**', 'scripts', 'dist', '*.d.ts', '**/*.d.ts'],
-            extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
-            plugins: [
-                'babel-plugin-styled-components',
-                'babel-plugin-transform-class-properties',
-            ],
-            presets: [
-                '@babel/preset-env',
-                '@babel/preset-react',
-                '@babel/preset-typescript',
-            ],
-            babelHelpers: 'bundled',
-        }),
-        json(),
         typescript({
             typescript: ttypescript,
             tsconfig: './tsconfig.json',
@@ -69,6 +54,21 @@ export default {
                     plugins: [{ transform: '@zerollup/ts-transform-paths' }],
                 },
             },
+        }),
+        json(),
+        babel({
+            exclude: ['node_modules', '/node_modules/', 'node_modules/**', 'scripts', 'dist', '*.d.ts', '**/*.d.ts'],
+            extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
+            plugins: [
+                'babel-plugin-styled-components',
+                'babel-plugin-transform-class-properties',
+            ],
+            presets: [
+                '@babel/preset-env',
+                '@babel/preset-react',
+                '@babel/preset-typescript',
+            ],
+            babelHelpers: 'bundled',
         }),
         postcss({
             extensions: ['.css']
