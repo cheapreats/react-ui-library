@@ -1,10 +1,9 @@
 import { Meta, Story } from '@storybook/react';
 import React from 'react';
-import { createStoryTitle } from '../../Constants';
 import { StoreSelector, StoreSelectorProps } from '../../index';
 
 export default {
-    title: createStoryTitle('Store Selector'),
+    title: 'Components/Store Selector',
     component: StoreSelector,
     argTypes: {
         onClickArrows: { action: 'An arrow was clicked' },
@@ -31,7 +30,7 @@ StoreSelectorPending.args = {
     upArrowEnabled: false,
     downArrowEnabled: false,
     storeProfileData: [
-    { storeSelectorName: 'The Grillenium Falcon', storeSelectorId: 0, storeStatus: 1 },
+        { storeSelectorName: 'The Grillenium Falcon', storeSelectorId: 0, storeStatus: 1 },
     ],
 };
 
