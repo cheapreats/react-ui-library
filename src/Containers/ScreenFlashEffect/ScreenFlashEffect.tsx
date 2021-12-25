@@ -4,11 +4,12 @@ import styled from 'styled-components';
 
 export interface IScreenFlashEffectProps
     extends React.HTMLAttributes<HTMLDivElement> {
+    /** a big number for the width, height and z-index of the flash screen */
     veryBigNumber?: number;
     opacity?: number;
     animationDurationInMs?: number;
-    numberOfTimesForAnimation?: number;
-    /**the hexadecimal code for color of flash screen, default: ff0000 */
+    numberOfFlashes?: number;
+    /** the hexadecimal code for color of flash screen, default: ff0000 */
     color?: string;
 }
 
@@ -16,21 +17,24 @@ export const ScreenFlashEffect: React.FC<IScreenFlashEffectProps> = ({
     veryBigNumber = 99999,
     opacity = 0.6,
     animationDurationInMs = 1000,
-    numberOfTimesForAnimation = 4,
+    numberOfFlashes = 4,
     color = 'ff0000',
     ...props
 }) => {
-    return ReactDOM.createPortal(
-        <FlashScreen
-            {...props}
-            veryBigNumber={veryBigNumber}
-            opacity={opacity}
-            animationDurationInMs={animationDurationInMs}
-            numberOfTimesForAnimation={numberOfTimesForAnimation}
-            color={color}
-        />,
-        document.querySelector('body')!,
-    );
+    const bodyElement = document.querySelector('body');
+    return bodyElement
+        ? ReactDOM.createPortal(
+            <FlashScreen
+                {...props}
+                veryBigNumber={veryBigNumber}
+                opacity={opacity}
+                animationDurationInMs={animationDurationInMs}
+                numberOfFlashes={numberOfFlashes}
+                color={color}
+            />,
+            bodyElement,
+        )
+        : null;
 };
 
 const FlashScreen = styled.div<IScreenFlashEffectProps>`
@@ -38,7 +42,7 @@ const FlashScreen = styled.div<IScreenFlashEffectProps>`
         veryBigNumber,
         opacity,
         animationDurationInMs,
-        numberOfTimesForAnimation,
+        numberOfFlashes,
         color,
     }): string => `
     @keyframes flash {
@@ -46,7 +50,7 @@ const FlashScreen = styled.div<IScreenFlashEffectProps>`
             opacity: ${opacity};
         }
         to {
-            opacity: ${0};
+            opacity: 0;
         }
     }
 
@@ -60,7 +64,7 @@ const FlashScreen = styled.div<IScreenFlashEffectProps>`
     z-index: ${veryBigNumber};
     animation-name: flash;
     animation-duration: ${animationDurationInMs}ms;
-    animation-iteration-count: ${numberOfTimesForAnimation};
+    animation-iteration-count: ${numberOfFlashes};
     animation-fill-mode: forwards;
     `}
 `;
