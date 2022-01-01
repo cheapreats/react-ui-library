@@ -100,7 +100,7 @@ export default {
     external: [
         // ...Object.keys(pkg.dependencies || {}),
         // ...Object.keys(pkg.peerDependencies || {}),
-        // 'workerize-loader',
+        'workerize-loader',
         // "react",
         // "react-dom"
     ],
