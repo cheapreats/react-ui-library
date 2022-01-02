@@ -7,6 +7,7 @@ export interface IContainerProps {
     withFlexSpaceBetween?: boolean;
     withBorder?: boolean;
     width?: number;
+    isWidthFitContent?:boolean;
     padding?: string;
     isDragEnter?: boolean;
     backgroundColor?: string;
@@ -19,6 +20,8 @@ export interface IContainerProps {
     margin?: string;
     positionTop?: number;
     flexGrow?: boolean;
+    /** transition duration in ms; applied on height and opacity properties; */
+    transitionDuration:number;
 }
 
 export const Container = styled.div<IContainerProps>`
@@ -27,6 +30,7 @@ export const Container = styled.div<IContainerProps>`
         withFlexCenter,
         withBorder,
         width,
+        isWidthFitContent,
         padding,
         isDragEnter,
         withFlexSpaceBetween,
@@ -40,6 +44,7 @@ export const Container = styled.div<IContainerProps>`
         margin,
         positionTop,
         flexGrow,
+        transitionDuration,
     }): string => `
 ${borderRadius ? `border-radius:${borderRadius};` : 'border-radius:10px;'}
 ${
@@ -52,6 +57,7 @@ border:2px ${dashed ? 'dashed' : 'solid'} rgba(128,128,128,.8);
 ${withFlexCenter ? flex('center') : ''}
 ${withFlexSpaceBetween ? flex('space-between', 'center') : ''}
 ${width ? `width:${width}px;` : ''}
+${isWidthFitContent ? `width:fit-content;` : ''}
 ${padding ? `padding:${padding};` : ''}
 ${
     isDragEnter
@@ -81,8 +87,10 @@ ${overflow ? `overflow:${overflow};` : ''}
 ${position ? `position:absolute;top:${positionTop}px;` : ''}
 ${margin ? `margin:${margin};` : ''}
 ${flexGrow ? `flex:1;` : ''}
+
+transition:height ${transitionDuration}ms,opacity ${transitionDuration}ms,max-height ${transitionDuration*10}ms;
 `}
-    transition:height .5s,opacity .5s,max-height 5s;
+
 `;
 
 interface IIconProps {

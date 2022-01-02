@@ -1,16 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import { TextLayout } from '@Layouts';
 import { StyledIcon } from '@styled-icons/styled-icon';
-import { Container, Icon } from './StyledComponents';
+import { Container, Icon, IContainerProps } from './StyledComponents';
 
-interface IIsFailureIsSuccessPanelProps {
+interface IIsFailureIsSuccessPanelProps extends IContainerProps{
     IconToShow: StyledIcon;
     iconColor: string;
     message: string;
 }
 
 export const IsFailureIsSuccessPanel: React.FC<IIsFailureIsSuccessPanelProps> =
-    ({ IconToShow, iconColor, message }): React.ReactElement => {
+    ({ IconToShow, iconColor, message,...props }): React.ReactElement => {
         const [opacity, setOpacity] = useState(0);
         useEffect(() => {
             setOpacity(1);
@@ -21,6 +21,7 @@ export const IsFailureIsSuccessPanel: React.FC<IIsFailureIsSuccessPanelProps> =
                 flexGrow
                 margin="10px"
                 opacity={opacity}
+                {...props}
             >
                 <TextLayout bold color="DarkBlue">
                     {message}

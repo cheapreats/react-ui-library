@@ -55,7 +55,7 @@ export const Button: React.FC<ButtonProps> = ({
                     hasText={children}
                 />
             )}
-            {children && <Content loading={isAnimated}>{children}</Content>}
+            {children && <Content isLoading={isAnimated}>{children}</Content>}
             {isLoading && <Loader loading={isAnimated} />}
         </StyledButton>
     );
@@ -140,10 +140,10 @@ const Icon = styled.svg<IconProps>`
     `}
 `;
 
-const Content = styled.span<{ loading: boolean }>`
+const Content = styled.span<{ isLoading: boolean }>`
     ${transition(['transform', 'opacity'])}
-    ${({ loading }): string =>
-        loading
+    ${({ isLoading }): string =>
+        isLoading
             ? `
         transform: translate3d(0,80%,0);
         opacity: 0;

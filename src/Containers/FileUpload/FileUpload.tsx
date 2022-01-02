@@ -23,299 +23,81 @@ import { Container, Icon } from './StyledComponents';
 import { FileMovingAnimation } from './FileMovingAnimation';
 import { IsFailureIsSuccessPanel } from './IsFailureIsSuccessPanel';
 import { NO_BASE64STRINGFILE } from './constants';
-
-interface IOptions {
-    position: boolean;
-    opacity: number;
-}
-
-interface IState {
-    height: number | undefined;
-    totalHeight: number;
-    totalHeightPlus: number;
-    maxHeight: number | undefined;
-    loading: IOptions;
-    isSuccess: IOptions;
-    isFailure: IOptions;
-    positionTopLoading: number;
-    loadingContainerHeight: number;
-    componentWidth: number;
-    isSuccessWidth: number;
-    isDragEnter: boolean;
-}
+import reducer, {
+    IFileUploadState,
+    SET_COMPONENT_WIDTH,
+    SET_HEIGHT,
+    SET_INITIAL_HEIGHT_PLUS_VALUES,
+    SET_INITIAL_HEIGHT_VALUES,
+    SET_IS_DRAG_ENTER,
+    SET_IS_SUCCESS_WIDTH,
+    SET_LOADING_CONTAINER_HEIGHT,
+    SET_OPACITY_IS_FAILURE,
+    SET_OPACITY_IS_SUCCESS,
+    SET_OPACITY_LOADING,
+    SET_POSITION_TOP_LOADING,
+    SET_TOTAL_HEIGHT_PLUS,
+    LOADING_RESTORE,
+    IS_FAILURE_RESTORE,
+    IS_SUCCESS_RESTORE,
+} from './reducer';
 
 const MESSAGE_DURATION = 1500;
-const MAX_HEIGHT = 9000;
+const SUCCESS_MESSAGE='Completed';
+const FAILURE_MESSAGE='Something went wrong';
+const TITLE='Drop your file here, or click to browse';
+const SUBTITLE='Admits any kind of file';
 const TRANSITION_HEIGHT_ANIMATION_DURATION = 500;
 const FIRST_FILE = 0;
 
 const PADDING = 10;
 const MARGIN = 10;
 
-const SET_HEIGHT = 'SET_HEIGHT';
-const SET_MAX_HEIGHT = 'SET_MAX_HEIGHT';
-const SET_TOTAL_HEIGHT = 'SET_TOTAL_HEIGHT';
-const SET_COMPONENT_WIDTH = 'SET_COMPONENT_WIDTH';
-const SET_TOTAL_HEIGHT_PLUS = 'SET_TOTAL_HEIGHT_PLUS';
-const SET_POSITION_TOP_LOADING = 'SET_POSITION_TOP_LOADING';
-const SET_IS_SUCCESS_WIDTH = 'SET_IS_SUCCESS_WIDTH';
-const SET_OPACITY_LOADING = 'SET_OPACITY_LOADING';
-const SET_POSITION_LOADING = 'SET_POSITION_LOADING';
-const SET_OPACITY_IS_SUCCESS = 'SET_OPACITY_IS_SUCCESS';
-const SET_POSITION_IS_SUCCESS = 'SET_POSITION_IS_SUCCESS';
-const SET_OPACITY_IS_FAILURE = 'SET_OPACITY_IS_FAILURE';
-const SET_POSITION_IS_FAILURE = 'SET_POSITION_IS_FAILURE';
-const SET_LOADING_CONTAINER_HEIGHT = 'SET_LOADING_CONTAINER_HEIGHT';
-const SET_IS_DRAG_ENTER = 'SET_IS_DRAG_ENTER';
-const LOADING_FADE_OUT = 'LOADING_FADE_OUT';
-const LOADING_RESTORE = 'LOADING_RESTORE';
-const IS_SUCCESS_FADE_OUT = 'IS_SUCCESS_FADE_OUT';
-const IS_SUCCESS_RESTORE = 'IS_SUCCESS_RESTORE';
-const IS_FAILURE_FADE_OUT = 'IS_FAILURE_FADE_OUT';
-const IS_FAILURE_RESTORE = 'IS_FAILURE_RESTORE';
-const SET_INITIAL_HEIGHT_VALUES = 'SET_INITIAL_HEIGHT_VALUES';
-const SET_INITIAL_HEIGHT_PLUS_VALUES = 'SET_INITIAL_HEIGHT_PLUS_VALUES';
-
-type Action =
-    | {
-          type: 'SET_HEIGHT' | 'SET_MAX_HEIGHT';
-          value: number | undefined;
-      }
-    | {
-          type:
-              | 'SET_TOTAL_HEIGHT'
-              | 'SET_COMPONENT_WIDTH'
-              | 'SET_TOTAL_HEIGHT_PLUS'
-              | 'SET_POSITION_TOP_LOADING'
-              | 'SET_IS_SUCCESS_WIDTH'
-              | 'SET_OPACITY_LOADING'
-              | 'SET_OPACITY_IS_SUCCESS'
-              | 'SET_OPACITY_IS_FAILURE'
-              | 'SET_LOADING_CONTAINER_HEIGHT'
-              | 'SET_INITIAL_HEIGHT_VALUES';
-          value: number;
-      }
-    | {
-          type:
-              | 'SET_POSITION_LOADING'
-              | 'SET_POSITION_IS_SUCCESS'
-              | 'SET_POSITION_IS_FAILURE'
-              | 'SET_IS_DRAG_ENTER';
-          value: boolean;
-      }
-    | {
-          type:
-              | 'LOADING_FADE_OUT'
-              | 'LOADING_RESTORE'
-              | 'IS_SUCCESS_FADE_OUT'
-              | 'IS_SUCCESS_RESTORE'
-              | 'IS_FAILURE_FADE_OUT'
-              | 'IS_FAILURE_RESTORE'
-              | 'SET_INITIAL_HEIGHT_PLUS_VALUES';
-      };
-
-const reducer = (state: IState, action: Action): IState => {
-    switch (action.type) {
-    case SET_HEIGHT:
-        return {
-            ...state,
-            height: action.value,
-        };
-    case SET_MAX_HEIGHT:
-        return {
-            ...state,
-            maxHeight: action.value,
-        };
-    case SET_TOTAL_HEIGHT:
-        return {
-            ...state,
-            totalHeight: action.value,
-        };
-    case SET_COMPONENT_WIDTH:
-        return {
-            ...state,
-            componentWidth: action.value,
-        };
-    case SET_TOTAL_HEIGHT_PLUS:
-        return {
-            ...state,
-            totalHeightPlus: action.value,
-        };
-    case SET_POSITION_TOP_LOADING:
-        return {
-            ...state,
-            positionTopLoading: action.value,
-        };
-    case SET_IS_SUCCESS_WIDTH:
-        return {
-            ...state,
-            isSuccessWidth: action.value,
-        };
-    case SET_OPACITY_LOADING:
-        return {
-            ...state,
-            loading: {
-                ...state.loading,
-                opacity: action.value,
-            },
-        };
-    case SET_POSITION_LOADING:
-        return {
-            ...state,
-            loading: {
-                ...state.loading,
-                position: action.value,
-            },
-        };
-    case SET_OPACITY_IS_SUCCESS:
-        return {
-            ...state,
-            isSuccess: {
-                ...state.isSuccess,
-                opacity: action.value,
-            },
-        };
-    case SET_POSITION_IS_SUCCESS:
-        return {
-            ...state,
-            isSuccess: {
-                ...state.isSuccess,
-                position: action.value,
-            },
-        };
-    case SET_OPACITY_IS_FAILURE:
-        return {
-            ...state,
-            isFailure: {
-                ...state.isFailure,
-                opacity: action.value,
-            },
-        };
-    case SET_POSITION_IS_FAILURE:
-        return {
-            ...state,
-            isFailure: {
-                ...state.isFailure,
-                position: action.value,
-            },
-        };
-    case SET_LOADING_CONTAINER_HEIGHT:
-        return {
-            ...state,
-            loadingContainerHeight: action.value,
-        };
-    case SET_IS_DRAG_ENTER:
-        return {
-            ...state,
-            isDragEnter: action.value,
-        };
-    case LOADING_FADE_OUT:
-        return {
-            ...state,
-            loading: {
-                ...state.loading,
-                opacity: 0,
-                position: true,
-            },
-        };
-    case LOADING_RESTORE:
-        return {
-            ...state,
-            loading: {
-                ...state.loading,
-                opacity: 1,
-                position: false,
-            },
-        };
-    case IS_SUCCESS_FADE_OUT:
-        return {
-            ...state,
-            isSuccess: {
-                ...state.isSuccess,
-                opacity: 0,
-                position: true,
-            },
-        };
-    case IS_SUCCESS_RESTORE:
-        return {
-            ...state,
-            isSuccess: {
-                ...state.isSuccess,
-                opacity: 1,
-                position: false,
-            },
-        };
-    case IS_FAILURE_FADE_OUT:
-        return {
-            ...state,
-            isFailure: {
-                ...state.isFailure,
-                opacity: 0,
-                position: true,
-            },
-        };
-    case IS_FAILURE_RESTORE:
-        return {
-            ...state,
-            isFailure: {
-                ...state.isFailure,
-                opacity: 1,
-                position: false,
-            },
-        };
-    case SET_INITIAL_HEIGHT_VALUES:
-        return {
-            ...state,
-            maxHeight: action.value,
-            totalHeight: action.value,
-        };
-    case SET_INITIAL_HEIGHT_PLUS_VALUES:
-        return {
-            ...state,
-            height: undefined,
-            maxHeight: MAX_HEIGHT,
-        };
-    default:
-        return state;
-    }
-};
-
 export interface IFileUploadProps {
-    title: string;
-    subTitle: string;
-    minHeight: number;
+    /** the title message; default value: 'Drop your file here, or click to browse' */
+    title?: string;
+    /** the subtitle message; default value: 'Admits any kind of file' */
+    subTitle?: string;
+    /** minimum height for the component; optional */
+    minHeight?: number;
+    /** minimum width for the component; optional */
     minWidth?: number;
-    setBase64: (base64StringFile: string) => void;
-    isUploading: boolean;
-    isSuccess: boolean;
-    isFailure: boolean;
-    successMessage: string;
-    failureMessage: string;
-    disabled: boolean;
-    setIsUploading: React.Dispatch<React.SetStateAction<boolean>>;
-    setIsSuccess: React.Dispatch<React.SetStateAction<boolean>>;
-    setIsFailure: React.Dispatch<React.SetStateAction<boolean>>;
+    /** 
+     * function to process the file read and transformed to a base64 string; default: does nothing 
+     * @param {string} base64StringFile the file read and transformed to a base64 string
+     */
+    doWithBase64StringFile?: (base64StringFile: string) => void;
+    /** message of the bottom panel to inform of the success of the operation of reading the file content; default value: 'Completed' */
+    successMessage?: string;
+    /** message of the bottom panel to inform of the failure of the operation of reading the file content; default value: 'Something went wrong' */
+    failureMessage?: string;
+    /** if true, disables the component functionality; default value: false */
+    isDisabled?: boolean;
+    /** time in ms of the presence of the bottom panel informing the result of the operation (sucess or failure); default value: 1500  */
     messageDuration?: number;
+    /** if true, failure message will appear even after success operation; its purpose is to test the appearance of the failure message during development */
+    isTestIsFailure?:boolean;
+    /** height and fade in-fade out animation duration in ms; default value: 500 */
+    animationDuration?:number;
 }
 
 export const FileUpload: React.FC<IFileUploadProps> = ({
-    title,
-    subTitle,
+    title=TITLE,
+    subTitle=SUBTITLE,
     minHeight,
     minWidth,
-    setBase64,
-    isUploading,
-    isSuccess,
-    isFailure,
-    successMessage,
-    failureMessage,
-    disabled,
-    setIsUploading,
-    setIsSuccess,
-    setIsFailure,
+    doWithBase64StringFile = (base64StringFile: string) => null,
+    successMessage=SUCCESS_MESSAGE,
+    failureMessage=FAILURE_MESSAGE,
+    isDisabled=false,
     messageDuration = MESSAGE_DURATION,
+    isTestIsFailure,
+    animationDuration=TRANSITION_HEIGHT_ANIMATION_DURATION,
 }): React.ReactElement => {
-    const initState: IState = {
+    const [isUploading, setIsUploading] = useState(false);
+    const [isSuccess, setIsSuccess] = useState(false);
+    const [isFailure, setIsFailure] = useState(false);
+    const initState: IFileUploadState = {
         height: undefined,
         totalHeight: 0,
         totalHeightPlus: 0,
@@ -336,20 +118,75 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     const workerRef = useRef<Worker>();
     const base64StringFileRef = useRef<string>('');
     const previousIsSuccessValue = useRef<boolean>(isSuccess);
-
     /**
-     * this is to execute setBase64 function after the animation finishes
+     * ref to the most outer container, which contains everything else
      */
+    const containerRef = useRef<HTMLDivElement>(null);
+    const loadingContainerRef = useRef<HTMLDivElement>(null);
+
+    const onDrop = useCallback((acceptedFiles: File[]) => {
+        setFileName(acceptedFiles[FIRST_FILE].name);
+        setIsUploading(true);
+        setIsSuccess(false);
+        setIsFailure(false);
+        acceptedFiles.forEach((file) => {
+            const workerInstance = worker();
+            workerRef.current = workerInstance;
+            workerInstance.onmessage = (e: any) => {
+                const { base64StringFile } = e.data;
+                if (base64StringFile === NO_BASE64STRINGFILE|| isTestIsFailure) {
+                    workerRef.current?.terminate();
+                    setIsFailure(true);
+                    setIsSuccess(false);
+                    setIsUploading(false);
+                    setTimeout(() => {
+                        if (isMounted.current) setIsFailure(false);
+                    }, messageDuration);
+                } else if (base64StringFile !== undefined) {
+                    workerRef.current?.terminate();
+                    base64StringFileRef.current = base64StringFile;
+                    setIsSuccess(true);
+                    setIsFailure(false);
+                    setIsUploading(false);
+                    setTimeout(() => {
+                        if (isMounted.current) {
+                            setIsSuccess(false);
+                        }
+                    }, messageDuration);
+                }
+            };
+            workerInstance.postMessage({ file });
+            dispatch({ type: SET_IS_DRAG_ENTER, value: false });
+        });
+    }, [isTestIsFailure]);
+
+    const onDragEnter = useCallback((event: React.DragEvent) => {
+        event.preventDefault();
+        dispatch({ type: SET_IS_DRAG_ENTER, value: true });
+    }, []);
+    const onDragLeave = useCallback((event: React.DragEvent) => {
+        event.preventDefault();
+        dispatch({ type: SET_IS_DRAG_ENTER, value: false });
+    }, []);
+
+    const { getRootProps, getInputProps, rootRef } = useDropzone({
+        onDrop,
+        onDragEnter,
+        onDragLeave,
+        disabled:isDisabled,
+    });
+
+    // execute setBase64 function after the animation finishes
     useEffect(() => {
         if (previousIsSuccessValue.current) {
             setTimeout(() => {
-                setBase64(base64StringFileRef.current);
-            }, TRANSITION_HEIGHT_ANIMATION_DURATION);
+                doWithBase64StringFile(base64StringFileRef.current);
+            }, animationDuration);
         }
         previousIsSuccessValue.current = isSuccess;
-    }, [isSuccess]);
+    }, [isSuccess,animationDuration]);
 
-    // this is to calculate (set) some values after the first render
+    // calculate (set) some values after the first render
     useEffect(() => {
         if (containerRef.current?.scrollHeight) {
             const innerContentHeight =
@@ -367,7 +204,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     }, []);
 
     useEffect(() => {
-        // this is to set some values the first time when the component it's expanded
+        // set some values the first time when the component it's expanded
         if (
             state.height === undefined &&
             (isUploading || isSuccess || isFailure)
@@ -387,7 +224,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                 });
             }
         }
-        // this is to calculate and set the width of the success and failure container component
+        // calculate and set the width of the success and failure container component
         if (isSuccess || isFailure) {
             const width = containerRef.current?.getBoundingClientRect().width;
             if (width) {
@@ -397,7 +234,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                 });
             }
         }
-        // this sets height of the component, is used to transition between heights.
+        // sets height of the component, is used to transition between heights.
         if (isUploading || isSuccess || isFailure) {
             if (state.totalHeightPlus) {
                 dispatch({ type: SET_HEIGHT, value: state.totalHeightPlus });
@@ -407,7 +244,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         } else if (state.totalHeight) {
             dispatch({ type: SET_HEIGHT, value: state.totalHeight });
         }
-        // this is to calculate and set isuploading container panel.
+        // calculate and set isUploading container panel.
         if (
             isUploading &&
             !isFailure &&
@@ -457,7 +294,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         };
     }, [isSuccess]);
 
-    // this is used to resize bottom panel with when resizing window browser
+    // resize bottom panel width when resizing window browser
     useLayoutEffect(() => {
         function updateSize() {
             if (rootRef.current?.clientWidth) {
@@ -469,8 +306,8 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                 });
             }
             if (isSuccess || isFailure) {
-                const width =
-                    containerRef.current?.getBoundingClientRect().width;
+                const width = containerRef.current?.getBoundingClientRect()
+                    .width;
                 if (width) {
                     dispatch({
                         type: SET_IS_SUCCESS_WIDTH,
@@ -484,66 +321,14 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         return () => window.removeEventListener('resize', updateSize);
     }, [isSuccess, isFailure]);
 
-    const containerRef = useRef<HTMLDivElement>(null);
-    const loadingContainerRef = useRef<HTMLDivElement>(null);
-
-    const onDrop = useCallback((acceptedFiles: File[]) => {
-        setFileName(acceptedFiles[FIRST_FILE].name);
-        setIsUploading(true);
-        setIsSuccess(false);
-        setIsFailure(false);
-        acceptedFiles.forEach((file) => {
-            const workerInstance = worker();
-            workerRef.current = workerInstance;
-            workerInstance.onmessage = (e: any) => {
-                const { base64StringFile } = e.data;
-                if (base64StringFile === NO_BASE64STRINGFILE) {
-                    workerRef.current?.terminate();
-                    setIsFailure(true);
-                    setIsSuccess(false);
-                    setIsUploading(false);
-                    setTimeout(() => {
-                        if (isMounted.current) setIsFailure(false);
-                    }, messageDuration);
-                } else if (base64StringFile !== undefined) {
-                    workerRef.current?.terminate();
-                    base64StringFileRef.current = base64StringFile;
-                    setIsSuccess(true);
-                    setIsFailure(false);
-                    setIsUploading(false);
-                    setTimeout(() => {
-                        if (isMounted.current) {
-                            setIsSuccess(false);
-                        }
-                    }, messageDuration);
-                }
-            };
-            workerInstance.postMessage({ file });
-            dispatch({ type: SET_IS_DRAG_ENTER, value: false });
-        });
-    }, []);
-    const onDragEnter = useCallback((event: React.DragEvent) => {
-        event.preventDefault();
-        dispatch({ type: SET_IS_DRAG_ENTER, value: true });
-    }, []);
-    const onDragLeave = useCallback((event: React.DragEvent) => {
-        event.preventDefault();
-        dispatch({ type: SET_IS_DRAG_ENTER, value: false });
-    }, []);
-    const { getRootProps, getInputProps, rootRef } = useDropzone({
-        onDrop,
-        onDragEnter,
-        onDragLeave,
-        disabled,
-    });
-
-    const renderChild = (): React.ReactElement | undefined => {
+    const renderBottomPanelContent = (): React.ReactElement | undefined => {
         if (isFailure) {
             return (
                 <IsFailureIsSuccessPanel
                     message={failureMessage}
                     iconColor={MainTheme.colors.statusColors.red}
                     IconToShow={TimesCircle}
+                    transitionDuration={animationDuration}
                 />
             );
         }
@@ -553,6 +338,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                     message={successMessage}
                     iconColor={MainTheme.colors.statusColors.green}
                     IconToShow={CheckCircle}
+                    transitionDuration={animationDuration}
                 />
             );
         }
@@ -584,6 +370,8 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
             overflow="hidden"
             height={state.height}
             margin={`${MARGIN}px`}
+            isWidthFitContent
+            transitionDuration={animationDuration}
         >
             <Container
                 {...getRootProps({
@@ -594,11 +382,12 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                     padding: '10px',
                     margin: `${MARGIN}px`,
                 })}
+                transitionDuration={animationDuration}
             >
                 <SubContainer
                     minHeight={minHeight}
                     minWidth={minWidth}
-                    disabled={disabled}
+                    disabled={isDisabled??false}
                 >
                     {state.isDragEnter ? (
                         <FileMovingAnimation />
@@ -646,8 +435,9 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                         : undefined
                 }
                 withFlexSpaceBetween={isFailure || isSuccess ? true : undefined}
+                transitionDuration={animationDuration}
             >
-                {renderChild()}
+                {renderBottomPanelContent()}
             </BottomPanel>
         </Container>
     );
