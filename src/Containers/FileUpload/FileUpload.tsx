@@ -82,6 +82,7 @@ export interface IFileUploadProps {
     animationDuration?: number;
 }
 
+/** multiple file upload */
 export const FileUpload: React.FC<IFileUploadProps> = ({
     title = TITLE,
     subTitle = SUBTITLE,
