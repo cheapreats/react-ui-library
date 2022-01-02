@@ -9,7 +9,7 @@ import React, {
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
 import { TextLayout } from '@Layouts';
-import { useDropzone } from 'react-dropzone';
+import Dropzone, { useDropzone } from 'react-dropzone';
 import { Image } from '@styled-icons/fa-solid/Image';
 import { CheckCircle } from '@styled-icons/fa-solid/CheckCircle';
 import { TimesCircle } from '@styled-icons/fa-solid/TimesCircle';
@@ -43,18 +43,19 @@ import reducer, {
 } from './reducer';
 
 const MESSAGE_DURATION = 1500;
-const SUCCESS_MESSAGE='Completed';
-const FAILURE_MESSAGE='Something went wrong';
-const TITLE='Drop your file here, or click to browse';
-const SUBTITLE='Admits any kind of file';
-const TRANSITION_HEIGHT_ANIMATION_DURATION = 500;
+const SUCCESS_MESSAGE = 'Completed';
+const FAILURE_MESSAGE = 'Something went wrong';
+const TITLE = 'Drop your files here, or click to browse';
+const SUBTITLE = 'Admits any kind of files';
+const TRANSITION_HEIGHT_ANIMATION_DURATION = 200;
 const FIRST_FILE = 0;
+const ONLY_ONE_FILE=1;
 
 const PADDING = 10;
 const MARGIN = 10;
 
 export interface IFileUploadProps {
-    /** the title message; default value: 'Drop your file here, or click to browse' */
+    /** the title message; default value: 'Drop your files here, or click to browse' */
     title?: string;
     /** the subtitle message; default value: 'Admits any kind of file' */
     subTitle?: string;
@@ -62,8 +63,8 @@ export interface IFileUploadProps {
     minHeight?: number;
     /** minimum width for the component; optional */
     minWidth?: number;
-    /** 
-     * function to process the file read and transformed to a base64 string; default: does nothing 
+    /**
+     * function to process the file read and transformed to a base64 string; default: does nothing
      * @param {string} base64StringFile the file read and transformed to a base64 string
      */
     doWithBase64StringFile?: (base64StringFile: string) => void;
@@ -76,23 +77,23 @@ export interface IFileUploadProps {
     /** time in ms of the presence of the bottom panel informing the result of the operation (sucess or failure); default value: 1500  */
     messageDuration?: number;
     /** if true, failure message will appear even after success operation; its purpose is to test the appearance of the failure message during development */
-    isTestIsFailure?:boolean;
-    /** height and fade in-fade out animation duration in ms; default value: 500 */
-    animationDuration?:number;
+    isTestIsFailure?: boolean;
+    /** height and fade in-fade out animation duration in ms; default value: 200 */
+    animationDuration?: number;
 }
 
 export const FileUpload: React.FC<IFileUploadProps> = ({
-    title=TITLE,
-    subTitle=SUBTITLE,
+    title = TITLE,
+    subTitle = SUBTITLE,
     minHeight,
     minWidth,
     doWithBase64StringFile = (base64StringFile: string) => null,
-    successMessage=SUCCESS_MESSAGE,
-    failureMessage=FAILURE_MESSAGE,
-    isDisabled=false,
+    successMessage = SUCCESS_MESSAGE,
+    failureMessage = FAILURE_MESSAGE,
+    isDisabled = false,
     messageDuration = MESSAGE_DURATION,
     isTestIsFailure,
-    animationDuration=TRANSITION_HEIGHT_ANIMATION_DURATION,
+    animationDuration = TRANSITION_HEIGHT_ANIMATION_DURATION,
 }): React.ReactElement => {
     const [isUploading, setIsUploading] = useState(false);
     const [isSuccess, setIsSuccess] = useState(false);
@@ -116,25 +117,33 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     const [fileName, setFileName] = useState<string>('');
 
     const workerRef = useRef<Worker>();
-    const base64StringFileRef = useRef<string>('');
-    const previousIsSuccessValue = useRef<boolean>(isSuccess);
     /**
      * ref to the most outer container, which contains everything else
      */
     const containerRef = useRef<HTMLDivElement>(null);
     const loadingContainerRef = useRef<HTMLDivElement>(null);
 
-    const onDrop = useCallback((acceptedFiles: File[]) => {
-        setFileName(acceptedFiles[FIRST_FILE].name);
-        setIsUploading(true);
-        setIsSuccess(false);
-        setIsFailure(false);
-        acceptedFiles.forEach((file) => {
+    /**
+     * recursive function; reads files sequentially;
+     */
+    const onDrop = useCallback(
+        (acceptedFiles: File[]) => {
+            const file = acceptedFiles[FIRST_FILE];
+            setFileName(file.name);
+            setIsUploading(true);
+            setIsSuccess(false);
+            setIsFailure(false);
             const workerInstance = worker();
             workerRef.current = workerInstance;
             workerInstance.onmessage = (e: any) => {
                 const { base64StringFile } = e.data;
-                if (base64StringFile === NO_BASE64STRINGFILE|| isTestIsFailure) {
+                if(base64StringFile===undefined){
+                    return
+                }
+                if (
+                    base64StringFile === NO_BASE64STRINGFILE ||
+                    isTestIsFailure
+                ) {
                     workerRef.current?.terminate();
                     setIsFailure(true);
                     setIsSuccess(false);
@@ -144,21 +153,25 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                     }, messageDuration);
                 } else if (base64StringFile !== undefined) {
                     workerRef.current?.terminate();
-                    base64StringFileRef.current = base64StringFile;
+                    doWithBase64StringFile(base64StringFile);
                     setIsSuccess(true);
                     setIsFailure(false);
                     setIsUploading(false);
                     setTimeout(() => {
                         if (isMounted.current) {
                             setIsSuccess(false);
+                            if(acceptedFiles.length>ONLY_ONE_FILE){
+                                onDrop(acceptedFiles.slice(1));
+                            }
                         }
                     }, messageDuration);
                 }
             };
             workerInstance.postMessage({ file });
             dispatch({ type: SET_IS_DRAG_ENTER, value: false });
-        });
-    }, [isTestIsFailure]);
+        },
+        [isTestIsFailure],
+    );
 
     const onDragEnter = useCallback((event: React.DragEvent) => {
         event.preventDefault();
@@ -173,18 +186,8 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         onDrop,
         onDragEnter,
         onDragLeave,
-        disabled:isDisabled,
+        disabled: isDisabled,
     });
-
-    // execute setBase64 function after the animation finishes
-    useEffect(() => {
-        if (previousIsSuccessValue.current) {
-            setTimeout(() => {
-                doWithBase64StringFile(base64StringFileRef.current);
-            }, animationDuration);
-        }
-        previousIsSuccessValue.current = isSuccess;
-    }, [isSuccess,animationDuration]);
 
     // calculate (set) some values after the first render
     useEffect(() => {
@@ -373,36 +376,44 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
             isWidthFitContent
             transitionDuration={animationDuration}
         >
-            <Container
-                {...getRootProps({
-                    dashed: true,
-                    withFlexCenter: true,
-                    withBorder: !state.isDragEnter,
-                    isDragEnter: state.isDragEnter,
-                    padding: '10px',
-                    margin: `${MARGIN}px`,
-                })}
-                transitionDuration={animationDuration}
-            >
-                <SubContainer
-                    minHeight={minHeight}
-                    minWidth={minWidth}
-                    disabled={isDisabled??false}
-                >
-                    {state.isDragEnter ? (
-                        <FileMovingAnimation />
-                    ) : (
-                        <Icon as={Image} width={140} height={80} />
-                    )}
-                    <TextLayout bold color="DarkBlue">
-                        {title}
-                    </TextLayout>
-                    <TextLayout size="small" bold color="rgba(128,128,128,.8)">
-                        {subTitle}
-                    </TextLayout>
-                    <input {...getInputProps()} />
-                </SubContainer>
-            </Container>
+            <Dropzone multiple>
+                {() => (
+                    <Container
+                        {...getRootProps({
+                            dashed: true,
+                            withFlexCenter: true,
+                            withBorder: !state.isDragEnter,
+                            isDragEnter: state.isDragEnter,
+                            padding: '10px',
+                            margin: `${MARGIN}px`,
+                        })}
+                        transitionDuration={animationDuration}
+                    >
+                        <SubContainer
+                            minHeight={minHeight}
+                            minWidth={minWidth}
+                            disabled={isDisabled ?? false}
+                        >
+                            {state.isDragEnter ? (
+                                <FileMovingAnimation />
+                            ) : (
+                                <Icon as={Image} width={140} height={80} />
+                            )}
+                            <TextLayout bold color="DarkBlue">
+                                {title}
+                            </TextLayout>
+                            <TextLayout
+                                size="small"
+                                bold
+                                color="rgba(128,128,128,.8)"
+                            >
+                                {subTitle}
+                            </TextLayout>
+                            <input {...getInputProps()} />
+                        </SubContainer>
+                    </Container>
+                )}
+            </Dropzone>
             <BottomPanel
                 isUploading={isUploading}
                 onCancelUploading={onCancelUploading}
