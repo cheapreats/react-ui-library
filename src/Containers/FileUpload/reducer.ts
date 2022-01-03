@@ -327,18 +327,9 @@ const reducer = (state: IFileUploadState, action: Action): IFileUploadState => {
         case REMOVE_LOADING_IS_SUCCESS_IS_FAILURE:
             return {
                 ...state,
-                loading:state.loading.filter((_,index)=>{
-                    if(index===action.index)return false
-                    return true
-                }),
-                isSuccess:state.isSuccess.filter((_,index)=>{
-                    if(index===action.index)return false
-                    return true
-                }),
-                isFailure:state.isFailure.filter((_,index)=>{
-                    if(index===action.index)return false
-                    return true
-                })
+                loading:state.loading.filter((_,index)=>index!==action.index),
+                isSuccess:state.isSuccess.filter((_,index)=>index!==action.index),
+                isFailure:state.isFailure.filter((_,index)=>index!==action.index)
             }
         default:
             return state;

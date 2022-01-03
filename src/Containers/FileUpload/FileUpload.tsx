@@ -21,7 +21,7 @@ import { Loading } from '../Loading/Loading';
 import { BottomPanel } from './BottomPanel';
 import { Container, Icon } from './StyledComponents';
 import { FileMovingAnimation } from './FileMovingAnimation';
-import { IsFailureIsSuccessPanel } from './IsFailureIsSuccessPanel';
+import { IsFailureIsSuccessPanel,IIsFailureIsSuccessPanelProps } from './IsFailureIsSuccessPanel';
 import { NO_BASE64STRINGFILE } from './constants';
 import reducer, {
     IFileUploadState,
@@ -74,9 +74,11 @@ interface IValue {
     isFailure: ISpecificValues;
     /** is uploading state for the panel */
     isUploading: ISpecificValues;
-    /** name of file */
+    /** name of file associated with the informative panel */
     name: string;
+    /** worker; will do the job of reading the file */
     worker: Worker;
+    /** the file associated with the informative panel */
     file: File;
 }
 
@@ -159,6 +161,9 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     const containerRef = useRef<HTMLDivElement>(null);
     const loadingContainerRef = useRef<HTMLDivElement>(null);
 
+    /**
+     * load array of informative panels (values) and send order to start workers
+     */
     const onDrop = useCallback((acceptedFiles: File[]) => {
         const valuesToAdd: IValue[] = [];
         acceptedFiles.forEach((file) => {
@@ -180,6 +185,11 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         dispatch({ type: SET_IS_DRAG_ENTER, value: false });
     }, []);
 
+    /**
+     * terminate worker and set state of informative panel to success or failure and 
+     * send order to remove informative panel in the future. also do whatever user 
+     * wants to do with the file read in case of success
+     */
     const onWorkerMessage = useCallback(
         (e: any) => {
             const { base64StringFile, name } = e.data;
@@ -215,7 +225,6 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                         }),
                         makeItDisappear:[...prev.makeItDisappear,value.name]
                     }));
-                    
                 } else {
                     doWithBase64StringFile(base64StringFile);
                     setInformativePanelsState((prev) => ({
@@ -247,7 +256,8 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         [informativePanelsState.values, isTestIsFailure,doWithBase64StringFile],
     );
 
-    // start workers when files have been droped
+    // start workers after files have been droped and array of values (informative panels)
+    // are loaded
     useEffect(() => {
         if (informativePanelsState.startWorkers) {
             setInformativePanelsState((prev) => ({
@@ -259,7 +269,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                 value.worker.postMessage({ file: value.file });
             });
         }
-    }, [informativePanelsState.startWorkers, isTestIsFailure, onWorkerMessage]);
+    }, [informativePanelsState.startWorkers, onWorkerMessage]);
 
     // make disappear values (informative panels) in the future
     useEffect(() => { 
@@ -269,14 +279,8 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                     if (isMounted.current) {
                         setInformativePanelsState((prev) => ({
                             ...prev,
-                            values:prev.values.filter(value=>{
-                                if(value.name===name)return false
-                                return true
-                            }),
-                            makeItDisappear: prev.makeItDisappear.filter(name_=>{
-                                if(name_===name)return false
-                                return true
-                            }),
+                            values:prev.values.filter(value=>value.name!==name),
+                            makeItDisappear: prev.makeItDisappear.filter(name_=>name_!==name),
                         }));
                     }
                 }, messageDuration);
@@ -452,27 +456,30 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     //     return () => window.removeEventListener('resize', updateSize);
     // }, [isSuccess, isFailure]);
 
+    /** renders isSuccess panel, or isFailure panel, or isUploading panel, depending
+     * on the state of the informative panel
+     */
     const renderBottomPanelContent = useCallback(
         (value: IValue): React.ReactElement | undefined => {
+            let isFailureIsSuccessPanelProps:IIsFailureIsSuccessPanelProps|null=null
             if (value.isFailure.value) {
-                return (
-                    <IsFailureIsSuccessPanel
-                        message={failureMessage}
-                        iconColor={MainTheme.colors.statusColors.red}
-                        IconToShow={TimesCircle}
-                        transitionDuration={animationDuration}
-                    />
-                );
+                isFailureIsSuccessPanelProps={
+                    message:failureMessage,
+                    iconColor:MainTheme.colors.statusColors.red,
+                    IconToShow:TimesCircle,
+                    transitionDuration:animationDuration
+                }
             }
             if (value.isSuccess.value) {
-                return (
-                    <IsFailureIsSuccessPanel
-                        message={successMessage}
-                        iconColor={MainTheme.colors.statusColors.green}
-                        IconToShow={CheckCircle}
-                        transitionDuration={animationDuration}
-                    />
-                );
+                isFailureIsSuccessPanelProps={
+                    message:successMessage,
+                    iconColor:MainTheme.colors.statusColors.green,
+                    IconToShow:CheckCircle,
+                    transitionDuration:animationDuration
+                }
+            }
+            if(isFailureIsSuccessPanelProps){
+                return <IsFailureIsSuccessPanel {...isFailureIsSuccessPanelProps} />
             }
             if (value.isUploading.value) {
                 return (
@@ -487,14 +494,12 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         [],
     );
 
+    /** cancel uploading; terminate worker and remove informative panel */
     const onCancelUploading = (value: IValue) => () => {
         value.worker.terminate();
         setInformativePanelsState((prev) => ({
             ...prev,
-            values:prev.values.filter(value_=>{
-                if(value_.name===value.name)return false
-                return true
-            })
+            values:prev.values.filter(value_=>value_.name!==value.name)
         }));
     };
 

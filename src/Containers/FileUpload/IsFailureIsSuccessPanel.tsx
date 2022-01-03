@@ -3,7 +3,7 @@ import { TextLayout } from '@Layouts';
 import { StyledIcon } from '@styled-icons/styled-icon';
 import { Container, Icon, IContainerProps } from './StyledComponents';
 
-interface IIsFailureIsSuccessPanelProps extends IContainerProps{
+export interface IIsFailureIsSuccessPanelProps extends IContainerProps{
     IconToShow: StyledIcon;
     iconColor: string;
     message: string;
