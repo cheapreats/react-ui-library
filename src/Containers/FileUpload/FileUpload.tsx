@@ -40,6 +40,9 @@ import reducer, {
     LOADING_RESTORE,
     IS_FAILURE_RESTORE,
     IS_SUCCESS_RESTORE,
+    ADD_LOADING_IS_SUCCESS_IS_FAILURE,
+    RESET_LOADING_IS_SUCCESS_IS_FAILURE,
+    REMOVE_LOADING_IS_SUCCESS_IS_FAILURE,
 } from './reducer';
 
 const MESSAGE_DURATION = 1500;
@@ -48,11 +51,33 @@ const FAILURE_MESSAGE = 'Something went wrong';
 const TITLE = 'Drop your files here, or click to browse';
 const SUBTITLE = 'Admits any kind of files';
 const TRANSITION_HEIGHT_ANIMATION_DURATION = 200;
-const FIRST_FILE = 0;
-const ONLY_ONE_FILE=1;
 
 const PADDING = 10;
 const MARGIN = 10;
+
+interface ISpecificValues {
+    value: boolean;
+    opacity: number;
+    isPosition: boolean;
+}
+
+interface IValue {
+    isSuccess: ISpecificValues;
+    isFailure: ISpecificValues;
+    isUploading: ISpecificValues;
+    name: string;
+    worker: Worker;
+    file: File;
+}
+
+interface IInformativePanelsState {
+    values: IValue[];
+    /** index affected */
+    index: number;
+    name: string;
+    makeItDisappear: boolean;
+    startWorkers: boolean;
+}
 
 export interface IFileUploadProps {
     /** the title message; default value: 'Drop your files here, or click to browse' */
@@ -96,17 +121,22 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     isTestIsFailure,
     animationDuration = TRANSITION_HEIGHT_ANIMATION_DURATION,
 }): React.ReactElement => {
-    const [isUploading, setIsUploading] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
-    const [isFailure, setIsFailure] = useState(false);
+    const [informativePanelsState, setInformativePanelsState] =
+        useState<IInformativePanelsState>({
+            values: [],
+            index: -1,
+            makeItDisappear: false,
+            startWorkers: false,
+            name: '',
+        });
     const initState: IFileUploadState = {
         height: undefined,
         totalHeight: 0,
         totalHeightPlus: 0,
         maxHeight: undefined,
-        loading: { position: !isUploading, opacity: 0 },
-        isSuccess: { position: !isSuccess, opacity: 0 },
-        isFailure: { position: !isFailure, opacity: 0 },
+        loading: [],
+        isSuccess: [],
+        isFailure: [],
         positionTopLoading: 0,
         loadingContainerHeight: 0,
         componentWidth: 0,
@@ -115,69 +145,202 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     };
     const [state, dispatch] = useReducer(reducer, initState);
     const isMounted = useMounted();
-    const [fileName, setFileName] = useState<string>('');
 
-    const workerRef = useRef<Worker>();
+    const workerRef = useRef<Worker[]>([]);
     /**
      * ref to the most outer container, which contains everything else
      */
     const containerRef = useRef<HTMLDivElement>(null);
     const loadingContainerRef = useRef<HTMLDivElement>(null);
 
-    /**
-     * recursive function; reads files sequentially;
-     */
-    const onDrop = useCallback(
-        (acceptedFiles: File[]) => {
-            const file = acceptedFiles[FIRST_FILE];
-            setFileName(file.name);
-            setIsUploading(true);
-            setIsSuccess(false);
-            setIsFailure(false);
+    const onDrop = useCallback((acceptedFiles: File[]) => {
+        const valuesToAdd: IValue[] = [];
+        acceptedFiles.forEach((file) => {
             const workerInstance = worker();
-            workerRef.current = workerInstance;
-            workerInstance.onmessage = (e: any) => {
-                const { base64StringFile } = e.data;
-                if(base64StringFile===undefined){
-                    return
-                }
-                if (
-                    base64StringFile === NO_BASE64STRINGFILE ||
-                    isTestIsFailure
-                ) {
-                    workerRef.current?.terminate();
-                    setIsFailure(true);
-                    setIsSuccess(false);
-                    setIsUploading(false);
-                    setTimeout(() => {
-                        if (isMounted.current) setIsFailure(false);
-                    }, messageDuration);
-                } else if (base64StringFile !== undefined) {
-                    workerRef.current?.terminate();
-                    doWithBase64StringFile(base64StringFile);
-                    setIsSuccess(true);
-                    setIsFailure(false);
-                    setIsUploading(false);
+            valuesToAdd.push({
+                isSuccess: { value: false, isPosition: false, opacity: 1 },
+                isFailure: { value: false, isPosition: false, opacity: 1 },
+                isUploading: { value: true, isPosition: false, opacity: 1 },
+                name: file.name,
+                worker: workerInstance,
+                file,
+            });
+        });
+        setInformativePanelsState((prev) => ({
+            ...prev,
+            values: [...prev.values, ...valuesToAdd],
+            index: -1,
+            startWorkers: true,
+        }));
+        dispatch({ type: SET_IS_DRAG_ENTER, value: false });
+    }, []);
+
+    const onWorkerMessage = useCallback(
+        (e: any) => {
+            const { base64StringFile, name } = e.data;
+            if (base64StringFile === undefined) {
+                return;
+            }
+            if (base64StringFile === NO_BASE64STRINGFILE || isTestIsFailure) {
+                const value = informativePanelsState.values.find(
+                    (value_) => value_.name === name,
+                );
+                if (value) {
+                    value.worker.terminate();
+                    setInformativePanelsState((prev) => ({
+                        ...prev,
+                        values: prev.values.map((value_) => {
+                            if (value_.name === value.name)
+                                return {
+                                    ...value_,
+                                    isSuccess: {
+                                        ...value_.isSuccess,
+                                        value: false,
+                                    },
+                                    isFailure: {
+                                        ...value_.isFailure,
+                                        value: true,
+                                    },
+                                    isUploading: {
+                                        ...value_.isUploading,
+                                        value: false,
+                                    },
+                                };
+                            return value_;
+                        }),
+                    }));
                     setTimeout(() => {
                         if (isMounted.current) {
-                            setIsSuccess(false);
-                            if(acceptedFiles.length>ONLY_ONE_FILE){
-                                onDrop(acceptedFiles.slice(1));
-                            }
+                            setInformativePanelsState((prev) => ({
+                                ...prev,
+                                values: prev.values.map((value_) => {
+                                    if (value_.name === value.name)
+                                        return {
+                                            ...value_,
+                                            isSuccess: {
+                                                ...value_.isSuccess,
+                                                value: false,
+                                            },
+                                            isFailure: {
+                                                ...value_.isFailure,
+                                                value: false,
+                                            },
+                                            isUploading: {
+                                                ...value_.isUploading,
+                                                value: false,
+                                            },
+                                        };
+                                    return value_;
+                                }),
+                                makeItDisappear: true,
+                                name: value.name,
+                            }));
                         }
                     }, messageDuration);
                 }
-            };
-            workerInstance.postMessage({ file });
-            dispatch({ type: SET_IS_DRAG_ENTER, value: false });
+            } else {
+                const value = informativePanelsState.values.find(
+                    (value_) => value_.name === name,
+                );
+                if (value) {
+                    value.worker.terminate();
+                    doWithBase64StringFile(base64StringFile);
+                    setInformativePanelsState((prev) => ({
+                        ...prev,
+                        values: prev.values.map((value_) => {
+                            if (value_.name === value.name)
+                                return {
+                                    ...value_,
+                                    isSuccess: {
+                                        ...value_.isSuccess,
+                                        value: true,
+                                    },
+                                    isFailure: {
+                                        ...value_.isFailure,
+                                        value: false,
+                                    },
+                                    isUploading: {
+                                        ...value_.isUploading,
+                                        value: false,
+                                    },
+                                };
+                            return value_;
+                        }),
+                    }));
+                    setTimeout(() => {
+                        if (isMounted.current) {
+                            setInformativePanelsState((prev) => ({
+                                ...prev,
+                                values: prev.values.map((value_) => {
+                                    if (value_.name === value.name)
+                                        return {
+                                            ...value_,
+                                            isSuccess: {
+                                                ...value_.isSuccess,
+                                                value: false,
+                                            },
+                                            isFailure: {
+                                                ...value_.isFailure,
+                                                value: false,
+                                            },
+                                            isUploading: {
+                                                ...value_.isUploading,
+                                                value: false,
+                                            },
+                                        };
+                                    return value_;
+                                }),
+                                makeItDisappear: true,
+                                name: value.name,
+                            }));
+                        }
+                    }, messageDuration);
+                }
+            }
         },
-        [isTestIsFailure],
+        [informativePanelsState.values, isTestIsFailure],
     );
+
+    // start workers when files have been droped
+    useEffect(() => {
+        if (informativePanelsState.startWorkers) {
+            setInformativePanelsState((prev) => ({
+                ...prev,
+                startWorkers: false,
+            }));
+            informativePanelsState.values.forEach((value) => {
+                value.worker.onmessage = onWorkerMessage;
+                value.worker.postMessage({ file: value.file });
+            });
+        }
+    }, [informativePanelsState.startWorkers, isTestIsFailure, onWorkerMessage]);
+
+    // make disappear a value (informative panel)
+    useEffect(() => {
+        if (informativePanelsState.makeItDisappear) {
+            // const indexToRemove = informativePanelsState.index;
+            setInformativePanelsState((prev) => ({
+                ...prev,
+                values: prev.values.filter((value) => {
+                    if (value.name === prev.name) return false;
+                    return true;
+                }),
+                index: -1,
+                makeItDisappear: false,
+                name: '',
+            }));
+            // dispatch({
+            //     type: REMOVE_LOADING_IS_SUCCESS_IS_FAILURE,
+            //     index: indexToRemove,
+            // });
+        }
+    }, [informativePanelsState.makeItDisappear]);
 
     const onDragEnter = useCallback((event: React.DragEvent) => {
         event.preventDefault();
         dispatch({ type: SET_IS_DRAG_ENTER, value: true });
     }, []);
+
     const onDragLeave = useCallback((event: React.DragEvent) => {
         event.preventDefault();
         dispatch({ type: SET_IS_DRAG_ENTER, value: false });
@@ -191,177 +354,208 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     });
 
     // calculate (set) some values after the first render
-    useEffect(() => {
-        if (containerRef.current?.scrollHeight) {
-            const innerContentHeight =
-                containerRef.current.scrollHeight - PADDING * 2;
-            dispatch({
-                type: SET_INITIAL_HEIGHT_VALUES,
-                value: innerContentHeight,
-            });
-        }
-        if (rootRef.current?.clientWidth) {
-            const innerComponentWidth =
-                rootRef.current.clientWidth - MARGIN * 2 - PADDING * 2;
-            dispatch({ type: SET_COMPONENT_WIDTH, value: innerComponentWidth });
-        }
-    }, []);
+    // useEffect(() => {
+    //     if (containerRef.current?.scrollHeight) {
+    //         const innerContentHeight =
+    //             containerRef.current.scrollHeight - PADDING * 2;
+    //         console.log('set initial height values');
+    //         dispatch({
+    //             type: SET_INITIAL_HEIGHT_VALUES,
+    //             value: innerContentHeight,
+    //         });
+    //     }
+    //     if (rootRef.current?.clientWidth) {
+    //         const innerComponentWidth =
+    //             rootRef.current.clientWidth - MARGIN * 2 - PADDING * 2;
+    //         dispatch({ type: SET_COMPONENT_WIDTH, value: innerComponentWidth });
+    //     }
+    // }, []);
 
-    useEffect(() => {
-        // set some values the first time when the component it's expanded
-        if (
-            state.height === undefined &&
-            (isUploading || isSuccess || isFailure)
-        ) {
-            if (containerRef.current?.scrollHeight) {
-                dispatch({
-                    type: SET_TOTAL_HEIGHT_PLUS,
-                    value: containerRef.current.scrollHeight - PADDING * 2,
-                });
-            }
-            if (loadingContainerRef.current?.getBoundingClientRect().top) {
-                dispatch({
-                    type: SET_POSITION_TOP_LOADING,
-                    value:
-                        loadingContainerRef.current.getBoundingClientRect()
-                            .top - MARGIN,
-                });
-            }
-        }
-        // calculate and set the width of the success and failure container component
-        if (isSuccess || isFailure) {
-            const width = containerRef.current?.getBoundingClientRect().width;
-            if (width) {
-                dispatch({
-                    type: SET_IS_SUCCESS_WIDTH,
-                    value: width - PADDING * 2 - MARGIN * 2,
-                });
-            }
-        }
-        // sets height of the component, is used to transition between heights.
-        if (isUploading || isSuccess || isFailure) {
-            if (state.totalHeightPlus) {
-                dispatch({ type: SET_HEIGHT, value: state.totalHeightPlus });
-            } else {
-                dispatch({ type: SET_INITIAL_HEIGHT_PLUS_VALUES });
-            }
-        } else if (state.totalHeight) {
-            dispatch({ type: SET_HEIGHT, value: state.totalHeight });
-        }
-        // calculate and set isUploading container panel.
-        if (
-            isUploading &&
-            !isFailure &&
-            !isSuccess &&
-            loadingContainerRef.current?.scrollHeight
-        ) {
-            const loadingContainerHeight =
-                loadingContainerRef.current.scrollHeight;
-            dispatch({
-                type: SET_LOADING_CONTAINER_HEIGHT,
-                value: loadingContainerHeight,
-            });
-        }
-    }, [
-        state.height,
-        isUploading,
-        isSuccess,
-        isFailure,
-        state.totalHeight,
-        state.totalHeightPlus,
-    ]);
+    // useEffect(() => {
+    //     // set some values the first time when the component it's expanded
+    //     if (
+    //         state.height === undefined &&
+    //         (isUploading.reduce((acc,value)=>acc||value,false) || isSuccess.reduce((acc,value)=>acc||value,false) || isFailure.reduce((acc,value)=>acc||value,false))
+    //     ) {
+    //         console.log('set total height plus')
+    //         if (containerRef.current?.scrollHeight) {
+    //             dispatch({
+    //                 type: SET_TOTAL_HEIGHT_PLUS,
+    //                 value: containerRef.current.scrollHeight - PADDING * 2,
+    //             });
+    //         }
+    //         if (loadingContainerRef.current?.getBoundingClientRect().top) {
+    //             dispatch({
+    //                 type: SET_POSITION_TOP_LOADING,
+    //                 value:
+    //                     loadingContainerRef.current.getBoundingClientRect()
+    //                         .top - MARGIN,
+    //             });
+    //         }
+    //     }
+    //     // calculate and set the width of the success and failure container component
+    //     if (isSuccess.reduce((acc,value)=>acc||value,false) || isFailure.reduce((acc,value)=>acc||value,false) ) {
+    //         const width = containerRef.current?.getBoundingClientRect().width;
+    //         if (width) {
+    //             dispatch({
+    //                 type: SET_IS_SUCCESS_WIDTH,
+    //                 value: width - PADDING * 2 - MARGIN * 2,
+    //             });
+    //         }
+    //     }
+    //     // sets height of the component, is used to transition between heights.
+    //     if (isUploading.reduce((acc,value)=>acc||value,false)  || isSuccess.reduce((acc,value)=>acc||value,false)  || isFailure.reduce((acc,value)=>acc||value,false) ) {
+    //         console.log('setting totalheightplus or initial height plus values');
+    //         if (state.totalHeightPlus) {
+    //             dispatch({ type: SET_HEIGHT, value: state.totalHeightPlus });
+    //         } else {
+    //             dispatch({ type: SET_INITIAL_HEIGHT_PLUS_VALUES });
+    //         }
+    //     } else if (state.totalHeight) {
+    //         dispatch({ type: SET_HEIGHT, value: state.totalHeight });
+    //     }
+    //     // calculate and set isUploading container panel.
+    //     if (
+    //         isUploading.reduce((acc,value)=>acc||value,false)  &&
+    //         !isFailure.reduce((acc,value)=>acc||value,false)  &&
+    //         !isSuccess.reduce((acc,value)=>acc||value,false)  &&
+    //         loadingContainerRef.current?.scrollHeight
+    //     ) {
+    //         console.log('setting loading container height');
+    //         const loadingContainerHeight =
+    //             loadingContainerRef.current.scrollHeight;
+    //         dispatch({
+    //             type: SET_LOADING_CONTAINER_HEIGHT,
+    //             value: loadingContainerHeight,
+    //         });
+    //     }
+    // }, [
+    //     state.height,
+    //     isUploading,
+    //     isSuccess,
+    //     isFailure,
+    //     state.totalHeight,
+    //     state.totalHeightPlus,
+    // ]);
 
-    useEffect(() => {
-        if (!isUploading) {
-            dispatch({ type: SET_OPACITY_LOADING, value: 0 });
-        }
-        return () => {
-            dispatch({ type: LOADING_RESTORE });
-        };
-    }, [isUploading]);
+    // useEffect(() => {
+    //     isUploading.forEach((value,index)=>{
+    //         if(!value){
+    //             dispatch({ type: SET_OPACITY_LOADING, value: 0,index });
+    //         }
+    //     })
+    //     return () => {
+    //         isUploading.forEach((_,index)=>{
+    //             dispatch({ type: LOADING_RESTORE,index });
+    //         })
+    //     };
+    // }, [isUploading]);
 
-    useEffect(() => {
-        if (!isFailure) {
-            dispatch({ type: SET_OPACITY_IS_FAILURE, value: 0 });
-        }
-        return () => {
-            dispatch({ type: IS_FAILURE_RESTORE });
-        };
-    }, [isFailure]);
+    // useEffect(() => {
+    //     isFailure.forEach((value,index)=>{
+    //         if(!value){
+    //             dispatch({ type: SET_OPACITY_IS_FAILURE, value: 0,index });
+    //         }
+    //     })
+    //     return () => {
+    //         isFailure.forEach((_,index)=>{
+    //             dispatch({ type: IS_FAILURE_RESTORE,index });
+    //         })
+    //     };
+    // }, [isFailure]);
 
-    useEffect(() => {
-        if (!isSuccess) {
-            dispatch({ type: SET_OPACITY_IS_SUCCESS, value: 0 });
-        }
-        return () => {
-            dispatch({ type: IS_SUCCESS_RESTORE });
-        };
-    }, [isSuccess]);
+    // useEffect(() => {
+    //     isSuccess.forEach((value,index)=>{
+    //         if(!value){
+    //             dispatch({ type: SET_OPACITY_IS_SUCCESS, value: 0,index });
+    //         }
+    //     })
+    //     return () => {
+    //         isFailure.forEach((_,index)=>{
+    //             dispatch({ type: IS_SUCCESS_RESTORE,index });
+    //         })
+    //     };
+    // }, [isSuccess]);
 
     // resize bottom panel width when resizing window browser
-    useLayoutEffect(() => {
-        function updateSize() {
-            if (rootRef.current?.clientWidth) {
-                const innerComponentWidth =
-                    rootRef.current.clientWidth - MARGIN * 2 - PADDING * 2;
-                dispatch({
-                    type: SET_COMPONENT_WIDTH,
-                    value: innerComponentWidth,
-                });
-            }
-            if (isSuccess || isFailure) {
-                const width = containerRef.current?.getBoundingClientRect()
-                    .width;
-                if (width) {
-                    dispatch({
-                        type: SET_IS_SUCCESS_WIDTH,
-                        value: width - PADDING * 2 - MARGIN * 2,
-                    });
-                }
-            }
-        }
-        window.addEventListener('resize', updateSize);
-        updateSize();
-        return () => window.removeEventListener('resize', updateSize);
-    }, [isSuccess, isFailure]);
+    // useLayoutEffect(() => {
+    //     function updateSize() {
+    //         if (rootRef.current?.clientWidth) {
+    //             const innerComponentWidth =
+    //                 rootRef.current.clientWidth - MARGIN * 2 - PADDING * 2;
+    //             dispatch({
+    //                 type: SET_COMPONENT_WIDTH,
+    //                 value: innerComponentWidth,
+    //             });
+    //         }
+    //         if (isSuccess || isFailure) {
+    //             const width =
+    //                 containerRef.current?.getBoundingClientRect().width;
+    //             if (width) {
+    //                 dispatch({
+    //                     type: SET_IS_SUCCESS_WIDTH,
+    //                     value: width - PADDING * 2 - MARGIN * 2,
+    //                 });
+    //             }
+    //         }
+    //     }
+    //     window.addEventListener('resize', updateSize);
+    //     updateSize();
+    //     return () => window.removeEventListener('resize', updateSize);
+    // }, [isSuccess, isFailure]);
 
-    const renderBottomPanelContent = (): React.ReactElement | undefined => {
-        if (isFailure) {
-            return (
-                <IsFailureIsSuccessPanel
-                    message={failureMessage}
-                    iconColor={MainTheme.colors.statusColors.red}
-                    IconToShow={TimesCircle}
-                    transitionDuration={animationDuration}
-                />
-            );
-        }
-        if (isSuccess) {
-            return (
-                <IsFailureIsSuccessPanel
-                    message={successMessage}
-                    iconColor={MainTheme.colors.statusColors.green}
-                    IconToShow={CheckCircle}
-                    transitionDuration={animationDuration}
-                />
-            );
-        }
-        if (isUploading) {
-            return (
-                <Loading
-                    loading={isUploading}
-                    message={`Uploading ${fileName}`}
-                />
-            );
-        }
-        return undefined;
-    };
+    const renderBottomPanelContent = useCallback(
+        (value: IValue): React.ReactElement | undefined => {
+            if (value.isFailure.value) {
+                return (
+                    <IsFailureIsSuccessPanel
+                        message={failureMessage}
+                        iconColor={MainTheme.colors.statusColors.red}
+                        IconToShow={TimesCircle}
+                        transitionDuration={animationDuration}
+                    />
+                );
+            }
+            if (value.isSuccess.value) {
+                return (
+                    <IsFailureIsSuccessPanel
+                        message={successMessage}
+                        iconColor={MainTheme.colors.statusColors.green}
+                        IconToShow={CheckCircle}
+                        transitionDuration={animationDuration}
+                    />
+                );
+            }
+            if (value.isUploading.value) {
+                return (
+                    <Loading
+                        loading={value.isUploading.value}
+                        message={`Uploading ${value.name}`}
+                    />
+                );
+            }
+            return undefined;
+        },
+        [],
+    );
 
-    const onCancelUploading = () => {
-        if (workerRef.current) {
-            workerRef.current.terminate();
-            setIsUploading(false);
-        }
+    const onCancelUploading = (index: number) => () => {
+        workerRef.current[index].terminate();
+        setInformativePanelsState((prev) => ({
+            ...prev,
+            values: prev.values.map((value, index_) => {
+                if (index_ === index)
+                    return {
+                        ...value,
+                        isSuccess: { ...value.isSuccess, value: false },
+                        isFailure: { ...value.isFailure, value: false },
+                        isUploading: { ...value.isUploading, value: false },
+                    };
+                return value;
+            }),
+            index,
+            makeItDisappear: true,
+        }));
     };
 
     return (
@@ -415,42 +609,51 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                     </Container>
                 )}
             </Dropzone>
-            <BottomPanel
-                isUploading={isUploading}
-                onCancelUploading={onCancelUploading}
-                withBorder
-                padding={
-                    isFailure || isSuccess ? undefined : '30px 20px 43px 20px'
-                }
-                opacity={
-                    state.loading.opacity ||
-                    state.isSuccess.opacity ||
-                    state.isFailure.opacity
-                }
-                position={
-                    state.loading.position &&
-                    state.isFailure.position &&
-                    state.isSuccess.position
-                }
-                ref={loadingContainerRef}
-                overflow="hidden"
-                width={
-                    isFailure || isSuccess
-                        ? state.isSuccessWidth
-                        : state.componentWidth
-                }
-                margin={`${MARGIN}px`}
-                positionTop={state.positionTopLoading}
-                height={
-                    isFailure || isSuccess
-                        ? state.loadingContainerHeight
-                        : undefined
-                }
-                withFlexSpaceBetween={isFailure || isSuccess ? true : undefined}
-                transitionDuration={animationDuration}
-            >
-                {renderBottomPanelContent()}
-            </BottomPanel>
+            {informativePanelsState.values.map((value, index) => (
+                <BottomPanel
+                    key={index} //eslint-disable-line
+                    isUploading={value.isUploading.value}
+                    onCancelUploading={onCancelUploading(index)}
+                    withBorder
+                    padding={
+                        value.isFailure.value || value.isSuccess.value
+                            ? undefined
+                            : '30px 20px 43px 20px'
+                    }
+                    opacity={
+                        value.isUploading.opacity ||
+                        value.isSuccess.opacity ||
+                        value.isFailure.opacity
+                    }
+                    position={
+                        value.isUploading.isPosition &&
+                        value.isFailure.isPosition &&
+                        value.isSuccess.isPosition
+                    }
+                    ref={loadingContainerRef}
+                    overflow="hidden"
+                    width={
+                        value.isFailure.value || value.isSuccess.value
+                            ? state.isSuccessWidth
+                            : state.componentWidth
+                    }
+                    margin={`${MARGIN}px`}
+                    positionTop={state.positionTopLoading}
+                    height={
+                        value.isFailure.value || value.isSuccess.value
+                            ? state.loadingContainerHeight
+                            : undefined
+                    }
+                    withFlexSpaceBetween={
+                        value.isFailure.value || value.isSuccess.value
+                            ? true
+                            : undefined
+                    }
+                    transitionDuration={animationDuration}
+                >
+                    {renderBottomPanelContent(value)}
+                </BottomPanel>
+            ))}
         </Container>
     );
 };

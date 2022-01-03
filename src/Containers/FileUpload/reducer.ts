@@ -10,9 +10,9 @@ export interface IFileUploadState {
     totalHeight: number;
     totalHeightPlus: number;
     maxHeight: number | undefined;
-    loading: IOptions;
-    isSuccess: IOptions;
-    isFailure: IOptions;
+    loading: IOptions[];
+    isSuccess: IOptions[];
+    isFailure: IOptions[];
     positionTopLoading: number;
     loadingContainerHeight: number;
     componentWidth: number;
@@ -43,6 +43,9 @@ export const IS_FAILURE_FADE_OUT = 'IS_FAILURE_FADE_OUT';
 export const IS_FAILURE_RESTORE = 'IS_FAILURE_RESTORE';
 export const SET_INITIAL_HEIGHT_VALUES = 'SET_INITIAL_HEIGHT_VALUES';
 export const SET_INITIAL_HEIGHT_PLUS_VALUES = 'SET_INITIAL_HEIGHT_PLUS_VALUES';
+export const ADD_LOADING_IS_SUCCESS_IS_FAILURE='ADD_LOADING_IS_SUCCESS_IS_FAILURE';
+export const RESET_LOADING_IS_SUCCESS_IS_FAILURE='RESET_LOADING_IS_SUCCESS_IS_FAILURE'
+export const REMOVE_LOADING_IS_SUCCESS_IS_FAILURE='REMOVE_LOADING_IS_SUCCESS_IS_FAILURE'
 
 type Action =
     | {
@@ -56,30 +59,46 @@ type Action =
               | 'SET_TOTAL_HEIGHT_PLUS'
               | 'SET_POSITION_TOP_LOADING'
               | 'SET_IS_SUCCESS_WIDTH'
-              | 'SET_OPACITY_LOADING'
-              | 'SET_OPACITY_IS_SUCCESS'
-              | 'SET_OPACITY_IS_FAILURE'
               | 'SET_LOADING_CONTAINER_HEIGHT'
               | 'SET_INITIAL_HEIGHT_VALUES';
           value: number;
       }
     | {
           type:
+              | 'SET_OPACITY_LOADING'
+              | 'SET_OPACITY_IS_SUCCESS'
+              | 'SET_OPACITY_IS_FAILURE';
+          value: number;
+          index: number;
+      }
+    | {
+          type:
               | 'SET_POSITION_LOADING'
               | 'SET_POSITION_IS_SUCCESS'
-              | 'SET_POSITION_IS_FAILURE'
-              | 'SET_IS_DRAG_ENTER';
+              | 'SET_POSITION_IS_FAILURE';
+          index: number;
+          value: boolean;
+      }
+    | {
+          type: 'SET_IS_DRAG_ENTER';
           value: boolean;
       }
     | {
           type:
-              | 'LOADING_FADE_OUT'
               | 'LOADING_RESTORE'
+              | 'LOADING_FADE_OUT'
               | 'IS_SUCCESS_FADE_OUT'
               | 'IS_SUCCESS_RESTORE'
               | 'IS_FAILURE_FADE_OUT'
               | 'IS_FAILURE_RESTORE'
-              | 'SET_INITIAL_HEIGHT_PLUS_VALUES';
+              |'REMOVE_LOADING_IS_SUCCESS_IS_FAILURE';
+          index: number;
+      }
+    | {
+          type: |'SET_INITIAL_HEIGHT_PLUS_VALUES'|'RESET_LOADING_IS_SUCCESS_IS_FAILURE';
+      }|{
+          type:|'ADD_LOADING_IS_SUCCESS_IS_FAILURE';
+          value:IOptions;
       };
 
 const reducer = (state: IFileUploadState, action: Action): IFileUploadState => {
@@ -122,50 +141,74 @@ const reducer = (state: IFileUploadState, action: Action): IFileUploadState => {
         case SET_OPACITY_LOADING:
             return {
                 ...state,
-                loading: {
-                    ...state.loading,
-                    opacity: action.value,
-                },
+                loading: state.loading.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...state.loading[index],
+                            opacity: action.value,
+                        };
+                    return value;
+                }),
             };
         case SET_POSITION_LOADING:
             return {
                 ...state,
-                loading: {
-                    ...state.loading,
-                    position: action.value,
-                },
+                loading: state.loading.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...value,
+                            position: action.value,
+                        };
+                    return value;
+                }),
             };
         case SET_OPACITY_IS_SUCCESS:
             return {
                 ...state,
-                isSuccess: {
-                    ...state.isSuccess,
-                    opacity: action.value,
-                },
+                isSuccess: state.isSuccess.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...value,
+                            opacity: action.value,
+                        };
+                    return value;
+                }),
             };
         case SET_POSITION_IS_SUCCESS:
             return {
                 ...state,
-                isSuccess: {
-                    ...state.isSuccess,
-                    position: action.value,
-                },
+                isSuccess: state.isSuccess.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...value,
+                            position: action.value,
+                        };
+                    return value;
+                }),
             };
         case SET_OPACITY_IS_FAILURE:
             return {
                 ...state,
-                isFailure: {
-                    ...state.isFailure,
-                    opacity: action.value,
-                },
+                isFailure: state.isFailure.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...value,
+                            opacity: action.value,
+                        };
+                    return value;
+                }),
             };
         case SET_POSITION_IS_FAILURE:
             return {
                 ...state,
-                isFailure: {
-                    ...state.isFailure,
-                    position: action.value,
-                },
+                isFailure: state.isFailure.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...value,
+                            position: action.value,
+                        };
+                    return value;
+                }),
             };
         case SET_LOADING_CONTAINER_HEIGHT:
             return {
@@ -180,56 +223,80 @@ const reducer = (state: IFileUploadState, action: Action): IFileUploadState => {
         case LOADING_FADE_OUT:
             return {
                 ...state,
-                loading: {
-                    ...state.loading,
-                    opacity: 0,
-                    position: true,
-                },
+                loading: state.loading.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...value,
+                            opacity: 0,
+                            position: true,
+                        };
+                    return value;
+                }),
             };
         case LOADING_RESTORE:
             return {
                 ...state,
-                loading: {
-                    ...state.loading,
-                    opacity: 1,
-                    position: false,
-                },
+                loading: state.loading.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...value,
+                            opacity: 1,
+                            position: false,
+                        };
+                    return value;
+                }),
             };
         case IS_SUCCESS_FADE_OUT:
             return {
                 ...state,
-                isSuccess: {
-                    ...state.isSuccess,
-                    opacity: 0,
-                    position: true,
-                },
+                isSuccess: state.isSuccess.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...value,
+                            opacity: 0,
+                            position: true,
+                        };
+                    return value;
+                }),
             };
         case IS_SUCCESS_RESTORE:
             return {
                 ...state,
-                isSuccess: {
-                    ...state.isSuccess,
-                    opacity: 1,
-                    position: false,
-                },
+                isSuccess: state.isSuccess.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...value,
+                            opacity: 1,
+                            position: false,
+                        };
+                    return value;
+                }),
             };
         case IS_FAILURE_FADE_OUT:
             return {
                 ...state,
-                isFailure: {
-                    ...state.isFailure,
-                    opacity: 0,
-                    position: true,
-                },
+                isFailure: state.isFailure.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...value,
+                            opacity: 0,
+                            position: true,
+                        };
+                    return value;
+                }),
             };
         case IS_FAILURE_RESTORE:
             return {
                 ...state,
-                isFailure: {
-                    ...state.isFailure,
-                    opacity: 1,
-                    position: false,
-                },
+                isFailure: state.isFailure.map((value, index) => {
+                    if (index === action.index)
+                        return {
+                            ...value,
+                            opacity: 1,
+                            position: false,
+                        };
+                    return value;
+                }),
             };
         case SET_INITIAL_HEIGHT_VALUES:
             return {
@@ -243,6 +310,36 @@ const reducer = (state: IFileUploadState, action: Action): IFileUploadState => {
                 height: undefined,
                 maxHeight: MAX_HEIGHT,
             };
+        case ADD_LOADING_IS_SUCCESS_IS_FAILURE:
+            return {
+                ...state,
+                loading:[...state.loading,{position:action.value.position,opacity:action.value.opacity}],
+                isSuccess:[...state.isSuccess,{position:action.value.position,opacity:action.value.opacity}],
+                isFailure:[...state.isFailure,{position:action.value.position,opacity:action.value.opacity}]
+            };
+        case RESET_LOADING_IS_SUCCESS_IS_FAILURE:
+            return{
+                ...state,
+                loading:[],
+                isSuccess:[],
+                isFailure:[],
+            };
+        case REMOVE_LOADING_IS_SUCCESS_IS_FAILURE:
+            return {
+                ...state,
+                loading:state.loading.filter((_,index)=>{
+                    if(index===action.index)return false
+                    return true
+                }),
+                isSuccess:state.isSuccess.filter((_,index)=>{
+                    if(index===action.index)return false
+                    return true
+                }),
+                isFailure:state.isFailure.filter((_,index)=>{
+                    if(index===action.index)return false
+                    return true
+                })
+            }
         default:
             return state;
     }

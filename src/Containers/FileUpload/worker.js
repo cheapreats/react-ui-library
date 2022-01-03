@@ -15,7 +15,7 @@ onmessage = (e) => {
                 );
             }
         }
-        postMessage({ base64StringFile });
+        postMessage({ base64StringFile,name:file.name });
     };
     reader.readAsArrayBuffer(file);
 };
