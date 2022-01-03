@@ -45,3 +45,9 @@ LongAnimationDuration.args = {
     ...Basic.args,
     animationDuration: 5000,
 };
+
+export const IsDisabled = Basic.bind({});
+IsDisabled.args = {
+    ...Basic.args,
+    isDisabled: true,
+};

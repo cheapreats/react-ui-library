@@ -45,6 +45,9 @@ import reducer, {
     REMOVE_LOADING_IS_SUCCESS_IS_FAILURE,
 } from './reducer';
 
+// TODO: Add animations if possible (height transitions of the container component (expansion-contraction))
+// and fade-in, fade-out effect of the informative panels.
+
 const MESSAGE_DURATION = 1500;
 const SUCCESS_MESSAGE = 'Completed';
 const FAILURE_MESSAGE = 'Something went wrong';
@@ -114,7 +117,7 @@ export interface IFileUploadProps {
     animationDuration?: number;
 }
 
-/** multiple file upload */
+/** multiple file upload in parallel */
 export const FileUpload: React.FC<IFileUploadProps> = ({
     title = TITLE,
     subTitle = SUBTITLE,
