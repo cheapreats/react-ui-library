@@ -87,8 +87,8 @@ interface IInformativePanelsState {
     values: IValue[];
     /** names of files already uploaded, or failed, or cancelled */
     makeItDisappear: string[];
-    /** when true workers associated with the array of values (panels) will start */
-    startWorkers: boolean;
+    /** names of files for which we want to start workers */
+    startWorkers: string[];
 }
 
 export interface IFileUploadProps {
@@ -137,7 +137,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         useState<IInformativePanelsState>({
             values: [],
             makeItDisappear: [],
-            startWorkers: false,
+            startWorkers: [],
         });
     const initState: IFileUploadState = {
         height: undefined,
@@ -165,22 +165,22 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
      * load array of informative panels (values) and send order to start workers
      */
     const onDrop = useCallback((acceptedFiles: File[]) => {
-        const valuesToAdd: IValue[] = [];
-        acceptedFiles.forEach((file) => {
+        const informativePanels=acceptedFiles.map((file) => {
             const workerInstance = worker();
-            valuesToAdd.push({
+            return{
                 isSuccess: { value: false, isPosition: false, opacity: 1 },
                 isFailure: { value: false, isPosition: false, opacity: 1 },
                 isUploading: { value: true, isPosition: false, opacity: 1 },
                 name: file.name,
                 worker: workerInstance,
                 file,
-            });
+            };
         });
+        const fileNames=acceptedFiles.map(file=>file.name)
         setInformativePanelsState((prev) => ({
             ...prev,
-            values: [...prev.values, ...valuesToAdd],
-            startWorkers: true,
+            values: [...prev.values, ...informativePanels],
+            startWorkers: [...fileNames],
         }));
         dispatch({ type: SET_IS_DRAG_ENTER, value: false });
     }, []);
@@ -259,17 +259,20 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     // start workers after files have been droped and array of values (informative panels)
     // are loaded
     useEffect(() => {
-        if (informativePanelsState.startWorkers) {
+        if (informativePanelsState.startWorkers.length) {
+            informativePanelsState.startWorkers.forEach(name=>{
+                const informativePanel= informativePanelsState.values.find(value=>value.name===name);
+                if(informativePanel){
+                    informativePanel.worker.onmessage=onWorkerMessage;
+                    informativePanel.worker.postMessage({file:informativePanel.file});
+                }
+            });
             setInformativePanelsState((prev) => ({
                 ...prev,
-                startWorkers: false,
+                startWorkers: [],
             }));
-            informativePanelsState.values.forEach((value) => {
-                value.worker.onmessage = onWorkerMessage;
-                value.worker.postMessage({ file: value.file });
-            });
         }
-    }, [informativePanelsState.startWorkers, onWorkerMessage]);
+    }, [informativePanelsState.startWorkers.length, onWorkerMessage]);
 
     // make disappear values (informative panels) in the future
     useEffect(() => { 
