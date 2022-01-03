@@ -318,7 +318,6 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     // make disappear a value (informative panel)
     useEffect(() => {
         if (informativePanelsState.makeItDisappear) {
-            // const indexToRemove = informativePanelsState.index;
             setInformativePanelsState((prev) => ({
                 ...prev,
                 values: prev.values.filter((value) => {
@@ -329,10 +328,6 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                 makeItDisappear: false,
                 name: '',
             }));
-            // dispatch({
-            //     type: REMOVE_LOADING_IS_SUCCESS_IS_FAILURE,
-            //     index: indexToRemove,
-            // });
         }
     }, [informativePanelsState.makeItDisappear]);
 
@@ -539,22 +534,22 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         [],
     );
 
-    const onCancelUploading = (index: number) => () => {
-        workerRef.current[index].terminate();
+    const onCancelUploading = (value: IValue) => () => {
+        value.worker.terminate();
         setInformativePanelsState((prev) => ({
             ...prev,
-            values: prev.values.map((value, index_) => {
-                if (index_ === index)
+            values: prev.values.map((value_) => {
+                if (value_.name === value.name)
                     return {
-                        ...value,
-                        isSuccess: { ...value.isSuccess, value: false },
-                        isFailure: { ...value.isFailure, value: false },
-                        isUploading: { ...value.isUploading, value: false },
+                        ...value_,
+                        isSuccess: { ...value_.isSuccess, value: false },
+                        isFailure: { ...value_.isFailure, value: false },
+                        isUploading: { ...value_.isUploading, value: false },
                     };
-                return value;
+                return value_;
             }),
-            index,
             makeItDisappear: true,
+            name:value.name,
         }));
     };
 
@@ -613,7 +608,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                 <BottomPanel
                     key={index} //eslint-disable-line
                     isUploading={value.isUploading.value}
-                    onCancelUploading={onCancelUploading(index)}
+                    onCancelUploading={onCancelUploading(value)}
                     withBorder
                     padding={
                         value.isFailure.value || value.isSuccess.value
