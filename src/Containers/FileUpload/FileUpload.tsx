@@ -56,26 +56,33 @@ const PADDING = 10;
 const MARGIN = 10;
 
 interface ISpecificValues {
+    /** value of truth for the state of the panel; example: is success is true or false */
     value: boolean;
+    /** opacity of the panel, used for animation */
     opacity: number;
+    /** when true panel is positioned absolute */
     isPosition: boolean;
 }
 
 interface IValue {
+    /** is success state for the panel */
     isSuccess: ISpecificValues;
+    /** is failure state for the panel */
     isFailure: ISpecificValues;
+    /** is uploading state for the panel */
     isUploading: ISpecificValues;
+    /** name of file */
     name: string;
     worker: Worker;
     file: File;
 }
 
 interface IInformativePanelsState {
+    /** array of panels */
     values: IValue[];
-    /** index affected */
-    index: number;
-    name: string;
-    makeItDisappear: boolean;
+    /** names of files already uploaded, or failed, or cancelled */
+    makeItDisappear: string[];
+    /** when true workers associated with the array of values (panels) will start */
     startWorkers: boolean;
 }
 
@@ -124,10 +131,8 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     const [informativePanelsState, setInformativePanelsState] =
         useState<IInformativePanelsState>({
             values: [],
-            index: -1,
-            makeItDisappear: false,
+            makeItDisappear: [],
             startWorkers: false,
-            name: '',
         });
     const initState: IFileUploadState = {
         height: undefined,
@@ -145,8 +150,6 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     };
     const [state, dispatch] = useReducer(reducer, initState);
     const isMounted = useMounted();
-
-    const workerRef = useRef<Worker[]>([]);
     /**
      * ref to the most outer container, which contains everything else
      */
@@ -169,7 +172,6 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         setInformativePanelsState((prev) => ({
             ...prev,
             values: [...prev.values, ...valuesToAdd],
-            index: -1,
             startWorkers: true,
         }));
         dispatch({ type: SET_IS_DRAG_ENTER, value: false });
@@ -181,12 +183,12 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
             if (base64StringFile === undefined) {
                 return;
             }
-            if (base64StringFile === NO_BASE64STRINGFILE || isTestIsFailure) {
-                const value = informativePanelsState.values.find(
-                    (value_) => value_.name === name,
-                );
-                if (value) {
-                    value.worker.terminate();
+            const value = informativePanelsState.values.find(
+                (value_) => value_.name === name,
+            );
+            if(value){
+                value.worker.terminate();
+                if (base64StringFile === NO_BASE64STRINGFILE || isTestIsFailure) {
                     setInformativePanelsState((prev) => ({
                         ...prev,
                         values: prev.values.map((value_) => {
@@ -208,42 +210,10 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                                 };
                             return value_;
                         }),
+                        makeItDisappear:[...prev.makeItDisappear,value.name]
                     }));
-                    setTimeout(() => {
-                        if (isMounted.current) {
-                            setInformativePanelsState((prev) => ({
-                                ...prev,
-                                values: prev.values.map((value_) => {
-                                    if (value_.name === value.name)
-                                        return {
-                                            ...value_,
-                                            isSuccess: {
-                                                ...value_.isSuccess,
-                                                value: false,
-                                            },
-                                            isFailure: {
-                                                ...value_.isFailure,
-                                                value: false,
-                                            },
-                                            isUploading: {
-                                                ...value_.isUploading,
-                                                value: false,
-                                            },
-                                        };
-                                    return value_;
-                                }),
-                                makeItDisappear: true,
-                                name: value.name,
-                            }));
-                        }
-                    }, messageDuration);
-                }
-            } else {
-                const value = informativePanelsState.values.find(
-                    (value_) => value_.name === name,
-                );
-                if (value) {
-                    value.worker.terminate();
+                    
+                } else {
                     doWithBase64StringFile(base64StringFile);
                     setInformativePanelsState((prev) => ({
                         ...prev,
@@ -266,39 +236,12 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                                 };
                             return value_;
                         }),
+                        makeItDisappear:[...prev.makeItDisappear,value.name]
                     }));
-                    setTimeout(() => {
-                        if (isMounted.current) {
-                            setInformativePanelsState((prev) => ({
-                                ...prev,
-                                values: prev.values.map((value_) => {
-                                    if (value_.name === value.name)
-                                        return {
-                                            ...value_,
-                                            isSuccess: {
-                                                ...value_.isSuccess,
-                                                value: false,
-                                            },
-                                            isFailure: {
-                                                ...value_.isFailure,
-                                                value: false,
-                                            },
-                                            isUploading: {
-                                                ...value_.isUploading,
-                                                value: false,
-                                            },
-                                        };
-                                    return value_;
-                                }),
-                                makeItDisappear: true,
-                                name: value.name,
-                            }));
-                        }
-                    }, messageDuration);
                 }
             }
         },
-        [informativePanelsState.values, isTestIsFailure],
+        [informativePanelsState.values, isTestIsFailure,doWithBase64StringFile],
     );
 
     // start workers when files have been droped
@@ -315,21 +258,28 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         }
     }, [informativePanelsState.startWorkers, isTestIsFailure, onWorkerMessage]);
 
-    // make disappear a value (informative panel)
-    useEffect(() => {
-        if (informativePanelsState.makeItDisappear) {
-            setInformativePanelsState((prev) => ({
-                ...prev,
-                values: prev.values.filter((value) => {
-                    if (value.name === prev.name) return false;
-                    return true;
-                }),
-                index: -1,
-                makeItDisappear: false,
-                name: '',
-            }));
-        }
-    }, [informativePanelsState.makeItDisappear]);
+    // make disappear values (informative panels) in the future
+    useEffect(() => { 
+        if(informativePanelsState.makeItDisappear.length){
+            informativePanelsState.makeItDisappear.forEach(name=>{
+                setTimeout(() => {
+                    if (isMounted.current) {
+                        setInformativePanelsState((prev) => ({
+                            ...prev,
+                            values:prev.values.filter(value=>{
+                                if(value.name===name)return false
+                                return true
+                            }),
+                            makeItDisappear: prev.makeItDisappear.filter(name_=>{
+                                if(name_===name)return false
+                                return true
+                            }),
+                        }));
+                    }
+                }, messageDuration);
+            });
+        } 
+    }, [informativePanelsState.makeItDisappear.length]);
 
     const onDragEnter = useCallback((event: React.DragEvent) => {
         event.preventDefault();
@@ -538,18 +488,10 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
         value.worker.terminate();
         setInformativePanelsState((prev) => ({
             ...prev,
-            values: prev.values.map((value_) => {
-                if (value_.name === value.name)
-                    return {
-                        ...value_,
-                        isSuccess: { ...value_.isSuccess, value: false },
-                        isFailure: { ...value_.isFailure, value: false },
-                        isUploading: { ...value_.isUploading, value: false },
-                    };
-                return value_;
-            }),
-            makeItDisappear: true,
-            name:value.name,
+            values:prev.values.filter(value_=>{
+                if(value_.name===value.name)return false
+                return true
+            })
         }));
     };
 
