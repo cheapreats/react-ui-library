@@ -203,7 +203,6 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                 (value) => value.name === name,
             );
             if (informativePanel) {
-                informativePanel.worker.terminate();
                 if (
                     base64StringFile === NO_BASE64STRINGFILE ||
                     isTestIsFailure
@@ -303,7 +302,13 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                         setInformativePanelsState((prev) => ({
                             ...prev,
                             values: prev.values.filter(
-                                (value) => value.name !== name,
+                                (value) => {
+                                    if(value.name===name){
+                                        value.worker.terminate();
+                                        return false
+                                    }
+                                    return true
+                                },
                             ),
                             makeItDisappear: prev.makeItDisappear.filter(
                                 (name_) => name_ !== name,
