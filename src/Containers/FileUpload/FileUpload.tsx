@@ -119,7 +119,7 @@ export interface IFileUploadProps {
     /** if true, failure message will appear even after success operation; its purpose is to test the appearance of the failure message during development */
     isTestIsFailure?: boolean;
     /** height and fade in-fade out animation duration in ms; default value: 200 */
-    animationDuration?: number;
+    heightAndOpacityTransitionDuration?: number;
 }
 
 /** multiple file upload in parallel */
@@ -134,7 +134,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
     isDisabled = false,
     messageDuration = MESSAGE_DURATION,
     isTestIsFailure,
-    animationDuration = TRANSITION_HEIGHT_ANIMATION_DURATION,
+    heightAndOpacityTransitionDuration = TRANSITION_HEIGHT_ANIMATION_DURATION,
 }): React.ReactElement => {
     const [informativePanelsState, setInformativePanelsState] =
         useState<IInformativePanelsState>({
@@ -498,7 +498,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                     message: failureMessage,
                     iconColor: MainTheme.colors.statusColors.red,
                     IconToShow: TimesCircle,
-                    transitionDuration: animationDuration,
+                    heightAndOpacityTransitionDuration,
                 };
             }
             if (value.isSuccess.value) {
@@ -506,7 +506,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                     message: successMessage,
                     iconColor: MainTheme.colors.statusColors.green,
                     IconToShow: CheckCircle,
-                    transitionDuration: animationDuration,
+                    heightAndOpacityTransitionDuration,
                 };
             }
             if (isFailureIsSuccessPanelProps) {
@@ -554,7 +554,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
             height={state.height}
             margin={`${MARGIN}px`}
             isWidthFitContent
-            transitionDuration={animationDuration}
+            heightAndOpacityTransitionDuration={heightAndOpacityTransitionDuration}
         >
             <Dropzone multiple>
                 {() => (
@@ -567,7 +567,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                             padding: '10px',
                             margin: `${MARGIN}px`,
                         })}
-                        transitionDuration={animationDuration}
+                        heightAndOpacityTransitionDuration={heightAndOpacityTransitionDuration}
                     >
                         <SubContainer
                             minHeight={minHeight}
@@ -634,7 +634,7 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                             ? true
                             : undefined
                     }
-                    transitionDuration={animationDuration}
+                    heightAndOpacityTransitionDuration={heightAndOpacityTransitionDuration}
                 >
                     {renderBottomPanelContent(value)}
                 </BottomPanel>

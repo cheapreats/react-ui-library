@@ -21,7 +21,7 @@ export interface IContainerProps {
     positionTop?: number;
     flexGrow?: boolean;
     /** transition duration in ms; applied on height and opacity properties; */
-    transitionDuration:number;
+    heightAndOpacityTransitionDuration:number;
 }
 
 export const Container = styled.div<IContainerProps>`
@@ -44,7 +44,7 @@ export const Container = styled.div<IContainerProps>`
         margin,
         positionTop,
         flexGrow,
-        transitionDuration,
+        heightAndOpacityTransitionDuration,
     }): string => `
 ${borderRadius ? `border-radius:${borderRadius};` : 'border-radius:10px;'}
 ${
@@ -88,7 +88,7 @@ ${position ? `position:absolute;top:${positionTop}px;` : ''}
 ${margin ? `margin:${margin};` : ''}
 ${flexGrow ? `flex:1;` : ''}
 
-transition:height ${transitionDuration}ms,opacity ${transitionDuration}ms,max-height ${transitionDuration*10}ms;
+transition:height ${heightAndOpacityTransitionDuration}ms,opacity ${heightAndOpacityTransitionDuration}ms,max-height ${heightAndOpacityTransitionDuration*10}ms;
 `}
 
 `;
