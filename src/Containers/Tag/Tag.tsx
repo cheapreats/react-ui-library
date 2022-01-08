@@ -17,7 +17,7 @@ export interface TagProps extends ITagDiv {
 export const Tag: React.FC<TagProps> = ({
     icon = Times,
     children,
-    isHoverable = true,
+    isHoverable = true, 
     iconVisible = true,
     ...props
 }): React.ReactElement => (
