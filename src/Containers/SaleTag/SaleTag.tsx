@@ -16,11 +16,12 @@ export const SaleTag: React.FC<SaleTagProps> = ({
     </SaleTagDiv>
 );
 
-const SaleTagDiv = styled.span`
+const SaleTagDiv = styled.div`
     ${({theme}):string => `
         border-radius: 100px;
-        width: 100px;
-        height: 40px;
+        width: fit-content;
+        min-width: 60px;
+        height: 20px;
         padding: 3px 10px;
         border-style: solid;
         border-width: 1px;

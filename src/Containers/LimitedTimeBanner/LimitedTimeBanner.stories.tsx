@@ -7,7 +7,9 @@ export default {
     title: 'Components/LimitedTimeBanner',
     component: LimitedTimeBanner,
     args: {
-        minsRemaining: 120, 
+        minsRemaining: 120,
+        bannerWidth: 300,
+        bannerHeight: 40,
     },
 } as Meta;
 

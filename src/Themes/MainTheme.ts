@@ -31,12 +31,15 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
         chairTableBackground: string;
         chairOccupiedBackground: string;
         chairTableEditBackground: string;
+        menuItemCardSoldoutBox: string;
         reachIndicatorColors: {
             red: string;
             yellow: string;
             green: string;
         };
+        loyaltyText: string;
         bannerBackgroundColor: string;
+        ItemCardSaleGreen: string;
     };
 }
 
@@ -66,7 +69,10 @@ export const MainTheme: MainThemeInterface = {
         chairTableBackground: '#6c757d',
         chairOccupiedBackground: '#EE2434',
         chairTableEditBackground: '#C4C4C4',
-        bannerBackgroundColor : 'rgba(0,0,0,0.5)',
+        bannerBackgroundColor: 'rgba(0,0,0,0.5)',
+        menuItemCardSoldoutBox: '#303030',
+        loyaltyText: '#0000FF',
+        ItemCardSaleGreen: '#04CC00',
         PieChartColors: {
             Red: '#FF0000',
             Green: '#008000',

@@ -95,3 +95,5 @@ export * from './LimitedTimeBanner/LimitedTimeBanner';
 export * from './TreeAccordion/TreeAccordion';
 export * from './ReachIndicator/ReachIndicator'; 
 export * from './InfoHeader/InfoHeader';
+export * from './MenuItemCard/MenuItemCard';
+export * from './LoyaltyPoints/LoyaltyPoints';
