@@ -11,17 +11,19 @@ interface ITagDiv extends React.HTMLAttributes<HTMLSpanElement> {
 export interface TagProps extends ITagDiv {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     children: React.ReactNode;
+    iconVisible?: boolean;
 }
 
 export const Tag: React.FC<TagProps> = ({
     icon = Times,
     children,
     isHoverable = true,
+    iconVisible = true,
     ...props
 }): React.ReactElement => (
     <TagDiv {...props} isHoverable={isHoverable}>
         {children}
-        {!!isHoverable && <Icon as={icon} />}
+        {!!isHoverable && iconVisible && <Icon as={icon} />}
     </TagDiv>
 );
 
