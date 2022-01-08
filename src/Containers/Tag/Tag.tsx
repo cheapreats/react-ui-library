@@ -77,11 +77,14 @@ const Icon = styled.svg<{ iconBehaviour: string }>`
         iconBehaviour === 'Always' ? `
             width: 10px;
             margin-left: 10px;
-        ` : iconBehaviour === 'Hover' ? `
+        ` : `
             ${TagDiv}:hover & {
-                width: 10px;
-                margin-left: 10px;
+                ${iconBehaviour === 'Hover' ? `
+                    width: 10px;
+                    margin-left: 10px;
+                ` : ``
+                }
             }
-        ` : ``
+        `
     }
 `;
