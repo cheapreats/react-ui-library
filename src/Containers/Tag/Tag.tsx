@@ -11,7 +11,7 @@ interface ITagDiv extends React.HTMLAttributes<HTMLSpanElement> {
 export interface TagProps extends ITagDiv {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     children: React.ReactNode;
-    iconVisible: boolean;
+    iconVisible?: boolean;
 }
 
 export const Tag: React.FC<TagProps> = ({
