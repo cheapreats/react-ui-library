@@ -301,15 +301,13 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
                     if (isMounted.current) {
                         setInformativePanelsState((prev) => ({
                             ...prev,
-                            values: prev.values.filter(
-                                (value) => {
-                                    if(value.name===name){
-                                        value.worker.terminate();
-                                        return false
-                                    }
-                                    return true
-                                },
-                            ),
+                            values: prev.values.filter((value) => {
+                                if (value.name === name) {
+                                    value.worker.terminate();
+                                    return false;
+                                }
+                                return true;
+                            }),
                             makeItDisappear: prev.makeItDisappear.filter(
                                 (name_) => name_ !== name,
                             ),
@@ -533,12 +531,15 @@ export const FileUpload: React.FC<IFileUploadProps> = ({
 
     /** cancel uploading; terminate worker and remove informative panel */
     const onCancelUploading = (informativePanel: IValue) => () => {
-        informativePanel.worker.terminate();
         setInformativePanelsState((prev) => ({
             ...prev,
-            values: prev.values.filter(
-                (value) => value.name !== informativePanel.name,
-            ),
+            values: prev.values.filter((value) => {
+                if (value.name === informativePanel.name) {
+                    value.worker.terminate();
+                    return false;
+                }
+                return true;
+            }),
         }));
     };
 
