@@ -12,6 +12,7 @@ export interface TagProps extends ITagDiv {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     children: React.ReactNode;
     iconVisible?: boolean;
+    iconBehaviour?: 'Hover' | 'None' | 'Always';
 }
 
 export const Tag: React.FC<TagProps> = ({
@@ -19,11 +20,12 @@ export const Tag: React.FC<TagProps> = ({
     children,
     isHoverable = true, 
     iconVisible = true,
+    iconBehaviour = 'Hover',
     ...props
 }): React.ReactElement => (
     <TagDiv {...props} isHoverable={isHoverable}>
         {children}
-        {!!isHoverable && iconVisible && <Icon as={icon} />}
+        {iconVisible && <Icon as={icon} iconBehaviour={iconBehaviour} />}
     </TagDiv>
 );
 
@@ -65,13 +67,21 @@ const TagDiv = styled.span<ITagDiv>`
     font-weight: bold;
 `;
 
-const Icon = styled.svg`
+const Icon = styled.svg<{ iconBehaviour: string }>`
     ${transition(['width', 'margin-left'])}
     height: auto;
     width: 0;
     margin-left: 0;
-    ${TagDiv}:hover & {
-        width: 10px;
-        margin-left: 10px;
+
+    ${({ iconBehaviour }): string =>
+        iconBehaviour === 'Always' ? `
+            width: 10px;
+            margin-left: 10px;
+        ` : iconBehaviour === 'Hover' ? `
+            ${TagDiv}:hover & {
+                width: 10px;
+                margin-left: 10px;
+            }
+        ` : ``
     }
 `;
