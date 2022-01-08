@@ -40,12 +40,6 @@ TestIsFailureTrue.args = {
     isTestIsFailure: true,
 };
 
-export const LongAnimationDuration = Basic.bind({});
-LongAnimationDuration.args = {
-    ...Basic.args,
-    animationDuration: 5000,
-};
-
 export const IsDisabled = Basic.bind({});
 IsDisabled.args = {
     ...Basic.args,
