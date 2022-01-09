@@ -18,14 +18,13 @@ export interface TagProps extends ITagDiv {
 export const Tag: React.FC<TagProps> = ({
     icon = Times,
     children,
-    isHoverable = true, 
-    iconVisible = true,
+    isHoverable = true,
     iconBehaviour = 'Hover',
     ...props
 }): React.ReactElement => (
     <TagDiv {...props} isHoverable={isHoverable}>
         {children}
-        {iconVisible && <Icon as={icon} iconBehaviour={iconBehaviour} />}
+        {!!isHoverable && <Icon as={icon} iconBehaviour={iconBehaviour} />}
     </TagDiv>
 );
 
@@ -73,18 +72,33 @@ const Icon = styled.svg<{ iconBehaviour: string }>`
     width: 0;
     margin-left: 0;
 
-    ${({ iconBehaviour }): string =>
-        iconBehaviour === 'Always' ? `
-            width: 10px;
-            margin-left: 10px;
-        ` : `
-            ${TagDiv}:hover & {
-                ${iconBehaviour === 'Hover' ? `
+    ${({ iconBehaviour }): string => {
+        switch(iconBehaviour) {
+        case 'Always':
+            return `
                     width: 10px;
                     margin-left: 10px;
-                ` : ``
-                }
-            }
-        `
-    }
+                `
+        case 'Hover':
+            return `
+                    ${TagDiv}:hover & {
+                        ${iconBehaviour === 'Hover' ? `
+                            width: 10px;
+                            margin-left: 10px;
+                        ` : ``
+}
+                    }
+                `
+        case 'None':
+            return `
+                    width: 0;
+                    margin-left: 0;
+                `
+        default:
+            return `
+                    width: 0;
+                    margin-left: 0;
+                `
+        }
+    }}
 `;
