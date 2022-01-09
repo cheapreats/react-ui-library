@@ -11,17 +11,20 @@ interface ITagDiv extends React.HTMLAttributes<HTMLSpanElement> {
 export interface TagProps extends ITagDiv {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     children: React.ReactNode;
+    iconVisible?: boolean;
+    iconBehaviour?: 'Hover' | 'None' | 'Always';
 }
 
 export const Tag: React.FC<TagProps> = ({
     icon = Times,
     children,
     isHoverable = true,
+    iconBehaviour = 'Hover',
     ...props
 }): React.ReactElement => (
     <TagDiv {...props} isHoverable={isHoverable}>
         {children}
-        {!!isHoverable && <Icon as={icon} />}
+        {!!isHoverable && <Icon as={icon} iconBehaviour={iconBehaviour} />}
     </TagDiv>
 );
 
@@ -63,13 +66,39 @@ const TagDiv = styled.span<ITagDiv>`
     font-weight: bold;
 `;
 
-const Icon = styled.svg`
+const Icon = styled.svg<{ iconBehaviour: string }>`
     ${transition(['width', 'margin-left'])}
     height: auto;
     width: 0;
     margin-left: 0;
-    ${TagDiv}:hover & {
-        width: 10px;
-        margin-left: 10px;
-    }
+
+    ${({ iconBehaviour }): string => {
+        switch(iconBehaviour) {
+        case 'Always':
+            return `
+                    width: 10px;
+                    margin-left: 10px;
+                `
+        case 'Hover':
+            return `
+                    ${TagDiv}:hover & {
+                        ${iconBehaviour === 'Hover' ? `
+                            width: 10px;
+                            margin-left: 10px;
+                        ` : ``
+}
+                    }
+                `
+        case 'None':
+            return `
+                    width: 0;
+                    margin-left: 0;
+                `
+        default:
+            return `
+                    width: 0;
+                    margin-left: 0;
+                `
+        }
+    }}
 `;
