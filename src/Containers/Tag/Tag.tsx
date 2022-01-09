@@ -11,7 +11,6 @@ interface ITagDiv extends React.HTMLAttributes<HTMLSpanElement> {
 export interface TagProps extends ITagDiv {
     icon?: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
     children: React.ReactNode;
-    iconVisible?: boolean;
     iconBehaviour?: 'Hover' | 'None' | 'Always';
 }
 
