@@ -1,18 +1,6 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
-
-enum OperationState {
-    isSuccess,
-    isFailure,
-    isLoading,
-    isUnknown
-}
-
-interface IPanelProps extends React.HTMLAttributes<HTMLDivElement> {
-    operationState?: OperationState;
-    /** the name of the file */
-    name?: string;
-}
+import { IPanelProps,OperationState } from './FileUploadV2';
 
 const Panel: React.FC<IPanelProps> = ({ operationState=OperationState.isUnknown, name='', ...props }) => {
     const getMessage = useCallback((): string => {

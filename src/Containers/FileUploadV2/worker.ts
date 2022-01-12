@@ -1,6 +1,5 @@
 onmessage = (e) => {
     const { file } = e.data;
-    console.log('onworker',e);
     const reader = new FileReader();
     reader.onload = () => {
         let base64StringFile = 'NO_BASE64STRINGFILE';
@@ -14,7 +13,6 @@ onmessage = (e) => {
                 );
             }
         }
-        console.log('worker;post-message');
         postMessage({ base64StringFile,name:file.name });
     };
     try{

@@ -4,7 +4,6 @@ import styled from 'styled-components';
 import worker from 'workerize-loader!./worker'; // eslint-disable-line
 import { useMounted } from '@Utils/Hooks';
 import Dropzone, { useDropzone } from 'react-dropzone';
-import Panel from './Panel';
 
 // TODO: Add animations if possible (height transitions of the container component (expansion-contraction))
 // and fade-in, fade-out effect of the informative panels.
@@ -12,11 +11,17 @@ import Panel from './Panel';
 const MESSAGE_DURATION = 1500;
 const NO_BASE64STRINGFILE = 'NO_BASE64STRINGFILE';
 
-enum OperationState {
+export enum OperationState {
     isSuccess,
     isFailure,
     isLoading,
     isUnknown
+}
+
+export interface IPanelProps extends React.HTMLAttributes<HTMLDivElement> {
+    operationState?: OperationState;
+    /** the name of the file */
+    name?: string;
 }
 
 interface IPanel {
@@ -49,6 +54,8 @@ export interface IFileUploadV2Props
     isDisabled?: boolean;
     /** component to render the drop area */
     DropArea: React.FC<IDropAreaProps>;
+    /** component to render the informative panel */
+    Panel:React.FC<IPanelProps>;
     /** if true, failure message will appear even after success operation; its purpose is to test the appearance of the failure message during development */
     isTestIsFailure?: boolean;
     /**
@@ -65,6 +72,7 @@ export interface IFileUploadV2Props
 export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
     isDisabled = false,
     DropArea,
+    Panel,
     isTestIsFailure = false,
     processFile = (base64String: string) => null,
     messageDuration = MESSAGE_DURATION,
@@ -90,12 +98,9 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
             if (base64StringFile === undefined) {
                 return;
             }
-            console.log('file name', name);
-            console.log('informativePanels', informativePanels.panels);
             const informativePanel = informativePanels.panels.find(
                 (panel) => panel.name === name,
             );
-            console.log('informativePanel', informativePanel);
             if (informativePanel) {
                 if (
                     base64StringFile === NO_BASE64STRINGFILE ||
@@ -117,7 +122,6 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                         ],
                     }));
                 } else {
-                    console.log('processing file');
                     processFile(base64StringFile);
                     setInformativePanels((prev) => ({
                         ...prev,
@@ -152,7 +156,6 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
      * load array of informative panels and send order to start workers
      */
     const onDrop = useCallback((acceptedFiles: File[]) => {
-        console.log('dropped');
         const newInformativePanels = acceptedFiles.map((file) => {
             const workerInstance = worker();
             return {
@@ -163,7 +166,6 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
             };
         });
         const fileNames = acceptedFiles.map((file) => file.name);
-        console.log('newInformativePanels', newInformativePanels);
         setInformativePanels((prev) => ({
             ...prev,
             panels: [...prev.panels, ...newInformativePanels],
@@ -176,7 +178,6 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
     // are loaded
     useEffect(() => {
         if (informativePanels.startWorkers.length) {
-            console.log('useEffect', informativePanels.startWorkers);
             informativePanels.startWorkers.forEach((name) => {
                 const informativePanel = informativePanels.panels.find(
                     (panel) => panel.name === name,
