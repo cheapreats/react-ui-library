@@ -97,6 +97,3 @@ export * from './ReachIndicator/ReachIndicator';
 export * from './InfoHeader/InfoHeader';
 export * from './StoreSelector/StoreSelector'; 
 export * from './ScreenFlashEffect/ScreenFlashEffect'; 
-export * from './FileUploadV2/FileUploadV2';
-export * from './Panel/Panel';
-export * from './DropArea/DropArea';
