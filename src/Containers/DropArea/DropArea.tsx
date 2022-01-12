@@ -1,17 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
-import {IDropAreaProps} from './FileUploadV2';
+import {IDropAreaProps} from '../FileUploadV2/FileUploadV2';
 
-const DropArea: React.FC<IDropAreaProps> = ({
-    isDragEnter,
+export {IDropAreaProps};
+
+export const DropArea: React.FC<IDropAreaProps> = ({
+    isDragEnter=false,
     ...props
 }) => (
     <DropAreaContainer isDragEnter={isDragEnter} {...props}>
         Drag and drop your files here or click to select
     </DropAreaContainer>
 );
-
-export default DropArea
 
 const DropAreaContainer = styled.div<IDropAreaProps>`
     border: 2px dashed grey;

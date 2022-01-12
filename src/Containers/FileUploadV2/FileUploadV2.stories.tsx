@@ -1,9 +1,9 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { FileUploadV2, IFileUploadV2Props } from '../../index';
-import DropArea from './DropArea';
-import Panel from './Panel';
-
+import { FileUploadV2, IFileUploadV2Props } from './FileUploadV2';
+import {Panel} from '../Panel/Panel';
+import {DropArea} from '../DropArea/DropArea';
+ 
 export default {
     title: 'Components/FileUploadV2',
     component: FileUploadV2,
