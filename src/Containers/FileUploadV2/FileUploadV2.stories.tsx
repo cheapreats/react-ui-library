@@ -9,6 +9,7 @@ export default {
     component: FileUploadV2,
     args: {
         DropArea,
+        processFile:(base64StringFile:string)=>{console.log(base64StringFile)}
     },
 } as Meta;
 
@@ -16,7 +17,8 @@ export const Basic: Story<IFileUploadV2Props> = (args) => (
     <FileUploadV2 {...args} />
 );
 
-export const Basic2 = Basic.bind({});
-Basic2.args = {
+export const TestIsFailure = Basic.bind({});
+TestIsFailure.args = {
     ...Basic.args,
+    isTestIsFailure:true
 };

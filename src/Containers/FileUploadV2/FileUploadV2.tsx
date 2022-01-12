@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import worker from 'workerize-loader!./worker'; // eslint-disable-line
 import { useMounted } from '@Utils/Hooks';
 import Dropzone, { useDropzone } from 'react-dropzone';
-import Panel,{OperationState} from './Panel';
+import Panel from './Panel';
 
 // TODO: Add animations if possible (height transitions of the container component (expansion-contraction))
 // and fade-in, fade-out effect of the informative panels.
@@ -12,13 +12,16 @@ import Panel,{OperationState} from './Panel';
 const MESSAGE_DURATION = 1500;
 const NO_BASE64STRINGFILE = 'NO_BASE64STRINGFILE';
 
+enum OperationState {
+    isSuccess,
+    isFailure,
+    isLoading,
+    isUnknown
+}
+
 interface IPanel {
-    /** is success state for the panel */
-    isSuccess: boolean;
-    /** is failure state for the panel */
-    isFailure: boolean;
-    /** is uploading state for the panel */
-    isUploading: boolean;
+    /** whether it's loading file, is completed, is failure */
+    operationState:OperationState;
     /** name of file associated with the informative panel */
     name: string;
     /** worker; will do the job of reading the file */
@@ -104,9 +107,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                             if (panel.name === informativePanel.name)
                                 return {
                                     ...panel,
-                                    isSuccess: false,
-                                    isFailure: true,
-                                    isUploading: false,
+                                    operationState:OperationState.isFailure
                                 };
                             return panel;
                         }),
@@ -124,9 +125,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                             if (panel.name === informativePanel.name)
                                 return {
                                     ...panel,
-                                    isSuccess: true,
-                                    isFailure: false,
-                                    isUploading: false,
+                                    operationState:OperationState.isSuccess
                                 };
                             return panel;
                         }),
@@ -157,9 +156,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
         const newInformativePanels = acceptedFiles.map((file) => {
             const workerInstance = worker();
             return {
-                isSuccess: false,
-                isFailure: false,
-                isUploading: true,
+                operationState:OperationState.isLoading,
                 name: file.name,
                 worker: workerInstance,
                 file,
@@ -230,19 +227,6 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
         disabled: isDisabled,
     });
 
-    const getOperationState=(panel:IPanel):OperationState=>{
-        if(panel.isFailure){
-            return OperationState.isFailure;
-        }
-        if(panel.isSuccess){
-            return OperationState.isSuccess;
-        }
-        if(panel.isUploading){
-            return OperationState.isLoading;
-        }
-        return OperationState.isUnknown;
-    }
-
     return (
         <FileUploadV2Container {...props}>
             <Dropzone multiple>
@@ -254,7 +238,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                 )}
             </Dropzone>
             {informativePanels.panels.map((panel) => (
-                <Panel key={panel.name} name={panel.name} operationState={getOperationState(panel)} />
+                <Panel key={panel.name} name={panel.name} operationState={panel.operationState} />
             ))}
         </FileUploadV2Container>
     );

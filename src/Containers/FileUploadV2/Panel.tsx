@@ -1,7 +1,7 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 
-export enum OperationState {
+enum OperationState {
     isSuccess,
     isFailure,
     isLoading,
