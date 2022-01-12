@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Panel,IPanelProps,OperationState} from './Panel';
+import { Panel} from './Panel';
+import {IPanelProps,OperationState} from '../FileUploadV2/FileUploadV2';
 
 export default {
     title: 'Components/Panel',
