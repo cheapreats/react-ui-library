@@ -8,11 +8,11 @@ export interface MenuItemCardProps
     extends MainInterface, ResponsiveInterface, React.HTMLAttributes<HTMLDivElement> {
     /* Loyalty points component */
     LoyaltyPoints?: React.ReactElement;
-    /* Limited time banner component*/
+    /* Limited time banner component */
     LimitedTimeBanner?: React.ReactElement;
     /* Sale tag component */
     SaleTag?: React.ReactElement;
-    /* Html link for the item, displayed as 280px x 125px*/
+    /* Html link for the item, displayed as 300px x 150px */
     itemImage: string, 
     /* Name of the product, after 30 characters '...' replaces the rest */
     itemName: string,
@@ -25,21 +25,19 @@ export interface MenuItemCardProps
     /* Controls if the item can still be sold, also removes other components from card display */
     soldOut: boolean;
     /* Number passed to LoyaltyPoints to display the loyalty points amount */
-    loyaltyamount: number,
+    loyaltyAmount: number,
     /* Limit before loyaltyPoints gets capped */
-    loyaltypointlimit: number,
+    loyaltyPointLimit: number,
     /* Amount that the item is on sale, reduced from itemPrice when sale is active */
     saleAmount: number,
     /* Minutes that the item is remaining for, if 0 then will not display */
-    minsRemaining: number,
-    /* Width of the time remaining banner */
+    minsRemaining?: number,
     /* Add box shadow when hovered over */
     animated?: boolean;
     /* Controls the border around the menu item card, animated will still display the border when hovered over */
     flat?: boolean;
-    bannerWidth?: number,
-    /* Height of the time remaining banner */
-    bannerHeight?: number,
+    /* Handles card clicks when the item is not soldout */
+    cardWasClicked?: () => void,
 }
 
 export const MenuItemCard: React.FC<MenuItemCardProps> = ({
@@ -52,11 +50,10 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
     itemPrice,
     itemPriceLimit,
     saleAmount,
-    loyaltyamount,
-    loyaltypointlimit,
+    loyaltyAmount,
+    loyaltyPointLimit,
     minsRemaining,
-    bannerHeight,
-    bannerWidth,
+    cardWasClicked,
     ...props
 
 }): React.ReactElement => {
@@ -71,12 +68,11 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
      */
     function getMenuItemStatus(sale: boolean, soldOut: boolean, itemPrice: number, itemPriceLimit: number, saleAmount: number) {
 
-        var itemSaleAmount;
+        let itemSaleAmount = 0;
+
         if (itemPrice - saleAmount > 0) {
             itemSaleAmount = itemPrice - saleAmount
-        } else {
-            itemSaleAmount = 0;
-        }
+        } 
 
         if (itemPrice >= itemPriceLimit) {
             return <PriceText1k>${roundItemValue(itemPrice, itemPriceLimit)}K+</PriceText1k>
@@ -98,13 +94,15 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
             } else return <MenuItemCardImage src='https://healthduel.net/healthduel/storage/app/game/GyeyqSeDD2qRmWJf8kocbK9YCtowBvgF4PZPsDlW.jpeg' alt={itemName} />
     }
     return (
-        <MenuItemCardBox {...props} bannerHeight={bannerHeight} itemImage={itemImage} itemName={itemName} itemPrice={itemPrice} animated={animated}
-            flat={flat} sale={sale} soldOut={soldOut} saleAmount={saleAmount} itemPriceLimit={itemPriceLimit}
-            loyaltyamount={loyaltyamount} minsRemaining={minsRemaining} loyaltypointlimit={loyaltypointlimit}>
+        <MenuItemCardBox {...props} itemImage={itemImage} itemName={itemName} itemPrice={itemPrice} animated={animated}
+            flat={flat} sale={sale} soldOut={soldOut} saleAmount={saleAmount} itemPriceLimit={itemPriceLimit} cardWasClicked={cardWasClicked}
+            loyaltyAmount={loyaltyAmount} minsRemaining={minsRemaining} loyaltyPointLimit={loyaltyPointLimit}>
+
+            {(!soldOut) && <CardClickableDiv onClick = {cardWasClicked}/>}
 
             <MenuItemCardAccessoryDiv>
-                {(!soldOut && !!loyaltyamount) &&
-                    <LoyaltyPoints loyaltyamount={loyaltyamount} loyaltypointlimit={loyaltypointlimit} />}
+                {(!soldOut && !!loyaltyAmount) &&
+                    <LoyaltyPoints loyaltyAmount={loyaltyAmount} loyaltyPointLimit={loyaltyPointLimit} />}
                 {(!soldOut && sale) &&
                     <SaleTag saleAmount={saleAmount} />}
             </MenuItemCardAccessoryDiv>
@@ -115,7 +113,7 @@ export const MenuItemCard: React.FC<MenuItemCardProps> = ({
             {soldOut && <SoldOutBox>Sold Out</SoldOutBox>}
 
             { (!!minsRemaining && !soldOut) &&
-                <LimitedTimeBannerPosition> <LimitedTimeBanner bannerHeight={bannerHeight} bannerWidth={bannerWidth} minsRemaining={minsRemaining} /> </LimitedTimeBannerPosition>}
+                <LimitedTimeBannerPosition> <LimitedTimeBanner minsRemaining={minsRemaining} /> </LimitedTimeBannerPosition>}
 
             {(!!itemPrice && !soldOut) && getMenuItemStatus(sale, soldOut, itemPrice, itemPriceLimit, saleAmount)}
 
@@ -139,7 +137,7 @@ function roundItemValue(itemPrice: number, itemPriceLimit: number) {
  * @param itemName
  */
 function getStringValue(itemName: string) {
-    var newString = itemName.substring(0, 30);
+    let newString = itemName.substring(0, 30);
     if (itemName.length > 30) {
         return newString + '...';
     } else
@@ -169,6 +167,11 @@ const MenuItemCardBox = styled.div<MenuItemCardProps & MainInterface & Responsiv
       opacity: 0.5;
       cursor: not-allowed; `}
 `;
+const CardClickableDiv = styled.div`
+    height: 100%;
+    width: 100%;
+    position: absolute;
+`
 const MenuItemCardImage = styled.img`
     height: 150px;
     width: 300px;

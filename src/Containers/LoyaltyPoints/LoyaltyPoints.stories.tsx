@@ -7,8 +7,8 @@ export default {
     title: 'Components/LoyaltyPoints',
     component: LoyaltyPoints,
     args: {
-        loyaltyamount: 10,
-        loyaltypointlimit: 100,
+        loyaltyAmount: 10,
+        loyaltyPointLimit: 100,
     }
 } as Meta;
 

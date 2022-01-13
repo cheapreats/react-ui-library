@@ -8,22 +8,18 @@ const MINUTES_IN_YEAR = 524160;
 
 export interface LimitedTimeBannerProps
     extends MainInterface {
-        /* minutes until time runs out */ 
-    minsRemaining: number,
-    bannerWidth?: number,
-    bannerHeight?: number,
+    /* minutes until time runs out */ 
+    minsRemaining?: number,
     }
 
 export const LimitedTimeBanner: React.FC<LimitedTimeBannerProps> = ({
     minsRemaining,
-    bannerWidth,
-    bannerHeight,
     ...props
 }): React.ReactElement => (
-    <BannerBox minsRemaining={minsRemaining} bannerWidth={bannerWidth} bannerHeight={bannerHeight} {...props}>
+    <BannerBox minsRemaining={minsRemaining} {...props}>
         <Icon />
         <BannerHeader>
-            {alterTime(minsRemaining)} Remaining
+            {alterTime(minsRemaining!)} Remaining
         </BannerHeader>
     </BannerBox>
 );
@@ -52,14 +48,12 @@ const alterTime = (value:number)  => {
 }
 
 const BannerBox = styled.div<LimitedTimeBannerProps>`
+    width: 300px;
+    height; 40px;
     ${({theme}):string => `
     font-family: ${theme.font.family};
     color: ${theme.colors.background}};
     background-color:  ${theme.colors.bannerBackgroundColor};
-    `}
-    ${({ bannerWidth, bannerHeight }): string => `
-    width: ${bannerWidth}px;
-    height: ${bannerHeight}px;
     `}
 `;
 

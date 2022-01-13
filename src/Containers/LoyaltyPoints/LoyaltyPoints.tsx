@@ -4,21 +4,23 @@ import { Stars } from '@styled-icons/material/Stars';
 
 export interface LoyaltyPointsProps
     extends React.HTMLAttributes<HTMLDivElement> {
-    loyaltyamount: number; //the amount of loyalty points that the user gets with purchase, used to display on component.
-    loyaltypointlimit: number; //the limit of loyalty points before it says 99+ instead.
+    /* The amount of loyalty points displayed on the component */
+    loyaltyAmount: number;
+    /* Limit before loyalty amount displays only this number instead */
+    loyaltyPointLimit: number; 
 }
 
 export const LoyaltyPoints: React.FC<LoyaltyPointsProps> = ({
-    loyaltyamount,
-    loyaltypointlimit,
+    loyaltyAmount,
+    loyaltyPointLimit,
     ...props
 }): React.ReactElement => <LoyaltyPointsBox {...props}>
-    <header>+{getLoyaltyPoints(loyaltyamount, loyaltypointlimit)}<Star /></header>
+    <header>+{getLoyaltyPoints(loyaltyAmount, loyaltyPointLimit)}<Star /></header>
     </LoyaltyPointsBox>;
 
-function getLoyaltyPoints(loyaltypoints: number, loyaltypointlimit: number) {
-    if (loyaltypoints >= loyaltypointlimit) {
-        return loyaltypointlimit + "⁺";
+function getLoyaltyPoints(loyaltypoints: number, loyaltyPointLimit: number) {
+    if (loyaltypoints >= loyaltyPointLimit) {
+        return loyaltyPointLimit + "⁺";
     }
     return Math.round(loyaltypoints);
 }
