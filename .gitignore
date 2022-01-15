@@ -29,9 +29,9 @@ yarn-error.log*
 node_modules
 .deploy
 .awcache
-dist
 .idea
 debug.log
 build-storybook.log
 *.bundle.*
 storybook-static/*
+dist

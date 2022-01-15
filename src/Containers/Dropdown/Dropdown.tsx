@@ -19,13 +19,15 @@ type DropdownComponent<P = {}> = React.NamedExoticComponent<P> & {
 };
 
 export interface IDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
-    dropdownButton: React.ReactElement;
-    dropdownWidth?: number;
+    dropdownButton?: React.ReactElement;
+    dropdownWidth?: string;
     right?: boolean;
+    openFunc?: (target: boolean) => void;
+    beginOpen?: boolean;
 }
 
 interface IDropdownContentProps {
-    dropdownWidth?: number;
+    dropdownWidth?: string;
     contentLength: number | undefined;
     placement: boolean | undefined;
     targetPositionConfig: ClientRect | {};
@@ -68,8 +70,11 @@ const Dropdown: React.FC<IDropdownProps> = ({
     dropdownWidth,
     children,
     right,
+    openFunc,
+    beginOpen,
     ...props
 }): ReactElement => {
+    const [isBegan, setIsBegan] = useState(beginOpen);
     const [isActive, setIsActive] = useState(false);
     const [height, setHeight] = useState(0);
     const buttonRef = useRef<HTMLDivElement>(null);
@@ -78,10 +83,21 @@ const Dropdown: React.FC<IDropdownProps> = ({
     const bodyRef = useRef<HTMLUListElement>(null);
     const containerRef = useRef<HTMLDivElement>(null);
 
-    useClickAway(containerRef, () => setIsActive(false));
+    useClickAway(containerRef, () => {
+        if (openFunc){openFunc(false)}
+        setIsActive(false)
+    });
     const toggleIsActive = (): void => {
+        if (openFunc){openFunc(!isActive)}
         setIsActive(!isActive);
     };
+
+    useEffect(() => {
+        if (isBegan){
+            setIsBegan(false);
+            toggleIsActive();
+        }
+    })
 
     const validChild = (
         elements: ReactNode,
@@ -140,7 +156,9 @@ const Dropdown: React.FC<IDropdownProps> = ({
             onClick={stopPropagation}
             {...props}
         >
-            <ToggleContainer ref={buttonRef} onClick={toggleIsActive}>
+            <ToggleContainer ref={buttonRef} onClick={()=>{
+                    toggleIsActive()
+                }}>
                 {dropdownButton}
             </ToggleContainer>
             <DropdownContent
@@ -163,6 +181,8 @@ const placeStyles = (
     sourcePosition: any,
 ) => {
     switch (placement) {
+    case false:
+        return `left: 0px;`;
     case true:
         return `
             left: ${
@@ -207,9 +227,9 @@ const DropdownContent = styled.ul<IDropdownContentProps>`
     row-gap: 15px;
     font-family: ${theme.font.family};
     background: ${theme.colors.background};
-    max-width: ${dropdownWidth}px;
+    max-width: ${dropdownWidth};
     min-width: 0;
-    width: ${`${dropdownWidth}px` || 'auto'};
+    width: ${`${dropdownWidth}` || 'auto'};
     box-shadow: ${theme.depth[1]};
     border-radius: ${theme.dimensions.radius};
 `}
