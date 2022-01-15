@@ -1,34 +1,37 @@
 import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { IPanelProps, OperationState } from '../FileUploadV2/FileUploadV2';
-import { Card as C } from '../Card/Card';
+import { Card as C, CardProps } from '../Card/Card';
 import { Button as B } from '../../Inputs/Button/Button';
 
-export const Panel: React.FC<IPanelProps> = ({
+interface IPanelCardProps extends IPanelProps, CardProps {}
+
+export const PanelCard: React.FC<IPanelCardProps> = ({
     onCancelUploading = () => null,
-    panel = null,
+    operationState = OperationState.isUnknown,
+    name = '',
+    messageIsFailure = 'Something went wrong',
+    messageIsSuccess = 'Completed',
+    messageIsLoading = `loading ${name} ...`,
     ...props
 }) => {
     const getMessage = useCallback((): string => {
-        if (panel) {
-            switch (panel.operationState) {
+        switch (operationState) {
             case OperationState.isFailure:
-                return 'something went wrong';
+                return messageIsFailure;
             case OperationState.isSuccess:
-                return 'completed';    
+                return messageIsSuccess;
             case OperationState.isLoading:
-                return `loading ${panel.name} ...`;
+                return messageIsLoading;
             default:
                 return '';
-            }
         }
-        return '';
-    }, [panel]);
+    }, [operationState]);
 
     return (
         <Card {...props}>
             <div>{getMessage()}</div>
-            {panel?.operationState === OperationState.isLoading && (
+            {operationState === OperationState.isLoading && (
                 <div>
                     <Button onClick={onCancelUploading}>Cancel</Button>
                 </div>

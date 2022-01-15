@@ -5,7 +5,6 @@ import worker from 'workerize-loader!./worker'; // eslint-disable-line
 import { useMounted } from '@Utils/Hooks';
 import Dropzone, { useDropzone } from 'react-dropzone';
 import { MainInterface, Main } from '@Utils/BaseStyles';
-import { CardProps } from '../Card/Card';
 
 // TODO: Add animations if possible (height transitions of the container component (expansion-contraction))
 // and fade-in, fade-out effect of the informative panels.
@@ -20,9 +19,19 @@ export enum OperationState {
     isUnknown,
 }
 
-export interface IPanelProps extends CardProps {
+/**
+ * minimum interface for panels used in fileupload component
+ */
+export interface IPanelProps extends MainInterface,React.HTMLAttributes<HTMLDivElement> {
+    /** function executed for cancelling file upload */
     onCancelUploading?: () => void;
-    panel?: IPanel;
+    /** state of the operation: isSuccess,isLoading,isFailure */
+    operationState?: OperationState;
+    messageIsSuccess?: string;
+    messageIsFailure?: string;
+    messageIsLoading?: string;
+    /** name of file */
+    name?: string;
 }
 
 interface IPanel {
@@ -266,11 +275,16 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
     }, []);
 
     // terminate workers on clean up function
-    useEffect(()=>()=>{
-        if(!isMounted.current) {
-            informativePanels.panels.forEach(panel=>panel.worker?.terminate());
-        }
-    },[informativePanels])
+    useEffect(
+        () => () => {
+            if (!isMounted.current) {
+                informativePanels.panels.forEach((panel) =>
+                    panel.worker?.terminate(),
+                );
+            }
+        },
+        [informativePanels],
+    );
 
     return (
         <FileUploadV2Container padding={padding} {...props}>
@@ -291,7 +305,8 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                     onCancelUploading={onCancelUploading(panel.name)}
                     margin="10px 0"
                     style={{ width }}
-                    panel={panel}
+                    name={panel.name}
+                    operationState={panel.operationState}
                 />
             ))}
         </FileUploadV2Container>

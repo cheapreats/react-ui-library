@@ -3,13 +3,11 @@ import styled from 'styled-components';
 import {Main} from '@Utils/BaseStyles';
 import {IDropAreaProps} from '../FileUploadV2/FileUploadV2';
 
-const MESSAGE='Drag and drop your files here or click to select';
-
 export {IDropAreaProps};
 
 export const DropArea: React.FC<IDropAreaProps> = ({
     isDragEnter=false,
-    message=MESSAGE,
+    message='Drag and drop your files here or click to select',
     ...props
 }) => (
     <DropAreaContainer isDragEnter={isDragEnter} {...props}>

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { FileUploadV2, IFileUploadV2Props } from './FileUploadV2';
-import {Panel} from '../Panel/Panel';
+import {PanelCard} from '../Panel/Panel';
 import {DropArea} from '../DropArea/DropArea';
  
 export default {
@@ -9,7 +9,7 @@ export default {
     component: FileUploadV2,
     args: {
         DropArea,
-        Panel,
+        Panel:PanelCard,
         processFile:(base64StringFile:string)=>{console.log(base64StringFile)}
     },
 } as Meta;
