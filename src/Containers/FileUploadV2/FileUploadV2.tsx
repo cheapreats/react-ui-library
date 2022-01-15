@@ -21,10 +21,8 @@ export enum OperationState {
 }
 
 export interface IPanelProps extends CardProps {
-    operationState?: OperationState;
-    /** the name of the file */
-    name?: string;
     onCancelUploading?:()=>void;
+    panel?:IPanel;
 }
 
 interface IPanel {
@@ -33,9 +31,9 @@ interface IPanel {
     /** name of file associated with the informative panel */
     name: string;
     /** worker; will do the job of reading the file */
-    worker: Worker;
+    worker: Worker|null;
     /** the file associated with the informative panel */
-    file: File;
+    file: File|null;
 }
 
 interface IInformativePanels {
@@ -190,9 +188,9 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                 const informativePanel = informativePanels.panels.find(
                     (panel) => panel.name === name,
                 );
-                if (informativePanel) {
+                if (informativePanel&& informativePanel.worker) {
                     informativePanel.worker.onmessage = onWorkerMessage;
-                    informativePanel.worker.postMessage({
+                    informativePanel.worker?.postMessage({
                         file: informativePanel.file,
                     });
                 }
@@ -214,7 +212,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                             ...prev,
                             panels: prev.panels.filter((panel) => {
                                 if (panel.name === name) {
-                                    panel.worker.terminate();
+                                    panel.worker?.terminate();
                                     return false;
                                 }
                                 return true;
@@ -241,7 +239,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
             ...prev,
             panels: prev.panels.filter((panel) => {
                 if (panel.name === name) {
-                    panel.worker.terminate();
+                    panel.worker?.terminate();
                     return false;
                 }
                 return true;
@@ -267,7 +265,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                 )}
             </Dropzone>
             {informativePanels.panels.map((panel) => (
-                <Panel key={panel.name} name={panel.name} operationState={panel.operationState} onCancelUploading={onCancelUploading(panel.name)} margin='10px 0' style={{width}} />
+                <Panel key={panel.name} onCancelUploading={onCancelUploading(panel.name)} margin='10px 0' style={{width}} panel={panel} />
             ))}
         </FileUploadV2Container>
     );
