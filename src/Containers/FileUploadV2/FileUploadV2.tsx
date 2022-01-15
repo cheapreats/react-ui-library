@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import worker from 'workerize-loader!./worker'; // eslint-disable-line
 import { useMounted } from '@Utils/Hooks';
 import Dropzone, { useDropzone } from 'react-dropzone';
+import {MainInterface} from '@Utils/BaseStyles';
 import {CardProps} from '../Card/Card';
 
 // TODO: Add animations if possible (height transitions of the container component (expansion-contraction))
@@ -46,8 +47,9 @@ interface IInformativePanels {
     startWorkers: string[];
 }
 
-export interface IDropAreaProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface IDropAreaProps extends MainInterface, React.HTMLAttributes<HTMLDivElement> {
     isDragEnter?: boolean;
+    message?:string;
 }
 
 export interface IFileUploadV2Props
@@ -56,6 +58,7 @@ export interface IFileUploadV2Props
     isDisabled?: boolean;
     /** component to render the drop area */
     DropArea: React.FC<IDropAreaProps>;
+    dropAreaProps?:IDropAreaProps;
     /** component to render the informative panel */
     Panel:React.FC<IPanelProps>;
     /** if true, failure message will appear even after success operation; its purpose is to test the appearance of the failure message during development */
@@ -74,6 +77,7 @@ export interface IFileUploadV2Props
 export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
     isDisabled = false,
     DropArea,
+    dropAreaProps={padding:'10px'},
     Panel,
     isTestIsFailure = false,
     processFile = (base64String: string) => null,
@@ -257,7 +261,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
             <Dropzone multiple>
                 {() => (
                     <div {...getRootProps()} ref={dropAreaRef}>
-                        <DropArea isDragEnter={isDragEnter} />
+                        <DropArea isDragEnter={isDragEnter} {...dropAreaProps} />
                         <input {...getInputProps()} />
                     </div>
                 )}
