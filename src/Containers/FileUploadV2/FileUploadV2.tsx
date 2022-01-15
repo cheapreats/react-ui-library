@@ -1,11 +1,11 @@
-import React, { useState, useCallback, useEffect,useRef } from 'react';
+import React, { useState, useCallback, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 // @ts-ignore
 import worker from 'workerize-loader!./worker'; // eslint-disable-line
 import { useMounted } from '@Utils/Hooks';
 import Dropzone, { useDropzone } from 'react-dropzone';
-import {MainInterface} from '@Utils/BaseStyles';
-import {CardProps} from '../Card/Card';
+import { MainInterface, Main } from '@Utils/BaseStyles';
+import { CardProps } from '../Card/Card';
 
 // TODO: Add animations if possible (height transitions of the container component (expansion-contraction))
 // and fade-in, fade-out effect of the informative panels.
@@ -17,23 +17,23 @@ export enum OperationState {
     isSuccess,
     isFailure,
     isLoading,
-    isUnknown
+    isUnknown,
 }
 
 export interface IPanelProps extends CardProps {
-    onCancelUploading?:()=>void;
-    panel?:IPanel;
+    onCancelUploading?: () => void;
+    panel?: IPanel;
 }
 
 interface IPanel {
     /** whether it's loading file, is completed, is failure */
-    operationState:OperationState;
+    operationState: OperationState;
     /** name of file associated with the informative panel */
     name: string;
     /** worker; will do the job of reading the file */
-    worker: Worker|null;
+    worker: Worker | null;
     /** the file associated with the informative panel */
-    file: File|null;
+    file: File | null;
 }
 
 interface IInformativePanels {
@@ -45,20 +45,23 @@ interface IInformativePanels {
     startWorkers: string[];
 }
 
-export interface IDropAreaProps extends MainInterface, React.HTMLAttributes<HTMLDivElement> {
+export interface IDropAreaProps
+    extends MainInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     isDragEnter?: boolean;
-    message?:string;
+    message?: string;
 }
 
 export interface IFileUploadV2Props
-    extends React.HTMLAttributes<HTMLDivElement> {
+    extends MainInterface,
+        React.HTMLAttributes<HTMLDivElement> {
     /** whether or not the file upload component is disabled */
     isDisabled?: boolean;
     /** component to render the drop area */
     DropArea: React.FC<IDropAreaProps>;
-    dropAreaProps?:IDropAreaProps;
+    dropAreaProps?: IDropAreaProps;
     /** component to render the informative panel */
-    Panel:React.FC<IPanelProps>;
+    Panel: React.FC<IPanelProps>;
     /** if true, failure message will appear even after success operation; its purpose is to test the appearance of the failure message during development */
     isTestIsFailure?: boolean;
     /**
@@ -75,11 +78,12 @@ export interface IFileUploadV2Props
 export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
     isDisabled = false,
     DropArea,
-    dropAreaProps={padding:'10px'},
+    dropAreaProps = { padding: '10px' },
     Panel,
     isTestIsFailure = false,
     processFile = (base64String: string) => null,
     messageDuration = MESSAGE_DURATION,
+    padding='10px',
     ...props
 }): React.ReactElement => {
     const isMounted = useMounted();
@@ -90,8 +94,8 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
             startWorkers: [],
         });
     const [isDragEnter, setIsDragEnter] = useState(false);
-    const dropAreaRef=useRef<HTMLDivElement>(null);
-    const [width,setWidth]=useState<number>(0);
+    const dropAreaRef = useRef<HTMLDivElement>(null);
+    const [width, setWidth] = useState<number>(0);
 
     /**
      * terminate worker and set state of informative panel to success or failure and
@@ -118,7 +122,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                             if (panel.name === informativePanel.name)
                                 return {
                                     ...panel,
-                                    operationState:OperationState.isFailure
+                                    operationState: OperationState.isFailure,
                                 };
                             return panel;
                         }),
@@ -135,7 +139,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                             if (panel.name === informativePanel.name)
                                 return {
                                     ...panel,
-                                    operationState:OperationState.isSuccess
+                                    operationState: OperationState.isSuccess,
                                 };
                             return panel;
                         }),
@@ -165,7 +169,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
         const newInformativePanels = acceptedFiles.map((file) => {
             const workerInstance = worker();
             return {
-                operationState:OperationState.isLoading,
+                operationState: OperationState.isLoading,
                 name: file.name,
                 worker: workerInstance,
                 file,
@@ -188,7 +192,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                 const informativePanel = informativePanels.panels.find(
                     (panel) => panel.name === name,
                 );
-                if (informativePanel&& informativePanel.worker) {
+                if (informativePanel && informativePanel.worker) {
                     informativePanel.worker.onmessage = onWorkerMessage;
                     informativePanel.worker?.postMessage({
                         file: informativePanel.file,
@@ -248,32 +252,43 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
     };
 
     // after first render, we compute width of the drop area component
-    useEffect(()=>{
-        if(dropAreaRef.current){
-            setWidth(dropAreaRef.current.getBoundingClientRect().width)
+    useEffect(() => {
+        if (dropAreaRef.current) {
+            setWidth(dropAreaRef.current.getBoundingClientRect().width);
         }
-    },[])
+    }, []);
 
     return (
-        <FileUploadV2Container {...props}>
+        <FileUploadV2Container padding={padding} {...props}>
             <Dropzone multiple>
                 {() => (
                     <div {...getRootProps()} ref={dropAreaRef}>
-                        <DropArea isDragEnter={isDragEnter} {...dropAreaProps} />
+                        <DropArea
+                            isDragEnter={isDragEnter}
+                            {...dropAreaProps}
+                        />
                         <input {...getInputProps()} />
                     </div>
                 )}
             </Dropzone>
             {informativePanels.panels.map((panel) => (
-                <Panel key={panel.name} onCancelUploading={onCancelUploading(panel.name)} margin='10px 0' style={{width}} panel={panel} />
+                <Panel
+                    key={panel.name}
+                    onCancelUploading={onCancelUploading(panel.name)}
+                    margin="10px 0"
+                    style={{ width }}
+                    panel={panel}
+                />
             ))}
         </FileUploadV2Container>
     );
 };
 
-const FileUploadV2Container = styled.div`
+const FileUploadV2Container = styled.div<MainInterface>`
     background-color: white;
     border-radius: 10px;
-    padding: 10px;
     width: fit-content;
+    ${({ ...props }): string => `
+    ${Main({ ...props })}
+    `}
 `;
