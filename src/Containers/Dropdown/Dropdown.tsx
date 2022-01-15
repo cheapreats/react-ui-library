@@ -20,14 +20,14 @@ type DropdownComponent<P = {}> = React.NamedExoticComponent<P> & {
 
 export interface IDropdownProps extends React.HTMLAttributes<HTMLDivElement> {
     dropdownButton?: React.ReactElement;
-    dropdownWidth?: number;
+    dropdownWidth?: string;
     right?: boolean;
     openFunc?: (target: boolean) => void;
     beginOpen?: boolean;
 }
 
 interface IDropdownContentProps {
-    dropdownWidth?: number;
+    dropdownWidth?: string;
     contentLength: number | undefined;
     placement: boolean | undefined;
     targetPositionConfig: ClientRect | {};
@@ -227,9 +227,9 @@ const DropdownContent = styled.ul<IDropdownContentProps>`
     row-gap: 15px;
     font-family: ${theme.font.family};
     background: ${theme.colors.background};
-    max-width: ${dropdownWidth}px;
+    max-width: ${dropdownWidth};
     min-width: 0;
-    width: ${`${dropdownWidth}px` || 'auto'};
+    width: ${`${dropdownWidth}` || 'auto'};
     box-shadow: ${theme.depth[1]};
     border-radius: ${theme.dimensions.radius};
 `}

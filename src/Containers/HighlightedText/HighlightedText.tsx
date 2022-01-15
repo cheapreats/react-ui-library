@@ -15,6 +15,11 @@ export interface HighlightedString {
     text: string;
     /** whether or not the string has options; if it has options, it will be bolded */
     isSpecial: boolean;
+    /** whether or not the string has options; if it has options, it will be bolded */
+    specialRange?: {
+        begin: number,
+        end: number,
+    };
     /** props for text component */
     textProps?: TextLayoutProps;
     /** props for Dropdown */
@@ -89,6 +94,27 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
 
             setRefreshHighlights(!refreshHighlights);
         }
+
+        const getTextComps = (label: HighlightedString): React.ReactElement => {
+
+            const specialTextProps = {
+                bold: true,
+                opacity: opacity,
+            }
+
+            if (label.specialRange){
+                return (
+                    <>
+                        <SmallText style={{opacity}} {...label.textProps}>{`${label.text.substring(0, label.specialRange.begin - 1)} `}</SmallText>
+                        <SpecialTextComponent label={{...label}} text={label.text.substring(label.specialRange.begin, label.specialRange.end + 1)} isHighlighted={isOpened[index]} {...specialTextProps}/>
+                        <SmallText style={{opacity}} {...label.textProps}>{`${label.text.substring(label.specialRange.end + 1)} `}</SmallText>
+                    </>
+                )
+            } else {
+                return (<SpecialTextComponent label={{...label}} text={label.text} isHighlighted={isOpened[index]} {...specialTextProps}/>)
+            }
+
+        }
         
         if (label.isSpecial){
             const listItemsArgs: Array<IDropdownItemProps> = label.listItemsArgs || []
@@ -96,7 +122,7 @@ export const HighlightedText: React.FC<HighlightedTextProps> = ({
             const DropDownProps: IDropdownProps = {
                 // dropdownButton: getSpecialTextComponent(label, opacity),
                 openFunc: openFunc,
-                dropdownButton: <SpecialTextComponent bold={isOpened[index]} label={{...label}} opacity={opacity}/>
+                dropdownButton: getTextComps(label),
             }
             return <Dropdown {...DropDownProps} {...label.listProps}>
                 {listItemsBodies.map((_, i) => (

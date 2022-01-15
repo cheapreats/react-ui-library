@@ -12,15 +12,16 @@ import { HighlightedString } from './HighlightedText';
 
 interface SpecialTextComponentProps {
     label: HighlightedString;
+    text: String;
     toggleFunc?: (target:boolean) => void;
-    bold?: boolean;
+    isHighlighted?: boolean;
     opacity?: number;
 }
 
 const SpecialTextComponent: React.FC<SpecialTextComponentProps> = ({
     label,
-    opacity,
-    bold,
+    text,
+    isHighlighted,
     ...props
 }): React.ReactElement => {
     // const [onClick, setOnClick] = useState(true);
@@ -28,11 +29,11 @@ const SpecialTextComponent: React.FC<SpecialTextComponentProps> = ({
     //     setOnClick(!onClick);
     // }
     
-    return <StyledClickableSmallText style={{opacity}} bold={bold} {...label.textProps}>{`${label.text  } `}</StyledClickableSmallText>
+    return <StyledClickableSmallText isHighlighted={isHighlighted || false} {...label.textProps} {...props}>{`${text  } `}</StyledClickableSmallText>
 }
 
-const StyledClickableSmallText = styled(ClickableSmallText)`
-    color: ${({bold}) => bold ? MainTheme.colors.statusColors.orange : MainTheme.colors.text}
+const StyledClickableSmallText = styled(ClickableSmallText)<{ isHighlighted: boolean }>`
+    color: ${({isHighlighted}) => isHighlighted ? MainTheme.colors.statusColors.orange : MainTheme.colors.text}
 `;
 
 export default SpecialTextComponent;
