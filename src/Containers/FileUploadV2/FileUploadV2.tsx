@@ -83,7 +83,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
     isTestIsFailure = false,
     processFile = (base64String: string) => null,
     messageDuration = MESSAGE_DURATION,
-    padding='10px',
+    padding = '10px',
     ...props
 }): React.ReactElement => {
     const isMounted = useMounted();
@@ -96,6 +96,30 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
     const [isDragEnter, setIsDragEnter] = useState(false);
     const dropAreaRef = useRef<HTMLDivElement>(null);
     const [width, setWidth] = useState<number>(0);
+
+    /**
+     * set end state
+     */
+    const prepareForEndInformativePanel = useCallback(
+        (operationState: OperationState, informativePanel: IPanel): void => {
+            setInformativePanels((prev) => ({
+                ...prev,
+                panels: prev.panels.map((panel) => {
+                    if (panel.name === informativePanel.name)
+                        return {
+                            ...panel,
+                            operationState,
+                        };
+                    return panel;
+                }),
+                makeItDisappear: [
+                    ...prev.makeItDisappear,
+                    informativePanel.name,
+                ],
+            }));
+        },
+        [],
+    );
 
     /**
      * terminate worker and set state of informative panel to success or failure and
@@ -116,42 +140,25 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                     base64StringFile === NO_BASE64STRINGFILE ||
                     isTestIsFailure
                 ) {
-                    setInformativePanels((prev) => ({
-                        ...prev,
-                        panels: prev.panels.map((panel) => {
-                            if (panel.name === informativePanel.name)
-                                return {
-                                    ...panel,
-                                    operationState: OperationState.isFailure,
-                                };
-                            return panel;
-                        }),
-                        makeItDisappear: [
-                            ...prev.makeItDisappear,
-                            informativePanel.name,
-                        ],
-                    }));
+                    prepareForEndInformativePanel(
+                        OperationState.isFailure,
+                        informativePanel,
+                    );
                 } else {
                     processFile(base64StringFile);
-                    setInformativePanels((prev) => ({
-                        ...prev,
-                        panels: prev.panels.map((panel) => {
-                            if (panel.name === informativePanel.name)
-                                return {
-                                    ...panel,
-                                    operationState: OperationState.isSuccess,
-                                };
-                            return panel;
-                        }),
-                        makeItDisappear: [
-                            ...prev.makeItDisappear,
-                            informativePanel.name,
-                        ],
-                    }));
+                    prepareForEndInformativePanel(
+                        OperationState.isSuccess,
+                        informativePanel,
+                    );
                 }
             }
         },
-        [informativePanels.panels, isTestIsFailure, processFile],
+        [
+            informativePanels.panels,
+            isTestIsFailure,
+            processFile,
+            prepareForEndInformativePanel,
+        ],
     );
 
     const onDragEnter = () => {
