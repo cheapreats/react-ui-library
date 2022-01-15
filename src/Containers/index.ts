@@ -68,7 +68,6 @@ export * from './NutritionFact/NutritionFact';
 export * from './SankeyChart/SankeyChart';
 export * from './LogoListing/Logo';
 export * from './HorizontalBarChart/HorizontalBarChart';
-export * from './DeliveryRadius/DeliveryRadius';
 export * from './ItemsRedemptionPoints/ItemsRedemptionPoints';
 export * from './StretchableButton/StretchableButton';
 export * from './EditDraggableCanvas/_DraggableTable';
