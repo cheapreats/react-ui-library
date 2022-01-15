@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { OrderType, OrderTypeIdentifier, IOrderTypeProps } from './OrderType';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Order Type'),
+    title: 'Components/Order Type',
     component: OrderType,
     argTypes: {
         orderType: {

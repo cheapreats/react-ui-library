@@ -11,7 +11,7 @@ import {
     ListProps,
     ListToggle,
 } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 const COG_WHEEL_ICON = Cog;
 
@@ -30,7 +30,7 @@ const items = [
 ];
 
 export default {
-    title: createStoryTitle('List'),
+    title: 'Components/List',
     component: List,
     argTypes: {
         isOpen: {

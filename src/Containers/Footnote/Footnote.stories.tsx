@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Footnote, SmallText, FootnoteProps } from '../../index';
-import { createStoryTitle, getCaptionForLocale } from '../../Constants';
+import {  getCaptionForLocale } from '../../Constants';
 
 export default {
-    title: createStoryTitle('Footnote'),
+    title: 'Components/Footnote',
     component: Footnote,
     args: {
         show: true,

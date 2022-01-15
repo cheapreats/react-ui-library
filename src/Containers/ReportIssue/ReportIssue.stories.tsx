@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ReportIssue, IReportIssueProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 // TODO: ADD STATE to component
 const handleSubmit = (event: any, option: any) => {
@@ -10,7 +10,7 @@ const handleSubmit = (event: any, option: any) => {
 };
 
 export default {
-    title: createStoryTitle('Report Issue'),
+    title: 'Components/Report Issue',
     component: ReportIssue,
     argTypes: { handleSubmit: { action: 'Changed' } },
     args: {

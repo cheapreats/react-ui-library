@@ -37,5 +37,41 @@ This folder contains code generation scripts to help make development faster.
 Use the Styled-Icons library to import icons from : https://styled-icons.dev/
 #### Themes/ 
 Contains all the styling that CheaprEats uses so you don't have to guess to color codes, Also your components will automatically translate to dark mode!
+To Add a Color to the Theme Modify both the [MainTheme File](https://github.com/cheapreats/react-ui-library/blob/master/src/Themes/MainTheme.ts) and [DarkTheme File](https://github.com/cheapreats/react-ui-library/blob/master/src/Themes/DarkTheme.ts) (Add the Typing for the New Color as well as the Color Code for the new Color Key)
 ##### Mixins (Responsiveness)
 - Ensure that you are using the consistent Mixins for your Media Queries: https://github.com/cheapreats/react-ui-library/blob/v2/src/Themes/ThemeTemplate.ts#L138
+
+# When Importing/Using This Library (Try without this first as library has been fixed)
+- Ensure there is only one instance of react & react-dom being used in your app. Use Webpack alias to point to ./node_modules/react & ./node_modules/react-dom respectively.
+When you import this library there is the Version of React by the Library and the version of React by your app being used simutaneously. Even if they are the same versions, two copies of react/react-dom will cause issues. Point all instance of react/react-dom to the one used by your application using Webpack Aliases.
+```js
+  resolve: {
+    alias: {
+      // add as many aliases as you like! 
+      "react": "./node_modules/react",
+      "react-dom": "./node_modules/react-dom"
+    }
+  }
+```  
+- Wrap you app with the Theme Object
+You need to import Global into your app and wrap your app with the Global to Access the Theme.
+```js
+    return (
+        <Global
+            extend={
+                JSON.parse(localStorage.getItem('isDark') ?? 'false')
+                    ? extendThemeDark
+                    : extendThemeMain
+            }
+            style={globalStyle}
+            theme={ThemeTypes.MAIN}
+        >
+            <QueryClientProvider client={queryClient}>
+                <Switch>
+                    {getLandingRoutes()}
+                    <Route path="/:id" component={Dashboard} />
+                </Switch>
+            </QueryClientProvider>
+        </Global>
+    );
+```

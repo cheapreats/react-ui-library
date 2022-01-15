@@ -2,10 +2,10 @@ import React from 'react';
 import { Dog } from '@styled-icons/fa-solid/Dog';
 import { Meta, Story } from '@storybook/react';
 import { HorizontalStoreCard, HorizontalStoreCardProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Horizontal Store Card'),
+    title: 'Components/Horizontal Store Card',
     component: HorizontalStoreCard,
     args: {
         image: 'https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif',

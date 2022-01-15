@@ -7,7 +7,7 @@ import {
     Paragraph,
     FeaturesCardProps,
 } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 const icon = <ShoppingBasket color="dodgerblue" />;
 
@@ -35,7 +35,7 @@ const footer = (
 );
 
 export default {
-    title: createStoryTitle('Features Card'),
+    title: 'Components/Features Card',
     component: FeaturesCard,
     args: {
         children,

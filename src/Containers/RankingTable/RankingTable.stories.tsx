@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { RankingTable, RankingTableProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 const data = [
     {
@@ -70,7 +70,7 @@ const data = [
 ];
 
 export default {
-    title: createStoryTitle('Ranking Table'),
+    title: 'Components/Ranking Table',
     component: RankingTable,
     args: {
         title: 'Top 3 Products',

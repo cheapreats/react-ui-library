@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ExcelOptions, ExcelOptionsProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Excel options'),
+    title: 'Components/Excel options',
     component: ExcelOptions,
     argTypes: { onResult: { action: 'data' } },
     args: {

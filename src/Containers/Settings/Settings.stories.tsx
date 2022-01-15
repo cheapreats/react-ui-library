@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Settings, SettingsProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Settings'),
+    title: 'Components/Settings',
     component: Settings,
     args: {},
 } as Meta;

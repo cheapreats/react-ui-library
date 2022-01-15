@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { createStoryTitle } from '../../Constants';
+
 import { TableFeature, TableFeatureProps } from './TableFeature';
 
 const data = [
@@ -37,7 +37,7 @@ const data = [
 ];
 
 export default {
-    title: createStoryTitle('TableFeature'),
+    title: 'Components/TableFeature',
     component: TableFeature,
     args: {
         heading: 'Simplified payout process',

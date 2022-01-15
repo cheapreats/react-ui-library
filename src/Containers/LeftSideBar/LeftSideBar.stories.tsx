@@ -7,11 +7,11 @@ import { ListNumbered } from '@styled-icons/icomoon/ListNumbered';
 import { Dollar } from '@styled-icons/boxicons-regular/Dollar';
 import { Qrcode } from '@styled-icons/icomoon/Qrcode';
 import { Settings } from '@styled-icons/ionicons-sharp/Settings';
-import { createStoryTitle } from '../../Constants';
+
 import { LeftSideBar, LeftSideBarProps } from '../../index';
 
 export default {
-    title: createStoryTitle('Left Sidebar'),
+    title: 'Components/Left Sidebar',
     component: LeftSideBar,
     argTypes: { onDrag: { action: 'I have been dragged!' } },
     args: {

@@ -5,10 +5,10 @@ import {
     SeatingInfoInput,
     ISeatingInfoInput,
 } from '@Containers/SeatingInfoInput/SeatingInfoInput';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('SeatingInfoInput'),
+    title: 'Components/SeatingInfoInput',
     component: SeatingInfoInput,
 } as Meta;
 

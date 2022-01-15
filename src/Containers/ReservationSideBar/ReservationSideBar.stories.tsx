@@ -1,10 +1,10 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { ReservationSideBar, IReservationSideBar } from './ReservationSideBar';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('ReservationSideBar'),
+    title: 'Components/ReservationSideBar',
     component: ReservationSideBar,
 } as Meta;
 

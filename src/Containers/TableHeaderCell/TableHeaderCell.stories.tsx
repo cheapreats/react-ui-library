@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { TableHeaderCell, TableHeaderCellProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('TableHeaderCell'),
+    title: 'Components/TableHeaderCell',
     component: TableHeaderCell,
     args: {
         title: 'Name',

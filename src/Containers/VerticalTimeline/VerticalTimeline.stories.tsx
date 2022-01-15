@@ -2,10 +2,10 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { VerticalTimeline, VerticalTimelineProps } from '@Containers';
 import { hoursMinutesToMilliseconds } from '@Utils';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('VerticalTimeline'),
+    title: 'Components/VerticalTimeline',
     component: VerticalTimeline,
     args: {
         verticalSpacing: 15,

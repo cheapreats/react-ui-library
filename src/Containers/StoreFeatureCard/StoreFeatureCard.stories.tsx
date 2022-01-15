@@ -2,11 +2,11 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Dog } from '@styled-icons/fa-solid/Dog';
 import { Cat } from '@styled-icons/fa-solid/Cat';
-import { createStoryTitle } from '../../Constants';
+
 import { StoreFeatureCard, StoreFeatureCardProps } from '../../index';
 
 export default {
-    title: createStoryTitle('Store Feature Card'),
+    title: 'Components/Store Feature Card',
     component: StoreFeatureCard,
     args: {
         linktitle: 'VISIT STORE',

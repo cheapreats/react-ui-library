@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Coupon, CouponProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Coupon'),
+    title: 'Components/Coupon',
     component: Coupon,
 } as Meta;
 

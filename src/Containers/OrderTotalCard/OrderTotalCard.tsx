@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Card } from '../Card/Card';
-import CardText from '../../Text/CardText/CardText';
+import {LeftRightText} from '../../Text';
 
 export interface IPriceDetails {
     /* Name of payment */
@@ -30,7 +30,7 @@ export const OrderTotalCard: React.FC<IOrderTotalCardProps> = ({
 
 const OrderCard = styled(Card)``;
 
-const PaymentText = styled(CardText)<{ isBold: IPriceDetails['isBold'] }>`
+const PaymentText = styled(LeftRightText)<{ isBold: IPriceDetails['isBold'] }>`
     color: ${({ isBold }) => (isBold ? 'black' : 'grey')};
     font-size: ${({ isBold }) => (isBold ? '1.4em' : 'normal')};
     margin: 0.4em;

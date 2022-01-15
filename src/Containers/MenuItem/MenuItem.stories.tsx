@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { MenuItem, IMenuItemProps } from './MenuItem';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Menu Item'),
+    title: 'Components/Menu Item',
     component: MenuItem,
     args: {
         name: 'Hamburger',

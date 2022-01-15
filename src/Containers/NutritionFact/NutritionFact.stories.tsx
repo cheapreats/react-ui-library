@@ -1,11 +1,11 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { NutritionFact, INutritionFactProps, EntryType } from './NutritionFact';
-import { createStoryTitle } from '../../Constants';
+
 import Theme from '../../Themes/ThemeTemplate';
 
 export default {
-    title: createStoryTitle('NutritionFact'),
+    title: 'Components/NutritionFact',
     component: NutritionFact,
     args: {
         entries: [

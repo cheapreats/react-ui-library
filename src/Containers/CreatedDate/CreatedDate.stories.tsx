@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { CreatedDate, CreatedDateProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('CreatedDate'),
+    title: 'Components/CreatedDate',
     component: CreatedDate,
     args: {
         dateCreated: "June 29, 2007"

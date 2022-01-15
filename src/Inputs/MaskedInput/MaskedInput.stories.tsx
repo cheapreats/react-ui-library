@@ -2,10 +2,10 @@ import React from 'react';
 import { MaskedInput, MaskedInputProps, MaskedInputPreset } from '@Inputs';
 import { Meta, Story } from '@storybook/react';
 import { useArgs } from '@storybook/client-api';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('MaskedInput'),
+    title: 'Components/MaskedInput',
     component: MaskedInput,
     argTypes: {
         realValue: {

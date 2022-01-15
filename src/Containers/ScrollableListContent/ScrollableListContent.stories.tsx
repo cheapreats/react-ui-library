@@ -5,10 +5,10 @@ import {
     SmallText,
     ScrollableListContentProps,
 } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Scrollable List Content'),
+    title: 'Components/Scrollable List Content',
     component: ScrollableListContent,
     args: {
         withList: false,

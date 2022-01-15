@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { SearchBar, SearchBarProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Search Bar'),
+    title: 'Components/Search Bar',
     component: SearchBar,
     argTypes: {
         onChange: {

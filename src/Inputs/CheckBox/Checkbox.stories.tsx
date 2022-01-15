@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Checkbox, CheckboxProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('CheckBox'),
+    title: 'Components/CheckBox',
     component: Checkbox,
     argTypes: { onChange: { action: 'Checkbox Click Occurred' } },
     args: {

@@ -4,10 +4,10 @@ import {
     PartyInfoInput,
     IPartyInfoInput,
 } from '@Containers/PartyInfoInput/PartyInfoInput';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('PartyInfoInput'),
+    title: 'Components/PartyInfoInput',
     component: PartyInfoInput,
 } as Meta;
 

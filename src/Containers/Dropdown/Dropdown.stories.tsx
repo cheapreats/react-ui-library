@@ -1,12 +1,12 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Button } from '@Inputs/Button/Button';
-import { createStoryTitle } from '../../Constants';
+
 import { IDropdownProps } from './Dropdown';
 import Dropdown from './index';
 
 export default {
-    title: createStoryTitle('Dropdown'),
+    title: 'Components/Dropdown',
     component: Dropdown,
     args: {
         dropdownWidth: 300,

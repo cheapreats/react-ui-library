@@ -6,10 +6,10 @@ import {
     Food,
 } from '@styled-icons/fluentui-system-filled';
 import { OrderTracker, OrderTrackerProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('OrderTracker'),
+    title: 'Components/OrderTracker',
     component: OrderTracker,
     args: {
         statuses: [

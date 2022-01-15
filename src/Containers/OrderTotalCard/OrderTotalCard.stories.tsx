@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { OrderTotalCard, IOrderTotalCardProps } from './OrderTotalCard';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Order Payment Card'),
+    title: 'Components/Order Payment Card',
     component: OrderTotalCard,
     args: {
         orderCardContents: [

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { NotificationBubble, NotificationBubbleProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('NotificationBubble'),
+    title: 'Components/NotificationBubble',
     component: NotificationBubble,
     args: {
         notificationCounter: 3,

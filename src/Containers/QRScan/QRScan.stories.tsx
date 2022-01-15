@@ -5,7 +5,7 @@ import { PhoneFill } from '@styled-icons/bootstrap/PhoneFill';
 import { SmallText } from '@Text/SmallText';
 import { QRScan, QRScanProps } from '../../index';
 import { QRIconWithText } from './QRIconWithText';
-import { createStoryTitle } from '../../Constants';
+
 
 const qrImgURL1 =
     'https://storage.googleapis.com/support-forums-api/attachment/thread-13090132-506909745012483037.png';
@@ -47,7 +47,7 @@ const footerItems = [
 ];
 
 export default {
-    title: createStoryTitle('QRScan'),
+    title: 'Components/QRScan',
     component: QRScan,
     args: {
         title: 'COVID Contact Tracing',

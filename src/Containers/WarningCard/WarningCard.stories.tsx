@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { WarningCard, IWarningCardProps, SmallText } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Warning Card'),
+    title: 'Components/Warning Card',
     component: WarningCard,
     argTypes: {
         action: { action: 'Clicked!' },

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { Meta, Story } from '@storybook/react';
 import { Button } from '../../Inputs/Button/Button';
 import { ClientShowCase, ShowCaseProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 const onComponentClick = () => {
     console.log('You clicked the div!');
@@ -26,7 +26,7 @@ enum ImageSizes {
 }
 
 export default {
-    title: createStoryTitle('ClientShowCase'),
+    title: 'Components/ClientShowCase',
     component: ClientShowCase,
     argTypes: {
         imgHeightEnum: {

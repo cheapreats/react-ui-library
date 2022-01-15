@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Button, Modal, ModalProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Modal'),
+    title: 'Components/Modal',
     component: Modal,
 } as Meta;
 

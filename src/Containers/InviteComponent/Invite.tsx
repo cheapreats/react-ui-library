@@ -1,10 +1,8 @@
 import * as Yup from 'yup';
 import Button from '@Inputs/Button/Button';
-import Heading from '@Text/Heading';
+import {Heading, Paragraph, SmallText} from '@Text';
 import Input from '@Inputs/Input/Input';
-import Paragraph from '@Text/Paragraph';
 import React from 'react';
-import SmallText from '@Text/SmallText';
 import Textarea from '@Inputs/Textarea/Textarea';
 import styled from 'styled-components';
 import { ArrowRight } from '@styled-icons/bootstrap/ArrowRight';
