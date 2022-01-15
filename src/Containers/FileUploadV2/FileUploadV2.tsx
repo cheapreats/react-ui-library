@@ -265,6 +265,13 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
         }
     }, []);
 
+    // terminate workers on clean up function
+    useEffect(()=>()=>{
+        if(!isMounted.current) {
+            informativePanels.panels.forEach(panel=>panel.worker?.terminate());
+        }
+    },[informativePanels])
+
     return (
         <FileUploadV2Container padding={padding} {...props}>
             <Dropzone multiple>

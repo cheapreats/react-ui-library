@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { IPanelProps, OperationState } from '../FileUploadV2/FileUploadV2';
 import { Card as C } from '../Card/Card';
@@ -24,15 +24,6 @@ export const Panel: React.FC<IPanelProps> = ({
         }
         return '';
     }, [panel]);
-
-    useEffect(
-        () => () => {
-            if (panel) {
-                panel.worker?.terminate();
-            }
-        },
-        [],
-    );
 
     return (
         <Card {...props}>
