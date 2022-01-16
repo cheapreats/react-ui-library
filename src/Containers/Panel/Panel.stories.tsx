@@ -14,7 +14,7 @@ export const Basic: Story<IPanelProps> = (args) => <PanelCard {...args} />;
 export const FileIsLoading = Basic.bind({});
 FileIsLoading.args = {
     ...Basic.args,
-    name: 'file A',
+    name: 'file Aaaaaaakjsdkfj aksdjf laj h lkjh ljh',
     operationState: OperationState.isLoading,
 };
 

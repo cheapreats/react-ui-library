@@ -15,12 +15,14 @@ export interface LoadingProps
         MainInterface {
     loading?: boolean;
     message?: string;
+    isNotPositionAbsolute?:boolean;
 }
 
 export const Loading: React.FC<LoadingProps> = ({
     children,
     loading = false,
     message = 'Loading...',
+    isNotPositionAbsolute=false,
     ...props
 }): React.ReactElement => {
     const theme = useTheme();
@@ -31,8 +33,8 @@ export const Loading: React.FC<LoadingProps> = ({
         <Container {...props} animate={animate} invert={mount}>
             {mount ? (
                 <>
-                    <Bar />
-                    <Text>{message}</Text>
+                    <Bar isNotPositionAbsolute={isNotPositionAbsolute} />
+                    <Text isNotPositionAbsolute={isNotPositionAbsolute}>{message}</Text>
                 </>
             ) : (
                 children
@@ -58,8 +60,10 @@ const Container = styled.div<
     ${Main}
 `;
 
-const Bar = styled.div`
-    ${position('absolute', '0 auto auto')}
+const Bar = styled.div<Pick<LoadingProps,'isNotPositionAbsolute'>>`
+${({isNotPositionAbsolute}):string=>`
+${isNotPositionAbsolute?position('initial', '0 auto auto'):position('absolute','0 auto auto')}
+`}
     ${flex('center')}
     overflow: hidden;
     width: 100%;
@@ -93,8 +97,11 @@ const Bar = styled.div`
     }
 `;
 
-const Text = styled.span`
-    ${position('absolute', '8px 8px auto auto', 0, 0, 0, 'auto')}
+const Text = styled.span<Pick<LoadingProps,'isNotPositionAbsolute'>>`
+${({isNotPositionAbsolute}):string=>`
+${isNotPositionAbsolute?position('initial', '8px 8px auto auto', 0, 0, 0, 'auto'):position('absolute', '8px 8px auto auto', 0, 0, 0, 'auto')}
+${isNotPositionAbsolute?flex('flex-end'):''}
+`}
     animation: fader 1.2s ease-in-out infinite;
     font-weight: bold;
     font-size: 0.8rem;

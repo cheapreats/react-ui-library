@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { IPanelProps, OperationState } from '../FileUploadV2/FileUploadV2';
 import { Card as C, CardProps } from '../Card/Card';
 import { Button as B } from '../../Inputs/Button/Button';
+import { Loading } from '../Loading/Loading';
 
 interface IPanelCardProps extends IPanelProps, CardProps {}
 
@@ -15,30 +16,27 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
     messageIsLoading = `loading ${name} ...`,
     ...props
 }) => {
-    const getMessage = useCallback((): string => {
+    const renderContent = useCallback((): React.ReactNode => {
         switch (operationState) {
             case OperationState.isFailure:
-                return messageIsFailure;
+                return <div>{messageIsFailure}</div>;
             case OperationState.isSuccess:
-                return messageIsSuccess;
+                return <div>{messageIsSuccess}</div>;
             case OperationState.isLoading:
-                return messageIsLoading;
+                return (
+                    <div>
+                        <Loading message={messageIsLoading} loading isNotPositionAbsolute />
+                        <Button onClick={onCancelUploading}>Cancel</Button>
+                    </div>
+                );
             default:
-                return '';
+                return null;
         }
     }, [operationState]);
 
-    return (
-        <Card {...props}>
-            <div>{getMessage()}</div>
-            {operationState === OperationState.isLoading && (
-                <div>
-                    <Button onClick={onCancelUploading}>Cancel</Button>
-                </div>
-            )}
-        </Card>
-    );
+    return <Card {...props}>{renderContent()}</Card>;
 };
 
 const Card = styled(C)``;
-const Button = styled(B)``;
+const Button = styled(B)`
+`;
