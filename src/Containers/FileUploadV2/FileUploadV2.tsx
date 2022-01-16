@@ -283,7 +283,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                 );
             }
         },
-        [informativePanels],
+        [informativePanels.panels],
     );
 
     return (
@@ -304,7 +304,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                     key={panel.name}
                     onCancelUploading={onCancelUploading(panel.name)}
                     margin="10px 0"
-                    style={{ width }}
+                    style={{ width, boxSizing:'border-box' }}
                     name={panel.name}
                     operationState={panel.operationState}
                 />
