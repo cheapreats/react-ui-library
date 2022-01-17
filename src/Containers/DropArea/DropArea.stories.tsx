@@ -27,3 +27,8 @@ OnClickPreventDefault.args = {
         e.preventDefault();
     },
 };
+export const BigMinWidth = Basic.bind({});
+BigMinWidth.args = {
+    ...Basic.args,
+    minWidth: 500,
+};
