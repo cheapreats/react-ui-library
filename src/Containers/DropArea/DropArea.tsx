@@ -24,6 +24,7 @@ export interface IDropAreaProps
           ) => void)
         | undefined;
     isDragEnter?: boolean;
+    minWidth?: number;
 }
 
 export const DropArea: React.FC<IDropAreaProps> = ({
@@ -82,10 +83,13 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     );
 };
 
-const DropAreaBox = styled.div<MainInterface & { isDragEnter: boolean }>`
+const DropAreaBox = styled.div<
+    MainInterface & { isDragEnter: boolean; minWidth?: number }
+>`
     width: fit-content;
     ${flex('column', 'center', 'center')}
-    ${({ theme, isDragEnter, padding, ...props }): string => `
+    ${({ theme, isDragEnter, minWidth, padding, ...props }): string => `
+    ${minWidth ? `min-width:${minWidth}px;` : ''}
 border-radius:${theme.dimensions.radius};
 ${
     isDragEnter
@@ -106,7 +110,7 @@ ${
           animation: border-dance .3s infinite linear;
 `
         : `
-border:2px dashed ${theme.colors.border};
+border:2px dashed ${theme.colors.occupancyStatusColors.Occupied};
 `
 }
 
@@ -135,16 +139,21 @@ const BrowseFiles = styled.div`
 const OrBox = styled.div`
     margin: 10px;
     font-weight: 700;
+    opacity:0.7;
+    ${({theme}):string=>`
+    color:${theme.colors.occupancyStatusColors.Occupied};
+   `}
 `;
 
 const MessageBox = styled.div`
     font-weight: 700;
+    opacity:0.7;
 `;
 
 const Icon = styled.svg`
     width: 60px;
     height: 60px;
-    opacity:0.6;
+    opacity: 0.6;
     ${({ theme }): string => `
 color:${theme.colors.occupancyStatusColors.Occupied};
 `}
