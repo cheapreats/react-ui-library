@@ -70,7 +70,7 @@ border-radius:${theme.dimensions.radius};
 ${
     isDragEnter
         ? `
-        background-color:#cce6ff;
+        background-color:${theme.colors.input.success};
         @keyframes border-dance {
             0% {
               background-position: left top, right bottom, left bottom, right   top;
@@ -86,7 +86,7 @@ ${
           animation: border-dance .3s infinite linear;
 `
         : `
-border:2px dashed grey;
+border:2px dashed ${theme.colors.border};
 `
 }
 
