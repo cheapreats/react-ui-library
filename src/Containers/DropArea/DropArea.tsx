@@ -13,6 +13,7 @@ export interface IDropAreaProps
     extends MainInterface,
         React.HTMLAttributes<HTMLDivElement> {
     message?: string;
+    buttonText?: string;
     onClick?: React.MouseEventHandler<HTMLElement> | undefined;
     onDragEnter?: React.DragEventHandler<HTMLElement> | undefined;
     onDragLeave?: React.DragEventHandler<HTMLElement> | undefined;
@@ -24,12 +25,13 @@ export interface IDropAreaProps
           ) => void)
         | undefined;
     isDragEnter?: boolean;
-    minWidth?: number;
     isDisabled?: boolean;
+    minWidth?: number;
 }
 
 export const DropArea: React.FC<IDropAreaProps> = ({
     message = 'Drag & Drop your files here',
+    buttonText = 'Browse Files',
     onClick = () => null,
     onDragEnter = () => null,
     onDragLeave = () => null,
@@ -59,7 +61,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
                         <MessageBox>{message}</MessageBox>
                         <OrBox>OR</OrBox>
                         <BrowseFiles>
-                            Browse Files
+                            {buttonText}
                             <input
                                 {...getInputProps({
                                     onClick,
