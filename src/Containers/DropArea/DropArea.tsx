@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { MainInterface, Main } from '@Utils/BaseStyles';
+import { flex } from '@Utils/Mixins';
 import Dropzone, {
     useDropzone,
     DropEvent,
@@ -11,6 +12,7 @@ export interface IDropAreaProps
     extends MainInterface,
         React.HTMLAttributes<HTMLDivElement> {
     message?: string;
+    onClick?: React.MouseEventHandler<HTMLElement>|undefined;
     onDragEnter?: React.DragEventHandler<HTMLElement> | undefined;
     onDragLeave?: React.DragEventHandler<HTMLElement> | undefined;
     onDropHandler?:
@@ -24,7 +26,8 @@ export interface IDropAreaProps
 }
 
 export const DropArea: React.FC<IDropAreaProps> = ({
-    message = 'Drag and drop your files or click here to select',
+    message = 'Drag & Drop your files here',
+    onClick=()=>null,
     onDragEnter = () => null,
     onDragLeave = () => null,
     onDropHandler = () => null,
@@ -39,11 +42,38 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     return (
         <Dropzone multiple>
             {() => (
-                <div {...getRootProps()}>
+                <div
+                    {...getRootProps({
+                        onClick: (e: React.MouseEvent) => {
+                            e.stopPropagation();
+                        },
+                    })}
+                >
                     <DropAreaBox isDragEnter={isDragEnter} {...props}>
-                        {message}
+                        <MessageBox>{message}</MessageBox>
+                        <OrBox>OR</OrBox>
+                        <BrowseFiles>
+                            browse files
+                            <input
+                                {...getInputProps({
+                                    onClick,
+                                    style: {
+                                        display: 'initial',
+                                        visibility: 'initial',
+                                        width: '2000px',
+                                        height: '2000px',
+                                        backgroundColor: 'red',
+                                        opacity: 0,
+                                        zIndex: 99999999,
+                                        cursor: 'pointer',
+                                        top: -1000,
+                                        left: -1000,
+                                        position: 'absolute',
+                                    },
+                                })}
+                            />
+                        </BrowseFiles>
                     </DropAreaBox>
-                    <input {...getInputProps()} />
                 </div>
             )}
         </Dropzone>
@@ -52,7 +82,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
 
 const DropAreaBox = styled.div<MainInterface & { isDragEnter: boolean }>`
     width: fit-content;
-    cursor: pointer;
+    ${flex('column', 'center', 'center')}
     ${({ theme, isDragEnter, padding, ...props }): string => `
 border-radius:${theme.dimensions.radius};
 ${
@@ -84,4 +114,27 @@ ${
         : Main({ padding, ...props })
 }
 `}
+`;
+
+const BrowseFiles = styled.div`
+    ${({ theme }): string => `
+    border-radius:${theme.dimensions.radius};
+    background-color:${theme.colors.occupancyStatusColors.Occupied};
+    padding:${theme.dimensions.padding.default};
+    color:${theme.colors.background};
+    `}
+    overflow: hidden;
+    position: relative;
+    user-select: none;
+    width: fit-content;
+    font-weight: 700;
+`;
+
+const OrBox = styled.div`
+    margin: 10px;
+    font-weight: 700;
+`;
+
+const MessageBox = styled.div`
+    font-weight: 700;
 `;

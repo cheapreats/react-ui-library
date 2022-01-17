@@ -10,6 +10,7 @@ export default {
         onDragLeave: { action: 'leaving drop are' },
         onDragEnter: { action: 'entering drop area' },
         onDropHandler: { action: 'files dropped' },
+        onClick: { action: 'you clicked!' },
     },
 } as Meta;
 
