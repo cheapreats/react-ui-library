@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
-import styled, { useTheme } from 'styled-components';
+import React from 'react';
+import styled from 'styled-components';
 import { MainInterface, Main } from '@Utils/BaseStyles';
 import Dropzone, {
     useDropzone,
@@ -25,20 +25,12 @@ export interface IDropAreaProps
 
 export const DropArea: React.FC<IDropAreaProps> = ({
     message = 'Drag and drop your files or click here to select',
-    onDragEnter=()=>null,
-    onDragLeave=()=>null,
-    onDropHandler=()=>null,
+    onDragEnter = () => null,
+    onDragLeave = () => null,
+    onDropHandler = () => null,
     isDragEnter = false,
-    padding,
     ...props
 }): React.ReactElement => {
-    const theme = useTheme();
-    const defaultPadding = useMemo((): string | number => {
-        if (padding === undefined) {
-            return theme.dimensions.padding.container;
-        }
-        return padding;
-    }, [padding, theme]);
     const { getInputProps, getRootProps } = useDropzone({
         onDragEnter,
         onDragLeave,
@@ -48,11 +40,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
         <Dropzone multiple>
             {() => (
                 <div {...getRootProps()}>
-                    <DropAreaBox
-                        isDragEnter={isDragEnter}
-                        padding={defaultPadding}
-                        {...props}
-                    >
+                    <DropAreaBox isDragEnter={isDragEnter} {...props}>
                         {message}
                     </DropAreaBox>
                     <input {...getInputProps()} />
@@ -65,7 +53,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
 const DropAreaBox = styled.div<MainInterface & { isDragEnter: boolean }>`
     width: fit-content;
     cursor: pointer;
-    ${({ theme, isDragEnter, ...props }): string => `
+    ${({ theme, isDragEnter, padding, ...props }): string => `
 border-radius:${theme.dimensions.radius};
 ${
     isDragEnter
@@ -90,6 +78,10 @@ border:2px dashed ${theme.colors.border};
 `
 }
 
-${Main({ ...props })}
+${
+    padding === undefined
+        ? Main({ padding: theme.dimensions.padding.container, ...props })
+        : Main({ padding, ...props })
+}
 `}
 `;
