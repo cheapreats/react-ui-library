@@ -25,9 +25,9 @@ export interface IDropAreaProps
 
 export const DropArea: React.FC<IDropAreaProps> = ({
     message = 'Drag and drop your files or click here to select',
-    onDragEnter,
-    onDragLeave,
-    onDropHandler,
+    onDragEnter=()=>null,
+    onDragLeave=()=>null,
+    onDropHandler=()=>null,
     isDragEnter = false,
     padding,
     ...props
