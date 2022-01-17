@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { CloudUploadAlt } from '@styled-icons/fa-solid/CloudUploadAlt';
 import { MainInterface, Main } from '@Utils/BaseStyles';
 import { flex } from '@Utils/Mixins';
 import Dropzone, {
@@ -12,7 +13,7 @@ export interface IDropAreaProps
     extends MainInterface,
         React.HTMLAttributes<HTMLDivElement> {
     message?: string;
-    onClick?: React.MouseEventHandler<HTMLElement>|undefined;
+    onClick?: React.MouseEventHandler<HTMLElement> | undefined;
     onDragEnter?: React.DragEventHandler<HTMLElement> | undefined;
     onDragLeave?: React.DragEventHandler<HTMLElement> | undefined;
     onDropHandler?:
@@ -27,7 +28,7 @@ export interface IDropAreaProps
 
 export const DropArea: React.FC<IDropAreaProps> = ({
     message = 'Drag & Drop your files here',
-    onClick=()=>null,
+    onClick = () => null,
     onDragEnter = () => null,
     onDragLeave = () => null,
     onDropHandler = () => null,
@@ -50,10 +51,11 @@ export const DropArea: React.FC<IDropAreaProps> = ({
                     })}
                 >
                     <DropAreaBox isDragEnter={isDragEnter} {...props}>
+                        <Icon as={CloudUploadAlt} />
                         <MessageBox>{message}</MessageBox>
                         <OrBox>OR</OrBox>
                         <BrowseFiles>
-                            browse files
+                            Browse Files
                             <input
                                 {...getInputProps({
                                     onClick,
@@ -137,4 +139,13 @@ const OrBox = styled.div`
 
 const MessageBox = styled.div`
     font-weight: 700;
+`;
+
+const Icon = styled.svg`
+    width: 60px;
+    height: 60px;
+    opacity:0.6;
+    ${({ theme }): string => `
+color:${theme.colors.occupancyStatusColors.Occupied};
+`}
 `;
