@@ -20,3 +20,10 @@ IsDragEnterTrue.args = {
     ...Basic.args,
     isDragEnter: true,
 };
+export const OnClickPreventDefault = Basic.bind({});
+OnClickPreventDefault.args = {
+    ...Basic.args,
+    onClick: (e: React.MouseEvent) => {
+        e.preventDefault();
+    },
+};
