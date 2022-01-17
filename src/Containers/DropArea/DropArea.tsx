@@ -1,5 +1,5 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { useMemo } from 'react';
+import styled, { useTheme } from 'styled-components';
 import { MainInterface, Main } from '@Utils/BaseStyles';
 
 export interface IDropAreaProps
@@ -13,19 +13,28 @@ export interface IDropAreaProps
 export const DropArea: React.FC<IDropAreaProps> = ({
     message = 'Drag and drop your files or click here to select',
     isDragEnter = false,
-    padding = '10px',
     onClick = () => null,
+    padding,
     ...props
-}): React.ReactElement => (
-    <DropAreaBox
-        isDragEnter={isDragEnter}
-        padding={padding}
-        onClick={onClick}
-        {...props}
-    >
-        {message}
-    </DropAreaBox>
-);
+}): React.ReactElement => {
+    const theme = useTheme();
+    const defaultPadding = useMemo((): string | number => {
+        if (padding === undefined) {
+            return theme.dimensions.padding.container;
+        }
+        return padding;
+    }, [padding, theme]);
+    return (
+        <DropAreaBox
+            isDragEnter={isDragEnter}
+            onClick={onClick}
+            padding={defaultPadding}
+            {...props}
+        >
+            {message}
+        </DropAreaBox>
+    );
+};
 
 const DropAreaBox = styled.div<
     Pick<IDropAreaProps, 'isDragEnter' | 'padding' | 'margin'>
