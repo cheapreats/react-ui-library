@@ -25,20 +25,22 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
     isSuccessMessage = 'Completed',
     ...props
 }): React.ReactElement => {
-    const renderContent = useCallback((): React.ReactNode => {
+    const getMessage = useCallback((): string => {
         if (operationState.isFailure) {
-            return <div>{isFailureMessage}</div>;
+            return isFailureMessage;
         }
         if (operationState.isLoading) {
-            return (
-                <div>
-                    <div>{isLoadingMessage}</div>
-                    <Button onClick={onCancelLoading}>Cancel</Button>
-                </div>
-            );
+            return isLoadingMessage;
         }
-        return <div>{isSuccessMessage}</div>;
+        return isSuccessMessage;
     }, [operationState, isFailureMessage, isSuccessMessage, isLoadingMessage]);
 
-    return <Card {...props}>{renderContent()}</Card>;
+    return (
+        <Card {...props}>
+            <div>{getMessage()}</div>
+            {operationState.isLoading && (
+                <Button onClick={onCancelLoading}>Cancel</Button>
+            )}
+        </Card>
+    );
 };
