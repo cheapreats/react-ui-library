@@ -15,19 +15,12 @@ export const PanelIsLoading = Basic.bind({});
 PanelIsLoading.args = {
     ...Basic.args,
     name: 'file A',
-    operationState: { isLoading: true, isFailure: false, isSuccess: false },
+    operationState: { isLoading: true, isFailure: false },
 };
 
 export const PanelIsFailure = Basic.bind({});
 PanelIsFailure.args = {
     ...Basic.args,
     name: 'file A',
-    operationState: { isLoading: false, isFailure: true, isSuccess: false },
-};
-
-export const PanelIsSuccess = Basic.bind({});
-PanelIsSuccess.args = {
-    ...Basic.args,
-    name: 'file A',
-    operationState: { isLoading: false, isFailure: false, isSuccess: true },
+    operationState: { isLoading: false, isFailure: true },
 };

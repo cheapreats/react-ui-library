@@ -2,9 +2,7 @@ import React, { useCallback } from 'react';
 import { Button } from '@Inputs/Button/Button';
 import { CardProps, Card } from '../Card/Card';
 
-type OperationState = { isFailure: boolean } & { isSuccess: boolean } & {
-    isLoading: boolean;
-};
+type OperationState = { isFailure: boolean } & { isLoading: boolean };
 
 export interface IPanelCardProps extends CardProps {
     /** name of file being loaded */
@@ -28,9 +26,6 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
     ...props
 }): React.ReactElement => {
     const renderContent = useCallback((): React.ReactNode => {
-        if (operationState.isSuccess) {
-            return <div>{isSuccessMessage}</div>;
-        }
         if (operationState.isFailure) {
             return <div>{isFailureMessage}</div>;
         }
@@ -42,7 +37,7 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
                 </div>
             );
         }
-        return null;
+        return <div>{isSuccessMessage}</div>;
     }, [operationState, isFailureMessage, isSuccessMessage, isLoadingMessage]);
 
     return <Card {...props}>{renderContent()}</Card>;
