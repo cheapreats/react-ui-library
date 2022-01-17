@@ -99,3 +99,4 @@ export * from './StoreSelector/StoreSelector';
 export * from './ScreenFlashEffect/ScreenFlashEffect'; 
 export * from './PanelCard/PanelCard';
 export * from './SpecialText/SpecialText';
+export * from './DropArea/DropArea';
