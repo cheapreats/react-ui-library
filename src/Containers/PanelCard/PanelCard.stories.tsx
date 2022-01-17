@@ -6,6 +6,7 @@ export default {
     title: 'Components/PanelCard',
     component: PanelCard,
     args: {},
+    argTypes: { onCancelLoading: { action: 'clicked' } },
 } as Meta;
 
 export const Basic: Story<IPanelCardProps> = (args) => <PanelCard {...args} />;
