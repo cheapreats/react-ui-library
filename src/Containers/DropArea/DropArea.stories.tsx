@@ -32,3 +32,8 @@ BigMinWidth.args = {
     ...Basic.args,
     minWidth: 500,
 };
+export const IsDisabledTrue = Basic.bind({});
+IsDisabledTrue.args = {
+    ...Basic.args,
+    isDisabled: true,
+};
