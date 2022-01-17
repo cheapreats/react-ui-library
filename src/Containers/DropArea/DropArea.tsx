@@ -25,6 +25,7 @@ export interface IDropAreaProps
         | undefined;
     isDragEnter?: boolean;
     minWidth?: number;
+    isDisabled?: boolean;
 }
 
 export const DropArea: React.FC<IDropAreaProps> = ({
@@ -34,12 +35,14 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     onDragLeave = () => null,
     onDropHandler = () => null,
     isDragEnter = false,
+    isDisabled = false,
     ...props
 }): React.ReactElement => {
     const { getInputProps, getRootProps } = useDropzone({
         onDragEnter,
         onDragLeave,
         onDrop: onDropHandler,
+        disabled: isDisabled,
     });
     return (
         <Dropzone multiple>
@@ -73,6 +76,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
                                         left: -1000,
                                         position: 'absolute',
                                     },
+                                    disabled: isDisabled,
                                 })}
                             />
                         </BrowseFiles>
@@ -139,15 +143,15 @@ const BrowseFiles = styled.div`
 const OrBox = styled.div`
     margin: 10px;
     font-weight: 700;
-    opacity:0.7;
-    ${({theme}):string=>`
+    opacity: 0.7;
+    ${({ theme }): string => `
     color:${theme.colors.occupancyStatusColors.Occupied};
    `}
 `;
 
 const MessageBox = styled.div`
     font-weight: 700;
-    opacity:0.7;
+    opacity: 0.7;
 `;
 
 const Icon = styled.svg`
