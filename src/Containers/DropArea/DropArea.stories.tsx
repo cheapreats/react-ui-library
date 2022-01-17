@@ -10,3 +10,9 @@ export default {
 } as Meta;
 
 export const Basic: Story<IDropAreaProps> = (args) => <DropArea {...args} />;
+
+export const IsDragEnter = Basic.bind({});
+IsDragEnter.args = {
+    ...Basic.args,
+    isDragEnter: true,
+};
