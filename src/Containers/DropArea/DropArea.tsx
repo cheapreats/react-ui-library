@@ -1,19 +1,34 @@
 import React, { useMemo } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { MainInterface, Main } from '@Utils/BaseStyles';
+import Dropzone, {
+    useDropzone,
+    DropEvent,
+    FileRejection,
+} from 'react-dropzone';
 
 export interface IDropAreaProps
     extends MainInterface,
         React.HTMLAttributes<HTMLDivElement> {
     message?: string;
+    onDragEnter?: React.DragEventHandler<HTMLElement> | undefined;
+    onDragLeave?: React.DragEventHandler<HTMLElement> | undefined;
+    onDropHandler?:
+        | (<T extends File>(
+              acceptedFiles: T[],
+              fileRejections: FileRejection[],
+              event: DropEvent,
+          ) => void)
+        | undefined;
     isDragEnter?: boolean;
-    onClick?: () => void;
 }
 
 export const DropArea: React.FC<IDropAreaProps> = ({
     message = 'Drag and drop your files or click here to select',
+    onDragEnter,
+    onDragLeave,
+    onDropHandler,
     isDragEnter = false,
-    onClick = () => null,
     padding,
     ...props
 }): React.ReactElement => {
@@ -24,21 +39,30 @@ export const DropArea: React.FC<IDropAreaProps> = ({
         }
         return padding;
     }, [padding, theme]);
+    const { getInputProps, getRootProps } = useDropzone({
+        onDragEnter,
+        onDragLeave,
+        onDrop: onDropHandler,
+    });
     return (
-        <DropAreaBox
-            isDragEnter={isDragEnter}
-            onClick={onClick}
-            padding={defaultPadding}
-            {...props}
-        >
-            {message}
-        </DropAreaBox>
+        <Dropzone multiple>
+            {() => (
+                <div {...getRootProps()}>
+                    <DropAreaBox
+                        isDragEnter={isDragEnter}
+                        padding={defaultPadding}
+                        {...props}
+                    >
+                        {message}
+                    </DropAreaBox>
+                    <input {...getInputProps()} />
+                </div>
+            )}
+        </Dropzone>
     );
 };
 
-const DropAreaBox = styled.div<
-    Pick<IDropAreaProps, 'isDragEnter' | 'padding' | 'margin'>
->`
+const DropAreaBox = styled.div<MainInterface & { isDragEnter: boolean }>`
     width: fit-content;
     cursor: pointer;
     ${({ theme, isDragEnter, ...props }): string => `
