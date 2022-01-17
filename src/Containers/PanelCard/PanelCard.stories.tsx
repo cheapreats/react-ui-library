@@ -14,13 +14,17 @@ export const Basic: Story<IPanelCardProps> = (args) => <PanelCard {...args} />;
 export const PanelIsLoading = Basic.bind({});
 PanelIsLoading.args = {
     ...Basic.args,
-    name: 'file A',
-    operationState: { isLoading: true, isFailure: false },
+    isLoadingMessage: 'loading file A ...',
 };
 
 export const PanelIsFailure = Basic.bind({});
 PanelIsFailure.args = {
     ...Basic.args,
-    name: 'file A',
-    operationState: { isLoading: false, isFailure: true },
+    isFailureMessage: 'Something went wrong',
+};
+
+export const PanelIsSuccess = Basic.bind({});
+PanelIsSuccess.args = {
+    ...Basic.args,
+    isSuccessMessage: 'Completed',
 };
