@@ -24,7 +24,6 @@ export interface IDropAreaProps
               event: DropEvent,
           ) => void)
         | undefined;
-    isDragEnter?: boolean;
     isDisabled?: boolean;
     minWidth?: number;
 }
@@ -36,11 +35,10 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     onDragEnter = () => null,
     onDragLeave = () => null,
     onDropHandler = () => null,
-    isDragEnter = false,
     isDisabled = false,
     ...props
 }): React.ReactElement => {
-    const { getInputProps, getRootProps } = useDropzone({
+    const { getInputProps, getRootProps, isDragActive } = useDropzone({
         onDragEnter,
         onDragLeave,
         onDrop: onDropHandler,
@@ -49,14 +47,14 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     return (
         <Dropzone multiple>
             {() => (
-                <div
+                <RootDiv
                     {...getRootProps({
                         onClick: (e: React.MouseEvent) => {
                             e.stopPropagation();
                         },
                     })}
                 >
-                    <DropAreaBox isDragEnter={isDragEnter} {...props}>
+                    <DropAreaBox isDragEnter={isDragActive} {...props}>
                         <Icon as={CloudUploadAlt} />
                         <MessageBox>{message}</MessageBox>
                         <OrBox>OR</OrBox>
@@ -83,11 +81,15 @@ export const DropArea: React.FC<IDropAreaProps> = ({
                             />
                         </BrowseFiles>
                     </DropAreaBox>
-                </div>
+                </RootDiv>
             )}
         </Dropzone>
     );
 };
+
+const RootDiv = styled.div`
+    width: fit-content;
+`;
 
 const DropAreaBox = styled.div<
     MainInterface & { isDragEnter: boolean; minWidth?: number }
