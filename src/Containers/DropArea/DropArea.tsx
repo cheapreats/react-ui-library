@@ -47,13 +47,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     return (
         <Dropzone multiple>
             {() => (
-                <RootDiv
-                    {...getRootProps({
-                        onClick: (e: React.MouseEvent) => {
-                            e.stopPropagation();
-                        },
-                    })}
-                >
+                <RootDiv {...getRootProps()}>
                     <DropAreaBox isDragEnter={isDragActive} {...props}>
                         <Icon as={CloudUploadAlt} />
                         <MessageBox>{message}</MessageBox>
@@ -89,6 +83,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
 
 const RootDiv = styled.div`
     width: fit-content;
+    pointer-events: none;
 `;
 
 const DropAreaBox = styled.div<
@@ -142,6 +137,7 @@ const BrowseFiles = styled.div`
     user-select: none;
     width: fit-content;
     font-weight: 700;
+    pointer-events: initial;
 `;
 
 const OrBox = styled.div`
