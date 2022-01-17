@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { PanelCard, IPanelCardProps, OperationState } from './PanelCard';
+import { PanelCard, IPanelCardProps } from './PanelCard';
 
 export default {
     title: 'Components/PanelCard',
@@ -14,19 +14,19 @@ export const PanelIsLoading = Basic.bind({});
 PanelIsLoading.args = {
     ...Basic.args,
     name: 'file A',
-    operationState: OperationState.isLoading,
+    operationState: { isLoading: true, isFailure: false, isSuccess: false },
 };
 
 export const PanelIsFailure = Basic.bind({});
 PanelIsFailure.args = {
     ...Basic.args,
     name: 'file A',
-    operationState: OperationState.isFailure,
+    operationState: { isLoading: false, isFailure: true, isSuccess: false },
 };
 
 export const PanelIsSuccess = Basic.bind({});
 PanelIsSuccess.args = {
     ...Basic.args,
     name: 'file A',
-    operationState: OperationState.isSuccess,
+    operationState: { isLoading: false, isFailure: false, isSuccess: true },
 };

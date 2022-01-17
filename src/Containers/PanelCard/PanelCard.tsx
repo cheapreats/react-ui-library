@@ -2,51 +2,48 @@ import React, { useCallback } from 'react';
 import { Button } from '@Inputs/Button/Button';
 import { CardProps, Card } from '../Card/Card';
 
-export enum OperationState {
-    isLoading,
-    isFailure,
-    isSuccess,
-    isUnknown,
-}
+type OperationState = { isFailure: boolean } & { isSuccess: boolean } & {
+    isLoading: boolean;
+};
 
 export interface IPanelCardProps extends CardProps {
-    messageIsFailure?: string;
-    messageIsSuccess?: string;
-    messageIsLoading?: string;
     /** name of file being loaded */
     name?: string;
     /** state of the file loading operation */
     operationState?: OperationState;
     /** callback for cancel loading file */
     onCancelLoading?: () => void;
+    isFailureMessage?: string;
+    isSuccessMessage?: string;
+    isLoadingMessage?: string;
 }
 
 export const PanelCard: React.FC<IPanelCardProps> = ({
-    operationState = OperationState.isUnknown,
+    operationState = { isFailure: false, isSuccess: false, isLoading: false },
     name = '',
-    messageIsFailure = 'Something went wrong',
-    messageIsLoading = `loading file ${name}...`,
-    messageIsSuccess = 'Completed',
     onCancelLoading = () => null,
+    isFailureMessage = 'Something went wrong',
+    isLoadingMessage = `loading file ${name}...`,
+    isSuccessMessage = 'Completed',
     ...props
 }): React.ReactElement => {
     const renderContent = useCallback((): React.ReactNode => {
-        switch (operationState) {
-            case OperationState.isFailure:
-                return <div>{messageIsFailure}</div>;
-            case OperationState.isSuccess:
-                return <div>{messageIsSuccess}</div>;
-            case OperationState.isLoading:
-                return (
-                    <div>
-                        <div>{messageIsLoading}</div>
-                        <Button onClick={onCancelLoading}>Cancel</Button>
-                    </div>
-                );
-            default:
-                return null;
+        if (operationState.isSuccess) {
+            return <div>{isSuccessMessage}</div>;
         }
-    }, [operationState, messageIsFailure, messageIsSuccess, messageIsLoading]);
+        if (operationState.isFailure) {
+            return <div>{isFailureMessage}</div>;
+        }
+        if (operationState.isLoading) {
+            return (
+                <div>
+                    <div>{isLoadingMessage}</div>
+                    <Button onClick={onCancelLoading}>Cancel</Button>
+                </div>
+            );
+        }
+        return null;
+    }, [operationState, isFailureMessage, isSuccessMessage, isLoadingMessage]);
 
     return <Card {...props}>{renderContent()}</Card>;
 };
