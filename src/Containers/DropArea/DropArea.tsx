@@ -58,7 +58,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
 
     const getLottieAnimationOrIcon = (isDragEnter: boolean): JSX.Element => {
         if (isDragEnter)
-            return <Lottie options={lottieOptions} width={140} height={80} />;
+            return <Lottie options={lottieOptions} width={140} height={60} />;
         return <Icon as={CloudUploadAlt} />;
     };
 
