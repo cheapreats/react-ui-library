@@ -54,22 +54,9 @@ export const DropArea: React.FC<IDropAreaProps> = ({
                         <OrBox>OR</OrBox>
                         <BrowseFiles>
                             {buttonText}
-                            <input
+                            <Input
                                 {...getInputProps({
                                     onClick,
-                                    style: {
-                                        display: 'initial',
-                                        visibility: 'initial',
-                                        width: '2000px',
-                                        height: '2000px',
-                                        backgroundColor: 'red',
-                                        opacity: 0,
-                                        zIndex: 99999999,
-                                        cursor: 'pointer',
-                                        top: -1000,
-                                        left: -1000,
-                                        position: 'absolute',
-                                    },
                                     disabled: isDisabled,
                                 })}
                             />
@@ -84,6 +71,19 @@ export const DropArea: React.FC<IDropAreaProps> = ({
 const RootDiv = styled.div`
     width: fit-content;
     pointer-events: none;
+`;
+
+const Input = styled.input`
+    opacity: 0;
+    display: initial !important;
+    visibility: initial;
+    width: 2000px;
+    height: 2000px;
+    z-index: 99999999;
+    cursor: pointer;
+    top: -1000px;
+    left: -1000px;
+    position: absolute;
 `;
 
 const DropAreaBox = styled.div<
