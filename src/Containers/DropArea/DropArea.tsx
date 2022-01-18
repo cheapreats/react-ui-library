@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useEffect} from 'react';
 import styled from 'styled-components';
 import { CloudUploadAlt } from '@styled-icons/fa-solid/CloudUploadAlt';
 import { MainInterface, Main } from '@Utils/BaseStyles';
@@ -34,7 +34,7 @@ export interface IDropAreaProps
         React.HTMLAttributes<HTMLDivElement> {
     message?: string;
     buttonText?: string;
-    onClick?: React.MouseEventHandler<HTMLElement> | undefined;
+    onClickHandler?: (this: GlobalEventHandlers, ev: MouseEvent) => any;// React.MouseEventHandler<HTMLElement> | undefined;
     onDragEnter?: React.DragEventHandler<HTMLElement> | undefined;
     onDragLeave?: React.DragEventHandler<HTMLElement> | undefined;
     onDropHandler?:
@@ -51,14 +51,14 @@ export interface IDropAreaProps
 export const DropArea: React.FC<IDropAreaProps> = ({
     message = 'Drag & Drop your files here',
     buttonText = 'Browse Files',
-    onClick = () => null,
+    onClickHandler = () => null,
     onDragEnter = () => null,
     onDragLeave = () => null,
     onDropHandler = () => null,
     isDisabled = false,
     ...props
 }): React.ReactElement => {
-    const { getInputProps, getRootProps, isDragActive } = useDropzone({
+    const { getInputProps, getRootProps, isDragActive, inputRef } = useDropzone({
         onDragEnter,
         onDragLeave,
         onDrop: onDropHandler,
@@ -71,27 +71,34 @@ export const DropArea: React.FC<IDropAreaProps> = ({
         return <Icon as={CloudUploadAlt} />;
     };
 
-    const stopPropagation = (e: React.MouseEvent): void => {
-        e.stopPropagation();
-    };
+    const fireEventOnInput=()=>{
+        if(inputRef.current){
+            inputRef.current.dispatchEvent(new MouseEvent('click',{bubbles:false}));
+        }
+    }
+
+    useEffect(()=>{
+        if(inputRef.current){
+            inputRef.current.onclick=onClickHandler;
+        }
+    },[onClickHandler])
 
     return (
         <Dropzone multiple>
             {() => (
                 <RootDiv
                     {...getRootProps({})}
-                    onClick={stopPropagation}
+                    onClick={()=>null}
                     isDisabled={isDisabled}
                 >
                     <DropAreaBox isDragEnter={isDragActive} {...props}>
                         {getLottieAnimationOrIcon(isDragActive)}
                         <MessageBox>{message}</MessageBox>
                         <OrBox>OR</OrBox>
-                        <BrowseFiles>
+                        <BrowseFiles onClick={fireEventOnInput}>
                             {buttonText}
-                            <Input
+                            <input
                                 {...getInputProps({
-                                    onClick,
                                     disabled: isDisabled,
                                 })}
                             />
@@ -110,18 +117,18 @@ const RootDiv = styled.div<{ isDisabled: boolean }>`
     `}
 `;
 
-const Input = styled.input`
-    opacity: 0;
-    display: initial !important;
-    visibility: initial;
-    position: absolute;
-    z-index: 99999999;
-    cursor: ${({disabled})=>disabled?'initial':'pointer'};
-    width: 2000px;
-    height: 2000px;
-    top: -1000px;
-    left: -1000px;
-`;
+// const Input = styled.input`
+//     opacity: 0;
+//     display: initial !important;
+//     visibility: initial;
+//     position: absolute;
+//     z-index: 99999999;
+//     cursor: ${({disabled})=>disabled?'initial':'pointer'};
+//     width: 2000px;
+//     height: 2000px;
+//     top: -1000px;
+//     left: -1000px;
+// `;
 
 const DropAreaBox = styled.div<
     MainInterface & { isDragEnter: boolean; width?: number }
@@ -168,11 +175,12 @@ const BrowseFiles = styled.div`
         padding: ${theme.dimensions.padding.default};
         color: ${theme.colors.background};
     `}
-    overflow: hidden;
-    position: relative;
+    --position: relative;
+    --overflow: hidden;
     user-select: none;
     width: fit-content;
     font-weight: 700;
+    cursor: pointer;
 `;
 
 const OrBox = styled.div`

@@ -10,7 +10,7 @@ export default {
         onDragLeave: { action: 'leaving drop are' },
         onDragEnter: { action: 'entering drop area' },
         onDropHandler: { action: 'files dropped' },
-        onClick: { action: 'you clicked!' },
+        onClickHandler: { action: 'you clicked!' },
     },
 } as Meta;
 
@@ -24,4 +24,11 @@ export const IsDisabledTrue = Basic.bind({});
 IsDisabledTrue.args = {
     ...Basic.args,
     isDisabled: true,
+};
+export const TestPreventDefault = Basic.bind({});
+TestPreventDefault.args = {
+    ...Basic.args,
+    onClick: (e:React.MouseEvent) => {
+        e.preventDefault();
+    },
 };
