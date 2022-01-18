@@ -1,4 +1,4 @@
-import React,{useEffect} from 'react';
+import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { CloudUploadAlt } from '@styled-icons/fa-solid/CloudUploadAlt';
 import { MainInterface, Main } from '@Utils/BaseStyles';
@@ -11,13 +11,12 @@ import Dropzone, {
 import Lottie from 'react-lottie';
 import { animationData } from './animationData';
 
-const ICON_OPACITY=0.7;
-const OPACITY_WHEN_DISABLED=0.4;
-const ICON_HEIGHT=60;
-const DIFFERENCE_BETWEEN_ICON_HEIGHT_AND_LOTTIE_HEIGHT=2;
+const ICON_OPACITY = 0.7;
+const OPACITY_WHEN_DISABLED = 0.4;
+const ICON_HEIGHT = 60;
 
 /**
- * options for the lottie animation that occurs instead of 
+ * options for the lottie animation that occurs instead of
  * the icon when dragging over the dropArea component
  */
 const lottieOptions = {
@@ -34,7 +33,7 @@ export interface IDropAreaProps
         React.HTMLAttributes<HTMLDivElement> {
     message?: string;
     buttonText?: string;
-    onClickHandler?: (this: GlobalEventHandlers, ev: MouseEvent) => any;// React.MouseEventHandler<HTMLElement> | undefined;
+    onClickHandler?: (this: GlobalEventHandlers, ev: MouseEvent) => any; // React.MouseEventHandler<HTMLElement> | undefined;
     onDragEnter?: React.DragEventHandler<HTMLElement> | undefined;
     onDragLeave?: React.DragEventHandler<HTMLElement> | undefined;
     onDropHandler?:
@@ -58,37 +57,47 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     isDisabled = false,
     ...props
 }): React.ReactElement => {
-    const { getInputProps, getRootProps, isDragActive, inputRef } = useDropzone({
-        onDragEnter,
-        onDragLeave,
-        onDrop: onDropHandler,
-        disabled: isDisabled,
-    });
+    const { getInputProps, getRootProps, isDragActive, inputRef } = useDropzone(
+        {
+            onDragEnter,
+            onDragLeave,
+            onDrop: onDropHandler,
+            disabled: isDisabled,
+        },
+    );
 
     const getLottieAnimationOrIcon = (isDragEnter: boolean): JSX.Element => {
         if (isDragEnter)
-            return <Lottie options={lottieOptions} width={140} height={ICON_HEIGHT+DIFFERENCE_BETWEEN_ICON_HEIGHT_AND_LOTTIE_HEIGHT} />;
+            return (
+                <Lottie
+                    options={lottieOptions}
+                    width={140}
+                    height={ICON_HEIGHT}
+                />
+            );
         return <Icon as={CloudUploadAlt} />;
     };
 
-    const fireEventOnInput=()=>{
-        if(inputRef.current){
-            inputRef.current.dispatchEvent(new MouseEvent('click',{bubbles:false}));
+    const fireEventOnInput = () => {
+        if (inputRef.current) {
+            inputRef.current.dispatchEvent(
+                new MouseEvent('click', { bubbles: false }),
+            );
         }
-    }
+    };
 
-    useEffect(()=>{
-        if(inputRef.current){
-            inputRef.current.onclick=onClickHandler;
+    useEffect(() => {
+        if (inputRef.current) {
+            inputRef.current.onclick = onClickHandler;
         }
-    },[onClickHandler])
+    }, [onClickHandler]);
 
     return (
         <Dropzone multiple>
             {() => (
                 <RootDiv
                     {...getRootProps({})}
-                    onClick={()=>null}
+                    onClick={() => null}
                     isDisabled={isDisabled}
                 >
                     <DropAreaBox isDragEnter={isDragActive} {...props}>
@@ -155,6 +164,7 @@ const DropAreaBox = styled.div<
           background-size: 15px 2px, 15px 2px, 2px 15px, 2px 15px;
           background-position: left top, right bottom, left bottom, right   top;
           animation: border-dance .3s infinite linear;
+          border: 2px dashed ${theme.colors.background};
 `
                 : `
             border: 2px dashed ${theme.colors.occupancyStatusColors.Occupied};
@@ -188,13 +198,13 @@ const OrBox = styled.div`
     font-weight: 700;
     opacity: ${ICON_OPACITY};
     color: ${({ theme }) => theme.colors.occupancyStatusColors.Occupied};
-    user-select:none;
+    user-select: none;
 `;
 
 const MessageBox = styled.div`
     font-weight: 700;
     opacity: ${ICON_OPACITY};
-    user-select:none;
+    user-select: none;
 `;
 
 const Icon = styled.svg`
