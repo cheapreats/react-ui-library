@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useCallback } from 'react';
 import styled from 'styled-components';
 import { CloudUploadAlt } from '@styled-icons/fa-solid/CloudUploadAlt';
 import { MainInterface, Main } from '@Utils/BaseStyles';
@@ -66,17 +66,20 @@ export const DropArea: React.FC<IDropAreaProps> = ({
         },
     );
 
-    const getLottieAnimationOrIcon = (isDragEnter: boolean): JSX.Element => {
-        if (isDragEnter)
-            return (
-                <Lottie
-                    options={lottieOptions}
-                    width={140}
-                    height={ICON_HEIGHT}
-                />
-            );
-        return <Icon as={CloudUploadAlt} />;
-    };
+    const getLottieAnimationOrIcon = useCallback(
+        (isDragEnter: boolean): JSX.Element => {
+            if (isDragEnter)
+                return (
+                    <Lottie
+                        options={lottieOptions}
+                        width={140}
+                        height={ICON_HEIGHT}
+                    />
+                );
+            return <Icon as={CloudUploadAlt} />;
+        },
+        [],
+    );
 
     const fireEventOnInput = () => {
         if (inputRef.current) {
