@@ -22,10 +22,10 @@ OnClickPreventDefault.args = {
         e.preventDefault();
     },
 };
-export const BigMinWidth = Basic.bind({});
-BigMinWidth.args = {
+export const BigWidth = Basic.bind({});
+BigWidth.args = {
     ...Basic.args,
-    minWidth: 500,
+    width: 500,
 };
 export const IsDisabledTrue = Basic.bind({});
 IsDisabledTrue.args = {

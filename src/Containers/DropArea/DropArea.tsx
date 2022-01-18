@@ -25,7 +25,7 @@ export interface IDropAreaProps
           ) => void)
         | undefined;
     isDisabled?: boolean;
-    minWidth?: number;
+    width?: number;
 }
 
 export const DropArea: React.FC<IDropAreaProps> = ({
@@ -74,17 +74,17 @@ const RootDiv = styled.div`
 `;
 
 const DropAreaBox = styled.div<
-    MainInterface & { isDragEnter: boolean; minWidth?: number }
+    MainInterface & { isDragEnter: boolean; width?: number }
 >`
     width: fit-content;
     ${flex('column', 'center', 'center')}
-    ${({ theme, isDragEnter, minWidth, padding, ...props }): string => `
-    ${minWidth ? `min-width:${minWidth}px;` : ''}
-border-radius:${theme.dimensions.radius};
-${
+    ${({ theme, isDragEnter, width, padding, ...props }): string => `
+        ${width ? `min-width:${width}px;` : ''}
+        border-radius:${theme.dimensions.radius};
+        ${
     isDragEnter
         ? `
-        background-color:${theme.colors.input.success};
+        background-color: ${theme.colors.input.success};
         @keyframes border-dance {
             0% {
               background-position: left top, right bottom, left bottom, right   top;
@@ -100,10 +100,9 @@ ${
           animation: border-dance .3s infinite linear;
 `
         : `
-border:2px dashed ${theme.colors.occupancyStatusColors.Occupied};
+            border: 2px dashed ${theme.colors.occupancyStatusColors.Occupied};
 `
 }
-
 ${
     padding === undefined
         ? Main({ padding: theme.dimensions.padding.container, ...props })
@@ -114,10 +113,10 @@ ${
 
 const BrowseFiles = styled.div`
     ${({ theme }): string => `
-    border-radius:${theme.dimensions.radius};
-    background-color:${theme.colors.occupancyStatusColors.Occupied};
-    padding:${theme.dimensions.padding.default};
-    color:${theme.colors.background};
+        border-radius: ${theme.dimensions.radius};
+        background-color: ${theme.colors.occupancyStatusColors.Occupied};
+        padding: ${theme.dimensions.padding.default};
+        color: ${theme.colors.background};
     `}
     overflow: hidden;
     position: relative;
@@ -125,16 +124,14 @@ const BrowseFiles = styled.div`
     width: fit-content;
     font-weight: 700;
     pointer-events: initial;
-    cursor:pointer;
+    cursor: pointer;
 `;
 
 const OrBox = styled.div`
     margin: 10px;
     font-weight: 700;
     opacity: 0.7;
-    ${({ theme }): string => `
-    color:${theme.colors.occupancyStatusColors.Occupied};
-   `}
+    color: ${({ theme }) => theme.colors.occupancyStatusColors.Occupied};
 `;
 
 const MessageBox = styled.div`
@@ -146,7 +143,5 @@ const Icon = styled.svg`
     width: 60px;
     height: 60px;
     opacity: 0.6;
-    ${({ theme }): string => `
-color:${theme.colors.occupancyStatusColors.Occupied};
-`}
+    color: ${({ theme }) => theme.colors.occupancyStatusColors.Occupied};
 `;
