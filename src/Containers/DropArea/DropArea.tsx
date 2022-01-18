@@ -127,7 +127,7 @@ const DropAreaBox = styled.div<
               background-position: left 15px top, right 15px bottom , left bottom 15px , right   top 15px;
             }
           }
-          background-image: linear-gradient(90deg, #3399ff 50%, transparent 50%), linear-gradient(90deg, #3399ff 50%, transparent 50%), linear-gradient(0deg, #3399ff 50%, transparent 50%), linear-gradient(0deg, #3399ff 50%, transparent 50%);
+          background-image: linear-gradient(90deg, ${theme.colors.occupancyStatusColors.Occupied} 50%, transparent 50%), linear-gradient(90deg, ${theme.colors.occupancyStatusColors.Occupied} 50%, transparent 50%), linear-gradient(0deg, ${theme.colors.occupancyStatusColors.Occupied} 50%, transparent 50%), linear-gradient(0deg, ${theme.colors.occupancyStatusColors.Occupied} 50%, transparent 50%);
           background-repeat: repeat-x, repeat-x, repeat-y, repeat-y;
           background-size: 15px 2px, 15px 2px, 2px 15px, 2px 15px;
           background-position: left top, right bottom, left bottom, right   top;
