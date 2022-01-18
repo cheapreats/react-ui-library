@@ -11,6 +11,15 @@ import Dropzone, {
 import Lottie from 'react-lottie';
 import { animationData } from './animationData';
 
+const ICON_OPACITY=0.7;
+const OPACITY_WHEN_DISABLED=0.4;
+const ICON_HEIGHT=60;
+const DIFFERENCE_BETWEEN_ICON_HEIGHT_AND_LOTTIE_HEIGHT=2;
+
+/**
+ * options for the lottie animation that occurs instead of 
+ * the icon when dragging over the dropArea component
+ */
 const lottieOptions = {
     loop: true,
     autoplay: true,
@@ -58,7 +67,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
 
     const getLottieAnimationOrIcon = (isDragEnter: boolean): JSX.Element => {
         if (isDragEnter)
-            return <Lottie options={lottieOptions} width={140} height={60} />;
+            return <Lottie options={lottieOptions} width={140} height={ICON_HEIGHT+DIFFERENCE_BETWEEN_ICON_HEIGHT_AND_LOTTIE_HEIGHT} />;
         return <Icon as={CloudUploadAlt} />;
     };
 
@@ -69,7 +78,11 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     return (
         <Dropzone multiple>
             {() => (
-                <RootDiv {...getRootProps({})} onClick={stopPropagation}>
+                <RootDiv
+                    {...getRootProps({})}
+                    onClick={stopPropagation}
+                    isDisabled={isDisabled}
+                >
                     <DropAreaBox isDragEnter={isDragActive} {...props}>
                         {getLottieAnimationOrIcon(isDragActive)}
                         <MessageBox>{message}</MessageBox>
@@ -90,8 +103,11 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     );
 };
 
-const RootDiv = styled.div`
+const RootDiv = styled.div<{ isDisabled: boolean }>`
     width: fit-content;
+    ${({ isDisabled }): string => `
+        ${isDisabled ? `opacity:${OPACITY_WHEN_DISABLED};` : ''}
+    `}
 `;
 
 const Input = styled.input`
@@ -100,7 +116,7 @@ const Input = styled.input`
     visibility: initial;
     position: absolute;
     z-index: 99999999;
-    cursor: pointer;
+    cursor: ${({disabled})=>disabled?'initial':'pointer'};
     width: 2000px;
     height: 2000px;
     top: -1000px;
@@ -162,18 +178,20 @@ const BrowseFiles = styled.div`
 const OrBox = styled.div`
     margin: 10px;
     font-weight: 700;
-    opacity: 0.7;
+    opacity: ${ICON_OPACITY};
     color: ${({ theme }) => theme.colors.occupancyStatusColors.Occupied};
+    user-select:none;
 `;
 
 const MessageBox = styled.div`
     font-weight: 700;
-    opacity: 0.7;
+    opacity: ${ICON_OPACITY};
+    user-select:none;
 `;
 
 const Icon = styled.svg`
-    width: 60px;
-    height: 60px;
-    opacity: 0.6;
+    width: ${ICON_HEIGHT}px;
+    height: ${ICON_HEIGHT}px;
+    opacity: ${ICON_OPACITY};
     color: ${({ theme }) => theme.colors.occupancyStatusColors.Occupied};
 `;
