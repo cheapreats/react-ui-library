@@ -8,6 +8,17 @@ import Dropzone, {
     DropEvent,
     FileRejection,
 } from 'react-dropzone';
+import Lottie from 'react-lottie';
+import { animationData } from './animationData';
+
+const lottieOptions = {
+    loop: true,
+    autoplay: true,
+    animationData,
+    rendererSettings: {
+        preserveAspectRatio: 'xMidYMid slice',
+    },
+};
 
 export interface IDropAreaProps
     extends MainInterface,
@@ -44,17 +55,28 @@ export const DropArea: React.FC<IDropAreaProps> = ({
         onDrop: onDropHandler,
         disabled: isDisabled,
     });
+
+    const getLottieAnimationOrIcon = (isDragEnter: boolean): JSX.Element => {
+        if (isDragEnter)
+            return <Lottie options={lottieOptions} width={140} height={80} />;
+        return <Icon as={CloudUploadAlt} />;
+    };
+
+    const stopPropagation = (e: React.MouseEvent): void => {
+        e.stopPropagation();
+    };
+
     return (
         <Dropzone multiple>
             {() => (
-                <RootDiv {...getRootProps()}>
+                <RootDiv {...getRootProps({})} onClick={stopPropagation}>
                     <DropAreaBox isDragEnter={isDragActive} {...props}>
-                        <Icon as={CloudUploadAlt} />
+                        {getLottieAnimationOrIcon(isDragActive)}
                         <MessageBox>{message}</MessageBox>
                         <OrBox>OR</OrBox>
                         <BrowseFiles>
                             {buttonText}
-                            <input
+                            <Input
                                 {...getInputProps({
                                     onClick,
                                     disabled: isDisabled,
@@ -70,7 +92,19 @@ export const DropArea: React.FC<IDropAreaProps> = ({
 
 const RootDiv = styled.div`
     width: fit-content;
-    pointer-events: none;
+`;
+
+const Input = styled.input`
+    opacity: 0;
+    display: initial !important;
+    visibility: initial;
+    position: absolute;
+    z-index: 99999999;
+    cursor: pointer;
+    width: 2000px;
+    height: 2000px;
+    top: -1000px;
+    left: -1000px;
 `;
 
 const DropAreaBox = styled.div<
@@ -82,8 +116,8 @@ const DropAreaBox = styled.div<
         ${width ? `min-width:${width}px;` : ''}
         border-radius:${theme.dimensions.radius};
         ${
-    isDragEnter
-        ? `
+            isDragEnter
+                ? `
         background-color: ${theme.colors.input.success};
         @keyframes border-dance {
             0% {
@@ -99,10 +133,10 @@ const DropAreaBox = styled.div<
           background-position: left top, right bottom, left bottom, right   top;
           animation: border-dance .3s infinite linear;
 `
-        : `
+                : `
             border: 2px dashed ${theme.colors.occupancyStatusColors.Occupied};
 `
-}
+        }
 ${
     padding === undefined
         ? Main({ padding: theme.dimensions.padding.container, ...props })
@@ -123,8 +157,6 @@ const BrowseFiles = styled.div`
     user-select: none;
     width: fit-content;
     font-weight: 700;
-    pointer-events: initial;
-    cursor: pointer;
 `;
 
 const OrBox = styled.div`
