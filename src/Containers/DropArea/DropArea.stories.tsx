@@ -15,13 +15,6 @@ export default {
 } as Meta;
 
 export const Basic: Story<IDropAreaProps> = (args) => <DropArea {...args} />;
-export const OnClickPreventDefault = Basic.bind({});
-OnClickPreventDefault.args = {
-    ...Basic.args,
-    onClick: (e: React.MouseEvent) => {
-        e.preventDefault();
-    },
-};
 export const BigWidth = Basic.bind({});
 BigWidth.args = {
     ...Basic.args,
