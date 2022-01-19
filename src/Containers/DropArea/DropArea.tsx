@@ -6,7 +6,7 @@ import { flex } from '@Utils/Mixins';
 import Dropzone, {
     useDropzone,
     DropEvent,
-    FileRejection,
+    FileRejection,DropzoneProps,DropzoneRef
 } from 'react-dropzone';
 import Lottie from 'react-lottie';
 import { animationData } from './animationData';
@@ -28,9 +28,10 @@ const lottieOptions = {
     },
 };
 
+type DropzoneType=DropzoneProps & React.RefAttributes<DropzoneRef>
+
 export interface IDropAreaProps
-    extends MainInterface,
-        React.HTMLAttributes<HTMLDivElement> {
+    extends DropzoneType {
     message?: string;
     buttonText?: string;
     onClickHandler?: (this: GlobalEventHandlers, ev: MouseEvent) => any; // React.MouseEventHandler<HTMLElement> | undefined;
@@ -44,7 +45,10 @@ export interface IDropAreaProps
           ) => void)
         | undefined;
     isDisabled?: boolean;
+    /** minimum width for the drop area */
     width?: number;
+    /** props for the drop area container */
+    dropAreaProps?:MainInterface&React.HTMLAttributes<HTMLDivElement>;
 }
 
 export const DropArea: React.FC<IDropAreaProps> = ({
@@ -55,6 +59,8 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     onDragLeave = () => null,
     onDropHandler = () => null,
     isDisabled = false,
+    dropAreaProps={},
+    width,
     ...props
 }): React.ReactElement => {
     const { getInputProps, getRootProps, isDragActive, inputRef } = useDropzone(
@@ -96,14 +102,14 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     }, [onClickHandler]);
 
     return (
-        <Dropzone multiple>
+        <Dropzone multiple {...props}>
             {() => (
                 <RootDiv
                     {...getRootProps({})}
                     onClick={() => null}
                     isDisabled={isDisabled}
                 >
-                    <DropAreaBox isDragEnter={isDragActive} {...props}>
+                    <DropAreaBox isDragEnter={isDragActive} width={width} {...dropAreaProps}>
                         {getLottieAnimationOrIcon(isDragActive)}
                         <MessageBox>{message}</MessageBox>
                         <OrBox>OR</OrBox>
