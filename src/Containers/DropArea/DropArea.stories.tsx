@@ -25,15 +25,16 @@ IsDisabledTrue.args = {
     ...Basic.args,
     isDisabled: true,
 };
-export const TestPreventDefault = Basic.bind({});
-TestPreventDefault.args = {
-    ...Basic.args,
-    onClickHandler: (e: MouseEvent) => {
-        e.preventDefault();
-    },
-};
 export const BigPadding = Basic.bind({});
 BigPadding.args = {
     ...Basic.args,
     dropAreaProps: { padding: '20px' },
+};
+export const DoNotOpenFileDialogButDoThis = Basic.bind({});
+DoNotOpenFileDialogButDoThis.args = {
+    ...Basic.args,
+    onClickHandler: (e: React.MouseEvent) => {
+        e.preventDefault();
+        console.log('hey');
+    },
 };
