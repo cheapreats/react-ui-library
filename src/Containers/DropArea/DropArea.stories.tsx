@@ -28,7 +28,12 @@ IsDisabledTrue.args = {
 export const TestPreventDefault = Basic.bind({});
 TestPreventDefault.args = {
     ...Basic.args,
-    onClick: (e:React.MouseEvent) => {
+    onClickHandler: (e: MouseEvent) => {
         e.preventDefault();
     },
+};
+export const BigPadding = Basic.bind({});
+BigPadding.args = {
+    ...Basic.args,
+    dropAreaProps: { padding: '20px' },
 };
