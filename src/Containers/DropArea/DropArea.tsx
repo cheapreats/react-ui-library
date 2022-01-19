@@ -1,4 +1,4 @@
-import React, { useEffect, useCallback } from 'react';
+import React, { useCallback } from 'react';
 import styled from 'styled-components';
 import { CloudUploadAlt } from '@styled-icons/fa-solid/CloudUploadAlt';
 import { MainInterface, Main } from '@Utils/BaseStyles';
@@ -6,7 +6,10 @@ import { flex } from '@Utils/Mixins';
 import Dropzone, {
     useDropzone,
     DropEvent,
-    FileRejection,DropzoneProps,DropzoneRef
+    FileRejection,
+    DropzoneProps,
+    DropzoneOptions,
+    DropzoneRef,
 } from 'react-dropzone';
 import Lottie from 'react-lottie';
 import { animationData } from './animationData';
@@ -28,13 +31,12 @@ const lottieOptions = {
     },
 };
 
-type DropzoneType=DropzoneProps & React.RefAttributes<DropzoneRef>
+type DropzoneType = DropzoneProps & React.RefAttributes<DropzoneRef>;
 
-export interface IDropAreaProps
-    extends DropzoneType {
+export interface IDropAreaProps extends DropzoneType {
     message?: string;
     buttonText?: string;
-    onClickHandler?: (this: GlobalEventHandlers, ev: MouseEvent) => any; // React.MouseEventHandler<HTMLElement> | undefined;
+    onClickHandler?: React.MouseEventHandler<HTMLInputElement> | undefined;
     onDragEnter?: React.DragEventHandler<HTMLElement> | undefined;
     onDragLeave?: React.DragEventHandler<HTMLElement> | undefined;
     onDropHandler?:
@@ -48,7 +50,8 @@ export interface IDropAreaProps
     /** minimum width for the drop area */
     width?: number;
     /** props for the drop area container */
-    dropAreaProps?:MainInterface&React.HTMLAttributes<HTMLDivElement>;
+    dropAreaProps?: MainInterface & React.HTMLAttributes<HTMLDivElement>;
+    dropzoneProps?: DropzoneOptions;
 }
 
 export const DropArea: React.FC<IDropAreaProps> = ({
@@ -59,18 +62,20 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     onDragLeave = () => null,
     onDropHandler = () => null,
     isDisabled = false,
-    dropAreaProps={},
+    dropAreaProps = {},
     width,
+    dropzoneProps = {},
     ...props
 }): React.ReactElement => {
-    const { getInputProps, getRootProps, isDragActive, inputRef } = useDropzone(
-        {
-            onDragEnter,
-            onDragLeave,
-            onDrop: onDropHandler,
-            disabled: isDisabled,
-        },
-    );
+    const { getInputProps, getRootProps, isDragActive, open } = useDropzone({
+        onDragEnter,
+        onDragLeave,
+        onDrop: onDropHandler,
+        disabled: isDisabled,
+        noClick: true,
+        noKeyboard: true,
+        ...dropzoneProps,
+    });
 
     const getLottieAnimationOrIcon = useCallback(
         (isDragEnter: boolean): JSX.Element => {
@@ -87,37 +92,24 @@ export const DropArea: React.FC<IDropAreaProps> = ({
         [],
     );
 
-    const fireEventOnInput = () => {
-        if (inputRef.current) {
-            inputRef.current.dispatchEvent(
-                new MouseEvent('click', { bubbles: false }),
-            );
-        }
-    };
-
-    useEffect(() => {
-        if (inputRef.current) {
-            inputRef.current.onclick = onClickHandler;
-        }
-    }, [onClickHandler]);
-
     return (
         <Dropzone multiple {...props}>
             {() => (
-                <RootDiv
-                    {...getRootProps({})}
-                    onClick={() => null}
-                    isDisabled={isDisabled}
-                >
-                    <DropAreaBox isDragEnter={isDragActive} width={width} {...dropAreaProps}>
+                <RootDiv {...getRootProps({})} isDisabled={isDisabled}>
+                    <DropAreaBox
+                        isDragEnter={isDragActive}
+                        width={width}
+                        {...dropAreaProps}
+                    >
                         {getLottieAnimationOrIcon(isDragActive)}
                         <MessageBox>{message}</MessageBox>
                         <OrBox>OR</OrBox>
-                        <BrowseFiles onClick={fireEventOnInput}>
+                        <BrowseFiles onClick={open}>
                             {buttonText}
                             <input
                                 {...getInputProps({
                                     disabled: isDisabled,
+                                    onClick: onClickHandler,
                                 })}
                             />
                         </BrowseFiles>
@@ -135,19 +127,6 @@ const RootDiv = styled.div<{ isDisabled: boolean }>`
     `}
 `;
 
-// const Input = styled.input`
-//     opacity: 0;
-//     display: initial !important;
-//     visibility: initial;
-//     position: absolute;
-//     z-index: 99999999;
-//     cursor: ${({disabled})=>disabled?'initial':'pointer'};
-//     width: 2000px;
-//     height: 2000px;
-//     top: -1000px;
-//     left: -1000px;
-// `;
-
 const DropAreaBox = styled.div<
     MainInterface & { isDragEnter: boolean; width?: number }
 >`
@@ -157,8 +136,8 @@ const DropAreaBox = styled.div<
         ${width ? `min-width:${width}px;` : ''}
         border-radius:${theme.dimensions.radius};
         ${
-            isDragEnter
-                ? `
+    isDragEnter
+        ? `
         background-color: ${theme.colors.input.success};
         @keyframes border-dance {
             0% {
@@ -175,10 +154,10 @@ const DropAreaBox = styled.div<
           animation: border-dance .3s infinite linear;
           border: 2px dashed ${theme.colors.background};
 `
-                : `
+        : `
             border: 2px dashed ${theme.colors.occupancyStatusColors.Occupied};
 `
-        }
+}
 ${
     padding === undefined
         ? Main({ padding: theme.dimensions.padding.container, ...props })
@@ -194,8 +173,6 @@ const BrowseFiles = styled.div`
         padding: ${theme.dimensions.padding.default};
         color: ${theme.colors.background};
     `}
-    --position: relative;
-    --overflow: hidden;
     user-select: none;
     width: fit-content;
     font-weight: 700;
