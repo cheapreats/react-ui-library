@@ -18,11 +18,16 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
     isSuccessMessage = '',
     cancelLoadingText = 'Cancel',
     ...props
-}): React.ReactElement => (
-    <Card {...props}>
-        <div>{isFailureMessage || isLoadingMessage || isSuccessMessage}</div>
-        {isLoadingMessage && (
-            <Button onClick={onCancelLoading}>{cancelLoadingText}</Button>
-        )}
-    </Card>
-);
+}): React.ReactElement => {
+    const renderContent=useCallback(()=>{
+
+    },[isFailureMessage,isLoadingMessage,isSuccessMessage])
+    return (
+        <Card {...props}>
+            <div>{isFailureMessage || isLoadingMessage || isSuccessMessage}</div>
+            {isLoadingMessage && (
+                <Button onClick={onCancelLoading}>{cancelLoadingText}</Button>
+            )}
+        </Card>
+    );
+}
