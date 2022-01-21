@@ -15,7 +15,13 @@ export const IsLoadingPanel = Basic.bind({});
 IsLoadingPanel.args = {
     ...Basic.args,
     operationState: OperationState.isLoading,
-    name: 'Abcd'
+    name: 'Abcd.sdf sdf. sdf .sdf .pdf'
+};
+
+export const IsLoadingPanelBis = Basic.bind({});
+IsLoadingPanelBis.args = {
+    ...IsLoadingPanel.args,
+    name: 'Abcd.sdf sdf. sdf .sdf .docx'
 };
 
 export const IsFailurePanel = Basic.bind({});
@@ -35,7 +41,7 @@ IsSuccessPanel.args = {
 export const IsLoadingPanelWithButton= IsLoadingPanel.bind({});
 IsLoadingPanelWithButton.args={
     ...IsLoadingPanel.args,
-    cancelButtonOnLoading:<Button onClick={()=>{console.log('cancelling...')}} margin='0 0 0 20px'>Cancel</Button>
+    cancelButtonOnLoading:<Button onClick={()=>{console.log('cancelling...')}} margin='0 0 0 0px'>Cancel</Button>
 }
 export const IsFailurePanelWithButton= IsFailurePanel.bind({});
 IsFailurePanelWithButton.args={

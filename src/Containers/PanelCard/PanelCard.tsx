@@ -1,12 +1,17 @@
-import React, { useCallback } from 'react';
+import React, { useCallback,useMemo } from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { CheckCircle } from '@styled-icons/fa-solid/CheckCircle';
 import { TimesCircle } from '@styled-icons/fa-solid/TimesCircle';
+import {FileIcon, defaultStyles} from 'react-file-icon';
 import { MainTheme } from '@Themes';
 import { flex } from '@Utils/Mixins';
 import { CardProps, Card } from '../Card/Card';
 import { Loading as L } from '../Loading/Loading';
+
+const LAST_ARRAY_ELEMENT=-1;
+const FILE_EXTENSION_SEPARATOR='.';
+const FIRST_ARRAY_ELEMENT=0;
 
 export enum OperationState {
     isFailure,
@@ -31,6 +36,8 @@ export interface IPanelCardProps extends CardProps {
     dismissButtonOnSuccess?: React.ReactElement;
     retryButtonOnFailure?: React.ReactElement;
     cancelButtonOnLoading?: React.ReactElement;
+    /** horizontal margin for is loading bar */
+    isLoadingSpace?:number;
 }
 
 export const PanelCard: React.FC<IPanelCardProps> = ({
@@ -47,8 +54,11 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
     retryButtonOnFailure,
     cancelButtonOnLoading,
     dismissButtonOnSuccess,
+    isLoadingSpace=20,
     ...props
 }): React.ReactElement => {
+    const extension=useMemo(():string=>name.split(FILE_EXTENSION_SEPARATOR).slice(LAST_ARRAY_ELEMENT)[FIRST_ARRAY_ELEMENT],[name])
+
     const renderContentForIsSuccessAndIsFailure = useCallback(
         (
             icon: StyledIcon,
@@ -77,10 +87,14 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
         case OperationState.isLoading:
             return (
                 <ContentContainer>
+                    <FileIconContainer width={iconHeight}>
+                        <FileIcon extension={extension} {...defaultStyles[extension]} />
+                    </FileIconContainer>
                     <Loading
                         message={isLoadingMessage}
                         isNavigationPageLoader
                         loading
+                        horizontalMargin={isLoadingSpace}
                     />
                     {cancelButtonOnLoading}
                 </ContentContainer>
@@ -102,6 +116,7 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
         retryButtonOnFailure,
         dismissButtonOnSuccess,
         renderContentForIsSuccessAndIsFailure,
+        isLoadingSpace,
     ]);
     return <Card {...props}>{renderContent()}</Card>;
 };
@@ -122,10 +137,15 @@ const ContentContainer = styled.div`
     ${flex('space-between')}
 `;
 
-const Loading = styled(L)`
+const Loading = styled(L)<{horizontalMargin:number}>`
     flex: 1;
+    margin:0 ${({horizontalMargin})=>horizontalMargin}px;
 `;
 
 const IconContainer=styled.div`
 ${flex('center')}
+`
+
+const FileIconContainer=styled.div<{width:number}>`
+width:${({width})=>width}px;
 `
