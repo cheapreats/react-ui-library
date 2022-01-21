@@ -15,12 +15,15 @@ export interface LoadingProps
         MainInterface {
     loading?: boolean;
     message?: string;
+    /** if true, the component is not positioned absolute */
+    isNavigationPageLoader?: boolean;
 }
 
 export const Loading: React.FC<LoadingProps> = ({
     children,
     loading = false,
     message = 'Loading...',
+    isNavigationPageLoader = false,
     ...props
 }): React.ReactElement => {
     const theme = useTheme();
@@ -31,8 +34,10 @@ export const Loading: React.FC<LoadingProps> = ({
         <Container {...props} animate={animate} invert={mount}>
             {mount ? (
                 <>
-                    <Bar />
-                    <Text>{message}</Text>
+                    <Bar isNotPositionedAbsolute={isNavigationPageLoader} />
+                    <Text isNotPositionedAbsolute={isNavigationPageLoader}>
+                        {message}
+                    </Text>
                 </>
             ) : (
                 children
@@ -58,8 +63,14 @@ const Container = styled.div<
     ${Main}
 `;
 
-const Bar = styled.div`
-    ${position('absolute', '0 auto auto')}
+const Bar = styled.div<{ isNotPositionedAbsolute: boolean }>`
+    ${({ isNotPositionedAbsolute }): string => `
+    ${
+    isNotPositionedAbsolute
+        ? position('initial', '0 auto auto')
+        : position('absolute', '0 auto auto')
+}
+    `}
     ${flex('center')}
     overflow: hidden;
     width: 100%;
@@ -93,8 +104,15 @@ const Bar = styled.div`
     }
 `;
 
-const Text = styled.span`
-    ${position('absolute', '8px 8px auto auto', 0, 0, 0, 'auto')}
+const Text = styled.span<{ isNotPositionedAbsolute: boolean }>`
+    ${({ isNotPositionedAbsolute }): string => `
+${
+    isNotPositionedAbsolute
+        ? position('initial', '8px 8px auto auto', 0, 0, 0, 'auto')
+        : position('absolute', '8px 8px auto auto', 0, 0, 0, 'auto')
+}
+${isNotPositionedAbsolute ? flex('flex-end') : ''}
+`}
     animation: fader 1.2s ease-in-out infinite;
     font-weight: bold;
     font-size: 0.8rem;
