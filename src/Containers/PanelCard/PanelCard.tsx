@@ -24,13 +24,13 @@ export interface IPanelCardProps extends CardProps {
     operationState?: OperationState;
     isSuccessIcon?: StyledIcon;
     isFailureIcon?: StyledIcon;
-    isSuccessIconColor?:string;
-    isFailureIconColor?:string;
+    isSuccessIconColor?: string;
+    isFailureIconColor?: string;
     /** icons width and height */
     iconHeight?: number;
-    dismissButtonOnSuccess?:React.ReactElement;
-    retryButtonOnFailure?:React.ReactElement;
-    cancelButtonOnLoading?:React.ReactElement;
+    dismissButtonOnSuccess?: React.ReactElement;
+    retryButtonOnFailure?: React.ReactElement;
+    cancelButtonOnLoading?: React.ReactElement;
 }
 
 export const PanelCard: React.FC<IPanelCardProps> = ({
@@ -42,35 +42,38 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
     isSuccessIcon = CheckCircle,
     isFailureIcon = TimesCircle,
     iconHeight = 35,
-    isSuccessIconColor=MainTheme.colors.statusColors.green,
-    isFailureIconColor=MainTheme.colors.statusColors.red,
+    isSuccessIconColor = MainTheme.colors.statusColors.green,
+    isFailureIconColor = MainTheme.colors.statusColors.red,
     retryButtonOnFailure,
     cancelButtonOnLoading,
     dismissButtonOnSuccess,
     ...props
 }): React.ReactElement => {
+    const renderContentForIsSuccessAndIsFailure = useCallback(
+        (
+            icon: StyledIcon,
+            height: number,
+            color: string,
+            message: string,
+            button: React.ReactElement|undefined,
+        ) => (
+            <ContentContainer>
+                <div>
+                    <Icon as={icon} height={height} color={color} />
+                    <MessageContainer>{message}</MessageContainer>
+                </div>
+                {button}
+            </ContentContainer>
+        ),
+        [],
+    );
+
     const renderContent = useCallback((): React.ReactNode => {
         switch (operationState) {
         case OperationState.isFailure:
-            return (
-                <ContentContainer>
-                    <div>
-                        <Icon as={isFailureIcon} height={iconHeight} color={isFailureIconColor} />
-                        <MessageContainer>{isFailureMessage}</MessageContainer>
-                    </div>
-                    {retryButtonOnFailure}
-                </ContentContainer>
-            );
+            return renderContentForIsSuccessAndIsFailure(isFailureIcon,iconHeight,isFailureIconColor,isFailureMessage,retryButtonOnFailure);
         case OperationState.isSuccess:
-            return (
-                <ContentContainer>
-                    <div>
-                        <Icon as={isSuccessIcon} height={iconHeight} color={isSuccessIconColor} />
-                        <MessageContainer>{isSuccessMessage}</MessageContainer>
-                    </div>
-                    {dismissButtonOnSuccess}
-                </ContentContainer>
-            );
+            return renderContentForIsSuccessAndIsFailure(isSuccessIcon,iconHeight,isSuccessIconColor,isSuccessMessage,dismissButtonOnSuccess);
         case OperationState.isLoading:
             return (
                 <ContentContainer>
@@ -98,26 +101,27 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
         cancelButtonOnLoading,
         retryButtonOnFailure,
         dismissButtonOnSuccess,
+        renderContentForIsSuccessAndIsFailure,
     ]);
     return <Card {...props}>{renderContent()}</Card>;
 };
 
-const Icon = styled.svg<{ height: number;color?:string; }>`
+const Icon = styled.svg<{ height: number; color?: string }>`
     height: ${({ height }) => height}px;
-    ${({color})=>`
-    ${color?`color:${color};`:''}
+    ${({ color }) => `
+    ${color ? `color:${color};` : ''}
     `}
 `;
 
-const MessageContainer=styled.span`
-margin:5px;
-font-weight:700;
-`
+const MessageContainer = styled.span`
+    margin: 5px;
+    font-weight: 700;
+`;
 
-const ContentContainer=styled.div`
-${flex('space-between')}
-`
+const ContentContainer = styled.div`
+    ${flex('space-between')}
+`;
 
-const Loading=styled(L)`
-flex:1;
-`
+const Loading = styled(L)`
+    flex: 1;
+`;
