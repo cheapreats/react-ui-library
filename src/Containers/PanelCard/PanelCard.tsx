@@ -58,10 +58,10 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
             button: React.ReactElement|undefined,
         ) => (
             <ContentContainer>
-                <div>
+                <IconContainer>
                     <Icon as={icon} height={height} color={color} />
                     <MessageContainer>{message}</MessageContainer>
-                </div>
+                </IconContainer>
                 {button}
             </ContentContainer>
         ),
@@ -79,7 +79,7 @@ export const PanelCard: React.FC<IPanelCardProps> = ({
                 <ContentContainer>
                     <Loading
                         message={isLoadingMessage}
-                        isPartOfTheLayout
+                        isNavigationPageLoader
                         loading
                     />
                     {cancelButtonOnLoading}
@@ -125,3 +125,7 @@ const ContentContainer = styled.div`
 const Loading = styled(L)`
     flex: 1;
 `;
+
+const IconContainer=styled.div`
+${flex('center')}
+`
