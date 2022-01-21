@@ -1,33 +1,49 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
+import {Button} from '@Inputs/Button/Button';
 import { PanelCard, IPanelCardProps,OperationState } from './PanelCard';
 
 export default {
     title: 'Components/PanelCard',
     component: PanelCard,
     args: {},
-    argTypes: { onCancelLoading: { action: 'clickeddd!!!' } },
 } as Meta;
 
 export const Basic: Story<IPanelCardProps> = (args) => <PanelCard {...args} />;
 
-export const PanelIsLoading = Basic.bind({});
-PanelIsLoading.args = {
+export const IsLoadingPanel = Basic.bind({});
+IsLoadingPanel.args = {
     ...Basic.args,
     operationState: OperationState.isLoading,
     name: 'Abcd'
 };
 
-export const PanelIsFailure = Basic.bind({});
-PanelIsFailure.args = {
+export const IsFailurePanel = Basic.bind({});
+IsFailurePanel.args = {
     ...Basic.args,
     operationState: OperationState.isFailure,
     name: 'Abcd'
 };
 
-export const PanelIsSuccess = Basic.bind({});
-PanelIsSuccess.args = {
+export const IsSuccessPanel = Basic.bind({});
+IsSuccessPanel.args = {
     ...Basic.args,
     operationState: OperationState.isSuccess,
     name: 'Abcd'
 };
+
+export const IsLoadingPanelWithButton= IsLoadingPanel.bind({});
+IsLoadingPanelWithButton.args={
+    ...IsLoadingPanel.args,
+    cancelButtonOnLoading:<Button onClick={()=>{console.log('cancelling...')}} margin='0 0 0 20px'>Cancel</Button>
+}
+export const IsFailurePanelWithButton= IsFailurePanel.bind({});
+IsFailurePanelWithButton.args={
+    ...IsFailurePanel.args,
+    retryButtonOnFailure:<Button onClick={()=>{console.log('retrying...')}}>Retry</Button>
+}
+export const IsSuccessPanelWithButton= IsSuccessPanel.bind({});
+IsSuccessPanelWithButton.args={
+    ...IsSuccessPanel.args,
+    dismissButtonOnSuccess:<Button onClick={()=>{console.log('dismissing...')}}>Dismiss</Button>
+}
