@@ -16,14 +16,14 @@ export interface LoadingProps
     loading?: boolean;
     message?: string;
     /** if true, the component is not positioned absolute */
-    isNotPositionedAbsolute?: boolean;
+    isPartOfTheLayout?: boolean;
 }
 
 export const Loading: React.FC<LoadingProps> = ({
     children,
     loading = false,
     message = 'Loading...',
-    isNotPositionedAbsolute = false,
+    isPartOfTheLayout = false,
     ...props
 }): React.ReactElement => {
     const theme = useTheme();
@@ -34,8 +34,8 @@ export const Loading: React.FC<LoadingProps> = ({
         <Container {...props} animate={animate} invert={mount}>
             {mount ? (
                 <>
-                    <Bar isNotPositionedAbsolute={isNotPositionedAbsolute} />
-                    <Text isNotPositionedAbsolute={isNotPositionedAbsolute}>
+                    <Bar isNotPositionedAbsolute={isPartOfTheLayout} />
+                    <Text isNotPositionedAbsolute={isPartOfTheLayout}>
                         {message}
                     </Text>
                 </>
