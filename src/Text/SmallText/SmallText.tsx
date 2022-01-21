@@ -1,5 +1,5 @@
 import React from 'react';
-import { TextLayout, TextLayoutProps } from '../Fragments/TextLayout';
+import { TextLayout, TextLayoutProps } from '../../Fragments/TextLayout';
 
 export interface SmallTextProps extends TextLayoutProps {}
 

@@ -4,10 +4,10 @@ import { List } from '@styled-icons/bootstrap/List';
 import { ViewGrid } from '@styled-icons/heroicons-solid/ViewGrid';
 import { Story, Meta } from '@storybook/react';
 import { NavigationBar, INavigationBarProps } from './NavigationBar';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Vendors Navigation Bar'),
+    title: 'Components/Vendors Navigation Bar',
     component: NavigationBar,
 } as Meta;
 

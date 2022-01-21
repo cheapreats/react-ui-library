@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { TagGroup, TagGroupProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('TagGroup'),
+    title: 'Components/TagGroup',
     component: TagGroup,
     args: {
         tags: [

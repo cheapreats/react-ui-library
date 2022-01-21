@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ProfileModal, ProfileModalProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('ProfileModal'),
+    title: 'Components/ProfileModal',
     component: ProfileModal,
     args: {
         image: 'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg',

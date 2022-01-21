@@ -1,4 +1,5 @@
-import tsPlugin from 'rollup-plugin-typescript2';
+import peerDepsExternal from 'rollup-plugin-peer-deps-external';
+import typescript from "rollup-plugin-typescript2";
 import ttypescript from 'ttypescript';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
@@ -20,18 +21,20 @@ export default {
         },
         {
             file: pkg.module,
-            format: 'es',
+            format: 'esm',
+            sourcemap: true
         },
     ],
     plugins: [
+        peerDepsExternal(),
         copy({
             targets: [
                 { src: 'src/Containers/FileUpload/worker.js', dest: 'dist' },
             ],
         }),
+        nodeResolve({ preferBuiltins: true }),
         commonjs(),
-        json(),
-        tsPlugin({
+        typescript({
             typescript: ttypescript,
             tsconfig: './tsconfig.json',
             include: ['*.ts+(|x)', '**/*.ts+(|x)'],
@@ -52,9 +55,9 @@ export default {
                 },
             },
         }),
-        nodeResolve({ preferBuiltins: true }),
+        json(),
         babel({
-            exclude: ['node_modules', 'scripts', 'dist', '*.d.ts', '**/*.d.ts'],
+            exclude: ['node_modules', '/node_modules/', 'node_modules/**', 'scripts', 'dist', '*.d.ts', '**/*.d.ts'],
             extensions: [...DEFAULT_EXTENSIONS, '.ts', '.tsx'],
             plugins: [
                 'babel-plugin-styled-components',
@@ -68,12 +71,37 @@ export default {
             babelHelpers: 'bundled',
         }),
         postcss({
-            extensions: ['.css'],
+            extensions: ['.css']
         }),
+        // tsPlugin({
+        //     useTsconfigDeclarationDir: true,
+        //     typescript: ttypescript,
+        //     tsconfig: './tsconfig.json',
+        //     include: ['*.ts+(|x)', '**/*.ts+(|x)'],
+        //     exclude: [
+        //         '*.d.ts',
+        //         '**/*.d.ts',
+        //         'node_modules/**',
+        //         '__tests__',
+        //         '.vscode',
+        //         '.github',
+        //         'scripts',
+        //         'dist', 
+        //         'storybook-static', 
+        //     ],
+        //     tsconfigOverride: { compilerOptions: { module: 'es2015' } },
+        //     tsconfigDefaults: {
+        //         compilerOptions: {
+        //             plugins: [{ transform: '@zerollup/ts-transform-paths' }],
+        //         },
+        //     },
+        // }),
     ],
     external: [
-        ...Object.keys(pkg.dependencies || {}),
-        ...Object.keys(pkg.peerDependencies || {}),
+        // ...Object.keys(pkg.dependencies || {}),
+        // ...Object.keys(pkg.peerDependencies || {}),
         'workerize-loader',
+        // "react",
+        // "react-dom"
     ],
 };

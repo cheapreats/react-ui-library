@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ColorPicker, ColorPickerProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Color picker'),
+    title: 'Components/Color picker',
     component: ColorPicker,
     argTypes: { onChange: { action: 'Color changed' } },
     args: {

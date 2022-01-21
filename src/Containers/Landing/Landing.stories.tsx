@@ -4,10 +4,10 @@ import { Landing, ILandingProps } from '@Containers';
 import { Button, Input } from '@Inputs';
 import { Mixins } from '@Utils';
 import { Meta, Story } from '@storybook/react';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Landing'),
+    title: 'Components/Landing',
     component: Landing,
     argTypes: {
         label: {

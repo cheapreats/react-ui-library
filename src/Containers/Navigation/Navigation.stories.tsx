@@ -2,37 +2,31 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { AppleAlt } from '@styled-icons/fa-solid/AppleAlt';
 import { Archive } from '@styled-icons/fa-solid/Archive';
-import { BrowserRouter } from 'react-router-dom';
 import { Compass } from '@styled-icons/fa-solid/Compass';
 import { Home } from '@styled-icons/fa-solid/Home';
+import { action } from '@storybook/addon-actions';
 import {
     Navigation,
     NavigationProps,
     NavigationFooter,
     NavigationItem,
     NavigationHeader,
+    _NavigationItemProps,
 } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 import { logoWhite } from '../../assets';
 
 export default {
-    title: createStoryTitle('Navigation'),
+    title: 'Components/Navigation',
     component: Navigation,
 } as Meta;
 
 const defaultArgs = {};
 
-interface NavProps {
-    to: string;
-    label?: string;
-    icon: React.ForwardRefExoticComponent<React.RefAttributes<SVGSVGElement>>;
-    exact?: boolean;
-}
-
 interface IPages {
     [name: string]: {
         component: React.LazyExoticComponent<React.ComponentType> | null;
-        navProps: NavProps;
+        navProps: _NavigationItemProps;
     };
 }
 
@@ -40,37 +34,35 @@ const pages: IPages = {
     Item1: {
         component: null,
         navProps: {
-            to: '/:id/orders',
             icon: AppleAlt,
+            isSelected: true,
+            onClick: action('Item1 was clicked!')
         },
     },
     Item2: {
         component: null,
         navProps: {
-            to: '/:id/whatever',
             icon: Archive,
+            onClick: action('Item2 was clicked!')
         },
     },
     Home: {
         component: null,
         navProps: {
-            to: '/:id',
             icon: Home,
-            exact: true,
+            onClick: action('Home was clicked!')
         },
     },
 };
 
 const Template: Story<NavigationProps> = (args) => (
-    <BrowserRouter>
-        <Navigation {...args}>
-            {Object.entries(pages).map(([key, { navProps }]) => (
-                <NavigationItem key={key} {...navProps}>
-                    {key}
-                </NavigationItem>
-            ))}
-        </Navigation>
-    </BrowserRouter>
+    <Navigation {...args}>
+        {Object.entries(pages).map(([key, { navProps }]) => (
+            <NavigationItem key={key} {...navProps}>
+                {key}
+            </NavigationItem>
+        ))}
+    </Navigation>
 );
 
 export const Basic = Template.bind({});

@@ -6,10 +6,10 @@ import {
     IDeliveryRadiusProps,
     DistanceUnit,
 } from './DeliveryRadius';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Delivery Radius'),
+    title: 'Components/Delivery Radius',
     component: DeliveryRadius,
     args: {
         title: 'Delivery Radius',

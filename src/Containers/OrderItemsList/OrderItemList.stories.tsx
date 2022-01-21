@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { IOrderItems, OrderItemList } from './OrderItemList';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Order List'),
+    title: 'Components/Order List',
     component: OrderItemList,
     args: {
         items: [

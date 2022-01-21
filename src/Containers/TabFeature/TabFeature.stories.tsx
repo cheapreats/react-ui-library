@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { TabFeature, TabFeatureProps } from './TabFeature';
-import { createStoryTitle } from '../../Constants';
+
 
 /** data */
 const heading = 'How it works';
@@ -79,7 +79,7 @@ const DataItems = [
 ];
 
 export default {
-    title: createStoryTitle('TabFeature'),
+    title: 'Components/TabFeature',
     component: TabFeature,
     args: {
         heading,

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { ClickableSmallText, SmallTextProps } from '../index';
-import { createStoryTitle } from '../Constants';
+import { ClickableSmallText, SmallTextProps } from '../../index';
+
 
 export default {
-    title: createStoryTitle('Clickable Text'),
+    title: 'Components/Clickable Text',
     component: ClickableSmallText,
     args: {
         children: 'Hello World',

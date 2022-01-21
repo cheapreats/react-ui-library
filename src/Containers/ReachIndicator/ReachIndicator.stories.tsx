@@ -1,10 +1,10 @@
 import React from 'react'; 
 import { Meta, Story } from '@storybook/react';
 import { ReachIndicator, ReachIndicatorProps } from '../../index'
-import { createStoryTitle } from '../../Constants'; 
+ 
 
 export default {
-    title: createStoryTitle('Reach Indicator'),
+    title: 'Components/Reach Indicator',
     component: ReachIndicator,
 } as Meta;
 const Template: Story<ReachIndicatorProps> = (args) => <ReachIndicator {...args} /> 

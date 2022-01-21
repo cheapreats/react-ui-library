@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ISquareTable, SquareTable } from '@Containers';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('SquareTable'),
+    title: 'Components/SquareTable',
     component: SquareTable,
 } as Meta;
 

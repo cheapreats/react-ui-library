@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { createStoryTitle } from '../../Constants';
+
 import { ShowLogos, ILogoProps } from './Logo';
 
 export default {
-    title: createStoryTitle('Logo Listing'),
+    title: 'Components/Logo Listing',
     component: ShowLogos,
 } as Meta;
 

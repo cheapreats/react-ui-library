@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { Input, InputProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('Input'),
+    title: 'Components/Input',
     component: Input,
     args: {
         placeholder: 'Placeholder',

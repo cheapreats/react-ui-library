@@ -5,11 +5,11 @@ import { Star } from '@styled-icons/evaicons-solid/Star';
 import { DollarSign } from '@styled-icons/fa-solid/DollarSign';
 import { ArrowUpShort } from '@styled-icons/bootstrap/ArrowUpShort';
 import { MainTheme } from '@Themes';
-import { createStoryTitle } from '../../Constants';
+
 import { Timeline, TimelineProps } from '../../index';
 
 export default {
-    title: createStoryTitle('Timeline'),
+    title: 'Components/Timeline',
     component: Timeline,
 } as Meta;
 

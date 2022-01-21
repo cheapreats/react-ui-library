@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { BoxComposition, IBoxCompositionProps } from '@Containers';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('BoxComposition'),
+    title: 'Components/BoxComposition',
     component: BoxComposition,
     args: {
         data: [

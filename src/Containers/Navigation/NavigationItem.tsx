@@ -1,53 +1,34 @@
 import React from 'react';
-import { NavLink as L, useParams } from 'react-router-dom';
-import styled, { useTheme } from 'styled-components';
+import styled, { DefaultTheme, useTheme } from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
 import { Paragraph as P } from '../../Text';
 import { Mixins } from '../../Utils';
-
-const PARAM_PATTERN = /(:[0-9A-Za-z]*)/g;
-
-const hydratePath = (path: string, params: NavigationParams) =>
-    path.replace(PARAM_PATTERN, (e) => params[e.slice(1)]);
-
-interface _NavigationItemProps {
+export interface _NavigationItemProps {
     icon?: StyledIcon;
-    to?: string;
-    exact?: boolean;
     type?: any | string | number | symbol;
-}
-
-interface NavigationParams {
-    id: string;
+    isSelected?: boolean
+    onClick?: () => void
 }
 
 export const NavigationItem: React.FC<_NavigationItemProps> = ({
     children,
     icon,
-    to = '',
-    exact = false,
     type,
+    isSelected = false,
+    onClick = () => null,
     ...props
 }) => {
     const theme = useTheme();
-    const params = useParams<NavigationParams>();
-    const isExternal = to.startsWith('http');
     return (
-        <Item as={type} {...props}>
-            <NavLink
-                to={hydratePath(to, params)}
-                target={isExternal ? '_blank' : ''}
-                exact={exact}
+        <Item onClick={onClick} as={type} isSelected={isSelected} {...props}>
+            <Icon as={icon} />
+            <Paragraph
+                margin="0 auto 0 12px"
+                color={theme.colors.background}
+                bold
             >
-                <Icon as={icon} />
-                <Paragraph
-                    margin="0 auto 0 12px"
-                    color={theme.colors.background}
-                    bold
-                >
-                    {children}
-                </Paragraph>
-            </NavLink>
+                {children}
+            </Paragraph>
         </Item>
     );
 };
@@ -57,19 +38,14 @@ const Item = styled.li`
     color:${theme.colors.background};
     `}
     margin-bottom: 8px;
-`;
-
-const NavLink = styled(L)`
     ${Mixins.transition(['background-color'])}
     ${Mixins.flex('center')}
 
-    ${({ theme }) => `
+    ${({ theme, isSelected }: {theme: DefaultTheme, isSelected: boolean}) => `
         ${Mixins.clickable(theme.colors.primary, 0.1)}
         border-radius: ${theme.dimensions.radius};
-        &.active {
-            background-color: ${Mixins.darken(theme.colors.primary, 0.1)}
-        }
-        color:${theme.colors.background};
+        background-color: ${isSelected && Mixins.darken(theme.colors.primary, 0.1)};
+        color: ${theme.colors.background};
     `}
 
     box-sizing: border-box;

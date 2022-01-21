@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { Heading, HeadingProps } from '../index';
-import { createStoryTitle } from '../Constants';
+import { Heading, HeadingProps } from '../../index';
+
 
 export default {
-    title: createStoryTitle('Headings'),
+    title: 'Components/Headings',
     component: Heading,
     args: {
         children: 'Hello World',

@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { SmallText, SmallTextProps } from '../index';
-import { createStoryTitle } from '../Constants';
+import { SmallText, SmallTextProps } from '../../index';
+
 
 export default {
-    title: createStoryTitle('Text'),
+    title: 'Components/Text',
     component: SmallText,
     args: {
         children: 'Hello World',

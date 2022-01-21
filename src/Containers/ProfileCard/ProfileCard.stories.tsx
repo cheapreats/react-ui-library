@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ProfileCard, ProfileCardProps } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('ProfileCard'),
+    title: 'Components/ProfileCard',
     component: ProfileCard,
     argTypes: {
         onCallClick: { action: 'OnCallClick Pressed' },

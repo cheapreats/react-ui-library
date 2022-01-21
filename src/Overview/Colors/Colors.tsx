@@ -1,8 +1,11 @@
 import React, { Fragment } from 'react';
 import styled from 'styled-components';
-import { storiesOf } from '@storybook/react';
 import { MainTheme } from '@Themes/MainTheme';
-import { ColorCard, Heading } from '../index';
+import { DarkTheme } from '@Themes/DarkTheme';
+import { ColorCard } from '../../Containers';
+import { Heading } from '../../Text';
+
+export interface ColorsProps {}
 
 interface IListGridProps {
     columnWidth: number;
@@ -35,7 +38,7 @@ const flattenColors = (Value: string, label: string) => (
     </Fragment>
 );
 
-storiesOf('Design System/Colors', module).add('Overview', () => (
+const Colors: React.FC<ColorsProps> = () => (
     <div>
         <Heading type="h1" bold>
             Colors
@@ -53,5 +56,21 @@ storiesOf('Design System/Colors', module).add('Overview', () => (
                 ),
             )}
         </ListGrid>
+
+        <Heading type="h2">Dark Theme</Heading>
+        <ListGrid columnWidth={300} gap={15}>
+            {Object.entries(DarkTheme.colors).map(([key, value]) =>
+                typeof value === 'object' ? (
+                    flattenColors(value as any, key)
+                ) : (
+                    <li key={key}>
+                        <ColorCard color={value} label={key} />
+                    </li>
+                ),
+            )}
+        </ListGrid>
+        
     </div>
-));
+)
+
+export default Colors;

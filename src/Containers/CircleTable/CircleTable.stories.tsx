@@ -1,10 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { CircleTable, ICircleTable } from '@Containers';
-import { createStoryTitle } from '../../Constants';
+
 
 export default {
-    title: createStoryTitle('CircleTable'),
+    title: 'Components/CircleTable',
     component: CircleTable,
 } as Meta;
 

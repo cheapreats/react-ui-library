@@ -1,14 +1,14 @@
 import React, { HTMLAttributes } from 'react';
 import styled from 'styled-components';
 
-interface ILeftRightTextProps extends HTMLAttributes<HTMLSpanElement> {
+export interface ILeftRightTextProps extends HTMLAttributes<HTMLSpanElement> {
     // text to be rendered on left side of card
     leftText?: string;
     // text to be rendered on right side of card
     rightText?: string;
 }
 
-const LeftRightText = ({
+export const LeftRightText: React.FC<ILeftRightTextProps> = ({
     leftText,
     rightText,
     ...props

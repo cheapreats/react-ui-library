@@ -2,7 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { KitchenCard, KitchenCardProps } from '../../index';
 import { Button } from '../../Inputs/Button/Button';
-import { createStoryTitle } from '../../Constants';
+
 
 enum StatusColorFilter {
     PREPARING = 'orange',
@@ -211,7 +211,7 @@ const StatusModifierComponent = (
 );
 
 export default {
-    title: createStoryTitle('KitchenCard'),
+    title: 'Components/KitchenCard',
     component: KitchenCard,
     argTypes: {
         status: {
@@ -221,7 +221,7 @@ export default {
             },
         },
         isFullName: {
-            type: 'radio',
+            type: 'boolean',
             options: [true, false],
         },
     },

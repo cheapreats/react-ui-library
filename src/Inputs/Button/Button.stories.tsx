@@ -2,10 +2,10 @@ import React from 'react';
 import { Save } from '@styled-icons/fa-solid/Save';
 import { Meta, Story } from '@storybook/react';
 import { Button, ButtonProps } from '../../index';
-import { createStoryTitle, getCaptionForLocale } from '../../Constants';
+import {  getCaptionForLocale } from '../../Constants';
 
 export default {
-    title: createStoryTitle('Button'),
+    title: 'Components/Button',
     component: Button,
     argTypes: { onClick: { action: 'Button Click Occurred' } },
     args: {

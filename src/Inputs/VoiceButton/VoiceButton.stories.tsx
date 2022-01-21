@@ -2,11 +2,11 @@ import React from 'react';
 import { Microphone } from '@styled-icons/fa-solid/Microphone';
 import { Meta, Story } from '@storybook/react';
 import { VoiceButton } from '../../index';
-import { createStoryTitle } from '../../Constants';
+
 import { VoiceButtonProps } from '..';
 
 export default {
-    title: createStoryTitle('VoiceButton'),
+    title: 'Components/VoiceButton',
     component: VoiceButton,
     argTypes: { onClick: { action: 'Button Click Occurred' } },
     args: {
