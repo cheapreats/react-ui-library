@@ -1,6 +1,6 @@
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
 import DropdownItem from '../Dropdown/DropdownItem';
-import React, { Children, isValidElement, useCallback, useState } from 'react';
+import React, { isValidElement } from 'react';
 import { SmallText } from 'index';
 import styled from 'styled-components';
 
@@ -16,26 +16,22 @@ export interface SpecialTextProps {
     dropDownProps?: IDropdownProps[];
 }
 
-/**
- * Maps SpecialText children to DropdownItems in DropDown
- * @param {React.ReactNode[0]} children - Elements in the DropDown
- * @returns {React.ReactNode[]} - Array of valid DropdownItems
- */
-const formatList = (children: React.ReactNode[]): React.ReactNode[] =>
-    children.map((child): React.ReactElement | null => {
-        if (child && isValidElement(child)) {
-            const val = child.props.value;
-            return <DropdownItem {...child.props} children={child} key={val} />;
-        } else return null;
-    });
-
 export const SpecialText: React.FC<SpecialTextProps> = ({
     text,
     children,
     dropDownProps,
     ...props
 }): React.ReactElement => {
-    const dropDownOptions = Children.toArray(children);
+    /**
+     * Maps SpecialText children to DropdownItems in DropDown
+     * @returns {React.ReactNode[]} - Array of valid DropdownItems
+     */
+    const formatList = (): React.ReactNode[] =>
+        children.map((dropDownItems): React.ReactElement | null => {
+            if (dropDownItems && isValidElement(dropDownItems)) {
+                return <DropdownItem {...dropDownItems.props} children={dropDownItems} />;
+            } else return null;
+        });
 
     return (
         <StyledDiv {...props}>
@@ -43,7 +39,7 @@ export const SpecialText: React.FC<SpecialTextProps> = ({
                 dropdownButton={<StyledDropDownText>{text}</StyledDropDownText>}
                 {...dropDownProps}
             >
-                {formatList(dropDownOptions)}
+                {formatList()}
             </Dropdown>
         </StyledDiv>
     );
