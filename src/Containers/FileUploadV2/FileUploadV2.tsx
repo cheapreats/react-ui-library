@@ -1,38 +1,18 @@
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useState, useCallback, useEffect,useRef } from 'react';
 import styled from 'styled-components';
 // @ts-ignore
 import worker from 'workerize-loader!./worker'; // eslint-disable-line
 import { useMounted } from '@Utils/Hooks';
-import Dropzone, { useDropzone } from 'react-dropzone';
 import { MainInterface, Main } from '@Utils/BaseStyles';
+import {Button} from '@Inputs/Button/Button';
+import { PanelCard,OperationState } from '../PanelCard/PanelCard';
+import {DropArea,IDropAreaProps} from '../DropArea/DropArea';
 
 // TODO: Add animations if possible (height transitions of the container component (expansion-contraction))
 // and fade-in, fade-out effect of the informative panels.
 
 const MESSAGE_DURATION = 1500;
 const NO_BASE64STRINGFILE = 'NO_BASE64STRINGFILE';
-
-export enum OperationState {
-    isSuccess,
-    isFailure,
-    isLoading,
-    isUnknown,
-}
-
-/**
- * minimum interface for panels used in fileupload component
- */
-export interface IPanelProps extends MainInterface,React.HTMLAttributes<HTMLDivElement> {
-    /** function executed for cancelling file upload */
-    onCancelUploading?: () => void;
-    /** state of the operation: isSuccess,isLoading,isFailure */
-    operationState?: OperationState;
-    messageIsSuccess?: string;
-    messageIsFailure?: string;
-    messageIsLoading?: string;
-    /** name of file */
-    name?: string;
-}
 
 interface IPanel {
     /** whether it's loading file, is completed, is failure */
@@ -54,45 +34,28 @@ interface IInformativePanels {
     startWorkers: string[];
 }
 
-export interface IDropAreaProps
-    extends MainInterface,
-        React.HTMLAttributes<HTMLDivElement> {
-    isDragEnter?: boolean;
-    message?: string;
-}
-
 export interface IFileUploadV2Props
     extends MainInterface,
         React.HTMLAttributes<HTMLDivElement> {
-    /** whether or not the file upload component is disabled */
-    isDisabled?: boolean;
-    /** component to render the drop area */
-    DropArea: React.FC<IDropAreaProps>;
-    dropAreaProps?: IDropAreaProps;
-    /** component to render the informative panel */
-    Panel: React.FC<IPanelProps>;
     /** if true, failure message will appear even after success operation; its purpose is to test the appearance of the failure message during development */
     isTestIsFailure?: boolean;
     /**
      * function to process the file read and transformed to a base64 string; default: does nothing
      * @param {string} base64String the file read and transformed to a base64 string
      */
-    processFile?: (base64String: string) => void;
+    onFile?: (base64String: string) => void;
     /** time in ms of the presence of the bottom panel informing the result of the operation (sucess or failure); default value: 1500  */
     messageDuration?: number;
+    dropAreaProps?:IDropAreaProps;
 }
 /**
  * multiple file upload, in parallel, version 2
  */
 export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
-    isDisabled = false,
-    DropArea,
-    dropAreaProps = { padding: '10px' },
-    Panel,
     isTestIsFailure = false,
-    processFile = (base64String: string) => null,
+    onFile = (base64String: string) => null,
     messageDuration = MESSAGE_DURATION,
-    padding = '10px',
+    dropAreaProps={},
     ...props
 }): React.ReactElement => {
     const isMounted = useMounted();
@@ -102,9 +65,8 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
             makeItDisappear: [],
             startWorkers: [],
         });
-    const [isDragEnter, setIsDragEnter] = useState(false);
-    const dropAreaRef = useRef<HTMLDivElement>(null);
-    const [width, setWidth] = useState<number>(0);
+    const [dropAreaWidth, setDropAreaWidth] = useState<number|undefined>();
+    const dropAreaRef=useRef<HTMLDivElement>(null);
 
     /**
      * set end state
@@ -154,7 +116,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
                         informativePanel,
                     );
                 } else {
-                    processFile(base64StringFile);
+                    onFile(base64StringFile);
                     prepareForEndInformativePanel(
                         OperationState.isSuccess,
                         informativePanel,
@@ -165,18 +127,10 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
         [
             informativePanels.panels,
             isTestIsFailure,
-            processFile,
+            onFile,
             prepareForEndInformativePanel,
         ],
     );
-
-    const onDragEnter = () => {
-        setIsDragEnter(true);
-    };
-
-    const onDragLeave = () => {
-        setIsDragEnter(false);
-    };
 
     /**
      * load array of informative panels and send order to start workers
@@ -197,7 +151,6 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
             panels: [...prev.panels, ...newInformativePanels],
             startWorkers: [...fileNames],
         }));
-        setIsDragEnter(false);
     }, []);
 
     // start workers after files have been droped and array of informative panels
@@ -247,13 +200,6 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
         }
     }, [informativePanels.makeItDisappear.length]);
 
-    const { getRootProps, getInputProps } = useDropzone({
-        onDrop,
-        onDragEnter,
-        onDragLeave,
-        disabled: isDisabled,
-    });
-
     const onCancelUploading = (name: string) => () => {
         setInformativePanels((prev) => ({
             ...prev,
@@ -267,13 +213,6 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
         }));
     };
 
-    // after first render, we compute width of the drop area component
-    useEffect(() => {
-        if (dropAreaRef.current) {
-            setWidth(dropAreaRef.current.getBoundingClientRect().width);
-        }
-    }, []);
-
     // terminate workers on clean up function
     useEffect(
         () => () => {
@@ -286,27 +225,23 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
         [informativePanels.panels],
     );
 
+    useEffect(()=>{
+        if(dropAreaRef.current){
+            setDropAreaWidth(dropAreaRef.current.getBoundingClientRect().width);
+        }
+    },[])
+
     return (
-        <FileUploadV2Container padding={padding} {...props}>
-            <Dropzone multiple>
-                {() => (
-                    <div {...getRootProps()} ref={dropAreaRef}>
-                        <DropArea
-                            isDragEnter={isDragEnter}
-                            {...dropAreaProps}
-                        />
-                        <input {...getInputProps()} />
-                    </div>
-                )}
-            </Dropzone>
+        <FileUploadV2Container {...props}>
+            <DropArea onDropHandler={onDrop} {...dropAreaProps} ref={dropAreaRef} />
             {informativePanels.panels.map((panel) => (
-                <Panel
+                <PanelCard
                     key={panel.name}
-                    onCancelUploading={onCancelUploading(panel.name)}
-                    margin="10px 0"
-                    style={{ width, boxSizing:'border-box' }}
+                    cancelButtonOnLoading={<Button onClick={onCancelUploading(panel.name)}>Cancel</Button>}
                     name={panel.name}
                     operationState={panel.operationState}
+                    margin="10px 0"
+                    style={{width:dropAreaWidth,boxSizing:'border-box'}}
                 />
             ))}
         </FileUploadV2Container>
@@ -314,10 +249,8 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
 };
 
 const FileUploadV2Container = styled.div<MainInterface>`
-    background-color: white;
-    border-radius: 10px;
+    background-color: ${({theme})=>theme.colors.background};
+    border-radius: ${({theme})=>theme.dimensions.radius};
     width: fit-content;
-    ${({ ...props }): string => `
-    ${Main({ ...props })}
-    `}
+    ${({theme,...props }): string => Main({ padding:theme.dimensions.padding.container,...props })}
 `;
