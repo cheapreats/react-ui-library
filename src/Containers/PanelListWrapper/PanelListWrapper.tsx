@@ -23,14 +23,14 @@ export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
     delaySequentially = 100,
     ...props
 }) => {
-    const internalPanels = useSequentiallyAddedPanels(
+    const sequentiallyPanels = useSequentiallyAddedPanels(
         panels,
         delaySequentially,
     );
     const panelsToMap = useMemo(
         (): IPanelCardProps[] =>
-            isAddPanelsSequentially ? internalPanels : panels,
-        [isAddPanelsSequentially, internalPanels, panels],
+            isAddPanelsSequentially ? sequentiallyPanels : panels,
+        [isAddPanelsSequentially, sequentiallyPanels, panels],
     );
 
     return (
