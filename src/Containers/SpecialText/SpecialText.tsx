@@ -1,13 +1,12 @@
 import Dropdown from '../Dropdown/Dropdown';
 import DropdownItem from '../Dropdown/DropdownItem';
-import React, { Children, isValidElement } from 'react';
+import React, { Children, isValidElement, useCallback, useState } from 'react';
 import { SmallText } from 'index';
 import styled from 'styled-components';
 
 export interface SpecialTextProps {
     text: string;
     children: React.ReactNode[];
-    onChange?: Function;
 }
 
 const formatList = (
@@ -30,7 +29,6 @@ const formatList = (
 export const SpecialText: React.FC<SpecialTextProps> = ({
     text,
     children,
-    onChange = (): void => undefined,
     ...props
 }): React.ReactElement => {
     const options = Children.toArray(children)
