@@ -14,6 +14,8 @@ export interface IPanelListWrapperProps
     isAddPanelsSequentially?: boolean;
     /** dealy in ms for each panel added to the list */
     delaySequentially?: number;
+    /** fade in in ms */
+    fadeIn?:number;
 }
 
 export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
@@ -21,6 +23,7 @@ export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
     verticalSpacing,
     isAddPanelsSequentially = false,
     delaySequentially = 100,
+    fadeIn=1000,
     ...props
 }) => {
     const sequentiallyPanels = useSequentiallyAddedPanels(
@@ -36,10 +39,11 @@ export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
     return (
         <PanelListWrapperBox {...props}>
             {panelsToMap.map((panel) => (
-                <PanelCard
+                <PanelCardFadeIn
                     key={`${panel.name}`}
                     {...panel}
                     margin={`${verticalSpacing}px 0`}
+                    fadeIn={fadeIn}
                 />
             ))}
         </PanelListWrapperBox>
@@ -49,3 +53,11 @@ export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
 const PanelListWrapperBox = styled.div<MainInterface>`
     ${(props) => Main({ ...props })}
 `;
+
+const PanelCardFadeIn=styled(PanelCard)<{fadeIn:number}>`
+@keyframes fadein{
+    from{opacity:0;}
+    to{opacity:1;}
+}
+animation:fadein ${({fadeIn})=>fadeIn}ms;
+`
