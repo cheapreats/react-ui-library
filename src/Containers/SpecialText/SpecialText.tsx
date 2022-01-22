@@ -13,7 +13,7 @@ import styled from 'styled-components';
 export interface SpecialTextProps {
     text: string;
     children: React.ReactNode[];
-    dropDownProps: IDropdownProps[];
+    dropDownProps?: IDropdownProps[];
 }
 
 /**
