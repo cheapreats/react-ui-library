@@ -3,8 +3,6 @@ import React, { useEffect, useState, useMemo, useRef } from 'react';
 import styled from 'styled-components';
 import { PanelCard, IPanelCardProps } from '../PanelCard/PanelCard';
 
-const DELAY_IN_MOUNTING_IN_MS = 100;
-
 export interface IPanelListWrapperProps
     extends MainInterface,
         React.HTMLAttributes<HTMLDivElement> {
@@ -12,19 +10,22 @@ export interface IPanelListWrapperProps
     /** vertical space between panels in px */
     verticalSpacing?: number;
     /** if true panels are added sequentially to the list */
-    isAnimatedPanels?: boolean;
+    isAddPanelsSequentially?: boolean;
+    /** dealy in ms for each panel added to the list */
+    delaySequentially?:number;
 }
 
 export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
     panels,
     verticalSpacing,
-    isAnimatedPanels = false,
+    isAddPanelsSequentially = false,
+    delaySequentially=100,
     ...props
 }) => {
-    const internalPanels = useAnimatedPanels(panels);
+    const internalPanels = useSequentiallyAddedPanels(panels,delaySequentially);
     const panelsToMap = useMemo(
-        (): IPanelCardProps[] => (isAnimatedPanels ? internalPanels : panels),
-        [isAnimatedPanels, internalPanels, panels],
+        (): IPanelCardProps[] => (isAddPanelsSequentially ? internalPanels : panels),
+        [isAddPanelsSequentially, internalPanels, panels],
     );
 
     return (
@@ -44,37 +45,38 @@ const PanelListWrapperBox = styled.div<MainInterface>`
     ${(props) => Main({ ...props })}
 `;
 
-const useAnimatedPanels = (panels:IPanelCardProps[]) => {
+/**
+ * add panels sequentially
+ * @param panels {IPanelCardProps[]} array of panel properties 
+ * @param delay {number} delay in ms to add each panel to the list 
+ * @returns {IPanelCardProps[]} array of panels to be added sequentially
+ */
+const useSequentiallyAddedPanels = (panels:IPanelCardProps[],delay:number) => {
     const [internalPanels, setInternalPanels] = useState<IPanelCardProps[]>([]);
-    const [panelIndex, setPanelIndex] = useState<number>(0);
-    const panelsLength = useMemo(() => panels.length, [panels]);
+    const [panelIndexCounter, setPanelIndexCounter] = useState<number>(0);
     const previousPanelsLength = useRef<number|undefined>();
 
-    const incrementPanelIndex = () => {
-        setPanelIndex((prev) => prev + 1);
-    };
-
     useEffect(() => {
-        if (!previousPanelsLength.current||previousPanelsLength.current < panelsLength) {
+        if (!previousPanelsLength.current||previousPanelsLength.current < panels.length) {
             setTimeout(() => {
-                const panelToAdd = panels[panelIndex];
+                const panelToAdd = panels[panelIndexCounter];
                 if (panelToAdd) {
                     setInternalPanels((prev) => [...prev, panelToAdd]);
-                    incrementPanelIndex();
+                    setPanelIndexCounter((prev) => prev + 1);
                 } else {
-                    previousPanelsLength.current = panelsLength;
+                    previousPanelsLength.current = panels.length;
                 }
-            }, DELAY_IN_MOUNTING_IN_MS);
+            }, delay);
         } else {
             setInternalPanels((prev) =>
                 prev.filter((internalPanel) =>
                     panels.some((panel) => panel.name === internalPanel.name),
                 ),
             );
-            setPanelIndex(0);
-            previousPanelsLength.current = 0;
+            setPanelIndexCounter(panels.length);
+            previousPanelsLength.current = panels.length;
         }
-    }, [panelsLength, panels, panelIndex]);
+    }, [panels, panelIndexCounter,delay]);
 
     return internalPanels;
 };
