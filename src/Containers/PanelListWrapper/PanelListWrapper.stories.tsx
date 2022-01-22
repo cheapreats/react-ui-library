@@ -55,8 +55,8 @@ WithVerticalSpacingBetweenPanels.args= {
     verticalSpacing:10,
 }
 
-export const WithStyleAndAnimated= WithVerticalSpacingBetweenPanels.bind({});
-WithStyleAndAnimated.args= {
+export const WithStyleAndAddPanelsSequentially= WithVerticalSpacingBetweenPanels.bind({});
+WithStyleAndAddPanelsSequentially.args= {
     ...WithVerticalSpacingBetweenPanels.args,
     style:{
         width:'250px',
@@ -65,36 +65,28 @@ WithStyleAndAnimated.args= {
         backgroundColor:MainTheme.colors.background,
     },
     padding:MainTheme.dimensions.padding.container,
-    isAnimatedPanels:true,
+    isAddPanelsSequentially:true,
 }
 
-export const AddPanelsProgressivelyAndWithAnimation: Story<IPanelListWrapperProps> = (args) =>{
+export const CustomControlsToAddAndRemovePanelsSequentially: Story<IPanelListWrapperProps> = (args) =>{
     const [panels,setPanels]=useState<IPanelCardProps[]>([]);
-    const [counter,setCounter]=useState(0);
-
-    const incrementCounter=()=>{
-        setCounter(prev=>prev+1);
-    }
-
-    const incrementCounterBy=(times:number)=>{
-        setCounter(prev=>prev+times);
-    }
 
     const getPanel=(num:number):IPanelCardProps=>({name:`file${num}.pdf`,operationState:OperationState.isLoading})
     
     const addPanel=()=>{
-        setPanels(prev=>[...prev,getPanel(counter)])
-        incrementCounter();
+        setPanels(prev=>[...prev,getPanel(panels.length)])
     }
 
     const addPanels=()=>{
-        setPanels(prev=>[...prev,getPanel(counter),getPanel(counter+1),getPanel(counter+2)])
-        incrementCounterBy(3);
+        setPanels(prev=>[...prev,getPanel(panels.length),getPanel(panels.length+1),getPanel(panels.length+2)])
     }
 
     const clearPanels=()=>{
         setPanels([]);
-        setCounter(0);
+    }
+
+    const removeOnePanel=()=>{
+        setPanels(prev=>prev.slice(0,prev.length-1))
     }
 
     // this is for development, to check
@@ -107,8 +99,9 @@ export const AddPanelsProgressivelyAndWithAnimation: Story<IPanelListWrapperProp
             <Button onClick={addPanel}>add one panel</Button>
             <Button onClick={addPanels}>add three panels</Button>
             <Button onClick={clearPanels}>clear panels</Button>
+            <Button onClick={removeOnePanel}>remove one panel</Button>
         </ButtonsContainer>
-        <PanelListWrapper {...args} panels={panels} isAnimatedPanels />
+        <PanelListWrapper {...args} panels={panels} isAddPanelsSequentially />
     </div>
 }
 
