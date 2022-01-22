@@ -14,23 +14,23 @@ export interface IPanelListWrapperProps
     /** if true panels are added sequentially to the list */
     isAddPanelsSequentially?: boolean;
     /** dealy in ms for each panel added to the list */
-    delaySequentially?: number;
+    delay?: number;
     /** fade in in ms */
     fadeIn?: number;
+    /** fade out in ms */
+    fadeOut?: number;
 }
 
 export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
     panels,
     verticalSpacing,
     isAddPanelsSequentially = false,
-    delaySequentially = 100,
+    delay = 100,
     fadeIn = 1000,
+    fadeOut = 1000,
     ...props
 }) => {
-    const sequentiallyPanels = useSequentiallyAddedPanels(
-        panels,
-        delaySequentially,
-    );
+    const sequentiallyPanels = useSequentiallyAddedPanels(panels, delay);
     const panelsToMap = useMemo(
         (): IPanelCardProps[] =>
             isAddPanelsSequentially ? sequentiallyPanels : panels,
@@ -52,6 +52,7 @@ export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
                     {...panel}
                     margin={`${verticalSpacing}px 0`}
                     fadeIn={fadeIn}
+                    fadeOut={fadeOut}
                     isShown={isShown}
                     onAnimationEnd={removePanelsIsShownIsFalse}
                 />
@@ -76,7 +77,10 @@ const PanelCardFadeIn = styled(PanelCard)<{ fadeIn: number }>`
     animation: fadein ${({ fadeIn }) => fadeIn}ms;
 `;
 
-const PanelCardFadeOut = styled(PanelCardFadeIn)<{ isShown: boolean }>`
+const PanelCardFadeOut = styled(PanelCardFadeIn)<{
+    isShown: boolean;
+    fadeOut: number;
+}>`
     @keyframes fadeout {
         from {
             opacity: 1;
@@ -85,7 +89,7 @@ const PanelCardFadeOut = styled(PanelCardFadeIn)<{ isShown: boolean }>`
             opacity: 0;
         }
     }
-    ${({ isShown }) => `
-${isShown ? '' : 'animation:fadeout 1000ms;'}
+    ${({ isShown, fadeOut }) => `
+${isShown ? '' : `animation:fadeout ${fadeOut}ms;`}
 `}
 `;
