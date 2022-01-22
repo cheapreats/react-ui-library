@@ -101,3 +101,4 @@ export * from './PanelCard/PanelCard';
 export * from './SpecialText/SpecialText';
 export * from './DropArea/DropArea';
 export * from './PanelListWrapper/PanelListWrapper';
+export * from './SpecialText/SpecialText';
