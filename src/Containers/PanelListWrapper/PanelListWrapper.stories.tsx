@@ -47,7 +47,7 @@ WithStyle.args= {
         width:'250px',
         border:`2px solid ${MainTheme.colors.statusColors.red}`,
         borderRadius:MainTheme.dimensions.radius,
-        padding:MainTheme.dimensions.padding.container,
         backgroundColor:MainTheme.colors.background,
-    }
+    },
+    padding:MainTheme.dimensions.padding.container,
 }
