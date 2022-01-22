@@ -1,4 +1,4 @@
-import { MainInterface } from '@Utils/BaseStyles';
+import { MainInterface,Main } from '@Utils/BaseStyles';
 import React from 'react';
 import styled from 'styled-components';
 import {PanelCard,IPanelCardProps} from '../PanelCard/PanelCard';
@@ -13,4 +13,6 @@ export const PanelListWrapper:React.FC<IPanelListWrapperProps>=({panels,vertical
     {panels?.map((panel)=><PanelCard key={`${panel.name}`} {...panel} margin={`${verticalSpacing}px 0`} />)}
 </PanelListWrapperBox>
 
-const PanelListWrapperBox=styled.div<MainInterface>``
+const PanelListWrapperBox=styled.div<MainInterface>`
+${(props)=>Main({...props})}
+`
