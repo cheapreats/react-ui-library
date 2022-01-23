@@ -21,6 +21,10 @@ export interface IPanelListWrapperProps
     fadeOut?: number;
 }
 
+/**
+ * panel list wrapper with fade in and fade out effect of panels
+ * in the list and sequentially added panels option
+ */
 export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
     panels,
     verticalSpacing,
