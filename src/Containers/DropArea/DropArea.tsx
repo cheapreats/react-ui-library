@@ -54,7 +54,7 @@ export interface IDropAreaProps extends DropzoneType {
     dropzoneProps?: DropzoneOptions;
 }
 
-export const DropArea: React.FC<IDropAreaProps> = ({
+export const DropArea = React.forwardRef<HTMLDivElement,IDropAreaProps>(({
     message = 'Drag & Drop your files here',
     buttonText = 'Browse Files',
     onClickHandler = () => null,
@@ -66,7 +66,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     width,
     dropzoneProps = {},
     ...props
-}): React.ReactElement => {
+},dropAreaRef): React.ReactElement => {
     const { getInputProps, getRootProps, isDragActive, open } = useDropzone({
         onDragEnter,
         onDragLeave,
@@ -95,7 +95,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     return (
         <Dropzone multiple {...props}>
             {() => (
-                <RootDiv {...getRootProps({})} isDisabled={isDisabled}>
+                <RootDiv {...getRootProps({})} isDisabled={isDisabled} ref={dropAreaRef}>
                     <DropAreaBox
                         isDragEnter={isDragActive}
                         width={width}
@@ -118,7 +118,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
             )}
         </Dropzone>
     );
-};
+});
 
 const RootDiv = styled.div<{ isDisabled: boolean }>`
     width: fit-content;
