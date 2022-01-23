@@ -43,7 +43,7 @@ export const ThemeSwitch: React.FC<IThemeSwitch> = ({
         };
 
         return DataItems.map(
-            (button, index): React.ReactElement => (
+            (buttonData, index): React.ReactElement => (
                 <Button
                     ref={(button) => {
                         if (button) buttonsRef.current.push(button);
@@ -64,7 +64,7 @@ export const ThemeSwitch: React.FC<IThemeSwitch> = ({
                         />
                     )}
                     <Icon as={DataItems[index].icon} />
-                    <ButtonText>{button.buttonName}</ButtonText>
+                    <ButtonText>{buttonData.buttonName}</ButtonText>
                 </Button>
             ),
         );
