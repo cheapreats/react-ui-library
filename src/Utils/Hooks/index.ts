@@ -3,3 +3,4 @@ export * from './useHandler';
 export * from './useTransition';
 export * from './useMounted';
 export * from './useMap';
+export * from './useGetWidth';
