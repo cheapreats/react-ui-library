@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, Dispatch, SetStateAction } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import { IPanelCardProps } from '../PanelCard/PanelCard';
 
 export const useFadeOut = (
@@ -8,14 +8,7 @@ export const useFadeOut = (
         panel: IPanelCardProps;
         isShown: boolean;
     }[],
-    Dispatch<
-        SetStateAction<
-            {
-                panel: IPanelCardProps;
-                isShown: boolean;
-            }[]
-        >
-    >,
+    () => void,
 ] => {
     const previousPanelsAmmount = useRef<number>();
     const [internalPanels, setInternalPanels] = useState(
@@ -55,5 +48,11 @@ export const useFadeOut = (
         previousPanelsAmmount.current = panels.length;
     }, [panels]);
 
-    return [internalPanels, setInternalPanels] as const;
+    const removePanelsIsShownIsFalse = () => {
+        setInternalPanels((prev) =>
+            prev.filter((fadeOutPanel) => fadeOutPanel.isShown),
+        );
+    };
+
+    return [internalPanels, removePanelsIsShownIsFalse] as const;
 };
