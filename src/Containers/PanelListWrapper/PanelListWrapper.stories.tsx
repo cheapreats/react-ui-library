@@ -65,7 +65,7 @@ WithStyleAndAddPanelsSequentially.args= {
         backgroundColor:MainTheme.colors.background,
     },
     padding:MainTheme.dimensions.padding.container,
-    isAddPanelsSequentially:true,
+    isSequentially:true,
 }
 
 export const CustomControlsToAddAndRemovePanelsSequentially: Story<IPanelListWrapperProps> = (args) =>{
@@ -101,7 +101,7 @@ export const CustomControlsToAddAndRemovePanelsSequentially: Story<IPanelListWra
             <Button onClick={clearPanels}>clear panels</Button>
             <Button onClick={removeOnePanel}>remove one panel</Button>
         </ButtonsContainer>
-        <PanelListWrapper {...args} panels={panels} isAddPanelsSequentially />
+        <PanelListWrapper {...args} panels={panels} isSequentially />
     </div>
 }
 

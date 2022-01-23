@@ -25,6 +25,7 @@ export const useFadeOut = (
             previousPanelsAmmount.current === undefined ||
             previousPanelsAmmount.current > panels.length
         ) {
+            // remove panels marking them as isShown false
             setInternalPanels((prev) =>
                 prev.map((internalPanel) => {
                     if (
@@ -38,6 +39,7 @@ export const useFadeOut = (
                 }),
             );
         } else {
+            // add internal panels
             const panelsToAdd = panels.filter(
                 (panel) =>
                     !internalPanels.some(

@@ -12,7 +12,7 @@ export interface IPanelListWrapperProps
     /** vertical space between panels in px */
     verticalSpacing?: number;
     /** if true panels are added sequentially to the list */
-    isAddPanelsSequentially?: boolean;
+    isSequentially?: boolean;
     /** dealy in ms for each panel added to the list */
     delay?: number;
     /** fade in in ms */
@@ -28,7 +28,7 @@ export interface IPanelListWrapperProps
 export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
     panels,
     verticalSpacing,
-    isAddPanelsSequentially = false,
+    isSequentially = false,
     delay = 100,
     fadeIn = 1000,
     fadeOut = 1000,
@@ -37,8 +37,8 @@ export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
     const sequentiallyPanels = useSequentiallyAddedPanels(panels, delay);
     const panelsToMap = useMemo(
         (): IPanelCardProps[] =>
-            isAddPanelsSequentially ? sequentiallyPanels : panels,
-        [isAddPanelsSequentially, sequentiallyPanels, panels],
+            isSequentially ? sequentiallyPanels : panels,
+        [isSequentially, sequentiallyPanels, panels],
     );
     const [fadeOutPanels, onAnimationEnd] = useFadeOut(panelsToMap);
 
