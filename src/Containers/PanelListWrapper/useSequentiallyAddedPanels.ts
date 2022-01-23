@@ -17,7 +17,7 @@ export const useSequentiallyAddedPanels = (
 
     useEffect(() => {
         if (
-            !previousPanelsLength.current ||
+            previousPanelsLength.current===undefined ||
             previousPanelsLength.current < panels.length
         ) {
             setTimeout(() => {
