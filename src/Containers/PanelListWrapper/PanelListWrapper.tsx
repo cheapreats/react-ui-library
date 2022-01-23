@@ -36,13 +36,7 @@ export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
             isAddPanelsSequentially ? sequentiallyPanels : panels,
         [isAddPanelsSequentially, sequentiallyPanels, panels],
     );
-    const [fadeOutPanels, setFadeOutPanels] = useFadeOut(panelsToMap);
-
-    const removePanelsIsShownIsFalse = () => {
-        setFadeOutPanels((prev) =>
-            prev.filter((fadeOutPanel) => fadeOutPanel.isShown),
-        );
-    };
+    const [fadeOutPanels, onAnimationEnd] = useFadeOut(panelsToMap);
 
     return (
         <PanelListWrapperBox {...props}>
@@ -54,7 +48,7 @@ export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
                     fadeIn={fadeIn}
                     fadeOut={fadeOut}
                     isShown={isShown}
-                    onAnimationEnd={removePanelsIsShownIsFalse}
+                    onAnimationEnd={onAnimationEnd}
                 />
             ))}
         </PanelListWrapperBox>
