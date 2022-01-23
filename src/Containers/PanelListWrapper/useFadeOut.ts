@@ -1,6 +1,11 @@
 import { useEffect, useState, useRef } from 'react';
 import { IPanelCardProps } from '../PanelCard/PanelCard';
 
+/**
+ * adds fading out capabilities to panels
+ * @param panels {IPanelCardProps[]} - panels to be prepared for fade out capability
+ * @returns {{panel:IPanelCardProps;isShown:boolean;}[]} tuple with panels fade out prepared and onEndAnimation function
+ */
 export const useFadeOut = (
     panels: IPanelCardProps[],
 ): readonly [
