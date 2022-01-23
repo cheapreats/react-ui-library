@@ -45,7 +45,7 @@ export const PanelListWrapper: React.FC<IPanelListWrapperProps> = ({
     return (
         <PanelListWrapperBox {...props}>
             {fadeOutPanels.map(({ panel, isShown }) => (
-                <PanelCardFadeOut
+                <PanelCardFadeInFadeOut
                     key={`${panel.name}`}
                     {...panel}
                     margin={`${verticalSpacing}px 0`}
@@ -75,7 +75,7 @@ const PanelCardFadeIn = styled(PanelCard)<{ fadeIn: number }>`
     animation: fadein ${({ fadeIn }) => fadeIn}ms;
 `;
 
-const PanelCardFadeOut = styled(PanelCardFadeIn)<{
+const PanelCardFadeInFadeOut = styled(PanelCardFadeIn)<{
     isShown: boolean;
     fadeOut: number;
 }>`
