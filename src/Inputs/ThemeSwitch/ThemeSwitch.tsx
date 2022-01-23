@@ -4,6 +4,8 @@ import { flex } from '@Utils/Mixins';
 import { Tab, TabList } from 'react-tabs';
 import { StyledIcon } from '@styled-icons/styled-icon';
 
+const MOVING_DIV_ANIMATION_TIME = 250;
+
 interface IDataObject {
     buttonName: string;
     icon: StyledIcon;
@@ -105,7 +107,7 @@ export const ThemeSwitch: React.FC<IThemeSwitch> = ({
                         transform: `translateX(0px) scale(1)`,
                     },
                 ],
-                250,
+                MOVING_DIV_ANIMATION_TIME,
             );
         }
     }, [switchRef.current]);
@@ -115,8 +117,7 @@ export const ThemeSwitch: React.FC<IThemeSwitch> = ({
             backgroundColor={DataItems[currButton].themeSwitchBackgroundColor}
         >
             <Header color={DataItems[currButton].headerColor}>
-                {' '}
-                {heading}{' '}
+                {heading}
             </Header>
             <ButtonsRow backgroundColor={DataItems[currButton].buttonsRowColor}>
                 {getButtons()}
@@ -189,10 +190,6 @@ const Button = styled(Tab)<IButton>`
 
     ${({ backgroundColor, textColor }): string => `background-color: ${backgroundColor};
             color: ${textColor};`}
-
-    &:hover {
-        opacity: 0.75;
-    }
 `;
 
 interface IMovingDiv {
