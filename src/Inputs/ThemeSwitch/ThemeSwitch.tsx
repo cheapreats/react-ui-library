@@ -48,7 +48,7 @@ export const ThemeSwitch: React.FC<IThemeSwitch> = ({
                     ref={(button) => {
                         if (button) buttonsRef.current.push(button);
                     }}
-                    key={`button_${index}`}
+                    key={`${buttonData.buttonName}_button`}
                     textColor={DataItems[currButton].buttonTextColor}
                     backgroundColor={
                         DataItems[currButton].buttonBackgroundColor
