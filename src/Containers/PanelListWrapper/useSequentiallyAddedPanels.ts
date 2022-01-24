@@ -20,12 +20,16 @@ export const useSequentiallyAddedPanels = (
             previousPanelsLength.current === undefined ||
             previousPanelsLength.current < panels.length
         ) {
+            // add panels
             setTimeout(() => {
                 const panelToAdd = panels[panelIndexCounter];
                 if (panelToAdd) {
                     setInternalPanels((prev) => [
                         ...prev
-                            .filter((_, index) => index !== panelIndexCounter)
+                            .filter(
+                                (prevPanel) =>
+                                    prevPanel.name !== panelToAdd.name,
+                            )
                             .map((prevPanel) => {
                                 const foundPanel = panels.find(
                                     (panel) => prevPanel.name === panel.name,
@@ -41,6 +45,7 @@ export const useSequentiallyAddedPanels = (
                 }
             }, delay);
         } else {
+            // remove panels
             setInternalPanels((prev) => [
                 ...prev
                     .filter((prevPanel) =>
@@ -51,7 +56,6 @@ export const useSequentiallyAddedPanels = (
                             (panel) => panel.name === prevPanel.name,
                         );
                         if (foundPanel) return foundPanel;
-                        console.log('noooooooooooo!!!!!!!!!!!');
                         return prevPanel;
                     }),
             ]);
