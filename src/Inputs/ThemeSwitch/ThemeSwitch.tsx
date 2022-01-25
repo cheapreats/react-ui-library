@@ -1,10 +1,11 @@
 import React, { useLayoutEffect, useRef, useState } from 'react';
-import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
 import { Tab, TabList } from 'react-tabs';
+import styled from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
 
 const MOVING_DIV_ANIMATION_TIME = 250;
+const COLORS_TRANSITION_DURATION = 0.5;
 
 interface IDataObject {
     buttonName: string;
@@ -28,12 +29,16 @@ export const ThemeSwitch: React.FC<IThemeSwitch> = ({
     DataItems,
     onButtonClick,
 }): React.ReactElement => {
-    const [currButton, setCurrButton] = useState(0);
-
     const switchRef = useRef<HTMLDivElement>(null);
     const lastRect = useRef<DOMRect>();
     const buttonsRef = useRef<Tab[]>([]);
 
+    const [currButton, setCurrButton] = useState(0);
+
+    /**
+     * This function returns an array of button elements. The array fills by mapping DataItems array.
+     * Each button element displays the text and icon, provided by DataItems.
+     */
     const getButtons = (): React.ReactElement[] => {
         const onClick = (buttonIndex: number) => {
             if (buttonIndex !== currButton) {
@@ -70,6 +75,9 @@ export const ThemeSwitch: React.FC<IThemeSwitch> = ({
         );
     };
 
+    /**
+     * Sets the width and height for <MovingDiv/> element based on size of selected button.
+     */
     const setMovingDivSize = () => {
         // @ts-ignore
         const width = buttonsRef.current[currButton].node.clientWidth;
@@ -126,6 +134,11 @@ export const ThemeSwitch: React.FC<IThemeSwitch> = ({
     );
 };
 
+const transitionStyles = {
+    transitionDuration: COLORS_TRANSITION_DURATION + "s;",
+    transitionProperty: "background-color, color;"
+}
+
 interface IThemeSwitchContainer {
     backgroundColor: string;
 }
@@ -137,13 +150,13 @@ const ThemeSwitchContainer = styled.div<IThemeSwitchContainer>`
         background-color: transparent;
     }
 
+    ${transitionStyles};
     ${({ backgroundColor }): string => `background-color: ${backgroundColor};`}
 `;
 
 const Icon = styled.svg`
     height: 1.2em;
     width: 1.2em;
-
     margin-right: 5px;
 `;
 
@@ -160,6 +173,7 @@ const ButtonsRow = styled(TabList)<IButtonsRow>`
     padding: 5px;
     border-radius: 10px;
 
+    ${ transitionStyles };
     ${({ backgroundColor }): string => `background-color: ${backgroundColor};`}
 `;
 
@@ -170,6 +184,7 @@ interface IHeader {
 const Header = styled.div<IHeader>`
     margin: 1em;
     ${({ color }): string => `color: ${color};`}
+    ${ transitionStyles };
 `;
 
 interface IButton {
@@ -188,6 +203,7 @@ const Button = styled(Tab)<IButton>`
     margin: 0;
     border-radius: 10px;
 
+    ${ transitionStyles };
     ${({ backgroundColor, textColor }): string => `background-color: ${backgroundColor};
             color: ${textColor};`}
 `;
@@ -206,6 +222,7 @@ const MovingDiv = styled.div<IMovingDiv>`
     left: 0;
     z-index: 2;
     mix-blend-mode: difference;
-
-    ${({ backgroundColor }): string => `background-color: ${backgroundColor};`}
+  
+    ${ transitionStyles };
+    ${({ backgroundColor }): string => `background-color: ${backgroundColor};`};
 `;
