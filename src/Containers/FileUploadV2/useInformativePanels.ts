@@ -51,7 +51,8 @@ export const useInformativePanels = (
             setInformativePanels((prev) => ({
                 ...prev,
                 panels: prev.panels.map((panel) => {
-                    if (panel.name === informativePanel.name)
+                    const {name}=panel;
+                    if (name === informativePanel.name)
                         return {
                             ...panel,
                             operationState,
@@ -117,7 +118,7 @@ export const useInformativePanels = (
                 );
                 if (informativePanel && informativePanel.worker) {
                     informativePanel.worker.onmessage = onWorkerMessage;
-                    informativePanel.worker?.postMessage({
+                    informativePanel.worker.postMessage({
                         file: informativePanel.file,
                     });
                 }
@@ -138,8 +139,10 @@ export const useInformativePanels = (
                         setInformativePanels((prev) => ({
                             ...prev,
                             panels: prev.panels.filter((panel) => {
-                                if (panel.name === name) {
-                                    panel.worker?.terminate();
+                                const {name:fileName}=panel;
+                                if (fileName === name) {
+                                    const {worker:panelWorker}=panel;
+                                    panelWorker?.terminate();
                                     return false;
                                 }
                                 return true;
@@ -191,8 +194,10 @@ export const useInformativePanels = (
         setInformativePanels((prev) => ({
             ...prev,
             panels: prev.panels.filter((panel) => {
-                if (panel.name === name) {
-                    panel.worker?.terminate();
+                const {name:fileName}=panel;
+                if (fileName === name) {
+                    const {worker:panelWorker}=panel;
+                    panelWorker?.terminate();
                     return false;
                 }
                 return true;
