@@ -1,6 +1,6 @@
-import {useState,useCallback,useEffect} from 'react'
+import { useState, useCallback, useEffect } from 'react';
 import { useMounted } from '@Utils/Hooks';
-import {OperationState} from '../PanelCard/PanelCard';
+import { OperationState } from '../PanelCard/PanelCard';
 // @ts-ignore
 import worker from 'workerize-loader!./worker'; // eslint-disable-line
 
@@ -51,7 +51,7 @@ export const useInformativePanels = (
             setInformativePanels((prev) => ({
                 ...prev,
                 panels: prev.panels.map((panel) => {
-                    const {name}=panel;
+                    const { name } = panel;
                     if (name === informativePanel.name)
                         return {
                             ...panel,
@@ -83,17 +83,17 @@ export const useInformativePanels = (
                 (panel) => panel.name === name,
             );
             if (informativePanel) {
-                let operationState:OperationState=OperationState.isUnknown;
+                let operationState: OperationState = OperationState.isUnknown;
                 if (
                     base64StringFile === NO_BASE64STRINGFILE ||
                     isTestIsFailure
                 ) {
-                    operationState=OperationState.isFailure;
+                    operationState = OperationState.isFailure;
                 } else {
                     onFile(base64StringFile);
-                    operationState=OperationState.isSuccess;
+                    operationState = OperationState.isSuccess;
                 }
-                prepareForEndInformativePanel(operationState,informativePanel);
+                prepareForEndInformativePanel(operationState, informativePanel);
             }
         },
         [
@@ -107,17 +107,22 @@ export const useInformativePanels = (
     // start workers after files have been droped and array of informative panels
     // are loaded
     useEffect(() => {
-        if (informativePanels.startWorkers.length) {
-            informativePanels.startWorkers.forEach((name) => {
-                const informativePanel = informativePanels.panels.find(
+        const { startWorkers } = informativePanels;
+        if (startWorkers.length) {
+            startWorkers.forEach((name) => {
+                const { panels } = informativePanels;
+                const informativePanel = panels.find(
                     (panel) => panel.name === name,
                 );
-                if (informativePanel && informativePanel.worker) {
-                    const {worker:informativePanelWorker}=informativePanel;
-                    informativePanelWorker.onmessage = onWorkerMessage;
-                    informativePanelWorker.postMessage({
-                        file: informativePanel.file,
-                    });
+                if (informativePanel) {
+                    const { file, worker: informativePanelWorker } =
+                        informativePanel;
+                    if (informativePanelWorker) {
+                        informativePanelWorker.onmessage = onWorkerMessage;
+                        informativePanelWorker.postMessage({
+                            file,
+                        });
+                    }
                 }
             });
             setInformativePanels((prev) => ({
@@ -136,9 +141,9 @@ export const useInformativePanels = (
                         setInformativePanels((prev) => ({
                             ...prev,
                             panels: prev.panels.filter((panel) => {
-                                const {name:fileName}=panel;
+                                const { name: fileName } = panel;
                                 if (fileName === name) {
-                                    const {worker:panelWorker}=panel;
+                                    const { worker: panelWorker } = panel;
                                     panelWorker?.terminate();
                                     return false;
                                 }
@@ -191,9 +196,9 @@ export const useInformativePanels = (
         setInformativePanels((prev) => ({
             ...prev,
             panels: prev.panels.filter((panel) => {
-                const {name:fileName}=panel;
+                const { name: fileName } = panel;
                 if (fileName === name) {
-                    const {worker:panelWorker}=panel;
+                    const { worker: panelWorker } = panel;
                     panelWorker?.terminate();
                     return false;
                 }
