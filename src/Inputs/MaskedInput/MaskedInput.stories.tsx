@@ -5,7 +5,7 @@ import { useArgs } from '@storybook/client-api';
 
 
 export default {
-    title: 'Components/MaskedInput',
+    title: 'Components/Other/MaskedInput',
     component: MaskedInput,
     argTypes: {
         realValue: {

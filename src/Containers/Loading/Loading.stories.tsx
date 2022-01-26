@@ -4,7 +4,7 @@ import { Loading, LoadingProps } from '../../index';
 import {  getCaptionForLocale } from '../../Constants';
 
 export default {
-    title: 'Components/Loading',
+    title: 'Components/Atoms/Loading',
     component: Loading,
     args: {
         loading: true,

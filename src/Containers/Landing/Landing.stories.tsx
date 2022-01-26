@@ -7,7 +7,7 @@ import { Meta, Story } from '@storybook/react';
 
 
 export default {
-    title: 'Components/Landing',
+    title: 'Components/Other/Landing',
     component: Landing,
     argTypes: {
         label: {

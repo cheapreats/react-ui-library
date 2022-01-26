@@ -4,7 +4,7 @@ import { Settings, SettingsProps } from '../../index';
 
 
 export default {
-    title: 'Components/Settings',
+    title: 'Components/Other/Settings',
     component: Settings,
     args: {},
 } as Meta;

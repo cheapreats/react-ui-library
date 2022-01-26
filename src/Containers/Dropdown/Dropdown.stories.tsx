@@ -6,7 +6,7 @@ import { IDropdownProps } from './Dropdown';
 import Dropdown from './index';
 
 export default {
-    title: 'Components/Dropdown',
+    title: 'Components/Atoms/Dropdown',
     component: Dropdown,
     args: {
         dropdownWidth: 300,

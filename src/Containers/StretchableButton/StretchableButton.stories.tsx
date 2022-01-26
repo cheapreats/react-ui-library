@@ -7,7 +7,7 @@ import {
 } from './StretchableButton';
 
 export default {
-    title: 'Components/Stretchable Button',
+    title: 'Components/ShiftScheduling/Stretchable Button',
     component: StretchableButton,
     // argTypes:{
     //     defaultHeight: {table:{disable:true}},

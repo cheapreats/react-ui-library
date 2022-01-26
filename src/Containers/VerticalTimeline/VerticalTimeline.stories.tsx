@@ -5,7 +5,7 @@ import { hoursMinutesToMilliseconds } from '@Utils';
 
 
 export default {
-    title: 'Components/VerticalTimeline',
+    title: 'Components/Other/VerticalTimeline',
     component: VerticalTimeline,
     args: {
         verticalSpacing: 15,

@@ -14,7 +14,7 @@ import Header from './Header';
 
 
 export default {
-    title: 'Components/Order Header',
+    title: 'Terminal/Orders/Header',
     component: Header,
     args: {
         topLeft: <OrderID orderId="3c3e" />,

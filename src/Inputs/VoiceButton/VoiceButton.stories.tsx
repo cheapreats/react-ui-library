@@ -6,7 +6,7 @@ import { VoiceButton } from '../../index';
 import { VoiceButtonProps } from '..';
 
 export default {
-    title: 'Components/VoiceButton',
+    title: 'Voice User Interface/VoiceButton',
     component: VoiceButton,
     argTypes: { onClick: { action: 'Button Click Occurred' } },
     args: {

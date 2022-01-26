@@ -5,7 +5,7 @@ import { Button, ButtonProps } from '../../index';
 import {  getCaptionForLocale } from '../../Constants';
 
 export default {
-    title: 'Components/Button',
+    title: 'Components/Atoms/Button',
     component: Button,
     argTypes: { onClick: { action: 'Button Click Occurred' } },
     args: {

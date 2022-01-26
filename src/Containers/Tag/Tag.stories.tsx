@@ -4,7 +4,7 @@ import { Tag, TagProps } from '../../index';
 
 
 export default {
-    title: 'Components/Tag',
+    title: 'Components/Atoms/Tag',
     component: Tag,
     args: {
         children: 'Hello',

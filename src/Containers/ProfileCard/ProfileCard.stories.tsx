@@ -4,7 +4,7 @@ import { ProfileCard, ProfileCardProps } from '../../index';
 
 
 export default {
-    title: 'Components/ProfileCard',
+    title: 'Terminal/Orders/ProfileCard',
     component: ProfileCard,
     argTypes: {
         onCallClick: { action: 'OnCallClick Pressed' },

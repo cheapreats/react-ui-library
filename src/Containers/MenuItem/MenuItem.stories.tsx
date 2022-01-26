@@ -4,7 +4,7 @@ import { MenuItem, IMenuItemProps } from './MenuItem';
 
 
 export default {
-    title: 'Components/Menu Item',
+    title: 'Components/Menu Item/Menu Item',
     component: MenuItem,
     args: {
         name: 'Hamburger',

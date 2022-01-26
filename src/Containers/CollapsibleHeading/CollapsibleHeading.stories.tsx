@@ -6,7 +6,7 @@ import { FilterSelect } from './FilterSelect';
 import { Button } from '../../Inputs/Button/Button';
 
 export default {
-    title: 'Components/CollapsibleHeading',
+    title: 'Dashboard/CRM/CollapsibleHeading',
     component: CollapsibleHeading,
 } as Meta;
 

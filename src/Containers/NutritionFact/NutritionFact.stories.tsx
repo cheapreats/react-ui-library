@@ -5,7 +5,7 @@ import { NutritionFact, INutritionFactProps, EntryType } from './NutritionFact';
 import Theme from '../../Themes/ThemeTemplate';
 
 export default {
-    title: 'Components/NutritionFact',
+    title: 'Components/Menu Item/NutritionFact',
     component: NutritionFact,
     args: {
         entries: [

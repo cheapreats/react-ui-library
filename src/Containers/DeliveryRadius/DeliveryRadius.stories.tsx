@@ -9,7 +9,7 @@ import {
 
 
 export default {
-    title: 'Components/Delivery Radius',
+    title: 'Dashboard/Delivery Radius',
     component: DeliveryRadius,
     args: {
         title: 'Delivery Radius',

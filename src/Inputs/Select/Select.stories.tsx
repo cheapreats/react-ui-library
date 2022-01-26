@@ -6,7 +6,7 @@ import { Select, SelectProps } from '../../index';
 // TODO: ADD STATE to component
 
 export default {
-    title: 'Components/Select',
+    title: 'Components/Atoms/Select',
     component: Select,
     argTypes: { onChange: { action: `you selected` } },
     args: {

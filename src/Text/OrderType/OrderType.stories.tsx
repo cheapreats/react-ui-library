@@ -4,7 +4,7 @@ import { OrderType, OrderTypeIdentifier, IOrderTypeProps } from './OrderType';
 
 
 export default {
-    title: 'Components/Order Type',
+    title: 'Terminal/Orders/Type',
     component: OrderType,
     argTypes: {
         orderType: {

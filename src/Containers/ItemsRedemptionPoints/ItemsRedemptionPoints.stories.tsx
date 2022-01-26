@@ -9,7 +9,7 @@ import {
 
 
 export default {
-    title: 'Components/Items Redemption Points',
+    title: 'Dashboard/Loyalty/Items Redemption Points',
     component: ItemsRedemptionPoints,
     args: {
         titleText: 'Food',

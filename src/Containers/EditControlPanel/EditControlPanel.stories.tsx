@@ -4,7 +4,7 @@ import { EditControlPanel, IEditControlPanel } from '@Containers';
 
 
 export default {
-    title: 'Components/EditControlPanel',
+    title: 'Components/TableManagement/EditControlPanel',
     component: EditControlPanel,
 } as Meta;
 

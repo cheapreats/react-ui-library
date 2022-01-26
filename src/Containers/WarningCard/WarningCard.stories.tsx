@@ -4,7 +4,7 @@ import { WarningCard, IWarningCardProps, SmallText } from '../../index';
 
 
 export default {
-    title: 'Components/Warning Card',
+    title: 'Components/Other/Warning Card',
     component: WarningCard,
     argTypes: {
         action: { action: 'Clicked!' },

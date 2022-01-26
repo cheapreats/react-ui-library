@@ -4,7 +4,7 @@ import { SearchBar, SearchBarProps } from '../../index';
 
 
 export default {
-    title: 'Components/Search Bar',
+    title: 'Components/Other/Search Bar',
     component: SearchBar,
     argTypes: {
         onChange: {

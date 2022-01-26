@@ -9,7 +9,7 @@ import { MainTheme } from '@Themes';
 import { Timeline, TimelineProps } from '../../index';
 
 export default {
-    title: 'Components/Timeline',
+    title: 'Components/Analytics/Timeline',
     component: Timeline,
 } as Meta;
 

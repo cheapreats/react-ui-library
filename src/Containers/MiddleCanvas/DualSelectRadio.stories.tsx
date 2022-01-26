@@ -4,7 +4,7 @@ import { DualSelectRadio, DualSelectRadioProps } from '../../index';
 
 
 export default {
-    title: 'Components/Dual Select Radio',
+    title: 'Dashboard/Receipt Builder/Dual Select Radio',
     component: DualSelectRadio,
     args: {
         caption: 'Dual Select',

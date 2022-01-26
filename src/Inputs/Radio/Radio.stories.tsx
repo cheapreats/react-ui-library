@@ -4,7 +4,7 @@ import { Radio, RadioProps } from '../../index';
 
 
 export default {
-    title: 'Components/Radio',
+    title: 'Components/Atoms/Radio',
     component: Radio,
     args: {
         disabled: false,

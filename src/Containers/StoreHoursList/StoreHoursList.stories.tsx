@@ -128,7 +128,7 @@ const textHeaders = {
 const onSave = (categories: any) => console.log(categories);
 
 export default {
-    title: 'Components/StoreHoursList',
+    title: 'Dashboard/StoreHoursList',
     component: StoreHoursList,
     args: {
         allCategories: defaultCategories,

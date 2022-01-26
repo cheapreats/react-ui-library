@@ -4,7 +4,7 @@ import { CustomerProfile, CustomerProfileProps } from '../../index';
 
 
 export default {
-    title: 'Components/CustomerProfile',
+    title: 'Dashboard/CRM/CustomerProfile',
     component: CustomerProfile,
     args: {
         profileName: "Ashley Tisdale",

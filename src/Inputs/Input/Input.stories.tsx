@@ -4,7 +4,7 @@ import { Input, InputProps } from '../../index';
 
 
 export default {
-    title: 'Components/Input',
+    title: 'Components/Atoms/Input',
     component: Input,
     args: {
         placeholder: 'Placeholder',

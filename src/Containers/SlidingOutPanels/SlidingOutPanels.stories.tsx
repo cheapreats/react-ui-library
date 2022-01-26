@@ -31,7 +31,7 @@ const images = [
 ];
 
 export default {
-    title: 'Components/Sliding Out Panels',
+    title: 'Marketing Website/Sliding Out Panels',
     component: SlidingOutPanels,
     argTypes: { onClick: { action: 'Clicked' } },
     args: {

@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/react';
 import { ShowLogos, ILogoProps } from './Logo';
 
 export default {
-    title: 'Components/Logo Listing',
+    title: 'Marketing Website/Logo Listing',
     component: ShowLogos,
 } as Meta;
 

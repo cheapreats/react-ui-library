@@ -5,7 +5,7 @@ import { CollapsibleAccordion, Paragraph } from '../../index';
 
 
 export default {
-    title: 'Components/CollapsibleAccordion',
+    title: 'Components/Accordion/CollapsibleAccordion',
     component: CollapsibleAccordion,
 } as Meta;
 

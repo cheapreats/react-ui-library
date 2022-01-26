@@ -3,7 +3,7 @@ import React from 'react';
 import { StoreSelector, StoreSelectorProps } from '../../index';
 
 export default {
-    title: 'Components/Store Selector',
+    title: 'Components/Other/Store Selector',
     component: StoreSelector,
     argTypes: {
         onClickArrows: { action: 'An arrow was clicked' },

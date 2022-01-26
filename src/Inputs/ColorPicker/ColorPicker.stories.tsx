@@ -4,7 +4,7 @@ import { ColorPicker, ColorPickerProps } from '../../index';
 
 
 export default {
-    title: 'Components/Color picker',
+    title: 'Dashboard/Loyalty/Color picker',
     component: ColorPicker,
     argTypes: { onChange: { action: 'Color changed' } },
     args: {

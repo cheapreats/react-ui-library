@@ -4,7 +4,7 @@ import { Textarea, TextareaProps } from '../../index';
 
 
 export default {
-    title: 'Components/Text area',
+    title: 'Components/Atoms/Text area',
     component: Textarea,
     args: {
         placeholder: 'placeholder',

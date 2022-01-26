@@ -28,7 +28,7 @@ const TextFilter: React.FC<HeaderProps<CRMRowProps>> = ({
 );
 
 export default {
-    title: 'Components/CRM Table',
+    title: 'Dashboard/CRM/CRM Table',
     component: CRMTable,
     argTypes: { onRowClick: { action: 'Row was clicked' },
         onMenuClick: { action: 'Menu was clicked' },  

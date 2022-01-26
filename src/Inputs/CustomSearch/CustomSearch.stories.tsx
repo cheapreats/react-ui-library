@@ -4,7 +4,7 @@ import { CustomSearch, CustomSearchProps } from '../../index';
 
 
 export default {
-    title: 'Components/Custom Search',
+    title: 'Components/Other/Custom Search',
     component: CustomSearch,
     argTypes: {
         onPriceChange: {

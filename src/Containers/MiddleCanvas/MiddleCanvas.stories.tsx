@@ -4,7 +4,7 @@ import { MiddleCanvas, MiddleCanvasProps } from '../../index';
 
 
 export default {
-    title: 'Components/Middle Canvas',
+    title: 'Dashboard/Receipt Builder/Middle Canvas',
     component: MiddleCanvas,
     args: {
         firstCaption: 'Before Receipt Prints',

@@ -5,7 +5,7 @@ import { Chart, ChartProps } from '../../index';
 
 
 export default {
-    title: 'Components/Chart',
+    title: 'Components/Analytics/Chart',
     component: Chart,
     args: {
         color: MainTheme.colors.primary,

@@ -4,7 +4,7 @@ import { Slider, SliderProps } from '../../index';
 
 
 export default {
-    title: 'Components/Slider',
+    title: 'Components/Atoms/Slider',
     component: Slider,
     argTypes: {
         onChange: {

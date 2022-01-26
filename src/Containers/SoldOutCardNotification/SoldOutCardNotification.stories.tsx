@@ -8,7 +8,7 @@ import {
 
 
 export default {
-    title: 'Components/SoldOutCardNotification',
+    title: 'Marketing Website/SoldOutCardNotification',
     component: SoldOutCardNotification,
     args: {
         imgSrc: 'https://vuejobs.com/storage/avatars/GWnaVkQSwifU9Zn36Qzif4GQ38lMSWxLs9NgPaM4.png',

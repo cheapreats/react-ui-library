@@ -17,7 +17,7 @@ import {
 import { logoWhite } from '../../assets';
 
 export default {
-    title: 'Components/Navigation',
+    title: 'Components/Navigation/Navigation',
     component: Navigation,
 } as Meta;
 

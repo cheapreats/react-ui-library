@@ -47,7 +47,7 @@ const footerItems = [
 ];
 
 export default {
-    title: 'Components/QRScan',
+    title: 'Components/Other/QRScan',
     component: QRScan,
     args: {
         title: 'COVID Contact Tracing',

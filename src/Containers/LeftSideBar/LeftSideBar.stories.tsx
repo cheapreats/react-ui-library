@@ -11,7 +11,7 @@ import { Settings } from '@styled-icons/ionicons-sharp/Settings';
 import { LeftSideBar, LeftSideBarProps } from '../../index';
 
 export default {
-    title: 'Components/Left Sidebar',
+    title: 'Dashboard/Receipt Builder/Left Sidebar',
     component: LeftSideBar,
     argTypes: { onDrag: { action: 'I have been dragged!' } },
     args: {

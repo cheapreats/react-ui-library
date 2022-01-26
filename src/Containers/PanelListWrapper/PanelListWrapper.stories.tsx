@@ -8,7 +8,7 @@ import { PanelListWrapper, IPanelListWrapperProps } from './PanelListWrapper';
 import {OperationState,IPanelCardProps} from '../PanelCard/PanelCard';
 
 export default {
-    title: 'Components/PanelListWrapper',
+    title: 'Components/File Upload/PanelListWrapper',
     component: PanelListWrapper,
     args: {
         panels:[],

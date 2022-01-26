@@ -4,7 +4,7 @@ import {Button} from '@Inputs/Button/Button';
 import { PanelCard, IPanelCardProps,OperationState } from './PanelCard';
 
 export default {
-    title: 'Components/PanelCard',
+    title: 'Components/File Upload/PanelCard',
     component: PanelCard,
     args: {},
 } as Meta;

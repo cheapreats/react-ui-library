@@ -4,7 +4,7 @@ import { ExcelOptions, ExcelOptionsProps } from '../../index';
 
 
 export default {
-    title: 'Components/Excel options',
+    title: 'Dashboard/Excel options',
     component: ExcelOptions,
     argTypes: { onResult: { action: 'data' } },
     args: {

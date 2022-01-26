@@ -70,7 +70,7 @@ const data = [
 ];
 
 export default {
-    title: 'Components/Ranking Table',
+    title: 'Components/Analytics/Ranking Table',
     component: RankingTable,
     args: {
         title: 'Top 3 Products',

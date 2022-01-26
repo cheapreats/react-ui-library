@@ -26,7 +26,7 @@ enum ImageSizes {
 }
 
 export default {
-    title: 'Components/ClientShowCase',
+    title: 'Marketing Website/ClientShowCase',
     component: ClientShowCase,
     argTypes: {
         imgHeightEnum: {

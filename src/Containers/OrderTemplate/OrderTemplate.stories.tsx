@@ -7,7 +7,7 @@ import { OrderTypeIdentifier } from '@Text/OrderType/OrderType';
 import { OrderTemplate, IOrderTemplateProps } from './OrderTemplate';
 
 export default {
-    title: 'Components/Order Template',
+    title: 'Terminal/Orders/Order Template',
     component: OrderTemplate,
     argTypes: {
         paymentMethod: {

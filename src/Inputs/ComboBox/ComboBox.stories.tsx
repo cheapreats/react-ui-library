@@ -4,7 +4,7 @@ import { ComboBox, ComboBoxSelectorProps } from '../../index';
 
 
 export default {
-    title: 'Components/Combo box',
+    title: 'Components/Atoms/Combo box',
     component: ComboBox,
     argTypes: { onChange: { action: 'Changed' } },
     args: {

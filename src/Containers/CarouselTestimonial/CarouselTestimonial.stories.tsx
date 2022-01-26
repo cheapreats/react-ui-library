@@ -7,7 +7,7 @@ import {
 
 
 export default {
-    title: 'Components/Carousel Testimonial',
+    title: 'Marketing Website/Carousel Testimonial',
     component: CarouselTestimonial,
 } as Meta;
 

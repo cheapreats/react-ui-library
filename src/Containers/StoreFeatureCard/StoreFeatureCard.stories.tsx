@@ -6,7 +6,7 @@ import { Cat } from '@styled-icons/fa-solid/Cat';
 import { StoreFeatureCard, StoreFeatureCardProps } from '../../index';
 
 export default {
-    title: 'Components/Store Feature Card',
+    title: 'Components/Other/Store Feature Card',
     component: StoreFeatureCard,
     args: {
         linktitle: 'VISIT STORE',
