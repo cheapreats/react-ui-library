@@ -49,7 +49,7 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
             name,
             operationState,
             cancelButtonOnLoading: (
-                <Button onClick={onCancelUploading(panel.name)}>
+                <Button onClick={onCancelUploading(name)}>
                     Cancel
                 </Button>
             )
