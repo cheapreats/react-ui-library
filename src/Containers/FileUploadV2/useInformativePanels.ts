@@ -83,21 +83,17 @@ export const useInformativePanels = (
                 (panel) => panel.name === name,
             );
             if (informativePanel) {
+                let operationState:OperationState=OperationState.isUnknown;
                 if (
                     base64StringFile === NO_BASE64STRINGFILE ||
                     isTestIsFailure
                 ) {
-                    prepareForEndInformativePanel(
-                        OperationState.isFailure,
-                        informativePanel,
-                    );
+                    operationState=OperationState.isFailure;
                 } else {
                     onFile(base64StringFile);
-                    prepareForEndInformativePanel(
-                        OperationState.isSuccess,
-                        informativePanel,
-                    );
+                    operationState=OperationState.isSuccess;
                 }
+                prepareForEndInformativePanel(operationState,informativePanel);
             }
         },
         [
@@ -117,8 +113,9 @@ export const useInformativePanels = (
                     (panel) => panel.name === name,
                 );
                 if (informativePanel && informativePanel.worker) {
-                    informativePanel.worker.onmessage = onWorkerMessage;
-                    informativePanel.worker.postMessage({
+                    const {worker:informativePanelWorker}=informativePanel;
+                    informativePanelWorker.onmessage = onWorkerMessage;
+                    informativePanelWorker.postMessage({
                         file: informativePanel.file,
                     });
                 }
