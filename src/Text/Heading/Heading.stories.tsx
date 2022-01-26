@@ -4,7 +4,7 @@ import { Heading, HeadingProps } from '../../index';
 
 
 export default {
-    title: 'Components/Headings',
+    title: 'Components/Atoms/Headings',
     component: Heading,
     args: {
         children: 'Hello World',

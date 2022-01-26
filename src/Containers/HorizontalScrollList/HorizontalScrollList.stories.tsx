@@ -25,7 +25,7 @@ const exampleLabelArray = [
 ];
 
 export default {
-    title: 'Components/Horizontal Scroll List',
+    title: 'Components/Other/Horizontal Scroll List',
     component: HorizontalScrollList,
     args: {
         labelArray: exampleLabelArray,

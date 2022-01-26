@@ -4,7 +4,7 @@ import { Coupon, CouponProps } from '../../index';
 
 
 export default {
-    title: 'Components/Coupon',
+    title: 'Components/Other/Coupon',
     component: Coupon,
 } as Meta;
 

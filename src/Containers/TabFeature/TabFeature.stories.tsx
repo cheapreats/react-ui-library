@@ -79,7 +79,7 @@ const DataItems = [
 ];
 
 export default {
-    title: 'Components/TabFeature',
+    title: 'Marketing Website/TabFeature',
     component: TabFeature,
     args: {
         heading,

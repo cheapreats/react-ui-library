@@ -4,7 +4,7 @@ import { Popup, PopupProps } from '../../index';
 
 
 export default {
-    title: 'Components/Popup',
+    title: 'Components/Other/Popup',
     component: Popup,
     args: {
         left: 10,

@@ -4,7 +4,7 @@ import { OrderTotalCard, IOrderTotalCardProps } from './OrderTotalCard';
 
 
 export default {
-    title: 'Components/Order Payment Card',
+    title: 'Terminal/Orders/Order Payment Card',
     component: OrderTotalCard,
     args: {
         orderCardContents: [

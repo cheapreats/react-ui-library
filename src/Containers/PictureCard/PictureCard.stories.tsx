@@ -6,7 +6,7 @@ import { PictureCard, PictureCardProps } from '../../index';
 
 
 export default {
-    title: 'Components/Picture Card',
+    title: 'Components/Other/Picture Card',
     component: PictureCard,
     args: {
         image: 'https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif',

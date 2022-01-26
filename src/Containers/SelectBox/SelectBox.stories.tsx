@@ -4,7 +4,7 @@ import { SelectBox, SelectBoxProps } from '../../index';
 import {  getCaptionForLocale } from '../../Constants';
 
 export default {
-    title: 'Components/Select Box',
+    title: 'Components/Other/Select Box',
     component: SelectBox,
     argTypes: { onSelect: { action: 'onSelect clicked!' } },
     args: {

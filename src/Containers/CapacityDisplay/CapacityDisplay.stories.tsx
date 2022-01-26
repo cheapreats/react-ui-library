@@ -11,7 +11,7 @@ import { CapacityDisplay, ICapacityDisplay } from './CapacityDisplay';
 
 
 export default {
-    title: 'Components/CapacityDisplay',
+    title: 'Components/TableManagement/CapacityDisplay',
     component: CapacityDisplay,
 } as Meta;
 

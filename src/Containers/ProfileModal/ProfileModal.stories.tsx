@@ -4,7 +4,7 @@ import { ProfileModal, ProfileModalProps } from '../../index';
 
 
 export default {
-    title: 'Components/ProfileModal',
+    title: 'Dashboard/CRM/ProfileModal',
     component: ProfileModal,
     args: {
         image: 'https://i0.wp.com/www.repol.copl.ulaval.ca/wp-content/uploads/2019/01/default-user-icon.jpg',

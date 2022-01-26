@@ -211,7 +211,7 @@ const StatusModifierComponent = (
 );
 
 export default {
-    title: 'Components/KitchenCard',
+    title: 'Terminal/Kitchen/KitchenCard',
     component: KitchenCard,
     argTypes: {
         status: {

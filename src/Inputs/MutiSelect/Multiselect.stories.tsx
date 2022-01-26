@@ -4,7 +4,7 @@ import { MultiSelect, MultiSelectItem, MultiSelectProps } from '../../index';
 
 
 export default {
-    title: 'Components/Multi Select',
+    title: 'Components/Molecules/Multi Select',
     component: MultiSelect,
     args: {
         name: 'Demo',

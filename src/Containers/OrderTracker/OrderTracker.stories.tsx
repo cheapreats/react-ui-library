@@ -9,7 +9,7 @@ import { OrderTracker, OrderTrackerProps } from '../../index';
 
 
 export default {
-    title: 'Components/OrderTracker',
+    title: 'Components/Other/OrderTracker',
     component: OrderTracker,
     args: {
         statuses: [

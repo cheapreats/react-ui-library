@@ -10,7 +10,7 @@ const defaultActiveStyle = () => `
 `;
 
 export default {
-    title: 'Components/Accordion',
+    title: 'Components/Accordion/Accordion',
     component: Accordion,
 } as Meta;
 

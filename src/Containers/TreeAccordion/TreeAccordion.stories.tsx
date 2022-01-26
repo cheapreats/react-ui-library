@@ -5,7 +5,7 @@ import { TreeAccordion, ITreeAccordionProps, Paragraph } from '../../index';
  
 
 export default {
-    title: 'Components/Tree Accordion',
+    title: 'Components/Other/Tree Accordion',
     component: TreeAccordion,
     args: {
         header: "Accordion Header",

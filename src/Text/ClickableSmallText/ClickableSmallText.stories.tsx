@@ -4,7 +4,7 @@ import { ClickableSmallText, SmallTextProps } from '../../index';
 
 
 export default {
-    title: 'Components/Clickable Text',
+    title: 'Components/Other/Clickable Text',
     component: ClickableSmallText,
     args: {
         children: 'Hello World',

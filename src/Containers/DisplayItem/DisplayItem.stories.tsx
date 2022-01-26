@@ -4,7 +4,7 @@ import { DisplayItem, DisplayItemProps } from '../../index';
 
 
 export default {
-    title: 'Components/Display Item',
+    title: 'Components/Other/Display Item',
     component: DisplayItem,
     args: {
         label: 'DisplayItemLabel',

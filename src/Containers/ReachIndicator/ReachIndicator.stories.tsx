@@ -4,7 +4,7 @@ import { ReachIndicator, ReachIndicatorProps } from '../../index'
  
 
 export default {
-    title: 'Components/Reach Indicator',
+    title: 'Components/Analytics/Reach Indicator',
     component: ReachIndicator,
 } as Meta;
 const Template: Story<ReachIndicatorProps> = (args) => <ReachIndicator {...args} /> 

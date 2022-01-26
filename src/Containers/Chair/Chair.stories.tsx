@@ -5,7 +5,7 @@ import { Chair, IChair } from './Chair';
 
 
 export default {
-    title: 'Components/Chair',
+    title: 'Components/TableManagement/Chair',
     component: Chair,
 } as Meta;
 

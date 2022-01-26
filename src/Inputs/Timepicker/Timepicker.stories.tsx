@@ -5,7 +5,7 @@ import { Timepicker, TimepickerProps } from '../../index';
 
 
 export default {
-    title: 'Components/Timepicker',
+    title: 'Components/Atoms/Timepicker',
     component: Timepicker,
     argTypes: {
         timePickerValue: {

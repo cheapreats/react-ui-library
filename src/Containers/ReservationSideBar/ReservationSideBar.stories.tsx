@@ -4,7 +4,7 @@ import { ReservationSideBar, IReservationSideBar } from './ReservationSideBar';
 
 
 export default {
-    title: 'Components/ReservationSideBar',
+    title: 'Components/TableManagement/ReservationSideBar',
     component: ReservationSideBar,
 } as Meta;
 

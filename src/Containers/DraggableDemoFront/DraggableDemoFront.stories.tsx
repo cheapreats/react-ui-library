@@ -4,7 +4,7 @@ import { DraggableCanvas } from './DraggableDemoFront';
 
 
 export default {
-    title: 'Components/DraggableCanvas',
+    title: 'Components/TableManagement/DraggableCanvas',
     component: DraggableCanvas,
 } as Meta;
 

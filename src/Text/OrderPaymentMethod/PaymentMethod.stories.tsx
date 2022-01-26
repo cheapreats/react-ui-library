@@ -8,7 +8,7 @@ import {
 
 
 export default {
-    title: 'Components/Order Payment Method',
+    title: 'Terminal/Orders/Payment Method',
     component: OrderPaymentMethod,
     argTypes: {
         paymentMethod: {

@@ -4,7 +4,7 @@ import { SaleTag, SaleTagProps } from '../../index';
 
 
 export default {
-    title: 'Components/SaleTag',
+    title: 'Components/Menu Item/SaleTag',
     component: SaleTag,
     args: {
         saleAmount: 2,

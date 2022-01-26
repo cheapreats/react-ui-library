@@ -41,7 +41,7 @@ const sampleData = [
 ];
 
 export default {
-    title: 'Components/TransactionList',
+    title: 'Marketing Website/TransactionList',
     component: TransactionList,
     argTypes: {
         action: { onClick: 'Clicked!' },

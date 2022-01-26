@@ -4,7 +4,7 @@ import { TagGroup, TagGroupProps } from '../../index';
 
 
 export default {
-    title: 'Components/TagGroup',
+    title: 'Components/Molecules/TagGroup',
     component: TagGroup,
     args: {
         tags: [

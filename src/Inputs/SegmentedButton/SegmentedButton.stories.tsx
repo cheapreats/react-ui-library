@@ -5,7 +5,7 @@ import { ISegmentedButtonProps, SegmentedButton } from '../../index';
 
 
 export default {
-    title: 'Components/SegmentedButton',
+    title: 'Components/Other/SegmentedButton',
     component: SegmentedButton,
     args: {
         width: '400px',

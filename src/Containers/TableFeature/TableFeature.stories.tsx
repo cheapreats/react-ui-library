@@ -37,7 +37,7 @@ const data = [
 ];
 
 export default {
-    title: 'Components/TableFeature',
+    title: 'Marketing Website/TableFeature',
     component: TableFeature,
     args: {
         heading: 'Simplified payout process',

@@ -7,7 +7,7 @@ import {
 
 
 export default {
-    title: 'Components/Horizontal Bar Chart',
+    title: 'Components/Analytics/Horizontal Bar Chart',
     component: HorizontalBarChart,
     args: {
         chartProperties: {

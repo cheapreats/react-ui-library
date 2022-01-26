@@ -4,7 +4,7 @@ import { Paragraph, ParagraphProps } from '../../index';
 
 
 export default {
-    title: 'Components/Paragraph',
+    title: 'Components/Atoms/Paragraph',
     component: Paragraph,
     args: {
         children: 'Hello World',

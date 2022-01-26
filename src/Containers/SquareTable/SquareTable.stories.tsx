@@ -4,7 +4,7 @@ import { ISquareTable, SquareTable } from '@Containers';
 
 
 export default {
-    title: 'Components/SquareTable',
+    title: 'Components/TableManagement/SquareTable',
     component: SquareTable,
 } as Meta;
 

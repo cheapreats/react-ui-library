@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { ScreenFlashEffect, IScreenFlashEffectProps } from '../../index';
 
 export default {
-    title: 'Components/ScreenFlashEffect',
+    title: 'Terminal/ScreenFlashEffect',
     component: ScreenFlashEffect,
     args: {},
 } as Meta;

@@ -35,7 +35,7 @@ const footer = (
 );
 
 export default {
-    title: 'Components/Features Card',
+    title: 'Marketing Website/Features Card',
     component: FeaturesCard,
     args: {
         children,

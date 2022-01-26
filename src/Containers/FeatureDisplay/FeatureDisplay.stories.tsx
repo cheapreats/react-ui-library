@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react';
 import { FeatureDisplay, IFeatureDisplayProps } from './FeatureDisplay';
 
 export default {
-    title: 'Components/Feature Display',
+    title: 'Marketing Website/Feature Display',
     component: FeatureDisplay,
 } as Meta;
 

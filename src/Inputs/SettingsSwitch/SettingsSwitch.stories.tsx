@@ -4,7 +4,7 @@ import { SettingsSwitch, SettingsSwitchProps } from '../../index';
 
 
 export default {
-    title: 'Components/Settings Switch',
+    title: 'Components/Molecules/Settings Switch',
     component: SettingsSwitch,
     argTypes: { onSwitch: { action: 'Switch has been used' } },
     args: {

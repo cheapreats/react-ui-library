@@ -7,7 +7,7 @@ import {
 
 
 export default {
-    title: 'Components/PartyInfoInput',
+    title: 'Components/TableManagement/PartyInfoInput',
     component: PartyInfoInput,
 } as Meta;
 

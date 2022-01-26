@@ -4,7 +4,7 @@ import { Story, Meta } from '@storybook/react';
 import { QuestionMarkHover, QuestionMarkProps } from './QuestionMarkHover';
 
 export default {
-    title: 'Components/QuestionMarkHover',
+    title: 'Components/Other/QuestionMarkHover',
     component: QuestionMarkHover,
     args: {
         title: 'test',

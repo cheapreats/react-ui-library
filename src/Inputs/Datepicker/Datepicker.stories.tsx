@@ -4,7 +4,7 @@ import { Datepicker, DatepickerProps } from '../../index';
 
 
 export default {
-    title: 'Components/Datepicker',
+    title: 'Components/Atoms/Datepicker',
     component: Datepicker,
     argTypes: { onChange: { action: `you picked: ` } },
     args: {

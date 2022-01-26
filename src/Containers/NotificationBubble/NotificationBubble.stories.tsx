@@ -4,7 +4,7 @@ import { NotificationBubble, NotificationBubbleProps } from '../../index';
 
 
 export default {
-    title: 'Components/NotificationBubble',
+    title: 'Components/Other/NotificationBubble',
     component: NotificationBubble,
     args: {
         notificationCounter: 3,

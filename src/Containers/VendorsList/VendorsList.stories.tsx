@@ -17,7 +17,7 @@ import { VendorsList, IVendorsListProps } from './VendorsList';
 
 
 export default {
-    title: 'Components/Vendors List',
+    title: 'Dashboard/CRM/Vendors List',
     component: VendorsList,
 } as Meta;
 

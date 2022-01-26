@@ -4,7 +4,7 @@ import {IPartySizeSelector, PartySizeSelector} from "@Inputs/PartySizeSelector/P
 import {action} from "@storybook/addon-actions";
 
 export default {
-    title: 'Components/PartySizeSelector',
+    title: 'Components/TableManagement/PartySizeSelector',
     component: PartySizeSelector,
 } as Meta;
 

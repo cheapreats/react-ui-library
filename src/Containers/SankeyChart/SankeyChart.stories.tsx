@@ -4,7 +4,7 @@ import { SankeyChart, ISankeyChartProps } from './SankeyChart';
 
 
 export default {
-    title: 'Components/SankeyChart',
+    title: 'Components/Analytics/SankeyChart',
     component: SankeyChart,
     args: {
         width: 600,

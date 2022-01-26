@@ -30,7 +30,7 @@ const items = [
 ];
 
 export default {
-    title: 'Components/List',
+    title: 'Components/Other/List',
     component: List,
     argTypes: {
         isOpen: {

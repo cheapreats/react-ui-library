@@ -5,7 +5,7 @@ import { SettingsCard, SettingsCardProps } from '../../index';
 
 
 export default {
-    title: 'Components/Settings Card',
+    title: 'Components/Other/Settings Card',
     component: SettingsCard,
     args: {
         heading: 'SettingsCard',
