@@ -9,7 +9,6 @@ import Dropzone, {
     FileRejection,
     DropzoneProps,
     DropzoneOptions,
-    DropzoneRef,
 } from 'react-dropzone';
 import Lottie from 'react-lottie';
 import { animationData } from './animationData';
@@ -31,9 +30,7 @@ const lottieOptions = {
     },
 };
 
-type DropzoneType = DropzoneProps & React.RefAttributes<DropzoneRef>;
-
-export interface IDropAreaProps extends DropzoneType {
+export interface IDropAreaProps extends DropzoneProps {
     message?: string;
     buttonText?: string;
     onClickHandler?: React.MouseEventHandler<HTMLInputElement> | undefined;
