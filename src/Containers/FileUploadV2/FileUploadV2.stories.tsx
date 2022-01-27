@@ -6,7 +6,7 @@ export default {
     title: 'Components/FileUploadV2',
     component: FileUploadV2,
     args: {
-        onFile:(base64StringFile:string)=>{console.log(base64StringFile)},
+        // onFile:(base64StringFile:string)=>{console.log(base64StringFile)},
         dropAreaProps: {
             width: 400,
         },

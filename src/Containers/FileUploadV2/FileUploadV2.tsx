@@ -44,10 +44,15 @@ export const FileUploadV2: React.FC<IFileUploadV2Props> = ({
     const [dropAreaWidth, dropAreaRef] = useGetWidth();
 
     const panelPropertiesMapper=useCallback(():IPanelCardProps[]=>panels.map((panel) => {
-        const {name,operationState}=panel;
-        const mappedPanel= ({
+        const {name,operationState,file}=panel;
+        let imagePreviewURL='';
+        if(file){
+            imagePreviewURL=URL.createObjectURL(file);
+        }
+        const mappedPanel:IPanelCardProps= ({
             name,
             operationState,
+            imagePreviewURL,
             cancelButtonOnLoading: (
                 <Button onClick={onCancelUploading(name)}>
                     Cancel
