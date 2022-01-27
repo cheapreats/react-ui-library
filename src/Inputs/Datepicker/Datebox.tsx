@@ -14,6 +14,12 @@ import { Button } from '../Button/Button';
 
 const SIZE = 40;
 
+export enum PriceStatus{
+    Good,
+    Okay,
+    Surge
+}
+
 const displayDate = (date: Date = new Date()): string =>
     `${MONTHS[date.getMonth()]}, ${date.getFullYear()}`;
 
@@ -26,6 +32,7 @@ const buildCalendar = (
     date: Date,
     value: Date,
     selectDate: React.MouseEventHandler,
+    selectedDays: IDataObject[],
 ): React.ReactElement[] => {
     const start = new Date(date);
     start.setDate(1);
@@ -36,15 +43,31 @@ const buildCalendar = (
     let exit = false;
     while (!exit) {
         row.push(
-            <CalendarDay
-                faded={start.getMonth() !== date.getMonth()}
+            <DayWrapper
                 onClick={selectDate}
+                faded={start.getMonth() !== date.getMonth()}
                 selected={sameDate(start, value)}
-                key={start.toDateString()}
-                data={start.toISOString()}
             >
-                {start.getDate()}
-            </CalendarDay>,
+                <CalendarDay
+                    key={start.toDateString()}
+                    data={start.toISOString()}
+                >
+                    {start.getDate()}
+                    <br/>
+                    {selectedDays[0]!=null
+                        ? selectedDays.map(
+                            (function (day) {
+                                if (sameDate(start,day.date)) {
+                                    return <Price priceColor={day.priceStatus} >{day.price}</Price>;
+                                }
+                                else {
+                                    return null;
+                                }
+                            }))
+                        : null
+                    }
+                </CalendarDay>
+            </DayWrapper>,
         );
         start.setDate(start.getDate() + 1);
         if (start.getDay() === 0) {
@@ -63,6 +86,13 @@ const buildCalendar = (
     return items;
 };
 
+export interface IDataObject{
+    date:Date,
+    price: string;
+    priceStatus: number;
+}
+
+
 export interface DateboxProps extends React.HTMLAttributes<HTMLDivElement> {
     changePage: (change?: number) => React.MouseEventHandler;
     selectedDate?: Date;
@@ -70,16 +100,18 @@ export interface DateboxProps extends React.HTMLAttributes<HTMLDivElement> {
     animate: boolean;
     value: Date | undefined;
     clearDate?: Function;
+    selectedDays: IDataObject[];
 }
 
 export const Datebox: React.FC<DateboxProps> = ({
-    changePage,
-    clearDate = (): void => undefined,
-    selectedDate,
-    selectDate,
-    animate,
-    value,
-}): React.ReactElement => (
+                                                    changePage,
+                                                    clearDate = (): void => undefined,
+                                                    selectedDate,
+                                                    selectDate,
+                                                    animate,
+                                                    value,
+                                                    selectedDays,
+                                                }): React.ReactElement => (
     <DateBox animate={animate}>
         <DateControls>
             <Button onClick={changePage(-1)} icon={AngleLeft} />
@@ -99,6 +131,8 @@ export const Datebox: React.FC<DateboxProps> = ({
                 selectedDate || new Date(),
                 value || new Date(),
                 selectDate,
+                selectedDays,
+
             )}
         </Calendar>
         <Button onClick={(): void => clearDate()}>Clear</Button>
@@ -108,89 +142,109 @@ export const Datebox: React.FC<DateboxProps> = ({
 const DateBox = styled.div<{
     animate: boolean;
 }>`
-    ${position('absolute', 'auto', '100%', 'auto', 'auto')}
-    margin: 0 auto auto 0;
-    padding: 15px 10px 10px;
-    box-sizing: border-box;
-    background-color: white;
-    text-align: center;
-    font-size: 0.9rem;
-    z-index: 90;
+  ${position('absolute', 'auto', '100%', 'auto', 'auto')}
+  margin: 0 auto auto 0;
+  padding: 15px 10px 10px;
+  box-sizing: border-box;
+  background-color: white;
+  text-align: center;
+  font-size: 0.9rem;
+  z-index: 90;
 
-    // Theme Stuff
-    ${({ theme }): string => `
+  // Theme Stuff
+  ${({ theme }): string => `
         ${transition(['transform', 'opacity'])}
         border-radius: ${theme.dimensions.radius};
         font-family: ${theme.font.family};
         box-shadow: ${theme.depth[1]};
     `}
 
-    ${({ animate }): string =>
-        !animate
-            ? `
+  ${({ animate }): string =>
+          !animate
+                  ? `
         transform: translateY(-20px);
         opacity: 0;
     `
-            : ''}
+                  : ''}
 `;
 
 const DateControls = styled.div`
-    ${flex('center')}
-    padding-bottom: 8px;
+  ${flex('center')}
+  padding-bottom: 8px;
 `;
 
+
 const DateDisplay = styled.span`
-    font-weight: bold;
-    font-size: 1.05rem;
-    margin: auto;
+  font-weight: bold;
+  font-size: 1.05rem;
+  margin: auto;
 `;
 
 const WeekDays = styled.ul`
-    ${flex()}
-    padding: 0;
-    margin: 0;
-    list-style-type: none;
+  ${flex()}
+  padding: 0;
+  margin: 0;
+  list-style-type: none;
 `;
 
 const WeekDay = styled.li`
-    font-weight: bold;
-    padding: 5px 0;
-    width: ${SIZE}px;
+  font-weight: bold;
+  padding: 5px 0;
+  width: ${SIZE}px;
 `;
 
 const Calendar = styled.ul`
-    ${flex('column')}
-    list-style-type: none;
-    flex-wrap: wrap;
-    padding: 0;
-    margin: 0;
+  ${flex('column')}
+  list-style-type: none;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 0;
 `;
 
 const CalendarWeek = styled.li`
-    ${flex()}
+  ${flex()}
 `;
 
 const CalendarDay = styled.span<{
-    faded: boolean;
-    selected: boolean;
     data: string;
 }>`
-    ${transition(['background-color', 'color'])}
-    ${flex('center')}
-    width: ${SIZE - 4}px;
-    height: ${SIZE - 4}px;
-    margin: 2px;
-    border-radius: 50%;
+    
+`;
 
+const DayWrapper = styled.div<{
+    faded: boolean;
+    selected: boolean;
+}>`
+    ${transition(['background-color', 'color'])}
+    width: ${SIZE - 3}px;
+    height: ${SIZE - 3}px;
+    margin: 2px;
+    border-radius: 35%;
+    /*
+     ${flex('center')}
+     */
     ${({ faded }): string => (faded ? 'opacity: 0.3;' : '')}
     ${({ selected, theme }): string =>
-        styledCondition(
-            selected,
-            `
-                background-color: ${theme.colors.primary};
+    styledCondition(
+        selected,
+        `
+                background-color: ${theme.colors.occupancyStatusColors.Occupied};
                 cursor: pointer;
                 color: white;
             `,
-            clickable('#ffffff', 0.05),
-        )}
+        clickable('#ffffff', 0.05),
+    )}
 `;
+
+const Price = styled.div<{
+    priceColor: PriceStatus;
+}>`
+  font-size: 12px;
+  ${({ priceColor }): string => (priceColor == PriceStatus.Good ? 'color: #026c45;' : '')}
+  ${({ priceColor }): string => (priceColor == PriceStatus.Okay ? 'color: #FFD700;' : '')}
+  ${({ priceColor }): string => (priceColor == PriceStatus.Surge ? 'color: #ff0000;' : '')}
+  
+`;
+
+
+
