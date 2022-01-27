@@ -8,7 +8,13 @@ import {
 export default {
     title: 'Components/Other/RestaurantReview/RestaurantReviewCard',
     component: RestaurantReviewCard,
-    args: {},
+    args: {
+        fiveStars:1,
+        fourStars:2,
+        threeStars:4,
+        twoStars:1,
+        oneStar:0
+    },
 } as Meta;
 
 export const Basic: Story<IRestaurantReviewCardProps> = (args) => (

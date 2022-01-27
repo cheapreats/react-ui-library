@@ -9,18 +9,18 @@ export interface IRatingItemProps extends React.HTMLAttributes<HTMLDivElement> {
     barThickness?: number;
     barColor?:string;
     /** a number between 1 and 5 */
-    numberOfStars: 1 | 2 | 3 | 4 | 5;
+    stars: 1 | 2 | 3 | 4 | 5;
 }
 
 export const RatingItem: React.FC<IRatingItemProps> = ({
     rating = 0,
-    numberOfStars,
+    stars,
     barThickness,
     barColor,
     ...props
 }) => {
     const getEmoticon = useCallback((): string => {
-        switch (numberOfStars) {
+        switch (stars) {
         case 1:
             return '😢';
         case 2:
@@ -34,7 +34,7 @@ export const RatingItem: React.FC<IRatingItemProps> = ({
         default:
             return '?';
         }
-    }, [numberOfStars]);
+    }, [stars]);
 
     const innerRating=useMemo(()=>{
         if(rating>1)return 1;

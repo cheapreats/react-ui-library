@@ -7,7 +7,7 @@ export default {
     title: 'Components/Other/RestaurantReview/RatingItem',
     component: RatingItem,
     args: {
-        numberOfStars:5,
+        stars:5,
         rating:0.41,
     },
 } as Meta;
