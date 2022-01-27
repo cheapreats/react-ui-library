@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { FileUploadV2, IFileUploadV2Props } from './FileUploadV2';
 
 export default {
-    title: 'Components/FileUploadV2',
+    title: 'Components/File Upload/FileUploadV2',
     component: FileUploadV2,
     args: {
         // onFile:(base64StringFile:string)=>{console.log(base64StringFile)},

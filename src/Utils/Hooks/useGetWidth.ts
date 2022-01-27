@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 
 /** 
  * gets the width of a component which extends HTMLDivElement props
@@ -10,7 +10,7 @@ export const useGetWidth = (): readonly [
     const [width, setWidth] = useState<number | undefined>();
     const ref = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
+    useLayoutEffect(() => {
         if (ref.current) {
             setWidth(ref.current.getBoundingClientRect().width);
         }
