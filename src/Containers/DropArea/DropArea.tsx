@@ -9,7 +9,6 @@ import Dropzone, {
     FileRejection,
     DropzoneProps,
     DropzoneOptions,
-    DropzoneRef,
 } from 'react-dropzone';
 import Lottie from 'react-lottie';
 import { animationData } from './animationData';
@@ -31,9 +30,7 @@ const lottieOptions = {
     },
 };
 
-type DropzoneType = DropzoneProps & React.RefAttributes<DropzoneRef>;
-
-export interface IDropAreaProps extends DropzoneType {
+export interface IDropAreaProps extends DropzoneProps {
     message?: string;
     buttonText?: string;
     onClickHandler?: React.MouseEventHandler<HTMLInputElement> | undefined;
@@ -54,7 +51,7 @@ export interface IDropAreaProps extends DropzoneType {
     dropzoneProps?: DropzoneOptions;
 }
 
-export const DropArea: React.FC<IDropAreaProps> = ({
+export const DropArea = React.forwardRef<HTMLDivElement,IDropAreaProps>(({
     message = 'Drag & Drop your files here',
     buttonText = 'Browse Files',
     onClickHandler = () => null,
@@ -66,7 +63,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     width,
     dropzoneProps = {},
     ...props
-}): React.ReactElement => {
+},dropAreaRef): React.ReactElement => {
     const { getInputProps, getRootProps, isDragActive, open } = useDropzone({
         onDragEnter,
         onDragLeave,
@@ -95,7 +92,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
     return (
         <Dropzone multiple {...props}>
             {() => (
-                <RootDiv {...getRootProps({})} isDisabled={isDisabled}>
+                <RootDiv {...getRootProps({})} isDisabled={isDisabled} ref={dropAreaRef}>
                     <DropAreaBox
                         isDragEnter={isDragActive}
                         width={width}
@@ -118,7 +115,7 @@ export const DropArea: React.FC<IDropAreaProps> = ({
             )}
         </Dropzone>
     );
-};
+});
 
 const RootDiv = styled.div<{ isDisabled: boolean }>`
     width: fit-content;
