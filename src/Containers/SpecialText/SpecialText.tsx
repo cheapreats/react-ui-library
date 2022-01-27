@@ -1,60 +1,33 @@
 import Dropdown, { IDropdownProps } from '../Dropdown/Dropdown';
 import DropdownItem from '../Dropdown/DropdownItem';
 import React, { isValidElement } from 'react';
-import { SmallText } from 'index';
+import { SmallText, TextLayoutProps } from 'index';
 import styled from 'styled-components';
 
-/**
- * Properties for SpecialText
- * @param {string} text - Highlighted text
- * @param {React.ReactNode[]} children - List of elements in DropDown
- * @param {IDropdownProps} dropDownProps
- */
-export interface SpecialTextProps {
-    text: string;
-    children: React.ReactNode[];
-    dropDownProps?: IDropdownProps[];
+export interface SpecialTextProps extends TextLayoutProps{
+    children: string;
+    onClick?: React.MouseEventHandler;
 }
 
 export const SpecialText: React.FC<SpecialTextProps> = ({
-    text,
     children,
-    dropDownProps,
+    type = 'span',
+    size = 'small',
+    color = 'orange',
     ...props
 }): React.ReactElement => {
-    /**
-     * Maps SpecialText children to DropdownItems in DropDown
-     * @returns {React.ReactNode[]} - Array of valid DropdownItems
-     */
-    const formatList = (): React.ReactNode[] =>
-        children.map((dropDownItems): React.ReactElement | null => {
-            if (dropDownItems && isValidElement(dropDownItems)) {
-                return <DropdownItem {...dropDownItems.props} children={dropDownItems} />;
-            } else return null;
-        });
-
     return (
-        <StyledDiv {...props}>
-            <Dropdown
-                dropdownButton={<StyledDropDownText>{text}</StyledDropDownText>}
-                {...dropDownProps}
-            >
-                {formatList()}
-            </Dropdown>
-        </StyledDiv>
+        <StyledSmallText type={type} size={size} color={color} {...props}>
+            {children}
+        </StyledSmallText>
     );
 };
 
-const StyledDiv = styled.div``;
-
-const StyledDropDownText = styled(SmallText)`
-    &:hover {
+const StyledSmallText = styled(SmallText)`
+    &: hover {
         font-weight: bold;
+        cursor: pointer;
     }
-
-    ${({ theme }): string => `
-        color: ${theme.colors.statusColors.orange};
-    `}
 `;
 
 export default SpecialText;
