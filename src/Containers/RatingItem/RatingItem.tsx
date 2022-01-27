@@ -68,6 +68,7 @@ const Label = styled.div`
 
 const RatingBar = styled(RB)`
     margin: 0 10px;
+    flex:1;
 `;
 
 const Emoticon=styled.div`

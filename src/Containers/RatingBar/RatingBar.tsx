@@ -76,7 +76,7 @@ const Container = styled.div<{width?:number;}>`
     position: relative;
     box-sizing:border-box;
     ${({width})=>`
-    ${width?`width:${width}px`:''}
+    ${width?`width:${width}px;`:''}
     `}
     border-radius: ${({ theme }) => theme.dimensions.radius};
     overflow:hidden;
