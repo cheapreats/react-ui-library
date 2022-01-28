@@ -1,7 +1,7 @@
 import React, { useMemo, useCallback } from 'react';
 import styled from 'styled-components';
 import { Card as C, CardProps } from '../Card/Card';
-import { RatingItem } from '../RatingItem/RatingItem';
+import { RatingItem as RI } from '../RatingItem/RatingItem';
 
 export interface IRestaurantReviewCardProps extends CardProps {
     fiveStars: number;
@@ -87,3 +87,7 @@ const RatingLabel = styled.div`
     font-weight: 700;
     font-size: ${({ theme }) => theme.font.size.h6};
 `;
+
+const RatingItem=styled(RI)`
+margin:10px 0;
+`
