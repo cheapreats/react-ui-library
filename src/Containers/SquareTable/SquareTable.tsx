@@ -77,11 +77,14 @@ export interface ISquareTable {
     /**
      * The current table index in array of tables.
      */
-    tableIndex?: number;
+    arrayIndex?: number;
     /**
      * Function to handle onClick event for the table
      * @param selectedChildIndex - the array index for the table
      */
+
+    selectedIndex?: number;
+
     onTableClick: (selectedChildIndex: number) => void;
     /**
      * Function to handle onClick event for the chair
@@ -112,7 +115,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     relativeSize = 1.0,
     isSquare = false,
     tableUse = 'TableForManagement',
-    tableIndex = 0,
+    arrayIndex = 0,
     onTableClick,
     onChairClick,
     isNotHighlightedWhenSelected = false,
@@ -121,14 +124,14 @@ export const SquareTable: React.FC<ISquareTable> = ({
     // Create a reference to the TableBody styled component
     const tableBodyRef = useRef(document.createElement('div'));
 
-    const [selectedIndex, setSelectedIndex] = useState(-1);
+    const [selectedTable, setSelectedTable] = useState(-1);
 
     /**
      * Use useEffect to keep focus on TableBody after re-render if the
      * selectedIndex number matches the arrayIndex number for this table
      */
     useEffect(() => {
-        if (selectedIndex === tableIndex) {
+        if (selectedTable === arrayIndex) {
             if (tableBodyRef != null) {
                 tableBodyRef.current.focus();
             }
@@ -161,8 +164,8 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * parameter
      */
     const callOnTableClick: callOnTableClickType = () => {
-        onTableClick(tableIndex);
-        setSelectedIndex(tableIndex);
+        onTableClick(arrayIndex);
+        setSelectedTable(arrayIndex);
     }
 
     /**
@@ -228,8 +231,8 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 relativeSize,
                 tableUse,
                 chairIndex: invisibileChairs.length,
-                tableIndex: tableIndex,
-                selectedIndex,
+                tableIndex: arrayIndex,
+                selectedIndex: selectedTable,
                 onChairClick,
             });
         }
@@ -295,8 +298,8 @@ export const SquareTable: React.FC<ISquareTable> = ({
         <div{...props}>
         <TableContainer
             relativeSize = {relativeSize}
-            tableIndex = {tableIndex}
-            selectedIndex = {selectedIndex}
+            tableIndex = {arrayIndex}
+            selectedIndex = {selectedTable}
         >
             {/** chairs top */}
             <ChairRow
@@ -304,7 +307,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 chairs={topArray}
                 relativeSize={relativeSize}
                 tableUse={tableUse}
-                selectedIndex={selectedIndex}
+                selectedIndex={selectedTable}
             />
 
             {/** table itself */}
@@ -316,7 +319,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="left"
                         chairs={leftArray}
                         tableUse={tableUse}
-                        selectedIndex={selectedIndex}
+                        selectedIndex={selectedTable}
                     />
 
                     <TableBody
@@ -342,7 +345,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="right"
                         chairs={rightArray}
                         tableUse={tableUse}
-                        selectedIndex={selectedIndex}
+                        selectedIndex={selectedTable}
                     />
                 </Row>
             </div>
@@ -353,7 +356,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 position="bottom"
                 chairs={bottomArray}
                 tableUse={tableUse}
-                selectedIndex={selectedIndex}
+                selectedIndex={selectedTable}
             />
         </TableContainer>
         </div>
