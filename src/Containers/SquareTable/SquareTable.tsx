@@ -75,16 +75,17 @@ export interface ISquareTable {
      */
     tableUse: tableUseTypes;
     /**
-     * The current table index in array of tables.
+     * Array index number for this table
      */
     arrayIndex?: number;
+    /**
+     * Index number for the currently selected table
+     */
+    selectedIndex: number;
     /**
      * Function to handle onClick event for the table
      * @param selectedChildIndex - the array index for the table
      */
-
-    selectedIndex?: number;
-
     onTableClick: (selectedChildIndex: number) => void;
     /**
      * Function to handle onClick event for the chair
