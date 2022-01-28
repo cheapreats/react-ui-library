@@ -24,7 +24,7 @@ type getSquareTableSizeType = (
 type getRectangleTableType = (top: number, bottom: number, left: number, right : number) => number;
 
 type addInvisibleChairs = (
-    invisibileChairs: Array<IChair>,
+    invisibleChairs: Array<IChair>,
     targetSize: number,
     position: Position,
 ) => void;
@@ -75,9 +75,9 @@ export interface ISquareTable {
      */
     tableUse: tableUseTypes;
     /**
-     * Array index number for this table
+     * The current table index in array of tables.
      */
-    arrayIndex?: number;
+    TableIndex?: number;
     /**
      * Index number for the currently selected table
      */
@@ -119,7 +119,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     relativeSize = 1.0,
     isSquare = false,
     tableUse = 'TableForManagement',
-    arrayIndex = 0,
+    TableIndex = 0,
     selectedIndex = -1,
     onTableClick,
     onChairClick,
@@ -134,7 +134,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * selectedIndex number matches the arrayIndex number for this table
      */
     useEffect(() => {
-        if (selectedIndex === arrayIndex) {
+        if (selectedIndex === TableIndex) {
             if (tableBodyRef != null) {
                 tableBodyRef.current.focus();
             }
@@ -167,7 +167,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * parameter
      */
     const callOnTableClick: callOnTableClickType = () =>
-        onTableClick(arrayIndex);
+        onTableClick(TableIndex);
 
     /**
      * Determines how many chairs to put per each side
@@ -232,7 +232,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 relativeSize,
                 tableUse,
                 chairIndex: invisibileChairs.length,
-                tableIndex: arrayIndex,
+                tableIndex: TableIndex,
                 selectedIndex,
                 onChairClick,
             });
@@ -298,7 +298,9 @@ export const SquareTable: React.FC<ISquareTable> = ({
     return (
         <div{...props}>
         <TableContainer
-            relativeSize={relativeSize}
+            relativeSize = {relativeSize}
+            tableIndex = {TableIndex}
+            selectedIndex = {selectedIndex}
         >
             {/** chairs top */}
             <ChairRow
@@ -385,9 +387,14 @@ const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
 
 interface ITableContainer {
     relativeSize: number;
+    tableIndex: number;
+    selectedIndex: number;
 }
 
-const TableContainer = styled.div<ITableContainer>``;
+const TableContainer = styled.div<ITableContainer>`
+  
+  
+`;
 
 /**
  * variables for the styled components
