@@ -15,7 +15,9 @@ export interface IAdvancedChair extends React.HTMLAttributes<HTMLDivElement> {
     selectedIndex: number;
     chairColor: string;
     secondaryChairColor: string;
-    ChairLegProps: React.HTMLAttributes<HTMLDivElement>;
+    backChairProp:React.HTMLAttributes<HTMLDivElement>;
+    chairSeatProp:React.HTMLAttributes<HTMLDivElement>;
+    chairLegProps: React.HTMLAttributes<HTMLDivElement>;
     onChairClick: (
     ) => void;
 }
@@ -31,7 +33,9 @@ export const AdvancedChair: React.FC<IAdvancedChair> = ({
     chairColor = '#6495ED',
     secondaryChairColor= '#adbcf9',
     onChairClick,
-    ChairLegProps,
+    backChairProp,
+    chairSeatProp,
+    chairLegProps,
     ...props
 }) => {
     /**
@@ -42,7 +46,6 @@ export const AdvancedChair: React.FC<IAdvancedChair> = ({
             <AdvancedChairText relativeSize={relativeSize}>
                 {occupiedBy}
             </AdvancedChairText>
-
         );
     };
     return (
@@ -50,25 +53,28 @@ export const AdvancedChair: React.FC<IAdvancedChair> = ({
         <ChairBody onClick={onChairClick}>
             <BackOfChair
                 chairColor = {chairColor}
-                secondaryChairColor = {secondaryChairColor}/>
+                secondaryChairColor = {secondaryChairColor}
+                {...backChairProp}/>
             <ChairSeat
                 chairColor = {chairColor}
                 secondaryChairColor = {secondaryChairColor}
+                {...chairSeatProp}
             >
                  {getChairText()}
             </ChairSeat>
             <TopChairLeg
                 chairColor = {chairColor}
                 secondaryChairColor = {secondaryChairColor}
-                {...ChairLegProps}/>
+                {...chairLegProps}/>
             <BottomChairLeg
                 chairColor = {chairColor}
                 secondaryChairColor = {secondaryChairColor}
-                {...ChairLegProps}/>
+                {...chairLegProps}/>
         </ChairBody>
     </div>
 )
 }
+
 // style for the chair body
 const ChairBody = styled.div`
   color: ${({ theme }) => theme.colors.background};

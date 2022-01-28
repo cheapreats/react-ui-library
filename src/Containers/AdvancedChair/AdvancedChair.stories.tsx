@@ -17,7 +17,7 @@ VacantChair.args = {
     relativeSize: 0.5,
     occupiedBy: 'JS',
     onChairClick: action('The chair is clicked'),
-    ChairLegProps: {onClick: () => console.log('hello'), style:{backgroundColor:"pink"}}
+    chairLegProps: {onClick: () => console.log('hello'), style:{backgroundColor:"pink"}}
 };
 
 export const PersonalizedChair = Template.bind({});
@@ -26,5 +26,5 @@ PersonalizedChair.args = {
     relativeSize: 0.5,
     occupiedBy: 'YZ',
     onChairClick: action('The chair is clicked'),
-    ChairLegProps: {onClick: () => console.log('hello'), style:{borderRadius: 0}}
+    chairLegProps: {onClick: () => console.log('hello'), style:{borderRadius: 0}}
 };
