@@ -6,7 +6,7 @@ import styled from 'styled-components';
 
 export interface SpecialTextProps extends TextLayoutProps{
     children: string;
-    onClick?: React.MouseEventHandler;
+    onClick?: () => void;
 }
 
 export const SpecialText: React.FC<SpecialTextProps> = ({

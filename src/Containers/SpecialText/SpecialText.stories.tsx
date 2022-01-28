@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { SpecialText, SpecialTextProps } from '../index';
+import { SmallText } from 'index';
 
 export default {
     title: 'Components/SpecialText',
@@ -12,5 +13,8 @@ export default {
 } as Meta;
 
 export const Basic: Story<SpecialTextProps> = (args) => (
-    <span>This is <SpecialText {...args} /></span>
+    <div>
+        <span><SmallText>This is </SmallText></span>
+        <span><SpecialText {...args} /></span>
+    </div>
 );
