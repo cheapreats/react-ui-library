@@ -55,7 +55,7 @@ export const RatingItem: React.FC<IRatingItemProps> = ({
                 thickness={barThickness}
                 {...getBarColorProp()}
             />
-            <Label>{innerRating * 100}%</Label>
+            <Label>{(innerRating * 100).toFixed(0)}%</Label>
         </RatingItemBox>
     );
 };
