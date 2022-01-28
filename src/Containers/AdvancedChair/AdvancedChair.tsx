@@ -1,61 +1,73 @@
 import React from 'react';
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
-type tableUseTypes =
-    | 'AddTableButton'
-    | 'TableForEditCanvas'
-    | 'TableForManagement';
+type getChairTextType = () => JSX.Element;
 
+// TODO: try to add initials on the chair
 export interface IAdvancedChair extends React.HTMLAttributes<HTMLDivElement> {
     position: Position;
     isSeated: boolean;
     occupiedBy: string;
     isVisible: boolean;
     relativeSize: number;
-    tableUse: tableUseTypes;
-    tableIndex: number;
     chairIndex: number;
     selectedIndex: number;
     chairColor: string;
+    secondaryChairColor: string;
+    TopChairLegProps: React.HTMLAttributes<HTMLDivElement>;
     onChairClick: (
-        parentTableIndex: number,
-        chairIndex: number,
-        selectedIndex: number,
     ) => void;
 }
-
+// TODO: delete unused props
 export const AdvancedChair: React.FC<IAdvancedChair> = ({
     position = 'top',
     isSeated = false,
     occupiedBy = '',
     isVisible = true,
     relativeSize = 1.0,
-    tableUse = 'TableForManagement',
-    tableIndex = -1,
     chairIndex = -1,
     selectedIndex = -1,
     chairColor = '#6495ED',
+    secondaryChairColor= '#adbcf9',
     onChairClick,
+    TopChairLegProps,
     ...props
 }) => {
+    const getChairText: getChairTextType = () => {
+        return(
+            <AdvancedChairText relativeSize={relativeSize}>
+                {occupiedBy}
+            </AdvancedChairText>
+
+        );
+
+    };
     return (
     <div{...props}>
-        <ChairBody>
+        <ChairBody onClick={onChairClick}>
             <BackOfChair
-                chairColor = {chairColor}/>
+                chairColor = {chairColor}
+                secondaryChairColor = {secondaryChairColor}/>
             <ChairSeat
-                chairColor = {chairColor}/>
+                chairColor = {chairColor}
+                secondaryChairColor = {secondaryChairColor}
+            >
+                 {getChairText()}
+            </ChairSeat>
             <TopChairLeg
-                chairColor = {chairColor}/>
+                chairColor = {chairColor}
+                secondaryChairColor = {secondaryChairColor}
+                {...TopChairLegProps}/>
             <BottomChairLeg
-                chairColor = {chairColor}/>
+                chairColor = {chairColor}
+                secondaryChairColor = {secondaryChairColor}/>
         </ChairBody>
     </div>
 )
 }
-
+// style for the chair body
 const ChairBody = styled.div`
   color: ${({ theme }) => theme.colors.background};
   display: grid;
@@ -71,50 +83,69 @@ const ChairBody = styled.div`
   "back . ."
 `;
 
-interface IBackOfChair {
+// this interface is for the chair's color
+interface IChairColorStyle{
     chairColor: string;
+    secondaryChairColor: string;
 }
 
-const BackOfChair = styled.div<IBackOfChair>`
+// styles for the chair's props
+const BackOfChair = styled.div<IChairColorStyle>`
   grid-area: back;
   border-radius: 1px 3px 3px 1px;
-  ${({ chairColor }) => {
-    return` background: linear-gradient(to right, ${chairColor}, #adbcf9)`;
-  }}
+  ${({chairColor, secondaryChairColor}) => {
+    return `background: linear-gradient(to right, ${chairColor}, 50%, ${secondaryChairColor})`;
+  }};
 `;
 
-interface IChairSeat {
-    chairColor: string;
-}
-
-const ChairSeat = styled.div<IChairSeat>`
+const ChairSeat = styled.div<IChairColorStyle>`
   grid-area: seat;
   border-radius: 0px 3px 3px 0px;
-  ${({ chairColor }) => {
-    return` background: linear-gradient(to right, ${chairColor}, #adbcf9)`;
+  ${({chairColor, secondaryChairColor}) => {
+    return `background: linear-gradient(to right, ${chairColor}, 50%, ${secondaryChairColor})`;
   }}
 `;
 
-interface ITopChairLeg {
-    chairColor: string;
-}
-
-const TopChairLeg = styled.div<ITopChairLeg>` 
+const TopChairLeg = styled.div<IChairColorStyle>` 
   grid-area: firstleg;
   border-radius: 0px 3px 3px 0px;
-  ${({ chairColor }) => {
-    return`background: ${chairColor}`;
+  ${({chairColor, secondaryChairColor}) => {
+    return `background: linear-gradient(to right, ${chairColor}, 10%, ${secondaryChairColor})`;
   }}
 `;
 
-interface IBottomChairLeg {
-    chairColor: string;
-}
-
-const BottomChairLeg = styled.div<IBottomChairLeg>`
+const BottomChairLeg = styled.div<IChairColorStyle>`
   grid-area: secondleg;
   border-radius: 0px 3px 3px 0px;
-  ${({ chairColor }) => {
-    return` background: ${chairColor}`;
+  ${({chairColor, secondaryChairColor}) => {
+    return `background: linear-gradient(to right, ${chairColor}, 10%, ${secondaryChairColor})`;
   }}
+`;
+
+
+// text styles for the chair
+const textBaseStyle = css<Pick<IAdvancedChair, 'relativeSize'>>`
+    ${({ relativeSize }) => {
+    const BASE_CHAIR_FONT_SIZE = 1.5;
+    return `font-size: ${BASE_CHAIR_FONT_SIZE * relativeSize}em;`;
+}}
+    color: ${({ theme }) => theme.colors.background};
+    font-weight: bold;
+    text-align: center;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+`;
+
+const textChairStyle = css<Pick<IAdvancedChair, 'relativeSize'>>`
+    ${textBaseStyle};
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+`;
+
+const AdvancedChairText = styled.div<Pick<IAdvancedChair, 'relativeSize'>>`
+    ${textChairStyle};
 `;
