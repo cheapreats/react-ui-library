@@ -64,6 +64,7 @@ const Label = styled.div`
     font-weight: 700;
     font-size:${({theme})=>theme.font.size.small};
     opacity:0.7;
+    width:30px;
 `;
 
 const RatingBar = styled(RB)`

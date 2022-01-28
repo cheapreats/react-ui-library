@@ -1,5 +1,6 @@
 import React, { useMemo, useCallback } from 'react';
-import { Card, CardProps } from '../Card/Card';
+import styled from 'styled-components';
+import { Card as C, CardProps } from '../Card/Card';
 import { RatingItem } from '../RatingItem/RatingItem';
 
 export interface IRestaurantReviewCardProps extends CardProps {
@@ -8,6 +9,8 @@ export interface IRestaurantReviewCardProps extends CardProps {
     threeStars: number;
     twoStars: number;
     oneStar: number;
+    title?:string;
+    icon?:React.ReactNode;
 }
 
 export const RestaurantReviewCard: React.FC<IRestaurantReviewCardProps> = ({
@@ -16,22 +19,26 @@ export const RestaurantReviewCard: React.FC<IRestaurantReviewCardProps> = ({
     threeStars,
     twoStars,
     oneStar,
+    title='Restaurant ratings',
+    icon=null,
     ...props
 }) => {
     const getRatings = useCallback(() => {
         const votes = fiveStars + fourStars + threeStars + twoStars + oneStar;
-        return [
-            oneStar / votes,
-            twoStars / votes,
-            threeStars / votes,
-            fourStars / votes,
-            fiveStars / votes,
-        ];
+        if(votes>0)
+            return [
+                fiveStars / votes,
+                fourStars / votes,
+                threeStars / votes,
+                twoStars / votes,
+                oneStar / votes,
+            ];
+        return [0,0,0,0,0];
     }, [fiveStars, fourStars, threeStars, twoStars, oneStar]);
     const ratingItems = useMemo(
         () =>
             getRatings().map((rating, index) => {
-                const stars=index+1;
+                const stars=5-index;
                 if (
                     stars === 1 ||
                     stars === 2 ||
@@ -45,10 +52,30 @@ export const RestaurantReviewCard: React.FC<IRestaurantReviewCardProps> = ({
             }),
         [getRatings],
     );
+    
+    const restaurantRating=useMemo(()=>getRatings().reduce((acc,curr,index)=>acc+curr*(5-index),0).toFixed(2),[getRatings])
 
     return (
         <Card widthFitContent {...props}>
+            {icon}
+            <RatingLabel>{title}</RatingLabel>
+            <RatingBox>{restaurantRating}</RatingBox>
             {ratingItems}
         </Card>
     );
 };
+
+const Card= styled(C)`
+min-width:300px;
+`
+
+const RatingBox=styled.div`
+font-weight:700;
+font-size:${({theme})=>theme.font.size.h1};
+margin:0 0 20px 0;
+`
+
+const RatingLabel=styled.div`
+font-weight:700;
+font-size:${({theme})=>theme.font.size.h6};
+`
