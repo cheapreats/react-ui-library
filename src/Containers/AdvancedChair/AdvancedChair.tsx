@@ -5,7 +5,6 @@ type Position = 'top' | 'bottom' | 'left' | 'right';
 
 type getChairTextType = () => JSX.Element;
 
-// TODO: try to add initials on the chair
 export interface IAdvancedChair extends React.HTMLAttributes<HTMLDivElement> {
     position: Position;
     isSeated: boolean;
@@ -20,7 +19,7 @@ export interface IAdvancedChair extends React.HTMLAttributes<HTMLDivElement> {
     onChairClick: (
     ) => void;
 }
-// TODO: delete unused props
+
 export const AdvancedChair: React.FC<IAdvancedChair> = ({
     position = 'top',
     isSeated = false,
@@ -35,6 +34,9 @@ export const AdvancedChair: React.FC<IAdvancedChair> = ({
     TopChairLegProps,
     ...props
 }) => {
+    /**
+     * Function to return a text string for occupiedBy
+     */
     const getChairText: getChairTextType = () => {
         return(
             <AdvancedChairText relativeSize={relativeSize}>
