@@ -15,7 +15,7 @@ export interface IAdvancedChair extends React.HTMLAttributes<HTMLDivElement> {
     selectedIndex: number;
     chairColor: string;
     secondaryChairColor: string;
-    TopChairLegProps: React.HTMLAttributes<HTMLDivElement>;
+    ChairLegProps: React.HTMLAttributes<HTMLDivElement>;
     onChairClick: (
     ) => void;
 }
@@ -31,7 +31,7 @@ export const AdvancedChair: React.FC<IAdvancedChair> = ({
     chairColor = '#6495ED',
     secondaryChairColor= '#adbcf9',
     onChairClick,
-    TopChairLegProps,
+    ChairLegProps,
     ...props
 }) => {
     /**
@@ -44,7 +44,6 @@ export const AdvancedChair: React.FC<IAdvancedChair> = ({
             </AdvancedChairText>
 
         );
-
     };
     return (
     <div{...props}>
@@ -61,10 +60,11 @@ export const AdvancedChair: React.FC<IAdvancedChair> = ({
             <TopChairLeg
                 chairColor = {chairColor}
                 secondaryChairColor = {secondaryChairColor}
-                {...TopChairLegProps}/>
+                {...ChairLegProps}/>
             <BottomChairLeg
                 chairColor = {chairColor}
-                secondaryChairColor = {secondaryChairColor}/>
+                secondaryChairColor = {secondaryChairColor}
+                {...ChairLegProps}/>
         </ChairBody>
     </div>
 )
@@ -123,7 +123,6 @@ const BottomChairLeg = styled.div<IChairColorStyle>`
     return `background: linear-gradient(to right, ${chairColor}, 10%, ${secondaryChairColor})`;
   }}
 `;
-
 
 // text styles for the chair
 const textBaseStyle = css<Pick<IAdvancedChair, 'relativeSize'>>`
