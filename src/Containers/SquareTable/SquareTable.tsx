@@ -104,7 +104,6 @@ export interface ISquareTable {
  * Square Table
  */
 export const SquareTable: React.FC<ISquareTable> = ({
-    // tableShape = 'Square',
     tableID = 'T1',
     partyName = 'Null',
     occupancyStatus = 'Vacant',
@@ -114,7 +113,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
     isSquare = false,
     tableUse = 'TableForManagement',
     tableIndex = 0,
-    //selectedIndex = -1,
     onTableClick,
     onChairClick,
     isNotHighlightedWhenSelected = false,
@@ -136,7 +134,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
             }
         }
     });
-
 
     /**
      * Split chairs array into four arrays for each table side
@@ -384,6 +381,9 @@ const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
     }
 };
 
+/**
+ * Variables for the styled components
+ */
 interface ITableContainer {
     relativeSize: number;
     tableIndex: number;
@@ -391,19 +391,19 @@ interface ITableContainer {
 }
 
 const TableContainer = styled.div<ITableContainer>`
-  ${({ selectedIndex, tableIndex, relativeSize }):string =>
+  ${({ selectedIndex, tableIndex, relativeSize, theme }):string =>
   {
     const BASE_BORDER_RADIUS = 3;
     const PADDING = 1.5;
     
     if(tableIndex === selectedIndex){
       return`
-            background-color: #EDEEF5;
+            background-color: ${theme.colors.tableOutline.background};
             border-radius: ${BASE_BORDER_RADIUS * relativeSize}rem;
             width: fit-content;
             padding: ${PADDING * relativeSize}rem;
             border-style: dashed;
-            border-color: #DDDFE5;
+            border-color: ${theme.colors.tableOutline.border};
           `;
     }
     
@@ -412,10 +412,6 @@ const TableContainer = styled.div<ITableContainer>`
   };
   
 `;
-
-/**
- * variables for the styled components
- */
 
 interface ITableBody {
     chairNumOnSide: number;
