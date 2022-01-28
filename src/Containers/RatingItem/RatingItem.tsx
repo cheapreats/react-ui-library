@@ -1,4 +1,4 @@
-import React, { useCallback,useMemo } from 'react';
+import React, { useCallback, useMemo } from 'react';
 import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
 import { RatingBar as RB } from '../RatingBar/RatingBar';
@@ -7,7 +7,7 @@ export interface IRatingItemProps extends React.HTMLAttributes<HTMLDivElement> {
     /** a number between 0 and 1 */
     rating?: number;
     barThickness?: number;
-    barColor?:string;
+    barColor?: string;
     /** a number between 1 and 5 */
     stars: 1 | 2 | 3 | 4 | 5;
 }
@@ -36,21 +36,25 @@ export const RatingItem: React.FC<IRatingItemProps> = ({
         }
     }, [stars]);
 
-    const innerRating=useMemo(()=>{
-        if(rating>1)return 1;
-        if(rating<0) return 0;
+    const innerRating = useMemo(() => {
+        if (rating > 1) return 1;
+        if (rating < 0) return 0;
         return rating;
-    },[rating]);
+    }, [rating]);
 
-    const getBarColorProp=useCallback(():object=>{
-        if(barColor)return {color:barColor};
+    const getBarColorProp = useCallback((): object => {
+        if (barColor) return { color: barColor };
         return {};
-    },[barColor]);
+    }, [barColor]);
 
     return (
         <RatingItemBox {...props}>
             <Emoticon>{getEmoticon()}</Emoticon>
-            <RatingBar rating={rating} thickness={barThickness} {...getBarColorProp()} />
+            <RatingBar
+                rating={rating}
+                thickness={barThickness}
+                {...getBarColorProp()}
+            />
             <Label>{innerRating * 100}%</Label>
         </RatingItemBox>
     );
@@ -62,17 +66,17 @@ const RatingItemBox = styled.div`
 
 const Label = styled.div`
     font-weight: 700;
-    font-size:${({theme})=>theme.font.size.small};
-    opacity:0.7;
-    width:30px;
+    font-size: ${({ theme }) => theme.font.size.small};
+    opacity: 0.7;
+    width: 30px;
 `;
 
 const RatingBar = styled(RB)`
     margin: 0 10px;
-    flex:1;
+    flex: 1;
 `;
 
-const Emoticon=styled.div`
-font-weight:700;
-font-size:${({theme})=>theme.font.size.h2};
-`
+const Emoticon = styled.div`
+    font-weight: 700;
+    font-size: ${({ theme }) => theme.font.size.h2};
+`;

@@ -5,8 +5,7 @@ import { RatingBar, IRatingBarProps } from './RatingBar';
 export default {
     title: 'Components/Other/RestaurantReview/RatingBar',
     component: RatingBar,
-    args: {
-    },
+    args: {},
 } as Meta;
 
 export const Basic: Story<IRatingBarProps> = (args) => <RatingBar {...args} />;

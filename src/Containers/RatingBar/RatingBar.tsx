@@ -15,16 +15,16 @@ export interface IRatingBarProps extends React.HTMLAttributes<HTMLDivElement> {
 }
 
 export const RatingBar: React.FC<IRatingBarProps> = ({
-    rating=0,
+    rating = 0,
     color = MainTheme.colors.statusColors.orange,
     thickness = 10,
     ...props
 }) => {
-    const innerRating=useMemo(()=>{
-        if(rating>1) return 1;
-        if(rating<0) return 0;
+    const innerRating = useMemo(() => {
+        if (rating > 1) return 1;
+        if (rating < 0) return 0;
         return rating;
-    },[rating])
+    }, [rating]);
     const [fullBarWidth, barRef] = useGetWidth();
     const ratingBarWidth = useMemo(
         () => (fullBarWidth ?? DEFAULT_WIDTH) * innerRating,
@@ -72,12 +72,12 @@ const RatingBarBox = styled.div<
     box-sizing:border-box;
 `;
 
-const Container = styled.div<{width?:number;}>`
+const Container = styled.div<{ width?: number }>`
     position: relative;
-    box-sizing:border-box;
-    ${({width})=>`
-    ${width?`width:${width}px;`:''}
+    box-sizing: border-box;
+    ${({ width }) => `
+    ${width ? `width:${width}px;` : ''}
     `}
     border-radius: ${({ theme }) => theme.dimensions.radius};
-    overflow:hidden;
+    overflow: hidden;
 `;
