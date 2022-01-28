@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { Datepicker, DatepickerProps } from '../../index';
 
 export default {
-    title: "Components/Atoms/Datepicker",
+    title: 'Components/Atoms/Datepicker',
     component: Datepicker,
     argTypes: { onChange: { action: `you picked: ` } },
     args: {
