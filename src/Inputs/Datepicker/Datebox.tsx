@@ -238,9 +238,7 @@ const Price = styled.div<{
 }>`
     font-size: 12px;
     ${({ priceColor }): string =>
-        priceColor === PriceStatus.Good ? 'color: #026c45;' : ''}
-    ${({ priceColor }): string =>
-        priceColor === PriceStatus.Okay ? 'color: #FFD700;' : ''}
-  ${({ priceColor }): string =>
+        priceColor === PriceStatus.Good ? 'color: #026c45;' : '' ||
+        priceColor === PriceStatus.Okay ? 'color: #FFD700;' : '' || 
         priceColor === PriceStatus.Surge ? 'color: #ff0000;' : ''}
 `;
