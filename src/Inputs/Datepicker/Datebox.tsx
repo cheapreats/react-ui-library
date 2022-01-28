@@ -100,7 +100,7 @@ export interface DateboxProps extends React.HTMLAttributes<HTMLDivElement> {
     animate: boolean;
     value: Date | undefined;
     clearDate?: Function;
-    selectedDays: IDataObject[];
+    adjustedPriceDays: IDataObject[];
 }
 
 export const Datebox: React.FC<DateboxProps> = ({
@@ -110,7 +110,7 @@ export const Datebox: React.FC<DateboxProps> = ({
                                                     selectDate,
                                                     animate,
                                                     value,
-                                                    selectedDays,
+                                                    adjustedPriceDays,
                                                 }): React.ReactElement => (
     <DateBox animate={animate}>
         <DateControls>
@@ -131,7 +131,7 @@ export const Datebox: React.FC<DateboxProps> = ({
                 selectedDate || new Date(),
                 value || new Date(),
                 selectDate,
-                selectedDays,
+                adjustedPriceDays,
 
             )}
         </Calendar>

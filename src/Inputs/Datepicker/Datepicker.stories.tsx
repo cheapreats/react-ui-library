@@ -12,7 +12,7 @@ export default {
         label: 'label',
         placeholder: 'Placeholder',
         description: 'Description',
-        selectedDays:
+        adjustedPriceDays:
 
             [
                 {
