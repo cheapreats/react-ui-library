@@ -3,6 +3,13 @@ import styled from 'styled-components';
 import { flex } from '@Utils/Mixins';
 import { RatingBar as RB } from '../RatingBar/RatingBar';
 
+const FIVE_STAR_EMOTICON = '🤩';
+const FOUR_STAR_EMOTICON = '😄';
+const THREE_STAR_EMOTICON = '😀';
+const TWO_STAR_EMOTICON = '😟';
+const ONE_STAR_EMOTICON = '😢';
+const RATING_LABEL_OPACITY = 0.7;
+
 export interface IRatingItemProps extends React.HTMLAttributes<HTMLDivElement> {
     /** a number between 0 and 1 */
     rating?: number;
@@ -22,15 +29,15 @@ export const RatingItem: React.FC<IRatingItemProps> = ({
     const getEmoticon = useCallback((): string => {
         switch (stars) {
         case 1:
-            return '😢';
+            return ONE_STAR_EMOTICON;
         case 2:
-            return '😟';
+            return TWO_STAR_EMOTICON;
         case 3:
-            return '😀';
+            return THREE_STAR_EMOTICON;
         case 4:
-            return '😄';
+            return FOUR_STAR_EMOTICON;
         case 5:
-            return '🤩';
+            return FIVE_STAR_EMOTICON;
         default:
             return '?';
         }
@@ -67,7 +74,7 @@ const RatingItemBox = styled.div`
 const Label = styled.div`
     font-weight: 700;
     font-size: ${({ theme }) => theme.font.size.small};
-    opacity: 0.7;
+    opacity: ${RATING_LABEL_OPACITY};
     width: 30px;
 `;
 
