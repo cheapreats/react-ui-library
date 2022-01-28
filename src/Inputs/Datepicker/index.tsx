@@ -14,7 +14,7 @@ import {
     LabelLayout as LL,
     LabelLayoutProps,
 } from '../../Fragments';
-import {Datebox,IDataObject} from './Datebox';
+import { Datebox, IDataObject } from './Datebox';
 
 const printDate = (date?: Date): string => {
     if (date) {
@@ -37,14 +37,16 @@ export interface DatepickerProps extends LabelLayoutProps {
 }
 
 export const Datepicker: React.FC<DatepickerProps> = ({
-                                                          value,
-                                                          onChange = (): void => undefined,
-                                                          onClear = (): void => undefined,
-                                                          placeholder = 'MM-DD-YYYY',
-                                                          initialShow,
-                                                          adjustedPriceDays,
-                                                          ...props
-                                                      }): React.ReactElement => {
+    value,
+    onChange = (): void => undefined,
+    onClear = (): void => undefined,
+    placeholder = 'MM-DD-YYYY',
+    initialShow,
+    adjustedPriceDays = [
+        { date: new Date(0, 0, 0), price: '0', priceStatus: 0 },
+    ],
+    ...props
+}): React.ReactElement => {
     const theme = useTheme();
     const [selectedDate, setDate] = useState(value);
     const ref = useRef<HTMLDivElement>(null);
@@ -79,9 +81,10 @@ export const Datepicker: React.FC<DatepickerProps> = ({
         setText(printDate(value));
     }, [value]);
 
-    const handleText = useCallback((el): void => setText(el.target.value), [
-        text,
-    ]);
+    const handleText = useCallback(
+        (el): void => setText(el.target.value),
+        [text],
+    );
 
     const selectDate = useCallback((el): void => {
         const val = new Date(el.target.getAttribute('data'));
@@ -97,15 +100,14 @@ export const Datepicker: React.FC<DatepickerProps> = ({
     }, []);
 
     const changePage = useCallback(
-        (change = 1): React.MouseEventHandler => (): void => {
-            setDate(
-                (d): Date => {
+        (change = 1): React.MouseEventHandler =>
+            (): void => {
+                setDate((d): Date => {
                     const curr: Date = new Date(d || new Date());
                     curr.setMonth(curr.getMonth() + change);
                     return curr;
-                },
-            );
-        },
+                });
+            },
         [],
     );
     const clearDate = (): void => {
@@ -118,25 +120,25 @@ export const Datepicker: React.FC<DatepickerProps> = ({
         (el): void => {
             const d = new Date(el.target.value);
             switch (el.key) {
-                case 'Tab':
-                    setShow(false);
-                    break;
-                case 'Enter':
-                    el.target = {
-                        ...el.target,
-                        name: props.name,
-                        value: d,
-                    };
+            case 'Tab':
+                setShow(false);
+                break;
+            case 'Enter':
+                el.target = {
+                    ...el.target,
+                    name: props.name,
+                    value: d,
+                };
 
-                    if (d.toDateString() === value?.toDateString()) {
-                        setShow((v): boolean => !v);
-                    } else if (!Number.isNaN(d.getTime())) {
-                        setText(printDate(d));
-                        onChange(el);
-                    }
-                    break;
-                default:
-                    break;
+                if (d.toDateString() === value?.toDateString()) {
+                    setShow((v): boolean => !v);
+                } else if (!Number.isNaN(d.getTime())) {
+                    setText(printDate(d));
+                    onChange(el);
+                }
+                break;
+            default:
+                break;
             }
         },
         [value],
@@ -171,17 +173,17 @@ export const Datepicker: React.FC<DatepickerProps> = ({
 };
 
 const LabelLayout = styled(LL)<{ ref: React.RefObject<HTMLDivElement> }>`
-  position: relative;
+    position: relative;
 `;
 
 const Icon = styled(CalendarAlt)`
-  ${position('absolute', 'auto 20px auto auto')}
-  width: 10px;
+    ${position('absolute', 'auto 20px auto auto')}
+    width: 10px;
 `;
 
 const Wrapper = styled.div`
-  ${flex('column')}
-  position: relative;
+    ${flex('column')}
+    position: relative;
 `;
 
 export default Datepicker;
