@@ -33,7 +33,7 @@ export interface DatepickerProps extends LabelLayoutProps {
     onClear?: Function;
     value?: Date;
     initialShow?: boolean;
-    adjustedPriceDays: IDataObject[];
+    adjustedPriceDays?: IDataObject[];
 }
 
 export const Datepicker: React.FC<DatepickerProps> = ({

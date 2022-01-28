@@ -110,7 +110,7 @@ export const Datebox: React.FC<DateboxProps> = ({
                                                     selectDate,
                                                     animate,
                                                     value,
-                                                    adjustedPriceDays,
+                                                    adjustedPriceDays ,
                                                 }): React.ReactElement => (
     <DateBox animate={animate}>
         <DateControls>
@@ -131,7 +131,7 @@ export const Datebox: React.FC<DateboxProps> = ({
                 selectedDate || new Date(),
                 value || new Date(),
                 selectDate,
-                adjustedPriceDays,
+                adjustedPriceDays ,
 
             )}
         </Calendar>
