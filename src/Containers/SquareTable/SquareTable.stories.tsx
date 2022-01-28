@@ -1,7 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ISquareTable, SquareTable } from '@Containers';
-
+import {action} from "@storybook/addon-actions";
 
 export default {
     title: 'Components/TableManagement/SquareTable',
@@ -10,13 +10,13 @@ export default {
 
 const Template: Story<ISquareTable> = (args) => <SquareTable {...args} />;
 
-/**
- * Prints the Selected Child index to the console when Table is clicked
- * @param selectedChildIndex
- */
-const handleTableClick = (selectedChildIndex: number) => {
-    console.log(selectedChildIndex);
-};
+///**
+// * Prints the Selected Child index to the console when Table is clicked
+// * @param selectedChildIndex
+// */
+//const handleTableClick = (selectedChildIndex: number) => {
+//    //console.log(selectedChildIndex);
+//};
 
 /**
  * Prints the Selected Child index to the console when Chair is clicked
@@ -144,7 +144,7 @@ SevenTopSquareTable.args = {
     ],
     isSquare: true,
     tableUse: 'TableForManagement',
-    onTableClick: handleTableClick,
+    onTableClick: action("Clicked table with index: "),
     onChairClick: handleOnChairClick,
 };
 
@@ -257,7 +257,7 @@ EightTopVertRectangleTable.args = {
     ],
     isSquare: false,
     tableUse: 'TableForManagement',
-    onTableClick: handleTableClick,
+    onTableClick: action("Clicked table with index: "),
     onChairClick: handleOnChairClick,
 };
 
@@ -347,7 +347,7 @@ SixTopHorizontalRectangleTable.args = {
     isSquare: false,
     relativeSize: 0.5,
     tableUse: 'TableForManagement',
-    onTableClick: handleTableClick,
+    onTableClick: action("Clicked table with index: "),
     onChairClick: handleOnChairClick,
 };
 
@@ -410,7 +410,7 @@ SquareTableEditPage.args = {
         },
     ],
     tableUse: 'TableForEditCanvas',
-    onTableClick: handleTableClick,
+    onTableClick: action("Clicked table with index: "),
     onChairClick: handleOnChairClick,
 };
 
@@ -472,6 +472,6 @@ BarRectangleTable.args = {
     ],
     isSquare: false,
     tableUse: 'TableForManagement',
-    onTableClick: handleTableClick,
+    onTableClick: action("Clicked table with index: "),
     onChairClick: handleOnChairClick,
 };
