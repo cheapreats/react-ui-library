@@ -296,7 +296,10 @@ export const SquareTable: React.FC<ISquareTable> = ({
     };
 
     return (
-        <div {...props}>
+        <div{...props}>
+        <TableContainer
+            relativeSize={relativeSize}
+        >
             {/** chairs top */}
             <ChairRow
                 position="top"
@@ -354,6 +357,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 tableUse={tableUse}
                 selectedIndex={selectedIndex}
             />
+        </TableContainer>
         </div>
     );
 };
@@ -378,6 +382,12 @@ const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
         return '';
     }
 };
+
+interface ITableContainer {
+    relativeSize: number;
+}
+
+const TableContainer = styled.div<ITableContainer>``;
 
 /**
  * variables for the styled components
