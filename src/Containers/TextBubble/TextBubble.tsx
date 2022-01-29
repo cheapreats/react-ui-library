@@ -1,84 +1,60 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Mixins } from '../../Utils';
+import { Robot, User } from '@styled-icons/fa-solid/';
 
 export interface ITextBubbleProps {
     content: React.ReactElement;
     fromBot: boolean;
+    icon: React.ReactElement;
+    iconSize: number;
+    iconStyle: React.HTMLAttrs;
+    bubbleStyle: React.HTMLAttrs;
 }
 
-export const TextBubble = ({content, fromBot, ...props}: ITextBubbleProps): React.ReactElement => {
+export const TextBubble = ({content, fromBot, icon, iconSize, iconStyle, bubbleStyle, ...props}: ITextBubbleProps): React.ReactElement => {
+    if (!icon)
+        icon = fromBot ? Robot : User;
+
+    if (!iconSize)
+        iconSize = 25;
+
     return (
-        <BubbleContainer fromBot={ fromBot }>
-            <Bubble fromBot={ fromBot }>
-                <div style={{
-                    marginLeft: textMarginSize,
-                    marginRight: textMarginSize,
-                    display: "flex",
-                    flexDirection: "row"
-                }}>
-                    { content }
-                </div>
+        <BubbleContainer>
+            { fromBot &&
+                <StyledImg as={ icon } imgSize={ iconSize } style={ iconStyle } />
+            }
+
+            <Bubble fromBot={ fromBot } style={ bubbleStyle }>
+                { content }
             </Bubble>
+
+            { !fromBot &&
+                <StyledImg as={ icon } imgSize={ iconSize } style={ iconStyle } />
+            }
         </BubbleContainer>
     );
 }
 
-const textMarginSize = "10px";
-
-const container_margin = "10px";
-const BubbleContainer = styled.div<{ fromBot: boolean }>`
-    ${Mixins.flex("row")};
-    ${Mixins.flex("center")};
-    position: relative;
-
-    maxwidth: "80%";
-    width: "fit-content";
-    ${({ fromBot }): string =>
-        fromBot
-            ? `
-            justify-content: left;
-            margin-left: 0px;
-            margin-right: ${container_margin};
-            `
-            : `
-            justify-content: right;
-            margin-left: ${container_margin};
-            margin-right: 0px;
-            `
-    }
-    marginTop: standardMarginSize;
-    margin-top: -20px;
-    margin-bottom: 20px;
-    ${({ theme }): string => `
-        padding: ${theme.dimensions.padding.withBorder};
+const StyledImg = styled.svg<{ imgSize: number }>`
+    ${({ imgSize }) => `
+        width: ${imgSize}px;
+        height: ${imgSize}px;
     `}
-
-    animation: appear 0.5s ease-in 1;
-    @keyframes appear {
-        from {
-            opacity: 0;
-        }
-        to {
-            opacity: 100;
-        }
-    }
+    margin: 0 10px;
+    border-radius: 999px;
+    border-style: solid;
+    padding: 10px;
 `
 
-const bubble_margin = "50px";
+const BubbleContainer = styled.div`
+    display: inline-block;
+`
+
 const Bubble = styled.div<{ fromBot: boolean }>`
-    ${({ fromBot }): string =>
-        fromBot
-            ? `
-            margin-left: ${bubble_margin};
-            margin-right: 0px;
-            `
-            : `
-            margin-left: 0px;
-            margin-right: ${bubble_margin};
-            `
-    }
+    display: inline-block;
     border: 1.5px solid rgba(0, 0, 0, 0.1);
+    padding: 0 10px;
+
     ${({ theme, fromBot }): string =>
         fromBot
             ? `
@@ -90,7 +66,16 @@ const Bubble = styled.div<{ fromBot: boolean }>`
             background-color: ${theme.colors["primary"]};
             `
     }
-    margin-bottom: 10px;
+
+    animation: appear 0.5s ease-in 1;
+    @keyframes appear {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 100;
+        }
+    }
 `;
 
 export default TextBubble;

@@ -2,6 +2,7 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import TextBubble, { ITextBubbleProps } from './TextBubble';
 import TypingDots from '../../Text/TypingDots/TypingDots';
+import { Robot } from '@styled-icons/remix-fill/Robot';
 
 export default {
     title: 'Components/Text Bubble',
@@ -33,5 +34,20 @@ NoText.args = {
 export const Typing = Template.bind({});
 Typing.args = {
     content: <TypingDots num={3} delayStep={0.1} />,
-    fromBot: true
+    fromBot: true,
+    icon: Robot
+}
+
+export const CustomStyled = Template.bind({});
+CustomStyled.args = {
+    content: <p>Text bubble with custom styles</p>,
+    fromBot: true,
+    bubbleStyle: {
+        backgroundColor: 'yellow',
+        borderRadius: '15px'
+    },
+    iconStyle: {
+        borderRadius: '5px'
+    },
+    icon: Robot
 }
