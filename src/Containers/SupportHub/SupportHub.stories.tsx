@@ -4,7 +4,7 @@ import { SupportHub, ISupportHub } from './SupportHub';
 
 
 export default {
-    title: 'Terminal/Settings/AccountSettingsCard',
+    title: 'Terminal/Settings/SupportHub',
     component: SupportHub,
     argTypes: {
         onSecretMenuPress: {action: 'Opening Secret Diagonitics Menu'},
