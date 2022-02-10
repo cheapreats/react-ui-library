@@ -1,11 +1,10 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { AdvancedChair, IAdvancedChair } from './AdvancedChair';
-import { createStoryTitle } from '../../Constants';
 import {action} from "@storybook/addon-actions";
+import { AdvancedChair, IAdvancedChair } from './AdvancedChair';
 
 export default {
-    title: createStoryTitle('AdvancedChair'),
+    title: ('Components/TableManagement/AdvancedChair'),
     component: AdvancedChair,
 } as Meta;
 
