@@ -1,8 +1,10 @@
+import { flex } from '@Utils/Mixins';
 import { MainTheme } from '@Themes/MainTheme';
 import { Parallax } from "react-parallax";
 import React from 'react';
 import styled from 'styled-components';
 
+const ROTDEGREE = -4;
 
 /**
  * Blur transitions from min to max blur
@@ -39,7 +41,9 @@ export const ThreeSectionTemplate: React.FC<IThreeSectionProps> = ({
 }): React.ReactElement => (
     <ThreeSectionContainer {...props}>
         <Parallax {...parallaxProps} >
-            <Section children={topSectionChildren} />
+              <Section>
+                <HomepageContainer children={topSectionChildren} />
+              </Section>
         </Parallax>
         <Section>
             <Subsection bgCol={logoSubSectionColor} 
@@ -49,11 +53,25 @@ export const ThreeSectionTemplate: React.FC<IThreeSectionProps> = ({
     </ThreeSectionContainer>
 );
 
+const HomepageContainer = styled.div`
+  ${flex('column')};
+  :before {
+    content: "";
+    position: absolute;
+    left: -10;
+    width: 150vw;
+    height: 50%;
+    background-color: ${({ theme }) => theme.colors.background};
+    transform: rotateZ(${ROTDEGREE}deg);
+  }
+  align-items: center;
+  justify-content: center;
+`;
+
 const ThreeSectionContainer = styled.div``;
 
-
 const Section = styled.div`
-  display: flex;
+  ${flex()};
   align-items: center;
   justify-content: center;
   font-weight: bold;
@@ -62,8 +80,7 @@ const Section = styled.div`
 `;
 
 const Subsection = styled.div<{ bgCol?: string }>`
-  display: flex;
-  flex-direction: column;
+  ${flex('column')};
   align-items: center;
   justify-content: center;
   font-weight: bold;

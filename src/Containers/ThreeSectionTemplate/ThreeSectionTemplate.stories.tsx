@@ -14,10 +14,18 @@ const LOGO =
   "https://www.cheapreats.com/static/90939a6dc8dacea8e44d046c72521a1b/16c7d/logo.png";
 const IMAGE =
   "https://images.unsplash.com/photo-1604573714289-312a6972f67c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1074&q=80";
-const ROTDEGREE = -4;
 
-const welcomeHeading = {
+const howItWorksHeadingProps = {
+  color: 'black',
+   bold: true,
+  children: 'How it works',
+}
+const welcomeHeadingProps = {
     type: 'h1',
+    color: 'black',
+    bold: true,
+    size: '3rem',
+    lineHeight: '1.3',
     children: (
     <div>
         Welcome to the CheaprEats
@@ -47,52 +55,9 @@ const carouselDetails = {
       isLooping: true,
 };
 
-const HomepageContainer = styled.div`
-  :before {
-    content: "";
-    position: absolute;
-    left: -10;
-    width: 150vw;
-    height: 50%;
-    background-color: ${({ theme }) => theme.colors.background};
-    transform: rotateZ(${ROTDEGREE}deg);
-  }
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;
-
-const StyledButton = styled(Button)`
-  margin: 5px;
-  width: 10%;
-`;
-
-
-const BottomSectionDiv = styled.div`
-    ${flex('column')};
-    align-items: center;
-`;
-
 const StyledImg = styled.img`
   border-radius: 50%;
   background-color: ${({ theme }) => theme.colors.background};
-`;
-
-const StyledSectionHeading = styled(Heading)`
-  color: black;
-  font-weight: bold;
-`;
-
-const WelcomeHeading = styled(Heading)`
-  margin: 0 0 10px 0;
-  color: black;
-  font-size: 3rem;
-  font-weight: bold;
-  text-align: center;
-  line-height: 1.3;
-  max-width: 100%; 
-  z-index: 1;
 `;
 
 export default {
@@ -106,24 +71,24 @@ export default {
             strength: 300,
         },
         topSectionChildren: (
-            <HomepageContainer>
-                <WelcomeHeading {...welcomeHeading} />
-                <StyledButton  {...startOrderButtonProps} />
-                <StyledButton {...learnMoreButtonProps} />
-                <Snowfall color={MainTheme.colors.primary} />
-            </HomepageContainer>
+          <>
+            <Heading style={{zIndex: 1}} {...welcomeHeadingProps} />
+            <Button  {...startOrderButtonProps} />
+            <Button {...learnMoreButtonProps} />
+            <Snowfall color={MainTheme.colors.primary} />
+          </>
         ),
         bottomLeftSectionChildren: (
-            <BottomSectionDiv>
+            <>
                 <StyledImg src={LOGO} />
-            </BottomSectionDiv>
+            </>
         ),
         bottomRightSectionChildren: (
-            <BottomSectionDiv>
-                <StyledSectionHeading children={'How it works'} />
+            <>
+                <Heading {...howItWorksHeadingProps} />
                 <CarouselTestimonial {...carouselDetails} />
-                <StyledButton  {...startOrderButtonProps} />
-            </BottomSectionDiv>
+                <Button  {...startOrderButtonProps} />
+            </>
         )
     },
 } as Meta;

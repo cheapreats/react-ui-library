@@ -24,14 +24,14 @@ export const ChatPageTemplate: React.FC<IChatPageProps> = ({
     ...props
 }): React.ReactElement => (
     <div {...props}>
-        {isLoading && {loadingChildren}}
+        {isLoading && (loadingChildren)}
         {!isLoading && (
             <ChatPageOuterContainer>
                 <ChatPageInnerContainer>
                     <StyledSnowfall />
-                    {isPopUpVisible && (
-                        <PopupContainer children={popUpChildren} />
-                    )}
+                      <PopupContainer>
+                        <Popup isHovered={isPopUpVisible} children={popUpChildren} />
+                      </PopupContainer>
                     <ChatPageContent>
                         <ChatContainer children={chatContainerChildren} />
                         <InputContainer children={inputChildren} />
@@ -44,6 +44,7 @@ export const ChatPageTemplate: React.FC<IChatPageProps> = ({
 
 const InputContainer = styled.div`
   ${flex("column")};
+  align-items: center;
   position: absolute;
   top: calc(100% - 150px);
   width: calc(100% - calc(${mainFramePadding} * 2));
@@ -91,6 +92,34 @@ const ChatPageInnerContainer = styled.div`
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+`;
+
+const Popup = styled.div<{ isHovered: boolean }>`
+  ${flex("row")};
+  position: relative;
+  top: -50%;
+  height: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: calc(800px);
+  width: calc(80%);
+  ${({ theme }): string => `
+    background-color: ${theme.colors["background"]};
+  `}
+  box-shadow: 0 1mm 5mm;
+  border-radius: 0 0 20px 20px;
+  padding: 10px;
+  z-index: 2;
+
+  transition: 0.5s;
+
+  ${({ isHovered }): string =>
+    isHovered
+      ? `
+    transition: 0.25s ease-out 1;
+    top: calc(0%);
+  `
+      : ``}
 `;
 
 const PopupContainer = styled.div`
