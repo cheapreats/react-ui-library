@@ -35,7 +35,6 @@ export const CircleTable: React.FC<ITable> = ({
     onTableClick,
     selectedIndex = -1,
     isNotHighlightedWhenSelected = false,
-    onChairClick,
     ...props
 }) => {
     // Create a reference to the TableBody styled component
@@ -84,7 +83,6 @@ export const CircleTable: React.FC<ITable> = ({
                     tableIndex={arrayIndex}
                     chairIndex={index}
                     selectedIndex={selectedIndex}
-                    onChairClick={onChairClick}
                 />
             </ChairWrapper>
         ));

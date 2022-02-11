@@ -44,7 +44,7 @@ export interface IChair {
      * @param parentTableIndex - parent table index in the tables array
      * @param chairIndex - chair index in chair array
      */
-    onChairClick: (
+    onChairClick?: (
         parentTableIndex: number,
         chairIndex: number,
         selectedIndex: number,
@@ -159,7 +159,9 @@ export const Chair: React.FC<IChair> = ({
      * Update the state and call onChairClick function
      */
     const onHandleClick: handleClickType = () => {
-        onChairClick(tableIndex, chairIndex, selectedIndex);
+        if (onChairClick) {
+            onChairClick(tableIndex, chairIndex, selectedIndex);
+        }
     };
 
     if (tableUse === 'TableForEditCanvas') {

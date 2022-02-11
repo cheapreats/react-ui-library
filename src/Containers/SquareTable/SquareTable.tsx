@@ -84,16 +84,6 @@ export interface ITable {   // todo: refactor interface to separate file?
      */
     onTableClick: (selectedChildIndex: number) => void;
     /**
-     * Function to handle onClick event for the chair
-     * @param parentTableIndex - parent table index in the tables array
-     * @param chairIndex - chair index in chair array
-     */
-    onChairClick: ( // todo: not needed!
-        parentTableIndex: number,
-        chairIndex: number,
-        selectedTableIndex: number,
-    ) => void;
-    /**
      * Determines if the table is used in the toolbar or not
      */
     isNotHighlightedWhenSelected?: boolean;
@@ -123,7 +113,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
     arrayIndex = 0,
     selectedIndex = -1,
     onTableClick,
-    onChairClick,
     isNotHighlightedWhenSelected = false,
     ...props
 }):React.ReactElement => {
@@ -237,7 +226,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 chairIndex: invisibileChairs.length,
                 tableIndex: arrayIndex,
                 selectedIndex,
-                onChairClick,
             });
         }
     };
