@@ -21,7 +21,7 @@ type getSquareTableSizeType = (
     right: number,
 ) => number;
 
-type getRectangleTableType = (top: number, bottom: number, left: number, right : number) => number;
+type getRectangleTableType = (top: number, bottom: number) => number;
 
 type addInvisibleChairs = (
     invisibileChairs: Array<IChair>,
@@ -200,25 +200,27 @@ export const SquareTable: React.FC<ISquareTable> = ({
     );
 
     /**
-     * Determines how many chairs to put on the top and bottom sides
-     * of a rectangle table (top, bottom)
-     * @param top {number} - Number of chairs on top side
-     * @param bottom {number} - Number of chairs on bottom side
-     * @param left {number} - Number of chairs on left side
-     * @param right {number} - Number of chairs on right side
+     * Determines how many chairs to put on the side and oppositeSide sides
+     * of a rectangle table (side, oppositeSide)
+     * @param side {number} - Number of chairs on one side
+     * @param oppositeSide {number} - Number of chairs on opposite side
      * @return {number} - The largest number of chairs
      */
-    const getRectangleTableSize: getRectangleTableType = (top, bottom, left, right) => {
-        const maxSideValue = Math.max(top, bottom,left, right);
+    const getRectangleTableSize: getRectangleTableType = (side, oppositeSide) => {
+        const maxSideValue = Math.max(side, oppositeSide);
         return maxSideValue > 0 ? maxSideValue : 1;
     };
 
-    const rectangleTableSize = getRectangleTableSize(
-        topArray.length,
-        bottomArray.length,
+    const rectangleTableHeight = getRectangleTableSize(
         leftArray.length,
         rightArray.length,
     );
+
+    const rectangleTableWidth = getRectangleTableSize(
+        topArray.length,
+        bottomArray.length,
+    );
+
 
     /**
      * Checks an array to see if it has fewer chairs than the target size
@@ -244,11 +246,12 @@ export const SquareTable: React.FC<ISquareTable> = ({
 
     // Add empty/invisible chairs to the arrays as needed so there are chairs at each
     // spot on the table
-    addInvisibleChairs(topArray, squareTableSize, 'top');
-    addInvisibleChairs(bottomArray, squareTableSize, 'bottom');
-    addInvisibleChairs(leftArray, squareTableSize, 'left');
-    addInvisibleChairs(rightArray, squareTableSize, 'right');
-    
+    if (isSquare) {
+        addInvisibleChairs(topArray, squareTableSize, 'top');
+        addInvisibleChairs(bottomArray, squareTableSize, 'bottom');
+        addInvisibleChairs(leftArray, squareTableSize, 'left');
+        addInvisibleChairs(rightArray, squareTableSize, 'right');
+    }
 
     /**
      * Returns a JSX element for the TableBody Content with the correct styles
@@ -275,7 +278,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                     <ColorDiv
                         relativeSize={relativeSize}
                         chairNumOnSide={
-                            isSquare ? squareTableSize : rectangleTableSize
+                            isSquare ? squareTableSize : rectangleTableHeight
                         }
                         occupancyStatus={occupancyStatus}
                     />
@@ -319,10 +322,10 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         ref={tableBodyRef}
                         relativeSize={relativeSize}
                         chairNumOnSide={
-                            isSquare ? squareTableSize : rectangleTableSize
+                            isSquare ? squareTableSize : rectangleTableHeight
                         }
                         chairNumOnTop={
-                            isSquare ? squareTableSize : rectangleTableSize
+                            isSquare ? squareTableSize : rectangleTableWidth
                         }
                         tableUse={tableUse}
                         tabIndex={0}
