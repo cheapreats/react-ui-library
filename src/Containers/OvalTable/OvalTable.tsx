@@ -24,8 +24,8 @@ export const OvalTable: React.FC<IOvalTable> = ({
     chairs = [],
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
-    arrayIndex = 0,
-    selectedIndex = -1,
+    // arrayIndex = 0,
+    // selectedIndex = -1,
     chairsPosition = 'around',
 
     ...props
@@ -52,9 +52,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
                         isVisible={isVisible}
                         isRound={isRound}
                         tableUse={tableUse}
-                        tableIndex={arrayIndex}
                         chairIndex={index}
-                        selectedIndex={selectedIndex}
                         onChairClick={chair.onChairClick}
                     />
                 </ChairWrapper>

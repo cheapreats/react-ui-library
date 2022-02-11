@@ -46,16 +46,12 @@ const handleTableClick = (selectedTableIndex: number) => {
 
 /**
  * Changes the visibility of the a Chair when Chair is clicked
- * @param tableIndex
  * @param chairIndex
- * @param selectedTableIndex
  */
 const handleOnChairClick = (
-    tableIndex: number,
     chairIndex: number,
-    selectedTableIndex: number,
 ) => {
-    console.log(tableIndex + chairIndex + selectedTableIndex);
+    console.log(chairIndex);
 };
 
 /**
@@ -70,9 +66,7 @@ const chairObjectForTables: IChair = {
     isRound: true,
     relativeSize: 1,
     tableUse: 'TableForEditCanvas',
-    tableIndex: 0,
     chairIndex: 0,
-    selectedIndex: 1,
     onChairClick: handleOnChairClick,
 };
 
@@ -107,8 +101,7 @@ const tableObjectForCanvas: IDraggableTable = {
         relativeSize: 0.25,
         tableUse: 'TableForEditCanvas',
         selectedIndex: 1,
-        onTableClick: handleTableClick,
-        onChairClick: handleOnChairClick,
+        onTableClick: handleTableClick
     },
     handleStop: handleDragEnd,
     defaultXY: { x: 210, y: 100 },

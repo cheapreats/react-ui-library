@@ -43,16 +43,6 @@ export const DraggableCanvas = (): ReactElement => {
         console.log(selectedChildIndex);
     };
 
-    const handleOnChairClick = (
-        tableIndex: number,
-        chairIndex: number,
-        selectedTableIndex: number,
-    ) => {
-        console.log(
-            `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
-        );
-    };
-
     return (
         <SpacingForBottom id="demo">
             <PaddingForH52TextCenter>
@@ -88,10 +78,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'bottom',
@@ -100,16 +87,12 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                 ]}
                                 tableUse="TableForManagement"
                                 selectedIndex={3}
                                 onTableClick={handleTableClick}
-                                onChairClick={handleOnChairClick}
                             />
                         </RectangleTwoTopWidth>
                     </Draggable>
@@ -135,10 +118,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'bottom',
@@ -147,16 +127,12 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                 ]}
                                 tableUse="TableForManagement"
                                 selectedIndex={3}
                                 onTableClick={handleTableClick}
-                                onChairClick={handleOnChairClick}
                             />
                         </RectangleTwoTopWidth>
                     </Draggable>
@@ -181,10 +157,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'top',
@@ -193,10 +166,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'left',
@@ -205,10 +175,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'left',
@@ -217,10 +184,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'right',
@@ -229,10 +193,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: false,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'right',
@@ -241,10 +202,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'bottom',
@@ -253,10 +211,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'bottom',
@@ -265,17 +220,13 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                 ]}
                                 relativeSize={0.4}
                                 tableUse="TableForManagement"
                                 selectedIndex={3}
                                 onTableClick={handleTableClick}
-                                onChairClick={handleOnChairClick}
                             />
                         </SquareEightTopWidth>
                     </Draggable>
@@ -301,10 +252,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'bottom',
@@ -313,10 +261,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'top',
@@ -325,10 +270,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'bottom',
@@ -337,16 +279,12 @@ export const DraggableCanvas = (): ReactElement => {
                                         isVisible: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                 ]}
                                 tableUse="TableForManagement"
                                 selectedIndex={3}
                                 onTableClick={handleTableClick}
-                                onChairClick={handleOnChairClick}
                             />
                         </RectangleFourTopWidth>
                     </Draggable>
@@ -372,10 +310,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isRound: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'top',
@@ -385,10 +320,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isRound: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'top',
@@ -398,10 +330,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isRound: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'top',
@@ -411,10 +340,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isRound: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'top',
@@ -424,10 +350,7 @@ export const DraggableCanvas = (): ReactElement => {
                                         isRound: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                     {
                                         position: 'top',
@@ -437,16 +360,12 @@ export const DraggableCanvas = (): ReactElement => {
                                         isRound: true,
                                         relativeSize: 1,
                                         tableUse: 'TableForManagement',
-                                        chairIndex: 0,
-                                        tableIndex: 0,
-                                        selectedIndex: 3,
-                                        onChairClick: handleOnChairClick,
+                                        chairIndex: 0
                                     },
                                 ]}
                                 tableUse="TableForManagement"
                                 selectedIndex={3}
                                 onTableClick={handleTableClick}
-                                onChairClick={handleOnChairClick}
                             />
                         </CircleTableWidth>
                     </Draggable>{' '}

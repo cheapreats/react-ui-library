@@ -156,7 +156,6 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     tableUse={tableInput.tableUse}
                     arrayIndex={arrayIndex}
                     onTableClick={onTableClick}
-                    onChairClick={onChairClick}
                     selectedIndex={selectedIndex}
                 />
             );
@@ -174,7 +173,6 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     tableUse={tableInput.tableUse}
                     arrayIndex={arrayIndex}
                     onTableClick={onTableClick}
-                    onChairClick={onChairClick}
                     selectedIndex={selectedIndex}
                 />
             );
@@ -192,7 +190,6 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     tableUse={tableInput.tableUse}
                     arrayIndex={arrayIndex}
                     onTableClick={onTableClick}
-                    onChairClick={onChairClick}
                     selectedIndex={selectedIndex}
                 />
             );
@@ -209,7 +206,6 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     tableUse={tableInput.tableUse}
                     arrayIndex={arrayIndex}
                     onTableClick={onTableClick}
-                    onChairClick={onChairClick}
                     selectedIndex={selectedIndex}
                 />
             );

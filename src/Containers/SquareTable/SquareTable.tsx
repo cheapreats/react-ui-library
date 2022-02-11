@@ -223,9 +223,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 isVisible: false,
                 relativeSize,
                 tableUse,
-                chairIndex: invisibileChairs.length,
-                tableIndex: arrayIndex,
-                selectedIndex,
+                chairIndex: invisibileChairs.length
             });
         }
     };

@@ -90,7 +90,5 @@ ChairEditDraggableCanvas.args = {
     relativeSize: 1,
     tableUse: 'TableForEditCanvas',
     chairIndex: 3,
-    tableIndex: 4,
-    selectedIndex: 3,
     onChairClick: action("Chair is clicked"),
 };

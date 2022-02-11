@@ -80,9 +80,7 @@ export const CircleTable: React.FC<ITable> = ({
                     isVisible={item.isVisible}
                     isRound={item.isRound}
                     tableUse={tableUse}
-                    tableIndex={arrayIndex}
                     chairIndex={index}
-                    selectedIndex={selectedIndex}
                 />
             </ChairWrapper>
         ));
