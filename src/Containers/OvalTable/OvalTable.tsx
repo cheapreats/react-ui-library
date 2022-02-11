@@ -1,11 +1,6 @@
 import React from "react";
-import {Chair, IChair} from "@Containers";
+import {Chair, ITable} from "@Containers";
 import styled from "styled-components";
-
-type tableUseTypes =
-    | 'AddTableButton'
-    | 'TableForEditCanvas'
-    | 'TableForManagement';
 
 type chairsPositionType =
     | 'top'
@@ -16,17 +11,7 @@ type chairsPositionType =
 
 type getChairsType = () => JSX.Element[];
 
-export interface IOvalTable{
-    /* Array of chairs */
-    chairs: Array<IChair>;
-    /* The size for the component relative to the parent */
-    relativeSize: number;
-    /* The use type for the table component (how it will be used in the app) */
-    tableUse: tableUseTypes;
-    /* Array index for the table */
-    tableIndex: number;
-    /* Index number for the currently selected table */
-    selectedIndex: number;
+export interface IOvalTable extends ITable{
     /* Identifier of chairs placement relative to the table */
     chairsPosition: chairsPositionType;
 
@@ -39,7 +24,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
     chairs = [],
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
-    tableIndex = 0,
+    arrayIndex = 0,
     selectedIndex = -1,
     chairsPosition = 'around',
 
@@ -67,7 +52,7 @@ export const OvalTable: React.FC<IOvalTable> = ({
                         isVisible={isVisible}
                         isRound={isRound}
                         tableUse={tableUse}
-                        tableIndex={tableIndex}
+                        tableIndex={arrayIndex}
                         chairIndex={index}
                         selectedIndex={selectedIndex}
                         onChairClick={chair.onChairClick}
