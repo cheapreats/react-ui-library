@@ -36,13 +36,13 @@ type tableUseTypes =
     | 'TableForEditCanvas'
     | 'TableForManagement';
 
-export interface ISquareTable {
+export interface ITable {   // todo: refactor interface to separate file?
     /**
      * The shape for the ISquareTable ("Square", "HorizontalRectangle", "VerticalRectangle")
      */
-    tableShape: 'Square' | 'HorizontalRectangle' | 'VerticalRectangle';
+    tableShape: 'Square' | 'HorizontalRectangle' | 'VerticalRectangle' | 'Circle' | 'Oval';
     /**
-     * The unique identifier for the table
+     * The unique identifier for the table (Table Name)
      */
     tableID: string;
     /**
@@ -63,10 +63,6 @@ export interface ISquareTable {
      */
     chairs: Array<IChair>;
     /**
-     * Whether the table is a square
-     */
-    isSquare: boolean;
-    /**
      * The size for the component relative to the parent
      */
     relativeSize: number;
@@ -75,13 +71,13 @@ export interface ISquareTable {
      */
     tableUse: tableUseTypes;
     /**
-     * Array index number for this table
+     * Array index number for this table (Table Index)
      */
-    arrayIndex?: number;
+    arrayIndex?: number; // todo: not needed?
     /**
      * Index number for the currently selected table
      */
-    selectedIndex: number;
+    selectedIndex: number; // todo: not needed?
     /**
      * Function to handle onClick event for the table
      * @param selectedChildIndex - the array index for the table
@@ -92,7 +88,7 @@ export interface ISquareTable {
      * @param parentTableIndex - parent table index in the tables array
      * @param chairIndex - chair index in chair array
      */
-    onChairClick: (
+    onChairClick: ( // todo: not needed!
         parentTableIndex: number,
         chairIndex: number,
         selectedTableIndex: number,
@@ -101,6 +97,13 @@ export interface ISquareTable {
      * Determines if the table is used in the toolbar or not
      */
     isNotHighlightedWhenSelected?: boolean;
+}
+
+export interface ISquareTable extends ITable{
+    /**
+     * Whether the table is a square
+     */
+    isSquare: boolean;
 }
 
 
@@ -241,17 +244,11 @@ export const SquareTable: React.FC<ISquareTable> = ({
 
     // Add empty/invisible chairs to the arrays as needed so there are chairs at each
     // spot on the table
-    if (isSquare) {
-        addInvisibleChairs(topArray, squareTableSize, 'top');
-        addInvisibleChairs(bottomArray, squareTableSize, 'bottom');
-        addInvisibleChairs(leftArray, squareTableSize, 'left');
-        addInvisibleChairs(rightArray, squareTableSize, 'right');
-    } else {
-        addInvisibleChairs(topArray, rectangleTableSize, 'top');
-        addInvisibleChairs(bottomArray, rectangleTableSize, 'bottom');
-        addInvisibleChairs(leftArray, rectangleTableSize, 'left');
-        addInvisibleChairs(rightArray, rectangleTableSize, 'right');
-    }
+    addInvisibleChairs(topArray, squareTableSize, 'top');
+    addInvisibleChairs(bottomArray, squareTableSize, 'bottom');
+    addInvisibleChairs(leftArray, squareTableSize, 'left');
+    addInvisibleChairs(rightArray, squareTableSize, 'right');
+    
 
     /**
      * Returns a JSX element for the TableBody Content with the correct styles
