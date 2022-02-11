@@ -103,10 +103,8 @@ export interface ISquareTable extends ITable{
     /**
      * Whether the table is a square
      */
-    isSquare: boolean;
+    isSquare?: boolean;
 }
-
-
 
 /**
  * Primary UI component for user interaction

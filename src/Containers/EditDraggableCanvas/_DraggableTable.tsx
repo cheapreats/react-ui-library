@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Draggable from 'react-draggable';
-import { ISquareTable, SquareTable } from '@Containers/SquareTable/SquareTable';
-import { CircleTable, ICircleTable } from '@Containers/CircleTable/CircleTable';
+import {ISquareTable, SquareTable} from '@Containers/SquareTable/SquareTable';
+import { CircleTable } from '@Containers/CircleTable/CircleTable';
 
 type getTableComponentType = () => JSX.Element | null;
 
-type tableInputType = ISquareTable | ICircleTable;
+type tableInputType = ISquareTable;
 
 export interface IDraggableTable {
     /**
@@ -73,6 +73,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
         partyName: '',
         occupancyStatus: 'Vacant',
         relativeSize: 0.25,
+        isSquare: false,
         chairs: [
             {
                 position: 'top',
