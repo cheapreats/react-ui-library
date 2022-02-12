@@ -102,6 +102,10 @@ export default {
     },
 }
 
-export const Basic: Story<IChatPageProps> = (args) => (
+export const Empty: Story<IChatPageProps> = () => (
+  <ChatPageTemplate />
+);
+
+export const ChatPage: Story<IChatPageProps> = (args) => (
     <ChatPageTemplate {...args} />
 );

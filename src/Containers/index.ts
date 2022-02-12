@@ -104,3 +104,5 @@ export * from './FileUploadV2/FileUploadV2';
 export * from './RestaurantReviewCard/RestaurantReviewCard';
 export * from './RatingBar/RatingBar';
 export * from './RatingItem/RatingItem';
+export * from './OrderTotalCard/OrderTotalCard';
+export * from './OrderItemsList/OrderItemList';

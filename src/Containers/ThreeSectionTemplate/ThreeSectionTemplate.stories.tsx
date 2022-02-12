@@ -93,6 +93,10 @@ export default {
     },
 } as Meta;
 
-export const Basic: Story<IThreeSectionProps> = (args) => (
+export const Empty: Story<IThreeSectionProps> = () => (
+  <ThreeSectionTemplate />
+);
+
+export const Homepage: Story<IThreeSectionProps> = (args) => (
     <ThreeSectionTemplate {...args} />
 );
