@@ -5,6 +5,14 @@ import Snowfall from 'react-snowfall';
 
 const mainFramePadding = "1rem";
 
+/**
+ * @property {boolean} isPopUpVisible - displays popUpChildren
+ * @property {boolean} isLoading - displays loading children
+ * @property {React.ReactElement} loadingChildren - components used when loading
+ * @property {React.ReactElement} popUpChildren - components used in pop-up
+ * @property {React.ReactElement} inputChildren - components used below chat container
+ * @property {React.ReactElement} chatContainerChildren - components used in chat container
+ */
 export interface IChatPageProps {
     isPopUpVisible?: boolean;
     isLoading?: boolean;

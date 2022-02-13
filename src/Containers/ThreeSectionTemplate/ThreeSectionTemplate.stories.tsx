@@ -64,7 +64,7 @@ export default {
     title: 'Voice User Interface/ThreeSection/ThreeSection Template',
     component: ThreeSectionTemplate,
     args: {
-        logoSubSectionColor: MainTheme.colors.primary,
+        bottomLeftSectionColor: MainTheme.colors.primary,
         parallaxProps: {
             blur: { min: -8, max: 8 },
             bgImage: IMAGE,
@@ -93,8 +93,13 @@ export default {
     },
 } as Meta;
 
+
 export const Empty: Story<IThreeSectionProps> = () => (
-  <ThreeSectionTemplate />
+  <ThreeSectionTemplate {...{
+    topSectionColor: 'red',
+    bottomLeftSectionColor: 'green',
+    bottomRightSectionColor: 'blue',
+  }} />
 );
 
 export const Homepage: Story<IThreeSectionProps> = (args) => (

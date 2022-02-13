@@ -23,12 +23,23 @@ interface IParallaxProps {
   strength: number;
 }
 
+/**
+ * @property {React.ReactElement} topSectionChildren - components for top half of template
+ * @property {React.ReactElement} bottomLeftSectionChildren - components for bottom left subsection
+ * @property {React.ReactElement} bottomRightSectionChildren - components for bottom right subsection
+ * @property {IParallaxProps} parallaxProps - background for top section
+ * @property {string} topSectionColor - background for top section
+ * @property {string} bottomLeftSectionColor - background color for bottom left
+ * @property {string} bottomRightSectionColor - background color for bottom right
+ */
 export interface IThreeSectionProps {
   topSectionChildren?: React.ReactElement;
   bottomLeftSectionChildren?: React.ReactElement;
   bottomRightSectionChildren?: React.ReactElement;
   parallaxProps?: IParallaxProps;
-  logoSubSectionColor?: string;
+  topSectionColor?: string;
+  bottomLeftSectionColor?: string;
+  bottomRightSectionColor?: string;
 }
 
 export const ThreeSectionTemplate: React.FC<IThreeSectionProps> = ({
@@ -36,19 +47,24 @@ export const ThreeSectionTemplate: React.FC<IThreeSectionProps> = ({
   bottomLeftSectionChildren,
   bottomRightSectionChildren,
   parallaxProps,
-  logoSubSectionColor = MainTheme.colors.primary,
+  topSectionColor = 'transparent',
+  bottomLeftSectionColor = MainTheme.colors.background,
+  bottomRightSectionColor = MainTheme.colors.background,
   ...props
 }): React.ReactElement => (
     <ThreeSectionContainer {...props}>
         <Parallax {...parallaxProps} >
               <Section>
-                <HomepageContainer children={topSectionChildren} />
+                <Subsection bgCol={topSectionColor}>
+                  <HomepageContainer children={topSectionChildren} />
+                </Subsection>
               </Section>
         </Parallax>
         <Section>
-            <Subsection bgCol={logoSubSectionColor} 
+            <Subsection bgCol={bottomLeftSectionColor} 
               children={bottomLeftSectionChildren} />
-            <Subsection children={bottomRightSectionChildren} />
+            <Subsection bgCol = {bottomRightSectionColor}
+              children={bottomRightSectionChildren} />
         </Section>
     </ThreeSectionContainer>
 );
