@@ -4,6 +4,7 @@ import {
     DraggableTable,
     IDraggableTable,
 } from '@Containers/EditDraggableCanvas/_DraggableTable';
+import {action} from "@storybook/addon-actions";
 
 
 export default {
@@ -32,9 +33,6 @@ const handleOnChairClick = (
     chairIndex: number,
     selectedTableIndex: number,
 ) => {
-    console.log(
-        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
-    );
 };
 
 /**
@@ -73,10 +71,7 @@ FourTopTable.args = {
                 isRound: true,
                 relativeSize: 1,
                 tableUse: 'TableForEditCanvas',
-                chairIndex: 0,
-                tableIndex: 2,
-                selectedIndex: 3,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("Chair is clicked"),
             },
             {
                 position: 'top',
@@ -86,9 +81,6 @@ FourTopTable.args = {
                 isRound: true,
                 relativeSize: 1,
                 tableUse: 'TableForEditCanvas',
-                chairIndex: 1,
-                tableIndex: 2,
-                selectedIndex: 3,
                 onChairClick: handleOnChairClick,
             },
             {
@@ -99,9 +91,6 @@ FourTopTable.args = {
                 isRound: true,
                 relativeSize: 1,
                 tableUse: 'TableForEditCanvas',
-                chairIndex: 2,
-                tableIndex: 2,
-                selectedIndex: 3,
                 onChairClick: handleOnChairClick,
             },
             {
@@ -112,9 +101,6 @@ FourTopTable.args = {
                 isRound: true,
                 relativeSize: 1,
                 tableUse: 'TableForEditCanvas',
-                chairIndex: 3,
-                tableIndex: 2,
-                selectedIndex: 3,
                 onChairClick: handleOnChairClick,
             },
             {
@@ -125,9 +111,6 @@ FourTopTable.args = {
                 isRound: true,
                 relativeSize: 1,
                 tableUse: 'TableForEditCanvas',
-                chairIndex: 4,
-                tableIndex: 2,
-                selectedIndex: 3,
                 onChairClick: handleOnChairClick,
             },
             {
@@ -138,9 +121,6 @@ FourTopTable.args = {
                 isRound: true,
                 relativeSize: 1,
                 tableUse: 'TableForEditCanvas',
-                chairIndex: 5,
-                tableIndex: 2,
-                selectedIndex: 3,
                 onChairClick: handleOnChairClick,
             },
         ],
