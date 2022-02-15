@@ -112,8 +112,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
     const bottomArray = Array<IChair>();
     const leftArray = Array<IChair>();
 
-    chairs.map((chair, index):void => {
-        chair.chairIndex = index;
+    chairs.map((chair):void => {
         if (chair.position === 'top') {
             topArray.push(chair);
         } else if (chair.position === 'right') {
@@ -196,7 +195,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 isVisible: false,
                 relativeSize,
                 tableUse,
-                chairIndex: invisibileChairs.length
             });
         }
     };

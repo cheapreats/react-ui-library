@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { CircleTable, ITable } from '@Containers';
+import {action} from "@storybook/addon-actions";
 
 
 export default {
@@ -17,17 +18,6 @@ const handleTableClick = () => {
     console.log();
 };
 
-/**
- * Prints the Selected Child index to the console when Chair is clicked
- * @param chairIndex
- */
-const handleOnChairClick = (
-    chairIndex: number,
-) => {
-    console.log(
-        `Chair: ${chairIndex}`,
-    );
-};
 
 /**
  *Creates a SquareTable component with 4 chairs
@@ -48,8 +38,7 @@ FourTopTable.args = {
             isRound: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
-            chairIndex: 0,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -59,8 +48,7 @@ FourTopTable.args = {
             isRound: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
-            chairIndex: 0,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -70,8 +58,7 @@ FourTopTable.args = {
             isRound: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
-            chairIndex: 0,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -81,8 +68,7 @@ FourTopTable.args = {
             isRound: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
-            chairIndex: 0,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -92,8 +78,7 @@ FourTopTable.args = {
             isRound: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
-            chairIndex: 0,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -103,8 +88,7 @@ FourTopTable.args = {
             isRound: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
-            chairIndex: 0,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -114,8 +98,7 @@ FourTopTable.args = {
             isRound: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
-            chairIndex: 0,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -125,8 +108,7 @@ FourTopTable.args = {
             isRound: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
-            chairIndex: 0,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -136,8 +118,7 @@ FourTopTable.args = {
             isRound: true,
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
-            chairIndex: 0,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
     ],
     relativeSize: 0.5,
@@ -161,8 +142,7 @@ TableForEditDraggableCanvas.args = {
             isRound: true,
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
-            chairIndex: 1,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -172,8 +152,7 @@ TableForEditDraggableCanvas.args = {
             isRound: true,
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
-            chairIndex: 1,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -183,8 +162,7 @@ TableForEditDraggableCanvas.args = {
             isRound: true,
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
-            chairIndex: 2,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -194,8 +172,7 @@ TableForEditDraggableCanvas.args = {
             isRound: true,
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
-            chairIndex: 3,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -205,8 +182,7 @@ TableForEditDraggableCanvas.args = {
             isRound: true,
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
-            chairIndex: 4,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
         {
             position: 'top',
@@ -216,8 +192,7 @@ TableForEditDraggableCanvas.args = {
             isRound: true,
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
-            chairIndex: 5,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("Chair is clicked"),
         },
     ],
     tableUse: 'TableForEditCanvas',

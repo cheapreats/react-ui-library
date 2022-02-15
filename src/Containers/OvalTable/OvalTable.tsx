@@ -52,7 +52,6 @@ export const OvalTable: React.FC<IOvalTable> = ({
                         isVisible={isVisible}
                         isRound={isRound}
                         tableUse={tableUse}
-                        chairIndex={index}
                         onChairClick={chair.onChairClick}
                     />
                 </ChairWrapper>
