@@ -41,18 +41,6 @@ export const CircleTable: React.FC<ITable> = ({
     const tableBodyRef = useRef(document.createElement('div'));
 
     /**
-     * Use useEffect to keep focus on TableBody after re-render if the
-     * selectedIndex number matches the arrayIndex number for this table
-     */
-    useEffect(() => {
-        if (selectedIndex === arrayIndex) {
-            if (tableBodyRef != null) {
-                tableBodyRef.current.focus();
-            }
-        }
-    });
-
-    /**
      * Calls the onTableClick prop function with the arrayIndex prop as its
      * parameter
      */

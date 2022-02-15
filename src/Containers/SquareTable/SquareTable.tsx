@@ -71,18 +71,10 @@ export interface ITable {   // todo: refactor interface to separate file?
      */
     tableUse: tableUseTypes;
     /**
-    * Array index number for this table (Table Index)
-    */
-    arrayIndex?: number; // todo: not needed
-    /**
-     * Index number for the currently selected table
-     */
-    selectedIndex: number; // todo: not needed
-    /**
      * Function to handle onClick event for the table
      * @param selectedChildIndex - the array index for the table
      */
-    onTableClick: (selectedChildIndex: number) => void;
+    onTableClick: () => void;
     /**
      * Determines if the table is used in the toolbar or not
      */
@@ -110,8 +102,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
     relativeSize = 1.0,
     isSquare = false,
     tableUse = 'TableForManagement',
-    arrayIndex = 0,
-    selectedIndex = -1,
     onTableClick,
     isNotHighlightedWhenSelected = false,
     ...props
@@ -145,7 +135,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * parameter
      */
     const callOnTableClick: callOnTableClickType = () =>
-        onTableClick(arrayIndex);
+        onTableClick();
 
     /**
      * Determines how many chairs to put per each side
@@ -275,7 +265,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 chairs={topArray}
                 relativeSize={relativeSize}
                 tableUse={tableUse}
-                selectedIndex={selectedIndex}
             />
 
             {/** table itself */}
@@ -287,7 +276,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="left"
                         chairs={leftArray}
                         tableUse={tableUse}
-                        selectedIndex={selectedIndex}
                     />
 
                     <TableBody
@@ -313,7 +301,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="right"
                         chairs={rightArray}
                         tableUse={tableUse}
-                        selectedIndex={selectedIndex}
                     />
                 </Row>
             </div>
@@ -324,7 +311,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 position="bottom"
                 chairs={bottomArray}
                 tableUse={tableUse}
-                selectedIndex={selectedIndex}
             />
         </div>
     );
