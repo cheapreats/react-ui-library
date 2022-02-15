@@ -82,9 +82,6 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                 isVisible: true,
                 relativeSize: 1,
                 tableUse: 'TableForManagement',
-                chairIndex: 0,
-                tableIndex: 0,
-                selectedIndex: 0,
                 onChairClick: () => {
                     console.log();
                 },
@@ -96,9 +93,6 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                 isVisible: true,
                 relativeSize: 1,
                 tableUse: 'TableForManagement',
-                chairIndex: 0,
-                tableIndex: 0,
-                selectedIndex: 0,
                 onChairClick: () => {
                     console.log();
                 },
