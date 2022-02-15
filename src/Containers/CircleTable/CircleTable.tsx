@@ -32,7 +32,6 @@ export const CircleTable: React.FC<ITable> = ({
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
     onTableClick,
-    isNotHighlightedWhenSelected = false,
     ...props
 }) => {
     // Create a reference to the TableBody styled component
@@ -143,7 +142,6 @@ export const CircleTable: React.FC<ITable> = ({
                 tableUse={tableUse}
                 tabIndex={0}
                 onClick={callOnTableClick}
-                toolbarUse={isNotHighlightedWhenSelected}
             >
                 {getChairs()}
                 {getTableInfoContent(tableUse)}
@@ -236,7 +234,6 @@ interface ITableBody {
     tableUse: string;
     tabIndex: number;
     onClick: (e: Event) => void;
-    toolbarUse: boolean;
 }
 
 const TableBody = styled.div<ITableBody>`
@@ -279,10 +276,6 @@ const TableBody = styled.div<ITableBody>`
     padding: 0;
     outline: none;
     cursor: pointer;
-    &:focus {
-        box-shadow: ${({ toolbarUse }) => (!toolbarUse ? '0 0 0 2px' : '')};
-        ${({ theme }) => theme.colors.primary};
-    }
 `;
 
 interface IChairWrapper {

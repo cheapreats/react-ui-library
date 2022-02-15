@@ -75,10 +75,6 @@ export interface ITable {   // todo: refactor interface to separate file?
      * @param selectedChildIndex - the array index for the table
      */
     onTableClick: () => void;
-    /**
-     * Determines if the table is used in the toolbar or not
-     */
-    isNotHighlightedWhenSelected?: boolean;
 }
 
 export interface ISquareTable extends ITable{
@@ -103,7 +99,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
     isSquare = false,
     tableUse = 'TableForManagement',
     onTableClick,
-    isNotHighlightedWhenSelected = false,
     ...props
 }):React.ReactElement => {
     // Create a reference to the TableBody styled component
@@ -290,7 +285,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         tableUse={tableUse}
                         tabIndex={0}
                         onClick={callOnTableClick}
-                        toolbarUse={isNotHighlightedWhenSelected}
                     >
                         {getTableBodyContent(tableUse)}
                     </TableBody>
@@ -347,7 +341,6 @@ interface ITableBody {
     relativeSize: number;
     tableUse: tableUseTypes;
     onClick: (e: Event) => void;
-    toolbarUse: boolean;
 }
 
 const TableBody = styled.div<ITableBody>`
@@ -370,10 +363,6 @@ const TableBody = styled.div<ITableBody>`
     border: none;
     outline: none;
     cursor: pointer;
-    &:focus {
-        box-shadow: ${({ toolbarUse }) => (!toolbarUse ? '0 0 0 2px' : '')};
-        ${({ theme }) => theme.colors.primary};
-    }
 `;
 
 interface IColorDiv {
