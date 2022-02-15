@@ -3,7 +3,6 @@ import { Meta, Story } from '@storybook/react';
 import { ISquareTable, SquareTable } from '@Containers';
 import {action} from "@storybook/addon-actions";
 
-
 export default {
     title: 'Components/TableManagement/SquareTable',
     component: SquareTable,

@@ -1,6 +1,8 @@
 import React from 'react';
 import { Story, Meta } from '@storybook/react';
 import { IChair, IDraggableTable } from '@Containers';
+import {action} from "@storybook/addon-actions";
+
 import {
     SeatingInfoInput,
     ISeatingInfoInput,
@@ -45,16 +47,6 @@ const handleTableClick = () => {
 };
 
 /**
- * Changes the visibility of the a Chair when Chair is clicked
- * @param chairIndex
- */
-const handleOnChairClick = (
-    chairIndex: number,
-) => {
-    console.log(chairIndex);
-};
-
-/**
  * An IChair object that can be modified for use with the
  * various types of tables
  */
@@ -66,8 +58,7 @@ const chairObjectForTables: IChair = {
     isRound: true,
     relativeSize: 1,
     tableUse: 'TableForEditCanvas',
-    chairIndex: 0,
-    onChairClick: handleOnChairClick,
+    onChairClick: action("Chair is clicked"),
 };
 
 /**
@@ -108,7 +99,7 @@ const tableObjectForCanvas: IDraggableTable = {
     isDisabled: false,
     selectedIndex: 1,
     onTableClick: handleTableClick,
-    onChairClick: handleOnChairClick,
+    onChairClick: action("Chair is clicked"),
     layoutName: 'Dining Room',
 };
 
