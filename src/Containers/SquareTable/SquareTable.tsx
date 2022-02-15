@@ -139,9 +139,9 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * and adds invisible chairs if needed so array size matches target size
      * Changed name from fillArray to addInvisibleChairs for clarity
      */
-    const addInvisibleChairs: addInvisibleChairs = (invisibileChairs, size, position) => {
-        while (invisibileChairs.length < size) {
-            invisibileChairs.push({
+    const addInvisibleChairs: addInvisibleChairs = (invisibleChairs, size, position) => {
+        while (invisibleChairs.length < size) {
+            invisibleChairs.push({
                 position,
                 isSeated: false,
                 occupiedBy: '',
