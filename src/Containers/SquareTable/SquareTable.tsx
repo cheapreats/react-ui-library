@@ -2,7 +2,7 @@
  * Documentation – the order of chairs are in the chairs array will populate the table from top left to the bottom right
  * “the purpose of the order in the array is to populate the chairs from top left to bottom right”
  */
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Plus } from '@styled-icons/boxicons-regular';
 import { IChair } from '../Chair/Chair';
@@ -71,13 +71,13 @@ export interface ITable {   // todo: refactor interface to separate file?
      */
     tableUse: tableUseTypes;
     /**
-     * Array index number for this table (Table Index)
-     */
-    arrayIndex?: number; // todo: not needed?
+    * Array index number for this table (Table Index)
+    */
+    arrayIndex?: number; // todo: not needed
     /**
      * Index number for the currently selected table
      */
-    selectedIndex: number; // todo: not needed?
+    selectedIndex: number; // todo: not needed
     /**
      * Function to handle onClick event for the table
      * @param selectedChildIndex - the array index for the table
@@ -118,18 +118,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
 }):React.ReactElement => {
     // Create a reference to the TableBody styled component
     const tableBodyRef = useRef(document.createElement('div'));
-
-    /**
-     * Use useEffect to keep focus on TableBody after re-render if the
-     * selectedIndex number matches the arrayIndex number for this table
-     */
-    useEffect(() => {
-        if (selectedIndex === arrayIndex) {
-            if (tableBodyRef != null) {
-                tableBodyRef.current.focus();
-            }
-        }
-    });
 
     /**
      * Split chairs array into four arrays for each table side
