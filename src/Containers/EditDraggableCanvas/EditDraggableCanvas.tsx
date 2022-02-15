@@ -35,7 +35,7 @@ export interface IEditDraggableCanvas {
      * Function to handle onClick event for the table
      * @param selectedChildIndex - the array index for the table
      */
-    onTableClick: (selectedChildIndex: number) => void;
+    onTableClick: () => void;
     /**
      * The function that will pass over the index value of DraggableTable in the array with its
      * coordinates on the canvas (x,y)
