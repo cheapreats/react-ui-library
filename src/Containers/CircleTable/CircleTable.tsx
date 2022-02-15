@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Chair } from '@Containers/Chair/Chair';
 import { Plus } from '@styled-icons/boxicons-regular';
-import {ITable} from "@Containers/SquareTable/SquareTable";
+import {ITable} from "@Utils";
 
 export type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 

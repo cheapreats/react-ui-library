@@ -1,6 +1,7 @@
 import React from "react";
-import {Chair, ITable} from "@Containers";
+import {Chair} from "@Containers";
 import styled from "styled-components";
+import {ITable} from "@Utils";
 
 type chairsPositionType =
     | 'top'

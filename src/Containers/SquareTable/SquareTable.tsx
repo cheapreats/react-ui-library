@@ -2,15 +2,14 @@
  * Documentation – the order of chairs are in the chairs array will populate the table from top left to the bottom right
  * “the purpose of the order in the array is to populate the chairs from top left to bottom right”
  */
-import React, { useRef } from 'react';
-import styled, { useTheme } from 'styled-components';
-import { Plus } from '@styled-icons/boxicons-regular';
-import { IChair } from '../Chair/Chair';
-import { ChairRow } from './_ChairRow';
+import React, {useRef} from 'react';
+import styled, {useTheme} from 'styled-components';
+import {Plus} from '@styled-icons/boxicons-regular';
+import {ITable, occupancyStatusTypes, tableUseTypes} from "@Utils";
+import {IChair} from '../Chair/Chair';
+import {ChairRow} from './_ChairRow';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
-
-type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
 
 type callOnTableClickType = () => void;
 
@@ -30,52 +29,6 @@ type addInvisibleChairs = (
 ) => void;
 
 type getTableBodyContentType = (tableUse: tableUseTypes) => JSX.Element;
-
-type tableUseTypes =
-    | 'AddTableButton'
-    | 'TableForEditCanvas'
-    | 'TableForManagement';
-
-export interface ITable {   // todo: refactor interface to separate file?
-    /**
-     * The shape for the ISquareTable ("Square", "HorizontalRectangle", "VerticalRectangle")
-     */
-    tableShape: 'Square' | 'HorizontalRectangle' | 'VerticalRectangle' | 'Circle' | 'Oval';
-    /**
-     * The unique identifier for the table (Table Name)
-     */
-    tableID: string;
-    /**
-     * The name of the party assigned to the table
-     */
-    partyName: string;
-    /**
-     * The occupancy status for the table
-     */
-    occupancyStatus: occupancyStatusTypes;
-    /**
-     * Timer for the last time that table was served
-     * format: Hours:Minutes:Seconds
-     */
-    timeLastServed: string;
-    /**
-     * Array of chairs
-     */
-    chairs: Array<IChair>;
-    /**
-     * The size for the component relative to the parent
-     */
-    relativeSize: number;
-    /**
-     * The use type for the table component (how it will be used in the app)
-     */
-    tableUse: tableUseTypes;
-    /**
-     * Function to handle onClick event for the table
-     * @param selectedChildIndex - the array index for the table
-     */
-    onTableClick: () => void;
-}
 
 export interface ISquareTable extends ITable{
     /**

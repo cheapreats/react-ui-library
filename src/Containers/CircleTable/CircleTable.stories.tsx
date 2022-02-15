@@ -1,7 +1,8 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { CircleTable, ITable } from '@Containers';
+import { CircleTable} from '@Containers';
 import {action} from "@storybook/addon-actions";
+import {ITable} from "@Utils";
 
 
 export default {
