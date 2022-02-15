@@ -33,15 +33,12 @@ export interface IChair {
     relativeSize: number;
     /* The use type for the table component (how it will be used in the app) */
     tableUse: tableUseTypes;
-    /* Unique index for each chair */
-    chairIndex: number; // todo: remove
     /**
      * Function to handle onClick event for the chair
      * @param parentTableIndex - parent table index in the tables array
      * @param chairIndex - chair index in chair array
      */
     onChairClick?: (
-        chairIndex: number,
     ) => void;
 }
 
@@ -56,7 +53,6 @@ export const Chair: React.FC<IChair> = ({
     isRound = false,
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
-    chairIndex = -1,
     onChairClick,
     ...props
 }) => {
@@ -152,7 +148,7 @@ export const Chair: React.FC<IChair> = ({
      */
     const onHandleClick: handleClickType = () => {
         if (onChairClick) {
-            onChairClick(chairIndex);
+            onChairClick();
         }
     };
 
