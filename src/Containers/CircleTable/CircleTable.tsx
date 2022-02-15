@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Chair } from '@Containers/Chair/Chair';
 import { Plus } from '@styled-icons/boxicons-regular';
@@ -31,9 +31,7 @@ export const CircleTable: React.FC<ITable> = ({
     timeLastServed= '0:00:00',
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
-    arrayIndex = 0,
     onTableClick,
-    selectedIndex = -1,
     isNotHighlightedWhenSelected = false,
     ...props
 }) => {
@@ -45,7 +43,7 @@ export const CircleTable: React.FC<ITable> = ({
      * parameter
      */
     const callOnTableClick: callOnTableClickType = () =>
-        onTableClick(arrayIndex);
+        onTableClick();
 
     /**
      * Returns a JSX element array containing the Chairs and ChairWrappers

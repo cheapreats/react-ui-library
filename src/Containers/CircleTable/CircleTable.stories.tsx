@@ -1,6 +1,6 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
-import { CircleTable, ICircleTable } from '@Containers';
+import { CircleTable, ITable } from '@Containers';
 
 
 export default {
@@ -8,29 +8,24 @@ export default {
     component: CircleTable,
 } as Meta;
 
-const Template: Story<ICircleTable> = (args) => <CircleTable {...args} />;
+const Template: Story<ITable> = (args) => <CircleTable {...args} />;
 
 /**
  * Prints the Selected Child index to the console when Table is clicked
- * @param selectedChildIndex
  */
-const handleTableClick = (selectedChildIndex: number) => {
-    console.log(selectedChildIndex);
+const handleTableClick = () => {
+    console.log();
 };
 
 /**
  * Prints the Selected Child index to the console when Chair is clicked
- * @param tableIndex
  * @param chairIndex
- * @param selectedTableIndex
  */
 const handleOnChairClick = (
-    tableIndex: number,
     chairIndex: number,
-    selectedTableIndex: number,
 ) => {
     console.log(
-        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
+        `Chair: ${chairIndex}`,
     );
 };
 
@@ -54,8 +49,6 @@ FourTopTable.args = {
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
             chairIndex: 0,
-            tableIndex: 0,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -67,8 +60,6 @@ FourTopTable.args = {
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
             chairIndex: 0,
-            tableIndex: 0,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -80,8 +71,6 @@ FourTopTable.args = {
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
             chairIndex: 0,
-            tableIndex: 0,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -93,8 +82,6 @@ FourTopTable.args = {
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
             chairIndex: 0,
-            tableIndex: 0,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -106,8 +93,6 @@ FourTopTable.args = {
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
             chairIndex: 0,
-            tableIndex: 0,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -119,8 +104,6 @@ FourTopTable.args = {
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
             chairIndex: 0,
-            tableIndex: 0,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -132,8 +115,6 @@ FourTopTable.args = {
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
             chairIndex: 0,
-            tableIndex: 0,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -145,8 +126,6 @@ FourTopTable.args = {
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
             chairIndex: 0,
-            tableIndex: 0,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -158,16 +137,12 @@ FourTopTable.args = {
             relativeSize: 0.5,
             tableUse: 'TableForManagement',
             chairIndex: 0,
-            tableIndex: 0,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
     ],
     relativeSize: 0.5,
     tableUse: 'TableForManagement',
     onTableClick: handleTableClick,
-    selectedIndex: -1,
-    onChairClick: handleOnChairClick,
 };
 
 export const TableForEditDraggableCanvas = Template.bind({});
@@ -187,8 +162,6 @@ TableForEditDraggableCanvas.args = {
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
             chairIndex: 1,
-            tableIndex: 2,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -200,8 +173,6 @@ TableForEditDraggableCanvas.args = {
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
             chairIndex: 1,
-            tableIndex: 2,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -213,8 +184,6 @@ TableForEditDraggableCanvas.args = {
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
             chairIndex: 2,
-            tableIndex: 2,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -226,8 +195,6 @@ TableForEditDraggableCanvas.args = {
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
             chairIndex: 3,
-            tableIndex: 2,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -239,8 +206,6 @@ TableForEditDraggableCanvas.args = {
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
             chairIndex: 4,
-            tableIndex: 2,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
         {
@@ -252,14 +217,9 @@ TableForEditDraggableCanvas.args = {
             relativeSize: 1,
             tableUse: 'TableForEditCanvas',
             chairIndex: 5,
-            tableIndex: 2,
-            selectedIndex: 3,
             onChairClick: handleOnChairClick,
         },
     ],
     tableUse: 'TableForEditCanvas',
     onTableClick: handleTableClick,
-    onChairClick: handleOnChairClick,
-    arrayIndex: 2,
-    selectedIndex: -1,
 };

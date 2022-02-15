@@ -40,8 +40,8 @@ const handleEndReservationClick = () => {
     console.log('EndReservation button has been clicked');
 };
 
-const handleTableClick = (selectedTableIndex: number) => {
-    console.log(selectedTableIndex);
+const handleTableClick = () => {
+    console.log();
 };
 
 /**
@@ -100,7 +100,6 @@ const tableObjectForCanvas: IDraggableTable = {
         chairs: [],
         relativeSize: 0.25,
         tableUse: 'TableForEditCanvas',
-        selectedIndex: 1,
         onTableClick: handleTableClick
     },
     handleStop: handleDragEnd,
@@ -139,7 +138,6 @@ const mockLayoutForManagePage: Array<IDraggableTable> = [
                 },
             ],
             tableUse: 'TableForManagement',
-            arrayIndex: 0,
         },
         defaultXY: { x: 50, y: 24 },
     },
@@ -174,7 +172,6 @@ const mockLayoutForManagePage: Array<IDraggableTable> = [
                 },
             ],
             tableUse: 'TableForManagement',
-            arrayIndex: 1,
         },
         defaultXY: { x: 375, y: 37 },
     },
@@ -218,7 +215,6 @@ const mockLayoutForManagePage: Array<IDraggableTable> = [
                 },
             ],
             tableUse: 'TableForManagement',
-            arrayIndex: 2,
         },
         defaultXY: { x: 367, y: 144 },
     },
@@ -252,7 +248,6 @@ const mockLayoutForManagePage: Array<IDraggableTable> = [
                     tableUse: 'TableForManagement',
                 },
             ],
-            arrayIndex: 3,
             tableUse: 'TableForManagement',
         },
         defaultXY: { x: 210, y: 57 },
@@ -296,7 +291,6 @@ const mockLayoutForManagePage: Array<IDraggableTable> = [
                     tableUse: 'TableForManagement',
                 },
             ],
-            arrayIndex: 4,
             tableUse: 'TableForManagement',
         },
         defaultXY: { x: 43, y: 177 },

@@ -34,7 +34,7 @@ export interface IChair {
     /* The use type for the table component (how it will be used in the app) */
     tableUse: tableUseTypes;
     /* Unique index for each chair */
-    chairIndex: number;
+    chairIndex: number; // todo: remove
     /**
      * Function to handle onClick event for the chair
      * @param parentTableIndex - parent table index in the tables array

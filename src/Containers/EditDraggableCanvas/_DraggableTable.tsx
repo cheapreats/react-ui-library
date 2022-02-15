@@ -29,7 +29,7 @@ export interface IDraggableTable {
      * Function to handle onClick event for the table
      * @param selectedChildIndex - the array index for the table
      */
-    onTableClick: (selectedChildIndex: number) => void;
+    onTableClick: () => void;
     /**
      * The function that will pass over the index value of DraggableTable in the array with its
      * coordinates on the canvas (x,y)
@@ -112,8 +112,6 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
     isDisabled = false,
     onTableClick,
     handleStop,
-    selectedIndex = -1,
-    onChairClick,
     // layoutName = 'Dining Room',
     ...props
 }) => {
@@ -154,9 +152,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     relativeSize={tableInput.relativeSize}
                     chairs={tableInput.chairs}
                     tableUse={tableInput.tableUse}
-                    arrayIndex={arrayIndex}
                     onTableClick={onTableClick}
-                    selectedIndex={selectedIndex}
                 />
             );
         case 'HorizontalRectangle':
@@ -171,9 +167,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     relativeSize={tableInput.relativeSize}
                     chairs={tableInput.chairs}
                     tableUse={tableInput.tableUse}
-                    arrayIndex={arrayIndex}
                     onTableClick={onTableClick}
-                    selectedIndex={selectedIndex}
                 />
             );
         case 'VerticalRectangle':
@@ -188,9 +182,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     relativeSize={tableInput.relativeSize}
                     chairs={tableInput.chairs}
                     tableUse={tableInput.tableUse}
-                    arrayIndex={arrayIndex}
                     onTableClick={onTableClick}
-                    selectedIndex={selectedIndex}
                 />
             );
         case 'Circle':
@@ -204,9 +196,7 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     relativeSize={tableInput.relativeSize}
                     chairs={tableInput.chairs}
                     tableUse={tableInput.tableUse}
-                    arrayIndex={arrayIndex}
                     onTableClick={onTableClick}
-                    selectedIndex={selectedIndex}
                 />
             );
         default:

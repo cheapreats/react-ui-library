@@ -34,10 +34,6 @@ interface IChairRow {
      * The use type for the table component (how it will be used in the app)
      */
     tableUse: tableUseTypes;
-    /**
-     * Index number for the currently selected table
-     */
-    selectedIndex: number;
 }
 
 /**
@@ -48,7 +44,6 @@ export const ChairRow: React.FC<IChairRow> = ({
     chairs = [],
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
-    selectedIndex = -1,
     ...props
 }) => {
     /**
@@ -67,9 +62,7 @@ export const ChairRow: React.FC<IChairRow> = ({
                     relativeSize={relativeSize}
                     tableUse={tableUse}
                     chairIndex={i.chairIndex}
-                    tableIndex={i.tableIndex}
                     onChairClick={i.onChairClick}
-                    selectedIndex={selectedIndex}
                 />
             </ChairCol>
         ));
@@ -94,9 +87,7 @@ export const ChairRow: React.FC<IChairRow> = ({
                         relativeSize={relativeSize}
                         tableUse={tableUse}
                         chairIndex={i.chairIndex}
-                        tableIndex={i.tableIndex}
                         onChairClick={i.onChairClick}
-                        selectedIndex={selectedIndex}
                     />
                 </SideChairCentering>
             </SideChairRow>
