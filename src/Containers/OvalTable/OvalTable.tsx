@@ -15,7 +15,6 @@ type getChairsType = () => JSX.Element[];
 export interface IOvalTable extends ITable{
     /* Identifier of chairs placement relative to the table */
     chairsPosition: chairsPositionType;
-
 }
 
 /**
@@ -25,8 +24,6 @@ export const OvalTable: React.FC<IOvalTable> = ({
     chairs = [],
     relativeSize = 1.0,
     tableUse = 'TableForManagement',
-    // arrayIndex = 0,
-    // selectedIndex = -1,
     chairsPosition = 'around',
 
     ...props
