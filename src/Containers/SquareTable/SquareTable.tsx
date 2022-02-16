@@ -23,7 +23,7 @@ type getSquareTableSizeType = (
 type getRectangleTableType = (top: number, bottom: number) => number;
 
 type addInvisibleChairs = (
-    invisibileChairs: Array<IChair>,
+    invisibleChairs: Array<IChair>,
     targetSize: number,
     position: Position,
 ) => void;

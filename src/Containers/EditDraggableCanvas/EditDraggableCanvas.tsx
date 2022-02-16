@@ -33,7 +33,6 @@ export interface IEditDraggableCanvas {
     tables?: Array<IDraggableTable>;
     /**
      * Function to handle onClick event for the table
-     * @param selectedChildIndex - the array index for the table
      */
     onTableClick: () => void;
     /**
