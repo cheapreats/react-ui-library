@@ -34,8 +34,8 @@ const handleOnStop = (
  */
 export const FourTopTable = Template.bind({});
 FourTopTable.args = {
+    tableShape: 'Circle',
     tableInput: {
-        tableShape: 'Circle',
         tableID: 'T4',
         partyName: 'Scott',
         occupancyStatus: 'Occupied',

@@ -6,7 +6,7 @@ export interface ITable {
     /**
      * The shape for the ISquareTable ("Square", "HorizontalRectangle", "VerticalRectangle")
      */
-    tableShape: 'Square' | 'HorizontalRectangle' | 'VerticalRectangle' | 'Circle' | 'Oval';
+    // tableShape: 'Square' | 'HorizontalRectangle' | 'VerticalRectangle' | 'Circle' | 'Oval';
     /**
      * The unique identifier for the table (Table Name)
      */
@@ -23,7 +23,7 @@ export interface ITable {
      * Timer for the last time that table was served
      * format: Hours:Minutes:Seconds
      */
-    timeLastServed: string;
+    timeLastServed?: string;
     /**
      * Array of chairs
      */

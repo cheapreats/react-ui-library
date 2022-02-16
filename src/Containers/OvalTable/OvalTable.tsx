@@ -14,7 +14,7 @@ type getChairsType = () => JSX.Element[];
 
 export interface IOvalTable extends ITable{
     /* Identifier of chairs placement relative to the table */
-    chairsPosition: chairsPositionType;
+    chairsPosition?: chairsPositionType;
 }
 
 /**

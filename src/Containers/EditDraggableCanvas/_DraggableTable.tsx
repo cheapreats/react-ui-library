@@ -1,14 +1,19 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Draggable from 'react-draggable';
-import {ISquareTable, SquareTable} from '@Containers/SquareTable/SquareTable';
+import { SquareTable } from '@Containers/SquareTable/SquareTable';
+import { ITable } from "@Utils";
 import { CircleTable } from '@Containers/CircleTable/CircleTable';
+import { OvalTable } from '@Containers/OvalTable/OvalTable';
 
 type getTableComponentType = () => JSX.Element | null;
 
-type tableInputType = ISquareTable;
+type tableInputType = ITable;
+
+type tableShapeType = 'Square' | 'Circle' | 'Oval';
 
 export interface IDraggableTable {
+    tableShape: tableShapeType;
     /**
      * The input for the DraggableTable
      */
@@ -67,8 +72,8 @@ export interface IDraggableTable {
  * EditDraggableCanvas
  */
 export const DraggableTable: React.FC<IDraggableTable> = ({
+    tableShape = "Square",
     tableInput = {
-        tableShape: '',
         tableID: 'T1',
         partyName: '',
         occupancyStatus: 'Vacant',
@@ -127,14 +132,12 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
      * @returns {JSX.Element | null} the correct JSX.Element for the Table component
      */
     const getTableComponent: getTableComponentType = () => {
-        switch (tableInput.tableShape) {
+        switch (tableShape) {
         case 'Square':
             return (
                 <SquareTable
-                    tableShape={tableInput.tableShape}
                     tableID={tableInput.tableID}
                     partyName={tableInput.partyName}
-                    isSquare={tableInput.isSquare}
                     occupancyStatus={tableInput.occupancyStatus}
                     timeLastServed={tableInput.timeLastServed}
                     relativeSize={tableInput.relativeSize}
@@ -143,28 +146,11 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
                     onTableClick={onTableClick}
                 />
             );
-        case 'HorizontalRectangle':
+        case 'Oval':
             return (
-                <SquareTable
-                    tableShape={tableInput.tableShape}
+                <OvalTable
                     tableID={tableInput.tableID}
                     partyName={tableInput.partyName}
-                    isSquare={tableInput.isSquare}
-                    occupancyStatus={tableInput.occupancyStatus}
-                    timeLastServed={tableInput.timeLastServed}
-                    relativeSize={tableInput.relativeSize}
-                    chairs={tableInput.chairs}
-                    tableUse={tableInput.tableUse}
-                    onTableClick={onTableClick}
-                />
-            );
-        case 'VerticalRectangle':
-            return (
-                <SquareTable
-                    tableShape={tableInput.tableShape}
-                    tableID={tableInput.tableID}
-                    partyName={tableInput.partyName}
-                    isSquare={tableInput.isSquare}
                     occupancyStatus={tableInput.occupancyStatus}
                     timeLastServed={tableInput.timeLastServed}
                     relativeSize={tableInput.relativeSize}
@@ -176,7 +162,6 @@ export const DraggableTable: React.FC<IDraggableTable> = ({
         case 'Circle':
             return (
                 <CircleTable
-                    tableShape={tableInput.tableShape}
                     tableID={tableInput.tableID}
                     partyName={tableInput.partyName}
                     occupancyStatus={tableInput.occupancyStatus}

@@ -22,7 +22,6 @@ const handleTableClick = () => {
  */
 export const SevenTopSquareTable = Template.bind({});
 SevenTopSquareTable.args = {
-    tableShape: 'Square',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
@@ -111,7 +110,6 @@ SevenTopSquareTable.args = {
  */
 export const EightTopVertRectangleTable = Template.bind({});
 EightTopVertRectangleTable.args = {
-    tableShape: 'VerticalRectangle',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Occupied',
@@ -199,7 +197,6 @@ EightTopVertRectangleTable.args = {
  */
 export const SixTopHorizontalRectangleTable = Template.bind({});
 SixTopHorizontalRectangleTable.args = {
-    tableShape: 'HorizontalRectangle',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Reserved',
@@ -267,7 +264,6 @@ SixTopHorizontalRectangleTable.args = {
 
 export const SquareTableEditPage = Template.bind({});
 SquareTableEditPage.args = {
-    tableShape: 'Square',
     tableID: 'T3',
     partyName: 'Dmytro',
     isSquare: false,
@@ -317,7 +313,6 @@ SquareTableEditPage.args = {
 
 export const BarRectangleTable = Template.bind({});
 BarRectangleTable.args = {
-    tableShape: 'VerticalRectangle',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Occupied',
