@@ -1,11 +1,6 @@
 import {IChair} from "@Containers";
-
-export type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
-
-export type tableUseTypes =
-    | 'AddTableButton'
-    | 'TableForEditCanvas'
-    | 'TableForManagement';
+import {occupancyStatusTypes} from "@Utils/Types/OccupancyStatusTypes";
+import {tableUseTypes} from "@Utils/Types/TableUseTypes";
 
 export interface ITable {
     /**

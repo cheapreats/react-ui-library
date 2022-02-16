@@ -8,6 +8,6 @@ export * from './FormatDate';
 export * from './isSameDate';
 
 export { BaseStyles, Constants, Hooks, Mixins };
-export {occupancyStatusTypes} from "@Utils/Types/ITable";
-export {tableUseTypes} from "@Utils/Types/ITable";
 export {ITable} from "@Utils/Types/ITable";
+export {occupancyStatusTypes} from "@Utils/Types/OccupancyStatusTypes";
+export {tableUseTypes} from "@Utils/Types/TableUseTypes";
