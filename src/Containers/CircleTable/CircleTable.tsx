@@ -3,8 +3,7 @@ import styled, { useTheme } from 'styled-components';
 import { Chair } from '@Containers/Chair/Chair';
 import { Plus } from '@styled-icons/boxicons-regular';
 import {ITable} from "@Utils";
-
-export type occupancyStatusTypes = 'Vacant' | 'Reserved' | 'Occupied';
+import {occupancyStatusTypes} from "@Utils/Types/OccupancyStatusTypes";
 
 type callOnTableClickType = () => void;
 
