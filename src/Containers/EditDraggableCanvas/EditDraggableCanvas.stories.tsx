@@ -1,6 +1,7 @@
 import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { EditDraggableCanvas, IEditDraggableCanvas } from '@Containers';
+import {action} from "@storybook/addon-actions";
 
 
 export default {
@@ -16,24 +17,8 @@ const Template: Story<IEditDraggableCanvas> = (args) => (
  * Prints the Selected Child index to the console when Table is clicked
  * @param selectedChildIndex
  */
-const handleTableClick = (selectedChildIndex: number) => {
-    console.log(selectedChildIndex);
-};
-
-/**
- * Prints the Selected Child index to the console when Chair is clicked
- * @param tableIndex
- * @param chairIndex
- * @param selectedTableIndex
- */
-const handleOnChairClick = (
-    tableIndex: number,
-    chairIndex: number,
-    selectedTableIndex: number,
-) => {
-    console.log(
-        `Table: ${tableIndex} Chair: ${chairIndex} SelectedTable: ${selectedTableIndex}`,
-    );
+const handleTableClick = () => {
+    console.log();
 };
 
 /**
@@ -79,7 +64,7 @@ NewUserCanvasExample.args = {
                         chairIndex: 0,
                         tableIndex: 0,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'bottom',
@@ -91,20 +76,20 @@ NewUserCanvasExample.args = {
                         chairIndex: 0,
                         tableIndex: 0,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 selectedIndex: 3,
                 onTableClick: handleTableClick,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("The chair was clicked!"),
             },
             handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
             selectedIndex: 3,
             onTableClick: handleTableClick,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("The chair was clicked!"),
         },
     ],
 };
@@ -141,7 +126,7 @@ EditCanvasExample.args = {
                         chairIndex: 0,
                         tableIndex: 0,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'bottom',
@@ -153,20 +138,20 @@ EditCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 0,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 selectedIndex: 3,
                 onTableClick: handleTableClick,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("The chair was clicked!"),
             },
             handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
             selectedIndex: 3,
             onTableClick: handleTableClick,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("The chair was clicked!"),
         },
         {
             tableInput: {
@@ -188,7 +173,7 @@ EditCanvasExample.args = {
                         chairIndex: 0,
                         tableIndex: 1,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'bottom',
@@ -200,7 +185,7 @@ EditCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 1,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'left',
@@ -212,7 +197,7 @@ EditCanvasExample.args = {
                         chairIndex: 2,
                         tableIndex: 1,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'right',
@@ -224,20 +209,20 @@ EditCanvasExample.args = {
                         chairIndex: 3,
                         tableIndex: 1,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 selectedIndex: 3,
                 onTableClick: handleTableClick,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("The chair was clicked!"),
             },
             handleStop: handleOnStop,
             defaultXY: { x: 375, y: 37 },
             arrayIndex: 0,
             selectedIndex: 3,
             onTableClick: handleTableClick,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("The chair was clicked!"),
         },
         {
             // table 4 beginning
@@ -260,7 +245,7 @@ EditCanvasExample.args = {
                         chairIndex: 0,
                         tableIndex: 2,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -273,7 +258,7 @@ EditCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 2,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -286,7 +271,7 @@ EditCanvasExample.args = {
                         chairIndex: 2,
                         tableIndex: 2,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -299,7 +284,7 @@ EditCanvasExample.args = {
                         chairIndex: 3,
                         tableIndex: 2,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -312,7 +297,7 @@ EditCanvasExample.args = {
                         chairIndex: 4,
                         tableIndex: 2,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -325,20 +310,20 @@ EditCanvasExample.args = {
                         chairIndex: 5,
                         tableIndex: 2,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 selectedIndex: 3,
                 onTableClick: handleTableClick,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("The chair was clicked!"),
             },
             handleStop: handleOnStop,
             defaultXY: { x: 367, y: 154 },
             arrayIndex: 0,
             selectedIndex: 3,
             onTableClick: handleTableClick,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("The chair was clicked!"),
         }, // table 4 end
         {
             // table 3 beginning
@@ -361,7 +346,7 @@ EditCanvasExample.args = {
                         chairIndex: 0,
                         tableIndex: 3,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'bottom',
@@ -373,7 +358,7 @@ EditCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 3,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -385,7 +370,7 @@ EditCanvasExample.args = {
                         chairIndex: 2,
                         tableIndex: 3,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'bottom',
@@ -397,7 +382,7 @@ EditCanvasExample.args = {
                         chairIndex: 4,
                         tableIndex: 3,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'left',
@@ -409,7 +394,7 @@ EditCanvasExample.args = {
                         chairIndex: 5,
                         tableIndex: 3,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'right',
@@ -421,20 +406,20 @@ EditCanvasExample.args = {
                         chairIndex: 5,
                         tableIndex: 3,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 selectedIndex: 3,
                 onTableClick: handleTableClick,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("The chair was clicked!"),
             },
             handleStop: handleOnStop,
             defaultXY: { x: 210, y: 57 },
             arrayIndex: 0,
             selectedIndex: 3,
             onTableClick: handleTableClick,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("The chair was clicked!"),
         }, // table 3 end
         {
             // table 2 beginning
@@ -457,7 +442,7 @@ EditCanvasExample.args = {
                         chairIndex: 0,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -470,7 +455,7 @@ EditCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -483,7 +468,7 @@ EditCanvasExample.args = {
                         chairIndex: 2,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -496,7 +481,7 @@ EditCanvasExample.args = {
                         chairIndex: 3,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -509,7 +494,7 @@ EditCanvasExample.args = {
                         chairIndex: 4,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -522,23 +507,23 @@ EditCanvasExample.args = {
                         chairIndex: 5,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                 ],
                 tableUse: 'TableForEditCanvas',
                 selectedIndex: 3,
                 onTableClick: handleTableClick,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("The chair was clicked!"),
             },
             handleStop: handleOnStop,
             defaultXY: { x: 43, y: 177 },
             arrayIndex: 0,
             selectedIndex: 3,
             onTableClick: handleTableClick,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("The chair was clicked!"),
         }, // table 2 end
     ],
-    onChairClick: handleOnChairClick,
+    onChairClick: action("The chair was clicked!"),
 };
 
 /**
@@ -572,7 +557,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'bottom',
@@ -584,20 +569,20 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                 ],
                 tableUse: 'TableForManagement',
                 selectedIndex: 3,
                 onTableClick: handleTableClick,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("The chair was clicked!"),
             },
             handleStop: handleOnStop,
             defaultXY: { x: 50, y: 24 },
             arrayIndex: 0,
             selectedIndex: 3,
             onTableClick: handleTableClick,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("The chair was clicked!"),
         },
         {
             tableInput: {
@@ -619,7 +604,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'bottom',
@@ -631,7 +616,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'left',
@@ -643,7 +628,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'right',
@@ -655,20 +640,20 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                 ],
                 tableUse: 'TableForManagement',
                 selectedIndex: 3,
                 onTableClick: handleTableClick,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("The chair was clicked!"),
             },
             handleStop: handleOnStop,
             defaultXY: { x: 375, y: 37 },
             arrayIndex: 0,
             selectedIndex: 3,
             onTableClick: handleTableClick,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("The chair was clicked!"),
         },
         {
             // table 4 beginning
@@ -691,7 +676,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -704,7 +689,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -717,7 +702,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -730,7 +715,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -743,7 +728,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -756,20 +741,20 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                 ],
                 tableUse: 'TableForManagement',
                 selectedIndex: 3,
                 onTableClick: handleTableClick,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("The chair was clicked!"),
             },
             handleStop: handleOnStop,
             defaultXY: { x: 367, y: 154 },
             arrayIndex: 0,
             selectedIndex: 3,
             onTableClick: handleTableClick,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("The chair was clicked!"),
         }, // table 4 end
         {
             // table 3 beginning
@@ -792,7 +777,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -804,7 +789,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'left',
@@ -816,7 +801,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'right',
@@ -828,20 +813,20 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                 ],
                 tableUse: 'TableForManagement',
                 selectedIndex: 3,
                 onTableClick: handleTableClick,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("The chair was clicked!"),
             },
             handleStop: handleOnStop,
             defaultXY: { x: 210, y: 57 },
             arrayIndex: 0,
             selectedIndex: 3,
             onTableClick: handleTableClick,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("The chair was clicked!"),
         }, // table 3 end
         {
             // table 2 beginning
@@ -864,7 +849,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -877,7 +862,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -890,7 +875,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -903,7 +888,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -916,7 +901,7 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                     {
                         position: 'top',
@@ -929,20 +914,20 @@ MgmtCanvasExample.args = {
                         chairIndex: 1,
                         tableIndex: 4,
                         selectedIndex: 3,
-                        onChairClick: handleOnChairClick,
+                        onChairClick: action("The chair was clicked!"),
                     },
                 ],
                 tableUse: 'TableForManagement',
                 selectedIndex: 3,
                 onTableClick: handleTableClick,
-                onChairClick: handleOnChairClick,
+                onChairClick: action("The chair was clicked!"),
             },
             handleStop: handleOnStop,
             defaultXY: { x: 43, y: 177 },
             arrayIndex: 0,
             selectedIndex: 3,
             onTableClick: handleTableClick,
-            onChairClick: handleOnChairClick,
+            onChairClick: action("The chair was clicked!"),
         }, // table 2 end
     ],
 };
