@@ -1,14 +1,14 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import Draggable from 'react-draggable';
-import { SquareTable } from '@Containers/SquareTable/SquareTable';
+import {ISquareTable, SquareTable} from '@Containers/SquareTable/SquareTable';
 import { ITable } from "@Utils";
 import { CircleTable } from '@Containers/CircleTable/CircleTable';
 import { OvalTable } from '@Containers/OvalTable/OvalTable';
 
 type getTableComponentType = () => JSX.Element | null;
 
-type tableInputType = ITable;
+type tableInputType = ITable | ISquareTable;
 
 type tableShapeType = 'Square' | 'Circle' | 'Oval';
 

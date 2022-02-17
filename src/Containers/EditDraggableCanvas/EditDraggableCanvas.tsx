@@ -93,6 +93,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
         if (canvasType === 'managementCanvas') {
             return tables.map((item, index) => (
                 <DraggableTable
+                    tableShape={item.tableShape}
                     tableInput={item.tableInput}
                     defaultXY={item.defaultXY}
                     arrayIndex={index}
@@ -108,6 +109,7 @@ export const EditDraggableCanvas: React.FC<IEditDraggableCanvas> = ({
 
         return tables.map((item, index) => (
             <DraggableTable
+                tableShape={item.tableShape}
                 tableInput={item.tableInput}
                 defaultXY={item.defaultXY}
                 arrayIndex={index}

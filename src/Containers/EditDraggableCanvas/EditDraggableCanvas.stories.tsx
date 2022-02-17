@@ -37,8 +37,8 @@ NewUserCanvasExample.args = {
     onTableClick: action("Table was clicked!"),
     tables: [
         {
+            tableShape: 'Square',
             tableInput: {
-                tableShape: 'Square',
                 tableID: 'T1',
                 partyName: '',
                 isSquare: true,
@@ -91,8 +91,8 @@ EditCanvasExample.args = {
     selectedIndex: 3,
     tables: [
         {
+            tableShape: 'Square',
             tableInput: {
-                tableShape: 'Square',
                 tableID: 'T1',
                 partyName: '',
                 isSquare: true,
@@ -130,8 +130,8 @@ EditCanvasExample.args = {
             onChairClick: action("The chair was clicked!"),
         },
         {
+            tableShape: 'Square',
             tableInput: {
-                tableShape: 'Square',
                 tableID: 'T5',
                 partyName: 'Tina',
                 isSquare: true,
@@ -188,8 +188,8 @@ EditCanvasExample.args = {
         },
         {
             // table 4 beginning
+            tableShape: 'Circle',
             tableInput: {
-                tableShape: 'Circle',
                 tableID: 'T4',
                 partyName: 'Scott',
                 occupancyStatus: 'Occupied',
@@ -269,8 +269,8 @@ EditCanvasExample.args = {
         }, // table 4 end
         {
             // table 3 beginning
+            tableShape: 'Square',
             tableInput: {
-                tableShape: 'HorizontalRectangle',
                 tableID: 'T3',
                 partyName: 'Dmytro',
                 isSquare: false,
@@ -345,8 +345,8 @@ EditCanvasExample.args = {
         }, // table 3 end
         {
             // table 2 beginning
+            tableShape: 'Circle',
             tableInput: {
-                tableShape: 'Circle',
                 tableID: 'T2',
                 partyName: 'Corey',
                 occupancyStatus: 'Occupied',
@@ -440,8 +440,8 @@ MgmtCanvasExample.args = {
     onTableClick: action("Table was clicked!"),
     tables: [
         {
+            tableShape: 'Square',
             tableInput: {
-                tableShape: 'Square',
                 tableID: 'T1',
                 partyName: '',
                 isSquare: true,
@@ -479,8 +479,8 @@ MgmtCanvasExample.args = {
             onChairClick: action("The chair was clicked!"),
         },
         {
+            tableShape: 'Square',
             tableInput: {
-                tableShape: 'Square',
                 tableID: 'T5',
                 partyName: 'Tina',
                 isSquare: true,
@@ -537,8 +537,8 @@ MgmtCanvasExample.args = {
         },
         {
             // table 4 beginning
+            tableShape: 'Circle',
             tableInput: {
-                tableShape: 'Circle',
                 tableID: 'T4',
                 partyName: 'Scott',
                 occupancyStatus: 'Occupied',
@@ -618,8 +618,8 @@ MgmtCanvasExample.args = {
         }, // table 4 end
         {
             // table 3 beginning
+            tableShape: 'Square',
             tableInput: {
-                tableShape: 'Square',
                 tableID: 'T3',
                 partyName: 'Dmytro',
                 isSquare: false,
@@ -676,8 +676,8 @@ MgmtCanvasExample.args = {
         }, // table 3 end
         {
             // table 2 beginning
+            tableShape: 'Circle',
             tableInput: {
-                tableShape: 'Circle',
                 tableID: 'T2',
                 partyName: 'Corey',
                 occupancyStatus: 'Occupied',
