@@ -1,9 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import {tableUseTypes} from "@Utils/Types/TableUseTypes";
-import { Chair, IChair } from '../Chair/Chair';
-
-export type Position = 'top' | 'bottom' | 'left' | 'right';
+import {Position} from "@Utils";
+import {Chair, IChair} from '../Chair/Chair';
 
 type getChairsTopBottomType = (array: Array<IChair>) => JSX.Element[];
 

@@ -5,9 +5,9 @@
 import React, {useRef} from 'react';
 import styled, {useTheme} from 'styled-components';
 import {Plus} from '@styled-icons/boxicons-regular';
-import {ITable, occupancyStatusTypes, tableUseTypes} from "@Utils";
+import {ITable, occupancyStatusTypes, Position, tableUseTypes} from "@Utils";
 import {IChair} from '../Chair/Chair';
-import {ChairRow, Position} from './_ChairRow';
+import {ChairRow} from './_ChairRow';
 
 
 type callOnTableClickType = () => void;

@@ -11,3 +11,4 @@ export { BaseStyles, Constants, Hooks, Mixins };
 export {ITable} from "@Utils/Types/ITable";
 export {occupancyStatusTypes} from "@Utils/Types/OccupancyStatusTypes";
 export {tableUseTypes} from "@Utils/Types/TableUseTypes";
+export {Position} from "@Utils/Types/chairPositionTypes";
