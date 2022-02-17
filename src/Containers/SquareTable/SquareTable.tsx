@@ -7,9 +7,8 @@ import styled, {useTheme} from 'styled-components';
 import {Plus} from '@styled-icons/boxicons-regular';
 import {ITable, occupancyStatusTypes, tableUseTypes} from "@Utils";
 import {IChair} from '../Chair/Chair';
-import {ChairRow} from './_ChairRow';
+import {ChairRow, Position} from './_ChairRow';
 
-type Position = 'top' | 'bottom' | 'left' | 'right';
 
 type callOnTableClickType = () => void;
 

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import {tableUseTypes} from "@Utils/Types/TableUseTypes";
 import { Chair, IChair } from '../Chair/Chair';
 
-type Position = 'top' | 'bottom' | 'left' | 'right';
+export type Position = 'top' | 'bottom' | 'left' | 'right';
 
 type getChairsTopBottomType = (array: Array<IChair>) => JSX.Element[];
 
