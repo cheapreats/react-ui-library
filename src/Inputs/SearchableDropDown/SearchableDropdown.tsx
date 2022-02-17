@@ -43,7 +43,7 @@ export const SearchableDropdown : React.FC<SearchableDropdownProps> = ({
     const [isActive, setIsActive] = useState(false);
     const [expanded, setExpanded] = useState(false);
     const [inputValue, setinputValue] = useState('');
-    const [, mount, animation] = useTransition(expanded, {
+    const [,isMounted, animation] = useTransition(expanded, {
         end: theme.speed[SPEED],
     });
     const refSelectList = useRef() as RefObject<HTMLDivElement>;
@@ -53,11 +53,11 @@ export const SearchableDropdown : React.FC<SearchableDropdownProps> = ({
     };
 
     const createList = (
-        thechildren: React.ReactNode[],
+        childrenList: React.ReactNode[],
         onSelect: React.MouseEventHandler,
         value?: string | number,
     ): React.ReactNode[] =>
-        thechildren.map((child): React.ReactElement | null => {
+        childrenList.map((child): React.ReactElement | null => {
             if (!inputValue) {
                 if (child && isValidElement(child)) {
                     const val = child.props.value;
@@ -105,12 +105,12 @@ export const SearchableDropdown : React.FC<SearchableDropdownProps> = ({
             onChange({
                 target: {
                     value: currentTarget.getAttribute('value'),
-                    name,
+                    children,
                 },
             });
             setinputValue(currentTarget.firstChild.nodeValue);
         },
-        [name],
+        [children],
     );
 
     const options = useMemo(
@@ -157,7 +157,7 @@ export const SearchableDropdown : React.FC<SearchableDropdownProps> = ({
                         onKeyDown={(e): void => handleChange(e)}
                         onClick={(e): void => handleChange(e)}
                     />
-                    {mount && (
+                    {isMounted && (
                         <SelectList
                             ref={refSelectList}
                             limit={Math.min(numVisibleSelection, limit)}

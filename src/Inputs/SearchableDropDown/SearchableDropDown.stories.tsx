@@ -24,7 +24,6 @@ export default {
         placeholder:'Search',
         dropdownButton: <Button>Click me</Button>,
         dropdownWidth: 300,
-        label: 'label',
         name: 'name',
         children: [
             <option value="a">CEM-2609</option>,
