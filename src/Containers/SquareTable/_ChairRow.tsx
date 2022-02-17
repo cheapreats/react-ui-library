@@ -1,13 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
+import {tableUseTypes} from "@Utils/Types/TableUseTypes";
 import { Chair, IChair } from '../Chair/Chair';
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
-
-type tableUseTypes =
-    | 'AddTableButton'
-    | 'TableForEditCanvas'
-    | 'TableForManagement';
 
 type getChairsTopBottomType = (array: Array<IChair>) => JSX.Element[];
 

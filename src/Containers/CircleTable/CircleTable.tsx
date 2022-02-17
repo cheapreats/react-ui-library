@@ -4,15 +4,11 @@ import { Chair } from '@Containers/Chair/Chair';
 import { Plus } from '@styled-icons/boxicons-regular';
 import {ITable} from "@Utils";
 import {occupancyStatusTypes} from "@Utils/Types/OccupancyStatusTypes";
+import {tableUseTypes} from "@Utils/Types/TableUseTypes";
 
 type callOnTableClickType = () => void;
 
 type getChairsType = () => JSX.Element[];
-
-type tableUseTypes =
-    | 'AddTableButton'
-    | 'TableForEditCanvas'
-    | 'TableForManagement';
 
 type getTableInfoContentType = (tableUse: tableUseTypes) => JSX.Element;
 

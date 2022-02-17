@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { css, useTheme } from 'styled-components';
 import { Eye, EyeSlash } from '@styled-icons/bootstrap';
+import {tableUseTypes} from "@Utils/Types/TableUseTypes";
 
 type Position = 'top' | 'bottom' | 'left' | 'right';
 
@@ -11,11 +12,6 @@ type getPositionChairType = () => JSX.Element;
 type getChairTextType = () => JSX.Element;
 
 type handleClickType = () => void;
-
-type tableUseTypes =
-    | 'AddTableButton'
-    | 'TableForEditCanvas'
-    | 'TableForManagement';
 
 export interface IChair {
     /* The position of the chair relative to the table (top/bottom/left/right) */
