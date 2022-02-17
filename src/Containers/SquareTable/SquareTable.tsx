@@ -42,7 +42,6 @@ export interface ISquareTable extends ITable{
  * Square Table
  */
 export const SquareTable: React.FC<ISquareTable> = ({
-    // tableShape = 'Square',
     tableID = 'T1',
     partyName = 'Null',
     occupancyStatus = 'Vacant',

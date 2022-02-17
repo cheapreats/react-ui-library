@@ -18,7 +18,6 @@ type generateChairKeyType = (pre: string) => string;
  * Primary UI component for user interaction
  */
 export const CircleTable: React.FC<ITable> = ({
-    // tableShape = 'Circle',
     tableID = 'T1',
     chairs = [],
     partyName = 'Null',

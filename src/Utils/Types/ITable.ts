@@ -4,10 +4,6 @@ import {tableUseTypes} from "@Utils/Types/TableUseTypes";
 
 export interface ITable {
     /**
-     * The shape for the ISquareTable ("Square", "HorizontalRectangle", "VerticalRectangle")
-     */
-    // tableShape: 'Square' | 'HorizontalRectangle' | 'VerticalRectangle' | 'Circle' | 'Oval';
-    /**
      * The unique identifier for the table (Table Name)
      */
     tableID: string;
