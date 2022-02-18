@@ -4,7 +4,7 @@ import { Checkbox, CheckboxProps } from '../../index';
 
 
 export default {
-    title: 'Components/CheckBox',
+    title: 'Components/Atoms/CheckBox',
     component: Checkbox,
     argTypes: { onChange: { action: 'Checkbox Click Occurred' } },
     args: {

@@ -4,7 +4,7 @@ import { InfoHeader,InfoHeaderProps} from '../../index';
 
 
 export default {
-    title: 'Components/InfoHeader',
+    title: 'Components/Other/InfoHeader',
     component: InfoHeader,
     argTypes: {
         onMouseEnter: { action: 'Hover' },

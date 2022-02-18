@@ -4,7 +4,7 @@ import { MainContainer, IMainContainer } from './MainContainer';
 
 
 export default {
-    title: 'Components/MainContainer',
+    title: 'Components/TableManagement/MainContainer',
     component: MainContainer,
 } as Meta;
 

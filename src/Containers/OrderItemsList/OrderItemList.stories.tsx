@@ -4,7 +4,7 @@ import { IOrderItems, OrderItemList } from './OrderItemList';
 
 
 export default {
-    title: 'Components/Order List',
+    title: 'Terminal/Orders/Order List',
     component: OrderItemList,
     args: {
         items: [

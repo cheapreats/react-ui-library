@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { Analytics, IAnalyticsProps } from '../../index';
 
 export default {
-    title: 'Components/Analytics',
+    title: 'Components/Analytics/Analytics',
     component: Analytics,
     args: {
         title: 'Delivered',

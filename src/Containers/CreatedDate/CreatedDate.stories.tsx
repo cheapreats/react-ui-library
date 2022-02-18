@@ -4,7 +4,7 @@ import { CreatedDate, CreatedDateProps } from '../../index';
 
 
 export default {
-    title: 'Components/CreatedDate',
+    title: 'Dashboard/CRM/CreatedDate',
     component: CreatedDate,
     args: {
         dateCreated: "June 29, 2007"

@@ -4,7 +4,7 @@ import { OrderID, IOrderIDProps } from './OrderID';
 
 
 export default {
-    title: 'Components/Order ID',
+    title: 'Terminal/Orders/ID',
     component: OrderID,
     args: {
         orderId: 'e2c3',

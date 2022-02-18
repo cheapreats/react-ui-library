@@ -4,7 +4,7 @@ import { SmallText, SmallTextProps } from '../../index';
 
 
 export default {
-    title: 'Components/Text',
+    title: 'Components/Atoms/Text',
     component: SmallText,
     args: {
         children: 'Hello World',

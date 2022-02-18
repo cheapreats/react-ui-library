@@ -9,7 +9,7 @@ const handleSubmit = (event: any, data: any) => {
 };
 
 export default {
-    title: 'Components/Sign up Pop up',
+    title: 'Marketing Website/Sign up Pop up',
     component: SignUpPopup,
     args: {
         heading: 'Special Offer - Get 1 month free',

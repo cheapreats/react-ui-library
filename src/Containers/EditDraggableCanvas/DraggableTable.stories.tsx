@@ -7,7 +7,7 @@ import {
 
 
 export default {
-    title: 'Components/DraggableTable',
+    title: 'Components/TableManagement/DraggableTable',
     component: DraggableTable,
 } as Meta;
 

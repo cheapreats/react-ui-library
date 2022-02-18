@@ -4,7 +4,7 @@ import { EditDraggableCanvas, IEditDraggableCanvas } from '@Containers';
 
 
 export default {
-    title: 'Components/EditDraggableCanvas',
+    title: 'Components/TableManagement/EditDraggableCanvas',
     component: EditDraggableCanvas,
 } as Meta;
 

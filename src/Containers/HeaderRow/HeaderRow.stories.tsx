@@ -4,7 +4,7 @@ import { HeaderRow, HeaderRowProps } from '../../index';
 
 
 export default {
-    title: 'Components/Header Row',
+    title: 'Components/Other/Header Row',
     component: HeaderRow,
     args: {
         label: 'Header label',

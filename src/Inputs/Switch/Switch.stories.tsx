@@ -4,7 +4,7 @@ import { Switch, SwitchProps } from '../../index';
 
 
 export default {
-    title: 'Components/Switch',
+    title: 'Components/Atoms/Switch',
     component: Switch,
     args: {
         label: 'label',

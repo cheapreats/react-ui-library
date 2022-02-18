@@ -34,7 +34,7 @@ const labels: Array<HighlightedString> = [
 ]
 
 export default {
-    title: 'Components/Highlighted Text',
+    title: 'Components/Other/Highlighted Text',
     component: HighlightedText,
     args: {
         labels,

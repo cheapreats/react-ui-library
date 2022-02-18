@@ -5,7 +5,7 @@ import { HorizontalStoreCard, HorizontalStoreCardProps } from '../../index';
 
 
 export default {
-    title: 'Components/Horizontal Store Card',
+    title: 'Components/Other/Horizontal Store Card',
     component: HorizontalStoreCard,
     args: {
         image: 'https://media.giphy.com/media/mCRJDo24UvJMA/giphy.gif',

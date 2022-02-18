@@ -4,7 +4,7 @@ import { Stock, StockProps } from '../../index';
 
 
 export default {
-    title: 'Components/Stock',
+    title: 'Components/Analytics/Stock',
     component: Stock,
 } as Meta;
 

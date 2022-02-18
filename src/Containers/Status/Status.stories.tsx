@@ -4,7 +4,7 @@ import { Status, StatusProps, StatusColors } from '../../index';
 
 
 export default {
-    title: 'Components/Status',
+    title: 'Terminal/Orders/Status',
     component: Status,
     argTypes: {
         statusColor: {

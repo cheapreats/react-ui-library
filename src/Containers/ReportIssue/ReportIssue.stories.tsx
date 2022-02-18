@@ -10,7 +10,7 @@ const handleSubmit = (event: any, option: any) => {
 };
 
 export default {
-    title: 'Components/Report Issue',
+    title: 'Components/Other/Report Issue',
     component: ReportIssue,
     argTypes: { handleSubmit: { action: 'Changed' } },
     args: {

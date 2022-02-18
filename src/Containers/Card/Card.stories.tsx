@@ -4,7 +4,7 @@ import { Card, CardProps, Paragraph, SmallText } from '../../index';
 import {  getCaptionForLocale } from '../../Constants';
 
 export default {
-    title: 'Components/Card',
+    title: 'Components/Other/Card',
     component: Card,
     args: {
         flat: false,

@@ -4,7 +4,7 @@ import { DiningReservation, DiningReservationProps } from './DiningReservation';
 
 
 export default {
-    title: 'Components/Dining Reservation',
+    title: 'Components/TableManagement/Dining Reservation',
     component: DiningReservation,
 } as Meta;
 

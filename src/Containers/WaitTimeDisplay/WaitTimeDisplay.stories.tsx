@@ -4,7 +4,7 @@ import { WaitTimeDisplay, IWaitTimeDisplay } from '../../index';
 
 
 export default {
-    title: 'Components/WaitTimeDisplay',
+    title: 'Components/TableManagement/WaitTimeDisplay',
     component: WaitTimeDisplay,
 } as Meta;
 

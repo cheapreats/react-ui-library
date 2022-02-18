@@ -8,7 +8,7 @@ import {
 
 
 export default {
-    title: 'Components/SeatingInfoInput',
+    title: 'Components/TableManagement/SeatingInfoInput',
     component: SeatingInfoInput,
 } as Meta;
 

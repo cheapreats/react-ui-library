@@ -6,7 +6,7 @@ import { VendorsHeader, IVendorsHeaderProps } from '../../index';
 
 
 export default {
-    title: 'Components/Vendors Header',
+    title: 'Dashboard/CRM/Vendors Header',
     component: VendorsHeader,
 } as Meta;
 

@@ -4,7 +4,7 @@ import { EmojiPicker, EmojiPickerProps } from '../../index';
 
 
 export default {
-    title: 'Components/Emoji picker',
+    title: 'Dashboard/Loyalty/Emoji picker',
     component: EmojiPicker,
     argTypes: { onChange: { action: 'Emoji picked' } },
     args: {

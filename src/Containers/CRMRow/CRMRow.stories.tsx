@@ -4,7 +4,7 @@ import { CRMRow, CRMRowProps } from '../../index';
 
 
 export default {
-    title: 'Components/CRMRow',
+    title: 'Dashboard/CRM/CRMRow',
     component: CRMRow,
     args: {
         dateCreated: {dateCreated: "June 29, 2007"},

@@ -7,7 +7,7 @@ import {  getCaptionForLocale } from '../../Constants';
 
 
 export default {
-    title: 'Components/PeopleButton',
+    title: 'Components/TableManagement/PeopleButton',
     component: PeopleButton,
     argTypes: { onClick: { action: "People Button Clicked" } },
     args: {

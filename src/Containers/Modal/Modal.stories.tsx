@@ -4,7 +4,7 @@ import { Button, Modal, ModalProps } from '../../index';
 
 
 export default {
-    title: 'Components/Modal',
+    title: 'Components/atoms/Modal',
     component: Modal,
 } as Meta;
 

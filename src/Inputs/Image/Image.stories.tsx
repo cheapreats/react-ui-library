@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/react';
 import { Image, ImageProps } from '../../index';
 
 export default {
-    title: 'Components/Image',
+    title: 'Components/File Upload/Image',
     component: Image,
     argTypes: { onImageReturn: { action: 'Image Uploaded' } },
     args: {

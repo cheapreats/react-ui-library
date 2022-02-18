@@ -4,7 +4,7 @@ import { TableHeaderCell, TableHeaderCellProps } from '../../index';
 
 
 export default {
-    title: 'Components/TableHeaderCell',
+    title: 'Dashboard/CRM/TableHeaderCell',
     component: TableHeaderCell,
     args: {
         title: 'Name',

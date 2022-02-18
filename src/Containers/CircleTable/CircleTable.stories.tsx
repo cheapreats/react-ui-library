@@ -4,7 +4,7 @@ import { CircleTable, ICircleTable } from '@Containers';
 
 
 export default {
-    title: 'Components/CircleTable',
+    title: 'Components/TableManagement/CircleTable',
     component: CircleTable,
 } as Meta;
 

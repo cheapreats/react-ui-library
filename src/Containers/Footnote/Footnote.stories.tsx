@@ -4,7 +4,7 @@ import { Footnote, SmallText, FootnoteProps } from '../../index';
 import {  getCaptionForLocale } from '../../Constants';
 
 export default {
-    title: 'Components/Footnote',
+    title: 'Components/Other/Footnote',
     component: Footnote,
     args: {
         show: true,

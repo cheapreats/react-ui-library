@@ -4,7 +4,7 @@ import { FileUpload, IFileUploadProps } from '../../index';
 
 
 export default {
-    title: 'Components/FileUpload',
+    title: 'Components/File Upload/FileUpload',
     component: FileUpload,
     args: {
         subTitle: 'Supports: JPG, JPEG2000, PNG',

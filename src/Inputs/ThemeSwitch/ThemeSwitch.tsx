@@ -3,6 +3,7 @@ import { flex } from '@Utils/Mixins';
 import { Tab, TabList } from 'react-tabs';
 import styled from 'styled-components';
 import { StyledIcon } from '@styled-icons/styled-icon';
+import {ColorProperty} from "csstype";
 
 const MOVING_DIV_ANIMATION_TIME = 250;
 const COLORS_TRANSITION_DURATION = 0.5;
@@ -10,12 +11,12 @@ const COLORS_TRANSITION_DURATION = 0.5;
 interface IDataObject {
     buttonName: string;
     icon: StyledIcon;
-    themeSwitchBackgroundColor: string;
-    headerColor: string;
-    buttonsRowColor: string;
-    buttonBackgroundColor: string;
-    buttonTextColor: string;
-    movingDivColor: string;
+    themeSwitchBackgroundColor: ColorProperty;
+    headerColor: ColorProperty;
+    buttonsRowColor: ColorProperty;
+    buttonBackgroundColor: ColorProperty;
+    buttonTextColor: ColorProperty;
+    movingDivColor: ColorProperty;
 }
 
 export interface IThemeSwitch {
@@ -63,9 +64,7 @@ export const ThemeSwitch: React.FC<IThemeSwitch> = ({
                     {currButton === index && (
                         <MovingDiv
                             ref={switchRef}
-                            backgroundColor={
-                                DataItems[currButton].movingDivColor
-                            }
+                            backgroundColor={DataItems[currButton].movingDivColor}
                         />
                     )}
                     <Icon as={DataItems[index].icon} />

@@ -4,7 +4,7 @@ import { BoxComposition, IBoxCompositionProps } from '@Containers';
 
 
 export default {
-    title: 'Components/BoxComposition',
+    title: 'Marketing Website/BoxComposition',
     component: BoxComposition,
     args: {
         data: [

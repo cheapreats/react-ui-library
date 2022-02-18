@@ -7,7 +7,7 @@ import { NavigationBar, INavigationBarProps } from './NavigationBar';
 
 
 export default {
-    title: 'Components/Vendors Navigation Bar',
+    title: 'Dashboard/CRM/Vendors Navigation Bar',
     component: NavigationBar,
 } as Meta;
 

@@ -3,7 +3,7 @@ import { Meta, Story } from '@storybook/react';
 import { DropArea, IDropAreaProps } from './DropArea';
 
 export default {
-    title: 'Components/DropArea',
+    title: 'Components/File Upload/DropArea',
     component: DropArea,
     args: {},
     argTypes: {

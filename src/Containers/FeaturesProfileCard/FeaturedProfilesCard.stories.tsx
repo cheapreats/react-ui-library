@@ -72,7 +72,7 @@ const profiles = [
 ];
 
 export default {
-    title: 'Components/Featured Profiles Card',
+    title: 'Components/Other/Featured Profiles Card',
     component: FeaturedProfilesCard,
     args: {
         profileData: profiles,

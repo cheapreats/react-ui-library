@@ -4,7 +4,7 @@ import {LeftRightText} from './LeftRightText';
 
 
 export default {
-    title: 'Components/Order Item',
+    title: 'Terminal/Orders/Item',
     component: LeftRightText,
     args: {
         leftText: 'Test',

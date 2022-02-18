@@ -10,7 +10,7 @@ const images = [
 ];
 
 export default {
-    title: 'Components/Image Carousel',
+    title: 'Components/Menu Item/Image Carousel',
     component: ImageCarousel,
     argTypes: { onClick: { action: 'Clicked!' } },
     args: {

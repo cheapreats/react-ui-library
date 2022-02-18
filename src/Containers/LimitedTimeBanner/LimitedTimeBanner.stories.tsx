@@ -4,7 +4,7 @@ import { LimitedTimeBanner,LimitedTimeBannerProps} from '../../index';
 
 
 export default {
-    title: 'Components/LimitedTimeBanner',
+    title: 'Components/Menu Item/LimitedTimeBanner',
     component: LimitedTimeBanner,
     args: {
         minsRemaining: 120, 

@@ -4,7 +4,7 @@ import { Meta, Story } from '@storybook/react';
 import { Invite, InviteProps } from './Invite';
 
 export default {
-    title: 'Components/Invite Component',
+    title: 'Marketing Website/Invite Component',
     component: Invite,
 } as Meta;
 

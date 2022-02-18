@@ -4,7 +4,7 @@ import { FilterBox, FilterBoxProps } from '../../index';
 
 
 export default {
-    title: 'Components/FilterBox',
+    title: 'Dashboard/CRM/FilterBox',
     component: FilterBox,
     args: {
         title: 'Starts with: ',

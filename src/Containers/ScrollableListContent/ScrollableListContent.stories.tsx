@@ -8,7 +8,7 @@ import {
 
 
 export default {
-    title: 'Components/Scrollable List Content',
+    title: 'Components/Other/Scrollable List Content',
     component: ScrollableListContent,
     args: {
         withList: false,

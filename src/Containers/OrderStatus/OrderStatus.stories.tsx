@@ -8,7 +8,7 @@ import {
 
 
 export default {
-    title: 'Components/Order Status',
+    title: 'Terminal/Orders/Order Status',
     component: OrderStatus,
     argTypes: {
         orderStatus: {
