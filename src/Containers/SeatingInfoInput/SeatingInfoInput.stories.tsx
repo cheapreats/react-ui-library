@@ -82,8 +82,8 @@ const handleDragEnd = (
  */
 const tableObjectForCanvas: IDraggableTable = {
     // table 4 beginning
+    tableShape: 'Circle',
     tableInput: {
-        tableShape: 'Circle',
         tableID: 'T*',
         partyName: '',
         occupancyStatus: 'Vacant',
@@ -111,9 +111,9 @@ const mockLayoutForManagePage: Array<IDraggableTable> = [
     {
         // Table 1
         ...tableObjectForCanvas,
+        tableShape: 'Square',
         tableInput: {
             ...tableObjectForCanvas.tableInput,
-            tableShape: 'Square',
             tableID: 'T1',
             isSquare: true,
             chairs: [
@@ -135,9 +135,9 @@ const mockLayoutForManagePage: Array<IDraggableTable> = [
     {
         // Table 5
         ...tableObjectForCanvas,
+        tableShape: 'Square',
         tableInput: {
             ...tableObjectForCanvas.tableInput,
-            tableShape: 'Square',
             tableID: 'T5',
             isSquare: true,
             chairs: [
@@ -169,9 +169,9 @@ const mockLayoutForManagePage: Array<IDraggableTable> = [
     {
         // Table 4
         ...tableObjectForCanvas,
+        tableShape: 'Circle',
         tableInput: {
             ...tableObjectForCanvas.tableInput,
-            tableShape: 'Circle',
             tableID: 'T4',
             chairs: [
                 {
@@ -212,9 +212,9 @@ const mockLayoutForManagePage: Array<IDraggableTable> = [
     {
         // Table 3
         ...tableObjectForCanvas,
+        tableShape: 'Square',
         tableInput: {
             ...tableObjectForCanvas.tableInput,
-            tableShape: 'VerticalRectangle',
             tableID: 'T3',
             isSquare: false,
             chairs: [
@@ -246,9 +246,9 @@ const mockLayoutForManagePage: Array<IDraggableTable> = [
     {
         // Table 2
         ...tableObjectForCanvas,
+        tableShape: 'Circle',
         tableInput: {
             ...tableObjectForCanvas.tableInput,
-            tableShape: 'Circle',
             tableID: 'T2',
             chairs: [
                 {

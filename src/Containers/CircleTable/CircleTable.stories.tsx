@@ -25,7 +25,6 @@ const handleTableClick = () => {
  */
 export const FourTopTable = Template.bind({});
 FourTopTable.args = {
-    tableShape: 'Circle',
     tableID: 'T1',
     partyName: 'Dmytro',
     occupancyStatus: 'Vacant',
@@ -129,7 +128,6 @@ FourTopTable.args = {
 
 export const TableForEditDraggableCanvas = Template.bind({});
 TableForEditDraggableCanvas.args = {
-    tableShape: 'Circle',
     tableID: 'T4',
     partyName: 'Scott',
     occupancyStatus: 'Occupied',

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled, { css, useTheme } from 'styled-components';
 import { Eye, EyeSlash } from '@styled-icons/bootstrap';
-import {tableUseTypes} from "@Utils/Types/TableUseTypes";
-import {Position} from "@Utils";
+import { tableUseTypes } from "@Utils/Types/TableUseTypes";
+import { Position } from "@Utils";
 
 type getRoundChairType = () => JSX.Element;
 
