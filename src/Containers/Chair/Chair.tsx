@@ -51,6 +51,13 @@ export interface IChair {
     ) => void;
 }
 
+const AcceptImage = () => {
+    return (
+        <div>
+            <img src='https://image.shutterstock.com/image-photo/image-250nw-1081879181.jpg' height={30} width={30}  alt={'image'}/>
+        </div>
+    )
+}
 /**
  * Primary UI component for user interaction
  */
@@ -117,10 +124,11 @@ export const Chair: React.FC<IChair> = ({
         case 'AddTableButton':
             return <div />;
         case 'TableForManagement':
-            if (isRound) {
+            if (isRound && isSeated) {
                 return (
                     <RoundChairText relativeSize={relativeSize}>
                         {occupiedBy}
+                        {AcceptImage()}
                     </RoundChairText>
                 );
             }
