@@ -2,7 +2,7 @@
  * Documentation – the order of chairs are in the chairs array will populate the table from top left to the bottom right
  * “the purpose of the order in the array is to populate the chairs from top left to bottom right”
  */
-import React, { useEffect, useRef } from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import styled, { useTheme } from 'styled-components';
 import { Plus } from '@styled-icons/boxicons-regular';
 import { IChair } from '../Chair/Chair';
@@ -24,7 +24,7 @@ type getSquareTableSizeType = (
 type getRectangleTableType = (top: number, bottom: number, left: number, right : number) => number;
 
 type addInvisibleChairs = (
-    invisibileChairs: Array<IChair>,
+    invisibleChairs: Array<IChair>,
     targetSize: number,
     position: Position,
 ) => void;
@@ -103,14 +103,11 @@ export interface ISquareTable {
     isNotHighlightedWhenSelected?: boolean;
 }
 
-
-
 /**
  * Primary UI component for user interaction
  * Square Table
  */
 export const SquareTable: React.FC<ISquareTable> = ({
-    // tableShape = 'Square',
     tableID = 'T1',
     partyName = 'Null',
     occupancyStatus = 'Vacant',
@@ -120,7 +117,6 @@ export const SquareTable: React.FC<ISquareTable> = ({
     isSquare = false,
     tableUse = 'TableForManagement',
     arrayIndex = 0,
-    selectedIndex = -1,
     onTableClick,
     onChairClick,
     isNotHighlightedWhenSelected = false,
@@ -129,12 +125,14 @@ export const SquareTable: React.FC<ISquareTable> = ({
     // Create a reference to the TableBody styled component
     const tableBodyRef = useRef(document.createElement('div'));
 
+    const [selectedTable, setSelectedTable] = useState(-1);
+
     /**
      * Use useEffect to keep focus on TableBody after re-render if the
      * selectedIndex number matches the arrayIndex number for this table
      */
     useEffect(() => {
-        if (selectedIndex === arrayIndex) {
+        if (selectedTable === arrayIndex) {
             if (tableBodyRef != null) {
                 tableBodyRef.current.focus();
             }
@@ -166,8 +164,10 @@ export const SquareTable: React.FC<ISquareTable> = ({
      * Calls the onTableClick prop function with the arrayIndex prop as its
      * parameter
      */
-    const callOnTableClick: callOnTableClickType = () =>
+    const callOnTableClick: callOnTableClickType = () => {
         onTableClick(arrayIndex);
+        setSelectedTable(arrayIndex);
+    }
 
     /**
      * Determines how many chairs to put per each side
@@ -233,7 +233,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 tableUse,
                 chairIndex: invisibileChairs.length,
                 tableIndex: arrayIndex,
-                selectedIndex,
+                selectedIndex: selectedTable,
                 onChairClick,
             });
         }
@@ -296,14 +296,19 @@ export const SquareTable: React.FC<ISquareTable> = ({
     };
 
     return (
-        <div {...props}>
+        <div{...props}>
+        <TableContainer
+            relativeSize = {relativeSize}
+            tableIndex = {arrayIndex}
+            selectedIndex = {selectedTable}
+        >
             {/** chairs top */}
             <ChairRow
                 position="top"
                 chairs={topArray}
                 relativeSize={relativeSize}
                 tableUse={tableUse}
-                selectedIndex={selectedIndex}
+                selectedIndex={selectedTable}
             />
 
             {/** table itself */}
@@ -315,7 +320,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="left"
                         chairs={leftArray}
                         tableUse={tableUse}
-                        selectedIndex={selectedIndex}
+                        selectedIndex={selectedTable}
                     />
 
                     <TableBody
@@ -341,7 +346,7 @@ export const SquareTable: React.FC<ISquareTable> = ({
                         position="right"
                         chairs={rightArray}
                         tableUse={tableUse}
-                        selectedIndex={selectedIndex}
+                        selectedIndex={selectedTable}
                     />
                 </Row>
             </div>
@@ -352,8 +357,9 @@ export const SquareTable: React.FC<ISquareTable> = ({
                 position="bottom"
                 chairs={bottomArray}
                 tableUse={tableUse}
-                selectedIndex={selectedIndex}
+                selectedIndex={selectedTable}
             />
+        </TableContainer>
         </div>
     );
 };
@@ -380,8 +386,36 @@ const getOccupancyColor: getOccupancyColorType = (occupancyStatus) => {
 };
 
 /**
- * variables for the styled components
+ * Variables for the styled components
  */
+interface ITableContainer {
+    relativeSize: number;
+    tableIndex: number;
+    selectedIndex: number;
+}
+
+const TableContainer = styled.div<ITableContainer>`
+  ${({ selectedIndex, tableIndex, relativeSize, theme }):string =>
+  {
+    const BASE_BORDER_RADIUS = 3;
+    const PADDING = 1.5;
+    
+    if(tableIndex === selectedIndex){
+      return`
+            background-color: ${theme.colors.tableOutline.background};
+            border-radius: ${BASE_BORDER_RADIUS * relativeSize}rem;
+            width: fit-content;
+            padding: ${PADDING * relativeSize}rem;
+            border-style: dashed;
+            border-color: ${theme.colors.tableOutline.border};
+          `;
+    }
+    
+    return ``;
+  }
+  };
+  
+`;
 
 interface ITableBody {
     chairNumOnSide: number;

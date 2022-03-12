@@ -37,6 +37,10 @@ export interface MainThemeInterface extends ThemeTemplateInterface {
             green: string;
         };
         bannerBackgroundColor: string;
+        tableOutline: {
+            background: string;
+            border: string;
+        }
     };
 }
 
@@ -77,5 +81,9 @@ export const MainTheme: MainThemeInterface = {
             yellow: '#d1b306',
             green: '#09d106',
         },
+        tableOutline: {
+            background: "#EDEEF5",
+            border: "#DDDFE5",
+        }
     },
 };

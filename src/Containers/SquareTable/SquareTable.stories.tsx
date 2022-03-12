@@ -2,21 +2,13 @@ import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { ISquareTable, SquareTable } from '@Containers';
 
-
 export default {
     title: 'Components/TableManagement/SquareTable',
     component: SquareTable,
+    argTypes: { onTableClick: {action: "Clicked table with index: "} },
 } as Meta;
 
 const Template: Story<ISquareTable> = (args) => <SquareTable {...args} />;
-
-/**
- * Prints the Selected Child index to the console when Table is clicked
- * @param selectedChildIndex
- */
-const handleTableClick = (selectedChildIndex: number) => {
-    console.log(selectedChildIndex);
-};
 
 /**
  * Prints the Selected Child index to the console when Chair is clicked
@@ -144,7 +136,6 @@ SevenTopSquareTable.args = {
     ],
     isSquare: true,
     tableUse: 'TableForManagement',
-    onTableClick: handleTableClick,
     onChairClick: handleOnChairClick,
 };
 
@@ -257,7 +248,6 @@ EightTopVertRectangleTable.args = {
     ],
     isSquare: false,
     tableUse: 'TableForManagement',
-    onTableClick: handleTableClick,
     onChairClick: handleOnChairClick,
 };
 
@@ -347,7 +337,6 @@ SixTopHorizontalRectangleTable.args = {
     isSquare: false,
     relativeSize: 0.5,
     tableUse: 'TableForManagement',
-    onTableClick: handleTableClick,
     onChairClick: handleOnChairClick,
 };
 
@@ -410,7 +399,6 @@ SquareTableEditPage.args = {
         },
     ],
     tableUse: 'TableForEditCanvas',
-    onTableClick: handleTableClick,
     onChairClick: handleOnChairClick,
 };
 
@@ -472,6 +460,5 @@ BarRectangleTable.args = {
     ],
     isSquare: false,
     tableUse: 'TableForManagement',
-    onTableClick: handleTableClick,
     onChairClick: handleOnChairClick,
 };
