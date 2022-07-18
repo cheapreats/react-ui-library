@@ -14,7 +14,7 @@ import {
     LabelLayout as LL,
     LabelLayoutProps,
 } from '../../Fragments';
-import { Datebox } from './Datebox';
+import { Datebox, IDataObject } from './Datebox';
 
 const printDate = (date?: Date): string => {
     if (date) {
@@ -33,6 +33,7 @@ export interface DatepickerProps extends LabelLayoutProps {
     onClear?: Function;
     value?: Date;
     initialShow?: boolean;
+    adjustedPriceDays?: IDataObject[];
 }
 
 export const Datepicker: React.FC<DatepickerProps> = ({
@@ -41,6 +42,9 @@ export const Datepicker: React.FC<DatepickerProps> = ({
     onClear = (): void => undefined,
     placeholder = 'MM-DD-YYYY',
     initialShow,
+    adjustedPriceDays = [
+        { date: new Date(0, 0, 0), price: '0', priceStatus: 0 },
+    ],
     ...props
 }): React.ReactElement => {
     const theme = useTheme();
@@ -161,6 +165,7 @@ export const Datepicker: React.FC<DatepickerProps> = ({
                     animate={animate}
                     value={value}
                     clearDate={clearDate}
+                    adjustedPriceDays={adjustedPriceDays}
                 />
             )}
         </LabelLayout>

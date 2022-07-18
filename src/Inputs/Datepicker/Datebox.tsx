@@ -14,6 +14,12 @@ import { Button } from '../Button/Button';
 
 const SIZE = 40;
 
+export enum PriceStatus {
+    Good,
+    Okay,
+    Surge,
+}
+
 const displayDate = (date: Date = new Date()): string =>
     `${MONTHS[date.getMonth()]}, ${date.getFullYear()}`;
 
@@ -26,6 +32,7 @@ const buildCalendar = (
     date: Date,
     value: Date,
     selectDate: React.MouseEventHandler,
+    selectedDays: IDataObject[],
 ): React.ReactElement[] => {
     const start = new Date(date);
     start.setDate(1);
@@ -36,15 +43,33 @@ const buildCalendar = (
     let exit = false;
     while (!exit) {
         row.push(
-            <CalendarDay
-                faded={start.getMonth() !== date.getMonth()}
+            <DayWrapper
                 onClick={selectDate}
+                faded={start.getMonth() !== date.getMonth()}
                 selected={sameDate(start, value)}
-                key={start.toDateString()}
-                data={start.toISOString()}
             >
-                {start.getDate()}
-            </CalendarDay>,
+                <CalendarDay
+                    key={start.toDateString()}
+                    data={start.toISOString()}
+                >
+                    {start.getDate()}
+                    <br />
+                    {selectedDays[0] != null
+                        ? selectedDays.map((day) => {
+                            if (sameDate(start, day.date)) {
+                                return (
+                                    day.date !== new Date(0, 0, 0) && (
+                                        <Price priceColor={day.priceStatus}>
+                                            {day.price}
+                                        </Price>
+                                    )
+                                );
+                            }
+                            return null;
+                        })
+                        : null}
+                </CalendarDay>
+            </DayWrapper>,
         );
         start.setDate(start.getDate() + 1);
         if (start.getDay() === 0) {
@@ -63,6 +88,12 @@ const buildCalendar = (
     return items;
 };
 
+export interface IDataObject {
+    date: Date;
+    price: string;
+    priceStatus: number;
+}
+
 export interface DateboxProps extends React.HTMLAttributes<HTMLDivElement> {
     changePage: (change?: number) => React.MouseEventHandler;
     selectedDate?: Date;
@@ -70,6 +101,7 @@ export interface DateboxProps extends React.HTMLAttributes<HTMLDivElement> {
     animate: boolean;
     value: Date | undefined;
     clearDate?: Function;
+    adjustedPriceDays: IDataObject[];
 }
 
 export const Datebox: React.FC<DateboxProps> = ({
@@ -79,6 +111,7 @@ export const Datebox: React.FC<DateboxProps> = ({
     selectDate,
     animate,
     value,
+    adjustedPriceDays,
 }): React.ReactElement => (
     <DateBox animate={animate}>
         <DateControls>
@@ -99,6 +132,7 @@ export const Datebox: React.FC<DateboxProps> = ({
                 selectedDate || new Date(),
                 value || new Date(),
                 selectDate,
+                adjustedPriceDays,
             )}
         </Calendar>
         <Button onClick={(): void => clearDate()}>Clear</Button>
@@ -171,26 +205,40 @@ const CalendarWeek = styled.li`
 `;
 
 const CalendarDay = styled.span<{
+    data: string;
+}>``;
+
+const DayWrapper = styled.div<{
     faded: boolean;
     selected: boolean;
-    data: string;
 }>`
     ${transition(['background-color', 'color'])}
-    ${flex('center')}
-    width: ${SIZE - 4}px;
-    height: ${SIZE - 4}px;
+    width: ${SIZE - 3}px;
+    height: ${SIZE - 3}px;
     margin: 2px;
-    border-radius: 50%;
-
+    border-radius: 35%;
+    /*
+     ${flex('center')}
+     */
     ${({ faded }): string => (faded ? 'opacity: 0.3;' : '')}
     ${({ selected, theme }): string =>
         styledCondition(
             selected,
             `
-                background-color: ${theme.colors.primary};
+                background-color: ${theme.colors.occupancyStatusColors.Occupied};
                 cursor: pointer;
                 color: white;
             `,
             clickable('#ffffff', 0.05),
         )}
+`;
+
+const Price = styled.div<{
+    priceColor: PriceStatus;
+}>`
+    font-size: 12px;
+    ${({ priceColor }): string =>
+        (priceColor === PriceStatus.Good ? 'color: #026c45;' : '') ||
+        (priceColor === PriceStatus.Okay ? 'color: #FFD700;' : '') ||
+        (priceColor === PriceStatus.Surge ? 'color: #ff0000;' : '')}
 `;
