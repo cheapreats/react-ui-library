@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled, { css, useTheme } from 'styled-components';
 import { Eye, EyeSlash } from '@styled-icons/bootstrap';
 
@@ -49,6 +49,8 @@ export interface IChair {
         chairIndex: number,
         selectedIndex: number,
     ) => void;
+
+
 }
 
 /**
@@ -65,9 +67,21 @@ export const Chair: React.FC<IChair> = ({
     tableIndex = -1,
     chairIndex = -1,
     selectedIndex = -1,
+
+
     onChairClick,
     ...props
-}) => {
+}):React.ReactElement => {
+    /**
+     * Use useState to change state of isFocusedActive and highlite
+     * the chair.
+     */
+    const [isFocusedActive, setIsFocusedActive] = useState(false);
+
+    onChairClick =() => {
+        setIsFocusedActive(true)
+    }
+
     /**
      * Returns a JSX.Element for the Chair with RoundChair styles
      * @returns {JSX.Element}
@@ -80,6 +94,8 @@ export const Chair: React.FC<IChair> = ({
                 isSeated={isSeated}
                 tableUse={tableUse}
                 isVisible={isVisible}
+                tabIndex={0}
+                isFocusedActive={isFocusedActive}
             >
                 {getChairText()}
             </RoundChair>
@@ -89,7 +105,6 @@ export const Chair: React.FC<IChair> = ({
     /**
      * Returns a JSX.Element for the Chair with the correct styles based on position
      * @returns {JSX.Element}
-     *
      */
     const getPositionChair: getPositionChairType = () => (
         <div {...props}>
@@ -99,6 +114,8 @@ export const Chair: React.FC<IChair> = ({
                 position={position}
                 tableUse={tableUse}
                 isVisible={isVisible}
+                tabIndex={0}
+                isFocusedActive={isFocusedActive}
             >
                 {getChairText()}
             </RectangleChair>
@@ -162,18 +179,18 @@ export const Chair: React.FC<IChair> = ({
         onChairClick(tableIndex, chairIndex, selectedIndex);
     };
 
-    if (tableUse === 'TableForEditCanvas') {
-        return (
-            <ChairWrapperForClick
-                onClick={onHandleClick}
-                onKeyPress={onHandleClick}
-                role="button"
-                tabIndex={0}
-            >
-                {isRound ? getRoundChair() : getPositionChair()}
-            </ChairWrapperForClick>
-        );
-    }
+
+    return (
+        <ChairWrapperForClick
+            onClick={onHandleClick}
+            onKeyPress={onHandleClick}
+            role="button"
+            tabIndex={0}
+        >
+            {isRound ? getRoundChair() : getPositionChair()}
+        </ChairWrapperForClick>
+    );
+
 
     return isRound ? getRoundChair() : getPositionChair();
 };
@@ -378,6 +395,7 @@ interface IBaseChair {
     isSeated: boolean;
     tableUse: tableUseTypes;
     isVisible: boolean;
+    isFocusedActive: boolean;
 }
 
 const BaseChair = styled.div<IBaseChair>`
@@ -401,6 +419,10 @@ const RoundChair = styled(BaseChair)<Pick<IChair, 'relativeSize'>>`
     relativeSize * BASE_BORDER_WIDTH_FOR_ROUND_CHAIR
 }px solid black;`;
     }}
+    
+    box-shadow: ${({ isFocusedActive
+                   }) => (isFocusedActive &&
+            '0 0 0 2px')};
 `;
 
 const RectangleChair = styled(BaseChair)<
@@ -413,6 +435,10 @@ const RectangleChair = styled(BaseChair)<
             left: VerticalChairStyle,
             right: VerticalChairStyle,
         }[position])};
+  
+      box-shadow: ${({ isFocusedActive
+                     }) => (isFocusedActive &&
+              '0 0 0 2px')};
 `;
 
 const RectangleChairText = styled.div<
