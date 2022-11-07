@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { StyledIcon } from 'styled-icons/types';
 import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { Card as C } from '../../Containers';
+import { Card as C } from '@Containers';
 import { Button as B } from '../Button/Button';
 import { Select } from '../Select/Select';
 import { SearchBar } from '../SearchBar/SearchBar';

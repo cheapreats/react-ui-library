@@ -1,46 +1,47 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Meta, Story } from '@storybook/react';
 import { FileUpload, IFileUploadProps } from '../../index';
-
 
 export default {
     title: 'Components/File Upload/FileUpload',
     component: FileUpload,
     args: {
-        subTitle: 'Supports: JPG, JPEG2000, PNG',
-        title: 'Drop your image here, or click to browse',
-        minHeight: 100,
-        setBase64: (base64StringFile: string) => {
+        doWithBase64StringFile: (base64StringFile: string) => {
             console.log(base64StringFile);
         },
-        successMessage: 'Completed',
-        failureMessage: 'Something went wrong',
-        disabled: false,
     },
 } as Meta;
 
-const useStateProps = () => {
-    const [isUploading, setIsUploading] = useState(false);
-    const [isSuccess, setIsSuccess] = useState(false);
-    const [isFailure, setIsFailure] = useState(false);
-    return {
-        isFailure,
-        isSuccess,
-        isUploading,
-        setIsFailure,
-        setIsSuccess,
-        setIsUploading,
-    };
+export const Basic: Story<IFileUploadProps> = (args) => (
+    <FileUpload {...args} />
+);
+
+export const LongMessageDuration = Basic.bind({});
+LongMessageDuration.args = {
+    ...Basic.args,
+    messageDuration: 10000,
 };
 
-export const Basic: Story<IFileUploadProps> = (args) => (
-    <FileUpload {...args} {...useStateProps()} />
-);
+export const BigMinHeight = Basic.bind({});
+BigMinHeight.args = {
+    ...Basic.args,
+    minHeight: 350,
+};
 
-export const VeryLongMessageDuration: Story<IFileUploadProps> = (args) => (
-    <FileUpload {...args} messageDuration={20000} {...useStateProps()} />
-);
+export const BigMinWidth = Basic.bind({});
+BigMinWidth.args = {
+    ...Basic.args,
+    minWidth: 600,
+};
 
-export const VeryShortMessageDuration: Story<IFileUploadProps> = (args) => (
-    <FileUpload {...args} messageDuration={200} {...useStateProps()} />
-);
+export const TestIsFailureTrue = Basic.bind({});
+TestIsFailureTrue.args = {
+    ...Basic.args,
+    isTestIsFailure: true,
+};
+
+export const IsDisabled = Basic.bind({});
+IsDisabled.args = {
+    ...Basic.args,
+    isDisabled: true,
+};
