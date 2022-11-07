@@ -1,19 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
-import {
-    DragDropContext,
-    Draggable,
-    Droppable,
-    DropResult,
-} from 'react-beautiful-dnd';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { ImplicitPropsInterface } from '@Utils/Hooks';
-import { Heading, Paragraph } from '@Text';
-import { Tag } from '@Containers/Tag/Tag';
-import { Mixins } from '@Utils';
-import { Select } from '../Select/Select';
-import { Datepicker } from '../Datepicker';
-import { Button } from '../Button/Button';
+import {DragDropContext, Draggable, Droppable, DropResult,} from 'react-beautiful-dnd';
+import {MainInterface, ResponsiveInterface} from '@Utils/BaseStyles';
+import {ImplicitPropsInterface} from '@Utils/Hooks';
+import {Heading, Paragraph} from '@Text';
+import {Tag} from '@Containers/Tag/Tag';
+import {Mixins} from '@Utils';
+import {Select} from '../Select/Select';
+import {Datepicker} from '../Datepicker';
+import {Button} from '../Button/Button';
 
 export interface ExcelOptionsProps
     extends MainInterface,

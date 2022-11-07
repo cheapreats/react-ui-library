@@ -1,18 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { MainInterface, ResponsiveInterface } from '@Utils/BaseStyles';
-import { useMounted } from '@Utils/Hooks';
-import { Datepicker } from '@Inputs/Datepicker';
-import { Modal as M } from '@Containers/Modal/Modal';
-import {
-    FilterSelect,
-    IFilterSelectProps,
-} from '@Containers/CollapsibleHeading/FilterSelect';
-import { Input } from '@Inputs/Input/Input';
-import { Close } from '@styled-icons/evaicons-solid/Close';
-import { clickable, flex } from '@Utils/Mixins';
+import React, {useEffect, useState} from 'react';
+import {MainInterface, ResponsiveInterface} from '@Utils/BaseStyles';
+import {useMounted} from '@Utils/Hooks';
+import {Datepicker} from '@Inputs/Datepicker';
+import {Modal as M} from '@Containers/Modal/Modal';
+import {FilterSelect, IFilterSelectProps,} from '@Containers/CollapsibleHeading/FilterSelect';
+import {Input} from '@Inputs/Input/Input';
+import {Close} from '@styled-icons/evaicons-solid/Close';
+import {clickable, flex} from '@Utils/Mixins';
 import moment from 'moment';
 import styled from 'styled-components';
-import { Heading } from '@Text/Heading';
+import {Heading} from '@Text/Heading';
 
 const FIRST_SELECT_OPTION = 0;
 
